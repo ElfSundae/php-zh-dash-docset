@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
+  <title>Interactive shell</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
+ </head>
+ <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <ul class="nav" style="width: 100%">
+      <li style="float: left;"><a href="features.commandline.io-streams.html">? I/O streams</a></li>
+      <li style="float: right;"><a href="features.commandline.webserver.html">内置Web Server ?</a></li>
+    </ul>
+  </div>
+</div>
+<div id="breadcrumbs" class="clearfix">
+  <ul class="breadcrumbs-container">
+    <li><a href="index.html">PHP Manual</a></li>
+    <li><a href="features.commandline.html">PHP 的命令行模式</a></li>
+    <li>Interactive shell</li>
+  </ul>
+</div>
+<div id="layout">
+  <div id="layout-content"><div id="features.commandline.interactive" class="section">
+<h2 class="title">Interactive shell</h2>
+
+<p class="para">
+ As of PHP 5.1.0, the <acronym title="Command Line Interpreter/Interface">CLI</acronym> <acronym title="Server Application Programming Interface">SAPI</acronym> provides an interactive shell using the
+ <strong class="option unknown">-a</strong> option if PHP is compiled with the <strong class="option configure">--with-readline</strong> option.
+</p>
+
+<p class="para">
+ Using the interactive shell you are able to type PHP code and have it
+ executed directly.
+</p>
+
+<div class="example" id="example-428">
+ <p><strong>Example #1 Executing code using the interactive shell</strong></p>
+ <div class="example-contents">
+  <div class="shellcode"><pre class="shellcode">$ php -a
+Interactive shell
+
+php &gt; echo 5+8;
+13
+php &gt; function addTwo($n)
+php &gt; {
+php { return $n + 2;
+php { }
+php &gt; var_dump(addtwo(2));
+int(4)
+php &gt;</pre>
+</div>
+ </div>
+
+</div>
+
+<p class="para">
+ The interactive shell also features tab completion for functions,
+ constants, class names, variables, static method calls and class
+ constants.
+</p>
+
+<div class="example" id="example-429">
+ <p><strong>Example #2 Tab completion</strong></p>
+ <div class="example-contents"><p>
+  Pressing the tab key twice when there are multiple possible completions
+  will result in a list of these completions:
+ </p></div>
+ <div class="example-contents">
+  <div class="shellcode"><pre class="shellcode">php &gt; strp[TAB][TAB]
+strpbrk   strpos    strptime
+php &gt; strp</pre>
+</div>
+ </div>
+
+ <div class="example-contents"><p>
+  When there is only one possible completion, pressing tab once will
+  complete the rest on the same line:
+ </p></div>
+ <div class="example-contents">
+  <div class="shellcode"><pre class="shellcode">php &gt; strpt[TAB]ime(</pre>
+</div>
+ </div>
+
+ <div class="example-contents"><p>
+  Completion will also work for names that have been defined
+  during the current interactive shell session:
+ </p></div>
+ <div class="example-contents">
+  <div class="shellcode"><pre class="shellcode">php &gt; $fooThisIsAReallyLongVariableName = 42;
+php &gt; $foo[TAB]ThisIsAReallyLongVariableName</pre>
+</div>
+ </div>
+
+</div>
+
+<p class="para">
+ The interactive shell stores your history which can be accessed using the up
+ and down keys. The history is saved in the
+ <var class="filename">~/.php_history</var> file.
+</p>
+
+<p class="para">
+ As of PHP 5.4.0, the <acronym title="Command Line Interpreter/Interface">CLI</acronym> <acronym title="Server Application Programming Interface">SAPI</acronym> provides
+ the <var class="filename">php.ini</var> settings <code class="parameter">cli.pager</code> and
+ <code class="parameter">cli.prompt</code>. The <code class="parameter">cli.pager</code>
+ setting allows an external program (such as <var class="filename">less</var>) to
+ act as a pager for the output instead of being displayed directly on the
+ screen. The <code class="parameter">cli.prompt</code> setting makes it possible to
+ change the <code class="literal">php &gt;</code> prompt.
+</p>
+
+<p class="para">
+ In PHP 5.4.0 it was also made possible to set
+ <var class="filename">php.ini</var> settings in the interactive shell using a shorthand notation.
+</p>
+
+<div class="example" id="example-430">
+ <p><strong>Example #3 Setting <var class="filename">php.ini</var> settings in the interactive shell</strong></p>
+ <div class="example-contents"><p>
+  The <code class="parameter">cli.prompt</code> setting:
+ </p></div>
+ <div class="example-contents">
+  <div class="shellcode"><pre class="shellcode">php &gt; #cli.prompt=hello world :&gt;
+hello world :&gt;</pre>
+</div>
+ </div>
+
+ <div class="example-contents"><p>
+  Using backticks it is possible to have PHP code executed in the prompt:
+ </p></div>
+ <div class="example-contents">
+  <div class="shellcode"><pre class="shellcode">php &gt; #cli.prompt=`echo date(&#039;H:i:s&#039;);` php &gt;
+15:49:35 php &gt; echo &#039;hi&#039;;
+hi
+15:49:43 php &gt; sleep(2);
+15:49:45 php &gt;</pre>
+</div>
+ </div>
+
+ <div class="example-contents"><p>
+  Setting the pager to <var class="filename">less</var>:
+ </p></div>
+ <div class="example-contents">
+  <div class="shellcode"><pre class="shellcode">php &gt; #cli.pager=less
+php &gt; phpinfo();
+(output displayed in less)
+php &gt;</pre>
+</div>
+ </div>
+
+</div>
+
+<p class="para">
+ The <code class="parameter">cli.prompt</code> setting supports a few escape
+ sequences:
+ <table class="doctable table">
+  <caption><strong><code class="parameter">cli.prompt</code> escape sequences</strong></caption>
+  
+   <thead>
+    <tr>
+     <th>Sequence</th>
+     <th>Description</th>
+    </tr>
+
+   </thead>
+
+   <tbody class="tbody">
+    <tr>
+     <td><code class="literal">\e</code></td>
+     <td>
+      Used for adding colors to the prompt. An example could be
+      <code class="literal">\e[032m\v \e[031m\b \e[34m\&gt; \e[0m</code>
+     </td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">\v</code></td>
+     <td>The PHP version.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">\b</code></td>
+     <td>
+      Indicates which block PHP is in. For instance <code class="literal">/*</code> to
+      indicate being inside a multi-line comment. The outer scope is denoted by
+      <code class="literal">php</code>.
+     </td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">\&gt;</code></td>
+     <td>
+      Indicates the prompt character. By default this is
+      <code class="literal">&gt;</code>, but changes when the shell is inside an
+      unterminated block or string. Possible characters are: <code class="literal">&#039; &quot; {
+      ( &gt;</code>
+     </td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+</p>
+
+<blockquote class="note"><p><strong class="note">Note</strong>: 
+ <p class="para">
+  Files included through <a href="ini.core.html#ini.auto-prepend-file" class="link">auto_prepend_file</a> and <a href="ini.core.html#ini.auto-append-file" class="link">auto_append_file</a> are parsed in
+  this mode but with some restrictions - e.g. functions have to be
+  defined before called.
+ </p>
+</p></blockquote>
+
+<blockquote class="note"><p><strong class="note">Note</strong>: 
+ <p class="para">
+  <a href="language.oop5.autoload.html" class="link">Autoloading</a> is not
+  available if using PHP in <acronym title="Command Line Interpreter/Interface">CLI</acronym> interactive mode.
+ </p>
+</p></blockquote>
+</div><div id="usernotes">
+ <div class="head">
+  <h3 class="title">User Contributed Notes</h3>
+ </div>
+<div id="allnotes">  <a name="124558""></a>
+  <div class="note">
+   <strong class="user">Gray</strong>
+   <a href="#124558" class="date">02-Jan-2020 11:53</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+When adding colours, don't forget that PHP uses the same 'readline' as Bash does, so it has the same need to wrap all colour codes in special marker characters.<br />
+<br />
+If you simply add raw colour codes to the prompt, you will notice that long lines no longer get wrapped correctly -- Readline no longer knows how wide the prompt is.<br />
+<br />
+To fix this, you need to start each colour code with an '0x01' byte (aka Ctrl-A aka SOH) and end it with the '0x02' byte (aka Ctrl-B aka STX). There are no escapes for these -- you have to literally put the control characters in your php-cli.ini.<br />
+<br />
+For example:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// cli.prompt = &lt;SOH&gt;\e[1m&lt;STX&gt; PHP! \&gt; &lt;SOH&gt;\e[m&lt;STX&gt;<br />
+<br />
+</span><span class="keyword">echo </span><span class="string">"cli.prompt = \x01\\e[1m\x02 PHP! \x01\\e[m\x02\n"</span><span class="keyword">;<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122611""></a>
+  <div class="note">
+   <strong class="user">alexmarcxyz at gmail dot com</strong>
+   <a href="#122611" class="date">12-Apr-2018 07:22</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+While configuring php shell script, We need to take care of these commands, Abstract.php, Compiler.php, Indexer.php, Log.php, You can check more details about these commands at, https://www.cloudways.com/blog/php-shell-scripts-magent . Hope it will help your readers as well as I got help from your and this post.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122503""></a>
+  <div class="note">
+   <strong class="user">John</strong>
+   <a href="#122503" class="date">13-Mar-2018 12:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you delete your "~/.php_history", you MUST re-create the file manually!<br />
+<br />
+Because after I deleted my history file, "php -a" (interactive mode) never saved any history anymore.<br />
+<br />
+It only started working after I ran "touch ~/.php_history" to create an empty file. From then on, PHP is saving history again!<br />
+<br />
+I thought this was a bit unusual. Normally, applications recreate their history files themselves. But just be aware of the fact that PHP works this way instead, guys and girls! :-)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121748""></a>
+  <div class="note">
+   <strong class="user">wheat at wheatdesign dot com</strong>
+   <a href="#121748" class="date">11-Oct-2017 04:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you're stuck on Widows or any other machine where PHP was not compiled with readline support, one solution is to use a web-based PHP CLI. I use this in training classes, especially the sort where people bring their own laptops and I can't assume they have PHP installed. The best one I've found--partly because of the UX and partly because it's free (no credit card required) and quick to setup, is <a href="http://repl.it" rel="nofollow" target="_blank">http://repl.it</a></span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121614""></a>
+  <div class="note">
+   <strong class="user">#linuxmint-es</strong>
+   <a href="#121614" class="date">06-Sep-2017 02:50</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For use interactive mode enabled on GNU/Linux on distros Debian/Ubuntu/LinuxMint you must install "php*-cli" and "php*-readline" packages from official repository.<br />
+Example:<br />
+&nbsp;&gt;$sudo aptitude install php5-cli php5-readline<br />
+<br />
+After that you can use interactive mode.<br />
+Example:<br />
+~ $ php -a<br />
+Interactive mode enabled<br />
+<br />
+php &gt;echo "hola mundo!\n";<br />
+hola mundo!<br />
+php &gt;<br />
+<br />
+I hope somebody help it!</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="115934""></a>
+  <div class="note">
+   <strong class="user">elijah at elijahlynn dot net</strong>
+   <a href="#115934" class="date">15-Oct-2014 08:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Bug #55496 Interactive mode doesn't force a newline before the prompt =&gt; https://bugs.php.net/bug.php?id=55496<br />
+<br />
+Fixed on July 24th, 2014 @ <a href="http://git.php.net/?p=php-src.git;a=commit;h=71d3a69425449972f4efdf7228c6f7e49e090755" rel="nofollow" target="_blank">http://git.php.net/?p=php-src.git;a=commit;h=71d3a69425449972f4efdf7228c6f7e49e090755</a><br />
+<br />
+Until then, this will work:<br />
+<br />
+php -dcli.prompt="\nphp&gt; " -a</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="112570""></a>
+  <div class="note">
+   <strong class="user">Shane Harter</strong>
+   <a href="#112570" class="date">30-Jun-2013 07:53</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you've ever wanted to build your own interactive shell, I released a project recently that makes it insanely easy to build awesome shell apps in PHP. It blends features from Zend2 and Symonfy2 with things like regex routing, state management, etc. Check it out here: <br />
+<br />
+https://github.com/shaneharter/sheldon</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="108006""></a>
+  <div class="note">
+   <strong class="user">Ryan P</strong>
+   <a href="#108006" class="date">21-Mar-2012 10:03</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Interactive Shell and Interactive Mode are not the same thing, despite the similar names and functionality.<br />
+<br />
+If you type 'php -a' and get a response of 'Interactive Shell' followed by a 'php&gt;' prompt, you have interactive shell available (PHP was compiled with readline support). If instead you get a response of 'Interactive mode enabled', you DO NOT have interactive shell available and this article does not apply to you.<br />
+<br />
+You can also check 'php -m' and see if readline is listed in the output - if not, you don't have interactive shell.<br />
+<br />
+Interactive mode is essentially like running php with stdin as the file input. You just type code, and when you're done (Ctrl-D), php executes whatever you typed as if it were a normal PHP (PHTML) file - hence you start in interactive mode with '&lt;?php' in order to execute code.<br />
+<br />
+Interactive shell evaluates every expression as you complete it (with ; or }), reports errors without terminating execution, and supports standard shell functionality via readline (history, tab completion, etc). It's an enhanced version of interactive mode that is ONLY available if you have the required libraries, and is an actual PHP shell that interprets everything you type as PHP code - using '&lt;?php' will cause a parse error.<br />
+<br />
+Finally, if you're running on Windows, you're probably screwed. From what I'm seeing in other comments here, you don't have readline, and without readline there is no interactive shell.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="107859""></a>
+  <div class="note">
+   <strong class="user">lee8oi at gmail dot com</strong>
+   <a href="#107859" class="date">10-Mar-2012 04:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I use git-bash in windows to connect to my servers via SSH. When I use the interactive mode via 'php -a' command I have to hit ctrl+d twice to execute the entered code. Example:<br />
+(&lt;ctrl+d&gt; denotes hitting ctrl &amp; D)<br />
+<br />
+-bash$ php -a<br />
+Interactive mode enabled<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">echo </span><span class="string">'hello world'</span><span class="keyword">;<br />
+</span><span class="default">?&gt;</span>&lt;br /&gt;<br />
+&lt;ctrl+d&gt;<br />
+&lt;ctrl+d&gt;<br />
+hello world&lt;br /&gt;<br />
+-bash$<br />
+<br />
+Note: this still displays the &lt;br /&gt; tag but without the tag your output would likely be attached to your bash prompt like this:<br />
+<br />
+hello world-bash$</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="105729""></a>
+  <div class="note">
+   <strong class="user">spencer at aninternetpresence dot net</strong>
+   <a href="#105729" class="date">09-Sep-2011 10:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In Windows, press Enter after your ending PHP tag and then hit Ctrl-Z to denote the end-of-file:
+<br />
+
+<br />
+C:\&gt;php -a
+<br />
+Interactive mode enabled
+<br />
+
+<br />
+<span class="default">&lt;?php
+<br />
+</span><span class="keyword">echo </span><span class="string">"Hello, world!"</span><span class="keyword">;
+<br />
+</span><span class="default">?&gt;
+<br />
+</span>^Z
+<br />
+Hello, world!
+<br />
+
+<br />
+You can use the up and down arrows in interactive mode to recall previous code you ran.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="104694""></a>
+  <div class="note">
+   <strong class="user">alexandrebr at gmail dot com</strong>
+   <a href="#104694" class="date">30-Jun-2011 02:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For those who (just like me) can't get it working, try to press CTRL+D after inserting some commands.<br />
+<br />
+Example:<br />
+php<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">echo </span><span class="string">"Hello World!\r\n"</span><span class="keyword">;<br />
+(</span><span class="default">Hit CTRL</span><span class="keyword">+</span><span class="default">D here</span><span class="keyword">)<br />
+</span><span class="default">Hello World</span><span class="keyword">!<br />
+<br />
+</span><span class="default">This is NOT interactive mode</span><span class="keyword">, </span><span class="default">but may help you</span><span class="keyword">.<br />
+<br />
+</span><span class="default">To have the </span><span class="string">"-i" </span><span class="default">available</span><span class="keyword">, </span><span class="default">you</span><span class="string">'ll need the following arguments while compiling PHP:<br />
+--with-readline e --with-libedit</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="101899""></a>
+  <div class="note">
+   <strong class="user">xEviL</strong>
+   <a href="#101899" class="date">16-Jan-2011 05:17</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+When building php on FreeBSD from ports one can add --with-readline option by manually editing the var CONFIGURE_ARGS in Makefile inside the php port directory and proceeding with build as usual.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="98642""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#98642" class="date">28-Jun-2010 03:41</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It seems the interactive shell cannot be made to work in WIN environments at the moment.&nbsp; <br />
+<br />
+Using "php://stdin", it shouldn't be too difficult to roll your own.&nbsp; You can partially mimic the shell by calling this simple script (Note: Window's cmd already has an input history calling feature using the up/down keys, and that functionality will still be available during execution here):<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"php://stdin"</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);<br />
+</span><span class="default">$in </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />
+while(</span><span class="default">$in </span><span class="keyword">!= </span><span class="string">"quit"</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"php&gt; "</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$in</span><span class="keyword">=</span><span class="default">trim</span><span class="keyword">(</span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; eval (</span><span class="default">$in</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; <br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Replace 'eval' with code to parse the input string, validate it using is_callable and other variable handling functions, catch fatal errors before they happen, allow line-by-line function defining, etc.&nbsp; Though Readline is not available in Windows, for more tips and examples for workarounds, see <a href="http://www.php.net/manual/en/ref.readline.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/ref.readline.php</a></span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="98520""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#98520" class="date">20-Jun-2010 12:56</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Just a few more notes to add...<br />
+<br />
+1) Hitting return does literally mean "execute this command".&nbsp; Semicolon to note end of line is still required.&nbsp; Meaning, doing the following will produce a parse error:<br />
+<br />
+php &gt; print "test"<br />
+php &gt; print "asdf";<br />
+<br />
+Whereas doing the following is just fine:<br />
+<br />
+php &gt; print "test"<br />
+php &gt; ."asdf";<br />
+<br />
+2) Fatal errors may eject you from the shell:<br />
+<br />
+name@local:~$ php -a<br />
+php &gt; asdf();<br />
+<br />
+Fatal Error: call to undefined function...<br />
+name@local:~$<br />
+<br />
+3) User defined functions are not saved in history from shell session to shell session.<br />
+<br />
+4) Should be obvious, but to quit the shell, just type "quit" at the php prompt.<br />
+<br />
+5) In a sense, the shell interaction can be thought of as linearly following a regular php file, except it's live and dynamic.&nbsp; If you define a function that you've already defined earlier in your current shell, you will receive a fatal "function already defined" error only upon entering that closing bracket.&nbsp; And, although "including" a toolset of custom functions or a couple of script addon php files is rather handy, should you edit those files and wish to "reinclude" it again, you'll cause a fatal "function x already defined" error.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
+</div>
+</div></div></body></html>

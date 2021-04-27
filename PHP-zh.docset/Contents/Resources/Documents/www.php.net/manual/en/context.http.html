@@ -409,7 +409,33 @@ array (
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121763""></a>
+<div id="allnotes">  <a name="125832""></a>
+  <div class="note">
+   <strong class="user">ASchmidt at Anamera dot net</strong>
+   <a href="#125832" class="date">16-Feb-2021 02:51</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+With the default of <br />
+<br />
+&nbsp;&nbsp;&nbsp; 'follow_location'&nbsp;&nbsp; =&gt;&nbsp; 1<br />
+<br />
+be certain NEVER include a "Host:" header in the 'header' array.<br />
+<br />
+If the host is set to "mydomain.com", and that web site has a (quite common) redirect to "www.mydomain.com", then the initial request to "<a href="http://mydomain.com" rel="nofollow" target="_blank">http://mydomain.com</a>" will get the expected response of:<br />
+<br />
+HTTP/1.1 301 Moved Permanently<br />
+Location: <a href="http://www.mydomain.com/" rel="nofollow" target="_blank">http://www.mydomain.com/</a><br />
+<br />
+However, the follow-up request does NOT replace the original "host" header with the new "location" value, as one would expect. Consequently each "follow-location" request will again be served by the original host of "<a href="http://mydomain.com" rel="nofollow" target="_blank">http://mydomain.com</a>", and continue the redirect loop until 'max_redirects' has been exhausted.<br />
+<br />
+(For details: https://bugs.php.net/bug.php?id=77889)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121763""></a>
   <div class="note">
    <strong class="user">daniel.peder (a) gmail.com</strong>
    <a href="#121763" class="date">16-Oct-2017 06:55</a>

@@ -184,7 +184,7 @@
  <div class="refsect1 examples" id="refsect1-function.explode-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5127">
+   <div class="example" id="example-5116">
     <p><strong>Example #1 <span class="function"><strong>explode()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -196,7 +196,7 @@
    </div>
   </p>
     <p class="para">
-   <div class="example" id="example-5128">
+   <div class="example" id="example-5117">
     <p><strong>Example #2 <span class="function"><strong>explode()</strong></span> return examples</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -222,7 +222,7 @@ array(2)
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5129">
+   <div class="example" id="example-5118">
     <p><strong>Example #3 <code class="parameter">limit</code> 参数的例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -276,7 +276,83 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125805""></a>
+<div id="allnotes">  <a name="125958""></a>
+  <div class="note">
+   <strong class="user">Emilio Bravo</strong>
+   <a href="#125958" class="date">24-Mar-2021 02:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+$string = "PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION";<br />
+$exploded = explode("::",$string);<br />
+/*<br />
+<br />
+explode('::',$string) = eliminate every :: and for each division of ::make an array element<br />
+<br />
+Example:<br />
+<br />
+PDO::ERRMODE_EXCEPTION (exploded) = array&nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; string PDO<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; string ERRMODE_EXCEPTION<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; )<br />
+Example: <br />
+<br />
+$exploded[0] = "PDO";<br />
+*/<br />
+foreach ($exploded as $index) {<br />
+&nbsp;&nbsp;&nbsp; echo $index . "\n";<br />
+}<br />
+/*<br />
+<br />
+Output:<br />
+<br />
+PDO<br />
+ATTR_ERRMODE =&gt; PDO<br />
+ERRMODE_EXCEPTION<br />
+<br />
+*/</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125917""></a>
+  <div class="note">
+   <strong class="user">David Spector</strong>
+   <a href="#125917" class="date">12-Mar-2021 03:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+When using 'explode' to create an array of strings from a user-specified string that contains newline characters, you may wish the resulting array to correctly reflect the user's intentions by ignoring any final empty line (many users like to end multi-line input with a final newline, for clarity).<br />
+<br />
+Here is a function to call after 'explode' to support this effect:<br />
+<br />
+// When using explode, delete the last line in the array of lines when it is empty<br />
+function IgnoreEmptyLastLine(&amp;$linesArr)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp;&nbsp; $last=count($linesArr)-1;<br />
+&nbsp;&nbsp;&nbsp; if ($last&gt;=0 &amp;&amp; !$linesArr[$last])<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; unset($linesArr[$last]);<br />
+&nbsp;&nbsp;&nbsp; } // IgnoreEmptyLastLine</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125871""></a>
+  <div class="note">
+   <strong class="user">henrik Schmidt</strong>
+   <a href="#125871" class="date">01-Mar-2021 08:33</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+"Return value" text needs updating for php 8, an empty delimiter now throws an Exception.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125805""></a>
   <div class="note">
    <strong class="user">bocoroth</strong>
    <a href="#125805" class="date">10-Feb-2021 09:42</a>

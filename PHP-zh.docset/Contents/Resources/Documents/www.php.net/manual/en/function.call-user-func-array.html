@@ -120,7 +120,7 @@
  <div class="refsect1 examples" id="refsect1-function.call-user-func-array-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5412">
+   <div class="example" id="example-5401">
     <p><strong>Example #1 <span class="function"><strong>call_user_func_array()</strong></span>例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -137,7 +137,7 @@ foo::bar got three and four
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-5413">
+   <div class="example" id="example-5402">
     <p><strong>Example #2 <span class="function"><strong>call_user_func_array()</strong></span>使用命名空间的情况</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -154,7 +154,7 @@ Hello Philip!
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-5414">
+   <div class="example" id="example-5403">
     <p><strong>Example #3 把完整的函数作为回调传入<span class="function"><strong>call_user_func_array()</strong></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -170,7 +170,7 @@ int(8)
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-5415">
+   <div class="example" id="example-5404">
     <p><strong>Example #4 传引用</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -219,7 +219,41 @@ global $bar=55
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125693""></a>
+<div id="allnotes">  <a name="125953""></a>
+  <div class="note">
+   <strong class="user">sebastian dot rapetti at tim dot it</strong>
+   <a href="#125953" class="date">23-Mar-2021 08:01</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Using PHP 8, call_user_func_array call callback function using named arguments if an array with keys is passed to $args parameter, if the array used has only values, arguments are passed positionally.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">test</span><span class="keyword">(</span><span class="default">string $param1</span><span class="keyword">, </span><span class="default">string $param2</span><span class="keyword">): </span><span class="default">void<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">$param1</span><span class="keyword">.</span><span class="string">' '</span><span class="keyword">.</span><span class="default">$param2</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$args </span><span class="keyword">= [</span><span class="string">'hello'</span><span class="keyword">, </span><span class="string">'world'</span><span class="keyword">];<br />
+</span><span class="comment">//hello world<br />
+</span><span class="default">call_user_func_array</span><span class="keyword">(</span><span class="string">'test'</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$args </span><span class="keyword">= [</span><span class="string">'param2' </span><span class="keyword">=&gt; </span><span class="string">'world'</span><span class="keyword">, </span><span class="string">'param1' </span><span class="keyword">=&gt; </span><span class="string">'hello'</span><span class="keyword">];<br />
+</span><span class="comment">//hello world<br />
+</span><span class="default">call_user_func_array</span><span class="keyword">(</span><span class="string">'test'</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$args </span><span class="keyword">= [</span><span class="string">'unknown_param' </span><span class="keyword">=&gt; </span><span class="string">'hello'</span><span class="keyword">, </span><span class="string">'param2' </span><span class="keyword">=&gt; </span><span class="string">'world'</span><span class="keyword">];<br />
+</span><span class="comment">//Fatal error: Uncaught Error: Unknown named parameter $unknown_param<br />
+</span><span class="default">call_user_func_array</span><span class="keyword">(</span><span class="string">'test'</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125693""></a>
   <div class="note">
    <strong class="user">simopelle04 at gmail dot com</strong>
    <a href="#125693" class="date">18-Jan-2021 09:27</a>

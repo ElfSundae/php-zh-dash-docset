@@ -220,7 +220,69 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124619""></a>
+<div id="allnotes">  <a name="125863""></a>
+  <div class="note">
+   <strong class="user">instatiendaweb at gmail dot com</strong>
+   <a href="#125863" class="date">27-Feb-2021 10:07</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+/**<br />
+&nbsp;* Haciendo una prueba con dos clases y dos destructores<br />
+&nbsp;* La prueba consta de acceder a la variable global del primer objeto en el segundo<br />
+&nbsp;* objeto el destructor 2<br />
+&nbsp;* Primera clase ==&gt; $GLOBALS['obj']<br />
+&nbsp;* SEgunda clase ==&gt; $GLOBALS['obj2']<br />
+&nbsp;* Se ejecuta construct y todo el codigo....<br />
+&nbsp;* Primer destruct borra el objeto y lo hace null<br />
+&nbsp;* Tratamos de acceder a $GLOBALS['obj'] en el segundo destruct pero <br />
+&nbsp;* ya no esta es un objeto null<br />
+&nbsp;* Warning: Undefined array key "obj" in...<br />
+&nbsp;*/<br />
+<br />
+class MyDestructableClass{<br />
+public $parametro;<br />
+<br />
+&nbsp;&nbsp; &nbsp; function __construct($parametro) {<br />
+echo("&lt;div class=\"div\"&gt;"), "Construyendo ",__CLASS__ , ("&lt;/div&gt;");<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; escribir::verifacionnota($this ,'Antes de guardar la variable&nbsp; ');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; $this-&gt;parametro = $parametro;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; escribir::verifacionnota($this ,'Despues de guardar la variable&nbsp; ');<br />
+&nbsp;&nbsp; &nbsp; }<br />
+&nbsp;<br />
+&nbsp;&nbsp; <br />
+<br />
+&nbsp;&nbsp; &nbsp; function __destruct() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; escribir::linea(5); //Separador<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo("&lt;div class=\"div\"&gt;"), "Destruyendo " ,&nbsp; __CLASS__ , ("&lt;/div&gt;");<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; escribir::verifacionnota($this ,'Antes de borrar la variable&nbsp; ');<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; unset($this-&gt;parametro);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; escribir::verifacionnota($this ,'Despues de borrar la variable&nbsp; ');<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; // unset($GLOBALS[$this]);<br />
+&nbsp;&nbsp; &nbsp; }<br />
+&nbsp;}<br />
+&nbsp;<br />
+&nbsp;$obj = new MyDestructableClass('parametroone');<br />
+&nbsp;escribir::verifacionnota($obj ,' Verificar la clase MyDestructableClass, no es necesario<br />
+&nbsp;borrar la clase porque se ejecuta al final del script&nbsp; ');<br />
+&nbsp;escribir::titulosep('Provando ejemplo aqui se puede acceder a la variable global');<br />
+&nbsp;escribir::verificacion($GLOBALS['obj']);<br />
+<br />
+class destructora{<br />
+&nbsp;&nbsp;&nbsp; function __destruct(){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; escribir::titulosep('Sin embargo esta variable muere aqui');<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; escribir::verificacion($GLOBALS['obj']);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+$obj2 = new destructora();</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124619""></a>
   <div class="note">
    <strong class="user">iwwp at outlook dot com</strong>
    <a href="#124619" class="date">16-Jan-2020 07:58</a>

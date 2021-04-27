@@ -71,6 +71,63 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="125889""></a>
+  <div class="note">
+   <strong class="user">Hirusha Sharma</strong>
+   <a href="#125889" class="date">08-Mar-2021 08:34</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Fetch properties from functions:<br />
+<br />
+----------------------------------------<br />
+Function definition with attributes:<br />
+----------------------------------------<br />
+#[ReadOnly]<br />
+#[Property(type: 'function', name: 'Hello')]<br />
+function Hello()<br />
+{<br />
+&nbsp;&nbsp;&nbsp; return "Hello";<br />
+}<br />
+<br />
+-----------------------------------------<br />
+Gather attributes from the function<br />
+-----------------------------------------<br />
+function getAttributes(Reflector $reflection)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; $attributes = $reflection-&gt;getAttributes();<br />
+&nbsp;&nbsp;&nbsp; $result = [];<br />
+&nbsp;&nbsp;&nbsp; foreach ($attributes as $attribute)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $result[$attribute-&gt;getName()] = $attribute-&gt;getArguments();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return $result;<br />
+}<br />
+<br />
+$reflection = new ReflectionFunction("Hello");<br />
+print_r(getAttributes($reflection));<br />
+<br />
+-----------------------------<br />
+OUTPUT<br />
+-----------------------------<br />
+Array<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [ReadOnly] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+<br />
+&nbsp;&nbsp;&nbsp; [Property] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [type] =&gt; function<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [name] =&gt; Hello<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+<br />
+)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

@@ -403,7 +403,69 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124458""></a>
+<div id="allnotes">  <a name="125944""></a>
+  <div class="note">
+   <strong class="user">mail at markuszeller dot com</strong>
+   <a href="#125944" class="date">19-Mar-2021 05:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I recommend using ArrayIterator() only in the IteratorAggregate interface on behalf of memory usage.<br />
+When not used in that context, the array will be copied on creating a new ArrayIterator().<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Data </span><span class="keyword">implements </span><span class="default">IteratorAggregate<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; private array </span><span class="default">$array </span><span class="keyword">= [];<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">()<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">1e5</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">array</span><span class="keyword">[] = </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">getIterator</span><span class="keyword">(): </span><span class="default">ArrayIterator<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">array</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$data1 </span><span class="keyword">= new </span><span class="default">Data</span><span class="keyword">();<br />
+echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="comment">// 4610240<br />
+<br />
+</span><span class="keyword">foreach(</span><span class="default">$data1 </span><span class="keyword">as </span><span class="default">$data</span><span class="keyword">) {}<br />
+echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="comment">// 4610240<br />
+<br />
+</span><span class="keyword">foreach(</span><span class="default">$data1 </span><span class="keyword">as </span><span class="default">$data</span><span class="keyword">) {}<br />
+echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="comment">// 4610240<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Memory usage still stay the same.<br />
+Now create it without the IteratorAggregate interface.<br />
+<br />
+<span class="default">&lt;?php<br />
+$agg </span><span class="keyword">= [];<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">1e5</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) </span><span class="default">$agg</span><span class="keyword">[] = </span><span class="default">true</span><span class="keyword">;<br />
+echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="comment">// 8808720<br />
+<br />
+</span><span class="default">$iterator1 </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$agg</span><span class="keyword">);<br />
+echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="comment">// 13007328<br />
+<br />
+</span><span class="default">$iterator2 </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$agg</span><span class="keyword">);<br />
+echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="comment">// 17205936<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124458""></a>
   <div class="note">
    <strong class="user">shaman_master at list dot ru</strong>
    <a href="#124458" class="date">01-Dec-2019 06:48</a>

@@ -96,7 +96,7 @@
  <div class="refsect1 examples" id="refsect1-function.class-uses-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4029">
+   <div class="example" id="example-4018">
     <p><strong>Example #1 <span class="function"><strong>class_uses()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -143,7 +143,39 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125274""></a>
+<div id="allnotes">  <a name="125933""></a>
+  <div class="note">
+   <strong class="user">donatj at gmail dot com</strong>
+   <a href="#125933" class="date">15-Mar-2021 06:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The popular stealz solution doesn't handle traits that use other traits. A little bit of recursion can clean the entire thing up a bit and make it more robust.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">public function </span><span class="default">class_uses_deep</span><span class="keyword">( </span><span class="default">string $class</span><span class="keyword">, </span><span class="default">bool $autoload </span><span class="keyword">= </span><span class="default">true </span><span class="keyword">) : array {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$traits </span><span class="keyword">= </span><span class="default">class_uses</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">, </span><span class="default">$autoload</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">$parent </span><span class="keyword">= </span><span class="default">get_parent_class</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$traits </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$traits</span><span class="keyword">, </span><span class="default">class_uses_deep</span><span class="keyword">(</span><span class="default">$parent</span><span class="keyword">, </span><span class="default">$autoload</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; foreach( </span><span class="default">$traits </span><span class="keyword">as </span><span class="default">$trait </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$traits </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$traits</span><span class="keyword">, </span><span class="default">class_uses_deep</span><span class="keyword">(</span><span class="default">$trait</span><span class="keyword">, </span><span class="default">$autoload</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$traits</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125274""></a>
   <div class="note">
    <strong class="user">Jos Macedo</strong>
    <a href="#125274" class="date">16-Aug-2020 01:16</a>

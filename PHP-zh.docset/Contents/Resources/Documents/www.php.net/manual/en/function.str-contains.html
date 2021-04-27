@@ -93,7 +93,7 @@
  <div class="refsect1 examples" id="refsect1-function.str-contains-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-5173">
+   <div class="example" id="example-5162">
     <p><strong>Example #1 Using the empty string <code class="literal">&#039;&#039;</code></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -110,7 +110,7 @@ Checking the existence of the empty string will always return true
     </div>
    </div>
 
-   <div class="example" id="example-5174">
+   <div class="example" id="example-5163">
     <p><strong>Example #2 Showing case-sensitivity</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -159,7 +159,76 @@ The string &#039;lazy&#039; was found in the string
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125741""></a>
+<div id="allnotes">  <a name="125977""></a>
+  <div class="note">
+   <strong class="user">scm6079</strong>
+   <a href="#125977" class="date">02-Apr-2021 02:11</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For earlier versions of PHP, you can polyfill the str_contains function using the following snippet:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// based on original work from the PHP Laravel framework<br />
+</span><span class="keyword">if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'str_contains'</span><span class="keyword">)) {<br />
+&nbsp;&nbsp;&nbsp; function </span><span class="default">str_contains</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$needle </span><span class="keyword">!== </span><span class="string">'' </span><span class="keyword">&amp;&amp; </span><span class="default">mb_strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125952""></a>
+  <div class="note">
+   <strong class="user">olivertasche+nospam at gmail dot com</strong>
+   <a href="#125952" class="date">23-Mar-2021 05:03</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The code from "me at daz dot co dot uk" will not work if the word is<br />
+- at the start of the string<br />
+- at the end of the string<br />
+- at the end of a sentence (like "the ox." or "is that an ox?")<br />
+- in quotes<br />
+- and so on.<br />
+<br />
+You should explode the string by whitespace, punctations, ... and check if the resulting array contains your word OR try to test with a RegEx like this:<br />
+(^|[\s\W])+word($|[\s\W])+<br />
+<br />
+Disclaimer: The RegEx may need some tweaks</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125890""></a>
+  <div class="note">
+   <strong class="user">kadenskinner at gmail dot com</strong>
+   <a href="#125890" class="date">08-Mar-2021 02:47</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+<br />
+$needle </span><span class="keyword">= </span><span class="string">'@'</span><span class="keyword">;<br />
+</span><span class="default">$haystack </span><span class="keyword">= </span><span class="string">'user@example.com'</span><span class="keyword">;<br />
+<br />
+if (!</span><span class="default">str_contains</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">)){<br />
+echo </span><span class="string">'There is not an @ in haystack'</span><span class="keyword">;<br />
+}else{<br />
+echo </span><span class="string">'There is an @ in haystack'</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125741""></a>
   <div class="note">
    <strong class="user">me at daz dot co dot uk</strong>
    <a href="#125741" class="date">30-Jan-2021 01:26</a>

@@ -406,7 +406,42 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124976""></a>
+<div id="allnotes">  <a name="125849""></a>
+  <div class="note">
+   <strong class="user">hello at rayfung dot hk</strong>
+   <a href="#125849" class="date">22-Feb-2021 01:38</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you want to use built-in array function with ArrayObject, store the iterator instance and return the value as reference in offsetGet.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Collection </span><span class="keyword">extends \</span><span class="default">ArrayObject </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(array </span><span class="default">$data </span><span class="keyword">= [])<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!\</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">) &amp;&amp; !\</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">'ArrayAccess'</span><span class="keyword">, </span><span class="default">class_implements</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">))) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$data </span><span class="keyword">= [</span><span class="default">$data</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterator </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getIterator</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function &amp;</span><span class="default">offsetGet</span><span class="keyword">(</span><span class="default">$index</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterator</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">] ?? </span><span class="default">null</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124976""></a>
   <div class="note">
    <strong class="user">ke dot chankrisna168 at gmail dot com</strong>
    <a href="#124976" class="date">05-May-2020 02:59</a>

@@ -32,7 +32,9 @@
    </p>
 
    <p class="para">
-    PHP 支持按值传递参数（默认），<a href="functions.arguments.html#functions.arguments.by-reference" class="link">通过引用传递参数</a> 以及 <a href="functions.arguments.html#functions.arguments.default" class="link">默认参数</a>。也支持 <a href="functions.arguments.html#functions.variable-arg-list" class="link">可变长度参数列表</a>。
+    PHP 支持按值传递参数（默认），<a href="functions.arguments.html#functions.arguments.by-reference" class="link">通过引用传递参数</a> 以及 <a href="functions.arguments.html#functions.arguments.default" class="link">默认参数</a>。也支持
+    <a href="functions.arguments.html#functions.variable-arg-list" class="link">可变长度参数列表</a> 和
+    <a href="functions.arguments.html#functions.named-arguments" class="link">命名参数</a>。
    </p>
    <p class="para">
     <div class="example" id="example-151">
@@ -237,8 +239,8 @@ Making a bowl of acidophilus raspberry.
 
     <p class="para">
     也可以使用 <code class="literal">...</code> 语法来传递 <span class="type">array</span> 或
-     <strong class="classname">Traversable</strong> 做为参数到函数中：
-
+     <strong class="classname">Traversable</strong>
+     做为参数到函数中：
 
      <div class="example" id="example-160">
       <p><strong>Example #10 使用 <code class="literal">...</code> 来传递参数</strong></p>
@@ -331,25 +333,18 @@ Catchable fatal error: Argument 2 passed to total_intervals() must be an instanc
    </div>
 
    <div class="sect2" id="functions.named-arguments">
-    <h3 class="title">Named Arguments</h3>
+    <h3 class="title">命名参数</h3>
 
     <p class="para">
-     PHP 8.0.0 introduced named arguments as an extension of the existing
-     positional parameters. Named arguments allow passing arguments to a
-     function based on the parameter name, rather than the parameter position.
-     This makes the meaning of the argument self-documenting, makes the
-     arguments order-independent and allows skipping default values arbitrarily.
+     PHP 8.0.0 开始引入了命名参数作为现有位置参数的扩展。命名参数允许根据参数名而不是参数位置向函数传参。这使得参数的含义自成体系，参数与顺序无关，并允许任意跳过默认值。
     </p>
 
     <p class="para">
-     Named arguments are passed by prefixing the value with the parameter name
-     followed by a colon. Using reserved keywords as parameter names is allowed.
-     The parameter name must be an identifier, specifying dynamically
-     is not allowed.
+     命名参数通过在参数名前加上冒号来传递。允许使用保留关键字作为参数名。参数名必须是一个标识符，不允许动态指定。
     </p>
 
     <div class="example" id="example-163">
-     <p><strong>Example #13 Named argument syntax</strong></p>
+     <p><strong>Example #13 命名参数的语法</strong></p>
      <div class="example-contents">
       <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />myFunction</span><span style="color: #007700">(</span><span style="color: #0000BB">paramName</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">array_foobar</span><span style="color: #007700">(array:&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;NOT&nbsp;supported.<br /></span><span style="color: #0000BB">function_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$variableStoringParamName</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -360,10 +355,10 @@ Catchable fatal error: Argument 2 passed to total_intervals() must be an instanc
     </div>
 
     <div class="example" id="example-164">
-     <p><strong>Example #14 Positional arguments versus named arguments</strong></p>
+     <p><strong>Example #14 通过位置传参与命名参数的对比</strong></p>
      <div class="example-contents">
       <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Using&nbsp;positional&nbsp;arguments:<br /></span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Using&nbsp;named&nbsp;arguments:<br /></span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">start_index</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">value</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;使用顺序传递参数：<br /></span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;使用命名参数：<br /></span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">start_index</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">value</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
      </div>
@@ -371,11 +366,11 @@ Catchable fatal error: Argument 2 passed to total_intervals() must be an instanc
     </div>
 
     <p class="para">
-     The order in which the named arguments are passed does not matter.
+     指定参数的传递顺序并不重要。
     </p>
 
     <div class="example" id="example-165">
-     <p><strong>Example #15 Same example as above with a different order of parameters</strong></p>
+     <p><strong>Example #15 参数顺序不同的示例（同上例）</strong></p>
      <div class="example-contents">
       <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">value</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">num</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">start_index</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -386,17 +381,14 @@ Catchable fatal error: Argument 2 passed to total_intervals() must be an instanc
     </div>
 
     <p class="para">
-     Named arguments can be combined with positional arguments. In this case,
-     the named arguments must come after the positional arguments.
-     It is also possible to specify only some of the optional arguments of a
-     function, regardless of their order.
+     命名参数也可以与位置参数相结合使用。此种情况下，命名参数必须在位置参数之后。也可以只指定一个函数的部分可选参数，而不考虑它们的顺序。
     </p>
 
     <div class="example" id="example-166">
-     <p><strong>Example #16 Combining named arguments with positional arguments</strong></p>
+     <p><strong>Example #16 命名参数与位置参数结合使用</strong></p>
      <div class="example-contents">
       <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">double_encode</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;Same&nbsp;as<br /></span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ENT_COMPAT&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">ENT_HTML401</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'UTF-8'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">double_encode</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;等价于<br /></span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ENT_COMPAT&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">ENT_HTML401</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'UTF-8'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
      </div>

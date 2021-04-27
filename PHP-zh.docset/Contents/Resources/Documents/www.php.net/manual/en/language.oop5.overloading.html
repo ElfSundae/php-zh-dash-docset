@@ -259,7 +259,108 @@ Calling static method &#039;runTest&#039; in static context
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125325""></a>
+<div id="allnotes">  <a name="125965""></a>
+  <div class="note">
+   <strong class="user">turabgarip at gmail dot com</strong>
+   <a href="#125965" class="date">27-Mar-2021 11:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I concur that "overloading" is a wrong term for this functionality. But I disagree that this functionality is completely wrong. You can do "bad practice" with right code too.<br />
+<br />
+For example __call() is very well applicable to external integration implementations which I am using to relay calls to SOAP methods which doesn't need local implementation. So you don't have to write "empty body" functions. Consider the SOAP service you connect has a "stock update" method. All you have to do is passing product code and stock count to SOAP.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">class </span><span class="default">Inventory </span><span class="keyword">{<br />
+<br />
+&nbsp; public </span><span class="default">__construct</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// configure and connect to SOAP service<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">soap </span><span class="keyword">= new </span><span class="default">SoapClient</span><span class="keyword">();<br />
+&nbsp; }<br />
+<br />
+&nbsp; public </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$soapMethod</span><span class="keyword">, </span><span class="default">$params</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">soap</span><span class="keyword">-&gt;{</span><span class="default">$soapMethod</span><span class="keyword">}(</span><span class="default">params</span><span class="keyword">);<br />
+&nbsp; }<br />
+}<br />
+<br />
+&nbsp;</span><span class="comment">// Now you can use any SOAP method without needing a wrapper<br />
+&nbsp;</span><span class="default">$stock </span><span class="keyword">= new </span><span class="default">Inventory</span><span class="keyword">();<br />
+&nbsp;</span><span class="default">$stock</span><span class="keyword">-&gt;</span><span class="default">updatePrice</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">20</span><span class="keyword">);<br />
+&nbsp;</span><span class="default">$stock</span><span class="keyword">-&gt;</span><span class="default">saveProduct</span><span class="keyword">(</span><span class="default">$product_info</span><span class="keyword">);<br />
+&nbsp;<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Of course you'd need a parameter mapping but it's in my honest opinion a lot better then having a plenty of mirror methods like:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">class </span><span class="default">Inventory </span><span class="keyword">{<br />
+<br />
+&nbsp; public function </span><span class="default">updateStock</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$stock</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$soapClient</span><span class="keyword">-&gt;</span><span class="default">updateStock</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$stock</span><span class="keyword">;<br />
+&nbsp; }<br />
+&nbsp; public function </span><span class="default">updatePrice</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$price</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$soapClient</span><span class="keyword">-&gt;</span><span class="default">updateStock</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$price</span><span class="keyword">;<br />
+&nbsp; }<br />
+&nbsp; </span><span class="comment">// ...<br />
+</span><span class="keyword">}<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125868""></a>
+  <div class="note">
+   <strong class="user">instatiendaweb at gmail dot com</strong>
+   <a href="#125868" class="date">28-Feb-2021 05:43</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+class funcstatic{<br />
+//LLamar a una funcion estatica desde callstatic funciona<br />
+static function escribir($texto){echo "$texto"; }<br />
+//llamar a una funcion no estatica tambien funciona<br />
+function sum($a){echo $a = $a + $a , '&lt;br&gt;';}<br />
+}$funcstatic = new funcstatic();<br />
+class primertest{<br />
+&nbsp;public function __call($name, $arguments){<br />
+global $funcstatic;<br />
+echo $funcstatic-&gt;$name((string)$arguments[0]);<br />
+}<br />
+public static function __callStatic($name, $arguments){<br />
+funcstatic::$name(" {$arguments[0]} ");<br />
+}<br />
+&nbsp;}//ENDCLASS<br />
+&nbsp;echo("&lt;div class=\"div\"&gt;");<br />
+(new primertest)-&gt;sum(5); //Llamando a un metodo no estatico de otra clase<br />
+(new primertest)-&gt;escribir('Escribiendo y llamando a un metodo estatico de otra clase&lt;br&gt;');<br />
+echo("&lt;/div&gt;");<br />
+<br />
+class segundotest{<br />
+private static function escribir($texto){echo "$texto";}<br />
+private function sum($a){echo $a = $a + $a , '&lt;br&gt;';}<br />
+<br />
+public function __call($name, $arguments){<br />
+echo $this-&gt;$name((string)$arguments[0]);<br />
+}<br />
+public static function __callStatic($name, $arguments){<br />
+&nbsp;&nbsp;&nbsp; segundotest::$name(" {$arguments[0]} ");<br />
+}<br />
+}//ENDCLASS<br />
+echo("&lt;div class=\"div\"&gt;");<br />
+(new segundotest)-&gt;sum(7); //Llamando a un metodo protegido de la clase<br />
+(new segundotest)-&gt;escribir('Llamando a un metodo estatico privado de la clase &lt;br&gt;');<br />
+echo("&lt;/div&gt;");</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125325""></a>
   <div class="note">
    <strong class="user">elCreator</strong>
    <a href="#125325" class="date">03-Sep-2020 11:06</a>

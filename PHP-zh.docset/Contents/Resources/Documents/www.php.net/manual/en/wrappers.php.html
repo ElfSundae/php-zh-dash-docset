@@ -67,20 +67,11 @@
     <var class="filename">php://input</var> 是个可以访问请求的原始数据的只读流。
     POST 请求的情况下，最好使用 <var class="filename">php://input</var> 来代替 <var class="varname">$HTTP_RAW_POST_DATA</var>，因为它不依赖于特定的 <var class="filename">php.ini</var> 指令。
     而且，这样的情况下 <var class="varname">$HTTP_RAW_POST_DATA</var> 默认没有填充，
-    比激活 <a href="ini.core.html#ini.always-populate-raw-post-data" class="link">always_populate_raw_post_data</a> 
+    比激活 <code class="literal">always_populate_raw_post_data</code>
     潜在需要更少的内存。
     <code class="literal">enctype=&quot;multipart/form-data&quot;</code> 的时候
     <var class="filename">php://input</var> 是无效的。
    </p>
-   <blockquote class="note"><p><strong class="note">Note</strong>: 
-    <span class="simpara">
-     在 PHP 5.6 之前 <var class="filename">php://input</var> 打开的数据流只能读取一次；
-     数据流不支持 seek 操作。
-     不过，依赖于 SAPI 的实现，请求体数据被保存的时候，
-     它可以打开另一个 <var class="filename">php://input</var> 数据流并重新读取。
-     通常情况下，这种情况只是针对 POST 请求，而不是其他请求方式，比如 PUT 或者 PROPFIND。
-    </span>
-   </p></blockquote>
   </div>
 
 
@@ -274,9 +265,9 @@
 
       <tr>
        <td>支持 <span class="function"><a href="function.stat.html" class="function">stat()</a></span></td>
-       <td>仅
-        <code class="literal">php://memory</code> 和
-        <code class="literal">php://temp</code>。
+       <td>
+        不支持。不过，<code class="literal">php://memory</code> 和
+        <code class="literal">php://temp</code> 支持 <span class="function"><a href="function.fstat.html" class="function">fstat()</a></span>。
        </td>
       </tr>
 
@@ -318,49 +309,6 @@
   </p>
  </div>
  
-
- <div class="refsect1 changelog" id="refsect1-wrappers.php-changelog">
-  <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
-
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>5.6.0</td>
-       <td>
-        <var class="filename">php://input</var> 可反复使用。
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.3.6</td>
-       <td>
-        增加 <var class="filename">php://fd</var>。
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.1.0</td>
-       <td>
-        增加 <var class="filename">php://memory</var> 和 <var class="filename">php://temp</var>。
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
-  </p>
- </div>
-
 
  <div class="refsect1 examples" id="refsect1-wrappers.php-examples">
   <h3 class="title">范例</h3>

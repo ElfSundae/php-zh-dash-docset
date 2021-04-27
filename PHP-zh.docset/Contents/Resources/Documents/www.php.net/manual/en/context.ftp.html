@@ -133,7 +133,40 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120220""></a>
+<div id="allnotes">  <a name="125884""></a>
+  <div class="note">
+   <strong class="user">instatiendaweb at gmail dot com</strong>
+   <a href="#125884" class="date">07-Mar-2021 08:38</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+// Ruta del ftp debe coincidir con la ruta del localhost<br />
+$ftp_path = '<a href="ftp://francisco:aaa@localhost:21/ftparchivo.txt" rel="nofollow" target="_blank">ftp://francisco:aaa@localhost:21/ftparchivo.txt</a>';<br />
+// Escribimos las opciones de stream<br />
+$stream_options = array('ftp' =&gt; array('overwrite' =&gt; TRUE));<br />
+// Creamos un contexto<br />
+$stream_context = stream_context_create($stream_options);<br />
+\escribir::verifacionnota($stream_context, 'STREAMCONTEXT');<br />
+// Abrimos el fichero que vamos a leer<br />
+$flujo = fopen($ftp_path, 'r', false, $stream_context);<br />
+//Funcion creada :vardump + string<br />
+\escribir::verifacionnota($flujo, 'VARDUMP FOPEN');<br />
+<br />
+$contenido = '';<br />
+//Traduccion mientras el contenido del archivo no este al final del fichero ==&gt; feof<br />
+while (!feof($flujo)) {<br />
+//Entonces lee 8192 bytes del archivo y a?adelos a la variable contenido<br />
+$contenido .= fread($flujo, 8192);<br />
+}<br />
+\escribir::verifacionnota($contenido, 'VARDUMP CONTENIDO');<br />
+//Cerramos el flujo<br />
+fclose($flujo);</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120220""></a>
   <div class="note">
    <strong class="user">dev at codesatori dot com</strong>
    <a href="#120220" class="date">24-Nov-2016 07:01</a>

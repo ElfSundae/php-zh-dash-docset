@@ -79,7 +79,40 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125785""></a>
+<div id="allnotes">  <a name="125938""></a>
+  <div class="note">
+   <strong class="user">Ryan C</strong>
+   <a href="#125938" class="date">17-Mar-2021 02:37</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It's still possible to detect when the @ operator is being used in the error handler in PHP8. Calling error_reporting() will no longer return 0 as documented, but using the @ operator does still change the return value when you call error_reporting().<br />
+<br />
+My PHP error settings are set to use E_ALL, and when I call error_reporting() from the error handler of a non-suppressed error, it returns E_ALL as expected.<br />
+<br />
+But when an error occurs on an expression where I tried to suppress the error with the @ operator, it returns: E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR (or the number 4437). <br />
+<br />
+I didn't want to use 4437 in my code in case it changes with different settings or future versions of PHP, so I now use:<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">my_error_handler</span><span class="keyword">(</span><span class="default">$err_no</span><span class="keyword">, </span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">$filename</span><span class="keyword">, </span><span class="default">$linenum</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; if (</span><span class="default">error_reporting</span><span class="keyword">() != </span><span class="default">E_ALL</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; return </span><span class="default">false</span><span class="keyword">; </span><span class="comment">// Silenced<br />
+&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="keyword">}<br />
+<br />
+&nbsp;&nbsp; &nbsp; </span><span class="comment">// ...<br />
+&nbsp;&nbsp; </span><span class="keyword">}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+If the code needs to work with all versions of PHP, you could check that error_reporting() doesn't equal E_ALL or 0.<br />
+<br />
+And, of course, if your error_reporting settings in PHP is something other than E_ALL, you'll have to change that to whatever setting you do use.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125785""></a>
   <div class="note">
    <strong class="user">gwyneth dot llewelyn at gwynethllewelyn dot net</strong>
    <a href="#125785" class="date">06-Feb-2021 10:31</a>

@@ -224,7 +224,84 @@ OK.
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123308""></a>
+<div id="allnotes">  <a name="125895""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#125895" class="date">10-Mar-2021 09:49</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">namespace </span><span class="default">Safe</span><span class="keyword">;<br />
+<br />
+use </span><span class="default">Safe</span><span class="keyword">\</span><span class="default">Exceptions</span><span class="keyword">\</span><span class="default">SocketsException</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">/**<br />
+&nbsp;* After the socket socket has been created<br />
+&nbsp;* using socket_create, bound to a name with<br />
+&nbsp;* socket_bind, and told to listen for connections<br />
+&nbsp;* with socket_listen, this function will accept<br />
+&nbsp;* incoming connections on that socket. Once a successful connection<br />
+&nbsp;* is made, a new socket resource is returned, which may be used<br />
+&nbsp;* for communication. If there are multiple connections queued on<br />
+&nbsp;* the socket, the first will be used. If there are no pending<br />
+&nbsp;* connections, socket_accept will block until<br />
+&nbsp;* a connection becomes present. If socket<br />
+&nbsp;* has been made non-blocking using<br />
+&nbsp;* socket_set_blocking or<br />
+&nbsp;* socket_set_nonblock, FALSE will be returned.<br />
+&nbsp;*<br />
+&nbsp;* The socket resource returned by<br />
+&nbsp;* socket_accept may not be used to accept new<br />
+&nbsp;* connections. The original listening socket<br />
+&nbsp;* socket, however, remains open and may be<br />
+&nbsp;* reused.<br />
+&nbsp;*<br />
+&nbsp;* @param resource $socket A valid socket resource created with socket_create.<br />
+&nbsp;* @return resource Returns a new socket resource on success. The actual<br />
+&nbsp;* error code can be retrieved by calling<br />
+&nbsp;* socket_last_error. This error code may be passed to<br />
+&nbsp;* socket_strerror to get a textual explanation of the<br />
+&nbsp;* error.<br />
+&nbsp;* @throws SocketsException<br />
+&nbsp;*<br />
+&nbsp;*/<br />
+</span><span class="keyword">function </span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">error_clear_last</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= \</span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$result </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw </span><span class="default">SocketsException</span><span class="keyword">::</span><span class="default">createFromPhpError</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$result</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">/**<br />
+&nbsp;* Create a Socket resource, and bind it to the provided AddrInfo resource.&nbsp; The return<br />
+&nbsp;* value of this function may be used with socket_listen.<br />
+&nbsp;*<br />
+&nbsp;* @param resource $addr Resource created from socket_addrinfo_lookup.<br />
+&nbsp;* @return resource Returns a Socket resource on success.<br />
+&nbsp;* @throws SocketsException<br />
+&nbsp;*<br />
+&nbsp;*/<br />
+</span><span class="keyword">function </span><span class="default">socket_addrinfo_bind</span><span class="keyword">(</span><span class="default">$addr</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">error_clear_last</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= \</span><span class="default">socket_addrinfo_bind</span><span class="keyword">(</span><span class="default">$addr</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$result </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw </span><span class="default">SocketsException</span><span class="keyword">::</span><span class="default">createFromPhpError</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$result</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123308""></a>
   <div class="note">
    <strong class="user">lexkrstn at gmail dot com</strong>
    <a href="#123308" class="date">05-Nov-2018 06:21</a>

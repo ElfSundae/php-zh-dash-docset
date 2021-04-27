@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>从数组中随机取出一个或多个单元</title>
+  <title>从数组中随机取出一个或多个随机键</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,31 +20,29 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.array.html">数组 函数</a></li>
-    <li>从数组中随机取出一个或多个单元</li>
+    <li>从数组中随机取出一个或多个随机键</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.array-rand" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">array_rand</h1>
-    <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">array_rand</span> &mdash; <span class="dc-title">
-     从数组中随机取出一个或多个单元
-    </span></p>
+ <div class="refnamediv">
+  <h1 class="refname">array_rand</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">array_rand</span> &mdash; <span class="dc-title">从数组中随机取出一个或多个随机键</span></p>
 
-   </div>
+ </div>
  <div class="refsect1 description" id="refsect1-function.array-rand-description">
   <h3 class="title">说明</h3>
-     <div class="methodsynopsis dc-description">
-      <span class="methodname"><strong>array_rand</strong></span>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>array_rand</strong></span>
     ( <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>
    , <span class="methodparam"><span class="type">int</span> <code class="parameter">$num</code><span class="initializer"> = 1</span></span>
-      ) : <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   ) : <span class="type"><span class="type">int</span>|<span class="type">string</span>|<span class="type">array</span></span></div>
 
-    <p class="para rdfs-comment">
-     从数组中取出一个或多个随机的单元，并返回随机条目的一个或多个键。
-     它使用了伪随机数产生算法，所以不适合密码学场景，
-    </p>
-   </div>
+  <p class="para rdfs-comment">
+     从数组中取出一个或多个随机的单元，并返回随机条目对应的键（一个或多个）。
+     它使用了伪随机数产生算法，所以不适合密码学场景。
+  </p>
+ </div>
 
  <div class="refsect1 parameters" id="refsect1-function.array-rand-parameters">
   <h3 class="title">参数</h3>
@@ -70,7 +68,7 @@
      <dd>
 
       <p class="para">
-       指明了你想取出多少个单元。
+       指定要取出的单元数量。
       </p>
      </dd>
 
@@ -87,6 +85,7 @@
    返回随机单元的键名。
    否则就返回包含随机键名的数组。
    完成后，就可以根据随机的键获取数组的随机值。
+   如果返回的是包含随机键名的数组，数组单元的顺序按照键名在原数组中的顺序排列。
    取出数量如果超过 array 的长度，就会导致 <strong><code>E_WARNING</code></strong> 错误，并返回 NULL。
   </p>
  </div>
@@ -108,14 +107,8 @@
       <tr>
        <td>7.1.0</td>
        <td>
-        <a href="migration71.incompatible.html#migration71.incompatible.rand-srand-aliases" class="link">内置的随机数生成算法从 libc rand 函数改成<a href="http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html" class="link external" title="Link : http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html">&raquo;&nbsp;梅森旋转</a> 伪随机数生成算法。</a>
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.2.10</td>
-       <td>
-        The resulting array of keys is no longer shuffled.
+        内部随机化算法已从 libc rand 函数<a href="migration71.incompatible.html#migration71.incompatible.rand-srand-aliases" class="link">更改为</a>使用
+        <a href="http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html" class="link external" title="Link : http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html">&raquo;&nbsp;梅森旋转算法（Mersenne Twister）</a> 随机数生成器。
        </td>
       </tr>
 
@@ -129,7 +122,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-rand-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5286">
+   <div class="example" id="example-5275">
     <p><strong>Example #1 <span class="function"><strong>array_rand()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -151,7 +144,7 @@
   </p>
  </div>
 
-  </div><div id="usernotes">
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

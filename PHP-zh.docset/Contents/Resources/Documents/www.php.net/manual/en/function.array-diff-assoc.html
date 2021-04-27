@@ -112,7 +112,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-diff-assoc-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5245">
+   <div class="example" id="example-5234">
     <p><strong>Example #1 <span class="function"><strong>array_diff_assoc()</strong></span> 例子</strong></p>
     <div class="example-contents"><p>
    上面的例子中可以看到键值对 <code class="literal">&quot;a&quot; =&gt; &quot;green&quot;</code>
@@ -141,7 +141,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5246">
+   <div class="example" id="example-5235">
     <p><strong>Example #2 <span class="function"><strong>array_diff_assoc()</strong></span> example</strong></p>
     <div class="example-contents"><p>
      键值对 <em class="emphasis">key =&gt; value</em>
@@ -206,7 +206,54 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122580""></a>
+<div id="allnotes">  <a name="125968""></a>
+  <div class="note">
+   <strong class="user">angujomondi at gmail dot com</strong>
+   <a href="#125968" class="date">28-Mar-2021 07:49</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For recursive diff of multiple arrays, exending solution provided by Gosh.<br />
+<br />
+<span class="default">&lt;?php <br />
+<br />
+</span><span class="keyword">function </span><span class="default">array_diff_assoc_recursive</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, array ...</span><span class="default">$arrays</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$func&nbsp; </span><span class="keyword">= function(</span><span class="default">$array1</span><span class="keyword">, </span><span class="default">$array2</span><span class="keyword">) use (&amp;</span><span class="default">$func</span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$difference </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$array1 </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!isset(</span><span class="default">$array2</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]) || !</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">])) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$difference</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$new_diff </span><span class="keyword">= </span><span class="default">$func</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$array2</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!empty(</span><span class="default">$new_diff</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$difference</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$new_diff</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$array2</span><span class="keyword">) || </span><span class="default">$array2</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] !== </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$difference</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$difference</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; };<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$diffs </span><span class="keyword">= </span><span class="default">$array</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$arrays </span><span class="keyword">as </span><span class="default">$_array</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$diffs </span><span class="keyword">= </span><span class="default">$func</span><span class="keyword">(</span><span class="default">$diffs</span><span class="keyword">, </span><span class="default">$_array</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$diffs</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122580""></a>
   <div class="note">
    <strong class="user">spark dot crz at gmail dot com</strong>
    <a href="#122580" class="date">02-Apr-2018 04:56</a>

@@ -286,7 +286,70 @@ Static object: object(stdClass)#3 (1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125806""></a>
+<div id="allnotes">  <a name="125888""></a>
+  <div class="note">
+   <strong class="user">atesin () 6m4i1 ! c0m</strong>
+   <a href="#125888" class="date">08-Mar-2021 03:07</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+i hadn't found info on this so i had to make some tests...<br />
+<br />
+inside a function, when globalling a variable that doesn't exist in the parent scope, it will set to null... i mean...<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">f</span><span class="keyword">()<br />
+{<br />
+&nbsp; global </span><span class="default">$g</span><span class="keyword">;<br />
+&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$g</span><span class="keyword">); </span><span class="comment">// prints 'NULL' with no log message, means if $g is unset globally then here IS SET to NULL (*)<br />
+&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$l</span><span class="keyword">); </span><span class="comment">// prints 'NULL' and logs the 'undefined variable l' notice in this line<br />
+&nbsp; <br />
+&nbsp; // (*) notice until the variable $g IS SET to null here, isset($g) will still return false<br />
+&nbsp; //&nbsp; &nbsp;&nbsp; because for isset() the var has to be set and not null (see doc for details)...<br />
+&nbsp; //&nbsp; &nbsp;&nbsp; maybe the only way to find if a variable is actually unset is throught the log warnings<br />
+</span><span class="keyword">}<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$g</span><span class="keyword">); </span><span class="comment">// prints 'NULL' and logs the 'undefined variable g' in this line<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$g</span><span class="keyword">); </span><span class="comment">// same as above but in this line, means the variable is still unset<br />
+</span><span class="default">f</span><span class="keyword">();<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+.<br />
+knowing this could be useful in a case like mine... consider something like this...<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">//--- account.php ---<br />
+<br />
+</span><span class="default">$user </span><span class="keyword">= </span><span class="string">'john doe'</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">//--- main.php ---<br />
+<br />
+</span><span class="keyword">function </span><span class="default">welcome</span><span class="keyword">()<br />
+{<br />
+&nbsp; global </span><span class="default">$user</span><span class="keyword">;<br />
+&nbsp; echo </span><span class="string">"welcome </span><span class="default">$user</span><span class="string">"</span><span class="keyword">; </span><span class="comment">// if $user is not set in parent scope it just prints "welcome "<br />
+<br />
+&nbsp; // the right way afaik<br />
+&nbsp; </span><span class="keyword">if ( isset(</span><span class="default">$user</span><span class="keyword">) )<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"welcome </span><span class="default">$user</span><span class="string">"</span><span class="keyword">;<br />
+}<br />
+<br />
+if ( </span><span class="default">login_ok</span><span class="keyword">() )<br />
+&nbsp; </span><span class="default">incude </span><span class="string">'account.php'</span><span class="keyword">;<br />
+<br />
+</span><span class="default">welcome</span><span class="keyword">();<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125806""></a>
   <div class="note">
    <strong class="user">Duke dot Bouvier at NOPSAM dot Gmail dot com</strong>
    <a href="#125806" class="date">11-Feb-2021 11:20</a>

@@ -251,7 +251,7 @@
  <div class="refsect1 examples" id="refsect1-function.json-decode-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3820">
+   <div class="example" id="example-3809">
     <p><strong>Example #1 <span class="function"><strong>json_decode()</strong></span> µÄÀý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -281,7 +281,7 @@ array(5) {
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-3821">
+   <div class="example" id="example-3810">
     <p><strong>Example #2 Accessing invalid object properties</strong></p>
     <div class="example-contents"><p>
      Accessing elements within an object that contain characters not
@@ -296,7 +296,7 @@ array(5) {
     </div>
 
    </div>
-   <div class="example" id="example-3822">
+   <div class="example" id="example-3811">
     <p><strong>Example #3 common mistakes using <span class="function"><strong>json_decode()</strong></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -306,7 +306,7 @@ array(5) {
     </div>
 
    </div>
-   <div class="example" id="example-3823">
+   <div class="example" id="example-3812">
     <p><strong>Example #4 <code class="parameter">depth</code> errors</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -344,7 +344,7 @@ Last error: JSON_ERROR_DEPTH
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-3824">
+   <div class="example" id="example-3813">
     <p><strong>Example #5 <span class="function"><strong>json_decode()</strong></span> of large integers</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -401,7 +401,33 @@ object(stdClass)#1 (1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125783""></a>
+<div id="allnotes">  <a name="126006""></a>
+  <div class="note">
+   <strong class="user">Alien426</strong>
+   <a href="#126006" class="date">14-Apr-2021 09:11</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Browsers don't choke on integers _starting_ with BigInt (64 bits), but before that (53 bits). The introduction of BigInt to modern browsers doesn't help much, when JSON handling functions do not support it. So I am trying to remedy that. My approach is to handle the decoded array before re-encoding it to a string:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">fix_large_int</span><span class="keyword">(&amp;</span><span class="default">$value</span><span class="keyword">)<br />
+&nbsp;{<br />
+&nbsp; if (</span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">) &amp;&amp; </span><span class="default">$value </span><span class="keyword">&gt; </span><span class="default">9007199254740991</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">strval</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">);<br />
+&nbsp;}<br />
+</span><span class="default">$json_str </span><span class="keyword">= </span><span class="string">'{"id":[1234567890123456789,12345678901234567890]}'</span><span class="keyword">;<br />
+</span><span class="default">$json_arr </span><span class="keyword">= </span><span class="default">json_decode</span><span class="keyword">(</span><span class="default">$json_str</span><span class="keyword">, </span><span class="default">flags</span><span class="keyword">: </span><span class="default">JSON_BIGINT_AS_STRING </span><span class="keyword">| </span><span class="default">JSON_OBJECT_AS_ARRAY</span><span class="keyword">);<br />
+echo(</span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$json_arr</span><span class="keyword">)); </span><span class="comment">// {"id":[1234567890123456789,"12345678901234567890"]} (BigInt is already converted to a string here)<br />
+</span><span class="default">array_walk_recursive</span><span class="keyword">(</span><span class="default">$json_arr</span><span class="keyword">, </span><span class="string">'fix_large_int'</span><span class="keyword">);<br />
+echo(</span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$json_arr</span><span class="keyword">)); </span><span class="comment">// {"id":["1234567890123456789","12345678901234567890"]}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125783""></a>
   <div class="note">
    <strong class="user">mattia</strong>
    <a href="#125783" class="date">06-Feb-2021 08:51</a>

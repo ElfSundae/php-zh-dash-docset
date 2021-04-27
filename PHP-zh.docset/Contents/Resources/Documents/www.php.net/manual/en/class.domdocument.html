@@ -948,7 +948,69 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122917""></a>
+<div id="allnotes">  <a name="125879""></a>
+  <div class="note">
+   <strong class="user">pastormontesinos at gmail dot com</strong>
+   <a href="#125879" class="date">04-Mar-2021 10:34</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For using safely with script nodes when parsing, best option is extending DOMDocument, keeping script tags while DOMDocument process and rearrange them just after saveHTML function is called. Here is my custom class.<br />
+<br />
+<span class="default">&lt;?php <br />
+<br />
+</span><span class="keyword">class </span><span class="default">SafeDOMDocument </span><span class="keyword">extends \</span><span class="default">DOMDocument<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; const </span><span class="default">REGEX_JS&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">= </span><span class="string">'#(\s*&lt;!--(\[if[^\n]*&gt;)?\s*(&lt;script.*&lt;/script&gt;)+\s*(&lt;!\[endif\])?--&gt;)|(\s*&lt;script.*&lt;/script&gt;)#isU'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; const </span><span class="default">SUBSTITUTION_FORMAT </span><span class="keyword">= </span><span class="string">'&lt;!--&lt;script class="script_%s"&gt;&lt;/script&gt;--&gt;'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; private </span><span class="default">$matchedScripts </span><span class="keyword">= [];<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">loadHTML</span><span class="keyword">(</span><span class="default">$source</span><span class="keyword">, </span><span class="default">$options </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">formatOutput&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">preserveWhiteSpace&nbsp; </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">validateOnParse&nbsp; &nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">strictErrorChecking </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">recover&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">resolveExternals&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">substituteEntities&nbsp; </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$matches </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$success </span><span class="keyword">= </span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">REGEX_JS</span><span class="keyword">, </span><span class="default">$source</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$success </span><span class="keyword">&amp;&amp; !empty(</span><span class="default">$matches</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] as </span><span class="default">$match</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$storedScript </span><span class="keyword">= </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">ltrim</span><span class="keyword">(</span><span class="default">$match</span><span class="keyword">, </span><span class="string">"\n\r\t "</span><span class="keyword">), </span><span class="string">"\n\r\t "</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$scriptId </span><span class="keyword">= </span><span class="default">md5</span><span class="keyword">(</span><span class="default">$storedScript</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$key </span><span class="keyword">= </span><span class="default">sprintf</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">SUBSTITUTION_FORMAT</span><span class="keyword">, </span><span class="default">$scriptId</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$source </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$match</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$source</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">matchedScripts</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$storedScript</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">loadHTML</span><span class="keyword">(</span><span class="default">$source</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">saveHTML</span><span class="keyword">(</span><span class="default">DOMNode $node </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">= </span><span class="default">parent</span><span class="keyword">::</span><span class="default">saveHTML</span><span class="keyword">(</span><span class="default">$node</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">matchedScripts</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">matchedScripts </span><span class="keyword">as </span><span class="default">$substitution </span><span class="keyword">=&gt; </span><span class="default">$originalSnippet</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$substitution</span><span class="keyword">, </span><span class="default">$originalSnippet</span><span class="keyword">, </span><span class="default">$output</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$output</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122917""></a>
   <div class="note">
    <strong class="user">ashjkshdu283 at gmail dot com</strong>
    <a href="#122917" class="date">07-Jul-2018 11:39</a>

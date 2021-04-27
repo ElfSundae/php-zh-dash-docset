@@ -11,7 +11,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="features.commandline.html">? PHP 的命令行模式</a></li>
+      <li style="float: left;"><a href="features.commandline.interactive.html">? Interactive shell</a></li>
       <li style="float: right;"><a href="features.commandline.ini.html">INI 配置 ?</a></li>
     </ul>
   </div>
@@ -48,7 +48,7 @@
    当你在命令行启动这个Web Server时，如果指定了一个PHP文件，则这个文件会作为一个"路由"脚本，意味着每次请求都会先执行这个脚本。如果这个脚本返回 <strong><code>false</code></strong> ，那么直接返回请求的文件（例如请求静态文件不作任何处理）。否则会把输出返回到浏览器。
   </p>
 
-  <div class="example" id="example-419">
+  <div class="example" id="example-431">
    <p><strong>Example #1 启动Web服务器</strong></p> 
    <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">$ cd ~/public_html
@@ -86,7 +86,7 @@ Press Ctrl-C to quit.
    </div>
   </div>
 
-  <div class="example" id="example-420">
+  <div class="example" id="example-432">
    <p><strong>Example #2 启动时指定根目录</strong></p> 
    <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">$ cd ~/public_html
@@ -107,7 +107,7 @@ Press Ctrl-C to quit
    </div>
   </div>
 
-  <div class="example" id="example-421">
+  <div class="example" id="example-433">
    <p><strong>Example #3 使用路由（Router）脚本</strong></p> 
 <div class="example-contents"><p>
  
@@ -146,7 +146,30 @@ Press Ctrl-C to quit.
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125107""></a>
+<div id="allnotes">  <a name="125974""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#125974" class="date">31-Mar-2021 06:33</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you have trouble with a project using both dynamic routes containing dots (giving unexpected 404 errors) and static file hosting paste this in your index.php<br />
+<br />
+// Support cli server for local development<br />
+if (php_sapi_name() === 'cli-server') {<br />
+&nbsp;&nbsp;&nbsp; $fileName = __DIR__.parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);<br />
+&nbsp;&nbsp;&nbsp; if (file_exists($fileName) &amp;&amp; !is_dir($fileName)) return false;<br />
+}<br />
+<br />
+Then run the internal server directly on the file:<br />
+<br />
+php -S 127.0.0.1 index.php</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125107""></a>
   <div class="note">
    <strong class="user">deep at deepshah dot me</strong>
    <a href="#125107" class="date">10-Jun-2020 05:37</a>

@@ -90,7 +90,7 @@
  <div class="refsect1 examples" id="refsect1-function.cli-set-process-title-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-492">
+   <div class="example" id="example-503">
     <p><strong>Example #1 <span class="function"><strong>cli_set_process_title()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -118,7 +118,45 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124360""></a>
+<div id="allnotes">  <a name="125937""></a>
+  <div class="note">
+   <strong class="user">pitpat</strong>
+   <a href="#125937" class="date">17-Mar-2021 10:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In Linux this command changes the title for commands like 'ps -a' it doesn't seem to work with 'top' or 'pkill'<br />
+<br />
+To change the short name (eg PHP) to something else you can use the below:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$strNewName</span><span class="keyword">=</span><span class="string">'myscript'</span><span class="keyword">;<br />
+<br />
+</span><span class="default">cli_set_process_name</span><span class="keyword">(</span><span class="default">$strNewName</span><span class="keyword">);<br />
+</span><span class="default">cli_set_process_title</span><span class="keyword">(</span><span class="default">$strNewName</span><span class="keyword">);<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">cli_get_process_name</span><span class="keyword">());<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">cli_get_process_title</span><span class="keyword">());<br />
+<br />
+function </span><span class="default">cli_set_process_name</span><span class="keyword">(</span><span class="default">$strName</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp; </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">"/proc/"</span><span class="keyword">.</span><span class="default">getmypid</span><span class="keyword">().</span><span class="string">"/comm"</span><span class="keyword">,</span><span class="default">$strName</span><span class="keyword">);<br />
+}<br />
+<br />
+function </span><span class="default">cli_get_process_name</span><span class="keyword">()<br />
+{<br />
+&nbsp; return(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">"/proc/"</span><span class="keyword">.</span><span class="default">getmypid</span><span class="keyword">().</span><span class="string">"/comm"</span><span class="keyword">),</span><span class="string">"\r\n"</span><span class="keyword">));<br />
+}<br />
+<br />
+</span><span class="default">Note</span><span class="keyword">: </span><span class="default">The above will NOT work in Windows </span><span class="keyword">and </span><span class="default">may not work in all flavours of linux </span><span class="keyword">(</span><span class="default">I </span><span class="keyword">use </span><span class="default">Debian</span><span class="keyword">).</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124360""></a>
   <div class="note">
    <strong class="user">Aurelien Marchand</strong>
    <a href="#124360" class="date">01-Nov-2019 01:24</a>

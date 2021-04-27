@@ -64,7 +64,7 @@
  <div class="refsect1 examples" id="refsect1-reflectionparameter.getclass-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-5558">
+   <div class="example" id="example-5547">
     <p><strong>Example #1 Ê¹ÓÃ <a href="class.reflectionparameter.html" class="classname">ReflectionParameter</a> Àà</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -98,7 +98,39 @@ Exception
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125810""></a>
+<div id="allnotes">  <a name="125854""></a>
+  <div class="note">
+   <strong class="user">tarik at bitstore dot ru</strong>
+   <a href="#125854" class="date">22-Feb-2021 07:08</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You may use this one function instead depricated<br />
+<br />
+&nbsp;&nbsp;&nbsp; /**<br />
+&nbsp;&nbsp; &nbsp; * Get parameter class<br />
+&nbsp;&nbsp; &nbsp; * @param \ReflectionParameter $parameter<br />
+&nbsp;&nbsp; &nbsp; * @return \ReflectionClass|null<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; private function getClass(\ReflectionParameter $parameter):?\ReflectionClass<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $type = $parameter-&gt;getType();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!$type || $type-&gt;isBuiltin())<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return NULL;<br />
+<br />
+// This line triggers autoloader!<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(!class_exists($type-&gt;getName()))<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return NULL;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return&nbsp; new \ReflectionClass($type-&gt;getName());<br />
+&nbsp;&nbsp;&nbsp; }</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125810""></a>
   <div class="note">
    <strong class="user">Dylan</strong>
    <a href="#125810" class="date">12-Feb-2021 11:47</a>
