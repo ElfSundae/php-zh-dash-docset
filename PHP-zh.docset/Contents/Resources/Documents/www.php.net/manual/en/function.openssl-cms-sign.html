@@ -169,6 +169,54 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="126047""></a>
+  <div class="note">
+   <strong class="user">miranda dot markmorgan at gmail dot com</strong>
+   <a href="#126047" class="date">01-May-2021 11:30</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Manage to make it work at last.<br />
+<br />
+$dn = array(<br />
+&nbsp;&nbsp;&nbsp; "countryName" =&gt; "XX",<br />
+&nbsp;&nbsp;&nbsp; "stateOrProvinceName" =&gt; "Location",<br />
+&nbsp;&nbsp;&nbsp; "localityName" =&gt; "Local",<br />
+&nbsp;&nbsp;&nbsp; "organizationName" =&gt; "Sample Organization",<br />
+&nbsp;&nbsp;&nbsp; "organizationalUnitName" =&gt; "Organizational Unit",<br />
+&nbsp;&nbsp;&nbsp; "commonName" =&gt; "Sample",<br />
+&nbsp;&nbsp;&nbsp; "emailAddress" =&gt; "contactus@email.com"<br />
+);<br />
+<br />
+// Generate a new private (and public) key pair<br />
+$privkey = openssl_pkey_new(array(<br />
+&nbsp;&nbsp;&nbsp; "private_key_bits" =&gt; 4096,<br />
+&nbsp;&nbsp;&nbsp; "private_key_type" =&gt; OPENSSL_KEYTYPE_RSA,<br />
+));<br />
+<br />
+// Generate a certificate signing request<br />
+$csr = openssl_csr_new($dn, $privkey, array('digest_alg' =&gt; 'sha512'));<br />
+<br />
+// Generate a self-signed cert, valid for 365 days<br />
+$x509 = openssl_csr_sign($csr, null, $privkey, $days=365, array('digest_alg' =&gt; 'sha512'));<br />
+<br />
+// Save your private key, CSR and self-signed cert for later use<br />
+openssl_csr_export($csr, $csrout) and var_dump($csrout); // .csr<br />
+openssl_x509_export($x509, $certout) and var_dump($certout); // .crt.pem<br />
+openssl_pkey_export($privkey, $pkeyout, "user_defined_password") and var_dump($pkeyout); // .key.pem<br />
+<br />
+if(openssl_cms_sign ( "file_to_sign", "Sample.p7m" , $x509 , $privkey, null , 0 , 0 , null )){<br />
+&nbsp;&nbsp;&nbsp; echo "SIGNED SUCCESSFULLY! Sample.p7m created... \r\n";<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp; echo "SIGNED FAILED!\r\n";<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

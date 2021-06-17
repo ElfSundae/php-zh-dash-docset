@@ -28,7 +28,7 @@
  <h1 class="title">The ArrayObject class</h1>
  
  
- <div class="partintro"><p class="verinfo">(PHP 5, PHP 7)</p>
+ <div class="partintro"><p class="verinfo">(PHP 5, PHP 7, PHP 8)</p>
  
 
   <div class="section" id="arrayobject.intro">
@@ -217,35 +217,6 @@
 
    </div>
   </div>
-
-  <div class="section">
-   <h2 class="title">更新日志</h2>
-   <p class="para">
-    <table class="doctable informaltable">
-     
-      <thead>
-       <tr>
-        <th>版本</th>
-        <th>说明</th>
-       </tr>
-
-      </thead>
-
-      <tbody class="tbody">
-       <tr>
-        <td>5.3.0</td>
-        <td>
-         Implements <span class="interfacename"><strong class="interfacename">Serializable</strong></span>.
-        </td>
-       </tr>
-
-      </tbody>
-     
-    </table>
-
-   </p>
-  </div>
-
   
 
  
@@ -406,7 +377,58 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125849""></a>
+<div id="allnotes">  <a name="126041""></a>
+  <div class="note">
+   <strong class="user">lsrzj at yahoo dot com</strong>
+   <a href="#126041" class="date">26-Apr-2021 12:31</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Differences between STD_PROP_LIST and ARRAY_AS_PROPS<br />
+<br />
+<span class="default">&lt;?php<br />
+$a </span><span class="keyword">= new </span><span class="default">ArrayObject</span><span class="keyword">([], </span><span class="default">ArrayObject</span><span class="keyword">::</span><span class="default">STD_PROP_LIST</span><span class="keyword">);<br />
+</span><span class="default">$a</span><span class="keyword">[</span><span class="string">'arr'</span><span class="keyword">] = </span><span class="string">'Array data'</span><span class="keyword">;<br />
+</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">prop </span><span class="keyword">= </span><span class="string">'Prop data'</span><span class="keyword">;<br />
+<br />
+</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">ArrayObject</span><span class="keyword">([], </span><span class="default">ArrayObject</span><span class="keyword">::</span><span class="default">ARRAY_AS_PROPS</span><span class="keyword">);<br />
+</span><span class="default">$b</span><span class="keyword">[</span><span class="string">'arr'</span><span class="keyword">] = </span><span class="string">'Array data'</span><span class="keyword">;<br />
+</span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">prop </span><span class="keyword">= </span><span class="string">'Prop data'</span><span class="keyword">;<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br />
+</span><span class="comment">/* Output<br />
+<br />
+ArrayObject Object<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [prop] =&gt; Prop data<br />
+&nbsp;&nbsp;&nbsp; [storage:ArrayObject:private] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [arr] =&gt; Array data<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+<br />
+)*/<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">);<br />
+</span><span class="comment">/* Output<br />
+<br />
+ArrayObject Object<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [storage:ArrayObject:private] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [arr] =&gt; Array data<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [prop] =&gt; Prop data<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+<br />
+)*/<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125849""></a>
   <div class="note">
    <strong class="user">hello at rayfung dot hk</strong>
    <a href="#125849" class="date">22-Feb-2021 01:38</a>

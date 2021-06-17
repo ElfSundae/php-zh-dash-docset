@@ -135,7 +135,7 @@
  <div class="refsect1 examples" id="refsect1-function.pathinfo-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2580">
+   <div class="example" id="example-2125">
     <p><strong>Example #1 <span class="function"><strong>pathinfo()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -156,7 +156,7 @@ lib.inc
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2581">
+   <div class="example" id="example-2126">
     <p><strong>Example #2 <span class="function"><strong>pathinfo()</strong></span> example showing difference between null and no extension</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -212,7 +212,55 @@ NULL
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124617""></a>
+<div id="allnotes">  <a name="126105""></a>
+  <div class="note">
+   <strong class="user">info at kgsw dot de</strong>
+   <a href="#126105" class="date">25-May-2021 03:27</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+unexpected, but longtime (all versions?) consistent, behaviour with trailing slash (Linux):<br />
+<br />
+with Linux I am used, to add a trailing slash, <br />
+or just to keep that of the command line completion by [TAB], <br />
+to avoid mistyping a path on cp or mv with a same filename instead of a directory<br />
+&nbsp;<br />
+using CLI '$ php -a' the result is in the next line&nbsp; <br />
+(but can also be done by script, webserver, etc.)<br />
+<br />
+<span class="default">&lt;?php </span><span class="comment">// using php tags here only for syntax highlighting<br />
+<br />
+// assuming getcwd() is /home/USER/ with existing subdir www.2021-05/<br />
+// cause path must exist, else 'false'<br />
+</span><span class="default">php </span><span class="keyword">&gt; echo </span><span class="default">realpath</span><span class="keyword">(</span><span class="string">'www.2021-05/'</span><span class="keyword">); <br />
+/</span><span class="default">home</span><span class="keyword">/</span><span class="default">USER</span><span class="keyword">/</span><span class="default">www.2021</span><span class="keyword">-</span><span class="default">05<br />
+&nbsp;<br />
+php </span><span class="keyword">&gt; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">pathinfo</span><span class="keyword">(</span><span class="string">'/home/USER/www.2021-05/'</span><span class="keyword">));<br />
+array(</span><span class="default">4</span><span class="keyword">) {<br />
+&nbsp; [</span><span class="string">"dirname"</span><span class="keyword">]=&gt;&nbsp; &nbsp; </span><span class="default">string</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">) </span><span class="string">"/home/USER"<br />
+&nbsp; </span><span class="keyword">[</span><span class="string">"basename"</span><span class="keyword">]=&gt;&nbsp;&nbsp; </span><span class="default">string</span><span class="keyword">(</span><span class="default">11</span><span class="keyword">) </span><span class="string">"www.2021-05"<br />
+&nbsp; </span><span class="keyword">[</span><span class="string">"extension"</span><span class="keyword">]=&gt;&nbsp; </span><span class="default">string</span><span class="keyword">(</span><span class="default">7</span><span class="keyword">)&nbsp; </span><span class="string">"2021-05"<br />
+&nbsp; </span><span class="keyword">[</span><span class="string">"filename"</span><span class="keyword">]=&gt;&nbsp;&nbsp; </span><span class="default">string</span><span class="keyword">(</span><span class="default">3</span><span class="keyword">)&nbsp; </span><span class="string">"www"<br />
+</span><span class="keyword">}<br />
+<br />
+</span><span class="default">php </span><span class="keyword">&gt; echo </span><span class="default">dirname</span><span class="keyword">(</span><span class="string">'/home/USER/www.2021-05/'</span><span class="keyword">);<br />
+/</span><span class="default">home</span><span class="keyword">/</span><span class="default">USER<br />
+php </span><span class="keyword">&gt; echo </span><span class="default">basename</span><span class="keyword">(</span><span class="string">'/home/USER/www.2021-05/'</span><span class="keyword">);<br />
+</span><span class="default">www.2021</span><span class="keyword">-</span><span class="default">05<br />
+?&gt;<br />
+</span>with my own written functions, I would first split path from filename at the<br />
+_last_ slash (plus some extra for root-slash only);<br />
+&nbsp;which would find NO filename, only dirname path, in that example<br />
+<br />
+for cross reference:<br />
+once reported on Win2k -- https://bugs.php.net/bug.php?id=41834<br />
+said to be heritage -- https://bugs.php.net/bug.php?id=81079</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124617""></a>
   <div class="note">
    <strong class="user">Ozan Kurt</strong>
    <a href="#124617" class="date">15-Jan-2020 10:15</a>

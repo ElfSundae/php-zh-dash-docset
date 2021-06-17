@@ -146,7 +146,8 @@
     </li>
     <li class="listitem">
      <p class="para">
-      The <code class="parameter">errcontext</code> argument for custom error handlers has been removed.
+      The <code class="parameter">errcontext</code> argument will no longer be passed to custom error handlers
+      set with <span class="function"><a href="function.set-error-handler.html" class="function">set_error_handler()</a></span>.
      </p>
     </li>
     <li class="listitem">
@@ -225,7 +226,7 @@
      <p class="para">
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Replace<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;&nbsp;</span><span style="color: #FF8000">//&nbsp;Silenced<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">//&nbsp;With<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;&nbsp;</span><span style="color: #FF8000">//&nbsp;Silenced<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Replace<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;Silenced<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">//&nbsp;With<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;Silenced<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
@@ -443,15 +444,10 @@
      </p>
      <p class="para">
       <div class="example-contents">
-<div class="cdata"><pre>
-&lt;?php
-setlocale(LC_ALL, &quot;de_DE&quot;);
-$f = 3.14;
-echo $f, &quot;\n&quot;;
-// Previously: 3,14
-// Now:        3.14
-?&gt;
-</pre></div>
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"de_DE"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$f&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">3.14</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$f</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;Previously:&nbsp;3,14<br />//&nbsp;Now:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.14<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
       </div>
 
      </p>
@@ -467,16 +463,10 @@ echo $f, &quot;\n&quot;;
      </p>
      <p class="para">
       <div class="example-contents">
-<div class="cdata"><pre>
-&lt;?php
-// Instead of:
-$array{0};
-$array{&quot;key&quot;};
-// Write:
-$array[0];
-$array[&quot;key&quot;];
-?&gt;
-</pre></div>
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Instead&nbsp;of:<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">{</span><span style="color: #0000BB">0</span><span style="color: #007700">};<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">{</span><span style="color: #DD0000">"key"</span><span style="color: #007700">};<br /></span><span style="color: #FF8000">//&nbsp;Write:<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #DD0000">"key"</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
       </div>
 
       
@@ -713,7 +703,7 @@ $array[&quot;key&quot;];
    <li class="listitem">
     <p class="para">
      <span class="function"><a href="function.xml-parser-create.html" class="function">xml_parser_create()</a></span> and <span class="function"><a href="function.xml-parser-create-ns.html" class="function">xml_parser_create_ns()</a></span> will now
-     return an <strong class="classname">XmlParser</strong> object rather than a <a href="language.types.resource.html" class="link">资源(resource)</a>. The
+     return an <strong class="classname">XMLParser</strong> object rather than a <a href="language.types.resource.html" class="link">资源(resource)</a>. The
      <span class="function"><a href="function.xml-parser-free.html" class="function">xml_parser_free()</a></span> function no longer has an effect, instead the XmlParser
      instance is automatically destroyed if it is no longer referenced.
     </p>
@@ -1033,7 +1023,7 @@ $array[&quot;key&quot;];
    <li class="listitem">
     <p class="para">
      <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> and <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span> will now return boolean <strong><code>true</code></strong> on
-     a successfuly match. Previously they returned integer <code class="literal">1</code> if
+     a successful match. Previously they returned integer <code class="literal">1</code> if
      <code class="parameter">matches</code> was not passed, or <code class="code">max(1, strlen($matches[0]))</code> if
      <code class="parameter">matches</code> was passed.
     </p>
@@ -1139,6 +1129,17 @@ $array[&quot;key&quot;];
    The <var class="filename">php.ini</var> directive
    <a href="ref.pdo-odbc.html#ini.pdo-odbc.db2-instance-name" class="link">pdo_odbc.db2_instance_name</a> has been
    removed.
+  </p>
+ </div>
+
+ <div class="sect2" id="migration80.incompatible.pdo-mysql">
+  <h3 class="title">PDO MySQL</h3>
+
+  <p class="para">
+   <span class="methodname"><a href="pdo.intransaction.html" class="methodname">PDO::inTransaction()</a></span> now reports the actual transaction state of
+   the connection, rather than an approximation maintained by PDO. If a query that is
+   subject to &quot;implicit commit&quot; is executed, <span class="methodname"><a href="pdo.intransaction.html" class="methodname">PDO::inTransaction()</a></span>
+   will subsequently return <strong><code>false</code></strong>, as a transaction is no longer active.
   </p>
  </div>
 
@@ -1269,6 +1270,12 @@ $array[&quot;key&quot;];
    <li class="listitem">
     <p class="para">
      <span class="methodname"><a href="splfileobject.fgetss.html" class="methodname">SplFileObject::fgetss()</a></span> has been removed.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <span class="methodname"><a href="splfileobject.seek.html" class="methodname">SplFileObject::seek()</a></span> now always seeks to the beginning of the line.
+     Previously, positions <code class="literal">=1</code> sought to the beginning of the next line.
     </p>
    </li>
    <li class="listitem">

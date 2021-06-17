@@ -28,7 +28,7 @@
  <h1 class="title">The SplQueue class</h1>
  
  
- <div class="partintro"><p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7)</p>
+ <div class="partintro"><p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p>
  
 
   <div class="section" id="splqueue.intro">
@@ -231,7 +231,37 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125869""></a>
+<div id="allnotes">  <a name="126085""></a>
+  <div class="note">
+   <strong class="user">booleantype at ya dot ru</strong>
+   <a href="#126085" class="date">18-May-2021 07:58</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Answer to Manu Manjunath post (#114336).<br />
+<br />
+IMO, pop() works as expected.<br />
+<br />
+There are 2 main groups of methods:<br />
+<br />
+1) pop() &amp; push() are inherited from SplDoublyLinkedList and can be applied to SplStack as well as SplQueue (ie are "faceless"). It isn't about stack or queue; it's just about deleting / adding element to the end of the list;<br />
+<br />
+2) the same situation with shift() &amp; unshift(): it is just about adding an element to the beginning of the list, and doesn't matter, if we use it on SplStack or SplQueue.<br />
+<br />
+So, yes, $q-&gt;pop(); will remove *last* element from SplQueue $q.<br />
+<br />
+But enqueue() &amp; dequeue() *are about* SplQueue. FIFO principle is realized by these methods, which were implemented *exactly* for queue purpose:<br />
+- enqueue() adds an element to the end of the queue and is alias for "faceless" push() (FI...);<br />
+- dequeue() removes element from the beginning of the queue and is alias for "faceless" shift() (...FO).<br />
+<br />
+If you want to delete *next in line* element from *queue*, use dequeue().<br />
+If you want to delete *last* element from the list (doesn't matter, if it's queue or stack), use pop().</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125869""></a>
   <div class="note">
    <strong class="user">mostefa dot medjahed dot pro at gmail dot com</strong>
    <a href="#125869" class="date">01-Mar-2021 07:13</a>

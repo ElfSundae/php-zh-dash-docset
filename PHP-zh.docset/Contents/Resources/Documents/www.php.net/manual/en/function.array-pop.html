@@ -90,7 +90,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-pop-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-5272">
+   <div class="example" id="example-4806">
     <p><strong>Example #1 <span class="function"><strong>array_pop()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -135,7 +135,24 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="118270""></a>
+<div id="allnotes">  <a name="126063""></a>
+  <div class="note">
+   <strong class="user">noreply at i-asm dot com</strong>
+   <a href="#126063" class="date">09-May-2021 11:18</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note that array_pop doesn't issue ANY warning or error if the array is already empty when you try to pop something from it. This is bizarre! And it will cause cascades of errors that are hard to resolve without knowing the real cause.<br />
+<br />
+Rather than an error, it silently returns a NULL object, it appears, so in my case I ended up with warnings elsewhere about accessing elements of arrays with invalid indexes, as I was expecting to have popped an array. This behaviour (and the lack of any warning, when many trivial things are complained about verbosely) is NOT noted in the manual above. Popping an already empty stack should definitely trigger some sort of notice, to help debugging.<br />
+<br />
+Sure, it's probably good practice to wrap the pop in an if (count($array)) but that should be suggested in the manual, if there's no error returned for trying something that should fail and obviously isn't expected to return a meaningful result.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="118270""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#118270" class="date">06-Nov-2015 04:02</a>

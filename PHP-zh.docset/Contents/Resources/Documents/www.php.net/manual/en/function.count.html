@@ -34,8 +34,8 @@
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
    <span class="methodname"><strong>count</strong></span>
-    ( <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$array_or_countable</code></span>
-   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = COUNT_NORMAL</span></span>
+    ( <span class="methodparam"><span class="type"><span class="type"><a href="class.countable.html" class="type Countable">Countable</a></span>|<span class="type">array</span></span> <code class="parameter">$value</code></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = <strong><code>COUNT_NORMAL</code></strong></span></span>
    ) : <span class="type">int</span></div>
 
   <p class="para rdfs-comment">
@@ -53,14 +53,14 @@
   </p>
  </div>
 
-    <div class="refsect1 parameters" id="refsect1-function.count-parameters">
+ <div class="refsect1 parameters" id="refsect1-function.count-parameters">
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
 
     
      <dt>
-<code class="parameter">array_or_countable</code></dt>
+<code class="parameter">value</code></dt>
 
      <dd>
 
@@ -95,59 +95,20 @@
   </p>
  </div>
 
+
  <div class="refsect1 returnvalues" id="refsect1-function.count-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回 <code class="parameter">array_or_countable</code> 中的单元数目。
+   返回 <code class="parameter">value</code> 中的单元数目。
    
    如果参数既不是数组，也不是实现
      <code class="literal">Countable</code> 接口的对象，将返回
      <code class="literal">1</code>。
    有个例外：如果
-     <code class="parameter">array_or_countable</code> 是 <strong><code>null</code></strong> 则结果是 <code class="literal">0</code>。
+     <code class="parameter">value</code> 是 <strong><code>null</code></strong> 则结果是 <code class="literal">0</code>。
   </p>
  </div>
 
- <div class="refsect1 examples" id="refsect1-function.count-examples">
-  <h3 class="title">范例</h3>
-  <p class="para">
-   <div class="example" id="example-5309">
-    <p><strong>Example #1 <span class="function"><strong>count()</strong></span> 例子</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;&nbsp;=&nbsp;</span><span style="color: #0000BB">7</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">]&nbsp;&nbsp;=&nbsp;</span><span style="color: #0000BB">9</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">10</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">11</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-    <div class="example-contents"><p>以上例程会输出：</p></div>
-    <div class="example-contents screen">
-<div class="cdata"><pre>
-int(3)
-int(3)
-
-Warning: count(): Parameter must be an array or an object that implements Countable in ... on line 12 // PHP 7.2 起
-int(0)
-
-Warning: count(): Parameter must be an array or an object that implements Countable in ... on line 14 // PHP 7.2 起
-int(1)
-</pre></div>
-    </div>
-   </div>
-  </p>
-  <p class="para">
-   <div class="example" id="example-5310">
-    <p><strong>Example #2 递归 <span class="function"><strong>count()</strong></span> 例子</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$food&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'fruits'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'orange'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'banana'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'apple'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'veggie'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'carrot'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'collard'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'pea'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;recursive&nbsp;count<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$food</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">COUNT_RECURSIVE</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;output&nbsp;8<br /><br />//&nbsp;normal&nbsp;count<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$food</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;output&nbsp;2<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
- </div>
 
  <div class="refsect1 changelog" id="refsect1-function.count-changelog">
   <h3 class="title">更新日志</h3>
@@ -163,9 +124,18 @@ int(1)
 
     <tbody class="tbody">
      <tr>
+      <td>8.0.0</td>
+      <td>
+       当 <code class="parameter">value</code> 参数传入了无效的 countable 类型，
+       <span class="function"><strong>count()</strong></span> 现在会抛出 <a href="class.typeerror.html" class="classname">TypeError</a>。
+      </td>
+     </tr>
+
+     <tr>
       <td>7.2.0</td>
       <td>
-       当无效的 countable 类型传递给 <code class="parameter">array_or_countable</code> 参数时，<span class="function"><strong>count()</strong></span> 会产生警告。
+       当 <code class="parameter">value</code> 参数传入了无效的 countable 类型，
+       <span class="function"><strong>count()</strong></span> 现在会产生警告。
       </td>
      </tr>
 
@@ -173,6 +143,82 @@ int(1)
    
   </table>
 
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.count-examples">
+  <h3 class="title">范例</h3>
+  <p class="para">
+   <div class="example" id="example-4843">
+    <p><strong>Example #1 <span class="function"><strong>count()</strong></span> 例子</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;&nbsp;=&nbsp;</span><span style="color: #0000BB">7</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">]&nbsp;&nbsp;=&nbsp;</span><span style="color: #0000BB">9</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">10</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">11</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+     <div class="cdata"><pre>
+int(3)
+int(3)
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4844">
+    <p><strong>Example #2 <span class="function"><strong>count()</strong></span> 非 Countable|array 的例子 （这是个反例，请勿模仿）</strong></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$b</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;&nbsp;=&nbsp;</span><span style="color: #0000BB">7</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">]&nbsp;&nbsp;=&nbsp;</span><span style="color: #0000BB">9</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">10</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">11</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+int(3)
+int(0)
+int(1)
+</pre></div>
+    </div>
+    <div class="example-contents"><p>Output of the above example in PHP 7.2:</p></div>
+    <div class="example-contents screen">
+     <div class="cdata"><pre>
+int(3)
+
+Warning: count(): Parameter must be an array or an object that implements Countable in ... on line 12
+int(0)
+
+Warning: count(): Parameter must be an array or an object that implements Countable in ... on line 14
+int(1)
+</pre></div>
+    </div>
+    <div class="example-contents"><p>以上例程在 PHP 8 中的输出：</p></div>
+    <div class="example-contents screen">
+     <div class="cdata"><pre>
+int(3)
+
+Fatal error: Uncaught TypeError: count(): Argument #1 ($var) must be of type Countable .. on line 12
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4845">
+    <p><strong>Example #3 递归 <span class="function"><strong>count()</strong></span> 例子</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$food&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'fruits'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'orange'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'banana'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'apple'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'veggie'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'carrot'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'collard'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'pea'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;recursive&nbsp;count<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$food</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">COUNT_RECURSIVE</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;output&nbsp;8<br /><br />//&nbsp;normal&nbsp;count<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$food</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;output&nbsp;2<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
  </div>
 
   
@@ -188,6 +234,7 @@ int(1)
    </ul>
   </p>
  </div>
+
 
 </div><div id="usernotes">
  <div class="head">

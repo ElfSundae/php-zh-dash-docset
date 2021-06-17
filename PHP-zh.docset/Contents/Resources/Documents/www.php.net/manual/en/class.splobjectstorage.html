@@ -29,7 +29,7 @@
  <h1 class="title">The SplObjectStorage class</h1>
  
 
- <div class="partintro"><p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7)</p>
+ <div class="partintro"><p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7, PHP 8)</p>
 
 
   <div class="section" id="splobjectstorage.intro">
@@ -170,7 +170,7 @@
   <div class="section" id="splobjectstorage.examples">
    <h2 class="title">·¶Àý</h2>
    <p class="para">
-    <div class="example" id="example-3908">
+    <div class="example" id="example-3455">
      <p><strong>Example #1 <strong class="classname">SplObjectStorage</strong> as a set</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -191,7 +191,7 @@ bool(false)
 </pre></div>
      </div>
     </div>
-    <div class="example" id="example-3909">
+    <div class="example" id="example-3456">
      <p><strong>Example #2 <strong class="classname">SplObjectStorage</strong> as a map</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -376,7 +376,40 @@ array(3) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123654""></a>
+<div id="allnotes">  <a name="126098""></a>
+  <div class="note">
+   <strong class="user">jan at odvarko dot cz</strong>
+   <a href="#126098" class="date">20-May-2021 06:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you assign an array() to an object in SplObjectStorage and then try to modify its individual elements, you'll probably find it doesn't work.<br />
+Instead, you can use ArrayObject(), which will emulate array behaviour.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$storage </span><span class="keyword">= new </span><span class="default">SplObjectStorage</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$obj1 </span><span class="keyword">= new </span><span class="default">StdClass</span><span class="keyword">();<br />
+</span><span class="default">$obj2 </span><span class="keyword">= new </span><span class="default">StdClass</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$storage</span><span class="keyword">[</span><span class="default">$obj1</span><span class="keyword">] = array();<br />
+</span><span class="default">$storage</span><span class="keyword">[</span><span class="default">$obj2</span><span class="keyword">] = new </span><span class="default">ArrayObject</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$storage</span><span class="keyword">[</span><span class="default">$obj1</span><span class="keyword">][</span><span class="string">'person'</span><span class="keyword">] = </span><span class="string">'Jana'</span><span class="keyword">; </span><span class="comment">// Won't work&nbsp; (PHP Notice:&nbsp; Indirect modification of overloaded element of SplObjectStorage has no effect)<br />
+</span><span class="default">$storage</span><span class="keyword">[</span><span class="default">$obj2</span><span class="keyword">][</span><span class="string">'person'</span><span class="keyword">] = </span><span class="string">'Jana'</span><span class="keyword">; </span><span class="comment">// Works<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$storage</span><span class="keyword">[</span><span class="default">$obj1</span><span class="keyword">][</span><span class="string">'person'</span><span class="keyword">]); </span><span class="comment">// NULL&nbsp; (PHP Notice:&nbsp; Undefined index: person)<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$storage</span><span class="keyword">[</span><span class="default">$obj2</span><span class="keyword">][</span><span class="string">'person'</span><span class="keyword">]); </span><span class="comment">// string(4) "Jana"<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123654""></a>
   <div class="note">
    <strong class="user">rafal at pawlukiewicz dot com</strong>
    <a href="#123654" class="date">04-Mar-2019 10:21</a>

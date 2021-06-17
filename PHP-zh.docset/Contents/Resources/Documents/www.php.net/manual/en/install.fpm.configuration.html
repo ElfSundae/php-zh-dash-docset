@@ -854,7 +854,70 @@ fastcgi_param  PHP_ADMIN_VALUE &quot;open_basedir=/var/www/htdocs&quot;;</pre>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125502""></a>
+<div id="allnotes">  <a name="126023""></a>
+  <div class="note">
+   <strong class="user">rob at librobert dot net</strong>
+   <a href="#126023" class="date">18-Apr-2021 12:11</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Correction for my previous note...<br />
+<br />
+I wrote "The 'index' directive that is used in php-fpm.conf".<br />
+<br />
+But obviously I meant "The 'include' directive"...</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126022""></a>
+  <div class="note">
+   <strong class="user">rob at librobert dot net</strong>
+   <a href="#126022" class="date">18-Apr-2021 11:53</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The 'index' directive that is used in php-fpm.conf is not documented here. However, this directive can also be used in the pool configurations. In the included file, the $pool variable is substituted correctly.<br />
+<br />
+This means that, if you have multiple pools with similar configurations, you can create a file 'default-values.inc' like so:<br />
+<br />
+-----<br />
+listen.allowed_clients = 127.0.0.1<br />
+<br />
+pm = dynamic<br />
+pm.max_children = X<br />
+pm.min_spare_servers = X<br />
+pm.max_spare_servers = X<br />
+<br />
+access.log = /var/log/php-fpm/$pool.access<br />
+access.format = "%R %u [%t] \"%m %r\" %s %d %l"<br />
+slowlog = /var/log/php-fpm/$pool.slow<br />
+<br />
+php_flag[short_open_tag] = off<br />
+-----<br />
+<br />
+And then include that file in each pool configuration like so:<br />
+<br />
+-----<br />
+[vhost1.example.com]<br />
+user = www-vhost1<br />
+group = www-vhost1<br />
+<br />
+listen = 127.0.0.1:9001<br />
+<br />
+include = /usr/local/etc/php-fpm.d/default-values.inc<br />
+-----<br />
+<br />
+This makes things a bit more transparent, and it could potentially save some time if you decide to change settings.<br />
+<br />
+Make sure the name of the included file does not end in '.conf', because all files with that extension are loaded from php-fpm.conf.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125502""></a>
   <div class="note">
    <strong class="user">david dot cancalon at proxeem dot fr</strong>
    <a href="#125502" class="date">09-Nov-2020 04:08</a>

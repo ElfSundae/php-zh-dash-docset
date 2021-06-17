@@ -62,7 +62,7 @@
    </p>
   </p></blockquote>
  <p class="para">
-  <div class="example" id="example-207">
+  <div class="example" id="example-210">
    <p><strong>Example #1 自动加载示例</strong></p>
    <div class="example-contents"><p>
     本例尝试分别从 <var class="filename">MyClass1.php</var>
@@ -78,7 +78,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-208">
+  <div class="example" id="example-211">
    <p><strong>Example #2 另一个例子</strong></p>
    <div class="example-contents"><p>
     本例尝试加载接口 <code class="literal">ITest</code>。
@@ -91,7 +91,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-209">
+  <div class="example" id="example-212">
    <p><strong>Example #3 自动加载在 PHP 5.3.0+ 中的异常处理</strong></p>
    <div class="example-contents"><p>
     本例抛出一个异常并在 try/catch 语句块中演示。
@@ -111,7 +111,7 @@ Unable to load NonLoadableClass.
 </pre></div>
    </div>
   </div>
-  <div class="example" id="example-210">
+  <div class="example" id="example-213">
    <p><strong>Example #4 自动加载在 PHP 5.3.0+ 中的异常处理 - 没有自定义异常机制</strong></p>
    <div class="example-contents"><p>
     本例将一个异常抛给不存在的自定义异常处理函数。
@@ -152,7 +152,29 @@ Fatal error: Class &#039;MissingException&#039; not found in testMissingExceptio
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125862""></a>
+<div id="allnotes">  <a name="126086""></a>
+  <div class="note">
+   <strong class="user">La Hong Hai</strong>
+   <a href="#126086" class="date">19-May-2021 12:12</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I use namespaces that match the files' directory paths (root excluded) so all i have to do with spl_autoload_register is:<br />
+<span class="default">&lt;?php<br />
+spl_autoload_register</span><span class="keyword">(function (</span><span class="default">string $class</span><span class="keyword">): </span><span class="default">void </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; require </span><span class="string">"</span><span class="keyword">{</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'DOCUMENT_ROOT'</span><span class="keyword">]}</span><span class="string">\{</span><span class="default">$class</span><span class="string">}.php"</span><span class="keyword">;<br />
+}<br />
+);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+No matter how complex your directory path is, there's no need for recursion or searching the whole project.<br />
+*You might want to use str_replace() to replace "\" to "/" if you're using Linux (untested)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125862""></a>
   <div class="note">
    <strong class="user">instatiendaweb at gmail dot com</strong>
    <a href="#125862" class="date">26-Feb-2021 06:19</a>
