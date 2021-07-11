@@ -152,7 +152,7 @@
   <div class="refsect1 examples" id="refsect1-function.array-search-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4815">
+   <div class="example" id="example-4807">
     <p><strong>Example #1 <span class="function"><strong>array_search()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -181,7 +181,255 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125766""></a>
+<div id="allnotes">  <a name="126183""></a>
+  <div class="note">
+   <strong class="user">vikingjs+phpnet at mac dot com</strong>
+   <a href="#126183" class="date">22-Jun-2021 12:05</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+An implementation of a search function that uses a callback, to allow searching for objects of arbitrary complexity:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">array_usearch</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, </span><span class="default">Closure $test</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$found </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">$found </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">&amp;&amp; </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">()) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$test</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">())) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$found </span><span class="keyword">= </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$found</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The above takes a closure, rather than a callable, but that could easily be altered. Like array_search, this will return false if no match is found. I made the closure the last parameter in case php one day implements trailing-closure syntax.<br />
+<br />
+For instance, if you have an array of objects with an id property, you could search for the object with a specific id like this:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Thing&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$id</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$name</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">, </span><span class="default">$category</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">= </span><span class="default">$id</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">name </span><span class="keyword">= </span><span class="default">$name</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$listOfThings </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="string">'one'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="string">'two'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">3</span><span class="keyword">, </span><span class="string">'three'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">4</span><span class="keyword">, </span><span class="string">'four'</span><span class="keyword">),<br />
+];<br />
+<br />
+</span><span class="default">$id4Index </span><span class="keyword">= </span><span class="default">array_usearch</span><span class="keyword">(</span><span class="default">$listOfThings</span><span class="keyword">, function(</span><span class="default">$thing</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$thing</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">=== </span><span class="default">4</span><span class="keyword">;<br />
+});<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Since the Closure can capture information, it becomes simple to write a function that takes search criteria as parameters, creates a closure with those criteria, and calls the above. A simple example that does the same search as above would be<br />
+<br />
+<span class="default">&lt;?php<br />
+$idClosure </span><span class="keyword">= function(</span><span class="default">$id</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return function(</span><span class="default">$item</span><span class="keyword">) use (</span><span class="default">$id</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">= </span><span class="default">$id</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$id4Index </span><span class="keyword">= </span><span class="default">array_usearch</span><span class="keyword">(</span><span class="default">$idClosure</span><span class="keyword">(</span><span class="default">4</span><span class="keyword">));<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+It's more complex to set up, but now any search for an id can be written in a single line, making things clean and concise.<br />
+<br />
+For a more complex example, this function takes an array of key/value pairs and returns the key for the first item in the array that has all those properties with the same values.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">firstIndexMatching</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, array </span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">bool $useStrict </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$criteria</span><span class="keyword">) &lt; </span><span class="default">1</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// create a closure that has captured the search criteria<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$testWithCriteria </span><span class="keyword">= function(</span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return function(</span><span class="default">$item</span><span class="keyword">) use (</span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach(</span><span class="default">$criteria </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!isset(</span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">$key</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else if (</span><span class="default">$useStrict </span><span class="keyword">&amp;&amp; </span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">$key </span><span class="keyword">!== </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else if (!</span><span class="default">$useStrict </span><span class="keyword">&amp;&amp; </span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">$key </span><span class="keyword">!= </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; };<br />
+&nbsp;&nbsp;&nbsp; };<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">array_usearch</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$testWithCriteria</span><span class="keyword">(</span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">));<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+If you have a list of people, for instance, you can now simply find the person record with a specific first and last name:<br />
+<br />
+<span class="default">&lt;?php<br />
+$joeSchlabotnikIndex </span><span class="keyword">= </span><span class="default">firstIndexMatching</span><span class="keyword">(</span><span class="default">$people</span><span class="keyword">, [<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'firstName' </span><span class="keyword">=&gt; </span><span class="string">'Joe'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'lastName' </span><span class="keyword">=&gt; </span><span class="string">'Schlabotnik'<br />
+</span><span class="keyword">]);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Obviously firstIndexMatching could be modified to use case-insensitive comparisons or anything else that fits your use-case. They idea is capturing the input data.<br />
+<br />
+The final step is a function that returns the item, rather than its key, or null if no match found:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">firstItemMatching</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, array </span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">bool $useStrict </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// fun fact: $array[false] is equivalent to $array[0]<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$index </span><span class="keyword">= </span><span class="default">firstIndexMatching</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$index </span><span class="keyword">!== </span><span class="default">false </span><span class="keyword">? </span><span class="default">$array</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">] ?? </span><span class="default">null </span><span class="keyword">: </span><span class="default">null</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126130""></a>
+  <div class="note">
+   <strong class="user">vikingjs+phpnet at mac dot com</strong>
+   <a href="#126130" class="date">01-Jun-2021 08:15</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+An implementation of a search function that uses a callback, to allow searching for objects of arbitrary complexity:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">array_usearch</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, </span><span class="default">Closure $test</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$found </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">$found </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">&amp;&amp; </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">()) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$test</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">())) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$found </span><span class="keyword">= </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$found</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The above takes a closure, rather than a callable, but that could easily be altered. Like array_search, this will return false if no match is found. I made the closure the last parameter in case php one day implements trailing-closure syntax.<br />
+<br />
+For instance, if you have an array of objects with an id property, you could search for the object with a specific id like this:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Thing&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$id</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$name</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">, </span><span class="default">$category</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">= </span><span class="default">$id</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">name </span><span class="keyword">= </span><span class="default">$name</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$listOfThings </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="string">'one'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="string">'two'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">3</span><span class="keyword">, </span><span class="string">'three'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; new </span><span class="default">Thing</span><span class="keyword">(</span><span class="default">4</span><span class="keyword">, </span><span class="string">'four'</span><span class="keyword">),<br />
+];<br />
+<br />
+</span><span class="default">$id4Index </span><span class="keyword">= </span><span class="default">array_usearch</span><span class="keyword">(</span><span class="default">$listOfThings</span><span class="keyword">, function(</span><span class="default">$thing</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$thing</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">=== </span><span class="default">4</span><span class="keyword">;<br />
+});<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Since the Closure can capture information, it becomes simple to write a function that takes search criteria as parameters, creates a closure with those criteria, and calls the above. A simple example that does the same search as above would be<br />
+<br />
+<span class="default">&lt;?php<br />
+$idClosure </span><span class="keyword">= function(</span><span class="default">$id</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return function(</span><span class="default">$item</span><span class="keyword">) use (</span><span class="default">$id</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">= </span><span class="default">$id</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$id4Index </span><span class="keyword">= </span><span class="default">array_usearch</span><span class="keyword">(</span><span class="default">$idClosure</span><span class="keyword">(</span><span class="default">4</span><span class="keyword">));<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+It's more complex to set up, but now any search for an id can be written in a single line, making things clean and concise.<br />
+<br />
+For a more complex example, this function takes an array of key/value pairs and returns the key for the first item in the array that has all those properties with the same values.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">firstIndexMatching</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, array </span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">bool $useStrict </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$criteria</span><span class="keyword">) &lt; </span><span class="default">1</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// create a closure that has captured the search criteria<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$testWithCriteria </span><span class="keyword">= function(</span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return function(</span><span class="default">$item</span><span class="keyword">) use (</span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach(</span><span class="default">$criteria </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!isset(</span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">$key</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else if (</span><span class="default">$useStrict </span><span class="keyword">&amp;&amp; </span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">$key </span><span class="keyword">!== </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else if (!</span><span class="default">$useStrict </span><span class="keyword">&amp;&amp; </span><span class="default">$item</span><span class="keyword">-&gt;</span><span class="default">$key </span><span class="keyword">!= </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; };<br />
+&nbsp;&nbsp;&nbsp; };<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">array_usearch</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$testWithCriteria</span><span class="keyword">(</span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">));<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+If you have a list of people, for instance, you can now simply find the person record with a specific first and last name:<br />
+<br />
+<span class="default">&lt;?php<br />
+$joeSchlabotnikIndex </span><span class="keyword">= </span><span class="default">firstIndexMatching</span><span class="keyword">(</span><span class="default">$people</span><span class="keyword">, [<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'firstName' </span><span class="keyword">=&gt; </span><span class="string">'Joe'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'lastName' </span><span class="keyword">=&gt; </span><span class="string">'Schlabotnik'<br />
+</span><span class="keyword">]);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Obviously firstIndexMatching could be modified to use case-insensitive comparisons or anything else that fits your use-case. They idea is capturing the input data.<br />
+<br />
+The final step is a function that returns the item, rather than its key, or null if no match found:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">firstItemMatching</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, array </span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">bool $useStrict </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// fun fact: $array[false] is equivalent to $array[0]<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$index </span><span class="keyword">= </span><span class="default">firstIndexMatching</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$criteria</span><span class="keyword">, </span><span class="default">$useStrict</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$index </span><span class="keyword">!== </span><span class="default">false </span><span class="keyword">? </span><span class="default">$array</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">] ?? </span><span class="default">null </span><span class="keyword">: </span><span class="default">null</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125766""></a>
   <div class="note">
    <strong class="user">trash-11 at mail dot ru</strong>
    <a href="#125766" class="date">03-Feb-2021 12:22</a>

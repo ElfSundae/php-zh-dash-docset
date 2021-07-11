@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Derive a key from a password</title>
+  <title>Derive a key from a password, using Argon2</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,14 +20,14 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.sodium.html">Sodium 函数</a></li>
-    <li>Derive a key from a password</li>
+    <li>Derive a key from a password, using Argon2</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.sodium-crypto-pwhash" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">sodium_crypto_pwhash</h1>
-  <p class="verinfo">(PHP 7 &gt;= 7.2.0, PHP 8)</p><p class="refpurpose"><span class="refname">sodium_crypto_pwhash</span> &mdash; <span class="dc-title">Derive a key from a password</span></p>
+  <p class="verinfo">(PHP 7 &gt;= 7.2.0, PHP 8)</p><p class="refpurpose"><span class="refname">sodium_crypto_pwhash</span> &mdash; <span class="dc-title">Derive a key from a password, using Argon2</span></p>
 
  </div>
 
@@ -45,6 +45,10 @@
 
   <p class="para rdfs-comment">
    This function provides low-level access to libsodium&#039;s crypto_pwhash key derivation function. Unless you have specific reason to use this function, you should use <span class="function"><a href="function.sodium-crypto-pwhash-str.html" class="function">sodium_crypto_pwhash_str()</a></span> or <span class="function"><a href="function.password-hash.html" class="function">password_hash()</a></span> functions instead.
+  </p>
+  <p class="para">
+   A common reason to use this particular function is to derive the seeds for cryptographic keys from a password and salt,
+   and then use these seeds to generate the actual keys needed for some purpose (e.g. <span class="function"><a href="function.sodium-crypto-sign-detached.html" class="function">sodium_crypto_sign_detached()</a></span>).
   </p>
  </div>
 
@@ -84,7 +88,7 @@
     <dd>
 
      <p class="para">
-      <span class="type">string</span> A salt to add to the password before hashing. The salt should be unpredictable, ideally generated from a good random mumber source such as <span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span>, and have a length of at least <strong><code>SODIUM_CRYPTO_PWHASH_SALTBYTES</code></strong> bytes.
+      A salt to add to the password before hashing. The salt should be unpredictable, ideally generated from a good random mumber source such as <span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span>, and have a length of at least <strong><code>SODIUM_CRYPTO_PWHASH_SALTBYTES</code></strong> bytes.
      </p>
     </dd>
 
@@ -140,7 +144,7 @@
  <div class="refsect1 examples" id="refsect1-function.sodium-crypto-pwhash-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="openssl_spki_new.example.basic">
+   <div class="example" id="example-917">
     <p><strong>Example #1 <span class="function"><a href="function.password-hash.html" class="function">password_hash()</a></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">

@@ -48,83 +48,6 @@
   </p>
  </div>
 
- <div class="refsect1 examples" id="refsect1-phardata.buildfromiterator-examples">
-  <h3 class="title">范例</h3>
-   <div class="example" id="example-719">
-    <p><strong>Example #1 A <span class="function"><strong>PharData::buildFromIterator()</strong></span> with SplFileInfo</strong></p>
-  <div class="example-contents"><p>
-   For most tar/zip archives, the archive will reflect an actual directory layout, and
-   the second style is the most useful.  For instance, to create a tar/zip archive
-   containing the files in this sample directory layout:
-  </p></div>
-  <div class="example-contents"><p>
-   <div class="example-contents screen">
-    <div class="examplescode"><pre class="examplescode">/path/to/project/
-                 config/
-                        dist.xml
-                        debug.xml
-                 lib/
-                     file1.php
-                     file2.php
-                 src/
-                     processthing.php
-                 www/
-                     index.php
-                 cli/
-                     index.php</pre>
-</div>
-   </div>
-  </p></div>
-  <div class="example-contents"><p>
-   This code could be used to add these files to the &quot;project.tar&quot; tar archive:
-  </p></div>
-  <div class="example-contents"><p>
-   <div class="example-contents">
-    <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'project.tar'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">buildFromIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">RecursiveIteratorIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">RecursiveDirectoryIterator</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/project'</span><span style="color: #007700">)),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'/path/to/project'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
-  </p></div>
-  <div class="example-contents"><p>
-   The file <code class="literal">project.tar</code> can then be used immediately.  <span class="function"><strong>PharData::buildFromIterator()</strong></span> does not
-   set values such as compression, metadata, and this can be done after creating the
-   tar/zip archive.
-  </p></div>
-  <div class="example-contents"><p>
-   As an interesting note, <span class="function"><strong>PharData::buildFromIterator()</strong></span> can also be used to
-   copy the contents of an existing phar, tar or zip archive, as the PharData object descends
-   from <a href="class.directoryiterator.html" class="classname">DirectoryIterator</a>:
-  </p></div>
-  <div class="example-contents"><p>
-   <div class="example-contents">
-    <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'project.tar'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">buildFromIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">RecursiveIteratorIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/anotherphar.phar'</span><span style="color: #007700">)),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'phar:///path/to/anotherphar.phar/path/to/project'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setStub</span><span style="color: #007700">(</span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDefaultStub</span><span style="color: #007700">(</span><span style="color: #DD0000">'cli/index.php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'www/index.php'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
-  </p></div>
-  </div>
-  <div class="example" id="example-720">
-    <p><strong>Example #2 A <span class="function"><strong>PharData::buildFromIterator()</strong></span> with other iterators</strong></p>
-  <div class="example-contents"><p>
-   The second form of the iterator can be used with any iterator that returns
-   a key =&gt; value mapping, such as an <a href="class.arrayiterator.html" class="classname">ArrayIterator</a>:
-  </p></div>
-  <div class="example-contents"><p>
-   <div class="example-contents">
-    <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'project.tar'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">buildFromIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">ArrayIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'internal/file.php'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'/somefile.php'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'another/file.jpg'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/bigfile.jpg'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'rb'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
-  </p></div>
-  </div>
- </div>
-
 
  <div class="refsect1 parameters" id="refsect1-phardata.buildfromiterator-parameters">
   <h3 class="title">参数</h3>
@@ -186,6 +109,84 @@
  </div>
 
 
+ <div class="refsect1 examples" id="refsect1-phardata.buildfromiterator-examples">
+  <h3 class="title">范例</h3>
+  <div class="example" id="example-703">
+   <p><strong>Example #1 A <span class="function"><strong>PharData::buildFromIterator()</strong></span> with SplFileInfo</strong></p>
+   <div class="example-contents"><p>
+    For most tar/zip archives, the archive will reflect an actual directory layout, and
+    the second style is the most useful.  For instance, to create a tar/zip archive
+    containing the files in this sample directory layout:
+   </p></div>
+   <div class="example-contents"><p>
+    <div class="example-contents screen">
+     <div class="examplescode"><pre class="examplescode">/path/to/project/
+                 config/
+                        dist.xml
+                        debug.xml
+                 lib/
+                     file1.php
+                     file2.php
+                 src/
+                     processthing.php
+                 www/
+                     index.php
+                 cli/
+                     index.php</pre>
+</div>
+    </div>
+   </p></div>
+   <div class="example-contents"><p>
+    This code could be used to add these files to the &quot;project.tar&quot; tar archive:
+   </p></div>
+   <div class="example-contents"><p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'project.tar'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">buildFromIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">RecursiveIteratorIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">RecursiveDirectoryIterator</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/project'</span><span style="color: #007700">)),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'/path/to/project'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p></div>
+   <div class="example-contents"><p>
+    The file <code class="literal">project.tar</code> can then be used immediately.  <span class="function"><strong>PharData::buildFromIterator()</strong></span> does not
+    set values such as compression, metadata, and this can be done after creating the
+    tar/zip archive.
+   </p></div>
+   <div class="example-contents"><p>
+    As an interesting note, <span class="function"><strong>PharData::buildFromIterator()</strong></span> can also be used to
+    copy the contents of an existing phar, tar or zip archive, as the PharData object descends
+    from <a href="class.directoryiterator.html" class="classname">DirectoryIterator</a>:
+   </p></div>
+   <div class="example-contents"><p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'project.tar'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">buildFromIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">RecursiveIteratorIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/anotherphar.phar'</span><span style="color: #007700">)),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'phar:///path/to/anotherphar.phar/path/to/project'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setStub</span><span style="color: #007700">(</span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDefaultStub</span><span style="color: #007700">(</span><span style="color: #DD0000">'cli/index.php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'www/index.php'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p></div>
+  </div>
+  <div class="example" id="example-704">
+   <p><strong>Example #2 A <span class="function"><strong>PharData::buildFromIterator()</strong></span> with other iterators</strong></p>
+   <div class="example-contents"><p>
+    The second form of the iterator can be used with any iterator that returns
+    a key =&gt; value mapping, such as an <a href="class.arrayiterator.html" class="classname">ArrayIterator</a>:
+   </p></div>
+   <div class="example-contents"><p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'project.tar'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">buildFromIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">ArrayIterator</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'internal/file.php'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'/somefile.php'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'another/file.jpg'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/bigfile.jpg'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'rb'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p></div>
+  </div>
+ </div>
+
+ 
  <div class="refsect1 seealso" id="refsect1-phardata.buildfromiterator-seealso">
   <h3 class="title">参见</h3>
   <p class="para">

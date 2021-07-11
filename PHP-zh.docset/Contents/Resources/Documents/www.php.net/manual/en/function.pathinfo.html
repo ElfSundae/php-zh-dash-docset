@@ -135,7 +135,7 @@
  <div class="refsect1 examples" id="refsect1-function.pathinfo-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2125">
+   <div class="example" id="example-2115">
     <p><strong>Example #1 <span class="function"><strong>pathinfo()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -156,7 +156,7 @@ lib.inc
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2126">
+   <div class="example" id="example-2116">
     <p><strong>Example #2 <span class="function"><strong>pathinfo()</strong></span> example showing difference between null and no extension</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -212,7 +212,37 @@ NULL
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126105""></a>
+<div id="allnotes">  <a name="126207""></a>
+  <div class="note">
+   <strong class="user">Luis Villegas</strong>
+   <a href="#126207" class="date">01-Jul-2021 04:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+When you need to get the file extension to upload a file with a &lt;form&gt; POST method, try this way: <br />
+<br />
+// $_FILES['archivo'] receives the &lt;input&gt; file (named 'archivo'), ['name'] gets the file name.<br />
+<br />
+$nombre = $_FILES['archivo']['name'];<br />
+<br />
+//['tmp_name] gets the temporal name of the file (not the real name), which will be used later<br />
+<br />
+$nombre_temporal = $_FILES['archivo']['tmp_name'];<br />
+<br />
+//Here is the magic of pathinfo to get the file extension<br />
+<br />
+$extension = pathinfo($nombre, PATHINFO_EXTENSION);<br />
+$nombre_final = $nombre. ".". $extension;<br />
+// $ruta is where you want to save the file<br />
+<br />
+$ruta = "subidos/".$nombre_final;<br />
+move_uploaded_file($nombre_temporal, $ruta);</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126105""></a>
   <div class="note">
    <strong class="user">info at kgsw dot de</strong>
    <a href="#126105" class="date">25-May-2021 03:27</a>

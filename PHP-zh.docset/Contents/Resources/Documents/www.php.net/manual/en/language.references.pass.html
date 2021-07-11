@@ -80,7 +80,107 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125374""></a>
+<div id="allnotes">  <a name="126194""></a>
+  <div class="note">
+   <strong class="user">tianyiw at vip dot qq dot com</strong>
+   <a href="#126194" class="date">25-Jun-2021 07:51</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I designed a class that can easily pass references.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">#### Problem 1<br />
+</span><span class="keyword">function </span><span class="default">problem</span><span class="keyword">(&amp;</span><span class="default">$value</span><span class="keyword">)<br />
+{<br />
+}<br />
+</span><span class="default">problem</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">); </span><span class="comment">// cannot be passed by reference<br />
+<br />
+#### Problem 2<br />
+</span><span class="keyword">class </span><span class="default">problem2<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; static function </span><span class="default">__callStatic</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, &amp;</span><span class="default">$arguments</span><span class="keyword">) </span><span class="comment">// cannot take arguments by reference <br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+My solution ??<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Reference<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; function </span><span class="default">__construct</span><span class="keyword">(public </span><span class="default">mixed </span><span class="keyword">&amp;</span><span class="default">$data</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; &nbsp; * create <br />
+&nbsp;&nbsp; &nbsp; *<br />
+&nbsp;&nbsp; &nbsp; * @param mixed $data<br />
+&nbsp;&nbsp; &nbsp; * @return self<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">static function &amp;</span><span class="default">create</span><span class="keyword">(</span><span class="default">mixed </span><span class="keyword">&amp;</span><span class="default">$data</span><span class="keyword">): </span><span class="default">self<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$data </span><span class="keyword">instanceof </span><span class="default">self</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$data</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$r </span><span class="keyword">= new </span><span class="default">self</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$r</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; &nbsp; * get value<br />
+&nbsp;&nbsp; &nbsp; *<br />
+&nbsp;&nbsp; &nbsp; * @param mixed $reference<br />
+&nbsp;&nbsp; &nbsp; * @return mixed<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">static function &amp;</span><span class="default">get</span><span class="keyword">(</span><span class="default">mixed </span><span class="keyword">&amp;</span><span class="default">$reference</span><span class="keyword">): </span><span class="default">mixed<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$reference </span><span class="keyword">instanceof </span><span class="default">self</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$reference</span><span class="keyword">-&gt;</span><span class="default">data</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$reference</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="comment">#### Problem solving 1 ####<br />
+<br />
+</span><span class="keyword">function </span><span class="default">test</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= &amp;</span><span class="default">Reference</span><span class="keyword">::</span><span class="default">get</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">); </span><span class="comment">// values OR reference<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="string">"test-</span><span class="default">$value</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$value</span><span class="keyword">;<br />
+}<br />
+<br />
+echo </span><span class="default">test</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment">// test-1<br />
+<br />
+</span><span class="default">$val </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">;<br />
+echo </span><span class="default">test</span><span class="keyword">(</span><span class="default">Reference</span><span class="keyword">::</span><span class="default">create</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">)), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment">// test-2<br />
+</span><span class="keyword">echo </span><span class="default">$val</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment">// test-2<br />
+<br />
+#### Problem solving 2 ####<br />
+</span><span class="keyword">class </span><span class="default">TestCall<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; static function </span><span class="default">__callStatic</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$arguments</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= &amp;</span><span class="default">Reference</span><span class="keyword">::</span><span class="default">get</span><span class="keyword">(</span><span class="default">$arguments</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="string">"</span><span class="default">$name</span><span class="string">-</span><span class="default">$value</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+echo </span><span class="default">TestCall</span><span class="keyword">::</span><span class="default">test</span><span class="keyword">(</span><span class="default">3</span><span class="keyword">), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment">// test-3<br />
+<br />
+</span><span class="default">$val </span><span class="keyword">= </span><span class="default">4</span><span class="keyword">;<br />
+echo </span><span class="default">TestCall</span><span class="keyword">::</span><span class="default">test</span><span class="keyword">(</span><span class="default">Reference</span><span class="keyword">::</span><span class="default">create</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">)), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment">// test-4<br />
+</span><span class="keyword">echo </span><span class="default">$val</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment">// test-4</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125374""></a>
   <div class="note">
    <strong class="user">yiangforwork at gmail dot com</strong>
    <a href="#125374" class="date">17-Sep-2020 01:35</a>

@@ -70,7 +70,7 @@
      首先，一个使用 <code class="literal">global</code> 的例子：
     </p>
     <p class="para">
-     <div class="example" id="example-94">
+     <div class="example" id="example-74">
       <p><strong>Example #1 使用 global</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -94,7 +94,7 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-95">
+     <div class="example" id="example-75">
       <p><strong>Example #2 使用 <var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var> 替代 global</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -113,7 +113,7 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-96">
+     <div class="example" id="example-76">
       <p><strong>Example #3 演示超全局变量和作用域的例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -135,7 +135,7 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-97">
+     <div class="example" id="example-77">
       <p><strong>Example #4 演示需要静态变量的例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -157,7 +157,7 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-98">
+     <div class="example" id="example-78">
       <p><strong>Example #5 使用静态变量的例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -180,7 +180,7 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-99">
+     <div class="example" id="example-79">
       <p><strong>Example #6 静态变量与递归函数</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -199,7 +199,7 @@
      </p>
 
      <p class="para">
-      <div class="example" id="example-100">
+      <div class="example" id="example-80">
        <p><strong>Example #7 声明静态变量</strong></p>
        <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -286,7 +286,45 @@ Static object: object(stdClass)#3 (1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125888""></a>
+<div id="allnotes">  <a name="126139""></a>
+  <div class="note">
+   <strong class="user">2505036090 at qq dot com</strong>
+   <a href="#126139" class="date">05-Jun-2021 01:59</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+About assignment of object:<br />
+```php<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">aaa</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; global </span><span class="default">$obj</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$cl </span><span class="keyword">= new </span><span class="default">stdclass</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$obj </span><span class="keyword">= &amp;</span><span class="default">$cl</span><span class="keyword">; </span><span class="comment">//&nbsp; assign By Ref<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">name </span><span class="keyword">= </span><span class="string">'jack'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$obj </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">; </span><span class="comment">// the change of $obj leads to the change of $cl<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$cl</span><span class="keyword">); </span><span class="comment">// output: NULL<br />
+</span><span class="keyword">}<br />
+</span><span class="default">aaa</span><span class="keyword">();<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$obj</span><span class="keyword">); </span><span class="comment">// output: NULL<br />
+<br />
+</span><span class="keyword">function </span><span class="default">bbb</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; global </span><span class="default">$obj</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$cl </span><span class="keyword">= new </span><span class="default">stdclass</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$obj </span><span class="keyword">= </span><span class="default">$cl</span><span class="keyword">; </span><span class="comment">// general assignment of object<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">name </span><span class="keyword">= </span><span class="string">'jack'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$obj </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">; </span><span class="comment">// the value of $obj changes to NULL, but the value of $cl&nbsp; is still original; <br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$cl</span><span class="keyword">); </span><span class="comment">//output:&nbsp; object(stdClass)#2 (1) { ["name"]=&gt; string(4) "jack" }<br />
+</span><span class="keyword">}<br />
+</span><span class="default">bbb</span><span class="keyword">();<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$obj</span><span class="keyword">); </span><span class="comment">// output: NULL<br />
+</span><span class="default">?&gt;<br />
+</span>```</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125888""></a>
   <div class="note">
    <strong class="user">atesin () 6m4i1 ! c0m</strong>
    <a href="#125888" class="date">08-Mar-2021 03:07</a>

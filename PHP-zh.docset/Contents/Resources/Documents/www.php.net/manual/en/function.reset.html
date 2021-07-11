@@ -79,7 +79,7 @@
  <div class="refsect1 examples" id="refsect1-function.reset-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4869">
+   <div class="example" id="example-4861">
     <p><strong>Example #1 <span class="function"><strong>reset()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -121,7 +121,38 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="119806""></a>
+<div id="allnotes">  <a name="126158""></a>
+  <div class="note">
+   <strong class="user">turabgarip at gmail dot com</strong>
+   <a href="#126158" class="date">09-Jun-2021 02:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Since reset() returns the first "value" of the array beside resetting its internal pointer; it will return different results when it is combined with key() or used separately. Like;<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$products </span><span class="keyword">= array(<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'biscuits' </span><span class="keyword">=&gt; array(</span><span class="string">'biscuit1' </span><span class="keyword">=&gt; </span><span class="string">'cobis'</span><span class="keyword">, </span><span class="string">'biscuit2' </span><span class="keyword">=&gt; </span><span class="string">'probis'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'chocolates' </span><span class="keyword">=&gt; array(</span><span class="string">'coco1' </span><span class="keyword">=&gt; </span><span class="string">'cococ'</span><span class="keyword">, </span><span class="string">'coco2' </span><span class="keyword">=&gt; </span><span class="string">'prococ'</span><span class="keyword">),<br />
+&nbsp;);<br />
+<br />
+echo </span><span class="default">key</span><span class="keyword">(</span><span class="default">reset</span><span class="keyword">(</span><span class="default">$products</span><span class="keyword">[</span><span class="string">'biscuits'</span><span class="keyword">])); </span><span class="comment">// Fatal error<br />
+<br />
+</span><span class="default">reset</span><span class="keyword">(</span><span class="default">$products</span><span class="keyword">[</span><span class="string">'biscuits'</span><span class="keyword">]);<br />
+echo </span><span class="default">key</span><span class="keyword">(</span><span class="default">$products</span><span class="keyword">[</span><span class="string">'biscuits'</span><span class="keyword">]); </span><span class="comment">// Will print 'biscuit1'<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+This is perfectly normal because in the first method, reset() returned the first "value" of the 'biscuits' element which is to be "cbosi". So key(string) will cause a fatal error. While in the second method you just reset the array and didn't use a returning value; instead you reset the pointer and than extracted the first key of an array.<br />
+<br />
+If your array has more dimensions, it won't probably cause a fatal error but you will get different results when you combine reset() and key() or use them consecutively.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="119806""></a>
   <div class="note">
    <strong class="user">Bartek Ferek</strong>
    <a href="#119806" class="date">30-Aug-2016 11:16</a>

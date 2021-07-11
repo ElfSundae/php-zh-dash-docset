@@ -44,10 +44,10 @@
 </code></div>
    </div>
 
-   <p class="para">以上例程在 PHP 5.5 中的输出：</p>
+   <p class="para">以上例程的输出类似于：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
-Uncaught Error: Too few arguments to function test(), 0 passed in %s on line %d and exactly 1 expected in %s:%d
+Fatal error: Uncaught ArgumentCountError: Too few arguments to function test(), 0 passed in %s on line %d and exactly 1 expected in %s:%d
 </pre></div>
    </div>
   </div>
@@ -114,7 +114,7 @@ Uncaught Error: Too few arguments to function test(), 0 passed in %s on line %d 
   <div class="informalexample">
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">(function&nbsp;()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'func_num_args'</span><span style="color: #007700">();<br />})();</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">(function&nbsp;()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$func&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'func_num_args'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$func</span><span style="color: #007700">();<br />})();</span>
 </span>
 </code></div>
    </div>
@@ -180,7 +180,7 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
    <span class="function"><a href="function.rand.html" class="function">rand()</a></span> and <span class="function"><a href="function.srand.html" class="function">srand()</a></span> have now been made
    aliases to <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> and <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span>,
    respectively. This means that the output for the following functions have
-   changes: <span class="function"><a href="function.rand.html" class="function">rand()</a></span>, <span class="function"><a href="function.shuffle.html" class="function">shuffle()</a></span>,
+   changed: <span class="function"><a href="function.rand.html" class="function">rand()</a></span>, <span class="function"><a href="function.shuffle.html" class="function">shuffle()</a></span>,
    <span class="function"><a href="function.str-shuffle.html" class="function">str_shuffle()</a></span>, and <span class="function"><a href="function.array-rand.html" class="function">array_rand()</a></span>.
   </p>
  </div>
@@ -213,7 +213,7 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
   <h3 class="title">在不完整的对象上不再调用析构方法</h3>
 
   <p class="para">
-   析构方法在一个不完整的对象（例如在构造方法中抛出一个异常）上将不再会被调用。
+   对于在执行构造方法时抛出异常的对象，现在析构方法绝不会被调用。在先前的版本中，这个行为取决于对象是否在构造方法以外的地方呗引用（例如一个错误堆栈回溯）
   </p>
  </div>
 
@@ -223,14 +223,17 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
   </h3>
 
   <p class="para">
-   <span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span> 现在在调用一个以引用作为参数的函数时将始终失败。
+   <span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span> 现在在调用一个以引用作为参数的函数时将始终产生一个警告。先前这取决于这个调用行为是否完全符合条件。
+  </p>
+  <p class="para">
+   此外， <span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span> 和
+   <span class="function"><a href="function.call-user-func-array.html" class="function">call_user_func_array()</a></span> 在这种情况下将不再中断函数调用。现在会出现一个包含&quot;expected reference&quot;的警告信息，但函数调用将正常进行。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.empty-string-index-operator">
   <h3 class="title">
    字符串不再支持空索引操作符
-   The empty index operator is not supported for strings anymore
   </h3>
 
   <p class="para">
@@ -269,7 +272,7 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
    </li>
   </ul>
  </div>
- 
+
  <div class="sect2" id="migration71.incompatible.array-order">
   <h3 class="title">
    Array ordering when elements are automatically created during by reference
@@ -342,7 +345,7 @@ array(2) {
   <p class="para">
    The <code class="literal">allowed_classes</code> element of the $options parameter of
    <span class="function"><a href="function.unserialize.html" class="function">unserialize()</a></span> is now strictly typed, i.e. if anything
-   other than an <span class="type">array</span> or a <span class="type">boolean</span> is given,
+   other than an <span class="type">array</span> or a <span class="type">bool</span> is given,
    unserialize() returns <strong><code>false</code></strong> and issues an <strong><code>E_WARNING</code></strong>.
   </p>
  </div>
@@ -518,6 +521,14 @@ array(2) {
   </p>
  </div>
 
+ <div class="sect2" id="migration71.incompatible.long2ip">
+  <h3 class="title">long2ip() parameter type change</h3>
+  <p class="para">
+   <span class="function"><a href="function.long2ip.html" class="function">long2ip()</a></span> now expects an <span class="type">int</span> instead of a
+   <span class="type">string</span>.
+  </p>
+ </div>
+
  <div class="sect2" id="migration71.incompatible.json">
   <h3 class="title">JSON encoding and decoding</h3>
   <p class="para">
@@ -560,9 +571,9 @@ object(stdClass)#1 (1) {
    parameter semantics
   </h3>
   <p class="para">
-   The third paramter to the <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> and
+   The third parameter to the <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> and
    <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span> functions (<code class="parameter">regs</code>) will now be
-   set to an empty array if nothing was matched. Formely, the parameter would
+   set to an empty array if nothing was matched. Formerly, the parameter would
    not have been modified.
   </p>
  </div>
@@ -573,6 +584,17 @@ object(stdClass)#1 (1) {
    The sslv2 stream has now been dropped in OpenSSL.
   </p>
  </div>
+
+ <div class="sect2" id="migration71.incompatible.typed-returns-compile-time">
+  <h3 class="title">Forbid &quot;return;&quot; for typed returns already at compile-time</h3>
+  <p class="para">
+   Return statements without argument in functions which declare a return type
+   now trigger <strong><code>E_COMPILE_ERROR</code></strong> (unless the return type is
+   declared as <span class="type"><span class="type void">void</span></span>), even if the return statement would never be
+   reached.
+  </p>
+ </div>
+
 </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>

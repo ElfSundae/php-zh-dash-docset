@@ -136,7 +136,7 @@
  <div class="refsect1 examples" id="refsect1-function.parse-str-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4679">
+   <div class="example" id="example-4670">
     <p><strong>Example #1 <span class="function"><strong>parse_str()</strong></span> 的使用</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -150,7 +150,7 @@
   <p class="para">
    由于 PHP 的变量名不能带「点」和「空格」，所以它们会被转化成下划线。
    用本函数带 <code class="parameter">result</code> 参数，也会应用同样规则到数组的键名。
-   <div class="example" id="example-4680">
+   <div class="example" id="example-4671">
     <p><strong>Example #2 <span class="function"><strong>parse_str()</strong></span> 名称改写</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -208,7 +208,40 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122294""></a>
+<div id="allnotes">  <a name="126160""></a>
+  <div class="note">
+   <strong class="user">kawewong at gmail dot com</strong>
+   <a href="#126160" class="date">11-Jun-2021 09:11</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Warning: `parse_str()` can cause "Input variables exceeded 1000" error (1000 is default php.ini setting for `max_input_vars`).<br />
+<br />
+Test code.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$inputString </span><span class="keyword">= </span><span class="string">'first=firstvalue'</span><span class="keyword">;<br />
+<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;= </span><span class="default">1100</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$inputString </span><span class="keyword">.= </span><span class="string">'&amp;arrLoopNumber[]=' </span><span class="keyword">. </span><span class="default">$i</span><span class="keyword">;<br />
+}<br />
+unset(</span><span class="default">$i</span><span class="keyword">);<br />
+<br />
+echo </span><span class="string">'input string: &lt;code&gt;' </span><span class="keyword">. </span><span class="default">$inputString </span><span class="keyword">. </span><span class="string">'&lt;/code&gt;&lt;br&gt;' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+echo </span><span class="string">'&lt;h5&gt;doing &lt;code&gt;parse_str()&lt;/code&gt;&lt;/h5&gt;' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+<br />
+</span><span class="default">$output </span><span class="keyword">= [];<br />
+</span><span class="default">parse_str</span><span class="keyword">(</span><span class="default">$inputString</span><span class="keyword">, </span><span class="default">$output</span><span class="keyword">);<br />
+</span><span class="comment">// errors!!<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122294""></a>
   <div class="note">
    <strong class="user">twiddly</strong>
    <a href="#122294" class="date">21-Jan-2018 10:54</a>
