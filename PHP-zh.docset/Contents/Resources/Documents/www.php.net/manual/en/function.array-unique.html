@@ -159,7 +159,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-unique-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4822">
+   <div class="example" id="example-4823">
     <p><strong>Example #1 <span class="function"><strong>array_unique()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -182,7 +182,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4823">
+   <div class="example" id="example-4824">
     <p><strong>Example #2 <span class="function"><strong>array_unique()</strong></span> 和类型</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -228,7 +228,34 @@ array(2) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125828""></a>
+<div id="allnotes">  <a name="126221""></a>
+  <div class="note">
+   <strong class="user">thejimy007 at gmail dot com</strong>
+   <a href="#126221" class="date">06-Jul-2021 02:12</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you're looking for the fastest way to remove duplicate words in a string, because you may do so in the millions (because it doesn't matter if you do only some thousands) and use this code:<br />
+<br />
+$result = implode(" ", array_unique( explode(" ", $string) ));<br />
+<br />
+Then there is currently (2021) with the most recent PHP 7/8 versions only one faster alternative:<br />
+<br />
+$result = preg_replace("/\b(\w+)\s+\\1\b/i", "$1", $string); <br />
+<br />
+will remove all consecutive duplicate words and it's the fastest of all, taking only 30-40% of the time.<br />
+<br />
+$result = preg_replace("/\b(\w+)\s+.*\\1\b/i", "$1", $string);<br />
+<br />
+will remove all duplicate words anywhere in the string, requiring about 80%-85% of the time. <br />
+<br />
+Of course, all speeds may vary depending on the length of your strings and their content. Please test for your case.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125828""></a>
   <div class="note">
    <strong class="user">contact at evoweb dot fr</strong>
    <a href="#125828" class="date">16-Feb-2021 08:32</a>

@@ -28,7 +28,7 @@
  <div class="refnamediv">
   <h1 class="refname">mysqli_stmt::get_result</h1>
   <h1 class="refname">mysqli_stmt_get_result</h1>
-  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7)</p><p class="refpurpose"><span class="refname">mysqli_stmt::get_result</span> -- <span class="refname">mysqli_stmt_get_result</span> &mdash; <span class="dc-title">Gets a result set from a prepared statement</span></p>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli_stmt::get_result</span> -- <span class="refname">mysqli_stmt_get_result</span> &mdash; <span class="dc-title">Gets a result set from a prepared statement</span></p>
 
  </div>
 
@@ -90,7 +90,7 @@ stmt</code></dt>
 
  <div class="refsect1 examples" id="refsect1-mysqli-stmt.get-result-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1443">
+  <div class="example" id="example-1444">
    <p><strong>Example #1 面向对象风格</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -100,7 +100,7 @@ stmt</code></dt>
    </div>
 
   </div>
-  <div class="example" id="example-1444">
+  <div class="example" id="example-1445">
    <p><strong>Example #2 过程化风格</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -220,81 +220,6 @@ Heres an example of using my get_result() to login users<br />
 &nbsp;&nbsp;&nbsp; }<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="123126""></a>
-  <div class="note">
-   <strong class="user">barkeldiho at gmail dot com</strong>
-   <a href="#123126" class="date">12-Sep-2018 12:03</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The description of get_result() indicates that it will return a resultset on success of a SELECT statement or false (boolean) in case of any other query. <br />
-<br />
-This is not true. In fact, there are cases in which get_result() will return true (boolean) e.g. when a DELETE command has been successfully send to the database. I can reproduce this case with the following code:<br />
-<br />
-DELETE command send from garbage collector in a custom sessionhandler:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">public function </span><span class="default">_gc</span><span class="keyword">(</span><span class="default">$life</span><span class="keyword">) {<br />
-&nbsp;&nbsp; </span><span class="default">$sessionlife </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"-"</span><span class="keyword">.</span><span class="default">SESSION_TIMEOUT</span><span class="keyword">.</span><span class="string">"minutes"</span><span class="keyword">);<br />
-&nbsp;&nbsp; </span><span class="default">$dummy </span><span class="keyword">= </span><span class="string">"DELETE FROM sessions WHERE lastupdated&lt; ?"</span><span class="keyword">;<br />
-&nbsp;&nbsp; </span><span class="default">$valueArray </span><span class="keyword">= array();<br />
-&nbsp;&nbsp; </span><span class="default">$valueArray</span><span class="keyword">[] = </span><span class="default">$sessionlife</span><span class="keyword">;<br />
-&nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">DB</span><span class="keyword">-&gt;</span><span class="default">prepQuery</span><span class="keyword">(</span><span class="default">$dummy</span><span class="keyword">,</span><span class="default">$valueArray</span><span class="keyword">);<br />
-&nbsp;&nbsp; return </span><span class="default">$result</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Part of the prepQuery function to send prepared statements to the database:<br />
-<br />
-<span class="default">&lt;?php<br />
-$sqlquery</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />
-</span><span class="default">$result </span><span class="keyword">= </span><span class="default">$sqlquery</span><span class="keyword">-&gt;</span><span class="default">get_result</span><span class="keyword">(); <br />
-</span><span class="default">$sqlqueryError </span><span class="keyword">= </span><span class="default">$sqlquery</span><span class="keyword">-&gt;</span><span class="default">errno</span><span class="keyword">; <br />
-</span><span class="default">$sqlqueryAffRows </span><span class="keyword">= </span><span class="default">$sqlquery</span><span class="keyword">-&gt;</span><span class="default">affected_rows</span><span class="keyword">;<br />
-</span><span class="default">$sqlquery</span><span class="keyword">-&gt;</span><span class="default">close</span><span class="keyword">();<br />
-<br />
-</span><span class="comment">//Catch non-SELECT statements, false cases<br />
-</span><span class="keyword">if(</span><span class="default">$result </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br />
-&nbsp;&nbsp; if(</span><span class="default">$sqlqueryError </span><span class="keyword">== </span><span class="default">false</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if(</span><span class="default">$sqlqueryAffRows </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
-&nbsp;&nbsp; }<br />
-&nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
-&nbsp;&nbsp; }<br />
-}<br />
-return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">makeArrayResult</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-that should have catched all the false (boolean) cases, and the makeArrayResult function, that only works with objects:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">private function </span><span class="default">makeArrayResult</span><span class="keyword">(</span><span class="default">$resultobj</span><span class="keyword">) {<br />
-&nbsp;&nbsp; if(</span><span class="default">$resultobj</span><span class="keyword">-&gt;</span><span class="default">num_rows </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) { <br />
-&nbsp;&nbsp; &nbsp;&nbsp; return array();<br />
-&nbsp;&nbsp; }<br />
-&nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$array </span><span class="keyword">= array();<br />
-&nbsp;&nbsp; &nbsp;&nbsp; while(</span><span class="default">$line </span><span class="keyword">= </span><span class="default">$resultobj</span><span class="keyword">-&gt;</span><span class="default">fetch_array</span><span class="keyword">(</span><span class="default">MYSQLI_ASSOC</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">array_push</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">,</span><span class="default">$line</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">$array</span><span class="keyword">;<br />
-&nbsp;&nbsp; }<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-but which was giving me the following Error Notice:<br />
-<br />
-PHP Notice -- Trying to get property of non-object<br />
-<br />
-Hence the case true (boolean) needs to be considered and the description should get updated.</span>
 </code>
     </div>
    </div>

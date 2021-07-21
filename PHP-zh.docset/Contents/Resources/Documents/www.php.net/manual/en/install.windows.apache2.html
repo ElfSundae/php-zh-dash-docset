@@ -63,8 +63,10 @@ Windows 环境下的 Apache 配置文件中添加路径值时，所有的反斜线，如
     <p><strong>Example #1 PHP 在 Apache 2.x 中作为 handler</strong></p>
     <div class="example-contents">
 <div class="apache-confcode"><pre class="apache-confcode">#
-LoadModule php8_module &quot;c:/php/php8apache2_4.dll&quot;
-AddHandler application/x-httpd-php .php
+LoadModule php_module &quot;c:/php/php8apache2_4.dll&quot;
+&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
 # 配置 php.ini 的路径
 PHPIniDir &quot;C:/php&quot;</pre>
 </div>
@@ -80,23 +82,8 @@ PHPIniDir &quot;C:/php&quot;</pre>
     <var class="filename">php8apache2_4.dll</var>，并且该文件确实位于所指定的位置。
    </span>
   </p></blockquote>
-  <p class="para">
-   以上配置将使 PHP 处理任何具有 .php 后缀的文件，即使该文件还有其它的文件后缀。例如一个名为
-   <var class="filename">example.php.txt</var> 的文件将被作为 PHP 文件运行。要确保只有以
-   <var class="filename">.php</var> <em class="emphasis">结尾</em>的文件才被执行，则用以下配置替换上面的：
-  </p>
-
-  <div class="example" id="example-12">
-   <div class="example-contents">
-<div class="apache-confcode"><pre class="apache-confcode">&lt;FilesMatch \.php$&gt;
-      SetHandler application/x-httpd-php
- &lt;/FilesMatch&gt;</pre>
-</div>
-   </div>
-
-  </div>
  </div>
- 
+
  <div class="sect2" id="install.windows.apache2.cgi">
   <h3 class="title">以 CGI 方式运行 PHP</h3>
   <p class="para">
@@ -109,7 +96,7 @@ PHPIniDir &quot;C:/php&quot;</pre>
   </p>
   <p class="para">
    然后需要给 PHP 文件中添加 <code class="literal">#!</code> 的一行来指明 PHP 可执行文件的位置：
-   <div class="example" id="example-13">
+   <div class="example" id="example-12">
     <p><strong>Example #2 Apache 2.x 下 CGI 方式的 PHP</strong></p>
     <div class="example-contents">
 <div class="cdata"><pre>
@@ -139,7 +126,7 @@ PHPIniDir &quot;C:/php&quot;</pre>
   <p class="para">
    按以下方法配置 web 服务器，注意用自己系统上的路径替换其中相应的内容：
    
-   <div class="example" id="example-14">
+   <div class="example" id="example-13">
     <p><strong>Example #3 配置 Apache 以 FastCGI 方式运行 PHP</strong></p>
     <div class="example-contents">
 <div class="cdata"><pre>
@@ -148,7 +135,9 @@ LoadModule fcgid_module modules/mod_fcgid.so
 # Where is your php.ini file?
 FcgidInitialEnv PHPRC        &quot;c:/php&quot; 
 
-AddHandler fcgid-script .php  
+&lt;FilesMatch \.php$&gt;
+    SetHandler fcgid-script
+&lt;/FilesMatch&gt;
 FcgidWrapper &quot;c:/php/php-cgi.exe&quot; .php  
 </pre></div>
    </div>
