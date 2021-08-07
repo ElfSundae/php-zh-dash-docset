@@ -251,7 +251,116 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124246""></a>
+<div id="allnotes">  <a name="126296""></a>
+  <div class="note">
+   <strong class="user">TheNorthMemory</strong>
+   <a href="#126296" class="date">31-Jul-2021 07:52</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I saw that a doc bug(#80236) were there mentioned that $tag usage. Here is an examples, Hopes those may help someone.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">/**<br />
+* Encrypts given data with given key, iv and aad, returns a base64 encoded string.<br />
+*<br />
+* @param string $plaintext - Text to encode.<br />
+* @param string $key - The secret key, 32 bytes string.<br />
+* @param string $iv - The initialization vector, 16 bytes string.<br />
+* @param string $aad - The additional authenticated data, maybe empty string.<br />
+*<br />
+* @return string - The base64-encoded ciphertext.<br />
+*/<br />
+</span><span class="keyword">function </span><span class="default">encrypt</span><span class="keyword">(</span><span class="default">string $plaintext</span><span class="keyword">, </span><span class="default">string $key</span><span class="keyword">, </span><span class="default">string $iv </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">, </span><span class="default">string $aad </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">): </span><span class="default">string<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$ciphertext </span><span class="keyword">= </span><span class="default">openssl_encrypt</span><span class="keyword">(</span><span class="default">$plaintext</span><span class="keyword">, </span><span class="string">'aes-256-gcm'</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">OPENSSL_RAW_DATA</span><span class="keyword">, </span><span class="default">$iv</span><span class="keyword">, </span><span class="default">$tag</span><span class="keyword">, </span><span class="default">$aad</span><span class="keyword">, </span><span class="default">16</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">false </span><span class="keyword">=== </span><span class="default">$ciphertext</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">UnexpectedValueException</span><span class="keyword">(</span><span class="string">'Encrypting the input $plaintext failed, please checking your $key and $iv whether or nor correct.'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">$ciphertext </span><span class="keyword">. </span><span class="default">$tag</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="comment">/**<br />
+* Takes a base64 encoded string and decrypts it using a given key, iv and aad.<br />
+*<br />
+* @param string $ciphertext - The base64-encoded ciphertext.<br />
+* @param string $key - The secret key, 32 bytes string.<br />
+* @param string $iv - The initialization vector, 16 bytes string.<br />
+* @param string $aad - The additional authenticated data, maybe empty string.<br />
+*<br />
+* @return string - The utf-8 plaintext.<br />
+*/<br />
+</span><span class="keyword">function </span><span class="default">decrypt</span><span class="keyword">(</span><span class="default">string $ciphertext</span><span class="keyword">, </span><span class="default">string $key</span><span class="keyword">, </span><span class="default">string $iv </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">, </span><span class="default">string $aad </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">): </span><span class="default">string<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$ciphertext </span><span class="keyword">= </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$ciphertext</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$authTag </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$ciphertext</span><span class="keyword">, -</span><span class="default">16</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$tagLength </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$authTag</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/* Manually checking the length of the tag, because the `openssl_decrypt` was mentioned there, it's the caller's responsibility. */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$tagLength </span><span class="keyword">&gt; </span><span class="default">16 </span><span class="keyword">|| (</span><span class="default">$tagLength </span><span class="keyword">&lt; </span><span class="default">12 </span><span class="keyword">&amp;&amp; </span><span class="default">$tagLength </span><span class="keyword">!== </span><span class="default">8 </span><span class="keyword">&amp;&amp; </span><span class="default">$tagLength </span><span class="keyword">!== </span><span class="default">4</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">RuntimeException</span><span class="keyword">(</span><span class="string">'The inputs `$ciphertext` incomplete, the bytes length must be one of 16, 15, 14, 13, 12, 8 or 4.'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$plaintext </span><span class="keyword">= </span><span class="default">openssl_decrypt</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$ciphertext</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, -</span><span class="default">16</span><span class="keyword">), </span><span class="string">'aes-256-gcm'</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">OPENSSL_RAW_DATA</span><span class="keyword">, </span><span class="default">$iv</span><span class="keyword">, </span><span class="default">$authTag</span><span class="keyword">, </span><span class="default">$aad</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">false </span><span class="keyword">=== </span><span class="default">$plaintext</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">UnexpectedValueException</span><span class="keyword">(</span><span class="string">'Decrypting the input $ciphertext failed, please checking your $key and $iv whether or nor correct.'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$plaintext</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">// usage samples<br />
+</span><span class="default">$aesKey </span><span class="keyword">= </span><span class="default">random_bytes</span><span class="keyword">(</span><span class="default">32</span><span class="keyword">);<br />
+</span><span class="default">$aesIv </span><span class="keyword">= </span><span class="default">random_bytes</span><span class="keyword">(</span><span class="default">16</span><span class="keyword">);<br />
+</span><span class="default">$ciphertext </span><span class="keyword">= </span><span class="default">encrypt</span><span class="keyword">(</span><span class="string">'thing'</span><span class="keyword">, </span><span class="default">$aesKey</span><span class="keyword">, </span><span class="default">$aesIv</span><span class="keyword">);<br />
+</span><span class="default">$plaintext </span><span class="keyword">= </span><span class="default">decrypt</span><span class="keyword">(</span><span class="default">$ciphertext</span><span class="keyword">, </span><span class="default">$aesKey</span><span class="keyword">, </span><span class="default">$aesIv</span><span class="keyword">);<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$ciphertext</span><span class="keyword">);<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$plaintext</span><span class="keyword">);</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126267""></a>
+  <div class="note">
+   <strong class="user">Shin</strong>
+   <a href="#126267" class="date">22-Jul-2021 10:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Concise description about "options" parameter!<br />
+<br />
+<a href="http://phpcoderweb.com/manual/function-openssl-encrypt_5698.html" rel="nofollow" target="_blank">http://phpcoderweb.com/manual/function-openssl-encrypt_5698.html</a><br />
+<br />
+&gt; OPENSSL_ZERO_PADDING has a direct impact on the OpenSSL context.&nbsp; EVP_CIPHER_CTX_set_padding() enables or disables padding (enabled by default).&nbsp; So, OPENSSL_ZERO_PADDING disables padding for the context, which means that you will have to manually apply your own padding out to the block size.&nbsp; Without using OPENSSL_ZERO_PADDING, you will automatically get PKCS#7 padding.<br />
+<br />
+&gt; OPENSSL_RAW_DATA does not affect the OpenSSL context but has an impact on the format of the data returned to the caller.&nbsp; When OPENSSL_RAW_DATA is specified, the returned data is returned as-is.&nbsp; When it is not specified, Base64 encoded data is returned to the caller.<br />
+<br />
+Where<br />
+- OPENSSL_RAW_DATA=1<br />
+- OPENSSL_ZERO_PADDING=2<br />
+<br />
+Hence<br />
+options = 0<br />
+-&gt; PKCS#7 padding, Base64 Encode<br />
+options = 1<br />
+-&gt; PKCS#7 padding, No Base64 Encode (RAW DATA)<br />
+options = 2<br />
+-&gt; No padding, Base64 Encode<br />
+options = 3&nbsp; ( 1 OR 2 )<br />
+-&gt; No padding, No Base64 Encode (RAW DATA)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124246""></a>
   <div class="note">
    <strong class="user">handsomedmm at 126 dot com</strong>
    <a href="#124246" class="date">29-Sep-2019 09:15</a>

@@ -185,7 +185,34 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="117211""></a>
+<div id="allnotes">  <a name="126286""></a>
+  <div class="note">
+   <strong class="user">anonymous</strong>
+   <a href="#126286" class="date">29-Jul-2021 12:52</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+sending a few mbs or more results in incomplete transfers, send data in a loop and chunks instead, socket_write reports complete write even though it is only a partial transfer, possibly because of buffer overrun somewhere.<br />
+<br />
+$strlen=strlen($msg);<br />
+$totaltransferred=0;<br />
+<br />
+$blocksize=10000;<br />
+for ($a=0;$a&lt;$strlen;$a+=$blocksize){<br />
+&nbsp;&nbsp;&nbsp; $part=substr($msg,$a,$blocksize);<br />
+&nbsp;&nbsp;&nbsp; $transferred=socket_write($socket,$part,strlen($part));<br />
+&nbsp;&nbsp;&nbsp; $totaltransferred+=$transferred;<br />
+}<br />
+&nbsp;&nbsp;&nbsp; <br />
+if ($totaltransferred&lt;$strlen){<br />
+&nbsp;&nbsp;&nbsp; echo "incomplete transfer";<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="117211""></a>
   <div class="note">
    <strong class="user">php at deguest dot asia</strong>
    <a href="#117211" class="date">03-May-2015 08:58</a>

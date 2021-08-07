@@ -477,7 +477,84 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125097""></a>
+<div id="allnotes">  <a name="126262""></a>
+  <div class="note">
+   <strong class="user">blackout at drunkenlords dot com</strong>
+   <a href="#126262" class="date">22-Jul-2021 06:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here's a great little drop in replacement for FilesystemIterator I wrote to easily Iterate your filesystem, including:<br />
+<br />
+* Sorting - using ArrayIterator<br />
+* Regex Matching - using RegexIterator<br />
+* Limiting - using LimitIterator<br />
+<br />
+It's fully chainable<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// Sort by filemtime<br />
+</span><span class="default">$files </span><span class="keyword">= (new </span><span class="default">AdvancedFilesystemIterator</span><span class="keyword">(</span><span class="string">'/path/to/files'</span><span class="keyword">))-&gt;</span><span class="default">sortByMTime</span><span class="keyword">();<br />
+<br />
+</span><span class="comment">// Sort by filemtime -&gt; Limit output to 10<br />
+</span><span class="default">$files </span><span class="keyword">= (new </span><span class="default">AdvancedFilesystemIterator</span><span class="keyword">(</span><span class="string">'/path/to/files'</span><span class="keyword">))-&gt;</span><span class="default">sortByMTime</span><span class="keyword">()-&gt;</span><span class="default">limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Sort by filemtime -&gt; Only get CSV files -&gt; Limit to 10<br />
+</span><span class="default">$files </span><span class="keyword">= (new </span><span class="default">AdvancedFilesystemIterator</span><span class="keyword">(</span><span class="string">'/path/to/files'</span><span class="keyword">))-&gt;</span><span class="default">sortByMTime</span><span class="keyword">()-&gt;</span><span class="default">match</span><span class="keyword">(</span><span class="string">'/csv$/'</span><span class="keyword">)-&gt;</span><span class="default">limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Sort by filemtime -&gt; Only get CSV files -&gt; Limit to 10 -&gt; and back to sorting by Filename<br />
+</span><span class="default">$files </span><span class="keyword">= (new </span><span class="default">AdvancedFilesystemIterator</span><span class="keyword">(</span><span class="string">'/path/to/files'</span><span class="keyword">))-&gt;</span><span class="default">sortByMTime</span><span class="keyword">()-&gt;</span><span class="default">match</span><span class="keyword">(</span><span class="string">'/csv$/'</span><span class="keyword">)-&gt;</span><span class="default">limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">)-&gt;</span><span class="default">sortByFilename</span><span class="keyword">();<br />
+<br />
+</span><span class="comment">// Sort by any of SplFileInfo's get*() methods i.e. Owner, CTime, Basename, ATime, Perms, Type, isFile, anything<br />
+</span><span class="default">$files </span><span class="keyword">= (new </span><span class="default">AdvancedFilesystemIterator</span><span class="keyword">(</span><span class="string">'/path/to/files'</span><span class="keyword">))-&gt;</span><span class="default">sortByOwner</span><span class="keyword">();<br />
+<br />
+</span><span class="comment">// Foreach<br />
+</span><span class="keyword">foreach ((new </span><span class="default">AdvancedFilesystemIterator</span><span class="keyword">(</span><span class="string">'/path/to/files'</span><span class="keyword">))-&gt;</span><span class="default">sortByMTime</span><span class="keyword">()-&gt;</span><span class="default">match</span><span class="keyword">(</span><span class="string">'/csv$/'</span><span class="keyword">)-&gt;</span><span class="default">limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">) AS </span><span class="default">$file</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; print </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">() . </span><span class="string">"&lt;br&gt;\n"</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">// The Class<br />
+</span><span class="keyword">class </span><span class="default">AdvancedFilesystemIterator </span><span class="keyword">extends </span><span class="default">ArrayIterator<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">string $path</span><span class="keyword">, </span><span class="default">int $flags </span><span class="keyword">= </span><span class="default">FilesystemIterator</span><span class="keyword">::</span><span class="default">KEY_AS_PATHNAME </span><span class="keyword">| </span><span class="default">FilesystemIterator</span><span class="keyword">::</span><span class="default">CURRENT_AS_FILEINFO </span><span class="keyword">| </span><span class="default">FilesystemIterator</span><span class="keyword">::</span><span class="default">SKIP_DOTS</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">iterator_to_array</span><span class="keyword">(new </span><span class="default">FilesystemIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$flags</span><span class="keyword">)));<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">string $name</span><span class="keyword">, array </span><span class="default">$arguments</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^sortBy(.*)/'</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">, </span><span class="default">$m</span><span class="keyword">)) return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sort</span><span class="keyword">(</span><span class="string">'get' </span><span class="keyword">. </span><span class="default">$m</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">MemberAccessException</span><span class="keyword">(</span><span class="string">'Method ' </span><span class="keyword">. </span><span class="default">$methodName </span><span class="keyword">. </span><span class="string">' not exists'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">sort</span><span class="keyword">(</span><span class="default">$method</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">method_exists</span><span class="keyword">(</span><span class="string">'SplFileInfo'</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">)) throw new </span><span class="default">InvalidArgumentException</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'Method "%s" does not exist in SplFileInfo'</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">));<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">uasort</span><span class="keyword">(function(</span><span class="default">SplFileInfo $a</span><span class="keyword">, </span><span class="default">SplFileInfo $b</span><span class="keyword">) use (</span><span class="default">$method</span><span class="keyword">) { return (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">$method</span><span class="keyword">()) ? </span><span class="default">strnatcmp</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">$method</span><span class="keyword">(), </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">$method</span><span class="keyword">()) : </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">$method</span><span class="keyword">() - </span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">$method</span><span class="keyword">()); });<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$this</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">limit</span><span class="keyword">(</span><span class="default">int $offset </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">int $limit </span><span class="keyword">= -</span><span class="default">1</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">iterator_to_array</span><span class="keyword">(new </span><span class="default">LimitIterator</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">, </span><span class="default">$limit</span><span class="keyword">))) ?? </span><span class="default">$this</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">match</span><span class="keyword">(</span><span class="default">string $regex</span><span class="keyword">, </span><span class="default">int $mode </span><span class="keyword">= </span><span class="default">RegexIterator</span><span class="keyword">::</span><span class="default">MATCH</span><span class="keyword">, </span><span class="default">int $flags </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">int $preg_flags </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">iterator_to_array</span><span class="keyword">(new </span><span class="default">RegexIterator</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$regex</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">, </span><span class="default">$flags</span><span class="keyword">, </span><span class="default">$preg_flags</span><span class="keyword">))) ?? </span><span class="default">$this</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125097""></a>
   <div class="note">
    <strong class="user">ohcc at 163 dot com</strong>
    <a href="#125097" class="date">09-Jun-2020 03:31</a>

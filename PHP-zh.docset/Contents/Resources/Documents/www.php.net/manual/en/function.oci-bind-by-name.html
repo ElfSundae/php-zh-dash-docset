@@ -620,7 +620,41 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124325""></a>
+<div id="allnotes">  <a name="126261""></a>
+  <div class="note">
+   <strong class="user">charles dot fisher at arconic dot com</strong>
+   <a href="#126261" class="date">21-Jul-2021 06:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I am trying to rework ADOdb library calls to OCI, and I wrote this function today which is helping.<br />
+<br />
+function OraQry(&amp;$Results, $Query, $Binds = false) {<br />
+&nbsp; global $xdb;<br />
+<br />
+&nbsp; $Results = oci_parse($xdb, $Query);<br />
+<br />
+&nbsp; if($Binds) foreach($Binds as $BindNm =&gt; $BindValJunk)<br />
+&nbsp;&nbsp;&nbsp; oci_bind_by_name($Results, $BindNm, $Binds[$BindNm], -1);<br />
+<br />
+&nbsp; oci_execute($Results, OCI_NO_AUTO_COMMIT);<br />
+<br />
+&nbsp; return null;<br />
+}<br />
+<br />
+This also has similarity to PDO in passing an array of bind variables, with the added benefit that if they are named numerically (starting at zero), then the call to the array() function can be omitted:<br />
+<br />
+OraQry($rs,<br />
+&nbsp; 'select status from all_tables where owner=:0 and table_name=:1',<br />
+&nbsp;&nbsp;&nbsp; [$owner, $table_name]);<br />
+<br />
+while($arr = oci_fetch_assoc($rs)) echo $arr['STATUS'] . "\n";</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124325""></a>
   <div class="note">
    <strong class="user">asui dot dev dot null at gmail dot com</strong>
    <a href="#124325" class="date">22-Oct-2019 11:20</a>
