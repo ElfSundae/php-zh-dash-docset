@@ -101,7 +101,7 @@
  <div class="refsect1 examples" id="refsect1-function.uasort-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4868">
+   <div class="example" id="example-4869">
     <p><strong>Example #1 <span class="function"><strong>uasort()</strong></span> 的基本例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -156,7 +156,58 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125471""></a>
+<div id="allnotes">  <a name="126326""></a>
+  <div class="note">
+   <strong class="user">JeffZhang</strong>
+   <a href="#126326" class="date">11-Aug-2021 06:39</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A stable sort is realized by merging sorting, like "uasort" but stable, and the code is modified based on "mergesort"<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">uamergesort</span><span class="keyword">(&amp;</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$callback </span><span class="keyword">= </span><span class="string">'strcmp'</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$arraycount </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$arraycount </span><span class="keyword">&lt; </span><span class="default">2</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$halfway </span><span class="keyword">= </span><span class="default">$arraycount </span><span class="keyword">/ </span><span class="default">2</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1 </span><span class="keyword">= </span><span class="default">array_slice</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$halfway</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array2 </span><span class="keyword">= </span><span class="default">array_slice</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$halfway</span><span class="keyword">, </span><span class="default">null</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">uamergesort</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">, </span><span class="default">$callback</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">uamergesort</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">, </span><span class="default">$callback</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array </span><span class="keyword">= array();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$ptr1 </span><span class="keyword">= </span><span class="default">$ptr2 </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1 </span><span class="keyword">= </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array2keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array2 </span><span class="keyword">= </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array2count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">$ptr1 </span><span class="keyword">&lt; </span><span class="default">$array1count </span><span class="keyword">&amp;&amp; </span><span class="default">$ptr2 </span><span class="keyword">&lt; </span><span class="default">$array2count</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">call_user_func</span><span class="keyword">(</span><span class="default">$callback</span><span class="keyword">, </span><span class="default">$array1</span><span class="keyword">[</span><span class="default">$ptr1</span><span class="keyword">], </span><span class="default">$array2</span><span class="keyword">[</span><span class="default">$ptr2</span><span class="keyword">]) &lt; </span><span class="default">1</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$array</span><span class="keyword">[</span><span class="default">$array1keys</span><span class="keyword">[</span><span class="default">$ptr1</span><span class="keyword">]] = </span><span class="default">$array1</span><span class="keyword">[</span><span class="default">$ptr1</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ptr1</span><span class="keyword">++;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$array</span><span class="keyword">[</span><span class="default">$array2keys</span><span class="keyword">[</span><span class="default">$ptr2</span><span class="keyword">]] = </span><span class="default">$array2</span><span class="keyword">[</span><span class="default">$ptr2</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ptr2</span><span class="keyword">++;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">$ptr1 </span><span class="keyword">&lt; </span><span class="default">$array1count</span><span class="keyword">) {</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$array1keys</span><span class="keyword">[</span><span class="default">$ptr1</span><span class="keyword">]] = </span><span class="default">$array1</span><span class="keyword">[</span><span class="default">$ptr1</span><span class="keyword">]; </span><span class="default">$ptr1</span><span class="keyword">++;}<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">$ptr2 </span><span class="keyword">&lt; </span><span class="default">$array2count</span><span class="keyword">) {</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$array2keys</span><span class="keyword">[</span><span class="default">$ptr2</span><span class="keyword">]] = </span><span class="default">$array2</span><span class="keyword">[</span><span class="default">$ptr2</span><span class="keyword">]; </span><span class="default">$ptr2</span><span class="keyword">++;}<br />
+<br />
+&nbsp;&nbsp;&nbsp; return;<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125471""></a>
   <div class="note">
    <strong class="user">woodongwong at gmail dot com</strong>
    <a href="#125471" class="date">29-Oct-2020 01:38</a>

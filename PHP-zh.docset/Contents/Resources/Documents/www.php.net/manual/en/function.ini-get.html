@@ -176,7 +176,68 @@ post_max_size in bytes = 8388608
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121186""></a>
+<div id="allnotes">  <a name="126324""></a>
+  <div class="note">
+   <strong class="user">devsrealmGuy</strong>
+   <a href="#126324" class="date">11-Aug-2021 02:40</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here is another way to get the result in bytes using PHP8<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; &nbsp; * @param string $size<br />
+&nbsp;&nbsp; &nbsp; * @return int<br />
+&nbsp;&nbsp; &nbsp; * @author DevsrealmGuy<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">public function </span><span class="default">getBytes</span><span class="keyword">(</span><span class="default">string $size</span><span class="keyword">): </span><span class="default">int<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$size </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$size</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">#<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; # Separate the value from the metric(i.e MB, GB, KB)<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; #<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/([0-9]+)[\s]*([a-zA-Z]+)/'</span><span class="keyword">, </span><span class="default">$size</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= (isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">])) ? </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] : </span><span class="default">0</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$metric </span><span class="keyword">= (isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">])) ? </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]) : </span><span class="string">'b'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">#<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; # Result of $value multiplied by the matched case<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; # Note: (1024 ** 2) is same as (1024 * 1024) or pow(1024, 2)<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; #<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">*= </span><span class="default">match </span><span class="keyword">(</span><span class="default">$metric</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'k'</span><span class="keyword">, </span><span class="string">'kb' </span><span class="keyword">=&gt; </span><span class="default">1024</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'m'</span><span class="keyword">, </span><span class="string">'mb' </span><span class="keyword">=&gt; (</span><span class="default">1024 </span><span class="keyword">** </span><span class="default">2</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'g'</span><span class="keyword">, </span><span class="string">'gb' </span><span class="keyword">=&gt; (</span><span class="default">1024 </span><span class="keyword">** </span><span class="default">3</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'t'</span><span class="keyword">, </span><span class="string">'tb' </span><span class="keyword">=&gt;&nbsp; (</span><span class="default">1024 </span><span class="keyword">** </span><span class="default">4</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; default =&gt; </span><span class="default">0<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">};<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (int)</span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">#<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; # TEST: This default to 0 if it doesn't conform with the match standard<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; #<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">getBytes</span><span class="keyword">(</span><span class="string">'2GB'</span><span class="keyword">) . </span><span class="string">"&lt;/br&gt;"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># OUTPUT: 2147483648<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">getBytes</span><span class="keyword">(</span><span class="string">'4tb'</span><span class="keyword">) . </span><span class="string">"&lt;/br&gt;"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># OUTPUT: 4398046511104<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">getBytes</span><span class="keyword">(</span><span class="string">'5345etrgrfd'</span><span class="keyword">) . </span><span class="string">"&lt;/br&gt;"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># OUTPUT: 0<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">getBytes</span><span class="keyword">(</span><span class="string">'357568336586'</span><span class="keyword">) . </span><span class="string">"&lt;/br&gt;"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># OUTPUT: 0<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121186""></a>
   <div class="note">
    <strong class="user">IceNV</strong>
    <a href="#121186" class="date">05-Jun-2017 08:53</a>

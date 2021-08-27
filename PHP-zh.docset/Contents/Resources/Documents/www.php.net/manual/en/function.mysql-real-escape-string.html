@@ -259,7 +259,32 @@ SELECT * FROM users WHERE user=&#039;aidan&#039; AND password=&#039;&#039; OR &#
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121826""></a>
+<div id="allnotes">  <a name="126328""></a>
+  <div class="note">
+   <strong class="user">rohankumar dot 1524 at gmail dot com</strong>
+   <a href="#126328" class="date">11-Aug-2021 07:26</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+There is requirement for old projects which are using `mysql_escape_string`, and upgrading the PHP version to 7 and above. Basically this happens in maintenance projects where we don't know how many files the functions are used in application. We can use [mysqli.real-escape-string][1] for the function:<br />
+<br />
+If you have a typical connection file like `conn.php`<br />
+<br />
+&nbsp;&nbsp;&nbsp; $conn = new mysqli($host, $user, $password, $db);<br />
+&nbsp;&nbsp;&nbsp; // may be few more lines to handle the $conn<br />
+&nbsp;&nbsp;&nbsp; if (!function_exists('mysql_escape_string')) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; function mysql_escape_string($sting){ // if mysql_escape_string not available<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return $conn-&gt;real_escape_string($string); // escape using the $conn instance<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp; [1]: https://www.php.net/manual/en/mysqli.real-escape-string.php</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121826""></a>
   <div class="note">
    <strong class="user">Aljo</strong>
    <a href="#121826" class="date">04-Nov-2017 05:14</a>
