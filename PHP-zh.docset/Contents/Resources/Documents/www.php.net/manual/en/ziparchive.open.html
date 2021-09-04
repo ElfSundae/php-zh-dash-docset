@@ -246,7 +246,39 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126201""></a>
+<div id="allnotes">  <a name="126360""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#126360" class="date">23-Aug-2021 11:39</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+To read a zip file contents then loop through $zip-&gt;numFiles using $zip-&gt;getNameIndex(i)<br />
+<br />
+e.g.<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $zipfilename=$dir.DIRECTORY_SEPARATOR."test.zip";<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $zippedFile = new ZipArchive;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $zippedFile-&gt;open($zipfilename);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo "&lt;LI&gt;".$zippedFile-&gt;getFromName("mpdf-8.0.7/.gitignore")."&lt;/LI&gt;&lt;HR&gt;";<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo "&lt;LI&gt;Loaded $zipfilename ".$zippedFile-&gt;numFiles;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; for($i = 0; $i &lt; $zippedFile-&gt;numFiles; $i++) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $fn=$zippedFile-&gt;getNameIndex($i);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo "&lt;LI&gt;$i: ".$fn;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( strcmp(substr($fn, -1), DIRECTORY_SEPARATOR )==0 ) echo "... directory";<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else echo "... ".strlen($zippedFile-&gt;getFromIndex($i))." bytes";<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $zippedFile-&gt;close();</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126201""></a>
   <div class="note">
    <strong class="user">laacz at laacz dot lv</strong>
    <a href="#126201" class="date">28-Jun-2021 02:29</a>

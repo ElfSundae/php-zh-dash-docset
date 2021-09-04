@@ -103,7 +103,49 @@ int(4)
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125440""></a>
+<div id="allnotes">  <a name="126377""></a>
+  <div class="note">
+   <strong class="user">oleksii dot bulba at gmail dot com</strong>
+   <a href="#126377" class="date">01-Sep-2021 07:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Be aware that counting over NoRewindIterator will make items unavailable:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$iterator </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">([</span><span class="string">'recipe'</span><span class="keyword">=&gt;</span><span class="string">'pancakes'</span><span class="keyword">, </span><span class="string">'egg'</span><span class="keyword">, </span><span class="string">'milk'</span><span class="keyword">, </span><span class="string">'flour'</span><span class="keyword">]);<br />
+</span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">NoRewindIterator</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">);<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">iterator_count</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">));<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br />
+</span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">rewind</span><span class="keyword">(); </span><span class="comment">// Does not work because it's NoRewindIterator<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">iterator_count</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">));<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Output:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">/*<br />
+string(8) "pancakes"<br />
+int(4)<br />
+NULL<br />
+NULL<br />
+*/<br />
+</span><span class="default">int</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">)<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125440""></a>
   <div class="note">
    <strong class="user">info at ensostudio dot ru</strong>
    <a href="#125440" class="date">16-Oct-2020 12:31</a>

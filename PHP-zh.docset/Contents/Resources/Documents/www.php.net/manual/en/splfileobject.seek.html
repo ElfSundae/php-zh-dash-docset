@@ -127,7 +127,58 @@ $file-&gt;seek(2);
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121666""></a>
+<div id="allnotes">  <a name="126365""></a>
+  <div class="note">
+   <strong class="user">info at inatica dot com</strong>
+   <a href="#126365" class="date">26-Aug-2021 12:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+there is a bug using fseek on previos versions of PHP8.0.1<br />
+See:<br />
+<br />
+https://bugs.php.net/bug.php?id=46569<br />
+<br />
+https://3v4l.org/O89dJ<br />
+<br />
+I solved it with a function:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">/**<br />
+* SEEK an Spl object<br />
+* There is a bug in php for seeking files<br />
+* seems solved php_version &gt; PHP8.0.1<br />
+* See https://bugs.php.net/bug.php?id=46569<br />
+* &amp; https://3v4l.org/O89dJ<br />
+*<br />
+* $Spl-&gt;seek() Works ok in all versions with offset 0 (first row)<br />
+* On PHP_VERSION &lt; 8.0.1:<br />
+*&nbsp; - Offset 1: seek() cannot seek at row 1. It will be done manually, rewind file and reading first row<br />
+*&nbsp; - Rest of Offsets: The cursor remains at next row of $Offset<br />
+*<br />
+* @param SplObject $Spl<br />
+* @param int $Offset<br />
+*/<br />
+<br />
+</span><span class="keyword">function </span><span class="default">seek_spl</span><span class="keyword">(</span><span class="default">$Spl</span><span class="keyword">, </span><span class="default">$Offset</span><span class="keyword">){<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">version_compare</span><span class="keyword">(</span><span class="default">PHP_VERSION</span><span class="keyword">, </span><span class="string">'8.0.1'</span><span class="keyword">, </span><span class="string">'&gt;='</span><span class="keyword">) || </span><span class="default">$Offset </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$Spl</span><span class="keyword">-&gt;</span><span class="default">seek</span><span class="keyword">(</span><span class="default">$Offset</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if( </span><span class="default">$Offset </span><span class="keyword">== </span><span class="default">1 </span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$Spl</span><span class="keyword">-&gt;</span><span class="default">rewind</span><span class="keyword">(); </span><span class="comment">// Ensure to go at first row before exit<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$Spl</span><span class="keyword">-&gt;</span><span class="default">fgets</span><span class="keyword">(); </span><span class="comment">// Read line 0. Cursor remains now at line 1<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">} else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$Spl</span><span class="keyword">-&gt;</span><span class="default">seek</span><span class="keyword">(</span><span class="default">$Offset</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121666""></a>
   <div class="note">
    <strong class="user">ahmad_maqsood at waku-2 dot com</strong>
    <a href="#121666" class="date">21-Sep-2017 09:19</a>
