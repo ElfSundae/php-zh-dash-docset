@@ -152,7 +152,49 @@ C
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122664""></a>
+<div id="allnotes">  <a name="126385""></a>
+  <div class="note">
+   <strong class="user">backnot</strong>
+   <a href="#126385" class="date">04-Sep-2021 11:07</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In the above example (#3) in order to make it work, you can change the child's method from 'private' to 'protected' (or public) and it will be called through 'static'.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; private function </span><span class="default">foo</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"success!\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">test</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">foo</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; static::</span><span class="default">foo</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+class </span><span class="default">B </span><span class="keyword">extends </span><span class="default">A </span><span class="keyword">{<br />
+&nbsp;&nbsp; </span><span class="comment">/* foo() will be copied to B, hence its scope will still be A and<br />
+&nbsp;&nbsp;&nbsp; * the call be successful */<br />
+</span><span class="keyword">}<br />
+<br />
+class </span><span class="default">C </span><span class="keyword">extends </span><span class="default">A </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; protected function </span><span class="default">foo</span><span class="keyword">() { </span><span class="comment">//note the change here<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">echo </span><span class="string">'hello world!'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">B</span><span class="keyword">();<br />
+</span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">test</span><span class="keyword">();<br />
+</span><span class="default">$c </span><span class="keyword">= new </span><span class="default">C</span><span class="keyword">();<br />
+</span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">test</span><span class="keyword">();&nbsp;&nbsp; </span><span class="comment">// 'success' 'hello world'<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122664""></a>
   <div class="note">
    <strong class="user">MelkiySoft</strong>
    <a href="#122664" class="date">26-Apr-2018 09:26</a>

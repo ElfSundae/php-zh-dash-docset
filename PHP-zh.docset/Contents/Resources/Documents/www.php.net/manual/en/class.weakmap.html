@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>The WeakMap class</title>
+  <title>WeakMap 类</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,13 +20,13 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="reserved.interfaces.html">预定义接口</a></li>
-    <li>The WeakMap class</li>
+    <li>WeakMap 类</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="class.weakmap" class="reference">
 
- <h1 class="title">The WeakMap class</h1>
+ <h1 class="title">WeakMap 类</h1>
  
 
  <div class="partintro"><p class="verinfo">(PHP 8)</p>
@@ -35,17 +35,15 @@
   <div class="section" id="weakmap.intro">
    <h2 class="title">简介</h2>
    <p class="para">
-    A <strong class="classname">WeakMap</strong> is map (or dictionary) that accepts objects as keys.  However, unlike the
-    otherwise similar <a href="class.splobjectstorage.html" class="classname">SplObjectStorage</a>, an object in a key of <strong class="classname">WeakMap</strong>
-    does not contribute toward the object&#039;s reference count.  That is, if at any point the only remaining reference
-    to an object is the key of a <strong class="classname">WeakMap</strong>, the object will be garbage collected and removed
-    from the <strong class="classname">WeakMap</strong>.  Its primary use case is for building caches of data derived from
-    an object that do not need to live longer than the object.
+    <strong class="classname">WeakMap</strong> 是将对象作为 key 来访问的 map（或者说字典）。然而，与其它类似 <a href="class.splobjectstorage.html" class="classname">SplObjectStorage</a> 
+    不同，<strong class="classname">WeakMap</strong> 中的对象 key 不影响对象的引用计数。也就是说，如果在任何时候对其唯一的剩余引用是 
+    <strong class="classname">WeakMap</strong> key，那么该对象将会被垃圾收集并从 <strong class="classname">WeakMap</strong> 
+    移除。它的主要用法是从对象中编译数据派生缓存，这种场景下不需要存活得比对象更久。
    </p>
    <p class="para">
-    <strong class="classname">WeakMap</strong> implements <span class="interfacename"><strong class="interfacename">ArrayAccess</strong></span>,
-    <span class="interfacename"><strong class="interfacename">Iterator</strong></span>, and <span class="interfacename"><a href="class.countable.html" class="interfacename">Countable</a></span>,
-    so in most cases it can be used in the same fashion as an associative array.
+    <strong class="classname">WeakMap</strong> 实现了 <span class="interfacename"><strong class="interfacename">ArrayAccess</strong></span>、
+    <span class="interfacename"><strong class="interfacename">Iterator</strong></span>、<span class="interfacename"><a href="class.countable.html" class="interfacename">Countable</a></span>，
+    因此大多数情况下，它能和关联数组一样使用。
    </p>
   </div>
   
@@ -119,7 +117,7 @@
    <h2 class="title">范例</h2>
    <p class="para">
     <div class="example" id="example-352">
-     <p><strong>Example #1 <strong class="classname">Weakmap</strong> usage example</strong></p>
+     <p><strong>Example #1 <strong class="classname">Weakmap</strong> 用法示例</strong></p>
      <div class="example-contents">
       <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />$wm&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">WeakMap</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$o&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">StdClass</span><span style="color: #007700">;<br /><br />class&nbsp;</span><span style="color: #0000BB">A&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__destruct</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Dead!\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$wm</span><span style="color: #007700">[</span><span style="color: #0000BB">$o</span><span style="color: #007700">]&nbsp;=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$wm</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #DD0000">"Unsetting...\n"</span><span style="color: #007700">;<br />unset(</span><span style="color: #0000BB">$o</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Done\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$wm</span><span style="color: #007700">));</span>
@@ -151,35 +149,9 @@ int(0)
 
 
 
- 
-
-
-
-
-
 
  
 
-
-
-
-
-
- 
-
-
-
-
-
-
- 
-
-
-
-
-
-
- 
 
 
 
@@ -194,7 +166,44 @@ int(0)
 
 
 
-<h2>Table of Contents</h2><ul class="chunklist chunklist_reference"><li><a href="ext-weakmap.construct.html">WeakMap::__construct</a> &mdash; Constructs a new map</li><li><a href="weakmap.count.html">WeakMap::count</a> &mdash; Counts the number of live entries in the map</li><li><a href="weakmap.getiterator.html">WeakMap::getIterator</a> &mdash; Retrieve an external iterator</li><li><a href="weakmap.offsetexists.html">WeakMap::offsetExists</a> &mdash; Checks whether a certain object is in the map</li><li><a href="weakmap.offsetget.html">WeakMap::offsetGet</a> &mdash; Returns the value pointed to by a certain object</li><li><a href="weakmap.offsetset.html">WeakMap::offsetSet</a> &mdash; Updates the map with a new key-value pair</li><li><a href="weakmap.offsetunset.html">WeakMap::offsetUnset</a> &mdash; Removes an entry from the map</li></ul>
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+<h2>Table of Contents</h2><ul class="chunklist chunklist_reference"><li><a href="ext-weakmap.construct.html">WeakMap::__construct</a> &mdash; 实例化一个新的 map</li><li><a href="weakmap.count.html">WeakMap::count</a> &mdash; 统计 map 中存活实体的数量</li><li><a href="weakmap.getiterator.html">WeakMap::getIterator</a> &mdash; 接收一个外部迭代器</li><li><a href="weakmap.offsetexists.html">WeakMap::offsetExists</a> &mdash; 检测 map 中是否存在某个对象</li><li><a href="weakmap.offsetget.html">WeakMap::offsetGet</a> &mdash; 返回某个对象指向的值</li><li><a href="weakmap.offsetset.html">WeakMap::offsetSet</a> &mdash; 更新 map 新的键值对</li><li><a href="weakmap.offsetunset.html">WeakMap::offsetUnset</a> &mdash; 从 map 中移除一条</li></ul>
 </div>
 <div id="usernotes">
  <div class="head">

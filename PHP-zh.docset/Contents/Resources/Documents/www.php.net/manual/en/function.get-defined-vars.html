@@ -61,7 +61,85 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126184""></a>
+<div id="allnotes">  <a name="126390""></a>
+  <div class="note">
+   <strong class="user">Qiibow</strong>
+   <a href="#126390" class="date">05-Sep-2021 02:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+get_defined_vars() is very useful for importing many values at once <br />
+into another scope (Such as User-defined functions).<br />
+<br />
+Below is an example for showing some of many values and their variable-names in a table.<br />
+(useful in debugging)<br />
+<br />
+You can put this user-defined function at many places in your script <br />
+to show some values (values to be changed in loops) <br />
+to check if they are what they shall be there or not.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// Set "get_defined_vars()" to 2nd argument.<br />
+</span><span class="keyword">function </span><span class="default">get_value_table</span><span class="keyword">(</span><span class="default">$name_array</span><span class="keyword">, </span><span class="default">$gdv</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$name_value_table </span><span class="keyword">= [];<br />
+&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">$name_array </span><span class="keyword">as </span><span class="default">$name</span><span class="keyword">) :<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$gdv</span><span class="keyword">)) :<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="string">'undefined'</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; elseif (</span><span class="default">is_bool</span><span class="keyword">(</span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">])) :<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">]? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false'</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; elseif (</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">]) || </span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">])) :<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; elseif (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">])) :<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="string">'&lt;pre&gt;'</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">],</span><span class="default">true</span><span class="keyword">).</span><span class="string">'&lt;/pre&gt;'</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else :<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= (</span><span class="default">PHP_VERSION_ID </span><span class="keyword">&gt;= </span><span class="default">80000</span><span class="keyword">)? </span><span class="default">get_debug_type</span><span class="keyword">(</span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">]) : </span><span class="default">get_type</span><span class="keyword">(</span><span class="default">$gdv</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; endif;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$name_value_table</span><span class="keyword">[] = </span><span class="string">'&lt;tr&gt;&lt;td&gt;$'</span><span class="keyword">.</span><span class="default">$name</span><span class="keyword">.</span><span class="string">'&lt;td&gt;'</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; endforeach;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="string">'&lt;table border=1&gt;'</span><span class="keyword">.</span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">$name_value_table</span><span class="keyword">).</span><span class="string">'&lt;/table&gt;'</span><span class="keyword">;<br />
+} </span><span class="comment">// (f) get_value_table()<br />
+<br />
+</span><span class="default">$_1 </span><span class="keyword">= </span><span class="string">'a'</span><span class="keyword">;<br />
+</span><span class="default">$_2 </span><span class="keyword">= </span><span class="string">'b'</span><span class="keyword">;<br />
+</span><span class="default">$_3 </span><span class="keyword">= [</span><span class="default">1</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">];<br />
+</span><span class="default">$_4 </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+</span><span class="default">$_5 </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+<br />
+</span><span class="default">$name_array </span><span class="keyword">= [</span><span class="string">'_1'</span><span class="keyword">,</span><span class="string">'_2'</span><span class="keyword">,</span><span class="string">'_3'</span><span class="keyword">,</span><span class="string">'_4'</span><span class="keyword">,</span><span class="string">'_5'</span><span class="keyword">,</span><span class="string">'_6'</span><span class="keyword">];<br />
+</span><span class="default">$show_id </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />
+<br />
+if (</span><span class="default">$show_id </span><span class="keyword">=== </span><span class="default">1</span><span class="keyword">) :<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">get_value_table</span><span class="keyword">(</span><span class="default">$name_array</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">());<br />
+endif;<br />
+</span><span class="comment">/* <br />
+if $show_id === 1, only shows below.<br />
+<br />
+$_1&nbsp; &nbsp; &nbsp; a<br />
+$_2&nbsp; &nbsp; &nbsp; b<br />
+$_3&nbsp; &nbsp; &nbsp; Array<br />
+&nbsp;&nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; 1<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; 2<br />
+&nbsp;&nbsp; &nbsp;&nbsp; )<br />
+$_4&nbsp; &nbsp; &nbsp; false<br />
+$_5&nbsp; &nbsp; &nbsp; null<br />
+$_6&nbsp; &nbsp; &nbsp; undefined<br />
+*/<br />
+<br />
+</span><span class="default">$_2 </span><span class="keyword">= </span><span class="string">'c'</span><span class="keyword">;<br />
+if (</span><span class="default">$show_id </span><span class="keyword">=== </span><span class="default">2</span><span class="keyword">) :<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">get_value_table</span><span class="keyword">(</span><span class="default">$name_array</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">()); </span><span class="comment">// $_2&nbsp;&nbsp; c<br />
+</span><span class="keyword">endif;<br />
+</span><span class="comment"># if $show_id === 2, $_2 turns "c".<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126184""></a>
   <div class="note">
    <strong class="user">nix dot code at 4assistance dot com dot nix</strong>
    <a href="#126184" class="date">22-Jun-2021 01:27</a>

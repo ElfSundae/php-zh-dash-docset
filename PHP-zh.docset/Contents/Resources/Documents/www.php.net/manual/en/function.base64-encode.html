@@ -84,7 +84,7 @@
  <div class="refsect1 examples" id="refsect1-function.base64-encode-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3704">
+   <div class="example" id="example-3705">
     <p><strong>Example #1 <span class="function"><strong>base64_encode()</strong></span> Ê¾Àý</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -120,7 +120,37 @@ VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw==
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126301""></a>
+<div id="allnotes">  <a name="126399""></a>
+  <div class="note">
+   <strong class="user">d_maksimov at inbox dot ru</strong>
+   <a href="#126399" class="date">08-Sep-2021 07:51</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You can escape '+', '/' and '=' symbols using two simple functions:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">base_encode</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">str_replace</span><span class="keyword">([</span><span class="string">"A"</span><span class="keyword">, </span><span class="string">"+"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="string">"="</span><span class="keyword">], [</span><span class="string">"AA"</span><span class="keyword">, </span><span class="string">"AB"</span><span class="keyword">, </span><span class="string">"AC"</span><span class="keyword">, </span><span class="string">"AD"</span><span class="keyword">], </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">));<br />
+}<br />
+<br />
+function </span><span class="default">base_decode</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$id </span><span class="keyword">= </span><span class="default">preg_replace_callback</span><span class="keyword">(</span><span class="string">'/(AA)|(AB)|(AC)|(AD)/'</span><span class="keyword">, function (</span><span class="default">$m</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach([</span><span class="string">'A'</span><span class="keyword">, </span><span class="string">'+'</span><span class="keyword">, </span><span class="string">'/'</span><span class="keyword">, </span><span class="string">'='</span><span class="keyword">] as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$m</span><span class="keyword">[</span><span class="default">$i </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">])<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }, </span><span class="default">$id</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+this functions escapes symbol 'A' as 'AA', '+' as 'AB', '/' as 'AC', '=' as 'AD'.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126301""></a>
   <div class="note">
    <strong class="user">divinity76 at gmail dot com</strong>
    <a href="#126301" class="date">02-Aug-2021 07:58</a>

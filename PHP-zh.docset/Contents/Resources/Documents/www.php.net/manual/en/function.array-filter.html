@@ -155,7 +155,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-filter-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4748">
+   <div class="example" id="example-4749">
     <p><strong>Example #1 <span class="function"><strong>array_filter()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -185,7 +185,7 @@ Array
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-4749">
+   <div class="example" id="example-4750">
     <p><strong>Example #2 <span class="function"><strong>array_filter()</strong></span> 不使用 <code class="parameter">callback</code> 参数时</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -205,7 +205,7 @@ Array
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-4750">
+   <div class="example" id="example-4751">
     <p><strong>Example #3 <span class="function"><strong>array_filter()</strong></span> 不使用 <code class="parameter">mode</code> 参数时</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -261,7 +261,57 @@ array(2) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120940""></a>
+<div id="allnotes">  <a name="126402""></a>
+  <div class="note">
+   <strong class="user">ASchmidt at Anamera dot net</strong>
+   <a href="#126402" class="date">08-Sep-2021 05:24</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Depending on the intended meanings of your "empty" array values, e.g., null and empty string, vs. an integer 0 or a boolean false, be mindful of the result of different filters.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$array </span><span class="keyword">= array( </span><span class="string">'null' </span><span class="keyword">=&gt; </span><span class="default">null</span><span class="keyword">, </span><span class="string">'nullstring' </span><span class="keyword">=&gt; </span><span class="string">''</span><span class="keyword">,&nbsp; </span><span class="string">'intzero' </span><span class="keyword">=&gt; </span><span class="default">0</span><span class="keyword">,&nbsp; </span><span class="string">'stringzero' </span><span class="keyword">=&gt; </span><span class="string">'0'</span><span class="keyword">, </span><span class="string">'false' </span><span class="keyword">=&gt; </span><span class="default">false</span><span class="keyword">, </span><span class="string">'stringfalse' </span><span class="keyword">=&gt; </span><span class="string">'false'</span><span class="keyword">, );<br />
+<br />
+</span><span class="comment">// Removes null, null-string -- but also FALSE!<br />
+</span><span class="default">$filtered1 </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="string">'strlen' </span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Removes only null. <br />
+</span><span class="default">$filtered2 </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, function( </span><span class="default">$v </span><span class="keyword">) { return !</span><span class="default">is_null</span><span class="keyword">( </span><span class="default">$v </span><span class="keyword">); } );<br />
+<br />
+</span><span class="comment">// Removes null and null-string. Keeps FALSE and 0.<br />
+</span><span class="default">$filtered3 </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, function( </span><span class="default">$v </span><span class="keyword">) { return !( </span><span class="default">is_null</span><span class="keyword">( </span><span class="default">$v</span><span class="keyword">) or </span><span class="string">'' </span><span class="keyword">=== </span><span class="default">$v </span><span class="keyword">); } );<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="default">$filtered1</span><span class="keyword">, </span><span class="default">$filtered2</span><span class="keyword">, </span><span class="default">$filtered3 </span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Results in:<br />
+<br />
+array (size=3)<br />
+&nbsp; 'intzero' =&gt; int 0<br />
+&nbsp; 'stringzero' =&gt; string '0' (length=1)<br />
+&nbsp; 'stringfalse' =&gt; string 'false' (length=5)<br />
+<br />
+array (size=5)<br />
+&nbsp; 'nullstring' =&gt; string '' (length=0)<br />
+&nbsp; 'intzero' =&gt; int 0<br />
+&nbsp; 'stringzero' =&gt; string '0' (length=1)<br />
+&nbsp; 'false' =&gt; boolean false<br />
+&nbsp; 'stringfalse' =&gt; string 'false' (length=5)<br />
+<br />
+array (size=4)<br />
+&nbsp; 'intzero' =&gt; int 0<br />
+&nbsp; 'stringzero' =&gt; string '0' (length=1)<br />
+&nbsp; 'false' =&gt; boolean false<br />
+&nbsp; 'stringfalse' =&gt; string 'false' (length=5)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120940""></a>
   <div class="note">
    <strong class="user">nicolaj dot knudsen at gmail dot com</strong>
    <a href="#120940" class="date">05-Apr-2017 12:05</a>

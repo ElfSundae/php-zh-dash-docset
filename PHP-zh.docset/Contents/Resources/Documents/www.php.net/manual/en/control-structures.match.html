@@ -234,7 +234,54 @@ string(2) &quot;fr&quot;
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125987""></a>
+<div id="allnotes">  <a name="126392""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#126392" class="date">06-Sep-2021 10:37</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">days_in_month</span><span class="keyword">(</span><span class="default">string $month</span><span class="keyword">): </span><span class="default">int<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">match</span><span class="keyword">(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">))) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'jan' </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'feb' </span><span class="keyword">=&gt; </span><span class="default">is_leap</span><span class="keyword">(</span><span class="default">$year</span><span class="keyword">) ? </span><span class="default">29 </span><span class="keyword">: </span><span class="default">28</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'mar' </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'apr' </span><span class="keyword">=&gt; </span><span class="default">30</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'may' </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'jun' </span><span class="keyword">=&gt; </span><span class="default">30</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'jul' </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'aug' </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'sep' </span><span class="keyword">=&gt; </span><span class="default">30</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'oct' </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'nov' </span><span class="keyword">=&gt; </span><span class="default">30</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'dec' </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; default =&gt; throw new </span><span class="default">InvalidArgumentException</span><span class="keyword">(</span><span class="string">"Bogus month"</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; };<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+can be more concisely written as<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">days_in_month</span><span class="keyword">(</span><span class="default">string $month</span><span class="keyword">): </span><span class="default">int<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">match</span><span class="keyword">(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">))) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'apr'</span><span class="keyword">, </span><span class="string">'jun'</span><span class="keyword">, </span><span class="string">'sep'</span><span class="keyword">,&nbsp; </span><span class="string">'nov'&nbsp; </span><span class="keyword">=&gt; </span><span class="default">30</span><span class="keyword">,&nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'jan'</span><span class="keyword">, </span><span class="string">'mar'</span><span class="keyword">, </span><span class="string">'may'</span><span class="keyword">, </span><span class="string">'jul'</span><span class="keyword">, </span><span class="string">'aug'</span><span class="keyword">,&nbsp; </span><span class="string">'oct'</span><span class="keyword">, </span><span class="string">'dec'&nbsp; </span><span class="keyword">=&gt; </span><span class="default">31</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'feb' </span><span class="keyword">=&gt; </span><span class="default">is_leap</span><span class="keyword">(</span><span class="default">$year</span><span class="keyword">) ? </span><span class="default">29 </span><span class="keyword">: </span><span class="default">28</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; default =&gt; throw new </span><span class="default">InvalidArgumentException</span><span class="keyword">(</span><span class="string">"Bogus month"</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; };<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125987""></a>
   <div class="note">
    <strong class="user">darius dot restivan at gmail dot com</strong>
    <a href="#125987" class="date">05-Apr-2021 09:43</a>

@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Gets the number of rows in a result</title>
+  <title>Gets the number of rows in the result set</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.mysqli-result.html">mysqli_result</a></li>
-    <li>Gets the number of rows in a result</li>
+    <li>Gets the number of rows in the result set</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,7 +28,7 @@
  <div class="refnamediv">
   <h1 class="refname">mysqli_result::$num_rows</h1>
   <h1 class="refname">mysqli_num_rows</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli_result::$num_rows</span> -- <span class="refname">mysqli_num_rows</span> &mdash; <span class="dc-title">Gets the number of rows in a result</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli_result::$num_rows</span> -- <span class="refname">mysqli_num_rows</span> &mdash; <span class="dc-title">Gets the number of rows in the result set</span></p>
 
  </div>
 
@@ -49,9 +49,8 @@
   <p class="para">
    The behaviour of <span class="function"><strong>mysqli_num_rows()</strong></span> depends on whether 
    buffered or unbuffered result sets are being used.
-   For unbuffered result sets, <span class="function"><strong>mysqli_num_rows()</strong></span>
-   will not return the correct number of rows until all the rows in the result
-   have been retrieved.
+   This function returns <code class="literal">0</code> for unbuffered result sets unless
+   all rows have been fetched from the server.
   </p>
  </div>
 
@@ -78,7 +77,9 @@ result</code></dt>
  <div class="refsect1 returnvalues" id="refsect1-mysqli-result.num-rows-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns number of rows in the result set.
+   An <span class="type">int</span> representing the number of fetched rows.
+   Returns <code class="literal">0</code> in unbuffered mode unless all rows have been
+   fetched from the server.
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
@@ -95,7 +96,7 @@ result</code></dt>
    <p><strong>Example #1 面向对象风格</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;check&nbsp;connection&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;Code,&nbsp;Name&nbsp;FROM&nbsp;Country&nbsp;ORDER&nbsp;BY&nbsp;Name"</span><span style="color: #007700">))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;determine&nbsp;number&nbsp;of&nbsp;rows&nbsp;result&nbsp;set&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row_cnt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">num_rows</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Result&nbsp;set&nbsp;has&nbsp;%d&nbsp;rows.\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row_cnt</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;close&nbsp;result&nbsp;set&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;close&nbsp;connection&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;Code,&nbsp;Name&nbsp;FROM&nbsp;Country&nbsp;ORDER&nbsp;BY&nbsp;Name"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Get&nbsp;the&nbsp;number&nbsp;of&nbsp;rows&nbsp;in&nbsp;the&nbsp;result&nbsp;set&nbsp;*/<br /></span><span style="color: #0000BB">$row_cnt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">num_rows</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Result&nbsp;set&nbsp;has&nbsp;%d&nbsp;rows.\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row_cnt</span><span style="color: #007700">);</span>
 </span>
 </code></div>
    </div>
@@ -105,7 +106,7 @@ result</code></dt>
    <p><strong>Example #2 过程化风格</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;check&nbsp;connection&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;Code,&nbsp;Name&nbsp;FROM&nbsp;Country&nbsp;ORDER&nbsp;BY&nbsp;Name"</span><span style="color: #007700">))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;determine&nbsp;number&nbsp;of&nbsp;rows&nbsp;result&nbsp;set&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row_cnt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Result&nbsp;set&nbsp;has&nbsp;%d&nbsp;rows.\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row_cnt</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;close&nbsp;result&nbsp;set&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;close&nbsp;connection&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;Code,&nbsp;Name&nbsp;FROM&nbsp;Country&nbsp;ORDER&nbsp;BY&nbsp;Name"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Get&nbsp;the&nbsp;number&nbsp;of&nbsp;rows&nbsp;in&nbsp;the&nbsp;result&nbsp;set&nbsp;*/<br /></span><span style="color: #0000BB">$row_cnt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Result&nbsp;set&nbsp;has&nbsp;%d&nbsp;rows.\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row_cnt</span><span style="color: #007700">);</span>
 </span>
 </code></div>
    </div>
@@ -128,8 +129,21 @@ Result set has 239 rows.
     <li class="member"><span class="function"><a href="mysqli.store-result.html" class="function" rel="rdfs-seeAlso">mysqli_store_result()</a> - 转移上一次查询返回的结果集</span></li>
     <li class="member"><span class="function"><a href="mysqli.use-result.html" class="function" rel="rdfs-seeAlso">mysqli_use_result()</a> - Initiate a result set retrieval</span></li>
     <li class="member"><span class="function"><a href="mysqli.query.html" class="function" rel="rdfs-seeAlso">mysqli_query()</a> - 对数据库执行一次查询</span></li>
+    <li class="member"><span class="function"><a href="mysqli-stmt.num-rows.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_num_rows()</a> - Returns the number of rows fetched from the server</span></li>
    </ul>
   </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-mysqli-result.num-rows-notes">
+  <h3 class="title">注释</h3>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    In contrast to the <span class="function"><a href="mysqli-stmt.num-rows.html" class="function">mysqli_stmt_num_rows()</a></span> function,
+    this function doesn&#039;t have object-oriented method variant.
+    In the object-oriented style, use the getter property.
+   </p>
+  </p></blockquote>
  </div>
 
 

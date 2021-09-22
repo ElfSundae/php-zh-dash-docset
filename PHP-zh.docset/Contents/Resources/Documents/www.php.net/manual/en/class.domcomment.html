@@ -314,6 +314,41 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="126408""></a>
+  <div class="note">
+   <strong class="user">npelov at croler dot net</strong>
+   <a href="#126408" class="date">09-Sep-2021 04:41</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note that textContent property of a comment is not entity decoded, it is decoded in DOMElement::textContent :<br />
+<br />
+<span class="default">&lt;?php <br />
+<br />
+&nbsp;&nbsp; $xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">loadXML</span><span class="keyword">(</span><span class="string">'&lt;?xml version="1.0" encoding="utf-8"?&gt;<br />
+&nbsp;&nbsp; &nbsp;&nbsp; &lt;configuration version="2"&gt;<br />
+&nbsp;&nbsp; &nbsp;&nbsp; &lt;!-- test &amp;#45;&amp;#45;&amp;gt; --&gt;<br />
+&nbsp;&nbsp; &nbsp;&nbsp; test &amp;#45;&amp;#45;&amp;gt;<br />
+&nbsp;&nbsp; &nbsp;&nbsp; &lt;/configuration&gt;'<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">);<br />
+</span><span class="default">$xpath </span><span class="keyword">= new </span><span class="default">DOMXPath</span><span class="keyword">(</span><span class="default">$xml</span><span class="keyword">);<br />
+</span><span class="default">$comments </span><span class="keyword">= </span><span class="default">$xpath</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">'//comment()'</span><span class="keyword">);<br />
+</span><span class="default">$elements </span><span class="keyword">= </span><span class="default">$xpath</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">'//configuration'</span><span class="keyword">);<br />
+<br />
+echo </span><span class="default">$comments</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">textContent</span><span class="keyword">;<br />
+</span><span class="comment">// result: test &amp;#45;&amp;#45;&amp;gt;<br />
+<br />
+</span><span class="keyword">echo </span><span class="default">$elements</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">textContent</span><span class="keyword">;<br />
+</span><span class="comment">// result: test --&gt;<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

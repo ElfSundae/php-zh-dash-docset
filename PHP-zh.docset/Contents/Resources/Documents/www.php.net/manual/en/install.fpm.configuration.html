@@ -854,7 +854,92 @@ fastcgi_param  PHP_ADMIN_VALUE &quot;open_basedir=/var/www/htdocs&quot;;</pre>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126023""></a>
+<div id="allnotes">  <a name="126422""></a>
+  <div class="note">
+   <strong class="user">antonfedonyuk at gmail dot com</strong>
+   <a href="#126422" class="date">13-Sep-2021 10:01</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+; The access log format.<br />
+; The following syntax is allowed<br />
+;&nbsp; %%: the '%' character<br />
+;&nbsp; %C: %CPU used by the request<br />
+;&nbsp; &nbsp; &nbsp; it can accept the following format:<br />
+;&nbsp; &nbsp; &nbsp; - %{user}C for user CPU only<br />
+;&nbsp; &nbsp; &nbsp; - %{system}C for system CPU only<br />
+;&nbsp; &nbsp; &nbsp; - %{total}C&nbsp; for user + system CPU (default)<br />
+;&nbsp; %d: time taken to serve the request<br />
+;&nbsp; &nbsp; &nbsp; it can accept the following format:<br />
+;&nbsp; &nbsp; &nbsp; - %{seconds}d (default)<br />
+;&nbsp; &nbsp; &nbsp; - %{milliseconds}d<br />
+;&nbsp; &nbsp; &nbsp; - %{milli}d<br />
+;&nbsp; &nbsp; &nbsp; - %{microseconds}d<br />
+;&nbsp; &nbsp; &nbsp; - %{micro}d<br />
+;&nbsp; %e: an environment variable (same as $_ENV or $_SERVER)<br />
+;&nbsp; &nbsp; &nbsp; it must be associated with embraces to specify the name of the env<br />
+;&nbsp; &nbsp; &nbsp; variable. Some examples:<br />
+;&nbsp; &nbsp; &nbsp; - server specifics like: %{REQUEST_METHOD}e or %{SERVER_PROTOCOL}e<br />
+;&nbsp; &nbsp; &nbsp; - HTTP headers like: %{HTTP_HOST}e or %{HTTP_USER_AGENT}e<br />
+;&nbsp; %f: script filename<br />
+;&nbsp; %l: content-length of the request (for POST request only)<br />
+;&nbsp; %m: request method<br />
+;&nbsp; %M: peak of memory allocated by PHP<br />
+;&nbsp; &nbsp; &nbsp; it can accept the following format:<br />
+;&nbsp; &nbsp; &nbsp; - %{bytes}M (default)<br />
+;&nbsp; &nbsp; &nbsp; - %{kilobytes}M<br />
+;&nbsp; &nbsp; &nbsp; - %{kilo}M<br />
+;&nbsp; &nbsp; &nbsp; - %{megabytes}M<br />
+;&nbsp; &nbsp; &nbsp; - %{mega}M<br />
+;&nbsp; %n: pool name<br />
+;&nbsp; %o: output header<br />
+;&nbsp; &nbsp; &nbsp; it must be associated with embraces to specify the name of the header:<br />
+;&nbsp; &nbsp; &nbsp; - %{Content-Type}o<br />
+;&nbsp; &nbsp; &nbsp; - %{X-Powered-By}o<br />
+;&nbsp; &nbsp; &nbsp; - %{Transfert-Encoding}o<br />
+;&nbsp; &nbsp; &nbsp; - ....<br />
+;&nbsp; %p: PID of the child that serviced the request<br />
+;&nbsp; %P: PID of the parent of the child that serviced the request<br />
+;&nbsp; %q: the query string<br />
+;&nbsp; %Q: the '?' character if query string exists<br />
+;&nbsp; %r: the request URI (without the query string, see %q and %Q)<br />
+;&nbsp; %R: remote IP address<br />
+;&nbsp; %s: status (response code)<br />
+;&nbsp; %t: server time the request was received<br />
+;&nbsp; &nbsp; &nbsp; it can accept a strftime(3) format:<br />
+;&nbsp; &nbsp; &nbsp; %d/%b/%Y:%H:%M:%S %z (default)<br />
+;&nbsp; &nbsp; &nbsp; The strftime(3) format must be encapsulated in a %{&lt;strftime_format&gt;}t tag<br />
+;&nbsp; &nbsp; &nbsp; e.g. for a ISO8601 formatted timestring, use: %{%Y-%m-%dT%H:%M:%S%z}t<br />
+;&nbsp; %T: time the log has been written (the request has finished)<br />
+;&nbsp; &nbsp; &nbsp; it can accept a strftime(3) format:<br />
+;&nbsp; &nbsp; &nbsp; %d/%b/%Y:%H:%M:%S %z (default)<br />
+;&nbsp; &nbsp; &nbsp; The strftime(3) format must be encapsulated in a %{&lt;strftime_format&gt;}t tag<br />
+;&nbsp; &nbsp; &nbsp; e.g. for a ISO8601 formatted timestring, use: %{%Y-%m-%dT%H:%M:%S%z}t<br />
+;&nbsp; %u: remote user<br />
+;<br />
+; Default: "%R - %u %t \"%m %r\" %s"<br />
+access.format = "%R - %u %t \"%m %r%Q%q\" %s %f %{milli}d %{kilo}M %C%%"<br />
+<br />
+https://github.com/php/php-src/blob/master/sapi/fpm/www.conf.in#L257-L318</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126421""></a>
+  <div class="note">
+   <strong class="user">antonfedonyuk at gmail dot com</strong>
+   <a href="#126421" class="date">13-Sep-2021 09:38</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+NOTE: "access.format" containing "%o" generate error in PHP 7.4 (don't tested in other versions)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126023""></a>
   <div class="note">
    <strong class="user">rob at librobert dot net</strong>
    <a href="#126023" class="date">18-Apr-2021 12:11</a>

@@ -161,7 +161,78 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124528""></a>
+<div id="allnotes">  <a name="126416""></a>
+  <div class="note">
+   <strong class="user">gam6itko</strong>
+   <a href="#126416" class="date">11-Sep-2021 03:28</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// this example shows how Events handle Future events<br />
+<br />
+</span><span class="keyword">use </span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Events</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">\</span><span class="default">Event</span><span class="keyword">, </span><span class="default">Runtime</span><span class="keyword">};<br />
+<br />
+</span><span class="default">$events </span><span class="keyword">= new </span><span class="default">Events</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$runtime </span><span class="keyword">= new </span><span class="default">Runtime</span><span class="keyword">();<br />
+<br />
+</span><span class="comment">//Read (type: 1)<br />
+</span><span class="default">$future </span><span class="keyword">= </span><span class="default">$runtime</span><span class="keyword">-&gt;</span><span class="default">run</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; static function (</span><span class="default">string $name</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"Future#</span><span class="default">$name</span><span class="string"> result"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="string">'Read'</span><span class="keyword">]<br />
+);<br />
+</span><span class="default">$events</span><span class="keyword">-&gt;</span><span class="default">addFuture</span><span class="keyword">(</span><span class="string">"Future#Read"</span><span class="keyword">, </span><span class="default">$future</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">//Cancel&nbsp; (type: 4)<br />
+</span><span class="default">$future </span><span class="keyword">= </span><span class="default">$runtime</span><span class="keyword">-&gt;</span><span class="default">run</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; static function (</span><span class="default">string $name</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Exception#</span><span class="default">$name</span><span class="string">"</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="string">'Cancel'</span><span class="keyword">]<br />
+);<br />
+</span><span class="default">$events</span><span class="keyword">-&gt;</span><span class="default">addFuture</span><span class="keyword">(</span><span class="string">"Future#Cancel"</span><span class="keyword">, </span><span class="default">$future</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">//Kill&nbsp; (type: 5)<br />
+</span><span class="default">$future </span><span class="keyword">= </span><span class="default">$runtime</span><span class="keyword">-&gt;</span><span class="default">run</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; static function () {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">100000</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; []<br />
+);<br />
+</span><span class="default">$events</span><span class="keyword">-&gt;</span><span class="default">addFuture</span><span class="keyword">(</span><span class="string">"Future#Kill"</span><span class="keyword">, </span><span class="default">$future</span><span class="keyword">);<br />
+</span><span class="default">$future</span><span class="keyword">-&gt;</span><span class="default">cancel</span><span class="keyword">(); </span><span class="comment">//kill it<br />
+<br />
+//Error&nbsp; (type: 6)<br />
+</span><span class="default">$future </span><span class="keyword">= </span><span class="default">$runtime</span><span class="keyword">-&gt;</span><span class="default">run</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; static function () {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$memoryEater </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while (++</span><span class="default">$i</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$memoryEater</span><span class="keyword">[] = </span><span class="default">$i</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+);<br />
+</span><span class="default">$events</span><span class="keyword">-&gt;</span><span class="default">addFuture</span><span class="keyword">(</span><span class="string">"Future#Error"</span><span class="keyword">, </span><span class="default">$future</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// reading events<br />
+<br />
+/** @var Event $event */<br />
+</span><span class="keyword">foreach (</span><span class="default">$events </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$event</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">''</span><span class="keyword">, </span><span class="default">50</span><span class="keyword">, </span><span class="string">'='</span><span class="keyword">) . </span><span class="string">" EVENT_</span><span class="default">$i</span><span class="string">\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$event</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"\n"</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124528""></a>
   <div class="note">
    <strong class="user">s dot laufer at homegear dot email</strong>
    <a href="#124528" class="date">22-Dec-2019 03:02</a>
