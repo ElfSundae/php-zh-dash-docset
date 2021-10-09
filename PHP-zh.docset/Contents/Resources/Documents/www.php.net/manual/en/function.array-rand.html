@@ -122,7 +122,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-rand-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4781">
+   <div class="example" id="example-4786">
     <p><strong>Example #1 <span class="function"><strong>array_rand()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -148,7 +148,53 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122468""></a>
+<div id="allnotes">  <a name="126468""></a>
+  <div class="note">
+   <strong class="user">fulachan2 at gmail dot com</strong>
+   <a href="#126468" class="date">30-Sep-2021 07:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+array_rand () takes a random value without ever being able to go back in its choice of random value.<br />
+A simple example:<br />
+I decide to mix an array of 10 entries to retrieve 3 values. This choice will give increasing and random values.<br />
+<br />
+&nbsp;&nbsp;&nbsp; $myarray = range(1,10);<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; $pm = array_rand($myarray,3);&nbsp; &nbsp; &nbsp; <br />
+&nbsp;&nbsp;&nbsp; // $pm return array(0-&gt;0,1-&gt;6,2-&gt;8)<br />
+<br />
+But if I decide to shuffle an array of 10 entries to get 10 entries, array_rand () will choose to assign a value to each return value and therefore the return array will not be random.<br />
+<br />
+&nbsp;&nbsp;&nbsp; $gm = array_rand($myarray,count($myarray)); <br />
+&nbsp;&nbsp;&nbsp; // $gm not random array(0-&gt;0,1-&gt;1,2-&gt;2,3-&gt;3,4-&gt;4,5-&gt;5,6-&gt;6,7-&gt;7,8-&gt;8,9-&gt;9)<br />
+<br />
+The easiest way to have a truly random value:<br />
+either use array_rand () in a loop of 1 value at a time<br />
+<br />
+$deg = range(-60,60);<br />
+$size = range(16,64);<br />
+$color = ["blue","red","green","pink","orange","purple","grey","darkgreen","darkkhaki"];<br />
+$i = 0;<br />
+$longueur = 10;<br />
+do{<br />
+&nbsp;&nbsp;&nbsp; ++$i;<br />
+&nbsp;&nbsp;&nbsp; printf("&lt;span style='transform: rotateZ(%ddeg); display: inline-block;font-size: %spx; color:%s'&gt;%s&lt;/span&gt;",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $deg[array_rand($deg)],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $size[array_rand($size)],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $color[array_rand($color)],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $alnum[array_rand($alnum)]);<br />
+<br />
+}while($i &lt; $longueur);<br />
+<br />
+------------------<br />
+or simply use shuffle () to shuffle the array really randomly.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122468""></a>
   <div class="note">
    <strong class="user">grzeniufication</strong>
    <a href="#122468" class="date">03-Mar-2018 10:19</a>

@@ -208,7 +208,75 @@ Calling static method &#039;runTest&#039; in static context
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125965""></a>
+<div id="allnotes">  <a name="126434""></a>
+  <div class="note">
+   <strong class="user">johannes dot kingma at gmail dot com</strong>
+   <a href="#126434" class="date">18-Sep-2021 11:35</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+One interesting use of the __get function is property / function colaescence, using the same name for a property and a function. <br />
+<br />
+Example:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">prop_fun </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; private </span><span class="default">$prop </span><span class="keyword">= </span><span class="default">123</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__get</span><span class="keyword">( </span><span class="default">$property </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if( </span><span class="default">property_exists</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">, </span><span class="default">$property </span><span class="keyword">) ){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">$property</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">Exception</span><span class="keyword">( </span><span class="string">"no such property </span><span class="default">$property</span><span class="string">." </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">prop</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">456</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$o </span><span class="keyword">= new </span><span class="default">prop_fun</span><span class="keyword">();<br />
+<br />
+echo </span><span class="default">$o</span><span class="keyword">-&gt; </span><span class="default">prop </span><span class="keyword">. </span><span class="string">'&lt;br&gt;' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+echo </span><span class="default">$o</span><span class="keyword">-&gt; </span><span class="default">prop</span><span class="keyword">() . </span><span class="string">'&lt;br&gt;' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+This will output 123 and 456. This does look like a funy cludge but I used it of a class containing a date type property and function allowing me to write<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">date_class </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/** @property int $date */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">private </span><span class="default">$the_date</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__get</span><span class="keyword">( </span><span class="default">$property </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if( </span><span class="default">property_exists</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">, </span><span class="default">$property </span><span class="keyword">) ){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">$property</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">Exception</span><span class="keyword">( </span><span class="string">"no such property </span><span class="default">$property</span><span class="string">." </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">the_date</span><span class="keyword">( </span><span class="default">$datetime </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">strtotime</span><span class="keyword">( </span><span class="default">$datetime</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">the_date </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">()&nbsp; &nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">the_date </span><span class="keyword">= </span><span class="default">time</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$date_object </span><span class="keyword">= new </span><span class="default">date_class</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$today </span><span class="keyword">= </span><span class="default">$date_object</span><span class="keyword">-&gt; </span><span class="default">the_date</span><span class="keyword">;<br />
+</span><span class="default">$nextyear </span><span class="keyword">= </span><span class="default">$date_object</span><span class="keyword">-&gt; </span><span class="default">the_date</span><span class="keyword">(</span><span class="string">"+1 year"</span><span class="keyword">);<br />
+<br />
+echo </span><span class="default">date</span><span class="keyword">( </span><span class="string">"d/m/Y"</span><span class="keyword">, </span><span class="default">$today</span><span class="keyword">) . </span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />
+echo </span><span class="default">date</span><span class="keyword">( </span><span class="string">"d/m/Y"</span><span class="keyword">, </span><span class="default">$nextyear </span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Which I like because its self documenting properties. I used this in a utility class for user input.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125965""></a>
   <div class="note">
    <strong class="user">turabgarip at gmail dot com</strong>
    <a href="#125965" class="date">27-Mar-2021 11:02</a>

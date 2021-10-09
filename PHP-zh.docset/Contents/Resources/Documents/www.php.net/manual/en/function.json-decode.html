@@ -401,7 +401,66 @@ object(stdClass)#1 (1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126044""></a>
+<div id="allnotes">  <a name="126455""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#126455" class="date">25-Sep-2021 02:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+<br />
+$array </span><span class="keyword">= [</span><span class="default">0 </span><span class="keyword">=&gt; </span><span class="string">"foo"</span><span class="keyword">, </span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">"bar"</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">=&gt; [</span><span class="string">"baz"</span><span class="keyword">]];<br />
+<br />
+</span><span class="default">$associative </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">json_decode</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$associative<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">)<br />
+);<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The above will output<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">/*<br />
+array (size=3)<br />
+&nbsp; 0 =&gt; string 'foo' (length=3)<br />
+&nbsp; 1 =&gt; string 'bar' (length=3)<br />
+&nbsp; 2 =&gt;<br />
+&nbsp;&nbsp;&nbsp; array (size=1)<br />
+&nbsp;&nbsp; &nbsp;&nbsp; 0 =&gt; string 'baz' (length=3)<br />
+*/<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Considering <span class="default">&lt;?php $associative </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">; </span><span class="default">?&gt;</span> one might expect<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">/*<br />
+object(stdClass)<br />
+&nbsp; public '0' =&gt; string 'foo' (length=3)<br />
+&nbsp; public '1' =&gt; string 'bar' (length=3)<br />
+&nbsp; public '2' =&gt;<br />
+&nbsp;&nbsp;&nbsp; object(stdClass)<br />
+&nbsp;&nbsp; &nbsp;&nbsp; public '0' =&gt; string 'baz' (length=3)<br />
+*/<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+an stdClass object instead of an array, but this is incorrect.<br />
+json_decode will always return an array for a sequentially encoded array, regardless of the ?bool $associative 2nd argument<br />
+<br />
+Which is inline with the above mentioned docs/spec<br />
+&nbsp;&nbsp;&nbsp; &gt; Returns the value encoded in json in appropriate PHP type<br />
+<br />
+Considering that the 1st arg was a sequentially encoded array as a json string<br />
+&nbsp;&nbsp;&nbsp; '["foo","bar",["baz"]]'</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126044""></a>
   <div class="note">
    <strong class="user">greaties at ghvernuft dot nl</strong>
    <a href="#126044" class="date">28-Apr-2021 11:36</a>

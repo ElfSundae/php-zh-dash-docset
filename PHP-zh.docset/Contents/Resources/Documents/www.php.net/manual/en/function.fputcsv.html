@@ -164,7 +164,42 @@ aaa,bbb,ccc,dddd
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125399""></a>
+<div id="allnotes">  <a name="126454""></a>
+  <div class="note">
+   <strong class="user">johannes dot kingma at gmail dot com</strong>
+   <a href="#126454" class="date">23-Sep-2021 09:52</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In all those cases you need a bug free csv writer with custom record seperating capability:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">/**<br />
+&nbsp;* Custom fputcsv<br />
+&nbsp;* @param int $handle filehandle<br />
+&nbsp;* @param mixed[] $fields array of values to write<br />
+&nbsp;* @param string $delimiter field delimiter<br />
+&nbsp;* @param string $enclosure field enclosures<br />
+&nbsp;* @param string $escape_char escape enclosure chars in fields<br />
+&nbsp;* @param string $record_seperator <br />
+&nbsp;* @return int characters written<br />
+&nbsp;*/<br />
+</span><span class="keyword">function </span><span class="default">_fputcsv</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$fields</span><span class="keyword">, </span><span class="default">$delimiter </span><span class="keyword">= </span><span class="string">","</span><span class="keyword">, </span><span class="default">$enclosure </span><span class="keyword">= </span><span class="string">'"'</span><span class="keyword">, </span><span class="default">$escape_char </span><span class="keyword">= </span><span class="string">"\\"</span><span class="keyword">, </span><span class="default">$record_seperator </span><span class="keyword">= </span><span class="string">"\r\n"</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= [];<br />
+&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">$fields </span><span class="keyword">as </span><span class="default">$field</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$result</span><span class="keyword">[] = </span><span class="default">$enclosure </span><span class="keyword">. </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$enclosure</span><span class="keyword">, </span><span class="default">$escape_char </span><span class="keyword">. </span><span class="default">$enclosure</span><span class="keyword">, </span><span class="default">$field</span><span class="keyword">) . </span><span class="default">$enclosure</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">implode</span><span class="keyword">(</span><span class="default">$delimiter</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">) . </span><span class="default">$record_seperator</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125399""></a>
   <div class="note">
    <strong class="user">reinhold dot egenter at gmail dot com</strong>
    <a href="#125399" class="date">30-Sep-2020 01:05</a>

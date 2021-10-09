@@ -125,7 +125,46 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="111332""></a>
+<div id="allnotes">  <a name="126438""></a>
+  <div class="note">
+   <strong class="user">tamucola</strong>
+   <a href="#126438" class="date">20-Sep-2021 04:31</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+fuzz needs getQuantum<br />
+/**<br />
+&nbsp;* @param string $imagePath<br />
+&nbsp;* @param float&nbsp; $fuzz 0.1=10%<br />
+&nbsp;* @return bool<br />
+&nbsp;* @throws ImagickException<br />
+&nbsp;*/<br />
+public static function trimImage($imagePath, $fuzz = 0.1)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; if (empty($imagePath)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; $imagePath = realpath($imagePath);<br />
+&nbsp;&nbsp;&nbsp; if (!is_file($imagePath)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; if (!class_exists('Imagick')) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; $im = new Imagick($imagePath);<br />
+&nbsp;&nbsp;&nbsp; $result = $im-&gt;trimImage($fuzz * $im::getQuantum());<br />
+&nbsp;&nbsp;&nbsp; if (!$result) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return $im-&gt;writeImage($imagePath);<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="111332""></a>
   <div class="note">
    <strong class="user">Kirsty Forrester</strong>
    <a href="#111332" class="date">08-Feb-2013 11:17</a>

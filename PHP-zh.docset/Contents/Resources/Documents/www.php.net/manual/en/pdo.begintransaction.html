@@ -93,7 +93,41 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120178""></a>
+<div id="allnotes">  <a name="126436""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#126436" class="date">18-Sep-2021 12:34</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A way to use transaction and prepared statement to speed-up bulk INSERTs :<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// ...<br />
+<br />
+</span><span class="default">$insert </span><span class="keyword">= </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'INSERT INTO table (c1, c2, c3) VALUES (?, ?, ?)'</span><span class="keyword">);<br />
+</span><span class="default">$bulk </span><span class="keyword">= </span><span class="default">3_000</span><span class="keyword">; </span><span class="comment">// To adjust according to your data/system<br />
+</span><span class="default">$rows </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
+<br />
+</span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">beginTransaction</span><span class="keyword">();<br />
+while (</span><span class="default">$entry </span><span class="keyword">= </span><span class="default">fgetcsv</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$insert</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(</span><span class="default">$entry</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if (++</span><span class="default">$rows </span><span class="keyword">% </span><span class="default">$bulk </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">commit</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">beginTransaction</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+if (</span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">inTransaction</span><span class="keyword">()) { </span><span class="comment">// Remaining rows insertion<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">commit</span><span class="keyword">();<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120178""></a>
   <div class="note">
    <strong class="user">sasi dot viragelet at gmail dot com</strong>
    <a href="#120178" class="date">17-Nov-2016 09:29</a>

@@ -681,7 +681,46 @@ Error: sum(): Argument #1 ($a) must be of type int, float given, called in - on 
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126191""></a>
+<div id="allnotes">  <a name="126464""></a>
+  <div class="note">
+   <strong class="user">crash</strong>
+   <a href="#126464" class="date">29-Sep-2021 01:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The documentation lacks the information, that it's possible to change the return type of a method defined in an interface when the interface's methods return type is defined as `mixed`.<br />
+<br />
+From the RFC:<br />
+<br />
+"The mixed return type could be narrowed in a subclass as this is covariant and is allowed in LSP." (https://wiki.php.net/rfc/mixed_type_v2)<br />
+<br />
+This means the following code is valid in PHP 8.0:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">interface </span><span class="default">ITest<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">apfel</span><span class="keyword">(): </span><span class="default">mixed</span><span class="keyword">; </span><span class="comment">// valid as of 8.0<br />
+</span><span class="keyword">}<br />
+<br />
+class </span><span class="default">Test </span><span class="keyword">implements </span><span class="default">ITest<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">apfel</span><span class="keyword">(): array </span><span class="comment">// more explicit<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return [];<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">((new </span><span class="default">Test</span><span class="keyword">())-&gt;</span><span class="default">apfel</span><span class="keyword">());<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+You can see the result here: https://3v4l.org/PXDB6</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126191""></a>
   <div class="note">
    <strong class="user">toinenkayt (ta at ta) [iwonderr] gmail d</strong>
    <a href="#126191" class="date">24-Jun-2021 11:10</a>
