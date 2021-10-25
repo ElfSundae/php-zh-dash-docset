@@ -54,7 +54,7 @@
  <div class="refsect1 examples" id="refsect1-function.sys-getloadavg-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3374">
+   <div class="example" id="example-3381">
     <p><strong>Example #1 <span class="function"><strong>sys_getloadavg()</strong></span> µÄÀý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -78,7 +78,38 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126283""></a>
+<div id="allnotes">  <a name="126473""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#126473" class="date">04-Oct-2021 08:50</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+simple function to get the cpu load with availability to most os platforms because I haven't actually been able to find a similar protocol if you happen to be testing out various os platforms...<br />
+<br />
+function cpu_load():?string {<br />
+&nbsp;&nbsp;&nbsp; $load='';<br />
+&nbsp;&nbsp;&nbsp; if(strtolower(PHP_OS_FAMILY)=="windows") {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; exec("wmic cpu get loadpercentage /all",$out);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if($out) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach($out as $line) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if($line&amp;&amp;preg_match("/^[0-9]+\$/",$line)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $load=$line;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $load=sys_getloadavg();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return $load;<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126283""></a>
   <div class="note">
    <strong class="user">Chris Wheeler</strong>
    <a href="#126283" class="date">28-Jul-2021 10:28</a>
