@@ -162,7 +162,7 @@
  <div class="refsect1 examples" id="refsect1-function.preg-split-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4618">
+   <div class="example" id="example-4606">
     <p><strong>Example #1 <span class="function"><strong>preg_split()</strong></span>示例：获取搜索字符串的部分</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -185,7 +185,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4619">
+   <div class="example" id="example-4607">
     <p><strong>Example #2 将一个字符串分隔为组成它的字符</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -211,7 +211,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4620">
+   <div class="example" id="example-4608">
     <p><strong>Example #3 分隔一个字符串并获取每部分的偏移量</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -287,7 +287,45 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124158""></a>
+<div id="allnotes">  <a name="126520""></a>
+  <div class="note">
+   <strong class="user">dewi at dewimorgan dot com</strong>
+   <a href="#126520" class="date">20-Oct-2021 07:35</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Beware that it is not safe to assume there are no empty values returned by PREG_SPLIT_NO_EMPTY, nor that you will see no delimiters if you use PREG_SPLIT_DELIM_CAPTURE, as there are some edge cases where these are not true.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment"># As expected, splitting a string by itself returns two empty strings:<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">"/x/"</span><span class="keyword">, </span><span class="string">"x"</span><span class="keyword">));<br />
+<br />
+array (<br />
+&nbsp; </span><span class="default">0 </span><span class="keyword">=&gt; </span><span class="string">''</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">''</span><span class="keyword">,<br />
+)<br />
+<br />
+</span><span class="comment"># But if we add PREG_SPLIT_NO_EMPTY, then instead of an empty array, we get the delimiter.<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">"/x/"</span><span class="keyword">, </span><span class="string">"x"</span><span class="keyword">, </span><span class="default">PREG_SPLIT_NO_EMPTY</span><span class="keyword">));<br />
+<br />
+array (<br />
+&nbsp; </span><span class="default">0 </span><span class="keyword">=&gt; </span><span class="string">'x'</span><span class="keyword">,<br />
+)<br />
+<br />
+And if </span><span class="default">we </span><span class="keyword">try </span><span class="default">to split an </span><span class="keyword">empty </span><span class="default">string</span><span class="keyword">, </span><span class="default">then instead of an </span><span class="keyword">empty array, </span><span class="default">we get an </span><span class="keyword">empty </span><span class="default">string even with PREG_SPLIT_NO_EMPTY</span><span class="keyword">.<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">"/x/"</span><span class="keyword">, </span><span class="string">""</span><span class="keyword">, </span><span class="default">PREG_SPLIT_NO_EMPTY</span><span class="keyword">));<br />
+<br />
+array (<br />
+&nbsp; </span><span class="default">0 </span><span class="keyword">=&gt; </span><span class="string">''</span><span class="keyword">,<br />
+)<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124158""></a>
   <div class="note">
    <strong class="user">Hayley Watson</strong>
    <a href="#124158" class="date">01-Sep-2019 03:02</a>

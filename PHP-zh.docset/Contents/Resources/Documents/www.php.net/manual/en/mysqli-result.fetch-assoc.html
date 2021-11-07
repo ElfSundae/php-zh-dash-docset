@@ -12,7 +12,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="mysqli-result.fetch-array.html">? mysqli_result::fetch_array</a></li>
-      <li style="float: right;"><a href="mysqli-result.fetch-field-direct.html">mysqli_result::fetch_field_direct ?</a></li>
+      <li style="float: right;"><a href="mysqli-result.fetch-column.html">mysqli_result::fetch_column ?</a></li>
     </ul>
   </div>
 </div>
@@ -50,6 +50,14 @@
    Returns an associative array that corresponds to the fetched row or <strong><code>null</code></strong>
    if there are no more rows.
   </p>
+  <p class="para">
+   If two or more columns of the result have the same name, the last
+   column will take precedence and overwrite any previous data. To
+   access multiple columns with the same name,
+   <span class="function"><a href="mysqli-result.fetch-row.html" class="function">mysqli_fetch_row()</a></span> may be used to fetch the numerically
+   indexed array, or aliases may be used in the SQL query select list to give
+   columns different names.
+  </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em class="emphasis">大小写敏感</em>。</span></p></blockquote>
   <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数将 NULL 字段设置为 PHP <strong><code>null</code></strong> 值。</span></p></blockquote>
  </div>
@@ -77,22 +85,16 @@ result</code></dt>
  <div class="refsect1 returnvalues" id="refsect1-mysqli-result.fetch-assoc-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns an associative array of values representing the fetched row in the result
+   Returns an associative array representing the fetched row in the result
    set, where each key in the array represents the name of one of the result
    set&#039;s columns or <strong><code>null</code></strong> if there are no more rows in result set.
-  </p>
-  <p class="para">
-   If two or more columns of the result have the same field names, the last
-   column will take precedence. To access the other column(s) of the same
-   name, you either need to access the result with numeric indices by using
-   <span class="function"><a href="mysqli-result.fetch-row.html" class="function">mysqli_fetch_row()</a></span> or add alias names.
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-mysqli-result.fetch-assoc-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1445">
+  <div class="example" id="example-1452">
    <p><strong>Example #1 <span class="methodname"><strong>mysqli_result::fetch_assoc()</strong></span> example</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
@@ -121,10 +123,10 @@ Santa Clara (USA)
 </pre></div>
    </div>
   </div>
-  <div class="example" id="example-1446">
+  <div class="example" id="example-1453">
    <p><strong>Example #2 Comparison of <a href="class.mysqli-result.html" class="classname">mysqli_result</a> <strong class="classname">iterator</strong> and <span class="methodname"><strong>mysqli_result::fetch_assoc()</strong></span> usage</strong></p>
    <div class="example-contents"><p>
-    <a href="class.mysqli-result.html" class="classname">mysqli_result</a> can be iterated using <a href="control-structures.foreach.html" class="link">foreach</a>. 
+    <a href="class.mysqli-result.html" class="classname">mysqli_result</a> can be iterated using <a href="control-structures.foreach.html" class="link">foreach</a>.
     The result set will always be iterated from the first row, regardless of the current position.
    </p></div>
    <div class="example-contents">
@@ -161,6 +163,7 @@ Santa Clara (USA)
   <p class="para">
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="mysqli-result.fetch-array.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_array()</a> - Fetch a result row as an associative, a numeric array, or both</span></li>
+    <li class="member"><span class="function"><a href="mysqli-result.fetch-column.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_column()</a> - Fetch a single column from the next row of a result set</span></li>
     <li class="member"><span class="function"><a href="mysqli-result.fetch-row.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_row()</a> - Get a result row as an enumerated array</span></li>
     <li class="member"><span class="function"><a href="mysqli-result.fetch-object.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_object()</a> - Returns the current row of a result set as an object</span></li>
     <li class="member"><span class="function"><a href="mysqli.query.html" class="function" rel="rdfs-seeAlso">mysqli_query()</a> - 对数据库执行一次查询</span></li>

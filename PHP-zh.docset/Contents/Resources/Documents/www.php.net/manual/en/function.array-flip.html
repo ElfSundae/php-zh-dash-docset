@@ -89,7 +89,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-flip-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4765">
+   <div class="example" id="example-4753">
     <p><strong>Example #1 <span class="function"><strong>array_flip()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -112,7 +112,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4766">
+   <div class="example" id="example-4754">
     <p><strong>Example #2 <span class="function"><strong>array_flip()</strong></span> Àý×Ó : ³åÍ»</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -151,7 +151,67 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123224""></a>
+<div id="allnotes">  <a name="126524""></a>
+  <div class="note">
+   <strong class="user">mmulej at gmail dot com</strong>
+   <a href="#126524" class="date">21-Oct-2021 01:05</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you don't want to lose duplicates, and you're ok, with having the values in the flipped array in an array as well, you may use this:<br />
+<br />
+PHP 7.4 - ^8<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">array_flip_safe</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">) : array<br />
+{<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">array_reduce</span><span class="keyword">(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">), function (</span><span class="default">$carry</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">) use (&amp;</span><span class="default">$array</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]] ??= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]][] = </span><span class="default">$key</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$carry</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }, []);<br />
+}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+PHP 7.0 - ^7.3 (Time to upgrade to PHP 8 ^^)<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">array_flip_safe</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">) : array<br />
+{<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">array_reduce</span><span class="keyword">(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">), function (</span><span class="default">$carry</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">) use (&amp;</span><span class="default">$array</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]] = </span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]] ?? [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]][] = </span><span class="default">$key</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$carry</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }, []);<br />
+}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+PHP 5.4 - ^5.6 (Just don't)<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">array_flip_safe</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">array_reduce</span><span class="keyword">(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">), function (</span><span class="default">$carry</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">) use (&amp;</span><span class="default">$array</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!isset(</span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]])<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]] = [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$carry</span><span class="keyword">[</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]][] = </span><span class="default">$key</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$carry</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }, []);<br />
+}<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123224""></a>
   <div class="note">
    <strong class="user">Ahammar Yassine</strong>
    <a href="#123224" class="date">11-Oct-2018 06:03</a>

@@ -210,7 +210,7 @@
  <div class="refsect1 examples" id="refsect1-function.openssl-encrypt-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-876">
+   <div class="example" id="example-881">
     <p><strong>Example #1 PHP 7.1+  下 GCM 模式的 AES 认证加密例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -221,7 +221,7 @@
 
    </div>
 
-   <div class="example" id="example-877">
+   <div class="example" id="example-882">
     <p><strong>Example #2 PHP 5.6+ 的 AES 认证加密例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -251,7 +251,70 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126296""></a>
+<div id="allnotes">  <a name="126546""></a>
+  <div class="note">
+   <strong class="user">desmatic at gmail dot com</strong>
+   <a href="#126546" class="date">30-Oct-2021 12:39</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Upgraded php and needed something to replace insecure legacy mcrypt libs, but still supported classic user, password interface.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">encrypt</span><span class="keyword">(</span><span class="default">$plaintext</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$cipher </span><span class="keyword">= </span><span class="string">"aes-256-gcm"</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; if (!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$cipher</span><span class="keyword">, </span><span class="default">openssl_get_cipher_methods</span><span class="keyword">())) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$iv </span><span class="keyword">= </span><span class="default">openssl_random_pseudo_bytes</span><span class="keyword">(</span><span class="default">openssl_cipher_iv_length</span><span class="keyword">(</span><span class="default">$cipher</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$tag </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$ciphertext </span><span class="keyword">= </span><span class="default">openssl_encrypt</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">gzcompress</span><span class="keyword">(</span><span class="default">$plaintext</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$cipher</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$options</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$iv</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$tag</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; );<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">json_encode</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"ciphertext" </span><span class="keyword">=&gt; </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">$ciphertext</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"cipher" </span><span class="keyword">=&gt; </span><span class="default">$cipher</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"iv" </span><span class="keyword">=&gt; </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">$iv</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"tag" </span><span class="keyword">=&gt; </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">$tag</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; );<br />
+}<br />
+<br />
+function </span><span class="default">decrypt</span><span class="keyword">(</span><span class="default">$cipherjson</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; try {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$json </span><span class="keyword">= </span><span class="default">json_decode</span><span class="keyword">(</span><span class="default">$cipherjson</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">,&nbsp; </span><span class="default">JSON_THROW_ON_ERROR</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; } catch (</span><span class="default">Exception $e</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">gzuncompress</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">openssl_decrypt</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$json</span><span class="keyword">[</span><span class="string">'ciphertext'</span><span class="keyword">]),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$json</span><span class="keyword">[</span><span class="string">'cipher'</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$options</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$json</span><span class="keyword">[</span><span class="string">'iv'</span><span class="keyword">]),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$json</span><span class="keyword">[</span><span class="string">'tag'</span><span class="keyword">])<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; );<br />
+}<br />
+<br />
+</span><span class="default">$secret </span><span class="keyword">= </span><span class="string">"MySecRet@123"</span><span class="keyword">;<br />
+</span><span class="default">$cipherjson </span><span class="keyword">= </span><span class="default">encrypt</span><span class="keyword">(</span><span class="string">"Hello world!\n"</span><span class="keyword">, </span><span class="default">$secret</span><span class="keyword">);<br />
+echo </span><span class="default">decrypt</span><span class="keyword">(</span><span class="default">$cipherjson</span><span class="keyword">, </span><span class="default">$secret</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126296""></a>
   <div class="note">
    <strong class="user">TheNorthMemory</strong>
    <a href="#126296" class="date">31-Jul-2021 07:52</a>

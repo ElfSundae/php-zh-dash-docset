@@ -94,6 +94,13 @@
      <span class="initializer"> = &quot;majority&quot;</span>
     ;</div>
 
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">string</span>
+      <var class="fieldsynopsis_varname"><a href="class.mongodb-driver-readconcern.html#mongodb-driver-readconcern.constants.snapshot"><var class="varname">SNAPSHOT</var></a></var>
+     <span class="initializer"> = &quot;snapshot&quot;</span>
+    ;</div>
+
     
     <div class="classsynopsisinfo classsynopsisinfo_comment">/* ·½·¨ */</div>
     <div class="methodsynopsis dc-description">
@@ -247,6 +254,41 @@
 
     
 
+    
+     <dt id="mongodb-driver-readconcern.constants.snapshot"><strong><code>MongoDB\Driver\ReadConcern::SNAPSHOT</code></strong></dt>
+
+     <dd>
+
+      <p class="para">
+       Read concern <code class="literal">&quot;snapshot&quot;</code> is available for
+       multi-document transactions, and starting in MongoDB 5.0, certain read
+       operations outside of multi-document transactions.
+      </p>
+      <p class="para">
+       If the transaction is not part of a causally consistent session, upon
+       transaction commit with write concern <code class="literal">&quot;majority&quot;</code>, the
+       transaction operations are guaranteed to have read from a snapshot of
+       majority-committed data.
+      </p>
+      <p class="para">
+       If the transaction is part of a causally consistent session, upon
+       transaction commit with write concern <code class="literal">&quot;majority&quot;</code>, the
+       transaction operations are guaranteed to have read from a snapshot of
+       majority-committed data that provides causal consistency with the
+       operation immediately preceding the transaction start.
+      </p>
+      <p class="para">
+       Outside of multi-document transactions, read concern
+       <code class="literal">&quot;snapshot&quot;</code> is available on primaries and secondaries
+       for the following read operations: <code class="literal">find</code>,
+       <code class="literal">aggregate</code>, and <code class="literal">distinct</code> (on
+       unsharded collections). All other read commands prohibit
+       <code class="literal">&quot;snapshot&quot;</code>.
+      </p>
+     </dd>
+
+    
+
    </dl>
 
   </div>
@@ -266,6 +308,16 @@
       </thead>
 
       <tbody class="tbody">
+       <tr>
+        <td>PECL mongodb 1.11.0</td>
+        <td>
+         <p class="para">
+          Added the <strong><code>MongoDB\Driver\ReadConcern::SNAPSHOT</code></strong>
+          constant.
+         </p>
+        </td>
+       </tr>
+
        <tr>
         <td>PECL mongodb 1.7.0</td>
         <td>

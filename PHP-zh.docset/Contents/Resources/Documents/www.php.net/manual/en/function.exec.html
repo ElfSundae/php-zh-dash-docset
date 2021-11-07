@@ -121,7 +121,7 @@
  <div class="refsect1 examples" id="refsect1-function.exec-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3178">
+   <div class="example" id="example-3186">
     <p><strong>Example #1 <span class="function"><strong>exec()</strong></span> 例程</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -165,7 +165,29 @@ PHP 挂起，直至程序执行结束。</p></p></blockquote>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125957""></a>
+<div id="allnotes">  <a name="126521""></a>
+  <div class="note">
+   <strong class="user">krjdev at gmail dot com</strong>
+   <a href="#126521" class="date">20-Oct-2021 09:26</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note for OpenBSD users:<br />
+<br />
+In the default configuration from OpenBSD, PHP runs into a chroot. So the exec() command will not work. You will get a 127 (command not found) result code. The reason is, the shell (/bin/sh) is missing in chroot, but the exec() command requires the shell.<br />
+<br />
+A quick and dirty solution is to copy /bin/sh (which is statically linked) in the chroot directory:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">$ </span><span class="default">cp </span><span class="keyword">/</span><span class="default">bin</span><span class="keyword">/</span><span class="default">sh </span><span class="keyword">/var/</span><span class="default">www</span><span class="keyword">/</span><span class="default">bin<br />
+?&gt;<br />
+</span><br />
+(I have noticed this on OpenBSD 7.0 with PHP 8.0.11.)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125957""></a>
   <div class="note">
    <strong class="user">ivk</strong>
    <a href="#125957" class="date">24-Mar-2021 01:43</a>

@@ -69,7 +69,7 @@
  <div class="refsect1 examples" id="refsect1-splfileobject.fgets-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3584">
+   <div class="example" id="example-3572">
     <p><strong>Example #1 <span class="methodname"><strong>SplFileObject::fgets()</strong></span> example</strong></p>
     <div class="example-contents"><p>This example simply outputs the contents of <code class="literal">file.txt</code> line-by-line.</p></div>
     <div class="example-contents">
@@ -101,7 +101,120 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122300""></a>
+<div id="allnotes">  <a name="126526""></a>
+  <div class="note">
+   <strong class="user">Lucas Bustamante</strong>
+   <a href="#126526" class="date">22-Oct-2021 11:34</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I forgot to mention in my previous note about PHP PHP 8.0.10, that you can use $file-&gt;current(); $file-&gt;next(); as a replacement for $file-&gt;fgets(); that works consistently from PHP 5.1 to 8.0.1+ after a seek():<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$file </span><span class="keyword">= new </span><span class="default">SplTempFileObject</span><span class="keyword">();<br />
+<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">100</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">fwrite</span><span class="keyword">(</span><span class="string">"Foo </span><span class="default">$i</span><span class="string">\n"</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">seek</span><span class="keyword">(</span><span class="default">50</span><span class="keyword">);<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">(array(<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'line' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="string">'contents' </span><span class="keyword">=&gt; </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">()), </span><span class="string">'triggerNext' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">()),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'line' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="string">'contents' </span><span class="keyword">=&gt; </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">()), </span><span class="string">'triggerNext' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">()),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'line' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="string">'contents' </span><span class="keyword">=&gt; </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">()), </span><span class="string">'triggerNext' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">()),<br />
+));<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+PHP 5.1 to 8.0.1+:<br />
+<br />
+[<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 50,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 50"<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 51,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 51"<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 52,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 52"<br />
+&nbsp;&nbsp;&nbsp; }<br />
+]</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126525""></a>
+  <div class="note">
+   <strong class="user">Lucas Bustamante</strong>
+   <a href="#126525" class="date">22-Oct-2021 11:19</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Notice that the behavior of fgets after a seek changed on PHP 8.0.10, if you seek to line 50 and run fgets, it will give you line 50, while on PHP 5.1~8.0.0 it would give you line 51:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$file </span><span class="keyword">= new </span><span class="default">SplTempFileObject</span><span class="keyword">();<br />
+<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">100</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">fwrite</span><span class="keyword">(</span><span class="string">"Foo </span><span class="default">$i</span><span class="string">\n"</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">seek</span><span class="keyword">(</span><span class="default">50</span><span class="keyword">);<br />
+<br />
+echo </span><span class="default">json_encode</span><span class="keyword">(array(<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'line' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="string">'contents' </span><span class="keyword">=&gt; </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">fgets</span><span class="keyword">())),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'line' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="string">'contents' </span><span class="keyword">=&gt; </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">fgets</span><span class="keyword">())),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'line' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="string">'contents' </span><span class="keyword">=&gt; </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">fgets</span><span class="keyword">())),<br />
+), </span><span class="default">JSON_PRETTY_PRINT</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Results:<br />
+<br />
+PHP&nbsp; 8.0.1+<br />
+[<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 50,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 50"<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 50,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 51"<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 51,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 52"<br />
+&nbsp;&nbsp;&nbsp; }<br />
+]<br />
+<br />
+PHP 5.1 to 8.0.0<br />
+[<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 50,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 51"<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 51,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 52"<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "line": 52,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "contents": "Foo 53"<br />
+&nbsp;&nbsp;&nbsp; }<br />
+]</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122300""></a>
   <div class="note">
    <strong class="user">Chris Johnson</strong>
    <a href="#122300" class="date">22-Jan-2018 09:45</a>

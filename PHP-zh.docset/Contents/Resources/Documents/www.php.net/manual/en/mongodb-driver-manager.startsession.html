@@ -188,6 +188,34 @@
           <td><code class="literal">[]</code></td>
          </tr>
 
+         <tr>
+          <td>snapshot</td>
+          <td><span class="type">bool</span></td>
+          <td>
+           <p class="para">
+            Configure snapshot reads in a session. If <strong><code>true</code></strong>, a timestamp will
+            be obtained from the first supported read operation in the session
+            (i.e. <code class="literal">find</code>, <code class="literal">aggregate</code>, or
+            unsharded <code class="literal">distinct</code>). Subsequent read operations
+            within the session will then utilize a <code class="literal">&quot;snapshot&quot;</code>
+            read concern level to read majority-committed data from that
+            timestamp. Set to <strong><code>false</code></strong> to disable snapshot reads.
+           </p>
+           <p class="para">
+            Snapshot reads require MongoDB 5.0+ and cannot be used with causal
+            consistency, transactions, or write operations. If
+            <code class="literal">&quot;snapshot&quot;</code> is <strong><code>true</code></strong>,
+            <code class="literal">&quot;causalConsistency&quot;</code> will default to <strong><code>false</code></strong>.
+           </p>
+           <p class="para">
+            See
+            <a href="https://docs.mongodb.com/manual/reference/read-concern-snapshot/#read-concern-and-atclustertime" class="link external" title="Link : https://docs.mongodb.com/manual/reference/read-concern-snapshot/#read-concern-and-atclustertime">&raquo;&nbsp;Read Concern &quot;snapshot&quot;</a>
+            in the MongoDB manual for more information.
+           </p>
+          </td>
+          <td><strong><code>false</code></strong></td>
+         </tr>
+
         </tbody>
        
       </table>
@@ -213,6 +241,7 @@
   <h3 class="title">¥ÌŒÛ£Ø“Ï≥£</h3>
   <ul class="simplelist">
    <li class="member">Throws <a href="class.mongodb-driver-exception-invalidargumentexception.html" class="classname">MongoDB\Driver\Exception\InvalidArgumentException</a> on argument parsing errors.</li>
+   <li class="member">Throws <a href="class.mongodb-driver-exception-invalidargumentexception.html" class="classname">MongoDB\Driver\Exception\InvalidArgumentException</a> if the <code class="literal">&quot;causalConsistency&quot;</code> and <code class="literal">&quot;snapshot&quot;</code> options are both <strong><code>true</code></strong>.</li>
    <li class="member">Throws <a href="class.mongodb-driver-exception-runtimeexception.html" class="classname">MongoDB\Driver\Exception\RuntimeException</a> if the session could not be created (e.g. libmongoc does not support crypto).</li>
   </ul>
  </div>
@@ -232,6 +261,15 @@
      </thead>
 
      <tbody class="tbody">
+      <tr>
+       <td>PECL mongodb 1.11.0</td>
+       <td>
+        <p class="para">
+         The <code class="literal">&quot;snapshot&quot;</code> option was added.
+        </p>
+       </td>
+      </tr>
+
       <tr>
        <td>PECL mongodb 1.6.0</td>
        <td>
