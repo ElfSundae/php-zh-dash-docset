@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Basic enumerations</title>
+  <title>枚举基础</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,100 +11,102 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="language.enumerations.overview.html">? Enumerations overview</a></li>
-      <li style="float: right;"><a href="language.enumerations.backed.html">Backed enumerations ?</a></li>
+      <li style="float: left;"><a href="language.enumerations.overview.html">? 枚举概览</a></li>
+      <li style="float: right;"><a href="language.enumerations.backed.html">回退（Backed）枚举 ?</a></li>
     </ul>
   </div>
 </div>
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="language.enumerations.html">Enumerations</a></li>
-    <li>Basic enumerations</li>
+    <li><a href="language.enumerations.html">枚举</a></li>
+    <li>枚举基础</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="language.enumerations.basics" class="sect1">
-   <h2 class="title">Basic enumerations</h2>
+  <h2 class="title">枚举基础</h2>
 
-   <p class="para">
-    Enums are similar to classes, and share the same namespaces as classes, interfaces, and traits.
-    They are also autoloadable the same way. An Enum defines a new type, which has a fixed, limited
-    number of possible legal values.
-   </p>
+  <p class="para">
+   Enum 类似 class，它和 class、interface、trait 共享同样的命名空间。
+   也能用同样的方式自动加载。
+   一个 Enum 定义了一种新的类型，它有固定、数量有限、可能的合法值。
+  </p>
 
 
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
+  <div class="example-contents">
+   <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />enum&nbsp;Suit<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Hearts</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Diamonds</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Clubs</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Spades</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
-   </div>
+  </div>
 
 
-   <p class="para">
-    This declaration creates a new enumerated type named <code class="literal">Suit</code>, which has
-    four and only four legal values: <code class="literal">Suit::Hearts</code>, <code class="literal">Suit::Diamonds</code>,
-    <code class="literal">Suit::Clubs</code>, and <code class="literal">Suit::Spades</code>. Variables may be assigned
-    to one of those legal values. A function may be type checked against an enumerated type,
-    in which case only values of that type may be passed.
-   </p>
+  <p class="para">
+   以上声明了新的枚举类型 <code class="literal">Suit</code>，仅有四个有效的值：
+   <code class="literal">Suit::Hearts</code>、<code class="literal">Suit::Diamonds</code>、
+   <code class="literal">Suit::Clubs</code>、<code class="literal">Suit::Spades</code>。
+   变量可以赋值为以上有效值里的其中一个。
+   函数可以检测枚举类型，这种情况下只能传入类型的值。
+  </p>
 
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
+  <div class="example-contents">
+   <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">pick_a_card</span><span style="color: #007700">(</span><span style="color: #0000BB">Suit&nbsp;$suit</span><span style="color: #007700">)&nbsp;{&nbsp;...&nbsp;}<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Diamonds</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;OK<br /></span><span style="color: #0000BB">pick_a_card</span><span style="color: #007700">(</span><span style="color: #0000BB">$val</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;OK<br /></span><span style="color: #0000BB">pick_a_card</span><span style="color: #007700">(</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Clubs</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;TypeError:&nbsp;pick_a_card():&nbsp;Argument&nbsp;#1&nbsp;($suit)&nbsp;must&nbsp;be&nbsp;of&nbsp;type&nbsp;Suit,&nbsp;string&nbsp;given<br /></span><span style="color: #0000BB">pick_a_card</span><span style="color: #007700">(</span><span style="color: #DD0000">'Spades'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
-   </div>
+  </div>
 
 
-   <p class="para">
-    An Enumeration may have zero or more <code class="literal">case</code> definitions, with no maximum.
-    A zero-case enum is syntactically valid, if rather useless.
-   </p>
+  <p class="para">
+   一个枚举可以定义零个或多个<code class="literal">case</code>，且没有最大数量限制。
+   虽然零个 case 的 enum 没什么用处，但在语法上也是有效的。
+  </p>
 
-   <p class="para">
-    By default, cases are not intrinsically backed by a scalar value. That is, <code class="literal">Suit::Hearts</code>
-    is not equal to <code class="literal">&quot;0&quot;</code>. Instead, each case is backed by a singleton object of that name. That means that:
-   </p>
+  <p class="para">
+   默认情况下，枚举的条目（case）本质上不是标量。
+   就是说 <code class="literal">Suit::Hearts</code> 不等同于 <code class="literal">&quot;0&quot;</code>。
+   其实，本质上每个条目是该名称对象的单例。 具体来说：
+  </p>
 
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
+  <div class="example-contents">
+   <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Spades</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Spades</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;true<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">instanceof&nbsp;</span><span style="color: #0000BB">Suit</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;true<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
-   </div>
+  </div>
 
 
-   <p class="para">
-    It also means that enum values are never <code class="literal">&lt;</code> or <code class="literal">&gt;</code> each other,
-    since those comparisons are not meaningful on objects.  Those comparisons will always return
-    false when working with enum values.
-   </p>
+  <p class="para">
+   由于对象间的大小比较毫无意义，这也意味着 enum 值从来不会 <code class="literal">&lt;</code> 或 <code class="literal">&gt;</code> 其他值。
+   当 enum 的值用于比较时，总是返回 false。
+  </p>
 
-   <p class="para">
-    This type of case, with no related data, is called a &quot;Pure Case.&quot;  An Enum that contains
-    only Pure Cases is called a Pure Enum.
-   </p>
+  <p class="para">
+   这类没有关联数据的条目（case），被称为"纯粹条目"（Pure Case）。
+   仅包含纯粹 Case 的 Enum 被称为纯粹枚举（Pure Enum）。
+  </p>
 
-   <p class="para">
-    All Pure Cases are implemented as instances of their enum type.  The enum type is represented internally as a class.
-   </p>
+  <p class="para">
+   枚举类型里所有的纯粹条目都是自身的实例。
+   枚举类型在内部的实现形式是一个 class。
+  </p>
 
-   <p class="para">
-    All Cases have a read-only property, <code class="literal">name</code>, that is the case-sensitive name
-    of the case itself.  That may sometimes be useful for debugging purposes.
-   </p>
+  <p class="para">
+   所有的 case 有个只读的属性 <code class="literal">name</code>。
+   它大小写敏感，是 case 自身的名称。
+   在调试场景中比较有用。
+  </p>
 
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">print&nbsp;</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Spades</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;prints&nbsp;"Spades"<br /></span><span style="color: #0000BB">?&gt;</span>
+  <div class="example-contents">
+   <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">print&nbsp;</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Spades</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;输出&nbsp;"Spades"<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
-   </div>
+  </div>
 
 
-  </div><div id="usernotes">
+ </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

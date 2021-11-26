@@ -353,7 +353,7 @@
  <div class="refsect1 examples" id="refsect1-function.session-set-save-handler-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4571">
+   <div class="example" id="example-4573">
     <p><strong>Example #1 
      自定义会话管理器： 完整代码请参见 <a href="class.sessionhandlerinterface.html" class="classname">SessionHandlerInterface</a>。
     </strong></p>
@@ -430,7 +430,103 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122816""></a>
+<div id="allnotes">  <a name="126563""></a>
+  <div class="note">
+   <strong class="user">polygon dot co dot in at gmail dot com</strong>
+   <a href="#126563" class="date">06-Nov-2021 07:39</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Below is a demo to check the order in which session function executes.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+ini_set</span><span class="keyword">(</span><span class="string">'session.use_strict_mode'</span><span class="keyword">,</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+function </span><span class="default">sess_open</span><span class="keyword">(</span><span class="default">$sess_path</span><span class="keyword">, </span><span class="default">$sess_name</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_open'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">sess_close</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_close'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">sess_read</span><span class="keyword">(</span><span class="default">$sess_id</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_read'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="string">''</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">sess_write</span><span class="keyword">(</span><span class="default">$sess_id</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_write'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">sess_destroy</span><span class="keyword">(</span><span class="default">$sess_id</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_destroy'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">sess_gc</span><span class="keyword">(</span><span class="default">$sess_maxlifetime</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_gc'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">sess_create_sid</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_create_sid'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="string">'RNS'</span><span class="keyword">.</span><span class="default">rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">,</span><span class="default">10</span><span class="keyword">);<br />
+}<br />
+<br />
+function </span><span class="default">sess_validate_sid</span><span class="keyword">(</span><span class="default">$sess_id</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_validate_sid'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">sess_update_timestamp</span><span class="keyword">(</span><span class="default">$sess_id</span><span class="keyword">,</span><span class="default">$data</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;sess_update_timestamp'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">session_set_save_handler</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_open'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_close'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_read'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_write'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_destroy'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_gc'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_create_sid'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_validate_sid'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'sess_update_timestamp'<br />
+</span><span class="keyword">);<br />
+<br />
+</span><span class="default">session_start</span><span class="keyword">();<br />
+<br />
+echo </span><span class="string">'&lt;br/&gt;code here...'</span><span class="keyword">;<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+O/P Below when above code executed first time.<br />
+sess_open<br />
+sess_create_sid<br />
+sess_read<br />
+code here...<br />
+sess_write<br />
+sess_close<br />
+<br />
+O/P Below for next execution.<br />
+sess_open<br />
+sess_validate_sid<br />
+sess_read<br />
+code here...<br />
+sess_write<br />
+sess_close</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122816""></a>
   <div class="note">
    <strong class="user">tony at marston-home dot demon dot co dot uk</strong>
    <a href="#122816" class="date">10-Jun-2018 03:43</a>

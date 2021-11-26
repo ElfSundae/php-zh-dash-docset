@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Serialization</title>
+  <title>序列化</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,7 +11,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="language.enumerations.listing.html">? Value listing</a></li>
+      <li style="float: left;"><a href="language.enumerations.listing.html">? 枚举值清单</a></li>
       <li style="float: right;"><a href="language.enumerations.examples.html">范例 ?</a></li>
     </ul>
   </div>
@@ -19,22 +19,24 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="language.enumerations.html">Enumerations</a></li>
-    <li>Serialization</li>
+    <li><a href="language.enumerations.html">枚举</a></li>
+    <li>序列化</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="language.enumerations.serialization" class="sect1">
-  <h2 class="title">Serialization</h2>
+  <h2 class="title">序列化</h2>
 
   <p class="para">
-   Enumerations are serialized differently from objects.  Specifically, they have a new serialization code,
-   <code class="literal">&quot;E&quot;</code>, that specifies the name of the enum case.  The deserialization routine is then
-   able to use that to set a variable to the existing singleton value.  That ensures that:
+  枚举的序列化不同于对象。
+  尤其是它们有新的序列化代码：
+   <code class="literal">&quot;E&quot;</code>，指示了 enum 条目名称。
+   然后反序列化动作能够设置变量为现有的单例值。
+   确保那样：
   </p>
 
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
+   <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Hearts&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">unserialize</span><span style="color: #007700">(</span><span style="color: #0000BB">serialize</span><span style="color: #007700">(</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Hearts</span><span style="color: #007700">));<br /><br />print&nbsp;</span><span style="color: #0000BB">serialize</span><span style="color: #007700">(</span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Hearts</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;E:11:"Suit:Hearts";<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
@@ -42,23 +44,23 @@
 
 
   <p class="para">
-   On deserialization, if an enum and case cannot be found to match a serialized
-   value a warning will be issued and <code class="literal">false</code> returned.</p>
-
-  <p class="para">
-   If a Pure Enum is serialized to JSON, an error will be thrown.  If a Backed Enum
-   is serialized to JSON, it will be represented by its value scalar only, in the
-   appropriate type.  The behavior of both may be overridden by implementing
-   <a href="class.jsonserializable.html" class="classname">JsonSerializable</a>.
+   如果枚举和它的条目在反序列化时，无法匹配序列化的值，
+   会导致 warning 警告，并返回 <code class="literal">false</code>。
   </p>
 
-  <p class="para">For <span class="function"><a href="function.print-r.html" class="function">print_r()</a></span>, the output of an enum case is slightly different
-   from objects to minimize confusion.
+  <p class="para">
+   把纯粹枚举序列化为 JSON 将会导致错误。
+   把回退枚举序列化为 JSON 时，仅会用标量值的形式，以合适的类型表达。
+   可通过实现 <a href="class.jsonserializable.html" class="classname">JsonSerializable</a> 来重载序列化行为。
+  </p>
+
+  <p class="para">对于 <span class="function"><a href="function.print-r.html" class="function">print_r()</a></span>，输出的枚举条目略微不同于对象，
+  能减少迷惑。
   </p>
 
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />enum&nbsp;Foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Bar</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">enum&nbsp;Baz</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">int&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Beep&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">Bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">Baz</span><span style="color: #007700">::</span><span style="color: #0000BB">Beep</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Produces<br /><br />Foo&nbsp;Enum&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;[name]&nbsp;=&gt;&nbsp;Bar<br />)<br />Baz&nbsp;Enum:int&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;[name]&nbsp;=&gt;&nbsp;Beep<br />&nbsp;&nbsp;&nbsp;&nbsp;[value]&nbsp;=&gt;&nbsp;5<br />}<br />*/<br /></span><span style="color: #0000BB">?&gt;</span>
+   <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />enum&nbsp;Foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Bar</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">enum&nbsp;Baz</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">int&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">Beep&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">Bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">Baz</span><span style="color: #007700">::</span><span style="color: #0000BB">Beep</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;产生<br /><br />Foo&nbsp;Enum&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;[name]&nbsp;=&gt;&nbsp;Bar<br />)<br />Baz&nbsp;Enum:int&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;[name]&nbsp;=&gt;&nbsp;Beep<br />&nbsp;&nbsp;&nbsp;&nbsp;[value]&nbsp;=&gt;&nbsp;5<br />}<br />*/<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
   </div>
