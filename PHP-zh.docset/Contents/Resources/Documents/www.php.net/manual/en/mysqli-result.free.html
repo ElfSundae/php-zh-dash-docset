@@ -108,7 +108,55 @@ result</code></dt>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123708""></a>
+<div id="allnotes">  <a name="126623""></a>
+  <div class="note">
+   <strong class="user">polygon dot co dot in at gmail dot com</strong>
+   <a href="#126623" class="date">19-Nov-2021 10:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+We should free the mysql results using mysqli_free_result respectively or else this will consume your server RAM resource.<br />
+<br />
+This is demonstrated as below<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$link </span><span class="keyword">= </span><span class="default">mysqli_connect</span><span class="keyword">(</span><span class="string">'Hostname'</span><span class="keyword">,</span><span class="string">'Username'</span><span class="keyword">,</span><span class="string">'Password'</span><span class="keyword">,</span><span class="string">'Database'</span><span class="keyword">);<br />
+<br />
+echo </span><span class="string">'&lt;br/&gt;Memory Usage Before Query = '</span><span class="keyword">.</span><span class="default">memory_get_usage</span><span class="keyword">(</span><span class="default">false</span><span class="keyword">); </span><span class="comment">// 449464 bytes<br />
+<br />
+</span><span class="default">$resultResource </span><span class="keyword">= </span><span class="default">mysqli_query</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">, </span><span class="string">'SELECT * FROM test'</span><span class="keyword">);<br />
+<br />
+echo </span><span class="string">'&lt;br/&gt;Memory Usage after Query = '</span><span class="keyword">.</span><span class="default">memory_get_usage</span><span class="keyword">(</span><span class="default">false</span><span class="keyword">); </span><span class="comment">// 466528 bytes<br />
+<br />
+</span><span class="default">$result </span><span class="keyword">= array();<br />
+while (</span><span class="default">$result</span><span class="keyword">[] = </span><span class="default">mysqli_fetch_assoc</span><span class="keyword">(</span><span class="default">$resultResource</span><span class="keyword">)) {}<br />
+<br />
+echo </span><span class="string">'&lt;br/&gt;&lt;br/&gt;Memory Usage Before Free Result = '</span><span class="keyword">.</span><span class="default">memory_get_usage</span><span class="keyword">(</span><span class="default">false</span><span class="keyword">); </span><span class="comment">// 474208 bytes<br />
+<br />
+</span><span class="default">mysqli_free_result</span><span class="keyword">(</span><span class="default">$resultResource</span><span class="keyword">);<br />
+<br />
+echo </span><span class="string">'&lt;br/&gt;Memory Usage After Free Result = '</span><span class="keyword">.</span><span class="default">memory_get_usage</span><span class="keyword">(</span><span class="default">false</span><span class="keyword">); </span><span class="comment">// 457336 bytes<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Output below.<br />
+<br />
+Memory Usage Before Query = 449464<br />
+Memory Usage after Query = 466528<br />
+<br />
+Memory Usage Before Free Result = 474208<br />
+Memory Usage After Free Result = 457336<br />
+<br />
+So, One can observer there is memory usage after the query is executed. The results are returned by DB server to the web server instantaniously once the query execution is over. The results present on web server are then processed for fetching from the resource link on web server.<br />
+<br />
+Also this is observed that there is lesser memory usage after using mysqli_free_result because the resources stored on web server for respective query are freed by providing respective resource link.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123708""></a>
   <div class="note">
    <strong class="user">jack_action100 at hotmail dot example dot com</strong>
    <a href="#123708" class="date">20-Mar-2019 12:43</a>

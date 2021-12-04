@@ -1041,45 +1041,6 @@ echo "$people-&gt;robert greeted the two $people-&gt;smith\x08s"; <br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="124315""></a>
-  <div class="note">
-   <strong class="user">M. H. S.</strong>
-   <a href="#124315" class="date">20-Oct-2019 07:51</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="comment">// Its A Example for "Heredoc":<br />
-<br />
-</span><span class="default">$n </span><span class="keyword">= </span><span class="default">10</span><span class="keyword">;<br />
-<br />
-</span><span class="default">$var_heredoc </span><span class="keyword">= &lt;&lt;&lt;HEREDOC<br />
-</span><span class="string"><br />
-Its A String For "</span><span class="default">$var_heredoc</span><span class="string">" variable.<br />
-<br />
-heredoc can expanding variables.<br />
-(example: </span><span class="default">$n</span><span class="string">)<br />
-<br />
-if you want not expanding, you need print " \ " befor variable.<br />
-(example: /</span><span class="default">$n</span><span class="string">)<br />
-<br />
-heredoc can use " /n, /t, /r, ... ".<br />
-<br />
-heredoc = the string of double-qoutation;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; HEREDOC; -&gt; its bad closing of heredoc!<br />
-<br />
-</span><span class="keyword">HEREDOC;<br />
-</span><span class="comment">// its a good closing of heredoc!<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="123903""></a>
   <div class="note">
    <strong class="user">vseokdog at gmail dot com</strong>
@@ -1621,65 +1582,6 @@ function </span><span class="default">c</span><span class="keyword">(</span><spa
    </div>
   </div>
  <div class="foot"></div>
-  <a name="87390""></a>
-  <div class="note">
-   <strong class="user">cvolny at gmail dot com</strong>
-   <a href="#87390" class="date">02-Dec-2008 11:43</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I commented on a php bug feature request for a string expansion function and figured I should post somewhere it might be useful:<br />
-<br />
-using regex, pretty straightforward:<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">stringExpand</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">, array </span><span class="default">$vars</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// loop over $vars map<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">foreach (</span><span class="default">$vars </span><span class="keyword">as </span><span class="default">$name </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// use preg_replace to match ${`$name`} or $`$name`<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$subject </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'/\$\{?%s\}?/'</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">), </span><span class="default">$value</span><span class="keyword">,<br />
-</span><span class="default">$subject</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// return variable expanded string<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">$subject</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-using eval() and not limiting access to only certain variables (entire current symbol table including [super]globals):<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">stringExpandDangerous</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">, array </span><span class="default">$vars </span><span class="keyword">= array(), </span><span class="default">$random </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// extract $vars into current symbol table<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">extract</span><span class="keyword">(</span><span class="default">$vars</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$delim</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// if requested to be random (default), generate delim, otherwise use predefined (trivially faster)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$random</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$delim </span><span class="keyword">= </span><span class="string">'___' </span><span class="keyword">. </span><span class="default">chr</span><span class="keyword">(</span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">65</span><span class="keyword">,</span><span class="default">90</span><span class="keyword">)) . </span><span class="default">chr</span><span class="keyword">(</span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">65</span><span class="keyword">,</span><span class="default">90</span><span class="keyword">)) . </span><span class="default">chr</span><span class="keyword">(</span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">65</span><span class="keyword">,</span><span class="default">90</span><span class="keyword">)) . </span><span class="default">chr</span><span class="keyword">(</span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">65</span><span class="keyword">,</span><span class="default">90</span><span class="keyword">)) . </span><span class="default">chr</span><span class="keyword">(</span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">65</span><span class="keyword">,</span><span class="default">90</span><span class="keyword">)) . </span><span class="string">'___'</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$delim </span><span class="keyword">= </span><span class="string">'__ASDFZXCV1324ZXCV__'</span><span class="keyword">;&nbsp; </span><span class="comment">// button mashing...<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // built the eval code<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$statement </span><span class="keyword">= </span><span class="string">"return &lt;&lt;&lt;</span><span class="default">$delim</span><span class="string">\n\n" </span><span class="keyword">. </span><span class="default">$subject </span><span class="keyword">. </span><span class="string">"\n</span><span class="default">$delim</span><span class="string">;\n"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// execute statement, saving output to $result variable<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= eval(</span><span class="default">$statement</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// if eval() returned FALSE, throw a custom exception<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$result </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">EvalException</span><span class="keyword">(</span><span class="default">$statement</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// return variable expanded string<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">$result</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-I hope that helps someone, but I do caution against using the eval() route even if it is tempting.&nbsp; I don't know if there's ever a truely safe way to use eval() on the web, I'd rather not use it.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="86044""></a>
   <div class="note">
    <strong class="user">steve at mrclay dot org</strong>
@@ -1737,41 +1639,6 @@ var_dump</span><span class="keyword">(</span><span class="string">'1.22' </span>
 </span><span class="default">var_dump</span><span class="keyword">(</span><span class="string">'1.22.00' </span><span class="keyword">&gt; </span><span class="string">'01.23.00'</span><span class="keyword">); </span><span class="comment">// bool(true)<br />
 </span><span class="default">var_dump</span><span class="keyword">(</span><span class="string">'1-22-00' </span><span class="keyword">&gt; </span><span class="string">'01-23-00'</span><span class="keyword">); </span><span class="comment">// bool(true)<br />
 </span><span class="default">var_dump</span><span class="keyword">((float)</span><span class="string">'1.22.00' </span><span class="keyword">&gt; (float)</span><span class="string">'01.23.00'</span><span class="keyword">); </span><span class="comment">// bool(false)<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="78067""></a>
-  <div class="note">
-   <strong class="user">rkfranklin+php at gmail dot com</strong>
-   <a href="#78067" class="date">26-Sep-2007 12:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you want to use a variable in an array index within a double quoted string you have to realize that when you put the curly braces around the array, everything inside the curly braces gets evaluated as if it were outside a string.&nbsp; Here are some examples:<br />
-<br />
-<span class="default">&lt;?php<br />
-$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
-</span><span class="default">$myArray</span><span class="keyword">[</span><span class="default">Person0</span><span class="keyword">] = </span><span class="default">Bob</span><span class="keyword">;<br />
-</span><span class="default">$myArray</span><span class="keyword">[</span><span class="default">Person1</span><span class="keyword">] = </span><span class="default">George</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">// prints Bob (the ++ is used to emphasize that the expression inside the {} is really being evaluated.)<br />
-</span><span class="keyword">echo </span><span class="string">"</span><span class="keyword">{</span><span class="default">$myArray</span><span class="keyword">[</span><span class="string">'Person'</span><span class="keyword">.</span><span class="default">$i</span><span class="keyword">++]}</span><span class="string">&lt;br&gt;"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">// these print George<br />
-</span><span class="keyword">echo </span><span class="string">"</span><span class="keyword">{</span><span class="default">$myArray</span><span class="keyword">[</span><span class="string">'Person'</span><span class="keyword">.</span><span class="default">$i</span><span class="keyword">]}</span><span class="string">&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"</span><span class="keyword">{</span><span class="default">$myArray</span><span class="keyword">[</span><span class="string">"Person</span><span class="keyword">{</span><span class="default">$i</span><span class="keyword">}</span><span class="string">"</span><span class="keyword">]}</span><span class="string">&lt;br&gt;"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">// These don't work<br />
-</span><span class="keyword">echo </span><span class="string">"</span><span class="keyword">{</span><span class="default">$myArray</span><span class="keyword">[</span><span class="string">'Person$i'</span><span class="keyword">]}</span><span class="string">&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"</span><span class="keyword">{</span><span class="default">$myArray</span><span class="keyword">[</span><span class="string">'Person'</span><span class="default">$i</span><span class="keyword">]}</span><span class="string">&lt;br&gt;"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">// These both throw fatal errors<br />
-// echo "$myArray[Person$i]&lt;br&gt;";<br />
-//echo "$myArray[Person{$i}]&lt;br&gt;";<br />
 </span><span class="default">?&gt;</span>
 </span>
 </code>
@@ -1850,33 +1717,6 @@ EOHTML;<br />
 Useful for debugging when C-style just won't do.&nbsp; Also useful if you wish to embed Perl-like Plain Old Documentation; extraction between POD markers is left as an exercise for the reader.<br />
 <br />
 Note there is a performance penalty for this method, as PHP must still parse and variable substitute the string.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="59248""></a>
-  <div class="note">
-   <strong class="user">webmaster at rephunter dot net</strong>
-   <a href="#59248" class="date">30-Nov-2005 08:57</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Use caution when you need white space at the end of a heredoc. Not only is the mandatory final newline before the terminating symbol stripped, but an immediately preceding newline or space character is also stripped.<br />
-<br />
-For example, in the following, the final space character (indicated by \s -- that is, the "\s" is not literally in the text, but is only used to indicate the space character) is stripped:<br />
-<br />
-$string = &lt;&lt;&lt;EOT<br />
-this is a string with a terminating space\s<br />
-EOT;<br />
-<br />
-In the following, there will only be a single newline at the end of the string, even though two are shown in the text:<br />
-<br />
-$string = &lt;&lt;&lt;EOT<br />
-this is a string that must be<br />
-followed by a single newline<br />
-<br />
-EOT;</span>
 </code>
     </div>
    </div>

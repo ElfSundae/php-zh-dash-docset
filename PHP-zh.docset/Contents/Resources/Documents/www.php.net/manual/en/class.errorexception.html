@@ -72,10 +72,10 @@
    <span class="modifier">public</span> <span class="methodname"><a href="errorexception.construct.html" class="methodname">__construct</a></span>
     ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$message</code><span class="initializer"> = &quot;&quot;</span></span>
    , <span class="methodparam"><span class="type">int</span> <code class="parameter">$code</code><span class="initializer"> = 0</span></span>
-   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$severity</code><span class="initializer"> = E_ERROR</span></span>
-   , <span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code><span class="initializer"> = __FILE__</span></span>
-   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$lineno</code><span class="initializer"> = __LINE__</span></span>
-   , <span class="methodparam"><span class="type"><a href="class.exception.html" class="type Exception">Exception</a></span> <code class="parameter">$previous</code><span class="initializer"> = <strong><code>null</code></strong></span></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$severity</code><span class="initializer"> = <strong><code>E_ERROR</code></strong></span></span>
+   , <span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">null</span></span> <code class="parameter">$filename</code><span class="initializer"> = <strong><code>null</code></strong></span></span>
+   , <span class="methodparam"><span class="type"><span class="type">int</span>|<span class="type">null</span></span> <code class="parameter">$line</code><span class="initializer"> = <strong><code>null</code></strong></span></span>
+   , <span class="methodparam"><span class="type"><span class="type"><a href="class.throwable.html" class="type Throwable">Throwable</a></span>|<span class="type">null</span></span> <code class="parameter">$previous</code><span class="initializer"> = <strong><code>null</code></strong></span></span>
    )</div>
 
     <div class="methodsynopsis dc-description">
@@ -90,13 +90,13 @@
     (
    ) : <span class="type">string</span></div>
 <div class="methodsynopsis dc-description">
-   <span class="modifier">final</span> <span class="modifier">public</span> <span class="methodname"><a href="exception.getprevious.html" class="methodname">Exception::getPrevious</a></span>
+   <span class="modifier">final</span> <span class="modifier">public</span>  <span class="methodname"><a href="exception.getprevious.html" class="methodname">Exception::getPrevious</a></span>
     (
-   ) : <span class="type"><a href="class.throwable.html" class="type Throwable">Throwable</a></span></div>
+   ) : <span class="type"><span class="type"><a href="class.throwable.html" class="type Throwable">Throwable</a></span>|<span class="type">null</span></span></div>
 <div class="methodsynopsis dc-description">
    <span class="modifier">final</span> <span class="modifier">public</span> <span class="methodname"><a href="exception.getcode.html" class="methodname">Exception::getCode</a></span>
     (
-   ) : <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   ) : <span class="type">int</span></div>
 <div class="methodsynopsis dc-description">
    <span class="modifier">final</span> <span class="modifier">public</span> <span class="methodname"><a href="exception.getfile.html" class="methodname">Exception::getFile</a></span>
     (
@@ -201,7 +201,52 @@ Stack trace:
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120887""></a>
+<div id="allnotes">  <a name="126619""></a>
+  <div class="note">
+   <strong class="user">Christopher Marshall</strong>
+   <a href="#126619" class="date">16-Nov-2021 03:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Going on further from the point made by&nbsp; triplepoint at gmail dot com:<br />
+<br />
+I'm using PHP 7.4.0 and trying to introduce error handling, exception handling and fatal exception handling into my application. A lot of the info all over the internet is now out of date in regards to handling errors with the new changes in PHP 7 and 8, which makes it difficult at the best of times to understand everything.<br />
+<br />
+However what I've found is that by using register_shutdown_function to handle fatal exceptions, it works as expected. set_exception_handler also works perfectly in conjunction. The issue comes when you use set_error_handler as well, and you trigger a custom error (for example using trigger_error) - even if you're using E_ERROR or E_USER_ERROR.<br />
+<br />
+This is because PHP is trying to handle the error before it shuts down and before the register_shutdown_function is actually involved. So it's very important to be mindful of this if you're using different methods for exceptions, errors and fatal exceptions. You will need to specifically catch the error like before and return out of your error handling function for the fatal exception handler to kick in properly.<br />
+<br />
+You're welcome .....<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; &nbsp; * We handle basic errors differently to everything else<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">errorHandler</span><span class="keyword">(</span><span class="default">$errStatus</span><span class="keyword">, </span><span class="default">$errMsg </span><span class="keyword">= </span><span class="string">'Unknown error'</span><span class="keyword">, </span><span class="default">$errFile </span><span class="keyword">= </span><span class="string">'unknown'</span><span class="keyword">, </span><span class="default">$errLine </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; * Because we're using set_error_handler, PHP tries to be<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; * clever and routes fatal errors and other "errors" <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; * (i.e. trigger_error) here before it goes to <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; * register_shutdown_function, so we need to be sure these<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; * are caught and dealt with in the correct way<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; *<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; * @See https://www.php.net/manual/en/class.errorexception.php#95415<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; */<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (\</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$errStatus</span><span class="keyword">, [</span><span class="default">E_ERROR</span><span class="keyword">, </span><span class="default">E_PARSE</span><span class="keyword">, </span><span class="default">E_CORE_ERROR</span><span class="keyword">, </span><span class="default">E_USER_ERROR</span><span class="keyword">, </span><span class="default">E_ERROR</span><span class="keyword">]))<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/* Handle everything else however you want */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120887""></a>
   <div class="note">
    <strong class="user">Kevin</strong>
    <a href="#120887" class="date">28-Mar-2017 09:13</a>

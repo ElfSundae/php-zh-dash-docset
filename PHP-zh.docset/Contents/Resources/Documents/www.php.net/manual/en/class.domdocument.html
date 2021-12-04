@@ -949,7 +949,47 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125879""></a>
+<div id="allnotes">  <a name="126620""></a>
+  <div class="note">
+   <strong class="user">andreas at userbrain dot com</strong>
+   <a href="#126620" class="date">17-Nov-2021 01:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+After struggling with parsing and modifying partial HTML content for several hours, I came to this solution which does work for me and is relatively simple compared to what else I found online.<br />
+<br />
+This solution fixes unwanted DOCTYPE and html, body tags as well as encoding issues.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// Assumption: content is utf-8 encoded<br />
+</span><span class="default">$content </span><span class="keyword">= </span><span class="string">"&lt;h1&gt;This is a heading&lt;/h1&gt;&lt;p&gt;This is a paragraph&lt;/p&gt;"</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// Load content to a div and specify encoding with a meta tag<br />
+</span><span class="default">$temp_dom </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();<br />
+</span><span class="default">$temp_dom</span><span class="keyword">-&gt;</span><span class="default">loadHTML</span><span class="keyword">(</span><span class="string">"&lt;meta http-equiv='Content-Type' content='CHARSET=gb2312' /&gt;&lt;div&gt;</span><span class="default">$content</span><span class="string">&lt;/div&gt;"</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// As loadHTML() adds a DOCTYPE as well as &lt;html&gt; and &lt;body&gt; tag, let's create another DOMDocument and import just the nodes we want<br />
+</span><span class="default">$dom </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();<br />
+</span><span class="default">$first_div </span><span class="keyword">= </span><span class="default">$temp_dom</span><span class="keyword">-&gt;</span><span class="default">getElementsByTagName</span><span class="keyword">(</span><span class="string">'div'</span><span class="keyword">)[</span><span class="default">0</span><span class="keyword">];<br />
+</span><span class="default">$first_div_node </span><span class="keyword">= </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">importNode</span><span class="keyword">(</span><span class="default">$first_div</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$first_div_node</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Do whatever you want to do<br />
+</span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">getElementsByTagName</span><span class="keyword">(</span><span class="string">'h1'</span><span class="keyword">)[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">setAttribute</span><span class="keyword">(</span><span class="string">'class'</span><span class="keyword">, </span><span class="string">'happy'</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// You could also just echo $dom-&gt;saveHtml() if you don't mind the div and whitespace <br />
+</span><span class="keyword">echo </span><span class="default">substr</span><span class="keyword">(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">saveHtml</span><span class="keyword">()), </span><span class="default">5</span><span class="keyword">, -</span><span class="default">6</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Outputs: &lt;h1 class="happy"&gt;This is a heading&lt;/h1&gt;&lt;p&gt;This is a paragraph&lt;/p&gt;<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125879""></a>
   <div class="note">
    <strong class="user">pastormontesinos at gmail dot com</strong>
    <a href="#125879" class="date">04-Mar-2021 10:34</a>

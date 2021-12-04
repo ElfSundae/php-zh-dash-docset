@@ -120,7 +120,7 @@
  <div class="refsect1 examples" id="refsect1-function.fputcsv-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2078">
+   <div class="example" id="example-2089">
     <p><strong>Example #1 <span class="function"><strong>fputcsv()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -164,7 +164,26 @@ aaa,bbb,ccc,dddd
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126454""></a>
+<div id="allnotes">  <a name="126647""></a>
+  <div class="note">
+   <strong class="user">encode</strong>
+   <a href="#126647" class="date">30-Nov-2021 12:26</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Regarding Excel and UTF-16LE encoding<br />
+<br />
+For complete Excel compatibility (umlauts, cyrillic, chinese alphabet etc.) one needs to encode their .csv to UTF-16LE, use tabulators (\t) as the separator and include a UTF-16LE BOM at the start of the file. <br />
+<br />
+This however can not be done by simply encoding the input for putcsv, since separators and enclosure characters will still be written in the default encoding, and fputcsv will not accept utf-16 encoded separator/enclosure characters.<br />
+<br />
+The simple solution is to roll your own implementation of fputcsv with escaping etc., or possibly to encode the generated .csv file after the fact.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126454""></a>
   <div class="note">
    <strong class="user">johannes dot kingma at gmail dot com</strong>
    <a href="#126454" class="date">23-Sep-2021 09:52</a>

@@ -118,7 +118,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-merge-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4774">
+   <div class="example" id="example-4785">
     <p><strong>Example #1 <span class="function"><strong>array_merge()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -145,7 +145,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4775">
+   <div class="example" id="example-4786">
     <p><strong>Example #2 Simple <span class="function"><strong>array_merge()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -203,7 +203,7 @@ array(5) {
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4776">
+   <div class="example" id="example-4787">
     <p><strong>Example #3 <span class="function"><strong>array_merge()</strong></span> 合并非数组的类型</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -242,7 +242,73 @@ array(5) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124819""></a>
+<div id="allnotes">  <a name="126628""></a>
+  <div class="note">
+   <strong class="user">Andreas Hofmann</strong>
+   <a href="#126628" class="date">21-Nov-2021 02:59</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In addition to the text and Julian Egelstaffs comment regarding to keep the keys preserved with the + operator:<br />
+When they say "input arrays with numeric keys will be renumbered" they MEAN it. If you think you are smart and put your numbered keys into strings, this won't help. Strings which contain an integer will also be renumbered! I fell into this trap while merging two arrays with book ISBNs as keys. So let's have this example:<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; $test1</span><span class="keyword">[</span><span class="string">'24'</span><span class="keyword">] = </span><span class="string">'Mary'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$test1</span><span class="keyword">[</span><span class="string">'17'</span><span class="keyword">] = </span><span class="string">'John'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$test2</span><span class="keyword">[</span><span class="string">'67'</span><span class="keyword">] = </span><span class="string">'Phil'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$test2</span><span class="keyword">[</span><span class="string">'33'</span><span class="keyword">] = </span><span class="string">'Brandon'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result1 </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$test1</span><span class="keyword">, </span><span class="default">$test2</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$result1</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result2 </span><span class="keyword">= [...</span><span class="default">$test1</span><span class="keyword">, ...</span><span class="default">$test2</span><span class="keyword">];&nbsp; &nbsp; </span><span class="comment">// mentioned by fsb<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$result2</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+You will get both:<br />
+<br />
+array(4) {<br />
+&nbsp; [0]=&gt;<br />
+&nbsp; string(4) "Mary"<br />
+&nbsp; [1]=&gt;<br />
+&nbsp; string(4) "John"<br />
+&nbsp; [2]=&gt;<br />
+&nbsp; string(4) "Phil"<br />
+&nbsp; [3]=&gt;<br />
+&nbsp; string(7) "Brandon"<br />
+}<br />
+<br />
+Use the + operator or array_replace, this will preserve - somewhat - the keys:<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; $result1 </span><span class="keyword">= </span><span class="default">array_replace</span><span class="keyword">(</span><span class="default">$test1</span><span class="keyword">, </span><span class="default">$test2</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$result1</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result2 </span><span class="keyword">= </span><span class="default">$test1 </span><span class="keyword">+ </span><span class="default">$test2</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$result2</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+You will get both:<br />
+<br />
+array(4) {<br />
+&nbsp; [24]=&gt;<br />
+&nbsp; string(4) "Mary"<br />
+&nbsp; [17]=&gt;<br />
+&nbsp; string(4) "John"<br />
+&nbsp; [67]=&gt;<br />
+&nbsp; string(4) "Phil"<br />
+&nbsp; [33]=&gt;<br />
+&nbsp; string(7) "Brandon"<br />
+}<br />
+<br />
+The keys will keep the same, the order will keep the same, but with a little caveat: The keys will be converted to integers.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124819""></a>
   <div class="note">
    <strong class="user">fsb at thefsb dot org</strong>
    <a href="#124819" class="date">12-Mar-2020 11:36</a>

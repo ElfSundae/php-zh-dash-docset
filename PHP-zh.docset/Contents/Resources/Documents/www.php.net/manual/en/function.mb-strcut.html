@@ -167,7 +167,40 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121877""></a>
+<div id="allnotes">  <a name="126615""></a>
+  <div class="note">
+   <strong class="user">David Juhasz</strong>
+   <a href="#126615" class="date">15-Nov-2021 11:49</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This was driving me crazy, because mb_strcut() kept returning an empty string.&nbsp; The $length parameter seems to have a max value of 2^32-1 (2147483647).<br />
+<br />
+Works:<br />
+<span class="default">&lt;?php<br />
+&nbsp; </span><span class="comment"># output: §±§à§Ý§å§å§ã§ä§Ñ§Ó<br />
+&nbsp; </span><span class="keyword">echo </span><span class="default">mb_strcut</span><span class="keyword">(</span><span class="string">'§±§à§Ý§å§å§ã§ä§Ñ§Ó'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">pow</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">,</span><span class="default">31</span><span class="keyword">)-</span><span class="default">1</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Doesn't work:<br />
+<span class="default">&lt;?php<br />
+&nbsp; </span><span class="comment"># nothing is output<br />
+&nbsp; </span><span class="keyword">echo </span><span class="default">mb_strcut</span><span class="keyword">(</span><span class="string">'§±§à§Ý§å§å§ã§ä§Ñ§Ó'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">pow</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">,</span><span class="default">31</span><span class="keyword">));<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+My PHP_INT_MAX value is much larger than 2^32-1, so I'm not sure why larger values for $length don't work. :(<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp; </span><span class="comment"># output: 9223372036854775807<br />
+&nbsp; </span><span class="keyword">echo </span><span class="default">PHP_INT_MAX</span><span class="keyword">;<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121877""></a>
   <div class="note">
    <strong class="user">olivthill at gmail dot com</strong>
    <a href="#121877" class="date">16-Nov-2017 02:30</a>

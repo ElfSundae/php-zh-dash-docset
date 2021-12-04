@@ -93,7 +93,7 @@
  <div class="refsect1 examples" id="refsect1-function.str-contains-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4669">
+   <div class="example" id="example-4680">
     <p><strong>Example #1 Using the empty string <code class="literal">&#039;&#039;</code></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -110,7 +110,7 @@ Checking the existence of the empty string will always return true
     </div>
    </div>
 
-   <div class="example" id="example-4670">
+   <div class="example" id="example-4681">
     <p><strong>Example #2 Showing case-sensitivity</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -159,7 +159,47 @@ The string &#039;lazy&#039; was found in the string
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126277""></a>
+<div id="allnotes">  <a name="126632""></a>
+  <div class="note">
+   <strong class="user">AuxData</strong>
+   <a href="#126632" class="date">22-Nov-2021 12:28</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Until PHP 8 was released, many-a-programmer were writing our own contain() functions. Mine also handles needles with logical ORs (set to '||').<br />
+Here it is.<br />
+<br />
+function contains($haystack, $needle, $offset){<br />
+&nbsp;&nbsp;&nbsp; $OR = '||';<br />
+&nbsp;&nbsp;&nbsp; $result = false;<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; $ORpos = strpos($needle, $OR, 0);<br />
+&nbsp;&nbsp;&nbsp; if($ORpos !== false){ //ORs exist in the needle string<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $needle_arr = explode($OR, $needle);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; for($i=0; $i &lt; count($needle_arr); $i++){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $pos = strpos($haystack, trim($needle_arr[$i]), $offset);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if($pos !== false){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $result = true;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp;&nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $pos = strpos($haystack, trim($needle), $offset);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if($pos !== false){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $result = true;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp; return($result);<br />
+}<br />
+<br />
+Call: contains("Apple Orange Banana", "Apple || Walnut", 0);<br />
+Returns: true</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126277""></a>
   <div class="note">
    <strong class="user">juliyvchirkov at gmail dot com</strong>
    <a href="#126277" class="date">26-Jul-2021 11:30</a>

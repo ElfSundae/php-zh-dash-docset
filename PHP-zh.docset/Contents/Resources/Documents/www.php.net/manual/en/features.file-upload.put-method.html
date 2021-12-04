@@ -70,7 +70,7 @@ Script PUT /put.php
    authenticate the user before performing this file copy.
   </p>
   <p class="para">
-   <div class="example" id="example-406">
+   <div class="example" id="example-417">
     <p><strong>Example #1 ±£´æ HTTP PUT ÎÄ¼þ</strong></p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
@@ -85,7 +85,36 @@ Script PUT /put.php
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="114665""></a>
+<div id="allnotes">  <a name="126641""></a>
+  <div class="note">
+   <strong class="user">willy at kochkonsult dot no</strong>
+   <a href="#126641" class="date">25-Nov-2021 01:35</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+All the example code I found for using PUT with PHP always used a default hard-coded file extension for the incoming stream.<br />
+<br />
+The filename from the incoming file PUT request can't be found anywhere from the incoming request (at least I couldn't find it) but mimetype can be found in the $_SERVER global variable.<br />
+<br />
+I used this code to get the correct file extension:<br />
+<br />
+$mimeType = $_SERVER['HTTP_CONTENT_TYPE'];<br />
+<br />
+if ($mimeType!='application/pdf') <br />
+&nbsp;&nbsp;&nbsp; {&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; header('HTTP/1.1 405 Only PDF files allowed');<br />
+&nbsp;&nbsp;&nbsp; echo("Only PDF files are allowed for upload - this file is ".$mimeType);<br />
+&nbsp;&nbsp;&nbsp; die();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+else $fileExtension = 'pdf';<br />
+<br />
+If you have an Apache Tika server available, that would be the best option to analyze the file content to get the mimetype, but that might not be in scope for everyone :-)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="114665""></a>
   <div class="note">
    <strong class="user">San</strong>
    <a href="#114665" class="date">19-Mar-2014 09:33</a>
