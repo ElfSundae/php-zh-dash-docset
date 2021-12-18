@@ -63,8 +63,9 @@
   </p>
 
   <p class="para">
-   要使用八进制表达，数字前必须加上
-   <code class="literal">0</code>（零）。要使用十六进制表达，数字前必须加上
+   要使用八进制表达，数字前必须加上 <code class="literal">0</code>（零）。
+   PHP 8.1.0 起，八进制表达也可以在前面加上 <code class="literal">0o</code> 或者 <code class="literal">0O</code> 。
+   要使用十六进制表达，数字前必须加上
    <code class="literal">0x</code>。要使用二进制表达，数字前必须加上
    <code class="literal">0b</code>。
   </p>
@@ -78,7 +79,7 @@
    <p><strong>Example #1 整数文字表达</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1234</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;十进制数<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0123</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;八进制数&nbsp;(等于十进制&nbsp;83)<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0x1A</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;十六进制数&nbsp;(等于十进制&nbsp;26)<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0b11111111</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;二进制数字&nbsp;(等于十进制&nbsp;255)<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1_234_567</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;整型数值&nbsp;(PHP&nbsp;7.4.0&nbsp;以后)<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1234</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;十进制数<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0123</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;八进制数&nbsp;(等于十进制&nbsp;83)<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0o123</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;八进制数&nbsp;(PHP&nbsp;8.1.0&nbsp;起)<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0x1A</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;十六进制数&nbsp;(等于十进制&nbsp;26)<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0b11111111</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;二进制数字&nbsp;(等于十进制&nbsp;255)<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1_234_567</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;整型数值&nbsp;(PHP&nbsp;7.4.0&nbsp;以后)<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -97,7 +98,7 @@ decimal     : [1-9][0-9]*(_[0-9]+)*
 
 hexadecimal : 0[xX][0-9a-fA-F]+(_[0-9a-fA-F]+)*
 
-octal       : 0[0-7]+(_[0-7]+)*
+octal       : 0[oO]?[0-7]+(_[0-7]+)*
 
 binary      : 0[bB][01]+(_[01]+)*
 
@@ -154,8 +155,7 @@ integer     : decimal
   </div>
 
   <p class="para">
-   There is no <span class="type">int</span> division operator in PHP, to achieve this
-   use the <span class="function"><a href="function.intdiv.html" class="function">intdiv()</a></span> function.
+   PHP 没有 <span class="type">int</span> 除法取整运算符，要使用 <span class="function"><a href="function.intdiv.html" class="function">intdiv()</a></span> 实现。
    <code class="literal">1/2</code> 产生出 <span class="type">float</span>
    <code class="literal">0.5</code>。
    值可以舍弃小数部分，强制转换为 <span class="type">int</span>，或者使用
@@ -249,11 +249,8 @@ integer     : decimal
    <h4 class="title">从字符串转换</h4>
 
    <p class="simpara">
-    If the string is
-    <a href="language.types.numeric-strings.html" class="link">numeric</a>
-    or leading numeric then it will resolve to the
-    corresponding integer value, otherwise it is converted to zero
-    (<code class="literal">0</code>).
+    如果 string 是 <a href="language.types.numeric-strings.html" class="link">numeric</a> 或者前导数字，
+    则将它解析为相应的 int 值，否则将转换为零（<code class="literal">0</code>）。
    </p>
   </div>
    
@@ -261,7 +258,7 @@ integer     : decimal
    <h4 class="title">从 <span class="type">NULL</span> 转换</h4>
 
    <p class="simpara">
-    <strong><code>null</code></strong> 会转换为零 (<code class="literal">0</code>)。
+    <strong><code>null</code></strong> 会转换为零（<code class="literal">0</code>）。
    </p>
   </div>
 

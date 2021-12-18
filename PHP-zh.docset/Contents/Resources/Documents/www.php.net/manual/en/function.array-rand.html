@@ -122,7 +122,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-rand-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4796">
+   <div class="example" id="example-4804">
     <p><strong>Example #1 <span class="function"><strong>array_rand()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -148,7 +148,110 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126468""></a>
+<div id="allnotes">  <a name="126659""></a>
+  <div class="note">
+   <strong class="user">Vitaly</strong>
+   <a href="#126659" class="date">03-Dec-2021 03:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Generate random index in weights array.<br />
+Implementation of Vose's Alias Method.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">AliasMethod<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; protected </span><span class="default">$count</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; protected </span><span class="default">$prob</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; protected </span><span class="default">$alias</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$weight</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$weight</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sum </span><span class="keyword">= </span><span class="default">array_sum</span><span class="keyword">(</span><span class="default">$weight</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$d </span><span class="keyword">= </span><span class="default">$count </span><span class="keyword">/ </span><span class="default">$sum</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$small </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$large </span><span class="keyword">= [];<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$weight </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; &amp; </span><span class="default">$w</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( (</span><span class="default">$w </span><span class="keyword">*= </span><span class="default">$d</span><span class="keyword">) &lt; </span><span class="default">1</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$small</span><span class="keyword">[] = </span><span class="default">$i</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$large</span><span class="keyword">[] = </span><span class="default">$i</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; unset(</span><span class="default">$w</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$prob </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$alias </span><span class="keyword">= [];<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while (!empty(</span><span class="default">$small</span><span class="keyword">) AND !empty(</span><span class="default">$large</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$l </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$small</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$g </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$large</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$prob</span><span class="keyword">[</span><span class="default">$l</span><span class="keyword">] = </span><span class="default">$weight</span><span class="keyword">[</span><span class="default">$l</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$alias</span><span class="keyword">[</span><span class="default">$l</span><span class="keyword">] = </span><span class="default">$g</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( (</span><span class="default">$weight</span><span class="keyword">[</span><span class="default">$g</span><span class="keyword">] += </span><span class="default">$weight</span><span class="keyword">[</span><span class="default">$l</span><span class="keyword">] - </span><span class="default">1</span><span class="keyword">) &lt; </span><span class="default">1</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$small</span><span class="keyword">[] = </span><span class="default">$g</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$large</span><span class="keyword">[] = </span><span class="default">$g</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$large </span><span class="keyword">as </span><span class="default">$i</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$prob</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">1</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$small </span><span class="keyword">as </span><span class="default">$i</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$prob</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">1</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">prob </span><span class="keyword">= </span><span class="default">$prob</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">alias </span><span class="keyword">= </span><span class="default">$alias</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">count </span><span class="keyword">= </span><span class="default">$count</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">next</span><span class="keyword">(): </span><span class="default">int<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">count </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">mt_rand</span><span class="keyword">() / </span><span class="default">mt_getrandmax</span><span class="keyword">() &lt;= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">prob</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">])<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$i</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">alias</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="comment">// Usage:<br />
+<br />
+</span><span class="default">$weight </span><span class="keyword">= [</span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">100</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">];<br />
+</span><span class="default">$rnd </span><span class="keyword">= new </span><span class="default">AliasMethod</span><span class="keyword">(</span><span class="default">$weight</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$results </span><span class="keyword">= </span><span class="default">array_fill</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">count</span><span class="keyword">(</span><span class="default">$weight</span><span class="keyword">), </span><span class="default">0</span><span class="keyword">);<br />
+<br />
+for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">100000</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$results</span><span class="keyword">[</span><span class="default">$rnd</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">()]++;<br />
+}<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$results</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">/*<br />
+&nbsp;Array<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [0] =&gt; 901<br />
+&nbsp;&nbsp;&nbsp; [1] =&gt; 1785<br />
+&nbsp;&nbsp;&nbsp; [2] =&gt; 899<br />
+&nbsp;&nbsp;&nbsp; [3] =&gt; 907<br />
+&nbsp;&nbsp;&nbsp; [4] =&gt; 87655<br />
+&nbsp;&nbsp;&nbsp; [5] =&gt; 867<br />
+&nbsp;&nbsp;&nbsp; [6] =&gt; 836<br />
+&nbsp;&nbsp;&nbsp; [7] =&gt; 4371<br />
+&nbsp;&nbsp;&nbsp; [8] =&gt; 910<br />
+&nbsp;&nbsp;&nbsp; [9] =&gt; 869<br />
+)<br />
+&nbsp;*/</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126468""></a>
   <div class="note">
    <strong class="user">fulachan2 at gmail dot com</strong>
    <a href="#126468" class="date">30-Sep-2021 07:45</a>

@@ -45,7 +45,6 @@
     <var class="filename">php://stderr</var> 允许直接访问 PHP 进程相应的输入或者输出流。
     数据流引用了复制的文件描述符，所以如果你打开 <var class="filename">php://stdin</var> 并在之后关了它，
     仅是关闭了复制品，真正被引用的  <strong><code>STDIN</code></strong> 并不受影响。
-    注意 PHP 在这方面的行为有很多 BUG 直到 PHP 5.2.1。
     推荐你简单使用常量 <strong><code>STDIN</code></strong>、
     <strong><code>STDOUT</code></strong> 和 <strong><code>STDERR</code></strong> 来代替手工打开这些封装器。
    </p>
@@ -65,10 +64,6 @@
    <h4 class="title">php://input</h4>
    <p class="simpara">
     <var class="filename">php://input</var> 是个可以访问请求的原始数据的只读流。
-    POST 请求的情况下，最好使用 <var class="filename">php://input</var> 来代替 <var class="varname">$HTTP_RAW_POST_DATA</var>，因为它不依赖于特定的 <var class="filename">php.ini</var> 指令。
-    而且，这样的情况下 <var class="varname">$HTTP_RAW_POST_DATA</var> 默认没有填充，
-    比激活 <code class="literal">always_populate_raw_post_data</code>
-    潜在需要更少的内存。
     <code class="literal">enctype=&quot;multipart/form-data&quot;</code> 的时候
     <var class="filename">php://input</var> 是无效的。
    </p>
@@ -312,7 +307,7 @@
 
  <div class="refsect1 examples" id="refsect1-wrappers.php-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-377">
+  <div class="example" id="example-384">
    <p><strong>Example #1 php://temp/maxmemory</strong></p>
    <div class="example-contents"><p>
     这个可选选项允许设置 <var class="filename">php://temp</var> 开始使用临时文件前的最大内存限制。
@@ -325,7 +320,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-378">
+  <div class="example" id="example-385">
    <p><strong>Example #2 php://filter/resource=&lt;待过滤的数据流&gt;</strong></p>
    <div class="example-contents"><p>
     这个参数必须位于 <var class="filename">php://filter</var> 的末尾，并且指向需要过滤筛选的数据流。
@@ -338,7 +333,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-379">
+  <div class="example" id="example-386">
    <p><strong>Example #3 php://filter/read=&lt;读链需要应用的过滤器列表&gt;</strong></p>
    <div class="example-contents"><p>
     这个参数采用一个或以管道符 <code class="literal">|</code> 分隔的多个过滤器名称。
@@ -364,7 +359,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-381">
+  <div class="example" id="example-388">
    <p><strong>Example #5 php://memory 和 php://temp 是一次性的</strong></p>
    <div class="example-contents"><p>
     <var class="filename">php://memory</var> 和 <var class="filename">php://temp</var>

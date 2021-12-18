@@ -848,6 +848,27 @@
          </tr>
 
 
+               
+         <tr>
+          <td>tlsOptions</td>
+          <td><span class="type">array</span></td>
+          <td>
+           <p class="para">
+            A document containing the TLS configuration for one or more KMS providers. Supported providers include <code class="literal">&quot;aws&quot;</code>, <code class="literal">&quot;azure&quot;</code>, <code class="literal">&quot;gcp&quot;</code>, and <code class="literal">&quot;kmip&quot;</code>. All providers support the following options:
+           </p>
+           <div class="example-contents">
+<div class="javascriptcode"><pre class="javascriptcode">&lt;provider&gt;: {
+    tlsCaFile: &lt;optional string&gt;,
+    tlsCertificateKeyFile: &lt;optional string&gt;,
+    tlsCertificateKeyFilePassword: &lt;optional string&gt;
+}</pre>
+</div>
+           </div>
+
+          </td>
+         </tr>
+
+
                <tr>
                 <td>schemaMap</td>
                 <td><span class="type">array</span></td>
@@ -889,10 +910,24 @@
                 <td>extraOptions</td>
                 <td><span class="type">array</span></td>
                 <td>
-                 The <code class="literal">extraOptions</code> relate to the
-                 <code class="literal">mongocryptd</code> process. See the
-                 <a href="https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#extraoptions" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#extraoptions">&raquo;&nbsp;Client-Side Encryption Specification</a>
-                 for more information.
+                 <p class="para">
+                  The <code class="literal">extraOptions</code> relate to the
+                  <code class="literal">mongocryptd</code> process. The following options
+                  are supported:
+                 </p>
+                 <div class="example-contents">
+<div class="javascriptcode"><pre class="javascriptcode">&lt;provider&gt;: {
+    mongocryptdURI: &lt;optional string&gt;, // Defaults to &quot;mongodb://localhost:27027&quot;
+    mongocryptdBypassSpawn: &lt;optional string&gt;, // Defaults to false
+    mongocryptdSpawnPath: &lt;optional string&gt;, // Defaults to empty string and uses default system paths
+    mongocryptdSpawnArgs: &lt;optional array of strings&gt; // Defaults to [ &quot;--idleShutdownTimeoutSecs=60&quot; ]
+}</pre>
+</div>
+                 </div>
+
+                 <p class="para">
+                  See the <a href="https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#extraoptions" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#extraoptions">&raquo;&nbsp;Client-Side Encryption Specification</a> for more information.
+                 </p>
                 </td>
                </tr>
 
@@ -1142,6 +1177,20 @@
 
      <tbody class="tbody">
       <tr>
+       <td>PECL mongodb 1.12.0</td>
+       <td>
+        <p class="para">
+         KMIP is now supported as a KMS provider for client-side encryption and
+         may be configured in the <code class="literal">&quot;kmsProviders&quot;</code> field of the
+         <code class="literal">&quot;autoEncryption&quot;</code> driver option. Additionally, TLS
+         options for KMS providers may now be configured in the
+         <code class="literal">&quot;tlsOptions&quot;</code> field of the
+         <code class="literal">&quot;autoEncryption&quot;</code> driver option.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
        <td>PECL mongodb 1.11.0</td>
        <td>
         <p class="para">
@@ -1307,7 +1356,7 @@
 
  <div class="refsect1 examples" id="refsect1-mongodb-driver-manager.construct-examples">
   <h3 class="title">·¶Àý</h3>
-  <div class="example" id="example-1240">
+  <div class="example" id="example-1247">
    <p><strong>Example #1 <span class="function"><strong>MongoDB\Driver\Manager::__construct()</strong></span> basic examples</strong></p>
    <div class="example-contents"><p>Connecting to standalone MongoDB node:</p></div>
    <div class="example-contents">

@@ -70,7 +70,7 @@ Script PUT /put.php
    authenticate the user before performing this file copy.
   </p>
   <p class="para">
-   <div class="example" id="example-417">
+   <div class="example" id="example-424">
     <p><strong>Example #1 ±£´æ HTTP PUT ÎÄ¼þ</strong></p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
@@ -85,7 +85,45 @@ Script PUT /put.php
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126641""></a>
+<div id="allnotes">  <a name="126681""></a>
+  <div class="note">
+   <strong class="user">Oscar Fernandez Sierra</strong>
+   <a href="#126681" class="date">14-Dec-2021 09:27</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This is what worked for me. There are many examples in the web that don't work. I found in https://lornajane.net/posts/2009/putting-data-fields-with-php-curl.<br />
+<br />
+IMPORTANT: You should not use the code<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; curl_setopt($ch, CURLOPT_PUT, true);<br />
+<br />
+even if it seems to be the right option (it would be the right option for a POST request, with CURLOPT_POST, but it does not work for a PUT request).<br />
+<br />
+Notice that the constant CURLOPT_CUSTOMREQUEST is used instead of CURLOPT_PUT, and that the value used is "PUT" instead of true.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $url </span><span class="keyword">= </span><span class="string">"....."</span><span class="keyword">; </span><span class="comment">// put your URL here<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$data </span><span class="keyword">= array(</span><span class="string">"a" </span><span class="keyword">=&gt; </span><span class="default">$a</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_CUSTOMREQUEST</span><span class="keyword">, </span><span class="string">"PUT"</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_POSTFIELDS</span><span class="keyword">, </span><span class="default">http_build_query</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">));<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$response </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( ! </span><span class="default">$response</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126641""></a>
   <div class="note">
    <strong class="user">willy at kochkonsult dot no</strong>
    <a href="#126641" class="date">25-Nov-2021 01:35</a>

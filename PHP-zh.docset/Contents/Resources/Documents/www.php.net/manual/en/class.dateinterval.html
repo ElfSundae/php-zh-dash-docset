@@ -309,7 +309,53 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125041""></a>
+<div id="allnotes">  <a name="126658""></a>
+  <div class="note">
+   <strong class="user">cb</strong>
+   <a href="#126658" class="date">02-Dec-2021 09:15</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you want to reverse a date interval use array_reverse and iterator_to_array. I've found using invert to be unreliable.<br />
+<br />
+<span class="default">&lt;?php<br />
+$start_date </span><span class="keyword">= </span><span class="default">date_create</span><span class="keyword">(</span><span class="string">"2021-01-01"</span><span class="keyword">);<br />
+</span><span class="default">$end_date&nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">date_create</span><span class="keyword">(</span><span class="string">"2021-01-05"</span><span class="keyword">); </span><span class="comment">// If you want to include this date, add 1 day<br />
+<br />
+</span><span class="default">$interval </span><span class="keyword">= </span><span class="default">DateInterval</span><span class="keyword">::</span><span class="default">createFromDateString</span><span class="keyword">(</span><span class="string">'1 day'</span><span class="keyword">);<br />
+</span><span class="default">$daterange </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$start_date</span><span class="keyword">, </span><span class="default">$interval </span><span class="keyword">,</span><span class="default">$end_date</span><span class="keyword">);<br />
+<br />
+foreach(</span><span class="default">$daterange </span><span class="keyword">as </span><span class="default">$date1</span><span class="keyword">){<br />
+&nbsp;&nbsp; echo </span><span class="default">$date1</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">'Y-m-d'</span><span class="keyword">).</span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />
+}<br />
+&nbsp; <br />
+echo </span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// reverse the array<br />
+<br />
+</span><span class="default">$daterange </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">iterator_to_array</span><span class="keyword">(</span><span class="default">$daterange</span><span class="keyword">));<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
+foreach(</span><span class="default">$daterange </span><span class="keyword">as </span><span class="default">$date1</span><span class="keyword">){<br />
+&nbsp;&nbsp; echo </span><span class="default">$date1</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">'Y-m-d'</span><span class="keyword">).</span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Gives <br />
+2021-01-01<br />
+2021-01-02<br />
+2021-01-03<br />
+2021-01-04<br />
+<br />
+2021-01-04<br />
+2021-01-03<br />
+2021-01-02<br />
+2021-01-01</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125041""></a>
   <div class="note">
    <strong class="user">KEINOS</strong>
    <a href="#125041" class="date">24-May-2020 10:45</a>
