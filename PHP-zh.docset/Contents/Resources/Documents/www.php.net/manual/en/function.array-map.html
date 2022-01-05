@@ -35,11 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.array-map-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_map</strong></span>
-    ( <span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code></span>
-   , <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>
-   , <span class="methodparam"><span class="type">array</span> <code class="parameter">...$arrays</code></span>
-   ) : <span class="type">array</span></div>
+   <span class="methodname"><strong>array_map</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">...$arrays</code></span>): <span class="type">array</span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>array_map()</strong></span>：返回数组，是为 <code class="parameter">array</code> 每个元素应用 <code class="parameter">callback</code>函数之后的数组。
@@ -53,7 +49,6 @@
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
-
     
      <dt>
 <code class="parameter">callback</code></dt>
@@ -116,7 +111,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-map-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-     <div class="example" id="example-4786">
+     <div class="example" id="example-4802">
       <p><strong>Example #1 <span class="function"><strong>array_map()</strong></span> 例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -143,7 +138,7 @@ Array
      </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4787">
+   <div class="example" id="example-4803">
     <p><strong>Example #2 <span class="function"><strong>array_map()</strong></span> 使用匿名函数 (PHP 5.3.0 起)</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -167,7 +162,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4788">
+   <div class="example" id="example-4804">
     <p><strong>Example #3 <span class="function"><strong>array_map()</strong></span>：使用更多的数组</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -230,7 +225,7 @@ Array
    此函数有个有趣的用法：传入 <strong><code>null</code></strong> 作为回调函数的名称，将创建多维数组（一个数组，内部包含数组。）
   </p>
   <p class="para">
-   <div class="example" id="example-4789">
+   <div class="example" id="example-4805">
     <p><strong>Example #4 多个数组的合并操作</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -286,7 +281,7 @@ Array
   </p>
   
   <p class="para">
-   <div class="example" id="example-4790">
+   <div class="example" id="example-4806">
     <p><strong>Example #5 
      仅有 <code class="parameter">array1</code> 时，<code class="parameter">callback</code> 设置为 <strong><code>null</code></strong>
     </strong></p>
@@ -313,7 +308,7 @@ array(3) {
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4791">
+   <div class="example" id="example-4807">
     <p><strong>Example #6 <span class="function"><strong>array_map()</strong></span> 键（key）是 string</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -376,7 +371,75 @@ array(1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="118172""></a>
+<div id="allnotes">  <a name="126689""></a>
+  <div class="note">
+   <strong class="user">anonymous_user</strong>
+   <a href="#126689" class="date">16-Dec-2021 08:15</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+/** <br />
+&nbsp; * Function which recursively applies a callback to all values and also its<br />
+&nbsp; * keys, and returns the resulting array copy with the updated keys and <br />
+&nbsp; * values.<br />
+&nbsp; * PHP's built-in function array_walk_recursive() only applies the passed <br />
+&nbsp; * callback to the array values, not the keys, so this function simply applies<br />
+&nbsp; * the callback to the keys too (hence the need of working with a copy, <br />
+&nbsp; * as also updating the keys would lead to reference loss of the original<br />
+&nbsp; * array). I needed something like this, hence my idea of sharing it here.<br />
+&nbsp; *<br />
+&nbsp; * @param&nbsp; &nbsp; callable&nbsp; &nbsp; $func&nbsp; &nbsp;&nbsp; callback which takes one parameter (value <br />
+&nbsp; *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; or key to be updated) and returns its <br />
+&nbsp; *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; updated value<br />
+&nbsp; *<br />
+&nbsp; * @param&nbsp; &nbsp; array&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $arr&nbsp; &nbsp; &nbsp; array of which keys and values shall be <br />
+&nbsp; *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; get updated <br />
+&nbsp; */<br />
+<br />
+function array_map_recursive(<br />
+&nbsp;&nbsp;&nbsp; callable $func,<br />
+&nbsp;&nbsp;&nbsp; array $arr<br />
+) {<br />
+<br />
+&nbsp;&nbsp; &nbsp;&nbsp; // Initiate copied array which will hold all updated keys + values<br />
+&nbsp;&nbsp; &nbsp;&nbsp; $result = [];<br />
+<br />
+&nbsp;&nbsp; &nbsp;&nbsp; // Iterate through the key-value pairs of the array<br />
+&nbsp;&nbsp; &nbsp;&nbsp; foreach ( $arr as $key =&gt; $value ) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // Apply the callback to the key to create the updated key value<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $updated_key = $func( $key );<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // If the iterated value is not an array, that means we have reached the<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // deepest array level for the iterated key, so in that case, assign<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // the updated value to the updated key value in the final output array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( ! is_array( $value ) ) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $result[$updated_key] = $func( $value );<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // If the iterated value is an array, call the function recursively,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // By taking the currently iterated value as the $arr argument<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $result[$updated_key] = array_map_recursive(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $func,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $arr[$key]<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp;&nbsp; } // end of iteration through k-v pairs<br />
+<br />
+&nbsp;&nbsp; &nbsp;&nbsp; // And at the very end, return the generated result set<br />
+&nbsp;&nbsp; &nbsp;&nbsp; return $result;<br />
+<br />
+&nbsp;&nbsp;&nbsp; } // end of array_map_recursive() function definition</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="118172""></a>
   <div class="note">
    <strong class="user">Mahn</strong>
    <a href="#118172" class="date">20-Oct-2015 05:10</a>

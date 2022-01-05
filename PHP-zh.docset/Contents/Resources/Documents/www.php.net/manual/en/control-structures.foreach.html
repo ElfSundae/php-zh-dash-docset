@@ -201,7 +201,46 @@ A: 3; B: 4; C:
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126498""></a>
+<div id="allnotes">  <a name="126700""></a>
+  <div class="note">
+   <strong class="user">Henrik Schmidt</strong>
+   <a href="#126700" class="date">21-Dec-2021 09:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It seems there is no easy way of itterating large arrays inplace.<br />
+Solutions uses temporary key arrays anddo array reverse and so on, not a good fit for me with 170 000items in the array.<br />
+I wrote this solution but I really wish someone will give me a better solution. (the callback step is optional of course)<br />
+ArrayIterator first needed to make an array object copy of the array, so that was of no use.<br />
+<span class="default">&lt;?php<br />
+$a </span><span class="keyword">= [</span><span class="default">10</span><span class="keyword">,</span><span class="default">20</span><span class="keyword">,</span><span class="default">30</span><span class="keyword">,</span><span class="default">40</span><span class="keyword">,</span><span class="default">50</span><span class="keyword">,</span><span class="default">60</span><span class="keyword">,</span><span class="default">70</span><span class="keyword">,</span><span class="default">80</span><span class="keyword">];<br />
+<br />
+function </span><span class="default">foreachrev</span><span class="keyword">( array &amp;</span><span class="default">$a</span><span class="keyword">, callable </span><span class="default">$funct </span><span class="keyword">) : </span><span class="default">void<br />
+</span><span class="keyword">{<br />
+&nbsp; for( </span><span class="default">end</span><span class="keyword">( </span><span class="default">$a </span><span class="keyword">) ; </span><span class="default">current</span><span class="keyword">( </span><span class="default">$a </span><span class="keyword">)!==</span><span class="default">false </span><span class="keyword">; </span><span class="default">prev</span><span class="keyword">( </span><span class="default">$a </span><span class="keyword">) )<br />
+&nbsp; {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$key </span><span class="keyword">= </span><span class="default">key</span><span class="keyword">( </span><span class="default">$a </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$funct</span><span class="keyword">( </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] );<br />
+&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$sum </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
+</span><span class="default">foreachrev</span><span class="keyword">( </span><span class="default">$a</span><span class="keyword">, function( </span><span class="default">$key</span><span class="keyword">, &amp;</span><span class="default">$val </span><span class="keyword">) use(&amp;</span><span class="default">$sum</span><span class="keyword">) <br />
+{ <br />
+&nbsp;&nbsp; </span><span class="default">$sum</span><span class="keyword">+=</span><span class="default">$val</span><span class="keyword">; <br />
+&nbsp;&nbsp; </span><span class="default">$val</span><span class="keyword">=(</span><span class="default">$sum</span><span class="keyword">); <br />
+&nbsp; } );<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">( </span><span class="default">$a </span><span class="keyword">);<br />
+</span><span class="default">print_r</span><span class="keyword">( </span><span class="default">$sum </span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126498""></a>
   <div class="note">
    <strong class="user">axew3 at axew3 dot com</strong>
    <a href="#126498" class="date">11-Oct-2021 10:30</a>

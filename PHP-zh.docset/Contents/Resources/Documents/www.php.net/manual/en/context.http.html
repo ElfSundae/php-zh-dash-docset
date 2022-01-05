@@ -44,7 +44,6 @@
   <h3 class="title">可选项</h3>
   <p class="para">
    <dl>
-
     
      <dt id="context.http.method">
       <code class="parameter">method</code>
@@ -241,7 +240,7 @@
  <div class="refsect1 examples" id="refsect1-context.http-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="serializable.example.basic">
+   <div class="example" id="context.http.example-post">
     <p><strong>Example #1 获取一个页面并发送 POST 数据</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -253,11 +252,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-380">
+   <div class="example" id="context.http.example-fetch-ignore-redirect">
     <p><strong>Example #2 忽略重定向并获取 header 和内容</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$url&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"http://www.example.org/header.php"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$opts&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'http'&nbsp;</span><span style="color: #007700">=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'method'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'GET'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'max_redirects'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'0'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'ignore_errors'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'1'<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">)<br />);<br /><br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">(</span><span style="color: #0000BB">$opts</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stream&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$url</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$context</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;header&nbsp;information&nbsp;as&nbsp;well&nbsp;as&nbsp;meta&nbsp;data<br />//&nbsp;about&nbsp;the&nbsp;stream<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">stream_get_meta_data</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;actual&nbsp;data&nbsp;at&nbsp;$url<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$url&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"http://www.example.org/header.php"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$opts&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'http'&nbsp;</span><span style="color: #007700">=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'method'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'GET'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'max_redirects'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'0'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'ignore_errors'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'1'<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">)<br />);<br /><br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">(</span><span style="color: #0000BB">$opts</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stream&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$url</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$context</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;header&nbsp;信息和&nbsp;stream&nbsp;的元数据一样<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">stream_get_meta_data</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;$url&nbsp;的实际数据<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -270,7 +269,7 @@
  <div class="refsect1 notes" id="refsect1-context.http-notes">
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <strong>Underlying socket stream context options</strong><br />
+   <strong>底层 socket stream 上下文选项</strong><br />
    <span class="simpara">
     Additional context options may be supported by the
     <a href="transports.inet.html" class="link">underlying transport</a>
@@ -281,7 +280,7 @@
    </span>
   </p></blockquote>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <strong>HTTP status line</strong><br />
+   <strong>HTTP 状态行</strong><br />
    <span class="simpara">
     When this stream wrapper follows a redirect, the
     <code class="literal">wrapper_data</code> returned by
@@ -303,9 +302,9 @@ array (
 </pre></div>
    </div>
    <span class="simpara">
-    The first request returned a <code class="literal">301</code> (permanent redirect),
-    so the stream wrapper automatically followed the redirect to get a
-    <code class="literal">200</code> response (index = <code class="literal">4</code>).
+    第一个请求返回 <code class="literal">301</code> （永久重定向），
+    因此 stream 包装器自动跟随重定向到获得 <code class="literal">200</code> 
+    响应（index = <code class="literal">4</code>）。
    </span>
   </p></blockquote>
  </div>

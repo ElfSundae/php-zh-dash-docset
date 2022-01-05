@@ -33,9 +33,7 @@
  <div class="refsect1 description" id="refsect1-function.array-merge-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_merge</strong></span>
-    ( <span class="methodparam"><span class="type">array</span> <code class="parameter">$...</code> = ?</span>
-   ) : <span class="type">array</span></div>
+   <span class="methodname"><strong>array_merge</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$...</code><span class="initializer"> = ?</span></span>): <span class="type">array</span></div>
 
     <p class="para rdfs-comment">
      将一个或多个数组的单元合并起来，一个数组中的值附加在前一个数组的后面。返回作为结果的数组。
@@ -58,7 +56,6 @@
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
-
     
      <dt>
 <code class="parameter">...</code></dt>
@@ -118,7 +115,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-merge-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4793">
+   <div class="example" id="example-4809">
     <p><strong>Example #1 <span class="function"><strong>array_merge()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -145,7 +142,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4794">
+   <div class="example" id="example-4810">
     <p><strong>Example #2 Simple <span class="function"><strong>array_merge()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -203,7 +200,7 @@ array(5) {
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4795">
+   <div class="example" id="example-4811">
     <p><strong>Example #3 <span class="function"><strong>array_merge()</strong></span> 合并非数组的类型</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -242,7 +239,56 @@ array(5) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126628""></a>
+<div id="allnotes">  <a name="126687""></a>
+  <div class="note">
+   <strong class="user">ChrisM</strong>
+   <a href="#126687" class="date">16-Dec-2021 09:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I wished to point out that while other comments state that the spread operator should be faster than array_merge, I have actually found the opposite to be true for normal arrays. This is the case in both PHP 7.4 as well as PHP 8.0. The difference should be negligible for most applications, but I wanted to point this out for accuracy.<br />
+<br />
+Below is the code used to test, along with the results:<br />
+<br />
+<span class="default">&lt;?php<br />
+$before </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">10000000 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1 </span><span class="keyword">= [</span><span class="string">'apple'</span><span class="keyword">,</span><span class="string">'orange'</span><span class="keyword">,</span><span class="string">'banana'</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array2 </span><span class="keyword">= [</span><span class="string">'carrot'</span><span class="keyword">,</span><span class="string">'lettuce'</span><span class="keyword">,</span><span class="string">'broccoli'</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1 </span><span class="keyword">= [...</span><span class="default">$array1</span><span class="keyword">,...</span><span class="default">$array2</span><span class="keyword">];<br />
+}<br />
+<br />
+</span><span class="default">$after </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+echo (</span><span class="default">$after</span><span class="keyword">-</span><span class="default">$before</span><span class="keyword">) . </span><span class="string">" sec for spread\n"</span><span class="keyword">;<br />
+<br />
+</span><span class="default">$before </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">10000000 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1 </span><span class="keyword">= [</span><span class="string">'apple'</span><span class="keyword">,</span><span class="string">'orange'</span><span class="keyword">,</span><span class="string">'banana'</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array2 </span><span class="keyword">= [</span><span class="string">'carrot'</span><span class="keyword">,</span><span class="string">'lettuce'</span><span class="keyword">,</span><span class="string">'broccoli'</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array1 </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">,</span><span class="default">$array2</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$after </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+echo (</span><span class="default">$after</span><span class="keyword">-</span><span class="default">$before</span><span class="keyword">) . </span><span class="string">" sec for array_merge\n"</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+PHP 7.4:<br />
+1.2135608196259 sec for spread<br />
+1.1402177810669 sec for array_merge<br />
+<br />
+PHP 8.0:<br />
+1.1952061653137 sec for spread<br />
+1.099925994873 sec for array_merge</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126628""></a>
   <div class="note">
    <strong class="user">Andreas Hofmann</strong>
    <a href="#126628" class="date">21-Nov-2021 02:59</a>
