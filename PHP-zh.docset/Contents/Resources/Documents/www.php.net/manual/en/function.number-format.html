@@ -157,7 +157,7 @@
  <div class="refsect1 examples" id="refsect1-function.number-format-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4684">
+   <div class="example" id="example-4693">
     <p><strong>Example #1 <span class="function"><strong>number_format()</strong></span> Example</strong></p>
     <div class="example-contents"><p>
      For instance, French notation usually use two decimals,
@@ -222,7 +222,57 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124968""></a>
+<div id="allnotes">  <a name="126733""></a>
+  <div class="note">
+   <strong class="user">info at ensostudio dot ru</strong>
+   <a href="#126733" class="date">31-Dec-2021 02:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Auto calculate decimals by default:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">numberFormat</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">float $num</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">int $decimals </span><span class="keyword">= -</span><span class="default">1</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ?</span><span class="default">string $decimalSeparator </span><span class="keyword">= </span><span class="string">'.'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ?</span><span class="default">string $thousandsSeparator </span><span class="keyword">= </span><span class="string">''<br />
+</span><span class="keyword">): </span><span class="default">string </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$decimals </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$intNum </span><span class="keyword">= (int) </span><span class="default">$num</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$num </span><span class="keyword">== </span><span class="default">$intNum</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$decimals </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$decimals </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">) - </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$intNum</span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">number_format</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">, </span><span class="default">$decimals</span><span class="keyword">, </span><span class="default">$decimalSeparator</span><span class="keyword">, </span><span class="default">$thousandsSeparator</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126729""></a>
+  <div class="note">
+   <strong class="user">info at ensostudio dot ru</strong>
+   <a href="#126729" class="date">30-Dec-2021 08:28</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note: use NumberFormatter to convert in human-readable format instead&nbsp; user function from comments:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">echo </span><span class="default">NumberFormatter</span><span class="keyword">::</span><span class="default">create</span><span class="keyword">(</span><span class="string">'en'</span><span class="keyword">, </span><span class="default">NumberFormatter</span><span class="keyword">::</span><span class="default">SPELLOUT</span><span class="keyword">)-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="default">12309</span><span class="keyword">); </span><span class="comment">// twelve thousand three hundred nine<br />
+</span><span class="keyword">echo </span><span class="default">NumberFormatter</span><span class="keyword">::</span><span class="default">create</span><span class="keyword">(</span><span class="string">'ru'</span><span class="keyword">, </span><span class="default">NumberFormatter</span><span class="keyword">::</span><span class="default">SPELLOUT</span><span class="keyword">)-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="default">12307.5</span><span class="keyword">); </span><span class="comment">//&nbsp; §Õ§Ó§Ö§ß§Ñ§Õ§è§Ñ§ä§î §ä§í§ã§ñ§é §ä§â§Ú§ã§ä§Ñ §ã§Ö§Þ§î §è§Ö§Ý§í§ç §á§ñ§ä§î §Õ§Ö§ã§ñ§ä§í§ç<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124968""></a>
   <div class="note">
    <strong class="user">markagius at markagius co uk</strong>
    <a href="#124968" class="date">30-Apr-2020 02:48</a>

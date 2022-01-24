@@ -41,18 +41,17 @@
    The <code class="parameter">typeMap</code> paramater may be used to control the PHP
    types used for converting BSON arrays and documents (both root and embedded).
   </p>
-  <div class="warning"><strong class="warning">Warning</strong>
-   <p class="simpara">
-    Fields containing deprecated BSON types (i.e. undefined, symbol,
-    DBPointer) are represented only by bare-bones objects of the classes
-    <span class="classname"><a href="class.mongodb-bson-undefined.html" class="classname">MongoDB\BSON\Undefined</a></span>,
-    <span class="classname"><a href="class.mongodb-bson-symbol.html" class="classname">MongoDB\BSON\Symbol</a></span>, and
-    <span class="classname"><a href="class.mongodb-bson-dbpointer.html" class="classname">MongoDB\BSON\DBPointer</a></span>, when converting BSON to
-    PHP. These objects are created from BSON data and used for storing these
-    types back into the database, but can not be instantiated as they have a
-    private constructor.
-   </p>
-  </div>
+  
+   <div class="warning"><strong class="warning">Warning</strong>
+    <p class="simpara">
+     BSON documents can technically contain duplicate keys because documents are
+     stored as a list of key-value pairs; however, applications should refrain
+     from generating documents with duplicate keys as server and driver behavior
+     may be undefined. Since PHP objects and arrays cannot have duplicate keys,
+     data could also be lost when decoding a BSON document with duplicate keys.
+    </p>
+   </div>
+
  </div>
 
 
@@ -171,7 +170,7 @@
 
  <div class="refsect1 examples" id="refsect1-function.mongodb.bson-tophp-examples">
   <h3 class="title">·¶Àý</h3>
-  <div class="example" id="example-1338">
+  <div class="example" id="example-1341">
    <p><strong>Example #1 <span class="function"><strong>MongoDB\BSON\toPHP()</strong></span> example</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">

@@ -816,9 +816,10 @@
           <td><span class="type">array</span></td>
           <td>
            <p class="para">
-            A document containing the configuration for one or more KMS providers, which are used to encrypt data keys. Currently <code class="literal">aws</code> or <code class="literal">local</code> are supported and at least one must be specified.           </p>
+            A document containing the configuration for one or more KMS providers, which are used to encrypt data keys. Currently <code class="literal">&quot;aws&quot;</code>, <code class="literal">&quot;azure&quot;</code>, <code class="literal">&quot;gcp&quot;</code>, and <code class="literal">&quot;local&quot;</code> are supported and at least one must be specified.
+           </p>
            <p class="para">
-            The format for <code class="literal">aws</code> is as follows:
+            The format for <code class="literal">&quot;aws&quot;</code> is as follows:
            </p>
            <div class="example-contents">
 <div class="javascriptcode"><pre class="javascriptcode">aws: {
@@ -829,12 +830,39 @@
            </div>
 
            <p class="para">
-            The format for <code class="literal">local</code> is as follows:
+            The format for <code class="literal">&quot;azure&quot;</code> is as follows:
+           </p>
+           <div class="example-contents">
+<div class="javascriptcode"><pre class="javascriptcode">azure: {
+    tenantId: &lt;string&gt;,
+    clientId: &lt;string&gt;,
+    clientSecret: &lt;string&gt;,
+    identityPlatformEndpoint: &lt;optional string&gt; // Defaults to &quot;login.microsoftonline.com&quot;
+
+}</pre>
+</div>
+           </div>
+
+           <p class="para">
+            The format for <code class="literal">&quot;gcp&quot;</code> is as follows:
+           </p>
+           <div class="example-contents">
+<div class="javascriptcode"><pre class="javascriptcode">aws: {
+    email: &lt;string&gt;,
+    privateKey: &lt;base64 string&gt;|&lt;MongoDB\BSON\Binary&gt;,
+    endpoint: &lt;optional string&gt; // Defaults to &quot;oauth2.googleapis.com&quot;
+
+}</pre>
+</div>
+           </div>
+
+           <p class="para">
+            The format for <code class="literal">&quot;local&quot;</code> is as follows:
            </p>
            <div class="example-contents">
 <div class="javascriptcode"><pre class="javascriptcode">local: {
-    // The master key used to encrypt/decrypt data keys
-    key: &lt;96-byte MongoDB\BSON\Binary with subtype 0&gt;
+    // 96-byte master key used to encrypt/decrypt data keys
+    key: &lt;base64 string&gt;|&lt;MongoDB\BSON\Binary&gt;
 }</pre>
 </div>
            </div>
@@ -1130,7 +1158,7 @@
            </p>
            <p class="para">
             This option is a deprecated alias for the
-            <code class="literal">&quot;tlsAllowInvalidHostnames&quot;</code> URI option.
+            <code class="literal">&quot;tlsAllowInvalidCertificates&quot;</code> URI option.
            </p>
           </td>
          </tr>
@@ -1351,7 +1379,7 @@
 
  <div class="refsect1 examples" id="refsect1-mongodb-driver-manager.construct-examples">
   <h3 class="title">·¶Àý</h3>
-  <div class="example" id="example-1262">
+  <div class="example" id="example-1265">
    <p><strong>Example #1 <span class="function"><strong>MongoDB\Driver\Manager::__construct()</strong></span> basic examples</strong></p>
    <div class="example-contents"><p>Connecting to standalone MongoDB node:</p></div>
    <div class="example-contents">

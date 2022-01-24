@@ -73,6 +73,39 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="126739""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#126739" class="date">02-Jan-2022 01:29</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+XMLReader::expand() expands the current subtree to DOM. SimpleXML is good too. To avoid a warning like "Imported Node must have associated Document" when using simplexml_import_dom(), we can do :<br />
+<br />
+<span class="default">&lt;?php <br />
+<br />
+</span><span class="comment">// Huge XML compressed file<br />
+</span><span class="default">$xml </span><span class="keyword">= </span><span class="default">XMLReader</span><span class="keyword">::</span><span class="default">open</span><span class="keyword">(</span><span class="string">'compress.zlib:///path/to/my-data.xml.gz'</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Targeting a tiny subtree<br />
+</span><span class="keyword">while (</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">name </span><span class="keyword">!== </span><span class="string">'my-targeted-element'</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">read</span><span class="keyword">();<br />
+}<br />
+<br />
+</span><span class="comment">// The trick is here...<br />
+// Subtree is expanded in an empty document...<br />
+</span><span class="default">$dom </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">expand</span><span class="keyword">(new </span><span class="default">DOMDocument</span><span class="keyword">());<br />
+<br />
+</span><span class="comment">// ... which can be imported by SimpleXML<br />
+</span><span class="default">$sx </span><span class="keyword">= </span><span class="default">simplexml_import_dom</span><span class="keyword">(</span><span class="default">$dom</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// We can now process our tiny subtree with SimpleXML $sx</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

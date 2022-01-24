@@ -54,8 +54,8 @@
   <p class="para">
    <dl>
     <dt>
-<code class="parameter">
-imap</code></dt>
+
+<code class="parameter">imap</code></dt>
 <dd>
 <p class="para">An <span class="classname"><strong class="classname">IMAP\Connection</strong></span> instance.</p></dd>
 
@@ -326,7 +326,61 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125482""></a>
+<div id="allnotes">  <a name="126758""></a>
+  <div class="note">
+   <strong class="user">Steve</strong>
+   <a href="#126758" class="date">12-Jan-2022 12:07</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It has been noted that imap_search breaks with imap4 syntax.&nbsp; To do an imap 4 search use curl and send a custom command, then grab the results.&nbsp; Its best to do a UID search to get the unique IDs to work with later.&nbsp; Here's an example with a working curl function.<br />
+<br />
+<span class="default">&lt;?php<br />
+$host </span><span class="keyword">= </span><span class="string">'your-server.tld'</span><span class="keyword">;<br />
+</span><span class="default">$user </span><span class="keyword">= </span><span class="string">'username'</span><span class="keyword">;<br />
+</span><span class="default">$pass </span><span class="keyword">= </span><span class="string">'password'</span><span class="keyword">;<br />
+</span><span class="default">$folder </span><span class="keyword">= </span><span class="string">'INBOX'</span><span class="keyword">;<br />
+<br />
+function </span><span class="default">send_imap_command</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">, </span><span class="default">$user</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">, </span><span class="default">$command</span><span class="keyword">, </span><span class="default">$folder</span><span class="keyword">=</span><span class="string">"INBOX"</span><span class="keyword">)<br />
+{&nbsp;&nbsp; </span><span class="comment">//Send an imap command directly to the imap server<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result</span><span class="keyword">=[</span><span class="string">"response"</span><span class="keyword">=&gt;</span><span class="string">""</span><span class="keyword">, </span><span class="string">"error"</span><span class="keyword">=&gt;</span><span class="string">""</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$url </span><span class="keyword">= </span><span class="string">"imaps://</span><span class="default">$server</span><span class="string">/"</span><span class="keyword">. </span><span class="default">rawurlencode</span><span class="keyword">(</span><span class="default">$folder</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$options</span><span class="keyword">=[</span><span class="default">CURLOPT_URL</span><span class="keyword">=&gt;</span><span class="default">$url</span><span class="keyword">, </span><span class="default">CURLOPT_PORT</span><span class="keyword">=&gt; </span><span class="default">993</span><span class="keyword">, </span><span class="default">CURLOPT_USERNAME</span><span class="keyword">=&gt; </span><span class="default">$user</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">CURLOPT_PASSWORD</span><span class="keyword">=&gt; </span><span class="default">$pass</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">=&gt; </span><span class="default">true</span><span class="keyword">, </span><span class="default">CURLOPT_HEADER</span><span class="keyword">=&gt; </span><span class="default">true</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">CURLOPT_CUSTOMREQUEST</span><span class="keyword">=&gt; </span><span class="default">$command</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">curl_setopt_array</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result</span><span class="keyword">[</span><span class="string">"response"</span><span class="keyword">] = </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">curl_errno</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">)) </span><span class="default">$response</span><span class="keyword">[</span><span class="string">"error"</span><span class="keyword">]=</span><span class="string">"Error ("</span><span class="keyword">. </span><span class="default">curl_errno</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">) .</span><span class="string">"): "</span><span class="keyword">. </span><span class="default">curl_error</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$result</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">//Pull out all the emails returned as undeliverable by the remote mail server in the inbox using curl<br />
+</span><span class="default">$response</span><span class="keyword">=</span><span class="default">send_imap_command</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$user</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'UID SEARCH SINCE "01-Jan-2022" (OR FROM "mailer-daemon" FROM "postmaster") (OR SUBJECT "fail" (OR SUBJECT "undeliver" SUBJECT "returned"))'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$folder</span><span class="keyword">);<br />
+<br />
+if(</span><span class="default">$response</span><span class="keyword">[</span><span class="string">"error"</span><span class="keyword">]!=</span><span class="string">""</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">$response</span><span class="keyword">[</span><span class="string">"error"</span><span class="keyword">].</span><span class="string">"\n"</span><span class="keyword">;<br />
+} elseif (</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$response</span><span class="keyword">[</span><span class="string">"response"</span><span class="keyword">])&gt;</span><span class="default">5</span><span class="keyword">){<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">//Server returns a string in the form * SEARCH uid1 uid2 uid3 ...&nbsp; Clean up and create array of UIDs.<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$response</span><span class="keyword">[</span><span class="string">"response"</span><span class="keyword">]=</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"* SEARCH "</span><span class="keyword">,</span><span class="string">""</span><span class="keyword">,</span><span class="default">$response</span><span class="keyword">[</span><span class="string">"response"</span><span class="keyword">]);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$messages</span><span class="keyword">=</span><span class="default">explode</span><span class="keyword">(</span><span class="string">" "</span><span class="keyword">,</span><span class="default">$response</span><span class="keyword">[</span><span class="string">"response"</span><span class="keyword">]);<br />
+}<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$messages</span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125482""></a>
   <div class="note">
    <strong class="user">Enriqe</strong>
    <a href="#125482" class="date">02-Nov-2020 05:36</a>
