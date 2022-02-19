@@ -35,12 +35,13 @@
  <div class="refsect1 description" id="refsect1-function.array-map-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_map</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">...$arrays</code></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>array_map</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span><span class="type"></span></span> <code class="parameter">$callback</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">...$arrays</code></span>): <span class="type">array</span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>array_map()</strong></span>：返回数组，是为 <code class="parameter">array</code> 每个元素应用 <code class="parameter">callback</code>函数之后的数组。
-   <span class="function"><strong>array_map()</strong></span> 返回一个 <span class="type">array</span>，数组内容为 <code class="parameter">array1</code> 的元素按索引顺序为参数调用 <code class="parameter">callback</code> 后的结果（有更多数组时，还会传入 <code class="parameter">arrays</code> 的元素）。
-   <code class="parameter">callback</code> 函数形参的数量必须匹配 <span class="function"><strong>array_map()</strong></span> 实参中数组的数量。
+   <span class="function"><strong>array_map()</strong></span> 返回一个 <span class="type">array</span>，内容为 <code class="parameter">array</code> 的元素按相应的顺序调用 
+   <code class="parameter">callback</code> 后的结果（如果提供了更多数组，还会利用 <code class="parameter">arrays</code> 
+   传入）。<code class="parameter">callback</code> 函数形参的数量必须匹配 <span class="function"><strong>array_map()</strong></span> 
+   实参中数组的数量。多余的实参数组将会被忽略。如果提供的实参数组的数量不足，将抛出 <span class="classname"><a href="class.argumentcounterror.html" class="classname">ArgumentCountError</a></span>。
   </p>
    </div>
 
@@ -108,10 +109,39 @@
  </div>
 
 
+
+ <div class="refsect1 changelog" id="refsect1-function.array-map-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  如果 <code class="parameter">callback</code> 接受引用传递参数，该方法将会抛出
+  <strong><code>E_WARNING</code></strong>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.array-map-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-     <div class="example" id="example-4811">
+     <div class="example" id="example-4813">
       <p><strong>Example #1 <span class="function"><strong>array_map()</strong></span> 例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -138,11 +168,11 @@ Array
      </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4812">
-    <p><strong>Example #2 <span class="function"><strong>array_map()</strong></span> 使用匿名函数 (PHP 5.3.0 起)</strong></p>
+   <div class="example" id="example-4814">
+    <p><strong>Example #2 <span class="function"><strong>array_map()</strong></span> 使用匿名函数</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$func&nbsp;</span><span style="color: #007700">=&nbsp;function(</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />};<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #0000BB">$func</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">range</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">)));<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$func&nbsp;</span><span style="color: #007700">=&nbsp;function(</span><span style="color: #0000BB">int&nbsp;$value</span><span style="color: #007700">):&nbsp;</span><span style="color: #0000BB">int&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />};<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #0000BB">$func</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">range</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">)));<br /><br /></span><span style="color: #FF8000">//&nbsp;或者从&nbsp;PHP&nbsp;7.4.0&nbsp;起：<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #0000BB">fn</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">):&nbsp;</span><span style="color: #0000BB">int&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">range</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">)));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -162,11 +192,11 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4813">
+   <div class="example" id="example-4815">
     <p><strong>Example #3 <span class="function"><strong>array_map()</strong></span>：使用更多的数组</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">show_Spanish</span><span style="color: #007700">(</span><span style="color: #0000BB">$n</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"The&nbsp;number&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$n</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;is&nbsp;called&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$m</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;in&nbsp;Spanish"</span><span style="color: #007700">;<br />}<br /><br />function&nbsp;</span><span style="color: #0000BB">map_Spanish</span><span style="color: #007700">(</span><span style="color: #0000BB">$n</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;[</span><span style="color: #0000BB">$n&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #DD0000">'uno'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'dos'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'tres'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cuatro'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cinco'</span><span style="color: #007700">];<br /><br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #DD0000">'show_Spanish'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$d&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #DD0000">'map_Spanish'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$d</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">show_Spanish</span><span style="color: #007700">(</span><span style="color: #0000BB">int&nbsp;$n</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">string&nbsp;$m</span><span style="color: #007700">):&nbsp;</span><span style="color: #0000BB">string<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"The&nbsp;number&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$n</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;is&nbsp;called&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$m</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;in&nbsp;Spanish"</span><span style="color: #007700">;<br />}<br /><br />function&nbsp;</span><span style="color: #0000BB">map_Spanish</span><span style="color: #007700">(</span><span style="color: #0000BB">int&nbsp;$n</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">string&nbsp;$m</span><span style="color: #007700">):&nbsp;array<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;[</span><span style="color: #0000BB">$n&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #DD0000">'uno'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'dos'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'tres'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cuatro'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cinco'</span><span style="color: #007700">];<br /><br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #DD0000">'show_Spanish'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$d&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #DD0000">'map_Spanish'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$d</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -174,7 +204,7 @@ Array
     <div class="example-contents"><p>以上例程会输出：</p></div>
     <div class="example-contents screen">
 <div class="cdata"><pre>
-// printout of $c
+// 打印 $c
 Array
 (
     [0] =&gt; The number 1 is called uno in Spanish
@@ -184,7 +214,7 @@ Array
     [4] =&gt; The number 5 is called cinco in Spanish
 )
 
-// printout of $d
+// 打印 $d
 Array
 (
     [0] =&gt; Array
@@ -225,7 +255,7 @@ Array
    此函数有个有趣的用法：传入 <strong><code>null</code></strong> 作为回调函数的名称，将创建多维数组（一个数组，内部包含数组。）
   </p>
   <p class="para">
-   <div class="example" id="example-4814">
+   <div class="example" id="example-4816">
     <p><strong>Example #4 多个数组的合并操作</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -281,7 +311,7 @@ Array
   </p>
   
   <p class="para">
-   <div class="example" id="example-4815">
+   <div class="example" id="example-4817">
     <p><strong>Example #5 
      仅有 <code class="parameter">array1</code> 时，<code class="parameter">callback</code> 设置为 <strong><code>null</code></strong>
     </strong></p>
@@ -308,7 +338,7 @@ array(3) {
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4816">
+   <div class="example" id="example-4818">
     <p><strong>Example #6 <span class="function"><strong>array_map()</strong></span> 键（key）是 string</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -352,6 +382,33 @@ array(1) {
 </pre></div>
     </div>
    </div>
+   <div class="example" id="example-4819">
+    <p><strong>Example #7 <span class="function"><strong>array_map()</strong></span> - 关联数组</strong></p>
+    <div class="example-contents"><p>
+     虽然 <span class="function"><strong>array_map()</strong></span> 不能直接支持使用数组的键（key）作为输入，但可以使用
+     <span class="function"><a href="function.array-keys.html" class="function">array_keys()</a></span> 进行模拟。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$arr&nbsp;</span><span style="color: #007700">=&nbsp;[<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'v1'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'First&nbsp;release'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'v2'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Second&nbsp;release'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'v3'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Third&nbsp;release'</span><span style="color: #007700">,<br />];<br /><br /></span><span style="color: #FF8000">//&nbsp;注意：&nbsp;在&nbsp;7.4.0&nbsp;之前，使用较长的语法来代替匿名函数。<br /></span><span style="color: #0000BB">$callback&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fn</span><span style="color: #007700">(</span><span style="color: #0000BB">string&nbsp;$k</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">string&nbsp;$v</span><span style="color: #007700">):&nbsp;</span><span style="color: #0000BB">string&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$k</span><span style="color: #DD0000">&nbsp;was&nbsp;the&nbsp;</span><span style="color: #0000BB">$v</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #0000BB">$callback</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">array_keys</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">array_values</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [0]=&gt;
+  string(24) &quot;v1 was the First release&quot;
+  [1]=&gt;
+  string(25) &quot;v2 was the Second release&quot;
+  [2]=&gt;
+  string(24) &quot;v3 was the Third release&quot;
+}
+</pre></div>
+    </div>
+   </div>
   </p>
  </div>
 
@@ -367,7 +424,7 @@ array(1) {
   </p>
  </div>
 
-  </div><div id="usernotes">
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

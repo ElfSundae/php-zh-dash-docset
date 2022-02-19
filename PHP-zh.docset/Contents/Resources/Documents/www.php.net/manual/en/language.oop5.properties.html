@@ -28,27 +28,27 @@
   <h2 class="title">属性</h2>
 
   <p class="para">
-   类的变量成员叫做 <em class="emphasis">属性</em>，或者叫 <em class="emphasis">字段</em>，在本文档统一称为 <em class="emphasis">属性</em> 。从 PHP 7.4 开始，属性声明是由关键字
-   <code class="literal">public</code>，<code class="literal">protected</code> 或者
-   <code class="literal">private</code> 开头，然后是类型声明，然后跟一个普通的变量声明来组成。属性中的变量可以初始化，但是初始化的值必须是 <a href="language.constants.html" class="link">常数</a> 。
-  </p>
-  <p class="para">
-   有关 <code class="literal">public</code>，<code class="literal">protected</code>
-   和 <code class="literal">private</code> 的更多详细信息，请查看<a href="language.oop5.visibility.html" class="xref">访问控制（可见性）</a>。
+   类的变量成员叫做<em class="emphasis">属性</em>，或者叫<em class="emphasis">字段</em>，在本文档统一称为<em class="emphasis">属性</em>。
+   属性开头至少使用一个修饰符（比如 <a href="language.oop5.visibility.html" class="xref">访问控制（可见性）</a>， <a href="language.oop5.static.html" class="xref">静态（static）关键字</a>，
+   或者自 PHP 8.1.0 起支持的 <a href="language.oop5.properties.html#language.oop5.properties.readonly-properties" class="link">readonly</a>），
+   除了 <code class="code">readonly</code> 属性之外都是可选的，然后自 PHP 7.4 
+   起可以跟一个类型声明，然后跟一个普通的变量声明来组成。属性中的变量可以初始化，但是初始化的值必须是 <a href="language.constants.html" class="link">常量</a>值。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    另一种不推荐的声明类属性的方法是使用 <code class="literal">var</code> 关键字，因为它是为了向后兼容 PHP 4。
-    如果使用，会将其视为 <code class="literal">public</code>。
+    另一种过时的声明类属性的方法是使用 <code class="literal">var</code> 关键字，而不是使用修饰符。
    </p>
-   <p class="para">
-   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    没有声明 <a href="language.oop5.visibility.html" class="xref">访问控制（可见性）</a> 修饰符的属性将默认声明为 <code class="literal">public</code>。
+   </span>
   </p></blockquote>
   <p class="para">
    在类的成员方法里面，可以用 <code class="literal">-&gt;</code>（对象运算符）：<var class="varname">$this->property</var>（其中
    <code class="literal">property</code> 是该属性名）这种方式来访问非静态属性。静态属性则是用
    <code class="literal">::</code>（双冒号）：<var class="varname">self::$property</var>
-   来访问。更多静态属性与非静态属性的区别参见 <a href="language.oop5.static.html" class="link">Static 关键字</a>。
+   来访问。更多静态属性与非静态属性的区别参见 <a href="language.oop5.static.html" class="xref">静态（static）关键字</a>。
   </p>
   <p class="para">
    当一个方法在类定义内部被调用时，有一个可用的伪变量
@@ -61,7 +61,7 @@
     <p><strong>Example #1 属性声明</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">SimpleClass<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'hello&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'world'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;EOD<br /></span><span style="color: #DD0000">hello&nbsp;world<br /></span><span style="color: #007700">EOD;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;正确的属性声明<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$var4&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">myStaticMethod</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var5&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$myVar</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;正确的属性声明<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$var6&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">myConstant</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var7&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var8&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;'EOD'<br /></span><span style="color: #DD0000">hello&nbsp;world<br /></span><span style="color: #007700">EOD;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">SimpleClass<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'hello&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'world'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;EOD<br /></span><span style="color: #DD0000">hello&nbsp;world<br /></span><span style="color: #007700">EOD;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;正确的属性声明<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$var4&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">myStaticMethod</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var5&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$myVar</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;正确的属性声明<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$var6&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">myConstant</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var7&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var8&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;'EOD'<br /></span><span style="color: #DD0000">hello&nbsp;world<br /></span><span style="color: #007700">EOD;<br /><br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;没有访问控制修饰符：<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$var9</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">readonly&nbsp;int&nbsp;$var10</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

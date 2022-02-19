@@ -152,7 +152,66 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122641""></a>
+<div id="allnotes">  <a name="126847""></a>
+  <div class="note">
+   <strong class="user">Olexandr Kalaidzhy</strong>
+   <a href="#126847" class="date">12-Feb-2022 11:56</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Get all object vars without using Reflection:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br />
+<br />
+class </span><span class="default">A<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; private </span><span class="default">$foo </span><span class="keyword">= </span><span class="string">'foo'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; protected </span><span class="default">$bar </span><span class="keyword">= </span><span class="string">'bar'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$buz </span><span class="keyword">= </span><span class="string">'buz'</span><span class="keyword">;<br />
+}<br />
+<br />
+function </span><span class="default">get_object_vars_all</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">): array<br />
+{<br />
+&nbsp;&nbsp;&nbsp; if (!\</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">InvalidArgumentException</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'The argument should be an object, "%s" given.'</span><span class="keyword">, </span><span class="default">get_debug_type</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">)));<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$closure </span><span class="keyword">= function () {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">get_object_vars</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; };<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$closure</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">, </span><span class="default">$object</span><span class="keyword">)();<br />
+}<br />
+<br />
+</span><span class="default">$a </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">();<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">get_object_vars</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">));<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">get_object_vars_all</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">));<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The output: <br />
+<br />
+array(1) {<br />
+&nbsp; ["buz"]=&gt;<br />
+&nbsp; string(3) "buz"<br />
+}<br />
+array(3) {<br />
+&nbsp; ["foo"]=&gt;<br />
+&nbsp; string(3) "foo"<br />
+&nbsp; ["bar"]=&gt;<br />
+&nbsp; string(3) "bar"<br />
+&nbsp; ["buz"]=&gt;<br />
+&nbsp; string(3) "buz"<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122641""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#122641" class="date">19-Apr-2018 03:31</a>

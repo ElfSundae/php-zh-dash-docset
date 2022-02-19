@@ -82,8 +82,8 @@
   <p class="para">
    <dl>
     <dt>
-<code class="parameter">
-statement</code></dt>
+
+<code class="parameter">statement</code></dt>
 <dd>
 <p class="para">仅以过程化样式：由
 <span class="function"><a href="mysqli.stmt-init.html" class="function">mysqli_stmt_init()</a></span> 返回的 <span class="classname"><a href="class.mysqli-stmt.html" class="classname">mysqli_stmt</a></span> 对象。</p></dd>
@@ -180,7 +180,57 @@ AND Andorra
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="116827""></a>
+<div id="allnotes">  <a name="126799""></a>
+  <div class="note">
+   <strong class="user">carloshritzmann at gmail dot com</strong>
+   <a href="#126799" class="date">25-Jan-2022 12:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+From PHP 7.4+, you can use the spread operator (...) to easily automate the process of assigning variables to the query statement, and to fetch data when executing a SELECT request using prepared statements.<br />
+<br />
+However, the spread operator takes in consideration the size of the array. So it must be pre allocated before used in any context.<br />
+<br />
+<span class="default">&lt;?php&nbsp; <br />
+&nbsp;&nbsp;&nbsp; $link </span><span class="keyword">= </span><span class="comment">// Create DB Connection<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$query_text </span><span class="keyword">= </span><span class="string">"SELECT mission, year, report FROM table WHERE id=? AND name=?;"</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// Data to assign<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$types </span><span class="keyword">= </span><span class="string">"is"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$param </span><span class="keyword">= [</span><span class="default">0</span><span class="keyword">, </span><span class="string">"John Titor"</span><span class="keyword">];<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// Prepare and Execute Statement<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">mysqli_stmt_prepare</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">, </span><span class="default">$query_text</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">mysqli_stmt_execute</span><span class="keyword">(</span><span class="default">$stmt</span><span class="keyword">)) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// We know we are going to retrieve 3 columns: Mission, Year and Report.<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">= [</span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">];<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Behind the scenes, the spread operator gives this idea when used: <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // mysqli_stmt_bind_result($link, $output[0], $output[1], $output[2]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">mysqli_stmt_bind_result</span><span class="keyword">(</span><span class="default">$stmt</span><span class="keyword">, ...</span><span class="default">$output</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Fetch data<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">while (</span><span class="default">mysqli_stmt_fetch</span><span class="keyword">(</span><span class="default">$stmt</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Mission: " </span><span class="keyword">. </span><span class="default">$output</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] . </span><span class="string">"\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Year: " </span><span class="keyword">. </span><span class="default">$output</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] .</span><span class="string">"\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Report: " </span><span class="keyword">. </span><span class="default">$output</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] . </span><span class="string">"\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Error: Wrong Timeline\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// Close DB Connection<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="116827""></a>
   <div class="note">
    <strong class="user">kaspy at example dot com</strong>
    <a href="#116827" class="date">05-Mar-2015 06:31</a>

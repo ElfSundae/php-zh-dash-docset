@@ -173,7 +173,48 @@ post_max_size in bytes = 8388608
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126324""></a>
+<div id="allnotes">  <a name="126769""></a>
+  <div class="note">
+   <strong class="user">Joe Huss detain at interserver dot net</strong>
+   <a href="#126769" class="date">16-Jan-2022 10:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here is a version combining a few of the examples here that does *not* require php8 nor does it generate a warning<br />
+<br />
+/**<br />
+* gets the value in bytes converted from a human readable string like 10G'<br />
+* <br />
+* @param mixed $val the human readable/shorthand version of the value<br />
+* @return int the value converted to bytes<br />
+*/<br />
+function return_bytes($val) {<br />
+&nbsp;&nbsp;&nbsp; $val = trim($val);<br />
+&nbsp;&nbsp;&nbsp; preg_match('/([0-9]+)[\s]*([a-zA-Z]+)/', $val, $matches);<br />
+&nbsp;&nbsp;&nbsp; $value = (isset($matches[1])) ? intval($matches[1]) : 0;<br />
+&nbsp;&nbsp;&nbsp; $metric = (isset($matches[2])) ? strtolower($matches[2]) : 'b';<br />
+&nbsp;&nbsp;&nbsp; switch ($metric) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 'tb':<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 't':<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $value *= 1024;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 'gb':<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 'g':<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $value *= 1024;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 'mb':<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 'm':<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $value *= 1024;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 'kb':<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case 'k':<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $value *= 1024;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return $value;<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126324""></a>
   <div class="note">
    <strong class="user">devsrealmGuy</strong>
    <a href="#126324" class="date">11-Aug-2021 02:40</a>

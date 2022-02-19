@@ -284,7 +284,48 @@ Static object: object(stdClass)#3 (1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126217""></a>
+<div id="allnotes">  <a name="126779""></a>
+  <div class="note">
+   <strong class="user">robertks at gmail dot com</strong>
+   <a href="#126779" class="date">19-Jan-2022 02:37</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Declaring a variable to be global in a function call argument will cause a parse error.<br />
+<br />
+RIGHT:<br />
+<br />
+<span class="default">&lt;?php<br />
+$a </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="comment">// global scope<br />
+</span><span class="keyword">function </span><span class="default">test</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; global </span><span class="default">$a</span><span class="keyword">; <br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">subtest</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">); </span><span class="comment">// works<br />
+</span><span class="keyword">}<br />
+function </span><span class="default">subtest</span><span class="keyword">(</span><span class="default">$argument</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$argument </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">test</span><span class="keyword">();<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+WRONG:<br />
+<br />
+<span class="default">&lt;?php<br />
+$a </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="comment">// global scope<br />
+</span><span class="keyword">function </span><span class="default">test</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">subtest</span><span class="keyword">(global </span><span class="default">$a</span><span class="keyword">); </span><span class="comment">// results in parse error<br />
+</span><span class="keyword">}<br />
+function </span><span class="default">subtest</span><span class="keyword">(</span><span class="default">$argument</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$argument </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">test</span><span class="keyword">();<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126217""></a>
   <div class="note">
    <strong class="user">admin at shenjinpeng dot cn</strong>
    <a href="#126217" class="date">05-Jul-2021 03:57</a>

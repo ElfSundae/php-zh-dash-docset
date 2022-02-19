@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.array-key-exists-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_key_exists</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>array_key_exists</strong></span>(<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">int</span></span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
    数组里有键 <code class="parameter">key</code> 时，<span class="function"><strong>array_key_exists()</strong></span> 返回 <strong><code>true</code></strong>。
@@ -95,7 +95,7 @@
    <div class="refsect1 examples" id="refsect1-function.array-key-exists-examples">
     <h3 class="title">范例</h3>
     <p class="para">
-     <div class="example" id="example-4807">
+     <div class="example" id="example-4809">
       <p><strong>Example #1 <span class="function"><strong>array_key_exists()</strong></span> 例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -106,7 +106,7 @@
 
    </div>
      </p>
-     <div class="example" id="example-4808">
+     <div class="example" id="example-4810">
       <p><strong>Example #2 <span class="function"><strong>array_key_exists()</strong></span> 与 <span class="function"><a href="function.isset.html" class="function">isset()</a></span> 的对比</strong></p>
       <div class="example-contents"><p>
        <span class="function"><a href="function.isset.html" class="function">isset()</a></span> 对于数组中为 <strong><code>null</code></strong>
@@ -115,7 +115,7 @@
       </p></div>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$search_array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'first'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'second'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;returns&nbsp;false<br /></span><span style="color: #007700">isset(</span><span style="color: #0000BB">$search_array</span><span style="color: #007700">[</span><span style="color: #DD0000">'first'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #FF8000">//&nbsp;returns&nbsp;true<br /></span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'first'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$search_array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$search_array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'first'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'second'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;返回&nbsp;false<br /></span><span style="color: #007700">isset(</span><span style="color: #0000BB">$search_array</span><span style="color: #007700">[</span><span style="color: #DD0000">'first'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #FF8000">//&nbsp;返回&nbsp;true<br /></span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'first'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$search_array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -128,13 +128,12 @@
     <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
     <p class="para">
-     由于为了兼容以前版本，如果 <span class="type">object</span> 当做 <code class="parameter">array</code> 传入 <span class="function"><strong>array_key_exists()</strong></span>，同时  <code class="parameter">key</code> 是对象的属性，也会返回  <strong><code>true</code></strong>。
-     
-     不要依赖这个特性，保证参数 <code class="parameter">array</code> 类型是数组（<span class="type">array</span>）。
+     由于为了兼容以前版本，如果 <span class="type">object</span> 当做 <code class="parameter">array</code> 传入 
+     <span class="function"><strong>array_key_exists()</strong></span>，同时 <code class="parameter">key</code> 是对象的属性，也会返回 <strong><code>true</code></strong>。
+     此行为在 PHP 7.4.0 弃用且在 PHP 8.0.0 移除。
     </p>
     <p class="para">
-     要检查对象是否有某个属性，应该去用
-     <span class="function"><a href="function.property-exists.html" class="function">property_exists()</a></span>。
+     要检查对象是否有某个属性，应该使用 <span class="function"><a href="function.property-exists.html" class="function">property_exists()</a></span>。
     </p>
   </p></blockquote>
    </div>
@@ -152,7 +151,6 @@
     </p>
    </div>
 
-   
 </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>

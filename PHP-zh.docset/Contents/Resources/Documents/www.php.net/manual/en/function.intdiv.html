@@ -120,7 +120,43 @@ Fatal error: Uncaught DivisionByZeroError: Division by zero in %s on line 9
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124328""></a>
+<div id="allnotes">  <a name="126829""></a>
+  <div class="note">
+   <strong class="user">oittaa</strong>
+   <a href="#126829" class="date">06-Feb-2022 04:56</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Python style integer division, where the result is always rounded towards minus infinity.<br />
+<br />
+1 // 2 is 0<br />
+(-1) // 2 is -1<br />
+1 // (-2) is -1<br />
+(-1) // (-2) is 0<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">intdiv_py</span><span class="keyword">(</span><span class="default">int $num1</span><span class="keyword">, </span><span class="default">int $num2</span><span class="keyword">): </span><span class="default">int</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$num1 </span><span class="keyword">&lt; </span><span class="default">0 </span><span class="keyword">xor </span><span class="default">$num2 </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$num1 </span><span class="keyword">= </span><span class="default">abs</span><span class="keyword">(</span><span class="default">$num1</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$num2 </span><span class="keyword">= </span><span class="default">abs</span><span class="keyword">(</span><span class="default">$num2</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$remainder </span><span class="keyword">= </span><span class="default">$num1 </span><span class="keyword">% </span><span class="default">$num2</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$remainder </span><span class="keyword">? -</span><span class="default">1 </span><span class="keyword">-(</span><span class="default">$num1 </span><span class="keyword">- </span><span class="default">$remainder</span><span class="keyword">) / </span><span class="default">$num2 </span><span class="keyword">: -</span><span class="default">$num1 </span><span class="keyword">/ </span><span class="default">$num2</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">intdiv</span><span class="keyword">(</span><span class="default">$num1</span><span class="keyword">, </span><span class="default">$num2</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">intdiv_py</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">)); </span><span class="comment">// 0<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">intdiv_py</span><span class="keyword">(-</span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">)); </span><span class="comment">// -1<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">intdiv_py</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, -</span><span class="default">2</span><span class="keyword">)); </span><span class="comment">// -1<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">intdiv_py</span><span class="keyword">(-</span><span class="default">1</span><span class="keyword">, -</span><span class="default">2</span><span class="keyword">)); </span><span class="comment">// 0<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124328""></a>
   <div class="note">
    <strong class="user">admin at infis dot net dot ru</strong>
    <a href="#124328" class="date">23-Oct-2019 01:31</a>

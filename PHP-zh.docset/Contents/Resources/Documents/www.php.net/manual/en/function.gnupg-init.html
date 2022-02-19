@@ -134,7 +134,7 @@
  <div class="refsect1 examples" id="refsect1-function.gnupg-init-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3086">
+   <div class="example" id="example-3088">
     <p><strong>Example #1 Procedural <span class="function"><strong>gnupg_init()</strong></span> example with default setting</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -144,7 +144,7 @@
     </div>
 
    </div>
-   <div class="example" id="example-3087">
+   <div class="example" id="example-3089">
     <p><strong>Example #2 Procedural <span class="function"><strong>gnupg_init()</strong></span> example with overriden file name and home dir</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -154,7 +154,7 @@
     </div>
 
    </div>
-   <div class="example" id="example-3088">
+   <div class="example" id="example-3090">
     <p><strong>Example #3 OO gnupg initializer example with default setting</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -164,7 +164,7 @@
     </div>
 
    </div>
-   <div class="example" id="example-3089">
+   <div class="example" id="example-3091">
     <p><strong>Example #4 OO gnupg initializer example with overriden file name and home dir</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -181,7 +181,32 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121851""></a>
+<div id="allnotes">  <a name="126790""></a>
+  <div class="note">
+   <strong class="user">djmaze</strong>
+   <a href="#126790" class="date">21-Jan-2022 09:46</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Make sure home_dir option is not too many characters or else private keys fail.<br />
+<br />
+You will notice that functions take a long time (seconds).<br />
+<br />
+Commandline test yield error:<br />
+&gt; gpg: can't connect to the agent: IPC connect call failed<br />
+<br />
+Executing `gpg-agent --daemon --homedir /very/long/path/to/.gnupg` gave the error.<br />
+&gt; socket name for '/very/long/path/to/.gnupg/S.gpg-agent.extra' is too long<br />
+<br />
+So you must check that home_dir + '/S.gpg-agent.extra' is:<br />
+* &lt; 107 characters on Linux<br />
+* &lt; 104 on BSD 4.4</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121851""></a>
   <div class="note">
    <strong class="user">der_axel at gmx dot de</strong>
    <a href="#121851" class="date">10-Nov-2017 08:26</a>

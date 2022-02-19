@@ -245,7 +245,7 @@
  <div class="refsect1 examples" id="refsect1-function.json-decode-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3368">
+   <div class="example" id="example-3370">
     <p><strong>Example #1 <span class="function"><strong>json_decode()</strong></span> µÄÀý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -275,7 +275,7 @@ array(5) {
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-3369">
+   <div class="example" id="example-3371">
     <p><strong>Example #2 Accessing invalid object properties</strong></p>
     <div class="example-contents"><p>
      Accessing elements within an object that contain characters not
@@ -290,7 +290,7 @@ array(5) {
     </div>
 
    </div>
-   <div class="example" id="example-3370">
+   <div class="example" id="example-3372">
     <p><strong>Example #3 common mistakes using <span class="function"><strong>json_decode()</strong></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -300,7 +300,7 @@ array(5) {
     </div>
 
    </div>
-   <div class="example" id="example-3371">
+   <div class="example" id="example-3373">
     <p><strong>Example #4 <code class="parameter">depth</code> errors</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -338,7 +338,7 @@ Last error: JSON_ERROR_DEPTH
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-3372">
+   <div class="example" id="example-3374">
     <p><strong>Example #5 <span class="function"><strong>json_decode()</strong></span> of large integers</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -395,7 +395,67 @@ object(stdClass)#1 (1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126569""></a>
+<div id="allnotes">  <a name="126787""></a>
+  <div class="note">
+   <strong class="user">Lennart Hengstmengel</strong>
+   <a href="#126787" class="date">21-Jan-2022 05:42</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+JSON can be decoded to PHP arrays by using the $associative = true option. Be wary that associative arrays in PHP can be a "list" or "object" when converted to/from JSON, depending on the keys (of absence of them). <br />
+<br />
+You would expect that recoding and re-encoding will always yield the same JSON string, but take this example:<br />
+<br />
+&nbsp;&nbsp;&nbsp; $json = '{"0": "No", "1": "Yes"}';<br />
+&nbsp;&nbsp;&nbsp; $array = json_decode($json, true);&nbsp; // decode as associative hash<br />
+&nbsp;&nbsp;&nbsp; print json_encode($array) . PHP_EOL;<br />
+<br />
+This will output a different JSON string than the original:<br />
+<br />
+&nbsp;&nbsp;&nbsp; ["No","Yes"]<br />
+<br />
+The object has turned into an array!<br />
+<br />
+Similarly, a array that doesn't have consecutive zero based numerical indexes, will be encoded to a JSON object instead of a list.<br />
+<br />
+&nbsp;&nbsp;&nbsp; $array = [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'first',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'second',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'third',<br />
+&nbsp;&nbsp;&nbsp; ];<br />
+&nbsp;&nbsp;&nbsp; print json_encode($array) . PHP_EOL;<br />
+&nbsp;&nbsp;&nbsp; // remove the second element<br />
+&nbsp;&nbsp;&nbsp; unset($array[1]);<br />
+&nbsp;&nbsp;&nbsp; print json_encode($array) . PHP_EOL;<br />
+<br />
+The output will be:<br />
+<br />
+&nbsp;&nbsp;&nbsp; ["first","second","third"]<br />
+&nbsp;&nbsp;&nbsp; {"0":"first","2":"third"}<br />
+<br />
+The array has turned into an object! <br />
+<br />
+In other words, decoding/encoding to/from PHP arrays is not always symmetrical, or might not always return what you expect!<br />
+<br />
+On the other hand, decoding/encoding from/to stdClass objects (the default) is always symmetrical. <br />
+<br />
+Arrays may be somewhat easier to work with/transform than objects. But especially if you need to decode, and re-encode json, it might be prudent to decode to objects and not arrays. <br />
+<br />
+If you want to enforce an array to encode to a JSON list (all array keys will be discarded), use:<br />
+<br />
+&nbsp;&nbsp;&nbsp; json_encode(array_values($array));<br />
+<br />
+If you want to enforce an array to encode to a JSON object, use:<br />
+<br />
+&nbsp;&nbsp;&nbsp; json_encode((object)$array);<br />
+<br />
+See also: https://www.php.net/manual/en/function.array-is-list.php</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126569""></a>
   <div class="note">
    <strong class="user">as-works at narod dot ru</strong>
    <a href="#126569" class="date">08-Nov-2021 01:49</a>

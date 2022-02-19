@@ -267,7 +267,52 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126041""></a>
+<div id="allnotes">  <a name="126811""></a>
+  <div class="note">
+   <strong class="user">bub at gmail dot com</strong>
+   <a href="#126811" class="date">30-Jan-2022 01:07</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you need the last key of your collection use:<br />
+<span class="default">&lt;?php<br />
+array_key_last</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getArrayCopy</span><span class="keyword">())<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+In an extending class it could look like:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Collection </span><span class="keyword">extends </span><span class="default">ArrayObject<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">lastKey</span><span class="keyword">(): </span><span class="default">int<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">array_key_last</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getArrayCopy</span><span class="keyword">());<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+If you want to use any type safe collection:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">BookCollection </span><span class="keyword">extends </span><span class="default">Collection<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">add</span><span class="keyword">(</span><span class="default">Book $book</span><span class="keyword">) : </span><span class="default">void<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">offsetSet</span><span class="keyword">(</span><span class="default">$book</span><span class="keyword">-&gt;</span><span class="default">id</span><span class="keyword">, </span><span class="default">$book</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// note the return type "Book"<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">public function </span><span class="default">get</span><span class="keyword">(</span><span class="default">int $bookId</span><span class="keyword">) : </span><span class="default">Book <br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">offsetGet</span><span class="keyword">(</span><span class="default">$bookId</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126041""></a>
   <div class="note">
    <strong class="user">lsrzj at yahoo dot com</strong>
    <a href="#126041" class="date">26-Apr-2021 12:31</a>
