@@ -341,6 +341,46 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="126882""></a>
+  <div class="note">
+   <strong class="user">aryfilipiak at gmail dot com</strong>
+   <a href="#126882" class="date">25-Feb-2022 08:36</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The ISO 8601 has the Week Date. I wrote this function. I hope that it can help someone.<br />
+If second parameter is not empty it assumes that $a is the year, $b the month and $c the day, and return basic ISO week date: YYYYWwwD (default) or extended: YYYY-Www-D (if $x is true);<br />
+If just first parameter is not empty assumes it is a ISO week date (basic or extended), and return&nbsp; the Unix timestamp. <br />
+<br />
+function ISOwd($a,$b='',$c='',$x=false) {<br />
+&nbsp;&nbsp;&nbsp; if (!$b) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!preg_match_all('/([0-9]{4})-*W*([0-9]{2})-*([0-9]{1})/', $a, $m, PREG_SET_ORDER))<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return null;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; /* Now year is $m[0][1], week is $m[0][2] and day is $m[0][3] */<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $fd = mktime(0,0,0,1,1,$m[0][1]);&nbsp; // first day of the first week of the year<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $n&nbsp; = date('N', $fd);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; /* if ($n==7) $fd=2;&nbsp; if ($n==6) $fd=3;&nbsp; if ($n==5) $fd=4;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if ($n==4) $fd=29; if ($n==3) $fd=30; if ($n==2) $fd=31; if ($n==1) $fd=1; */<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ($n&gt;4) $fd = mktime(0,0,0,1,9-$n,$m[0][1]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; elseif ($n&gt;1) $fd = mktime(0,0,0,12,33-$n,$m[0][1]-1);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return strtotime(date('d-m-Y',$fd).' + '.($m[0][2]-1).' week'.' + '.($m[0][3]-1).' days');<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; $f = ($x) ? 'o-\WW-N' : 'o\WWN'; // basic / extended format<br />
+&nbsp;&nbsp;&nbsp; return date($f, mktime(0,0,0,$b,$c,$a));<br />
+}<br />
+// Example:<br />
+echo $test = ISOwd(date('y'),date('m'),date('d'));<br />
+echo '&lt;br&gt;';<br />
+echo date('y-m-d',ISOwd($test));<br />
+echo '&lt;br&gt;';<br />
+echo $test = ISOwd(date('y'),date('m'),date('d'),true);<br />
+echo '&lt;br&gt;';<br />
+echo date('y-m-d',ISOwd($test));</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

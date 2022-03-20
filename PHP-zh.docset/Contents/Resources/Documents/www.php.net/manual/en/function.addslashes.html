@@ -133,7 +133,113 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125260""></a>
+<div id="allnotes">  <a name="126895""></a>
+  <div class="note">
+   <strong class="user">divinity76 at gmail dot com</strong>
+   <a href="#126895" class="date">02-Mar-2022 04:08</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Addslashes is *never* the right answer, it's (ab)use can lead to security exploits!<br />
+<br />
+if you need to escape HTML, it's (unfortunately)<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">echo </span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$html</span><span class="keyword">, </span><span class="default">ENT_QUOTES</span><span class="keyword">|</span><span class="default">ENT_SUBSTITUTE</span><span class="keyword">|</span><span class="default">ENT_DISALLOWED</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span>if you need to quote shell arguments, it's<br />
+<span class="default">&lt;?php<br />
+$cmd</span><span class="keyword">.= </span><span class="string">" --file=" </span><span class="keyword">. </span><span class="default">escapeshellarg</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span>if you need to quote SQL strings it's<br />
+<span class="default">&lt;?php<br />
+$sql</span><span class="keyword">.= </span><span class="string">"WHERE col = '"</span><span class="keyword">.</span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">real_escape_string</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">).</span><span class="string">"'"</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span>or<br />
+<span class="default">&lt;?php<br />
+$sql</span><span class="keyword">.= </span><span class="string">"WHERE col = " </span><span class="keyword">. </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">quote</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span>if you need to quote javascript/json strings its<br />
+<span class="default">&lt;?php<br />
+let str </span><span class="keyword">= &lt;?=</span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">JSON_THROW_ON_ERROR</span><span class="keyword">);</span><span class="default">?&gt;</span>;<br />
+?&gt;<br />
+<br />
+if you need to quote a string in xpath it's<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">//based on https://stackoverflow.com/a/1352556/1067003<br />
+</span><span class="keyword">function </span><span class="default">xpath_quote</span><span class="keyword">(</span><span class="default">string $value</span><span class="keyword">):</span><span class="default">string</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">false</span><span class="keyword">===</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="string">'"'</span><span class="keyword">)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">'"'</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">.</span><span class="string">'"'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">false</span><span class="keyword">===</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="string">'\''</span><span class="keyword">)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">'\''</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">.</span><span class="string">'\''</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// if the value contains both single and double quotes, construct an<br />
+&nbsp;&nbsp;&nbsp; // expression that concatenates all non-double-quote substrings with<br />
+&nbsp;&nbsp;&nbsp; // the quotes, e.g.:<br />
+&nbsp;&nbsp;&nbsp; //<br />
+&nbsp;&nbsp;&nbsp; //&nbsp; &nbsp; concat("'foo'", '"', "bar")<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$sb</span><span class="keyword">=</span><span class="string">'concat('</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$substrings</span><span class="keyword">=</span><span class="default">explode</span><span class="keyword">(</span><span class="string">'"'</span><span class="keyword">,</span><span class="default">$value</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">count</span><span class="keyword">(</span><span class="default">$substrings</span><span class="keyword">);++</span><span class="default">$i</span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$needComma</span><span class="keyword">=(</span><span class="default">$i</span><span class="keyword">&gt;</span><span class="default">0</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$substrings</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]!==</span><span class="string">''</span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i</span><span class="keyword">&gt;</span><span class="default">0</span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sb</span><span class="keyword">.=</span><span class="string">', '</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sb</span><span class="keyword">.=</span><span class="string">'"'</span><span class="keyword">.</span><span class="default">$substrings</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">].</span><span class="string">'"'</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$needComma</span><span class="keyword">=</span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i </span><span class="keyword">&lt; (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$substrings</span><span class="keyword">) -</span><span class="default">1</span><span class="keyword">)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$needComma</span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sb</span><span class="keyword">.=</span><span class="string">', '</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sb</span><span class="keyword">.=</span><span class="string">"'\"'"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$sb</span><span class="keyword">.=</span><span class="string">')'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$sb</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">$xp</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">'/catalog/items/item[title='</span><span class="keyword">.</span><span class="default">xpath_quote</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">).</span><span class="string">']'</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span>if you need to quote strings in CSS its<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// CSS escape code ripped from Zend Framework ( https://github.com/zendframework/zf2/blob/master/library/Zend/Escaper/Escaper.php )<br />
+</span><span class="keyword">function </span><span class="default">css_escape_string</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$cssMatcher </span><span class="keyword">= function (</span><span class="default">$matches</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$chr </span><span class="keyword">= </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$chr</span><span class="keyword">) == </span><span class="default">1</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ord </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$chr</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$chr </span><span class="keyword">= </span><span class="default">mb_convert_encoding</span><span class="keyword">(</span><span class="default">$chr</span><span class="keyword">, </span><span class="string">'UTF-16BE'</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">); </span><span class="comment">// $this-&gt;convertEncoding($chr, 'UTF-16BE', 'UTF-8');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ord </span><span class="keyword">= </span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">bin2hex</span><span class="keyword">(</span><span class="default">$chr</span><span class="keyword">));<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'\\%X '</span><span class="keyword">, </span><span class="default">$ord</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; };<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$originalEncoding </span><span class="keyword">= </span><span class="default">mb_detect_encoding</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$originalEncoding </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$originalEncoding </span><span class="keyword">= </span><span class="string">'UTF-8'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; ;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$string </span><span class="keyword">= </span><span class="default">mb_convert_encoding</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="default">$originalEncoding</span><span class="keyword">); </span><span class="comment">// $this-&gt;toUtf8($string);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // throw new Exception('mb_convert_encoding(\''.$string.'\',\'UTF-8\',\''.$originalEncoding.'\');');<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$string </span><span class="keyword">=== </span><span class="string">'' </span><span class="keyword">|| </span><span class="default">ctype_digit</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$string</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">preg_replace_callback</span><span class="keyword">(</span><span class="string">'/[^a-z0-9]/iSu'</span><span class="keyword">, </span><span class="comment">/*$this-&gt;*/</span><span class="default">$cssMatcher</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// var_dump($result);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">mb_convert_encoding</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, </span><span class="default">$originalEncoding</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">); </span><span class="comment">// $this-&gt;fromUtf8($result);<br />
+</span><span class="keyword">}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+- but never addslashes.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125260""></a>
   <div class="note">
    <strong class="user">baburaj dot ambalam at gmail dot com</strong>
    <a href="#125260" class="date">12-Aug-2020 03:22</a>

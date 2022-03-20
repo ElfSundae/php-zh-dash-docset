@@ -67,6 +67,69 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="126899""></a>
+  <div class="note">
+   <strong class="user">Harshdeep</strong>
+   <a href="#126899" class="date">04-Mar-2022 05:22</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+While the example displays us what we can accomplish with attributes, it should be kept in mind that the main idea behind attributes is to attach static metadata to code (methods, properties, etc.). <br />
+<br />
+This metadata often includes concepts such as "markers" and "configuration". For example, you can write a serializer using reflection that only serializes marked properties (with optional configuration, such as field name in serialized file). This is reminiscent of serializers written for C# applications.<br />
+<br />
+That said, full reflection and attributes go hand in hand. If your use case is satisfied by inheritance or interfaces, prefer that. The most common use case for attributes is when you have no prior information about the provided object/class.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">interface </span><span class="default">JsonSerializable<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">toJson</span><span class="keyword">() : array;<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+versus, using attributes,<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">#[Attribute]<br />
+</span><span class="keyword">class </span><span class="default">JsonSerialize <br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__constructor</span><span class="keyword">(public ?</span><span class="default">string $fieldName </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {}<br />
+}<br />
+<br />
+class </span><span class="default">VersionedObject<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp; </span><span class="comment">#[JsonSerialize]<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">public const </span><span class="default">version </span><span class="keyword">= </span><span class="string">'0.0.1'</span><span class="keyword">;<br />
+}<br />
+<br />
+public class </span><span class="default">UserLandClass </span><span class="keyword">extends </span><span class="default">VersionedObject<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">#[JsonSerialize('call it Jackson')]<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">public </span><span class="default">string $myValue</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span>The example above is a little extra convoluted with the existence of the VersionedObject class as I wished to display that with attribute mark ups, you do not need to care how the base class manages its attributes (no call to parent in overriden method).</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126887""></a>
+  <div class="note">
+   <strong class="user">Justin</strong>
+   <a href="#126887" class="date">28-Feb-2022 08:41</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Allowing multiple functions to be tagged with the same Attribute is promoting weird design patterns. Because now the order of the tagged functions within the class becomes relevant. The order of functions within a class should remain arbitrary.<br />
+<br />
+It would be better to limit function tagging to one Attribute only. This would force people to implement one function per attribute, which can then call all the other functions they would otherwise tag with these Attribute's.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

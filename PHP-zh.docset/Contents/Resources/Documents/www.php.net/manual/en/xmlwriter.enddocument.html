@@ -112,6 +112,59 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="126921""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#126921" class="date">13-Mar-2022 09:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+XMLWriter::endDocument() closes properly all remaining elements not yet closed.<br />
+<br />
+Without XMLWriter::endDocument() :<br />
+<br />
+<span class="default">&lt;?php<br />
+$xml </span><span class="keyword">= new </span><span class="default">XMLWriter</span><span class="keyword">();<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">openUri</span><span class="keyword">(</span><span class="string">'php://stdout'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startDocument</span><span class="keyword">();<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startElement</span><span class="keyword">(</span><span class="string">'a'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startElement</span><span class="keyword">(</span><span class="string">'b'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startElement</span><span class="keyword">(</span><span class="string">'c'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startAttribute</span><span class="keyword">(</span><span class="string">'foo'</span><span class="keyword">);<br />
+exit;<br />
+<br />
+</span><span class="comment">/*<br />
+Outputs :<br />
+&lt;?xml version="1.0"?&gt;<br />
+&lt;a&gt;&lt;b&gt;&lt;c foo="<br />
+*/<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+With XMLWriter::endDocument() :<br />
+<br />
+<span class="default">&lt;?php<br />
+$xml </span><span class="keyword">= new </span><span class="default">XMLWriter</span><span class="keyword">();<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">openUri</span><span class="keyword">(</span><span class="string">'php://stdout'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startDocument</span><span class="keyword">();<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startElement</span><span class="keyword">(</span><span class="string">'a'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startElement</span><span class="keyword">(</span><span class="string">'b'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startElement</span><span class="keyword">(</span><span class="string">'c'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">startAttribute</span><span class="keyword">(</span><span class="string">'foo'</span><span class="keyword">);<br />
+</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">endDocument</span><span class="keyword">();<br />
+exit;<br />
+<br />
+</span><span class="comment">/*<br />
+Outputs :<br />
+&lt;?xml version="1.0"?&gt;<br />
+&lt;a&gt;&lt;b&gt;&lt;c foo=""/&gt;&lt;/b&gt;&lt;/a&gt;<br />
+*/<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

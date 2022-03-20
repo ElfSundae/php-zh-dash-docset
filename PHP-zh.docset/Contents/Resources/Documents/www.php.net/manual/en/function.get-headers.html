@@ -186,7 +186,86 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123234""></a>
+<div id="allnotes">  <a name="126885""></a>
+  <div class="note">
+   <strong class="user">https://twitter.com/jonathansampson</strong>
+   <a href="#126885" class="date">27-Feb-2022 06:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+When requesting headers as an associative array, it's important to note that headers with different casing will NOT be treated as equal. If your first redirect contains a "location" header, and your second contains a "Location" header (note the uppercase L), these will appear as two different keys in your associative array.<br />
+<br />
+The following is one attempt at creating an alternative to get_headers which normalizes the header names, while also offering the same functionality (with the same signature) as the native get_headers function:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">getHeaders </span><span class="keyword">( </span><span class="default">string $location</span><span class="keyword">, </span><span class="default">bool $associative </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">$context </span><span class="keyword">= </span><span class="default">null </span><span class="keyword">) : array | </span><span class="default">bool </span><span class="keyword">{<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$indexer </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$results </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$headers </span><span class="keyword">= </span><span class="default">get_headers</span><span class="keyword">( </span><span class="default">$location</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">, </span><span class="default">$context </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">$headers </span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach ( </span><span class="default">$headers </span><span class="keyword">as </span><span class="default">$header </span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">strpos</span><span class="keyword">( </span><span class="default">$header</span><span class="keyword">, </span><span class="string">":" </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$parts </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">( </span><span class="string">":"</span><span class="keyword">, </span><span class="default">$header</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$key </span><span class="keyword">= </span><span class="default">strtolower</span><span class="keyword">( </span><span class="default">$parts</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">( </span><span class="default">$parts</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] );<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( !</span><span class="default">$associative </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$results</span><span class="keyword">[ </span><span class="default">$indexer</span><span class="keyword">++ ] = </span><span class="string">"</span><span class="keyword">{</span><span class="default">$key</span><span class="keyword">}</span><span class="string">: </span><span class="keyword">{</span><span class="default">$value</span><span class="keyword">}</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * If the header name hasn't yet been encountered, we<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * add it to the `results` array, storing the value as<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * a string.<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * If the header name has been encountered already (it<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * has already been stored in the `results` array), and<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * is an array, we'll push the current value.<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * If the header name has been encountered, but currently<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * points to a string, we will replace with an array, but<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * keep the original string at index 0.<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if ( !</span><span class="default">key_exists</span><span class="keyword">( </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$results </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$results</span><span class="keyword">[ </span><span class="default">$key </span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else if ( </span><span class="default">is_array</span><span class="keyword">( </span><span class="default">$results</span><span class="keyword">[ </span><span class="default">$key </span><span class="keyword">] ) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_push</span><span class="keyword">( </span><span class="default">$results</span><span class="keyword">[ </span><span class="default">$key </span><span class="keyword">], </span><span class="default">$value </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$results</span><span class="keyword">[ </span><span class="default">$key </span><span class="keyword">] = [ </span><span class="default">$results</span><span class="keyword">[ </span><span class="default">$key </span><span class="keyword">], </span><span class="default">$value </span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// No ':' found in the header, so we'll preserve as-is.<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$results</span><span class="keyword">[ </span><span class="default">$indexer</span><span class="keyword">++ ] = </span><span class="default">$header</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$results</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123234""></a>
   <div class="note">
    <strong class="user">mcilva</strong>
    <a href="#123234" class="date">15-Oct-2018 05:17</a>

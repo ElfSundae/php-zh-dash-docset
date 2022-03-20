@@ -195,7 +195,124 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122952""></a>
+<div id="allnotes">  <a name="126854""></a>
+  <div class="note">
+   <strong class="user">bmxmale at qwerty dot re</strong>
+   <a href="#126854" class="date">15-Feb-2022 10:00</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+/**<br />
+&nbsp;* Convert Windows-1250 to UTF-8<br />
+&nbsp;* Based on https://www.php.net/manual/en/function.mb-convert-encoding.php#112547<br />
+&nbsp;*/<br />
+class TextConverter<br />
+{<br />
+&nbsp;&nbsp;&nbsp; private const ENCODING_TO = 'UTF-8';<br />
+&nbsp;&nbsp;&nbsp; private const ENCODING_FROM = 'ISO-8859-2';<br />
+<br />
+&nbsp;&nbsp;&nbsp; private array $mapChrChr = [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x8A =&gt; 0xA9,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x8C =&gt; 0xA6,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x8D =&gt; 0xAB,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x8E =&gt; 0xAE,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x8F =&gt; 0xAC,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x9C =&gt; 0xB6,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x9D =&gt; 0xBB,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xA1 =&gt; 0xB7,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xA5 =&gt; 0xA1,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xBC =&gt; 0xA5,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x9F =&gt; 0xBC,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xB9 =&gt; 0xB1,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x9A =&gt; 0xB9,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xBE =&gt; 0xB5,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x9E =&gt; 0xBE<br />
+&nbsp;&nbsp;&nbsp; ];<br />
+<br />
+&nbsp;&nbsp;&nbsp; private array $mapChrString = [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x80 =&gt; '&amp;euro;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x82 =&gt; '&amp;sbquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x84 =&gt; '&amp;bdquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x85 =&gt; '&amp;hellip;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x86 =&gt; '&amp;dagger;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x87 =&gt; '&amp;Dagger;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x89 =&gt; '&amp;permil;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x8B =&gt; '&amp;lsaquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x91 =&gt; '&amp;lsquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x92 =&gt; '&amp;rsquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x93 =&gt; '&amp;ldquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x94 =&gt; '&amp;rdquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x95 =&gt; '&amp;bull;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x96 =&gt; '&amp;ndash;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x97 =&gt; '&amp;mdash;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x99 =&gt; '&amp;trade;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0x9B =&gt; '&amp;rsquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xA6 =&gt; '&amp;brvbar;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xA9 =&gt; '&amp;copy;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xAB =&gt; '&amp;laquo;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xAE =&gt; '&amp;reg;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xB1 =&gt; '&amp;plusmn;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xB5 =&gt; '&amp;micro;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xB6 =&gt; '&amp;para;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xB7 =&gt; '&amp;middot;',<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 0xBB =&gt; '&amp;raquo;'<br />
+&nbsp;&nbsp;&nbsp; ];<br />
+<br />
+&nbsp;&nbsp;&nbsp; /**<br />
+&nbsp;&nbsp; &nbsp; * @param $text<br />
+&nbsp;&nbsp; &nbsp; * @return string<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; public function execute($text): string<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $map = $this-&gt;prepareMap();<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return html_entity_decode(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; mb_convert_encoding(strtr($text, $map), self::ENCODING_TO, self::ENCODING_FROM),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ENT_QUOTES,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; self::ENCODING_TO<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; /**<br />
+&nbsp;&nbsp; &nbsp; * @return array<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; private function prepareMap(): array<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $maps[] = $this-&gt;arrayMapAssoc(function ($k, $v) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return [chr($k), chr($v)];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }, $this-&gt;mapChrChr);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $maps[] = $this-&gt;arrayMapAssoc(function ($k, $v) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return [chr($k), $v];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }, $this-&gt;mapChrString);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return array_merge([], ...$maps);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; /**<br />
+&nbsp;&nbsp; &nbsp; * @param callable $function<br />
+&nbsp;&nbsp; &nbsp; * @param array $array<br />
+&nbsp;&nbsp; &nbsp; * @return array<br />
+&nbsp;&nbsp; &nbsp; */<br />
+&nbsp;&nbsp;&nbsp; private function arrayMapAssoc(callable $function, array $array): array<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return array_column(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; array_map(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $function,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; array_keys($array),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $array<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 1,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 0<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122952""></a>
   <div class="note">
    <strong class="user">vasiliauskas dot agnius at gmail dot com</strong>
    <a href="#122952" class="date">17-Jul-2018 08:16</a>

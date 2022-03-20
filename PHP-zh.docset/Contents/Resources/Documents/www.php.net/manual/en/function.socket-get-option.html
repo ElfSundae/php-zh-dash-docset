@@ -612,7 +612,37 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="114586""></a>
+<div id="allnotes">  <a name="126907""></a>
+  <div class="note">
+   <strong class="user">skydiablo at gmx dot net</strong>
+   <a href="#126907" class="date">08-Mar-2022 11:49</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+to receive UDP DHCP packets on a dedicated interface, you have to use the undocumented option SO_BINDTODEVICE:<br />
+<br />
+<span class="default">&lt;?php<br />
+$socket </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_DGRAM</span><span class="keyword">, </span><span class="default">SOL_UDP</span><span class="keyword">);<br />
+<br />
+</span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_BINDTODEVICE</span><span class="keyword">, </span><span class="string">'eth1'</span><span class="keyword">);<br />
+</span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_BROADCAST</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />
+</span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_REUSEADDR</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />
+</span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_REUSEPORT</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />
+<br />
+</span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="string">'255.255.255.255'</span><span class="keyword">, </span><span class="default">67</span><span class="keyword">);<br />
+while (</span><span class="default">1</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$src </span><span class="keyword">= @</span><span class="default">socket_recv</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">, </span><span class="default">9999</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$data </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="114586""></a>
   <div class="note">
    <strong class="user">prennings at gmail dot com</strong>
    <a href="#114586" class="date">09-Mar-2014 08:08</a>

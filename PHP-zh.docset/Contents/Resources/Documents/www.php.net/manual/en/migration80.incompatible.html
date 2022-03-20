@@ -1644,6 +1644,35 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="126884""></a>
+  <div class="note">
+   <strong class="user">retry, abort, fail</strong>
+   <a href="#126884" class="date">25-Feb-2022 11:57</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The change in string to int comparison mentioned above (e.g. '' == 0 now equates to false) has some other nasty consequences:<br />
+<br />
+$a = '';<br />
+<br />
+// php 8<br />
+<br />
+if ( $a &lt; 0 ) echo 'true'; // echos true<br />
+if ( $a &lt; -1) echo 'true'; // echos true<br />
+if ( $a &lt; -100 ) echo 'true'; // echos true<br />
+<br />
+// php 7<br />
+<br />
+if ( $a &lt; 0 ) echo 'true'; // no output<br />
+if ( $a &lt; -1) echo 'true'; // no output<br />
+if ( $a &lt; -100 ) echo 'true'; // no output<br />
+<br />
+So in a situation where you may have a web form input and expected an empty value to equate to 0, watch out not only for == 0, != 0, and &lt;= 0 comparisons, but ALL &lt; or &lt;= comparisons to negative integers.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

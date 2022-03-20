@@ -186,7 +186,40 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="112501""></a>
+<div id="allnotes">  <a name="126870""></a>
+  <div class="note">
+   <strong class="user">ealexs at gmail dot com</strong>
+   <a href="#126870" class="date">22-Feb-2022 12:25</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I am posting this as I've spent a few hours debugging this.<br />
+<br />
+If you use socket_create / socket_bind with Unix domain sockets, then using socket_close at the end is not sufficient. You will get "address already in use" the second time you run your script. Call unlink on the file that is used for Unix domain sockets, preferably before you start to create the socket.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$socket_file </span><span class="keyword">= </span><span class="string">"./test.sock"</span><span class="keyword">;<br />
+<br />
+if (</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$socket_file</span><span class="keyword">))<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">unlink</span><span class="keyword">(</span><span class="default">$socket_file</span><span class="keyword">);<br />
+</span><span class="comment"># optional file lock<br />
+</span><span class="default">$socket </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_UNIX</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br />
+</span><span class="comment"># ... socket_set_option ...<br />
+</span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$socket_file</span><span class="keyword">);<br />
+</span><span class="comment"># ...<br />
+</span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">);<br />
+</span><span class="comment"># optional : release lock<br />
+</span><span class="default">unlink</span><span class="keyword">(</span><span class="default">$socket_file</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="112501""></a>
   <div class="note">
    <strong class="user">gabriel at plenitech dot fr</strong>
    <a href="#112501" class="date">23-Jun-2013 12:29</a>
