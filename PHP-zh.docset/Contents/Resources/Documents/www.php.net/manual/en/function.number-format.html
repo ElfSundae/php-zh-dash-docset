@@ -157,7 +157,7 @@
  <div class="refsect1 examples" id="refsect1-function.number-format-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4695">
+   <div class="example" id="example-4707">
     <p><strong>Example #1 <span class="function"><strong>number_format()</strong></span> Example</strong></p>
     <div class="example-contents"><p>
      For instance, French notation usually use two decimals,
@@ -222,7 +222,58 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126788""></a>
+<div id="allnotes">  <a name="126944""></a>
+  <div class="note">
+   <strong class="user">xmontero at dsitelecom dot com</strong>
+   <a href="#126944" class="date">20-Mar-2022 01:57</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You can use:<br />
+<br />
+&nbsp;&nbsp;&nbsp; number_format( $number, '.', '&amp;thinsp;' )<br />
+<br />
+Rationale:<br />
+<br />
+Since 2003, the Internationa Standard of Units regulated that groups of three are to be separated by spaces and not dots or commas:<br />
+<br />
+We can read about the S.I. in wikipedia about the numbers:<br />
+<br />
+"Spaces should be used as a thousands separator (1000000) in contrast to commas or periods (1,000,000 or 1.000.000) to reduce confusion resulting from the variation between these forms in different countries."<br />
+<br />
+here https://en.wikipedia.org/wiki/International_System_of_Units in the section "General Rules".<br />
+<br />
+More specifically in an official document they introduce the concept of "thin space":<br />
+<br />
+"for numbers with many digits the digits may be divided into groups of three by a thin space, in order to facilitate reading. Neither dots nor commas are inserted in the spaces between groups of three."<br />
+<br />
+here https://mcyt.educa.madrid.org/laboratorios/Documentos/Otros/documentos/si_brochure_8_en.pdf in page 41, in the section "5.3.4 Formatting numbers, and the decimal marker".<br />
+<br />
+Finally, also in wikipedia, we can read about the separation of digits:<br />
+<br />
+"It is also used in the International System of Units and in many countries as a thousands separator when writing numbers in groups of three digits, in order to facilitate reading."<br />
+<br />
+here: https://en.wikipedia.org/wiki/Thin_space<br />
+<br />
+Note that "THIN SPACE" is breakable and for a non-breakable space we also have the "NARROW NO-BREAK SPACE". Nevertheless the definition is a bit different:<br />
+<br />
+"Also starting from release 34 of Unicode Common Locale Data Repository (CLDR) the NNBSP is used in numbers as thousands group separator for French and Spanish locale."<br />
+<br />
+We can read it here: https://en.wikipedia.org/wiki/Non-breaking_space at the end of the article<br />
+<br />
+So, conclusion: We can use &amp;thinsp; for the regular one or &amp;#8239; for the non-breaking one in the number_format function to accomodate modern times and forget once and for all to use dots or commas for the thousands.<br />
+<br />
+More literature:<br />
+<br />
+* Archive of the PDF https://web.archive.org/web/20140705194729/<a href="http://www.bipm.org/en/si/si_brochure/chapter5/5-3-2.html " rel="nofollow" target="_blank">http://www.bipm.org/en/si/si_brochure/chapter5/5-3-2.html </a><br />
+<br />
+* https://www.bipm.org/en/committees/cg/cgpm/22-2003/resolution-10</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126788""></a>
   <div class="note">
    <strong class="user">oelschlegel at gmail dot com</strong>
    <a href="#126788" class="date">21-Jan-2022 08:29</a>
@@ -332,58 +383,6 @@ function num_format($numVal,$afterPoint=2,$minAfterPoint=0,$thousandSep=",",$dec
    </div>
   </div>
  <div class="foot"></div>
-  <a name="124908""></a>
-  <div class="note">
-   <strong class="user">festuc at festuc dot info</strong>
-   <a href="#124908" class="date">13-Apr-2020 08:42</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-</span><span class="comment">//&nbsp; &nbsp; &nbsp; &nbsp; by www.festuc.info<br />
-//&nbsp; &nbsp; &nbsp; &nbsp; If you need trim unnecessary&nbsp; right zeros&nbsp; part of a string to decimal number,<br />
-//&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; for a human readable you can trim it with this little hack.<br />
-</span><span class="keyword">function </span><span class="default">number_format_rtrim</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="default">$maxdecimal</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">,</span><span class="default">$decimalsing</span><span class="keyword">=</span><span class="string">'.'</span><span class="keyword">,</span><span class="default">$thousandsing</span><span class="keyword">=</span><span class="string">','</span><span class="keyword">){<br />
-&nbsp;&nbsp;&nbsp; if (</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value</span><span class="keyword">=</span><span class="default">number_format</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="default">$maxdecimal</span><span class="keyword">,</span><span class="string">'.'</span><span class="keyword">,</span><span class="string">''</span><span class="keyword">);</span><span class="comment">//to change input type to string<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$i</span><span class="keyword">=-</span><span class="default">1</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="string">'.'</span><span class="keyword">))while (</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="default">$i</span><span class="keyword">)==</span><span class="default">0</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$i</span><span class="keyword">--;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$maxdecimal</span><span class="keyword">--;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else </span><span class="default">$maxdecimal</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">number_format</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="default">$maxdecimal</span><span class="keyword">,</span><span class="default">$decimalsing</span><span class="keyword">,</span><span class="default">$thousandsing</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-</span><span class="default">$decimalsing</span><span class="keyword">=</span><span class="string">','</span><span class="keyword">; </span><span class="comment">//french mode<br />
-</span><span class="default">$thousandsing</span><span class="keyword">=</span><span class="string">' '</span><span class="keyword">;<br />
-</span><span class="default">$a </span><span class="keyword">= array (</span><span class="default">10000</span><span class="keyword">/</span><span class="default">3</span><span class="keyword">,</span><span class="default">10.15000</span><span class="keyword">,</span><span class="string">'58.0000'</span><span class="keyword">,</span><span class="default">1.01000</span><span class="keyword">,</span><span class="string">'pastafarism'</span><span class="keyword">,</span><span class="string">'1001.00100'</span><span class="keyword">,</span><span class="default">30.05</span><span class="keyword">,</span><span class="default">25</span><span class="keyword">/</span><span class="default">2</span><span class="keyword">,</span><span class="string">'0.2500'</span><span class="keyword">,</span><span class="string">'potato'</span><span class="keyword">);<br />
-foreach (</span><span class="default">$a </span><span class="keyword">as </span><span class="default">$w</span><span class="keyword">){<br />
-&nbsp;&nbsp;&nbsp; unset(</span><span class="default">$o</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$o</span><span class="keyword">=</span><span class="default">number_format_rtrim</span><span class="keyword">(</span><span class="default">$w</span><span class="keyword">,</span><span class="default">5</span><span class="keyword">,</span><span class="default">$decimalsing</span><span class="keyword">,</span><span class="default">$thousandsing</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; if(isset(</span><span class="default">$o</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"</span><span class="default">$w</span><span class="string">: </span><span class="default">$o</span><span class="string">"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"</span><span class="default">$w</span><span class="string"> is not a number"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">'&lt;br/&gt;'</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span>This is the output<br />
-3333.3333333333: 3 333,33333<br />
-10.15: 10,15<br />
-58.0000: 58<br />
-1.01: 1,01<br />
-pastafarism is not a number<br />
-1001.00100: 1 001,001<br />
-30.05: 30,05<br />
-12.5: 12,5<br />
-0.2500: 0,25<br />
-potato is not a number</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="124620""></a>
   <div class="note">
    <strong class="user">divinity76 at gmail dot com</strong>
@@ -466,70 +465,6 @@ Don't forget to specify thousands_sep that default is ',' to another value, othe
    </div>
   </div>
  <div class="foot"></div>
-  <a name="118781""></a>
-  <div class="note">
-   <strong class="user">vlad at blox dot ru</strong>
-   <a href="#118781" class="date">05-Feb-2016 11:43</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This function is used for reformatting already formatted numbers.<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">formatNumber</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">, </span><span class="default">$format</span><span class="keyword">=[], </span><span class="default">$oldDecimalSeparator</span><span class="keyword">=</span><span class="string">",.¡¤'"</span><span class="keyword">, </span><span class="default">$multiplier</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) <br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp;&nbsp; $format &mdash; the array of formatting options, details in the example.<br />
-&nbsp;&nbsp;&nbsp; $oldDecimalSeparator &mdash; decimal separator used in the $number. If the separator can meet different characters, then you need to record them all, for example: ',.'.<br />
-&nbsp;&nbsp;&nbsp; $multiplier &mdash; typically used to adjust prices up or down.<br />
-&nbsp;&nbsp;&nbsp; */<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$format</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$format </span><span class="keyword">+= [</span><span class="string">'numOfDecimals' </span><span class="keyword">=&gt; </span><span class="default">0</span><span class="keyword">, </span><span class="string">'decimalSeparator' </span><span class="keyword">=&gt; </span><span class="string">'.'</span><span class="keyword">, </span><span class="string">'thousandSeparator' </span><span class="keyword">=&gt; </span><span class="string">''</span><span class="keyword">]; </span><span class="comment"># Default format <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; # Find decimal separator<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; # The decimal separator is the one that is the last and does not occur more than once<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$letters </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">' '</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$number</span><span class="keyword">)) { </span><span class="comment"># Replace spaces<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$letters </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/^-/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$letters</span><span class="keyword">)) { </span><span class="comment"># Remove minus<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$letters </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[0-9]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$letters</span><span class="keyword">)) { </span><span class="comment"># Get all non digits<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lastletter </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$letters</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">); </span><span class="comment"># Returns last char<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">substr_count</span><span class="keyword">(</span><span class="default">$letters</span><span class="keyword">, </span><span class="default">$lastletter</span><span class="keyword">) == </span><span class="default">1</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$oldDecimalSeparator</span><span class="keyword">, </span><span class="default">$lastletter</span><span class="keyword">)&nbsp; !== </span><span class="default">false</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$oldDecimalSep </span><span class="keyword">= </span><span class="default">$lastletter</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$number</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[^0-9-]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$number</span><span class="keyword">); </span><span class="comment"># Remove all non digits except 'minus'<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$oldDecimalSep</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$oldDecimalSep</span><span class="keyword">, </span><span class="string">'.'</span><span class="keyword">, </span><span class="default">$number</span><span class="keyword">); </span><span class="comment"># Format to float<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$multiplier </span><span class="keyword">!= </span><span class="default">1</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number </span><span class="keyword">= </span><span class="default">$number </span><span class="keyword">* </span><span class="default">$multiplier</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># Convert float to new format<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number </span><span class="keyword">= </span><span class="default">number_format</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">, <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$format</span><span class="keyword">[</span><span class="string">'numOfDecimals'</span><span class="keyword">], <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$format</span><span class="keyword">[</span><span class="string">'decimalSeparator'</span><span class="keyword">], <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$format</span><span class="keyword">[</span><span class="string">'thousandSeparator'</span><span class="keyword">]<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );&nbsp; <br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$number</span><span class="keyword">;&nbsp; &nbsp; <br />
-}<br />
-<br />
-</span><span class="comment">/**<br />
-Example. Formatting data in which the decimal separator can occur as the comma and dot. Formatting into Russian format: -12 345,67<br />
-*/<br />
-</span><span class="keyword">echo </span><span class="default">formatNumber</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">, [<br />
-&nbsp;&nbsp;&nbsp; </span><span class="string">'numOfDecimals' </span><span class="keyword">=&gt; </span><span class="default">2</span><span class="keyword">, <br />
-&nbsp;&nbsp;&nbsp; </span><span class="string">'decimalSeparator' </span><span class="keyword">=&gt; </span><span class="string">','</span><span class="keyword">, <br />
-&nbsp;&nbsp;&nbsp; </span><span class="string">'thousandSeparator' </span><span class="keyword">=&gt; </span><span class="string">'&amp;nbsp;'<br />
-</span><span class="keyword">], </span><span class="string">',.'</span><span class="keyword">); <br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="118220""></a>
   <div class="note">
    <strong class="user">besciualexandru at gmail dot com</strong>
@@ -600,23 +535,6 @@ function a_number_format($number_in_iso_format, $no_of_decimals=3, $decimals_sep
 $original_number= 9223372036854775805;<br />
 echo a_number_format($original_number, 4, '.',"'",3);<br />
 // Outputs: 9'223'372'036'854'775'805.1230</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="117414""></a>
-  <div class="note">
-   <strong class="user">kryss dot schuenemann at egba dot ba dot gov dot br</strong>
-   <a href="#117414" class="date">06-Jun-2015 01:07</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-//Cep Brasil<br />
-&nbsp;&nbsp;&nbsp; function getCEP($cep){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return number_format(substr($cep, 0, 5),0,"",".").'-'.substr($cep, 5, 3);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-//Saida 12.345-67</span>
 </code>
     </div>
    </div>
@@ -731,71 +649,6 @@ echo </span><span class="default">format_price</span><span class="keyword">(</sp
 echo </span><span class="default">format_price</span><span class="keyword">(</span><span class="string">"1225552.55"</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">,</span><span class="string">','</span><span class="keyword">,</span><span class="string">' '</span><span class="keyword">).</span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
 </span><span class="default">?&gt;<br />
 </span>all results are: 1 225 552,55</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="108532""></a>
-  <div class="note">
-   <strong class="user">vgurudev at nikshepa dot com</strong>
-   <a href="#108532" class="date">04-May-2012 08:37</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">convertNumberToWordsForIndia</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//A function to convert numbers into Indian readable words with Cores, Lakhs and Thousands.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$words </span><span class="keyword">= array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'0'</span><span class="keyword">=&gt; </span><span class="string">'' </span><span class="keyword">,</span><span class="string">'1'</span><span class="keyword">=&gt; </span><span class="string">'one' </span><span class="keyword">,</span><span class="string">'2'</span><span class="keyword">=&gt; </span><span class="string">'two' </span><span class="keyword">,</span><span class="string">'3' </span><span class="keyword">=&gt; </span><span class="string">'three'</span><span class="keyword">,</span><span class="string">'4' </span><span class="keyword">=&gt; </span><span class="string">'four'</span><span class="keyword">,</span><span class="string">'5' </span><span class="keyword">=&gt; </span><span class="string">'five'</span><span class="keyword">,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'6' </span><span class="keyword">=&gt; </span><span class="string">'six'</span><span class="keyword">,</span><span class="string">'7' </span><span class="keyword">=&gt; </span><span class="string">'seven'</span><span class="keyword">,</span><span class="string">'8' </span><span class="keyword">=&gt; </span><span class="string">'eight'</span><span class="keyword">,</span><span class="string">'9' </span><span class="keyword">=&gt; </span><span class="string">'nine'</span><span class="keyword">,</span><span class="string">'10' </span><span class="keyword">=&gt; </span><span class="string">'ten'</span><span class="keyword">,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'11' </span><span class="keyword">=&gt; </span><span class="string">'eleven'</span><span class="keyword">,</span><span class="string">'12' </span><span class="keyword">=&gt; </span><span class="string">'twelve'</span><span class="keyword">,</span><span class="string">'13' </span><span class="keyword">=&gt; </span><span class="string">'thirteen'</span><span class="keyword">,</span><span class="string">'14' </span><span class="keyword">=&gt; </span><span class="string">'fouteen'</span><span class="keyword">,</span><span class="string">'15' </span><span class="keyword">=&gt; </span><span class="string">'fifteen'</span><span class="keyword">,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'16' </span><span class="keyword">=&gt; </span><span class="string">'sixteen'</span><span class="keyword">,</span><span class="string">'17' </span><span class="keyword">=&gt; </span><span class="string">'seventeen'</span><span class="keyword">,</span><span class="string">'18' </span><span class="keyword">=&gt; </span><span class="string">'eighteen'</span><span class="keyword">,</span><span class="string">'19' </span><span class="keyword">=&gt; </span><span class="string">'nineteen'</span><span class="keyword">,</span><span class="string">'20' </span><span class="keyword">=&gt; </span><span class="string">'twenty'</span><span class="keyword">,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'30' </span><span class="keyword">=&gt; </span><span class="string">'thirty'</span><span class="keyword">,</span><span class="string">'40' </span><span class="keyword">=&gt; </span><span class="string">'fourty'</span><span class="keyword">,</span><span class="string">'50' </span><span class="keyword">=&gt; </span><span class="string">'fifty'</span><span class="keyword">,</span><span class="string">'60' </span><span class="keyword">=&gt; </span><span class="string">'sixty'</span><span class="keyword">,</span><span class="string">'70' </span><span class="keyword">=&gt; </span><span class="string">'seventy'</span><span class="keyword">,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'80' </span><span class="keyword">=&gt; </span><span class="string">'eighty'</span><span class="keyword">,</span><span class="string">'90' </span><span class="keyword">=&gt; </span><span class="string">'ninty'</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//First find the length of the number<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number_length </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Initialize an empty array<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number_array </span><span class="keyword">= array(</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">);&nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$received_number_array </span><span class="keyword">= array();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Store all received numbers into an array<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$number_length</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++){&nbsp; &nbsp; </span><span class="default">$received_number_array</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">,</span><span class="default">$i</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);&nbsp; &nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Populate the empty array with the numbers received - most critical operation<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">9</span><span class="keyword">-</span><span class="default">$number_length</span><span class="keyword">,</span><span class="default">$j</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">9</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++,</span><span class="default">$j</span><span class="keyword">++){ </span><span class="default">$number_array</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">$received_number_array</span><span class="keyword">[</span><span class="default">$j</span><span class="keyword">]; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number_to_words_string </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;&nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Finding out whether it is teen ? and then multiplying by 10, example 17 is seventeen, so if 1 is preceeded with 7 multiply 1 by 10 and add 7 to it.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">,</span><span class="default">$j</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">9</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++,</span><span class="default">$j</span><span class="keyword">++){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">0 </span><span class="keyword">|| </span><span class="default">$i</span><span class="keyword">==</span><span class="default">2 </span><span class="keyword">|| </span><span class="default">$i</span><span class="keyword">==</span><span class="default">4 </span><span class="keyword">|| </span><span class="default">$i</span><span class="keyword">==</span><span class="default">7</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$number_array</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]==</span><span class="string">"1"</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number_array</span><span class="keyword">[</span><span class="default">$j</span><span class="keyword">] = </span><span class="default">10</span><span class="keyword">+</span><span class="default">$number_array</span><span class="keyword">[</span><span class="default">$j</span><span class="keyword">];<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$number_array</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">9</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">0 </span><span class="keyword">|| </span><span class="default">$i</span><span class="keyword">==</span><span class="default">2 </span><span class="keyword">|| </span><span class="default">$i</span><span class="keyword">==</span><span class="default">4 </span><span class="keyword">|| </span><span class="default">$i</span><span class="keyword">==</span><span class="default">7</span><span class="keyword">){&nbsp; &nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$number_array</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]*</span><span class="default">10</span><span class="keyword">; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else{ </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$number_array</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];&nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$value</span><span class="keyword">!=</span><span class="default">0</span><span class="keyword">){ </span><span class="default">$number_to_words_string</span><span class="keyword">.= </span><span class="default">$words</span><span class="keyword">[</span><span class="string">"</span><span class="default">$value</span><span class="string">"</span><span class="keyword">].</span><span class="string">" "</span><span class="keyword">; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">1 </span><span class="keyword">&amp;&amp; </span><span class="default">$value</span><span class="keyword">!=</span><span class="default">0</span><span class="keyword">){&nbsp; &nbsp; </span><span class="default">$number_to_words_string</span><span class="keyword">.= </span><span class="string">"Crores "</span><span class="keyword">; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">3 </span><span class="keyword">&amp;&amp; </span><span class="default">$value</span><span class="keyword">!=</span><span class="default">0</span><span class="keyword">){&nbsp; &nbsp; </span><span class="default">$number_to_words_string</span><span class="keyword">.= </span><span class="string">"Lakhs "</span><span class="keyword">;&nbsp; &nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">5 </span><span class="keyword">&amp;&amp; </span><span class="default">$value</span><span class="keyword">!=</span><span class="default">0</span><span class="keyword">){&nbsp; &nbsp; </span><span class="default">$number_to_words_string</span><span class="keyword">.= </span><span class="string">"Thousand "</span><span class="keyword">; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">6 </span><span class="keyword">&amp;&amp; </span><span class="default">$value</span><span class="keyword">!=</span><span class="default">0</span><span class="keyword">){&nbsp; &nbsp; </span><span class="default">$number_to_words_string</span><span class="keyword">.= </span><span class="string">"Hundred &amp;amp; "</span><span class="keyword">; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$number_length</span><span class="keyword">&gt;</span><span class="default">9</span><span class="keyword">){ </span><span class="default">$number_to_words_string </span><span class="keyword">= </span><span class="string">"Sorry This does not support more than 99 Crores"</span><span class="keyword">; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">ucwords</span><span class="keyword">(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="string">"Indian Rupees "</span><span class="keyword">.</span><span class="default">$number_to_words_string</span><span class="keyword">).</span><span class="string">" Only."</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">convertNumberToWordsForIndia</span><span class="keyword">(</span><span class="string">"987654321"</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Output ==&gt; Indian Rupees Ninty Eight Crores Seventy Six Lakhs Fifty Four Thousand Three Hundred &amp; Twenty One Only.<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -1583,63 +1436,6 @@ function filesize_format ($bytes) {<br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="70750""></a>
-  <div class="note">
-   <strong class="user">giovanni dot cappellini at gmail dot com</strong>
-   <a href="#70750" class="date">26-Oct-2006 07:31</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-About the function of j-a-n at gmx dot de: it's useful, but the argument of the function is $number while the logic of the function requires it to be $in.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="62478""></a>
-  <div class="note">
-   <strong class="user">mikesabatino at gmail dot com</strong>
-   <a href="#62478" class="date">01-Mar-2006 07:34</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-</span><span class="comment"># Function to represent a number like '2nd', '10th', '101st' etc<br />
-</span><span class="keyword">function </span><span class="default">text_number</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment"># Array holding the teen numbers. If the last 2 numbers of $n are in this array, then we'll add 'th' to the end of $n<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$teen_array </span><span class="keyword">= array(</span><span class="default">11</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">, </span><span class="default">13</span><span class="keyword">, </span><span class="default">14</span><span class="keyword">, </span><span class="default">15</span><span class="keyword">, </span><span class="default">16</span><span class="keyword">, </span><span class="default">17</span><span class="keyword">, </span><span class="default">18</span><span class="keyword">, </span><span class="default">19</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment"># Array holding all the single digit numbers. If the last number of $n, or if $n itself, is a key in this array, then we'll add that key's value to the end of $n<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$single_array </span><span class="keyword">= array(</span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">'st'</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">=&gt; </span><span class="string">'nd'</span><span class="keyword">, </span><span class="default">3 </span><span class="keyword">=&gt; </span><span class="string">'rd'</span><span class="keyword">, </span><span class="default">4 </span><span class="keyword">=&gt; </span><span class="string">'th'</span><span class="keyword">, </span><span class="default">5 </span><span class="keyword">=&gt; </span><span class="string">'th'</span><span class="keyword">, </span><span class="default">6 </span><span class="keyword">=&gt; </span><span class="string">'th'</span><span class="keyword">, </span><span class="default">7 </span><span class="keyword">=&gt; </span><span class="string">'th'</span><span class="keyword">, </span><span class="default">8 </span><span class="keyword">=&gt; </span><span class="string">'th'</span><span class="keyword">, </span><span class="default">9 </span><span class="keyword">=&gt; </span><span class="string">'th'</span><span class="keyword">, </span><span class="default">0 </span><span class="keyword">=&gt; </span><span class="string">'th'</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment"># Store the last 2 digits of $n in order to check if it's a teen number.<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$if_teen </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">, -</span><span class="default">2</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment"># Store the last digit of $n in order to check if it's a teen number. If $n is a single digit, $single will simply equal $n.<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$single </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment"># If $if_teen is in array $teen_array, store $n with 'th' concantenated onto the end of it into $new_n<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if ( </span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$if_teen</span><span class="keyword">, </span><span class="default">$teen_array</span><span class="keyword">) )<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$new_n </span><span class="keyword">= </span><span class="default">$n </span><span class="keyword">. </span><span class="string">'th'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment"># $n is not a teen, so concant the appropriate value of it's $single_array key onto the end of $n and save it into $new_n<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">elseif ( </span><span class="default">$single_array</span><span class="keyword">[</span><span class="default">$single</span><span class="keyword">] )<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$new_n </span><span class="keyword">= </span><span class="default">$n </span><span class="keyword">. </span><span class="default">$single_array</span><span class="keyword">[</span><span class="default">$single</span><span class="keyword">];&nbsp; &nbsp; <br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment"># Return new <br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">$new_n</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="62141""></a>
   <div class="note">
    <strong class="user">MarcM</strong>
@@ -1789,61 +1585,6 @@ Furthermore, number_format doesn't like '&amp;nbsp;' as a fourth parameter. I wr
 <br />
 For use in:<br />
 &lt;table&gt;&lt;tr&gt;&lt;td&gt;<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">$number</span><span class="keyword">; </span><span class="default">?&gt;</span>&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="40558""></a>
-  <div class="note">
-   <strong class="user">chandu at chandu dot org</strong>
-   <a href="#40558" class="date">07-Mar-2004 05:29</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-People here in India are more used to counting money in Lakhs &amp; Crores .. so here is the code for formatting the commas with thousands for the first time and then with hundred multiples from there after.<br />
-<br />
-Ex: 1234567&nbsp; -&gt;&nbsp; 12,34,567<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">makecomma</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// This function is written by some anonymous person - I got it from Google<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">)&lt;=</span><span class="default">2</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; { return </span><span class="default">$input</span><span class="keyword">; }<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$length</span><span class="keyword">=</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">)-</span><span class="default">2</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$formatted_input </span><span class="keyword">= </span><span class="default">makecomma</span><span class="keyword">(</span><span class="default">$length</span><span class="keyword">).</span><span class="string">","</span><span class="keyword">.</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$formatted_input</span><span class="keyword">;<br />
-}<br />
-<br />
-function </span><span class="default">formatInIndianStyle</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">){<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// This is my function<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">strpos</span><span class="keyword">((string)</span><span class="default">$num</span><span class="keyword">, </span><span class="string">"."</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; if (</span><span class="default">$pos </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) { </span><span class="default">$decimalpart</span><span class="keyword">=</span><span class="string">"00"</span><span class="keyword">;}<br />
-&nbsp;&nbsp;&nbsp; else { </span><span class="default">$decimalpart</span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">, </span><span class="default">$pos</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">); </span><span class="default">$num </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">$pos</span><span class="keyword">); }<br />
-<br />
-&nbsp;&nbsp;&nbsp; if(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">)&gt;</span><span class="default">3 </span><span class="keyword">&amp; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">) &lt;= </span><span class="default">12</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$last3digits </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">, -</span><span class="default">3 </span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$numexceptlastdigits </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, -</span><span class="default">3 </span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$formatted </span><span class="keyword">= </span><span class="default">makecomma</span><span class="keyword">(</span><span class="default">$numexceptlastdigits</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stringtoreturn </span><span class="keyword">= </span><span class="default">$formatted</span><span class="keyword">.</span><span class="string">","</span><span class="keyword">.</span><span class="default">$last3digits</span><span class="keyword">.</span><span class="string">"."</span><span class="keyword">.</span><span class="default">$decimalpart </span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }elseif(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">)&lt;=</span><span class="default">3</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stringtoreturn </span><span class="keyword">= </span><span class="default">$num</span><span class="keyword">.</span><span class="string">"."</span><span class="keyword">.</span><span class="default">$decimalpart </span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }elseif(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">)&gt;</span><span class="default">12</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stringtoreturn </span><span class="keyword">= </span><span class="default">number_format</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; if(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$stringtoreturn</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">)==</span><span class="string">"-,"</span><span class="keyword">){</span><span class="default">$stringtoreturn </span><span class="keyword">= </span><span class="string">"-"</span><span class="keyword">.</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$stringtoreturn</span><span class="keyword">,</span><span class="default">2 </span><span class="keyword">);}<br />
-<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$stringtoreturn</span><span class="keyword">;<br />
-}<br />
-<br />
-</span><span class="default">$num </span><span class="keyword">= </span><span class="default">1234567</span><span class="keyword">;<br />
-echo&nbsp; </span><span class="default">formatInIndianStyle</span><span class="keyword">(</span><span class="default">$num</span><span class="keyword">);<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>

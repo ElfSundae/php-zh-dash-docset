@@ -141,7 +141,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-map-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-     <div class="example" id="example-4813">
+     <div class="example" id="example-4827">
       <p><strong>Example #1 <span class="function"><strong>array_map()</strong></span> 例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -168,7 +168,7 @@ Array
      </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4814">
+   <div class="example" id="example-4828">
     <p><strong>Example #2 <span class="function"><strong>array_map()</strong></span> 使用匿名函数</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -192,7 +192,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4815">
+   <div class="example" id="example-4829">
     <p><strong>Example #3 <span class="function"><strong>array_map()</strong></span>：使用更多的数组</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -255,7 +255,7 @@ Array
    此函数有个有趣的用法：传入 <strong><code>null</code></strong> 作为回调函数的名称，将创建多维数组（一个数组，内部包含数组。）
   </p>
   <p class="para">
-   <div class="example" id="example-4816">
+   <div class="example" id="example-4830">
     <p><strong>Example #4 多个数组的合并操作</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -311,7 +311,7 @@ Array
   </p>
   
   <p class="para">
-   <div class="example" id="example-4817">
+   <div class="example" id="example-4831">
     <p><strong>Example #5 
      仅有 <code class="parameter">array1</code> 时，<code class="parameter">callback</code> 设置为 <strong><code>null</code></strong>
     </strong></p>
@@ -338,7 +338,7 @@ array(3) {
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4818">
+   <div class="example" id="example-4832">
     <p><strong>Example #6 <span class="function"><strong>array_map()</strong></span> 键（key）是 string</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -382,7 +382,7 @@ array(1) {
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-4819">
+   <div class="example" id="example-4833">
     <p><strong>Example #7 <span class="function"><strong>array_map()</strong></span> - 关联数组</strong></p>
     <div class="example-contents"><p>
      虽然 <span class="function"><strong>array_map()</strong></span> 不能直接支持使用数组的键（key）作为输入，但可以使用
@@ -428,7 +428,40 @@ array(3) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126689""></a>
+<div id="allnotes">  <a name="126954""></a>
+  <div class="note">
+   <strong class="user">Walf</strong>
+   <a href="#126954" class="date">24-Mar-2022 11:48</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A general solution for the problem of wanting to know the keys in the callback, and/or retain the key association in the returned array:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">/**<br />
+&nbsp;* Like array_map() but callback also gets passed the current key as the<br />
+&nbsp;* first argument like so:<br />
+&nbsp;* function($key, $val, ...$vals) { ... }<br />
+&nbsp;* ...and returned array always maintains key association, even if multiple<br />
+&nbsp;* array arguments are passed.<br />
+&nbsp;*/<br />
+<br />
+</span><span class="keyword">function </span><span class="default">array_map_assoc</span><span class="keyword">(callable </span><span class="default">$callback</span><span class="keyword">, array </span><span class="default">$array</span><span class="keyword">, array ...</span><span class="default">$arrays</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">array_unshift</span><span class="keyword">(</span><span class="default">$arrays</span><span class="keyword">, </span><span class="default">$keys</span><span class="keyword">, </span><span class="default">$array</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">array_combine</span><span class="keyword">(</span><span class="default">$keys</span><span class="keyword">, </span><span class="default">array_map</span><span class="keyword">(</span><span class="default">$callback</span><span class="keyword">, ...</span><span class="default">$arrays</span><span class="keyword">));<br />
+}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Because it uses array_map() directly, it behaves the same way in regard to ignoring the keys of subsequent array arguments. It also has the same variadic signature.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126689""></a>
   <div class="note">
    <strong class="user">anonymous_user</strong>
    <a href="#126689" class="date">16-Dec-2021 08:15</a>

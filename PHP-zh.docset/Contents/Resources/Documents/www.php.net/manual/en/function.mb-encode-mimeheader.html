@@ -156,7 +156,7 @@
  <div class="refsect1 examples" id="refsect1-function.mb-encode-mimeheader-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2500">
+   <div class="example" id="example-2504">
     <p><strong>Example #1 <span class="function"><strong>mb_encode_mimeheader()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -297,43 +297,6 @@ I wrote it on my own:
     <div class="phpcode">
 <code><span class="html">
 mb_encode_mimeheader() depends on correct mbstring.internal_encoding setting. It tries to convert $str from internal encoding to $charset. If you ignore mbstring internal encoding, function might encode strings incorrectly even when $str character set matches $charset</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="67186""></a>
-  <div class="note">
-   <strong class="user">chappy at citromail dot hu</strong>
-   <a href="#67186" class="date">05-Jun-2006 04:33</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I found a bad function. <br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">encodeHeader</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">, </span><span class="default">$charset </span><span class="keyword">= </span><span class="string">'ISO-8859-2'</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="string">'/(\\w*[\\x80-\\xFF]+\\w*)/'</span><span class="keyword">, </span><span class="default">$input</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] as </span><span class="default">$value</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$replacement </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/([\\x80-\\xFF])/e'</span><span class="keyword">, </span><span class="string">'"=" . strtoupper(dechex(ord("\\1")))'</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$input </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="string">'=?' </span><span class="keyword">. </span><span class="default">$charset </span><span class="keyword">. </span><span class="string">'?Q?' </span><span class="keyword">. </span><span class="default">$replacement </span><span class="keyword">. </span><span class="string">'?='</span><span class="keyword">, </span><span class="default">$input</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$input</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-This function should be used:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">encodeHeader</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">, </span><span class="default">$charset </span><span class="keyword">= </span><span class="string">'ISO-8859-2'</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$m</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="string">'/(\w*[\x80-\xFF]+\w*)/'</span><span class="keyword">, </span><span class="default">$input</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; if(</span><span class="default">$m</span><span class="keyword">)</span><span class="default">$input</span><span class="keyword">=</span><span class="default">mb_encode_mimeheader</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">,</span><span class="default">$charset</span><span class="keyword">, </span><span class="string">'Q'</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$input</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -603,19 +566,6 @@ while ($pos&lt;mb_strlen($string,$encoding))<br />
 $string=$_string;<br />
 <br />
 is not the best, but it works</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="31186""></a>
-  <div class="note">
-   <strong class="user">masataka</strong>
-   <a href="#31186" class="date">12-Apr-2003 07:46</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-second parameter 'charset' is character encoding name, but default must be UTF-8 on PHP4.3.1.</span>
 </code>
     </div>
    </div>

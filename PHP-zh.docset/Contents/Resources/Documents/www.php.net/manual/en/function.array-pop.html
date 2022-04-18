@@ -87,7 +87,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-pop-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4829">
+   <div class="example" id="example-4843">
     <p><strong>Example #1 <span class="function"><strong>array_pop()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -144,41 +144,6 @@ Note that array_pop doesn't issue ANY warning or error if the array is already e
 Rather than an error, it silently returns a NULL object, it appears, so in my case I ended up with warnings elsewhere about accessing elements of arrays with invalid indexes, as I was expecting to have popped an array. This behaviour (and the lack of any warning, when many trivial things are complained about verbosely) is NOT noted in the manual above. Popping an already empty stack should definitely trigger some sort of notice, to help debugging.<br />
 <br />
 Sure, it's probably good practice to wrap the pop in an if (count($array)) but that should be suggested in the manual, if there's no error returned for trying something that should fail and obviously isn't expected to return a meaningful result.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="118270""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#118270" class="date">06-Nov-2015 04:02</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Let's "do stuff" with array_pop()<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-$dependecyInjection </span><span class="keyword">= [</span><span class="string">'globalState' </span><span class="keyword">=&gt; </span><span class="string">'isHorrible'</span><span class="keyword">];<br />
-<br />
-</span><span class="default">$workQueue </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">$workQueue</span><span class="keyword">); </span><span class="comment">// O(n)<br />
-// While we have stuff to do..... = [[ {function}, $params.... ], [], []...]<br />
-</span><span class="keyword">while (!empty(</span><span class="default">$workQueue</span><span class="keyword">)) {<br />
-<br />
-&nbsp; </span><span class="comment">// O(1) : And resize array. (maybe also memory size ?)<br />
-&nbsp; </span><span class="default">$work </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$workQueue</span><span class="keyword">);<br />
-<br />
-&nbsp; </span><span class="comment">// If not `muted`, invoke the worker function....<br />
-&nbsp; </span><span class="keyword">if (isset(</span><span class="default">$work</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">])) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$processor </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$work</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; if (</span><span class="default">$moreWork </span><span class="keyword">= </span><span class="default">$processor</span><span class="keyword">-&gt;</span><span class="default">__invoke</span><span class="keyword">(</span><span class="default">$work</span><span class="keyword">, </span><span class="default">$dependecyInjection</span><span class="keyword">)) { </span><span class="comment">// &lt;== Do stuff.<br />
-&nbsp;&nbsp; &nbsp;&nbsp; // O(n) : add new stuff to the END of array ! (FIFO)<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$outputCommands </span><span class="keyword">+= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">$moreWork</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp; }<br />
-}</span>
-</span>
 </code>
     </div>
    </div>
@@ -257,46 +222,6 @@ Array<br />
 &nbsp;&nbsp;&nbsp; [2] =&gt; apple<br />
 &nbsp;&nbsp;&nbsp; [3] =&gt; raspberry<br />
 )</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="88715""></a>
-  <div class="note">
-   <strong class="user">Igor Feghali</strong>
-   <a href="#88715" class="date">04-Feb-2009 09:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Beware that array_pop() returns a copy of the element (even if the array element is a reference). That means you will get different results on PHP 4 and 5 when dealing with objects.<br />
-<br />
-<span class="default">&lt;?php<br />
-$a </span><span class="keyword">= new </span><span class="default">stdClass</span><span class="keyword">();<br />
-</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">foo </span><span class="keyword">= </span><span class="string">'bar'</span><span class="keyword">;<br />
-<br />
-</span><span class="default">$arr </span><span class="keyword">= array(&amp;</span><span class="default">$a</span><span class="keyword">);<br />
-</span><span class="default">$b </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
-<br />
-</span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">foo </span><span class="keyword">= </span><span class="string">'baz'</span><span class="keyword">;<br />
-<br />
-</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Output of PHP 5.2.8:<br />
-object(stdClass)#1 (1) {<br />
-&nbsp; ["foo"]=&gt;<br />
-&nbsp; string(3) "baz"<br />
-}<br />
-<br />
-Output of PHP 4.4.9:<br />
-object(stdClass)(1) {<br />
-&nbsp; ["foo"]=&gt;<br />
-&nbsp; string(3) "bar"<br />
-}<br />
-<br />
-For more information please refer to:<br />
-<a href="http://br2.php.net/manual/en/language.oop5.references.php" rel="nofollow" target="_blank">http://br2.php.net/manual/en/language.oop5.references.php</a></span>
 </code>
     </div>
    </div>
@@ -508,95 +433,6 @@ $ext </span><span class="keyword">= </span><span class="default">strrchr</span><
 </span><span class="default">?&gt;<br />
 </span><br />
 $ext will contain the extension of the file, including a ".", if the file has an extension, and FALSE if the file has no extension. If the file has multiple extensions, such as "filename.tar.gz", then this construction will just return the last extension.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="47702""></a>
-  <div class="note">
-   <strong class="user">eddie at metafoundry dot com</strong>
-   <a href="#47702" class="date">25-Nov-2004 08:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Quick way to get the extension from a file name using array_pop:<br />
-<br />
-$ext = array_pop(explode(".",$filename));</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="41120""></a>
-  <div class="note">
-   
-   <a href="#41120" class="date">30-Mar-2004 01:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-A function to delete an array value that recalculates the index ( its very short and easy to understand ).<br />
-Hope this might help someone...<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">/* Usage:<br />
-&nbsp;&nbsp;&nbsp; $array : Array<br />
-&nbsp;&nbsp;&nbsp; $indey : Integer<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; The value of $array at the index $index will be<br />
-&nbsp;&nbsp;&nbsp; deleted by the function.<br />
-*/<br />
-</span><span class="keyword">function </span><span class="default">array_trim </span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="default">$index </span><span class="keyword">) {<br />
-&nbsp;&nbsp; if ( </span><span class="default">is_array </span><span class="keyword">( </span><span class="default">$array </span><span class="keyword">) ) {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; unset ( </span><span class="default">$array</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">] );<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">array_unshift </span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="default">array_shift </span><span class="keyword">( </span><span class="default">$array </span><span class="keyword">) );<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">$array</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="32826""></a>
-  <div class="note">
-   <strong class="user">ryan8613(at)hotmail(dot)com</strong>
-   <a href="#32826" class="date">08-Jun-2003 06:10</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-A function that may help some out, considering it's pretty much the one mentioned previously...
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">function </span><span class="default">array_trim</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">, </span><span class="default">$indice</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(!isset(</span><span class="default">$indice</span><span class="keyword">)) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$indice </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)-</span><span class="default">1</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; unset(</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$indice</span><span class="keyword">]);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$arr</span><span class="keyword">;
-<br />
-}
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-It cuts the given index value off of the array, but without the shift, if&nbsp; the 'index' value isn't given, it cuts off the end value.</span>
 </code>
     </div>
    </div>

@@ -176,7 +176,7 @@
  <div class="refsect1 examples" id="refsect1-function.explode-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4669">
+   <div class="example" id="example-4680">
     <p><strong>Example #1 <span class="function"><strong>explode()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -188,7 +188,7 @@
    </div>
   </p>
     <p class="para">
-   <div class="example" id="example-4670">
+   <div class="example" id="example-4681">
     <p><strong>Example #2 <span class="function"><strong>explode()</strong></span> return examples</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -219,7 +219,7 @@ array(2)
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4671">
+   <div class="example" id="example-4682">
     <p><strong>Example #3 <code class="parameter">limit</code> 参数的例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -264,7 +264,7 @@ Array
     <li class="member"><span class="function"><a href="function.mb-split.html" class="function" rel="rdfs-seeAlso">mb_split()</a> - 使用正则表达式分割多字节字符串</span></li>
     <li class="member"><span class="function"><a href="function.str-word-count.html" class="function" rel="rdfs-seeAlso">str_word_count()</a> - 返回字符串中单词的使用情况</span></li>
     <li class="member"><span class="function"><a href="function.strtok.html" class="function" rel="rdfs-seeAlso">strtok()</a> - 标记分割字符串</span></li>
-    <li class="member"><span class="function"><a href="function.implode.html" class="function" rel="rdfs-seeAlso">implode()</a> - 将一个一维数组的值转化为字符串</span></li>
+    <li class="member"><span class="function"><a href="function.implode.html" class="function" rel="rdfs-seeAlso">implode()</a> - 用字符串连接数组元素</span></li>
    </ul>
   </p>
  </div>
@@ -273,7 +273,42 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126850""></a>
+<div id="allnotes">  <a name="126941""></a>
+  <div class="note">
+   <strong class="user">Gerben</strong>
+   <a href="#126941" class="date">19-Mar-2022 11:53</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note that an empty input string will still result in one element in the output array. This is something to remember when you are processing unknown input.<br />
+<br />
+For example, maybe you are splitting part of a URI by forward slashes (like "articles/42/show" =&gt; ["articles", "42", "show"]). And maybe you expect that an empty URI will result in an empty array ("" =&gt; []). Instead, it will contain one element, with an empty string:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$uri </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />
+</span><span class="default">$parts </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'/'</span><span class="keyword">, </span><span class="default">$uri</span><span class="keyword">));<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$parts</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Will output:<br />
+<br />
+array(1) {<br />
+&nbsp; [0]=&gt;<br />
+&nbsp; string(0) ""<br />
+}<br />
+<br />
+And not:<br />
+<br />
+array(0) {<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126850""></a>
   <div class="note">
    <strong class="user">joshuachidiebere17217 at gmail dot com</strong>
    <a href="#126850" class="date">12-Feb-2022 06:51</a>

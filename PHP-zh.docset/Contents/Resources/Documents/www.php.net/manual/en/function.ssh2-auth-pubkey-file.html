@@ -126,7 +126,7 @@
  <div class="refsect1 examples" id="refsect1-function.ssh2-auth-pubkey-file-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4425">
+   <div class="example" id="example-4436">
     <p><strong>Example #1 Authentication using a public key</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -160,7 +160,44 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125562""></a>
+<div id="allnotes">  <a name="126939""></a>
+  <div class="note">
+   <strong class="user">Aurelien Marchand</strong>
+   <a href="#126939" class="date">18-Mar-2022 03:46</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The vendor we deal with requires the use of both password authentication AND a public/private key authentication.<br />
+<br />
+After much pain and testing, this is what we did to make it work, bypassing the need to install phpseclib:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$server </span><span class="keyword">= </span><span class="string">"subdomain.example.com"</span><span class="keyword">;<br />
+</span><span class="default">$username </span><span class="keyword">= </span><span class="string">"username"</span><span class="keyword">;<br />
+</span><span class="default">$password </span><span class="keyword">= </span><span class="string">"password"</span><span class="keyword">;<br />
+</span><span class="default">$path_to_public_key </span><span class="keyword">= </span><span class="string">"file.pub"</span><span class="keyword">;<br />
+</span><span class="default">$path_to_private_key </span><span class="keyword">= </span><span class="string">"file.priv"</span><span class="keyword">; </span><span class="comment">// critical: permissions must be 0600!!<br />
+</span><span class="default">$path_to_needed_file </span><span class="keyword">= </span><span class="string">"/path/to/file/needed.txt"</span><span class="keyword">;<br />
+<br />
+</span><span class="default">$ssh2 </span><span class="keyword">= </span><span class="default">ssh2_connect</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">);<br />
+@</span><span class="default">ssh2_auth_pubkey_file</span><span class="keyword">(</span><span class="default">$ssh2</span><span class="keyword">,</span><span class="default">$username</span><span class="keyword">,</span><span class="default">$path_to_public_key</span><span class="keyword">,</span><span class="default">$path_to_private_key</span><span class="keyword">); </span><span class="comment">// this returns a warning but it is normal and can be ignored<br />
+</span><span class="default">ssh2_auth_password</span><span class="keyword">(</span><span class="default">$ssh2</span><span class="keyword">,</span><span class="default">$username</span><span class="keyword">,</span><span class="default">$password</span><span class="keyword">);<br />
+</span><span class="default">$sftp </span><span class="keyword">= </span><span class="default">ssh2_sftp</span><span class="keyword">(</span><span class="default">$ssh2</span><span class="keyword">);<br />
+</span><span class="default">$file </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"ssh2.s<a href="ftp://" rel="nofollow" target="_blank">ftp://</a>" </span><span class="keyword">. </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$sftp</span><span class="keyword">). </span><span class="default">$path_to_needed_file</span><span class="keyword">,</span><span class="string">"r"</span><span class="keyword">);<br />
+</span><span class="default">$content </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">);<br />
+</span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />
+</span><span class="default">ssh2_disconnect</span><span class="keyword">(</span><span class="default">$ssh2</span><span class="keyword">);<br />
+<br />
+echo </span><span class="default">$content</span><span class="keyword">;<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125562""></a>
   <div class="note">
    <strong class="user">Christophe</strong>
    <a href="#125562" class="date">02-Dec-2020 12:31</a>

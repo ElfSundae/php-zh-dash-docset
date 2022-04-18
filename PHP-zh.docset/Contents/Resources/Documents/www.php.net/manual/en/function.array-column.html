@@ -135,7 +135,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-column-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4783">
+   <div class="example" id="example-4797">
     <p><strong>Example #1 从结果集中取出 first_name 列</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -159,7 +159,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4784">
+   <div class="example" id="example-4798">
     <p><strong>Example #2 
      从结果集中总取出 last_name 列，用相应的"id"作为键值
     </strong></p>
@@ -185,7 +185,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4785">
+   <div class="example" id="example-4799">
     <p><strong>Example #3 
      username 列是从对象获取 public 的 &quot;username&quot; 属性
     </strong></p>
@@ -210,7 +210,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4786">
+   <div class="example" id="example-4800">
     <p><strong>Example #4 
      通过 <span class="function"><strong>__get()</strong></span> 魔术方法从对象中获取 private 属性的 &quot;name&quot; 列。
     </strong></p>
@@ -242,7 +242,124 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125182""></a>
+<div id="allnotes">  <a name="126953""></a>
+  <div class="note">
+   <strong class="user">Hiranmoy Chatterjee</strong>
+   <a href="#126953" class="date">23-Mar-2022 06:01</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The following function may be useful to create columns from all values of indexed arrays:
+<br />
+
+<br />
+<span class="default">&lt;?php
+<br />
+</span><span class="keyword">function </span><span class="default">array_column_all</span><span class="keyword">(array </span><span class="default">$arrays</span><span class="keyword">): array
+<br />
+{
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">= [];
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$columnCount </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$arrays</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);
+<br />
+&nbsp;&nbsp;&nbsp; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$columnCount</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++)
+<br />
+&nbsp;&nbsp;&nbsp; {
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">[] = </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">$arrays</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);
+<br />
+&nbsp;&nbsp;&nbsp; }
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$output</span><span class="keyword">;
+<br />
+}
+<br />
+</span><span class="default">?&gt;
+<br />
+</span>
+<br />
+Use:
+<br />
+-----
+<br />
+<span class="default">&lt;?php
+<br />
+array_column_all</span><span class="keyword">(
+<br />
+&nbsp;&nbsp;&nbsp; [
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="string">'A1'</span><span class="keyword">, </span><span class="string">'A2'</span><span class="keyword">, </span><span class="string">'A3'</span><span class="keyword">],
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="string">'B1'</span><span class="keyword">, </span><span class="string">'B2'</span><span class="keyword">, </span><span class="string">'B3'</span><span class="keyword">],
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="string">'C1'</span><span class="keyword">, </span><span class="string">'C2'</span><span class="keyword">, </span><span class="string">'C3'</span><span class="keyword">],
+<br />
+&nbsp;&nbsp;&nbsp; ]
+<br />
+);
+<br />
+</span><span class="default">?&gt;
+<br />
+</span>
+<br />
+This will output:
+<br />
+-------------------
+<br />
+Array
+<br />
+(
+<br />
+&nbsp;&nbsp;&nbsp; [0] =&gt; Array
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; A1
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; B1
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [2] =&gt; C1
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )
+<br />
+
+<br />
+&nbsp;&nbsp;&nbsp; [1] =&gt; Array
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; A2
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; B2
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [2] =&gt; C2
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )
+<br />
+
+<br />
+&nbsp;&nbsp;&nbsp; [2] =&gt; Array
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; A3
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; B3
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [2] =&gt; C3
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )
+<br />
+
+<br />
+)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125182""></a>
   <div class="note">
    <strong class="user">yangmeishu at live dot com</strong>
    <a href="#125182" class="date">11-Jul-2020 02:19</a>

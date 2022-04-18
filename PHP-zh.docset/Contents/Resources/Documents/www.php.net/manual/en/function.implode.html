@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>将一个一维数组的值转化为字符串</title>
+  <title>用字符串连接数组元素</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,32 +20,31 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.strings.html">字符串 函数</a></li>
-    <li>将一个一维数组的值转化为字符串</li>
+    <li>用字符串连接数组元素</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.implode" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">implode</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">implode</span> &mdash; <span class="dc-title">将一个一维数组的值转化为字符串</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">implode</span> &mdash; <span class="dc-title">用字符串连接数组元素</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.implode-description">
   <h3 class="title">说明</h3>
-   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>implode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$glue</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$pieces</code></span>): <span class="type">string</span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>implode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$separator</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>): <span class="type">string</span></div>
 
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>implode</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$pieces</code></span>): <span class="type">string</span></div>
+  <p class="simpara">替代写法（不支持命名参数）：</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>implode</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>): <span class="type">string</span></div>
+
+  <p class="simpara">遗留写法（从 PHP 7.4.0 起废弃，从 PHP 8.0.0 中移除）：</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>implode</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$separator</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   用 <code class="parameter">glue</code> 将一维数组的值连接为一个字符串。
+   用一个 <code class="parameter">separator</code> 字符串连接数组元素。
   </p>
-  <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <p class="para">
-    因为历史原因，<span class="function"><strong>implode()</strong></span> 可以接收两种参数顺序，但是为了和  <span class="function"><a href="function.explode.html" class="function">explode()</a></span> 内的顺序保持一致，不按文档的方式已被<em class="emphasis">废弃</em>。
-   </p>
-  </p></blockquote>
  </div>
 
 
@@ -55,24 +54,24 @@
    <dl>
     
      <dt>
-<code class="parameter">glue</code></dt>
+<code class="parameter">separator</code></dt>
 
      <dd>
 
       <p class="para">
-       默认为空的字符串。
+       可选。默认为空字符串。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">pieces</code></dt>
+<code class="parameter">array</code></dt>
 
      <dd>
 
       <p class="para">
-       你想要转换的数组。
+       要使用字符串连接的数组。
       </p>
      </dd>
 
@@ -86,7 +85,8 @@
  <div class="refsect1 returnvalues" id="refsect1-function.implode-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回一个字符串，其内容为由 glue 分割开的数组的值。
+   返回一个包含所有数组元素并且顺序相同的字符串，
+   每个元素之间有 separator 分隔。
   </p>
  </div>
 
@@ -105,9 +105,16 @@
 
     <tbody class="tbody">
      <tr>
+      <td>8.0.0</td>
+      <td>
+       在 <code class="parameter">array</code> 之后传递 <code class="parameter">separator</code> 已不再支持。
+      </td>
+     </tr>
+
+     <tr>
       <td>7.4.0</td>
       <td>
-       把参数 <code class="parameter">glue</code> 放到 <code class="parameter">pieces</code> 的后面已被废弃（就是不按文档中的顺序传递参数）。
+       在 <code class="parameter">array</code> 之后传递 <code class="parameter">separator</code> （即：使用遗留写法）已被废弃。
       </td>
      </tr>
 
@@ -121,11 +128,11 @@
  <div class="refsect1 examples" id="refsect1-function.implode-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4681">
+   <div class="example" id="example-4692">
     <p><strong>Example #1 <span class="function"><strong>implode()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'lastname'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'email'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'phone'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$comma_separated&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">","</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">$comma_separated</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;lastname,email,phone<br /><br />//&nbsp;Empty&nbsp;string&nbsp;when&nbsp;using&nbsp;an&nbsp;empty&nbsp;array:<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">'hello'</span><span style="color: #007700">,&nbsp;array()));&nbsp;</span><span style="color: #FF8000">//&nbsp;string(0)&nbsp;""<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$array&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #DD0000">'lastname'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'email'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'phone'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">","</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$array</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;string(20)&nbsp;"lastname,email,phone"<br /><br />//&nbsp;Empty&nbsp;string&nbsp;when&nbsp;using&nbsp;an&nbsp;empty&nbsp;array:<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">'hello'</span><span style="color: #007700">,&nbsp;[]));&nbsp;</span><span style="color: #FF8000">//&nbsp;string(0)&nbsp;""<br /><br />//&nbsp;The&nbsp;separator&nbsp;is&nbsp;optional:<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">implode</span><span style="color: #007700">([</span><span style="color: #DD0000">'a'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'b'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'c'</span><span style="color: #007700">]));&nbsp;</span><span style="color: #FF8000">//&nbsp;string(3)&nbsp;"abc"<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

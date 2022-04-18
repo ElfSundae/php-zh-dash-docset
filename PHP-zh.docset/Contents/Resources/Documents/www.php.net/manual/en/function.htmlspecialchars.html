@@ -504,7 +504,7 @@
  <div class="refsect1 examples" id="refsect1-function.htmlspecialchars-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4680">
+   <div class="example" id="example-4691">
     <p><strong>Example #1 <span class="function"><strong>htmlspecialchars()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -591,7 +591,53 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125979""></a>
+<div id="allnotes">  <a name="126931""></a>
+  <div class="note">
+   <strong class="user">Killian Leroux</strong>
+   <a href="#126931" class="date">16-Mar-2022 10:33</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Thanks Thomasvdbulk for your workaround, I would like to add a precision:<br />
+<br />
+When the HTML contains a link tag without new line before the script doesn't work :/<br />
+<br />
+Your example:<br />
+<br />
+<span class="default">&lt;?php<br />
+$string </span><span class="keyword">= </span><span class="string">"<br />
+this is smaller &lt; than this&lt;br /&gt;<br />
+this is greater &gt; than this&lt;br /&gt;<br />
+this is the same = as this&lt;br /&gt;<br />
+&lt;a href=\"<a href="http://www.example.com/example.php?test=test" rel="nofollow" target="_blank">http://www.example.com/example.php?test=test</a>\"&gt;This is a link&lt;/a&gt;&lt;br /&gt;<br />
+&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; etc..."</span><span class="keyword">;<br />
+echo </span><span class="default">fixtags</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Works but this doesn't work:<br />
+<br />
+<span class="default">&lt;?php<br />
+$string </span><span class="keyword">= </span><span class="string">"<br />
+this is smaller &lt; than this&lt;br /&gt;<br />
+this is greater &gt; than this&lt;br /&gt;<br />
+this is the same = as this&lt;br /&gt;&lt;a href=\"<a href="http://www.example.com/example.php?test=test" rel="nofollow" target="_blank">http://www.example.com/example.php?test=test</a>\"&gt;This is a link&lt;/a&gt;&lt;br /&gt;<br />
+&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; etc..."</span><span class="keyword">;<br />
+echo </span><span class="default">fixtags</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+So I add a little workaround at the beginning (before htmlspecialchars):<br />
+<br />
+<span class="default">&lt;?php<br />
+$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/&lt;a/'</span><span class="keyword">, </span><span class="string">"\r\n&lt;a"</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+I don't like that but I don't find other solution... :/</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125979""></a>
   <div class="note">
    <strong class="user">ASchmidt at Anamera dot net</strong>
    <a href="#125979" class="date">02-Apr-2021 08:48</a>

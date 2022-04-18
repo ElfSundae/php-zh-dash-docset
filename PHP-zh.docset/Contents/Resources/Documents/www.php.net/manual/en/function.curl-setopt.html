@@ -361,7 +361,7 @@
           <tr>
            <td style="vertical-align: top;"><strong><code>CURLOPT_NOSIGNAL</code></strong></td>
            <td style="vertical-align: top;">
-            <strong><code>true</code></strong> Ê±ºöÂÔËùÓÐµÄ cURL ´«µÝ¸ø PHP ½øÐÐµÄÐÅºÅ¡£ÔÚ SAPI ¶àÏß³Ì´«ÊäÊ±´ËÏî±»Ä¬ÈÏÆôÓÃ£¬ËùÒÔ³¬Ê±Ñ¡ÏîÈÔÄÜÊ¹ÓÃ¡£
+            <strong><code>true</code></strong> Ê±ºöÂÔËùÓÐµÄ cURL ´«µÝ¸ø PHP ½ø³ÌµÄÐÅºÅ¡£ÔÚ SAPI ¶àÏß³Ì´«ÊäÊ±´ËÏî±»Ä¬ÈÏÆôÓÃ£¬ËùÒÔ³¬Ê±Ñ¡ÏîÈÔÄÜÊ¹ÓÃ¡£
            </td>
            <td style="vertical-align: top;">
             cURL 7.10Ê±±»¼ÓÈë¡£
@@ -1897,7 +1897,7 @@ resource ¶ÁÈ¡¡£·µ»Ø¿Õ×Ö·û´®×÷Îª <code class="literal">EOF</code>£¨ÎÄ¼þ½áÊø£© ÐÅº
  <div class="refsect1 examples" id="refsect1-function.curl-setopt-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4120">
+   <div class="example" id="example-4131">
     <p><strong>Example #1 ³õÊ¼»¯Ò»¸öÐÂµÄcURL»á»°²¢»ñÈ¡Ò»¸öÍøÒ³</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -1909,7 +1909,7 @@ resource ¶ÁÈ¡¡£·µ»Ø¿Õ×Ö·û´®×÷Îª <code class="literal">EOF</code>£¨ÎÄ¼þ½áÊø£© ÐÅº
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4121">
+   <div class="example" id="example-4132">
     <p><strong>Example #2 ÉÏ´«ÎÄ¼þ (PHP 5.5.0 ºó±»·ÏÆú)</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -2074,25 +2074,6 @@ curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="122810""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#122810" class="date">07-Jun-2018 09:56</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you have problems with CURLOPT_SSL_VERIFYPEER and using Apache.<br />
-Download certificate bundle:<br />
-<a href="http://curl.haxx.se/docs/caextract.html" rel="nofollow" target="_blank">http://curl.haxx.se/docs/caextract.html</a><br />
-<br />
-Then set a path not in your php.ini, but in phpForApache.ini file.<br />
-Example:<br />
-curl.cainfo=c:\php\cacert.pem</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="122799""></a>
   <div class="note">
    <strong class="user">bash at noemailaddress dot com</strong>
@@ -2191,38 +2172,6 @@ curl_setopt($conn,&nbsp; CURLOPT_INTERFACE, "eth1");</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="121376""></a>
-  <div class="note">
-   <strong class="user">chris at ocproducts dot com</strong>
-   <a href="#121376" class="date">13-Jul-2017 12:21</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-On recent versions of MacOS CURLOPT_SSL_VERIFYPEER cannot be disabled, unless you have compiled PHP yourself with the official cURL library and OpenSSL.<br />
-<br />
-Why?<br />
-1) MacOS is bundling its own version of cURL which has Apple SecureTransport as the SSL handling.<br />
-2) The implementation will complain if CURLOPT_SSL_VERIFYPEER is disabled but CURLOPT_CAINFO is set ("CA certificate set, but certificate verification is disabled").<br />
-3) The implementation will consider CURLOPT_CAINFO set even if it is set to blank/null/false ("can't load CA certificate file").&nbsp; This error comes from ""SSL: can't load CA certificate file %s"" in https://opensource.apple.com/source/curl/curl-95/curl/lib/vtls/darwinssl.c, you can see there's no blank verification.<br />
-<br />
-To confirm this is what is affecting you look for what "SSL Version" is set at in the PHP-info. This is under the cURL settings.<br />
-<br />
-To resolve you need to compile cURL (e.g. using Homebrew) with OpenSSL enabled:<br />
-brew install curl --with-openssl<br />
-<br />
-Then compile PHP with something like this in the configure command:<br />
-'--with-curl=/usr/local/opt/curl'<br />
-<br />
-It may also be possible to use Homebrew to compile PHP using it's own cURL, I haven't checked this.<br />
-<br />
-Once resolved "SSL Version" will report something like "OpenSSL/1.0.2l".<br />
-<br />
-Of course you shouldn't disable certificate validation. I am only doing it because I'm writing code to detect if a site's SSL is broken (works with verify peer, doesn't work without). Others maybe are using self-signed certificates and don't want to work out how to make them a root authority. Never ever use live.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="120793""></a>
   <div class="note">
    <strong class="user">nabikaz at gmail dot com</strong>
@@ -2268,36 +2217,6 @@ Contrary to the documentation, CURLOPT_STDERR should be set to a handle to the f
 It may not be an issue which affects anyone, but I think it's worth noting that using the CURLOPT_POSTFIELDS option has the side effect of setting the CURLOPT_POST option to TRUE.<br />
 <br />
 When testing some code that required the post method, I commented out my CURLOPT_POST line to see how it failed and it didn't. Further investigation using curl_getinfo revealed that setting the CURLOPT_POSTFIELDS option was also setting the POST option.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="120450""></a>
-  <div class="note">
-   <strong class="user">chris at ocproducts dot com</strong>
-   <a href="#120450" class="date">11-Jan-2017 01:51</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Never provide a CURLOPT_CUSTOMREQUEST value of 'HEAD'. It will cause cURL to timeout. Instead set CURLOPT_NOBODY to true.<br />
-<br />
-The problem occurs because CURLOPT_CUSTOMREQUEST directly substitutes what cURL sends in transit, but not the response handling logic. It causes it to stall waiting for data that will never come.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="119632""></a>
-  <div class="note">
-   <strong class="user">starrychloe at oliveyou dot net</strong>
-   <a href="#119632" class="date">21-Jul-2016 02:06</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-You may also specify the certificate authority file with an environment variable.<br />
-<br />
-export SSL_CERT_FILE=/path/to/cacert.pem</span>
 </code>
     </div>
    </div>
@@ -2411,27 +2330,6 @@ curl_exec($ch);</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="118968""></a>
-  <div class="note">
-   <strong class="user">joey</strong>
-   <a href="#118968" class="date">09-Mar-2016 08:04</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Sorry, I made a mistake. For validating cookie entries it is best to use at least:<br />
-<br />
-/^([^\t]+\t){6}[^\t]+$/<br />
-<br />
-There was not enough space for me to put in the rationale for not using persistent storage with cookies but it should be obvious. It's YAGNI for most scenarios. In this case at best it complicate things, at the worst you perform an operation using the wrong cookie session. It can also increase the chance of failure, waste resources, reduce performance and create mess in the file system.<br />
-<br />
-The plus of persistent is that In some cases it may be used to accelerate across processes but not many people actually need that and when they do there tend to be better options such as using memcached.<br />
-<br />
-If someone can edit and merge the comments it would be appreciated.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="118967""></a>
   <div class="note">
    <strong class="user">joey</strong>
@@ -2518,26 +2416,6 @@ If you need to do DELETE request, use CURLOPT_CUSTOMREQUEST with "DELETE" and us
 Please notice that CURLINFO_HEADER_OUT and CURLOPT_VERBOSE option does not work together:<br />
 "When CURLINFO_HEADER_OUT is set to TRUE than CURLOPT_VERBOSE does not work."(from https://bugs.php.net/bug.php?id=65348). <br />
 This took me an hour or two to figure it out.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="117990""></a>
-  <div class="note">
-   <strong class="user">alvaro at demogracia dot com</strong>
-   <a href="#117990" class="date">15-Sep-2015 12:14</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-With the legacy file upload feature, Curl sends the file name of the actual file and there isn't a documented way to change that behaviour. If you aren't able to use the CURLFile class there's a workaround that apparently works: append "; filename=" after the value (and make sure it comes after "type=").<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-$postfields </span><span class="keyword">= array(<br />
-&nbsp;&nbsp;&nbsp; </span><span class="string">'document[]' </span><span class="keyword">=&gt; </span><span class="string">'@/tmp/upload_qm5ee8FBxi; type=image/jpeg; filename=Kitten.jpg'</span><span class="keyword">,<br />
-);</span>
-</span>
 </code>
     </div>
    </div>
@@ -2649,23 +2527,6 @@ to complement shiplu's&nbsp; comment on the neccessary option sequence of CURLOP
 The crux is not some error on nginx, but that nothing at all will be send over the line by curl. Parameters set by a "CURLOPT_POSTFIELDS" option setting will be completely ignored, as long as no "CURLOPT_POST" has been encountered beforehand: Neigther the Content-Type header will be set/generated accordingly nor Content-Length nor any data will be send in the body.<br />
 <br />
 When using curl_setopt_array, the sequence in the array matters as well.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="115153""></a>
-  <div class="note">
-   <strong class="user">Simeon Anastasov</strong>
-   <a href="#115153" class="date">04-Jun-2014 01:46</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-One note of importance when you open several cURL handles simultaneously: If you want to share cookies via cookie-jar file among all your handles - be sure to curl_close() one before using the cookie-jar file from the other. <br />
-<br />
-It appears that during cURL handler execution the cookies are kept in some sort of handler specific internal session storage and only upon explicit curl_close() call or interpreter exit garbage collection these cookies are actually flushed to the file on the hard disk ( I guess for performance reasons ). <br />
-<br />
-I hope this note will save you couple of hours debugging :)</span>
 </code>
     </div>
    </div>
@@ -2825,19 +2686,6 @@ curl_setopt </span><span class="keyword">(</span><span class="default">$ch</span
    </div>
   </div>
  <div class="foot"></div>
-  <a name="112158""></a>
-  <div class="note">
-   <strong class="user">Manasi</strong>
-   <a href="#112158" class="date">10-May-2013 05:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-CURLAUTH_ANY is not an alias for CURLAUTH_NTLM. I had to specify CURLAUTH_NTLM for a Windows authenticated URL</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="112113""></a>
   <div class="note">
    <strong class="user">Madcat</strong>
@@ -2927,20 +2775,6 @@ If anyone can offer insight into why this works or a better way to handle the '@
 
 <br />
 Thanks</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="111696""></a>
-  <div class="note">
-   <strong class="user">xuyan83121 at gmail dot com</strong>
-   <a href="#111696" class="date">18-Mar-2013 05:54</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-when use curl_multi_exec, the CURLOPT_TIMEOUT need curl version newer than 7.21.2.<br />
-this can be found at curl changelog.</span>
 </code>
     </div>
    </div>
@@ -3195,19 +3029,6 @@ during my experiments, every other "similar" way, like e.g. CURLOPT_HTTPGET, did
    </div>
   </div>
  <div class="foot"></div>
-  <a name="108583""></a>
-  <div class="note">
-   <strong class="user">jeffb at nospam dot videx dot com</strong>
-   <a href="#108583" class="date">08-May-2012 10:53</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-When trying to pass a multi-dimensional array to CURLOPT_POSTFIELDS, first run it through http_build_query().&nbsp; That will get rid of the Array to String conversion notice.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="108333""></a>
   <div class="note">
    <strong class="user">Joey Hewitt</strong>
@@ -3281,56 +3102,6 @@ The description of the use of the CURLOPT_POSTFIELDS option should be emphasize,
 To disable this behavior one must disable the use of the "Expect:" header with<br />
 <br />
 &nbsp;&nbsp;&nbsp; curl_setopt($ch, CURLOPT_HTTPHEADER,array("Expect:"));</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="107667""></a>
-  <div class="note">
-   <strong class="user">wonderfish+php at gmail dot com</strong>
-   <a href="#107667" class="date">25-Feb-2012 12:22</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-As of at least PHP 5.3.9, if you are continuing to use a cURL session handle after downloading a file and closing the file handle, you will need to change CURLOPT_FILE back to stdout, and cannot count simply on a side effect of CURLOPT_RETURNTRANSFER to do so, even if you are setting it.&nbsp; For example:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">();
-<br />
-</span><span class="default">$fh </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">'/path/to/stored/file/example_file.dat'</span><span class="keyword">, </span><span class="string">'w'</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_FILE</span><span class="keyword">, </span><span class="default">$fh</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_URL</span><span class="keyword">, </span><span class="string">'<a href="http://example.com/example_file.dat" rel="nofollow" target="_blank">http://example.com/example_file.dat</a>'</span><span class="keyword">);
-<br />
-</span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);
-<br />
-</span><span class="default">fflush</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">);
-<br />
-</span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="comment">//must reset cURL file handle. Not doing so will cause a warning to be
-<br />
-//thrown and for cURL to default to output regardless
-<br />
-//for our example, we'll set return transfer.
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_FILE</span><span class="keyword">, </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">'php://stdout'</span><span class="keyword">, </span><span class="string">'w'</span><span class="keyword">));
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">, </span><span class="default">TRUE</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_URL</span><span class="keyword">, </span><span class="string">'<a href="http://example.org/index.html" rel="nofollow" target="_blank">http://example.org/index.html</a>'</span><span class="keyword">);
-<br />
-</span><span class="default">$html </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">); </span><span class="comment">//this will now work
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -3509,90 +3280,6 @@ When CURLOPT_FOLLOWLOCATION and CURLOPT_HEADER are both true and redirect/s have
    </div>
   </div>
  <div class="foot"></div>
-  <a name="102793""></a>
-  <div class="note">
-   <strong class="user">support at lostair dot com</strong>
-   <a href="#102793" class="date">07-Mar-2011 03:26</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Force Curl Request To Go To A Particular IP Address
-<br />
-
-<br />
-Yes, there is a method of passing an IP address to curl.&nbsp; Excellent for services with multiple IP addresses and also to take DNS out of the equation for testing/debugging.
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">fetch_page</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">, </span><span class="default">$host_ip </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">)
-<br />
-&nbsp;&nbsp;&nbsp; {
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">();
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if (!</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$host_ip</span><span class="keyword">))
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$urldata </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">);
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//&nbsp; Ensure we have the query too, if there is any...
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (!empty(</span><span class="default">$urldata</span><span class="keyword">[</span><span class="string">'query'</span><span class="keyword">]))
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$urldata</span><span class="keyword">[</span><span class="string">'path'</span><span class="keyword">] .= </span><span class="string">"?"</span><span class="keyword">.</span><span class="default">$urldata</span><span class="keyword">[</span><span class="string">'query'</span><span class="keyword">];
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//&nbsp; Specify the host (name) we want to fetch...
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$headers </span><span class="keyword">= array(</span><span class="string">"Host: "</span><span class="keyword">.</span><span class="default">$urldata</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">]);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_HTTPHEADER</span><span class="keyword">, </span><span class="default">$headers</span><span class="keyword">);
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//&nbsp; create the connecting url (with the hostname replaced by IP)
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$url </span><span class="keyword">= </span><span class="default">$urldata</span><span class="keyword">[</span><span class="string">'scheme'</span><span class="keyword">].</span><span class="string">"://"</span><span class="keyword">.</span><span class="default">$host_ip</span><span class="keyword">.</span><span class="default">$urldata</span><span class="keyword">[</span><span class="string">'path'</span><span class="keyword">];
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">,&nbsp; </span><span class="default">CURLOPT_URL</span><span class="keyword">, </span><span class="default">$url</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">curl_setopt </span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_HEADER</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">,&nbsp; </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">curl_exec </span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">curl_close </span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">$result</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; }
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="102519""></a>
   <div class="note">
    <strong class="user">S\</strong>
@@ -3620,21 +3307,6 @@ When using CURLOPT_POSTFIELDS with an array as parameter, you have to pay high a
 </span><br />
 Requesting "test.php?bar=@/home/user/test.png" will send "test.png" to example.com. <br />
 Make sure you remove the leading "@" from user input.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="102260""></a>
-  <div class="note">
-   <strong class="user">W at RHaworth dot net</strong>
-   <a href="#102260" class="date">04-Feb-2011 04:22</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I had problems with the Wikimedia software and sending a POST request where the data was more than 1024 bytes long. I traced this to cURL adding: Expect: 100-continue to the headers.<br />
-<br />
-I added curl_setopt($ch,CURLOPT_HTTPHEADER,array("Expect:")); and that suppresses the Expect line.</span>
 </code>
     </div>
    </div>
@@ -3988,19 +3660,6 @@ curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="98751""></a>
-  <div class="note">
-   <strong class="user">patryk at do dot not dot spam dot com</strong>
-   <a href="#98751" class="date">05-Jul-2010 05:33</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-CURLOPT_HTTPPROXYTUNNEL means curl will use CONNECT method of the HTTP protocol to make a tunnel through a proxy, which is most likely not the one you want to do.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="98491""></a>
   <div class="note">
    <strong class="user">JScott jscott401 at gmail dot com</strong>
@@ -4058,55 +3717,6 @@ Note that this has been reported not to work in all versions of PHP and I have d
 5.2.13 (libcurl 7.20.0) : Works just fine<br />
 <br />
 So it might be worth updating your installation of PHP and/or libcurl if you want to be able to use this syntax</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="97493""></a>
-  <div class="note">
-   <strong class="user">sjungwirth at google mail dot com</strong>
-   <a href="#97493" class="date">22-Apr-2010 03:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I couldn't find a way to force a curl request to go to a particular IP address, but you can do it with fsockopen:
-<br />
-<span class="default">&lt;?php
-<br />
-&nbsp;&nbsp;&nbsp; $ip </span><span class="keyword">= </span><span class="string">'123.45.67.89'</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fsockopen</span><span class="keyword">(</span><span class="default">$ip</span><span class="keyword">, </span><span class="default">80</span><span class="keyword">, </span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; if (!</span><span class="default">$fp</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"</span><span class="default">$errstr</span><span class="string"> (</span><span class="default">$errno</span><span class="string">)&lt;br /&gt;\n"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; } else {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$out </span><span class="keyword">= </span><span class="string">"GET /path/to/the/file.ext HTTP/1.1\r\n"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">"Host: www.exampl.com\r\n"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">"Connection: Close\r\n\r\n"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">$out</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">.= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">128</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; }
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>I needed it to test the response from a set of servers behind a load balancer.</span>
 </code>
     </div>
    </div>
@@ -4471,21 +4081,6 @@ Consider the following:<br />
 </span><span class="default">?&gt;<br />
 </span><br />
 Both the Content-Type and Expect I set will not be in the outgoing headers, but Accept will.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="93630""></a>
-  <div class="note">
-   <strong class="user">Stan van de Burgt</strong>
-   <a href="#93630" class="date">19-Sep-2009 02:41</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you get a "failed creating formpost data" upon curl_exec() when POSTing a form, check if one of the field values starts with the @ character.<br />
-<br />
-Took me an hour or so to find out as I wanted to post a @reply tweet to twitter which typically start with @screenname.</span>
 </code>
     </div>
    </div>
@@ -4914,60 +4509,6 @@ This worked great for me.&nbsp; I was calling pages from the same server and nee
 
 <br />
 Enjoy!</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="85956""></a>
-  <div class="note">
-   <strong class="user">OPALA</strong>
-   <a href="#85956" class="date">26-Sep-2008 12:37</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-To fetch (or submit data to) multiple pages during one session,use this:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">();
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_SSL_VERIFYPEER</span><span class="keyword">, </span><span class="default">FALSE</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">, </span><span class="default">TRUE</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_COOKIESESSION</span><span class="keyword">, </span><span class="default">TRUE</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_HEADER</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_COOKIEFILE</span><span class="keyword">, </span><span class="string">"cookiefile"</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_COOKIEJAR</span><span class="keyword">, </span><span class="string">"cookiefile"</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_COOKIE</span><span class="keyword">, </span><span class="default">session_name</span><span class="keyword">() . </span><span class="string">'=' </span><span class="keyword">. </span><span class="default">session_id</span><span class="keyword">());
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_FOLLOWLOCATION</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_URL</span><span class="keyword">, </span><span class="string">'<a href="http://example.com/page1.php" rel="nofollow" target="_blank">http://example.com/page1.php</a>'</span><span class="keyword">);
-<br />
-</span><span class="default">$result1 </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_URL</span><span class="keyword">, </span><span class="string">'<a href="http://example.com/page2.php" rel="nofollow" target="_blank">http://example.com/page2.php</a>'</span><span class="keyword">);
-<br />
-</span><span class="default">$result2 </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="default">curl_close</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -5493,32 +5034,6 @@ There are other cases, of course, where this option is extremely useful...</span
    </div>
   </div>
  <div class="foot"></div>
-  <a name="75711""></a>
-  <div class="note">
-   <strong class="user">mcbreen at gmail dot com</strong>
-   <a href="#75711" class="date">12-Jun-2007 02:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you are getting the following error:
-<br />
-
-<br />
-SSL: certificate subject name 'example.com' does not match target host name 'example.net'
-<br />
-
-<br />
-Then you can set the following option to get around it:
-<br />
-
-<br />
-<span class="default">&lt;?php curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_SSL_VERIFYHOST</span><span class="keyword">, </span><span class="default">FALSE</span><span class="keyword">); </span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="75525""></a>
   <div class="note">
    <strong class="user">ashw1 - at - no spam - post - dot - cz</strong>
@@ -5589,21 +5104,6 @@ Require SSL for the control connection or fail with CURLE_FTP_SSL_FAILED. <br />
 CURLFTPSSL_ALL <br />
 <br />
 Require SSL for all communication or fail with CURLE_FTP_SSL_FAILED.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="73871""></a>
-  <div class="note">
-   <strong class="user">alfredoaguirre dot v at gmail dot com</strong>
-   <a href="#73871" class="date">13-Mar-2007 04:26</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Seems that CURLOPT_RETURNTRANSFER Option set to TRUE, returns a "1" when the transaction returns a blank page.<br />
-<br />
-I think is for eliminate the FALSE to can be with a blank page as return</span>
 </code>
     </div>
    </div>
@@ -5821,48 +5321,6 @@ In this case, you need to set the arrays AND keys in the $post_data, it will not
 &nbsp;&nbsp;&nbsp; </span><span class="default">curl_close</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);
 <br />
 &nbsp;&nbsp;&nbsp; print </span><span class="string">"</span><span class="default">$postResult</span><span class="string">"</span><span class="keyword">;
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="62020""></a>
-  <div class="note">
-   <strong class="user">petelu $ post dot sk</strong>
-   <a href="#62020" class="date">17-Feb-2006 04:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-load https:// or&nbsp; <a href="http://example.com/exam.php&nbsp; " rel="nofollow" target="_blank">http://example.com/exam.php&nbsp; </a>
-<br />
-with&nbsp; POST&nbsp; data (name=alex&amp;year=18) and apply COOKIEs
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$sessions </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">();
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$sessions</span><span class="keyword">,</span><span class="default">CURLOPT_URL</span><span class="keyword">,</span><span class="string">'<a href="http://example.com/exam.php" rel="nofollow" target="_blank">http://example.com/exam.php</a>'</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$sessions</span><span class="keyword">, </span><span class="default">CURLOPT_POST</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$sessions</span><span class="keyword">,</span><span class="default">CURLOPT_POSTFIELDS</span><span class="keyword">,</span><span class="string">'name=alex&amp;year=18'</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$sessions</span><span class="keyword">,</span><span class="default">CURLOPT_COOKIEJAR</span><span class="keyword">,
-<br />
-</span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">).</span><span class="string">'/cookie.txt'</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$sessions</span><span class="keyword">,</span><span class="default">CURLOPT_FOLLOWLOCATION</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$sessions</span><span class="keyword">, </span><span class="default">CURLOPT_HEADER </span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$sessions</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);
-<br />
-</span><span class="default">$my_load_page </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sessions</span><span class="keyword">);
 <br />
 </span><span class="default">?&gt;</span>
 </span>
@@ -6126,30 +5584,6 @@ and following calls to curl_exec() will output to STDOUT again.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="53636""></a>
-  <div class="note">
-   <strong class="user">phpnet at andywaite dot com</strong>
-   <a href="#53636" class="date">07-Jun-2005 02:08</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-After setting CURLOPT_FILE, you may want want to revert back to the normal behaviour of displaying the results. This can be achieved using:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$fp </span><span class="keyword">= </span><span class="default">fopen </span><span class="keyword">(</span><span class="string">"php://output"</span><span class="keyword">, </span><span class="string">"w"</span><span class="keyword">) or die(</span><span class="string">"Unable to open stdout for writing.\n"</span><span class="keyword">);
-<br />
-</span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_FILE</span><span class="keyword">, </span><span class="default">$fp</span><span class="keyword">);
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="53445""></a>
   <div class="note">
    <strong class="user">michaeledwards.com</strong>
@@ -6297,38 +5731,6 @@ If you specify a CAINFO, note that the file must be in PEM format! (If not, it w
 Using Openssl you can use: <br />
 openssl x509 -in &lt;cert&gt; -inform d -outform PEM -out cert.pem <br />
 To create a pem formatted certificate from a binary certificate (the one you get if you download the ca somewhere).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="41256""></a>
-  <div class="note">
-   <strong class="user">Jakub Horky &lt;jakub dot php at horky dot net&gt;</strong>
-   <a href="#41256" class="date">04-Apr-2004 01:20</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-A bit more documentation (without minimum version numbers):<br />
-<br />
-- CURLOPT_WRITEFUNCTION<br />
-- CURLOPT_HEADERFUNCTION<br />
-&nbsp; Pass a function which will be called to write data or headers respectively. The callback function prototype:<br />
-<br />
-long write_callback (resource ch, string data)<br />
-<br />
-The ch argument is CURL session handle. The data argument is data received. Note that its size is variable. When writing data, as much data as possible will be returned in all invokes. When writing headers, exactly one complete header line is returned for better parsing.<br />
-The function must return number of bytes actually taken care of. If that amount differs from the amount passed to this function, an error will occur.<br />
-<br />
-- CURLOPT_READFUNCTION<br />
-&nbsp; Pass a function which will be called to read data. The callback function prototype:<br />
-<br />
-string read_callback (resource ch, resource fd, long length)<br />
-<br />
-The ch argument is CURL session handle. The fd argument is file descriptor passed to CURL by CURLOPT_INFILE option. The length argument is maximum length which can be returned.<br />
-The function must return string containing the data which were read. If length of the data is more than maximum length, it will be truncated to maximum length. Returning anything else than a string means an EOF.<br />
-<br />
-[Note: there is more callbacks implemented in current cURL library but they aren't unfortunately implemented in php curl interface yet.]</span>
 </code>
     </div>
    </div>

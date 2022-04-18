@@ -290,27 +290,6 @@ Also: <a href="http://archives.postgresql.org/pgsql-general/2007-08/msg01489.php
    </div>
   </div>
  <div class="foot"></div>
-  <a name="36332""></a>
-  <div class="note">
-   <strong class="user">info at karl-philipp dot de</strong>
-   <a href="#36332" class="date">06-Oct-2003 04:05</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-A contribution to the transaction issue raised by "garrett at bgb dot cc".<br />
-<br />
-In a German book about PostgreSQL in connection with PHP (Cornelia Boenigk, PostgreSQL - Grundlagen, Praxis, Anwendungsentwicklung mit PHP) one can read in chapter 19.3 about persistent connections:<br />
-If the page processing aborts and the transaction is not finished yet, the next script using the same persistent connection will be considered as the continuation of the transaction. In particular a lock of a table will persist. The explanation is as follows: After the abort of the script no COMMIT or ROLLBACK was sent to the db server.<br />
-<br />
-The author describes a hint to avoid the scenario above:<br />
-You can create a function for resolving transactions and locks erroneously not closed. For invoking the function after execution of a script it has to be registered with the function register_shutdown_function():<br />
-<br />
-&nbsp;<a href="http://de2.php.net/manual/en/function.register-shutdown-function.php" rel="nofollow" target="_blank">http://de2.php.net/manual/en/function.register-shutdown-function.php</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="29013""></a>
   <div class="note">
    <strong class="user">Spiros Ioannou</strong>
@@ -367,38 +346,6 @@ If a transaction is in progress when page processing ends, is it aborted before 
 It would seem that the correct thing to do is to always 'ABORT' before adding to the pool. <br />
 <br />
 As a note, this would be a good time to check and see if the connection is still open before readding it. Thus allowing closed connections to be cleaned up over time, instead of hanging around for ever as they do now.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="9957""></a>
-  <div class="note">
-   <strong class="user">herve at elma dot fr</strong>
-   <a href="#9957" class="date">04-Dec-2000 06:14</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-For resetting an apache web server and in same time the persistent connections you may use :
-<br />
-./apachectl graceful</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="5689""></a>
-  <div class="note">
-   <strong class="user">dmitri at graphictype dot com</strong>
-   <a href="#5689" class="date">10-May-2000 04:12</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-How to reset persistent connections:
-<br />
-
-<br />
-killall -USR1 httpd</span>
 </code>
     </div>
    </div>

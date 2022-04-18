@@ -117,7 +117,7 @@
  <div class="refsect1 examples" id="refsect1-function.iterator-to-array-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3581">
+   <div class="example" id="example-3592">
     <p><strong>Example #1 <span class="function"><strong>iterator_to_array()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -160,7 +160,43 @@ array(4) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120500""></a>
+<div id="allnotes">  <a name="126948""></a>
+  <div class="note">
+   <strong class="user">wizzard351 at yahoo dot com</strong>
+   <a href="#126948" class="date">21-Mar-2022 03:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+One important thing to remember is that in iterator can be infinite. Not all iterators necessarily end. If iterator_to_array is used on such an iterator, it will exhaust the available memory, and throw a fatal error.<br />
+<br />
+For example, consider the following code:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">fibonacci</span><span class="keyword">(): </span><span class="default">Generator<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; yield </span><span class="default">$a </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; yield </span><span class="default">$b </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">start</span><span class="keyword">:<br />
+&nbsp;&nbsp;&nbsp; yield </span><span class="default">$c </span><span class="keyword">= </span><span class="default">$a </span><span class="keyword">+ </span><span class="default">$b</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$a </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$b </span><span class="keyword">= </span><span class="default">$c</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; goto </span><span class="default">start</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$fibonacciSequence </span><span class="keyword">= </span><span class="default">fibonacci</span><span class="keyword">();<br />
+</span><span class="default">iterator_to_array</span><span class="keyword">(</span><span class="default">$fibonacciSequence</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Since <span class="default">&lt;?php fibonacci</span><span class="keyword">(); </span><span class="default">?&gt;</span> generates an infinite fibonacci sequence, which is valid, since it is actually an infinite sequence, then attempting to convert it to an array will fail.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120500""></a>
   <div class="note">
    <strong class="user">enelar at develop-project dot ru</strong>
    <a href="#120500" class="date">22-Jan-2017 04:26</a>

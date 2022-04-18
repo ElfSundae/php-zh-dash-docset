@@ -256,7 +256,7 @@
  <div class="refsect1 examples" id="refsect1-function.imagecropauto-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2594">
+   <div class="example" id="example-2598">
     <p><strong>Example #1 Proper handling of auto-cropping</strong></p>
     <div class="example-contents"><p>
      As noted in the return value section, <span class="function"><strong>imagecropauto()</strong></span>
@@ -289,7 +289,62 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="119620""></a>
+<div id="allnotes">  <a name="126972""></a>
+  <div class="note">
+   <strong class="user">pj dot mueller at protonmail dot ch</strong>
+   <a href="#126972" class="date">06-Apr-2022 06:21</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I don't know why you can't set the threshold for the four sides filter (IMG_CROP_SIDES) so here's how to do it manually using the IMG_CROP_THRESHOLD filter instead.<br />
+<br />
+$threshold = .5;<br />
+<br />
+$im = imagecreatefromjpeg('somefile.jpg');<br />
+<br />
+$width = imagesx($im);<br />
+$height = imagesy($im);<br />
+<br />
+$arr = [<br />
+&nbsp;&nbsp;&nbsp; [0,0],<br />
+&nbsp;&nbsp;&nbsp; [$width-1,0],<br />
+&nbsp;&nbsp;&nbsp; [0,$height-1],<br />
+&nbsp;&nbsp;&nbsp; [$width-1,$height-1],<br />
+];<br />
+<br />
+$red = 0;<br />
+$green = 0;<br />
+$blue = 0;<br />
+<br />
+// grab the colours from all four corners<br />
+foreach( $arr as $arr2 ) {<br />
+&nbsp;&nbsp;&nbsp; $thisColor = imagecolorat($im, $arr2[0], $arr2[1]); <br />
+<br />
+&nbsp;&nbsp;&nbsp; $rgb = imagecolorsforindex($im, $thisColor); <br />
+&nbsp;&nbsp;&nbsp; $red += round(round(($rgb['red'] / 0x33)) * 0x33); <br />
+&nbsp;&nbsp;&nbsp; $green += round(round(($rgb['green'] / 0x33)) * 0x33); <br />
+&nbsp;&nbsp;&nbsp; $blue += round(round(($rgb['blue'] / 0x33)) * 0x33); <br />
+}<br />
+<br />
+// and average them<br />
+$red /= 4;<br />
+$green /= 4;<br />
+$blue /= 4;<br />
+<br />
+$newColor = imagecolorallocate($im, $red, $green, $blue);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+<br />
+$cropped = imagecropauto($im, IMG_CROP_THRESHOLD, $threshold, $newColor);<br />
+<br />
+imagejpg($cropped, 'somefile.cropped.jpg');<br />
+<br />
+imagedestroy($im);<br />
+imagedestroy($cropped);</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="119620""></a>
   <div class="note">
    <strong class="user">raphael.deiana</strong>
    <a href="#119620" class="date">18-Jul-2016 11:49</a>

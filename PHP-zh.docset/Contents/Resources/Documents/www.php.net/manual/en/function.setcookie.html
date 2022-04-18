@@ -214,7 +214,7 @@
   <h3 class="title">范例</h3>
   <p class="para">
    发送 Cookie 的几个例子：
-   <div class="example" id="example-4358">
+   <div class="example" id="example-4369">
     <p><strong>Example #1 <span class="function"><strong>setcookie()</strong></span> 发送例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -242,7 +242,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4359">
+   <div class="example" id="example-4370">
     <p><strong>Example #2 <span class="function"><strong>setcookie()</strong></span> 删除例子</strong></p>
     <div class="example-contents"><p>
      要删除一个 Cookie，应该设置过期时间为过去，以触发浏览器的删除机制。
@@ -258,7 +258,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4360">
+   <div class="example" id="example-4371">
     <p><strong>Example #3 <span class="function"><strong>setcookie()</strong></span> 和数组</strong></p>
     <div class="example-contents"><p>
      通过带 array 标记的 Cookie 名称，也可以把 Cookie 设置成数组。
@@ -392,24 +392,7 @@ one : cookieone
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126348""></a>
-  <div class="note">
-   <strong class="user">j () fy7 !eu</strong>
-   <a href="#126348" class="date">18-Aug-2021 10:16</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In versions below 7.4 to add "samesite" param to cookie, you can add it on $path value.<br />
-<span class="default">&lt;?php<br />
-setcookie</span><span class="keyword">(</span><span class="string">'foo'</span><span class="keyword">,</span><span class="string">'1'</span><span class="keyword">,(</span><span class="default">time</span><span class="keyword">() + </span><span class="default">86400</span><span class="keyword">), </span><span class="string">'/; samesite=lax'</span><span class="keyword">, </span><span class="string">'www.example.com'</span><span class="keyword">,</span><span class="default">false</span><span class="keyword">,</span><span class="default">false</span><span class="keyword">);<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125413""></a>
+<div id="allnotes">  <a name="125413""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#125413" class="date">04-Oct-2020 07:36</a>
@@ -513,93 +496,6 @@ header('Set-Cookie: cross-site-cookie=bar; SameSite=None; Secure');</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="124625""></a>
-  <div class="note">
-   <strong class="user">fapchat at gmail dot com</strong>
-   <a href="#124625" class="date">18-Jan-2020 11:15</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Instead of this:<br />
-<span class="default">&lt;?php setcookie</span><span class="keyword">( </span><span class="string">"TestCookie"</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">( </span><span class="string">'+30 days' </span><span class="keyword">) ); </span><span class="default">?&gt;<br />
-</span><br />
-You can this:<br />
-<span class="default">&lt;?php setcookie</span><span class="keyword">( </span><span class="string">"TestCookie"</span><span class="keyword">); </span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="124276""></a>
-  <div class="note">
-   <strong class="user">niall at maranelda dot org</strong>
-   <a href="#124276" class="date">09-Oct-2019 09:28</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be warned! PHP will mangle the names of incoming cookies far more than others have detailed below!<br />
-<br />
-Theoretically, the following non-alphanumeric characters are allowed in a cookie name:<br />
-<br />
-!#$%&amp;'()*+-./:&lt;&gt;?@[]^_`{|}~<br />
-<br />
-However, if you do this:<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; setcookie</span><span class="keyword">(</span><span class="string">'!#$%&amp;\'()*+-./:&lt;&gt;?@[]^_`{|}~'</span><span class="keyword">, </span><span class="default">123</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">setcookie</span><span class="keyword">(</span><span class="string">'!#$%&amp;\'()*+-./:&lt;&gt;?@[^_`{|}~'</span><span class="keyword">, </span><span class="default">466</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">setcookie</span><span class="keyword">(</span><span class="string">'!#$%&amp;\'()*+-./:&lt;&gt;?@]^_`{|}~'</span><span class="keyword">, </span><span class="default">789</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">setcookie</span><span class="keyword">(</span><span class="string">'!#$%&amp;\'()*+-./:&lt;&gt;?@^_`{|}~'</span><span class="keyword">, </span><span class="string">'abc'</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-then this:<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; print_r</span><span class="keyword">(</span><span class="default">$_COOKIE</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-you get this back:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">Array<br />
-(<br />
-&nbsp;&nbsp;&nbsp; [!</span><span class="comment">#$%&amp;'()*_-_/:&lt;&gt;?@] =&gt; Array<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">(<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="default">0</span><span class="keyword">] =&gt; </span><span class="default">123<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">)<br />
-<br />
-&nbsp;&nbsp;&nbsp; [!</span><span class="comment">#$%&amp;'()*_-_/:&lt;&gt;?@_^_`{|}~] =&gt; 456<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">[!</span><span class="comment">#$%&amp;'()*_-_/:&lt;&gt;?@]^_`{|}~] =&gt; 789<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">[!</span><span class="comment">#$%&amp;'()*_-_/:&lt;&gt;?@^_`{|}~] =&gt; abc<br />
-</span><span class="keyword">)<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-The rules would appear to be as follows:<br />
-<br />
-- Convert all periods to underscores (as detailed below).<br />
-- Convert all plus signs to underscores.<br />
-- Convert all unmatched open square brackets to underscores.<br />
-- Square bracket pairs mean the value is an array; ignore everything after the closing square bracket.<br />
-<br />
-Note that these rules are only applied by PHP when generating the $_COOKIE array; the cookie name part in the headers sent by your browser and as received by PHP are exactly as you specified above;<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_COOKIE'</span><span class="keyword">];<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-gives<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">!</span><span class="comment">#$%&amp;'()*+-./:&lt;&gt;?@[]^_`{|}~=123; !#$%&amp;'()*+-./:&lt;&gt;?@[^_`{|}~=456; !#$%&amp;'()*+-./:&lt;&gt;?@]^_`{|}~=789; !#$%&amp;'()*+-./:&lt;&gt;?@^_`{|}~=abc<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-It would be nice if the official notes mentioned this conversion.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="123567""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
@@ -624,62 +520,6 @@ If you use the subdomain www. on the main site this won't be an issue, but witho
    </div>
   </div>
  <div class="foot"></div>
-  <a name="121659""></a>
-  <div class="note">
-   <strong class="user">stuff at joneva dot de</strong>
-   <a href="#121659" class="date">20-Sep-2017 09:58</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-How to store a cookie in php with JSON and read it in JavaScript correctly without using setcookieraw<br />
-<br />
-$defaultActions = array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '1' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '2' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '3' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '4' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '5' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '6' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '7' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '8' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '9' =&gt; '0',<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; '10' =&gt; '0'<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
-$json_str = json_encode($defaultActions); <br />
-<br />
-//delete all cookies<br />
-if (isset($_SERVER['HTTP_COOKIE'])) {<br />
-&nbsp;&nbsp;&nbsp; $cookies = explode(';', $_SERVER['HTTP_COOKIE']);<br />
-&nbsp;&nbsp;&nbsp; foreach($cookies as $cookie) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $parts = explode('=', $cookie);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $name = trim($parts[0]);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; setcookie($name, '', time()-1000);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; setcookie($name, '', time()-1000, '/');<br />
-&nbsp;&nbsp;&nbsp; }<br />
-} <br />
-//setrawcookie("test", $json_str, false,"/",false); <br />
-<br />
-setcookie("test", $json_str, false,"/",false);<br />
-<br />
-?&gt;<br />
-<br />
-&lt;script type="text/javascript"&gt;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; function getCookie(name) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; var value = "; " + document.cookie;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; var parts = value.split("; " + name + "=");<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (parts.length == 2)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return parts.pop().split(";").shift();<br />
-&nbsp;&nbsp;&nbsp; } <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; console.log(decodeURIComponent(getCookie('test')));<br />
-&nbsp;&nbsp;&nbsp; <br />
-&lt;/script&gt;</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="120794""></a>
   <div class="note">
    <strong class="user">nacho at casinelli dot com</strong>
@@ -694,21 +534,6 @@ It's worth a mention: you should avoid dots on cookie names.<br />
 </span><span class="default">setcookie</span><span class="keyword">( </span><span class="string">'ace.fontSize'</span><span class="keyword">, </span><span class="default">18 </span><span class="keyword">);<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="120616""></a>
-  <div class="note">
-   <strong class="user">dont at mail dot me</strong>
-   <a href="#120616" class="date">08-Feb-2017 10:45</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-&gt; "When deleting a cookie you should assure that the expiration date is in the past, to trigger the removal mechanism in your browser"<br />
-<br />
-This part of the documentation is no longer accurate. On my version of PHP (5.6.28) setting a null, empty string or boolean false value causes the server to ignore your expire date parameter and always sends value "deleted" and expire date 1970-01-01 00:00:01.</span>
 </code>
     </div>
    </div>
@@ -1054,27 +879,6 @@ header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT
 
 <br />
 before setting the cookie.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="100094""></a>
-  <div class="note">
-   <strong class="user">RC</strong>
-   <a href="#100094" class="date">24-Sep-2010 07:50</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-For those of your banging your head as to why a cookie is not present when Internet Explorer 6 prints, the explanation is quite interesting. After a bit of investigation, a cookie with an expiration time other than 0 fails to be passed from IE6 to the server when printing. A cookie with an expiration time of 0 is sent.<br />
-<br />
-Therefore:<br />
-<br />
-setcookie("TestCookie", $value, time()+3600); //will not be sent from Print / Print Preview in IE6<br />
-<br />
-setcookie("TestCookie", $value, 0); //will be sent from Print / Print Preview in IE6<br />
-<br />
-I'll let everyone figure out who's bright idea it was to not send normal expiring cookies when printing in IE6...</span>
 </code>
     </div>
    </div>
@@ -1462,40 +1266,6 @@ Jonathan</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="74126""></a>
-  <div class="note">
-   <strong class="user">mike</strong>
-   <a href="#74126" class="date">26-Mar-2007 08:00</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be careful of using the same cookie name in subdirectories. Setting a simple cookie 
-<br />
-
-<br />
-<span class="default">&lt;?php setcookie</span><span class="keyword">(</span><span class="string">"region"</span><span class="keyword">, </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'set_region'</span><span class="keyword">]); </span><span class="default">?&gt;
-<br />
-</span>
-<br />
-both in the root / and for instance in this case /admin/ will create 2 cookies with different paths. In reading the cookies back only the first one is read regardless of path.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="74046""></a>
-  <div class="note">
-   
-   <a href="#74046" class="date">21-Mar-2007 02:40</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-if you only want to do something once per unique visitor, you can test if a cookie is set, and if not, set the cookie and perform the action. This being the poorman's version, it has a problem, where if a user is blocking cookies they will appear as a first time visitor each time. What you can do to avoid this is to set a test cookie first and check that it exists. If it exists, then check to see if your second cookie has been set. If the first one is set, but the second isn't, then you know this is a first time visitor.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="73484""></a>
   <div class="note">
    <strong class="user">gabe at fijiwebdesign dot com</strong>
@@ -1665,21 +1435,6 @@ Basically, if the domain parameter is supplied, it is converted to support a bro
    </div>
   </div>
  <div class="foot"></div>
-  <a name="68666""></a>
-  <div class="note">
-   <strong class="user">adruff at gmail dot com</strong>
-   <a href="#68666" class="date">05-Aug-2006 10:14</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you intend to use persistent cookies (vice session cookies that are deleted when the browser is closed) be aware:<br />
-1) Firefox appears to require that you include all paramaters, or it will ignore the expiration and treat the cookie as a session cookie<br />
-2) My version of firefox (1.5.0.6) defaults to 'keep cookies until i close firefox' , which essentially makes every cookie a session cookie. This of course sucks for devs, but i suppose is supposed to be a security feature for the end user. If the user wants to configure firefox to respect the expiration date and retain cookies beyond the session, the user must change it to 'keep cookies until they expire'.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="67191""></a>
   <div class="note">
    <strong class="user">gareth at gw126 dot com</strong>
@@ -1750,27 +1505,6 @@ for (</span><span class="default">$x</span><span class="keyword">=</span><span c
 </span><span class="default">?&gt;<br />
 </span><br />
 Very useful when doing logout scripts and the cookie name may have changed (long story).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="37732""></a>
-  <div class="note">
-   <strong class="user">apex at xepa dot nl</strong>
-   <a href="#37732" class="date">24-Nov-2003 06:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Note on setting cookies allowing access to sites:
-<br />
-
-<br />
-If you are not using something "personal" from the computer that you are sending the cookie too watch out.&nbsp; Via javascript it is possible to steal cookies from other users.&nbsp; Thus allowing the stealer to login to your site as another user that might not have access otherwise.&nbsp; Try to add something like the user's ip in the cookie and allowing access from that ip only with the stored cookie data.
-<br />
-
-<br />
-[Editor's note: ... or simply use sessions. You can't be sure that the visitor will use the same IP the next visit. Not even on the next request (thanks to proxy servers)]</span>
 </code>
     </div>
    </div>

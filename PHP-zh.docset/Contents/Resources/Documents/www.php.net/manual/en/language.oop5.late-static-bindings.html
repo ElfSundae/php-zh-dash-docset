@@ -152,7 +152,112 @@ C
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126862""></a>
+<div id="allnotes">  <a name="126959""></a>
+  <div class="note">
+   <strong class="user">aabweber at gmail dot com</strong>
+   <a href="#126959" class="date">27-Mar-2022 07:05</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Simplest way to understand is to run this script:
+<br />
+
+<br />
+<span class="default">&lt;?php
+<br />
+</span><span class="keyword">class </span><span class="default">ParentClass
+<br />
+</span><span class="keyword">{
+<br />
+&nbsp;&nbsp;&nbsp; static </span><span class="default">$A </span><span class="keyword">= </span><span class="string">'ParentVariable'</span><span class="keyword">;
+<br />
+
+<br />
+&nbsp;&nbsp;&nbsp; static function </span><span class="default">parentCall</span><span class="keyword">()
+<br />
+&nbsp;&nbsp;&nbsp; {
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">get_called_class</span><span class="keyword">() . </span><span class="string">', self: ' </span><span class="keyword">. </span><span class="default">self</span><span class="keyword">::</span><span class="default">$A </span><span class="keyword">. </span><span class="string">"\n"</span><span class="keyword">;
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">get_called_class</span><span class="keyword">() . </span><span class="string">', static: ' </span><span class="keyword">. static::</span><span class="default">$A </span><span class="keyword">. </span><span class="string">"\n"</span><span class="keyword">;
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"---\n"</span><span class="keyword">;
+<br />
+&nbsp;&nbsp;&nbsp; }
+<br />
+}
+<br />
+
+<br />
+class </span><span class="default">ChildClass </span><span class="keyword">extends </span><span class="default">ParentClass
+<br />
+</span><span class="keyword">{
+<br />
+&nbsp;&nbsp;&nbsp; static </span><span class="default">$A </span><span class="keyword">= </span><span class="string">'ChildVariable'</span><span class="keyword">;
+<br />
+
+<br />
+&nbsp;&nbsp;&nbsp; static function </span><span class="default">childCall</span><span class="keyword">()
+<br />
+&nbsp;&nbsp;&nbsp; {
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">get_called_class</span><span class="keyword">() . </span><span class="string">', self: ' </span><span class="keyword">. </span><span class="default">self</span><span class="keyword">::</span><span class="default">$A </span><span class="keyword">. </span><span class="string">"\n"</span><span class="keyword">;
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">get_called_class</span><span class="keyword">() . </span><span class="string">', static: ' </span><span class="keyword">. static::</span><span class="default">$A </span><span class="keyword">. </span><span class="string">"\n"</span><span class="keyword">;
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">get_called_class</span><span class="keyword">() . </span><span class="string">', parent: ' </span><span class="keyword">. </span><span class="default">parent</span><span class="keyword">::</span><span class="default">$A </span><span class="keyword">. </span><span class="string">"\n"</span><span class="keyword">;
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"---\n"</span><span class="keyword">;
+<br />
+&nbsp;&nbsp;&nbsp; }
+<br />
+}
+<br />
+
+<br />
+echo </span><span class="string">"Late Static Bindings:\n"</span><span class="keyword">;
+<br />
+</span><span class="default">ParentClass</span><span class="keyword">::</span><span class="default">parentCall</span><span class="keyword">();
+<br />
+</span><span class="default">ChildClass</span><span class="keyword">::</span><span class="default">parentCall</span><span class="keyword">();
+<br />
+</span><span class="default">ChildClass</span><span class="keyword">::</span><span class="default">childCall</span><span class="keyword">();
+<br />
+</span><span class="default">?&gt;
+<br />
+</span>
+<br />
+----
+<br />
+Output:
+<br />
+
+<br />
+Late Static Bindings:
+<br />
+ParentClass, self: ParentVariable
+<br />
+ParentClass, static: ParentVariable
+<br />
+---
+<br />
+ChildClass, self: ParentVariable
+<br />
+ChildClass, static: ChildVariable
+<br />
+---
+<br />
+ChildClass, self: ChildVariable
+<br />
+ChildClass, static: ChildVariable
+<br />
+ChildClass, parent: ParentVariable</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126862""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#126862" class="date">19-Feb-2022 09:02</a>

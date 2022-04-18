@@ -140,7 +140,26 @@ URL 包装器。请参见 <a href="wrappers.html" class="xref">支持的协议和封装协议</a>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126186""></a>
+<div id="allnotes">  <a name="126976""></a>
+  <div class="note">
+   <strong class="user">Steve GS</strong>
+   <a href="#126976" class="date">08-Apr-2022 09:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Wordpress always prepends the full URL to any file it stores in its database so, as noted elsewhere, file_exists() can't find the file since it uses the 'document root', not the URL.&nbsp; An easy way out of this is to use:<br />
+<br />
+file_exists (str_replace (home_url(), $_SERVER['DOCUMENT_ROOT'], $file) )<br />
+<br />
+to check if file $file exists.&nbsp; Note: As from PHP8, 'DOCUMENT_ROOT' must be enclosed within SQUARE BRACKETS, not braces as suggested by ferodano at gmail dot com<br />
+<br />
+Or, if not using WP, replace home_url() above with the absolute URL name, eg. 'https://mywebsite.com' - within quotes and no trailing foreslash.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126186""></a>
   <div class="note">
    <strong class="user">trevorhawes2 at gmail dot com</strong>
    <a href="#126186" class="date">23-Jun-2021 06:06</a>
