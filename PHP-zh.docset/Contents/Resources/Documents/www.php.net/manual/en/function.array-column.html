@@ -135,7 +135,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-column-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4797">
+   <div class="example" id="example-4771">
     <p><strong>Example #1 从结果集中取出 first_name 列</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -159,7 +159,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4798">
+   <div class="example" id="example-4772">
     <p><strong>Example #2 
      从结果集中总取出 last_name 列，用相应的"id"作为键值
     </strong></p>
@@ -185,7 +185,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4799">
+   <div class="example" id="example-4773">
     <p><strong>Example #3 
      username 列是从对象获取 public 的 &quot;username&quot; 属性
     </strong></p>
@@ -210,7 +210,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4800">
+   <div class="example" id="example-4774">
     <p><strong>Example #4 
      通过 <span class="function"><strong>__get()</strong></span> 魔术方法从对象中获取 private 属性的 &quot;name&quot; 列。
     </strong></p>
@@ -242,7 +242,133 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126953""></a>
+<div id="allnotes">  <a name="127046""></a>
+  <div class="note">
+   <strong class="user">oleg dot bolden at gmail dot com</strong>
+   <a href="#127046" class="date">11-May-2022 02:38</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Index_key is safely applicable only in cases when corresponding values of this index are unique through over the array. Otherwise only the latest element of the array with the same index_key value will be picked up.<br />
+<br />
+<span class="default">&lt;?php<br />
+$records </span><span class="keyword">= array(<br />
+&nbsp;&nbsp;&nbsp; array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id' </span><span class="keyword">=&gt; </span><span class="default">2135</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'first_name' </span><span class="keyword">=&gt; </span><span class="string">'John'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'last_name' </span><span class="keyword">=&gt; </span><span class="string">'Doe'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'company_id' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ),<br />
+&nbsp;&nbsp;&nbsp; array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id' </span><span class="keyword">=&gt; </span><span class="default">3245</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'first_name' </span><span class="keyword">=&gt; </span><span class="string">'Sally'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'last_name' </span><span class="keyword">=&gt; </span><span class="string">'Smith'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'company_id' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ),<br />
+&nbsp;&nbsp;&nbsp; array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id' </span><span class="keyword">=&gt; </span><span class="default">5342</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'first_name' </span><span class="keyword">=&gt; </span><span class="string">'Jane'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'last_name' </span><span class="keyword">=&gt; </span><span class="string">'Jones'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'company_id' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ),<br />
+&nbsp;&nbsp;&nbsp; array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id' </span><span class="keyword">=&gt; </span><span class="default">5623</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'first_name' </span><span class="keyword">=&gt; </span><span class="string">'Peter'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'last_name' </span><span class="keyword">=&gt; </span><span class="string">'Doe'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'company_id' </span><span class="keyword">=&gt; </span><span class="default">2</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; )<br />
+);<br />
+&nbsp;<br />
+</span><span class="default">$first_names </span><span class="keyword">= </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">$records</span><span class="keyword">, </span><span class="string">'first_name'</span><span class="keyword">, </span><span class="string">'company_id'</span><span class="keyword">);<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$first_names</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The above example will output:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">Array<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="default">1</span><span class="keyword">] =&gt; </span><span class="default">Jane<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] =&gt; </span><span class="default">Peter<br />
+</span><span class="keyword">)<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+To group values by the same `index_key` in arrays one can use simple replacement for the `array_column` like below example function:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">arrayed_column</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, </span><span class="default">int</span><span class="keyword">|</span><span class="default">string $column_key</span><span class="keyword">, </span><span class="default">int</span><span class="keyword">|</span><span class="default">string $index_key</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$item</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output</span><span class="keyword">[</span><span class="default">$item</span><span class="keyword">[</span><span class="string">'index_key'</span><span class="keyword">]][] = </span><span class="default">$item</span><span class="keyword">[</span><span class="string">'column_key'</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$output</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$first_names </span><span class="keyword">= </span><span class="default">arrayed_column</span><span class="keyword">(</span><span class="default">$records</span><span class="keyword">, </span><span class="string">'first_name'</span><span class="keyword">, </span><span class="string">'company_id'</span><span class="keyword">);<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$first_names</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The output:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">Array<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="default">1</span><span class="keyword">] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="default">0</span><span class="keyword">] =&gt; </span><span class="default">John <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] =&gt; </span><span class="default">Sally <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] =&gt; </span><span class="default">Jane<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="default">2</span><span class="keyword">] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="default">0</span><span class="keyword">] =&gt;</span><span class="default">Peter<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">)<br />
+)<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127009""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#127009" class="date">25-Apr-2022 07:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The counterpart of array_column(), namely create an array from columns, can be done with array_map() :<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// Columns<br />
+</span><span class="default">$lastnames </span><span class="keyword">= [</span><span class="string">'Skywalker'</span><span class="keyword">, </span><span class="string">'Organa'</span><span class="keyword">, </span><span class="string">'Kenobi'</span><span class="keyword">];<br />
+</span><span class="default">$firstnames </span><span class="keyword">= [</span><span class="string">'Luke'</span><span class="keyword">, </span><span class="string">'Leia'</span><span class="keyword">, </span><span class="string">'Obiwan'</span><span class="keyword">];<br />
+<br />
+</span><span class="comment">// Columns to array<br />
+</span><span class="default">$characters </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">fn </span><span class="keyword">(</span><span class="default">$l</span><span class="keyword">, </span><span class="default">$f</span><span class="keyword">) =&gt; [</span><span class="string">'lastname' </span><span class="keyword">=&gt; </span><span class="default">$l</span><span class="keyword">, </span><span class="string">'firstname' </span><span class="keyword">=&gt; </span><span class="default">$f</span><span class="keyword">], <br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$lastnames</span><span class="keyword">, </span><span class="default">$firstnames<br />
+</span><span class="keyword">);<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$characters</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">/*<br />
+&nbsp;&nbsp;&nbsp; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; 0 =&gt; ['lastname' =&gt; 'Skywalker', 'firstname' =&gt; 'Luke']<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; 1 =&gt; ['lastname' =&gt; 'Organa', 'firstname' =&gt; 'Leia']<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; 2 =&gt; ['lastname' =&gt; 'Kenobi', 'firstname' =&gt; 'Obiwan']<br />
+&nbsp;&nbsp;&nbsp; ]<br />
+*/</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126953""></a>
   <div class="note">
    <strong class="user">Hiranmoy Chatterjee</strong>
    <a href="#126953" class="date">23-Mar-2022 06:01</a>

@@ -118,7 +118,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-rand-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4846">
+   <div class="example" id="example-4820">
     <p><strong>Example #1 <span class="function"><strong>array_rand()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -144,7 +144,52 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126659""></a>
+<div id="allnotes">  <a name="126997""></a>
+  <div class="note">
+   <strong class="user">divinity76+spam at gmail dot com</strong>
+   <a href="#126997" class="date">19-Apr-2022 01:36</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+for a cryptographically secure version, try <br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">/**<br />
+&nbsp;* fetch a random key from array, using a cryptograpically secure rng<br />
+&nbsp;* discussed+reviewed at https://codereview.stackexchange.com/questions/275832/cryptographically-secure-version-of-the-core-array-rand-function/<br />
+&nbsp;*<br />
+&nbsp;* @param array $array<br />
+&nbsp;* @throws ValueError if array is empty<br />
+&nbsp;* @return int|string key<br />
+&nbsp;*/<br />
+</span><span class="keyword">function </span><span class="default">array_rand_cryptographically_secure</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">)</span><span class="comment">/*: int|string*/ </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$max </span><span class="keyword">= </span><span class="default">count </span><span class="keyword">( </span><span class="default">$array </span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$max </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">ValueError </span><span class="keyword">( </span><span class="string">'Argument #1 ($array) cannot be empty' </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">key </span><span class="keyword">( </span><span class="default">array_slice </span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="default">random_int </span><span class="keyword">( </span><span class="default">0</span><span class="keyword">, </span><span class="default">$max </span><span class="keyword">), </span><span class="default">1</span><span class="keyword">, </span><span class="default">true </span><span class="keyword">) );<br />
+}<br />
+<br />
+</span><span class="default">$tests </span><span class="keyword">= [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="default">5</span><span class="keyword">, </span><span class="default">6</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="string">'a' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'b' </span><span class="keyword">=&gt; </span><span class="default">2</span><span class="keyword">, </span><span class="string">'c' </span><span class="keyword">=&gt; </span><span class="default">3</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="string">'zero'</span><span class="keyword">, </span><span class="default">4 </span><span class="keyword">=&gt; </span><span class="string">'four'</span><span class="keyword">, </span><span class="default">9 </span><span class="keyword">=&gt; </span><span class="string">'nine'</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="string">"PEAN"</span><span class="keyword">=&gt;</span><span class="default">0</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; []<br />
+];<br />
+foreach (</span><span class="default">$tests </span><span class="keyword">as </span><span class="default">$test</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">array_rand_cryptographically_secure</span><span class="keyword">(</span><span class="default">$test</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">?&gt;</span> <br />
+(this is an improved version, which unlike the first version, avoids copying *all* the keys)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126659""></a>
   <div class="note">
    <strong class="user">Vitaly</strong>
    <a href="#126659" class="date">03-Dec-2021 03:06</a>

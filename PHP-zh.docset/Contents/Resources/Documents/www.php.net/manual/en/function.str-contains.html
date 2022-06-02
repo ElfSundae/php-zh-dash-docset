@@ -89,7 +89,7 @@
  <div class="refsect1 examples" id="refsect1-function.str-contains-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4727">
+   <div class="example" id="example-4701">
     <p><strong>Example #1 Using the empty string <code class="literal">&#039;&#039;</code></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -106,7 +106,7 @@ Checking the existence of the empty string will always return true
     </div>
    </div>
 
-   <div class="example" id="example-4728">
+   <div class="example" id="example-4702">
     <p><strong>Example #2 Showing case-sensitivity</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -155,7 +155,50 @@ The string &#039;lazy&#039; was found in the string
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126806""></a>
+<div id="allnotes">  <a name="127007""></a>
+  <div class="note">
+   <strong class="user">drupalista dot com dot br at gmail dot com</strong>
+   <a href="#127007" class="date">23-Apr-2022 08:36</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+private function contains(array $needles, string $type, string $haystack = NULL, string $filename = NULL) : bool {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (empty($needles)) return FALSE;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ($filename)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $haystack = file_get_contents($filename);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $now_what = function(string $needle) use ($haystack, $type) : array {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $has_needle = str_contains($haystack, $needle);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ($type === 'any' &amp;&amp; $has_needle)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return ['done' =&gt; TRUE, 'return' =&gt; TRUE];<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ($type === 'all' &amp;&amp; !$has_needle)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return ['done' =&gt; TRUE, 'return' =&gt; FALSE];<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return ['done' =&gt; FALSE];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; };<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach ($needles as $needle) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $check = $now_what($needle);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ($check['done'])<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return $check['return'];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return TRUE;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; function containsAny(array $needles, string $haystack = NULL, string $filename = NULL) : bool {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return self::contains($needles, 'any', $haystack, $filename);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; function containsAll(array $needles, string $haystack = NULL, string $filename = NULL) : bool {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return self::contains($needles, 'all', $haystack, $filename);<br />
+&nbsp;&nbsp;&nbsp; }</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126806""></a>
   <div class="note">
    <strong class="user">aisunny7 dot xy at gmail dot com</strong>
    <a href="#126806" class="date">27-Jan-2022 03:45</a>

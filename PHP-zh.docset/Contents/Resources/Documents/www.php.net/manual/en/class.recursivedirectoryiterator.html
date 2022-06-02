@@ -242,7 +242,66 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124182""></a>
+<div id="allnotes">  <a name="127006""></a>
+  <div class="note">
+   <strong class="user">divinity76+spam at gmail dot com</strong>
+   <a href="#127006" class="date">23-Apr-2022 08:29</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+if you just want a plain array, recursively, of all files (not directories), try<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">/** <br />
+&nbsp;* returns a plain string array of path to all files in a directory, and subdirectories,<br />
+&nbsp;* but does not return directories themselves. (meaning if a directory is empty, it will not be included at all)<br />
+&nbsp;* <br />
+&nbsp;* @param string $dir<br />
+&nbsp;* @param bool $realpath<br />
+&nbsp;* @throws UnexpectedValueException if $dir is not readable/does not exists<br />
+&nbsp;* @return string[] files<br />
+&nbsp;*/<br />
+</span><span class="keyword">function </span><span class="default">get_file_list_recursively</span><span class="keyword">(</span><span class="default">string $dir</span><span class="keyword">, </span><span class="default">bool $realpath </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">): array<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$files </span><span class="keyword">= array();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$files </span><span class="keyword">= [];<br />
+&nbsp;&nbsp;&nbsp; foreach ((new </span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(new </span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">, </span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">::</span><span class="default">SKIP_DOTS</span><span class="keyword">))) as </span><span class="default">$file</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/** @var SplFileInfo $file */<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$realpath</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">getRealPath</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$file</span><span class="keyword">-&gt;</span><span class="default">getPathname</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$files</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+sample return:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">array (<br />
+&nbsp; </span><span class="default">0 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/1650518081RESULTS.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/1650518121RESULTS.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">2 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/1650518679RESULTS.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">3 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/1650518780RESULTS.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">4 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/1650522198RESULTS.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">5 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/1650522927RESULTS.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">6 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/1650525391RESULTS.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">7 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/check_cache.php'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">8 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/foo/bar.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">9 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/foobar.txt'</span><span class="keyword">,<br />
+&nbsp; </span><span class="default">10 </span><span class="keyword">=&gt; </span><span class="string">'/home/hans/scraping/GoodProxyDaemon.php'</span><span class="keyword">,<br />
+);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+(note to editor, if you can find a better sample return, feel absolutely free to overwrite the one above)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124182""></a>
   <div class="note">
    <strong class="user">dxvargas</strong>
    <a href="#124182" class="date">09-Sep-2019 08:54</a>

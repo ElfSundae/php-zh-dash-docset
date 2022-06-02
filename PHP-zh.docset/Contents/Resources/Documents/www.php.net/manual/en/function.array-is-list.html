@@ -75,7 +75,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-is-list-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4822">
+   <div class="example" id="example-4796">
     <p><strong>Example #1 <span class="function"><strong>array_is_list()</strong></span> Ê¾Àý</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -113,7 +113,55 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126831""></a>
+<div id="allnotes">  <a name="127044""></a>
+  <div class="note">
+   <strong class="user">divinity76+spam at gmail dot com</strong>
+   <a href="#127044" class="date">10-May-2022 12:05</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+slightly optimized version of phpnet at jesseschalken dot com's excellent array_is_list:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">"array_is_list"</span><span class="keyword">)) {<br />
+&nbsp;&nbsp;&nbsp; function </span><span class="default">array_is_list</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">): </span><span class="default">bool<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$i </span><span class="keyword">= -</span><span class="default">1</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ++</span><span class="default">$i</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$k </span><span class="keyword">!== </span><span class="default">$i</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+benchmarks: https://3v4l.org/9BPqL<br />
+<br />
+why is this faster you ask? because post-increment does more,<br />
+<br />
+here is what pre-increment actually means:<br />
+step 1: increment the value by 1.<br />
+step 2: return the value.<br />
+<br />
+here is what post-increment actually means:<br />
+step 1: create a copy of the original value.<br />
+step 2: increment the original value by 1.<br />
+step 3: return the copy.<br />
+<br />
+another question might be "why didn't you write `if ($k !== ++$i) {` ?&nbsp; ... that is a good question! turns out that ++$i;if($k!==$i){...} is faster on PHP7 than if($k !== ++$i){...} for reasons unknown to me.. (if you have an answer, feel free to email me about it!)<br />
+&nbsp;<br />
+(i have NOT checked if PHP8/jit auto-optimize this stuff, but at least back in PHP7 it's true that pre-increment is faster than post-increment, and this polyfill is primarily for PHP7)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126831""></a>
   <div class="note">
    <strong class="user">iradu at unix-world dot org</strong>
    <a href="#126831" class="date">06-Feb-2022 06:54</a>

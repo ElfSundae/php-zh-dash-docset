@@ -54,7 +54,44 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125703""></a>
+<div id="allnotes">  <a name="126998""></a>
+  <div class="note">
+   <strong class="user">ahamilton9</strong>
+   <a href="#126998" class="date">19-Apr-2022 08:28</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A quick test in 2022 on PHP 8.1 confirms there is still no need to micro-optimize NULL checks:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// Comparison Operator<br />
+</span><span class="default">$before </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">$var </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">1000000000 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">$var </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {}<br />
+}<br />
+</span><span class="default">$after </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+echo </span><span class="string">'&nbsp; &nbsp; ===: ' </span><span class="keyword">. (</span><span class="default">$after </span><span class="keyword">- </span><span class="default">$before</span><span class="keyword">) . </span><span class="string">" seconds\n"</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// Function<br />
+</span><span class="default">$before </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">$var </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">1000000000 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)) {}<br />
+}<br />
+</span><span class="default">$after </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+echo </span><span class="string">'is_null: ' </span><span class="keyword">. (</span><span class="default">$after </span><span class="keyword">- </span><span class="default">$before</span><span class="keyword">) . </span><span class="string">" seconds\n"</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">//&nbsp; &nbsp;&nbsp; ===: 4.1487579345703 seconds<br />
+// is_null: 4.1316878795624 seconds</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125703""></a>
   <div class="note">
    <strong class="user">etimjoshua4 at gmail dot com</strong>
    <a href="#125703" class="date">20-Jan-2021 05:09</a>

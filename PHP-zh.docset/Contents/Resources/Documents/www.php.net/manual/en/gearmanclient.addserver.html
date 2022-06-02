@@ -89,7 +89,7 @@
  <div class="refsect1 examples" id="refsect1-gearmanclient.addserver-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4223">
+   <div class="example" id="example-4197">
     <p><strong>Example #1 Adding two job servers</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -117,7 +117,105 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126851""></a>
+<div id="allnotes">  <a name="126999""></a>
+  <div class="note">
+   <strong class="user">jqv8gg681 at relay dot firefox dot com</strong>
+   <a href="#126999" class="date">21-Apr-2022 03:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Combining recommendations from brainreflex and iloveapplepie, as well as hours of testing. This avoids some bugs in cross versions of gearman across platforms. <br />
+It steps though the server list and fails if all are inaccessible.<br />
+I also use the same override as "class SmartGearmanClient extends GearmanClient" for the clients.<br />
+<br />
+<span class="default">&lt;?php </span><span class="comment">// WORKER<br />
+</span><span class="keyword">class </span><span class="default">SmartGearmanWorker </span><span class="keyword">extends </span><span class="default">GearmanWorker<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$server </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">connect</span><span class="keyword">(</span><span class="default">$servers </span><span class="keyword">= array( array(</span><span class="string">'host' </span><span class="keyword">=&gt; </span><span class="string">'127.0.0.1'</span><span class="keyword">, </span><span class="string">'port' </span><span class="keyword">=&gt; </span><span class="string">'4730'</span><span class="keyword">) ))<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$connected </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$servers </span><span class="keyword">as </span><span class="default">$server</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$c </span><span class="keyword">= new </span><span class="default">GearmanClient</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">addServer</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">], </span><span class="default">$server</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">], </span><span class="default">false</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (@</span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">ping</span><span class="keyword">(</span><span class="string">'ping'</span><span class="keyword">)) {&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">addServer</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">], </span><span class="default">$server</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$connected</span><span class="keyword">=</span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">server </span><span class="keyword">= array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="string">'host'</span><span class="keyword">=&gt;</span><span class="default">$server</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="string">'port'</span><span class="keyword">=&gt;</span><span class="default">$server</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">]<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break; </span><span class="comment">// Remove this to use last working server in list<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">}<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$connected</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+echo </span><span class="string">"Starting\n"</span><span class="keyword">;<br />
+<br />
+</span><span class="comment"># Add some servers<br />
+</span><span class="default">$servers </span><span class="keyword">= array(<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'host' </span><span class="keyword">=&gt; </span><span class="string">'127.0.0.1'</span><span class="keyword">, </span><span class="string">'port' </span><span class="keyword">=&gt; </span><span class="string">'4730'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'host' </span><span class="keyword">=&gt; </span><span class="string">'127.0.0.1'</span><span class="keyword">, </span><span class="string">'port' </span><span class="keyword">=&gt; </span><span class="string">'4731'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'host' </span><span class="keyword">=&gt; </span><span class="string">'127.0.0.1'</span><span class="keyword">, </span><span class="string">'port' </span><span class="keyword">=&gt; </span><span class="string">'4732'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'host' </span><span class="keyword">=&gt; </span><span class="string">'127.0.0.2'</span><span class="keyword">, </span><span class="string">'port' </span><span class="keyword">=&gt; </span><span class="string">'4730'</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; array(</span><span class="string">'host' </span><span class="keyword">=&gt; </span><span class="string">'192.168.204.10'</span><span class="keyword">, </span><span class="string">'port' </span><span class="keyword">=&gt; </span><span class="string">'4730'</span><span class="keyword">)<br />
+);<br />
+<br />
+</span><span class="comment"># Create our worker object.<br />
+</span><span class="default">$gmw</span><span class="keyword">= new </span><span class="default">SmartGearmanWorker</span><span class="keyword">();<br />
+<br />
+if (</span><span class="default">$gmw</span><span class="keyword">-&gt;</span><span class="default">connect</span><span class="keyword">(</span><span class="default">$servers</span><span class="keyword">)) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment"># Register function "reverseString" with the server. <br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$gmw</span><span class="keyword">-&gt;</span><span class="default">addFunction</span><span class="keyword">(</span><span class="string">"reverseString"</span><span class="keyword">, </span><span class="string">"reverseString_fn"</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; print </span><span class="string">"Connected to </span><span class="keyword">{</span><span class="default">$gmw</span><span class="keyword">-&gt;</span><span class="default">server</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">]}</span><span class="string">:</span><span class="keyword">{</span><span class="default">$gmw</span><span class="keyword">-&gt;</span><span class="default">server</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">]}</span><span class="string">...\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; print </span><span class="string">"Waiting for jobs...\n"</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">$gmw</span><span class="keyword">-&gt;</span><span class="default">work</span><span class="keyword">()) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$gmw</span><span class="keyword">-&gt;</span><span class="default">returnCode</span><span class="keyword">() != </span><span class="default">GEARMAN_SUCCESS</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"return_code: " </span><span class="keyword">. </span><span class="default">$gmw</span><span class="keyword">-&gt;</span><span class="default">returnCode</span><span class="keyword">() . </span><span class="string">"\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"DONE\n"</span><span class="keyword">;<br />
+} else {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"Unable to connect to any gearman-job-servers."</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+};<br />
+<br />
+function </span><span class="default">reverseString_fn</span><span class="keyword">(</span><span class="default">$job</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"Received job: " </span><span class="keyword">. </span><span class="default">$job</span><span class="keyword">-&gt;</span><span class="default">handle</span><span class="keyword">() . </span><span class="string">"\n"</span><span class="keyword">;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$workload </span><span class="keyword">= </span><span class="default">$job</span><span class="keyword">-&gt;</span><span class="default">workload</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$workload_size </span><span class="keyword">= </span><span class="default">$job</span><span class="keyword">-&gt;</span><span class="default">workloadSize</span><span class="keyword">();<br />
+<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"Workload: </span><span class="default">$workload</span><span class="string"> (</span><span class="default">$workload_size</span><span class="string">)\n"</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment"># Lets send some progress information<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">for (</span><span class="default">$x</span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">$workload_size</span><span class="keyword">; </span><span class="default">$x</span><span class="keyword">++) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Sending status: " </span><span class="keyword">. (</span><span class="default">$x </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">) . </span><span class="string">"/</span><span class="default">$workload_size</span><span class="string"> complete\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$job</span><span class="keyword">-&gt;</span><span class="default">sendStatus</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">, </span><span class="default">$workload_size</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$job</span><span class="keyword">-&gt;</span><span class="default">sendData</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$workload</span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">));&nbsp; &nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result</span><span class="keyword">= </span><span class="default">strrev</span><span class="keyword">(</span><span class="default">$workload</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"Result: </span><span class="default">$result</span><span class="string">\n"</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment"># Return what we want to send back to the client.<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">$result</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126851""></a>
   <div class="note">
    <strong class="user">iloveapplepie</strong>
    <a href="#126851" class="date">12-Feb-2022 06:52</a>
