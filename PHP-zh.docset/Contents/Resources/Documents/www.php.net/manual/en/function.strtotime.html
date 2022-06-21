@@ -113,7 +113,7 @@
  <div class="refsect1 examples" id="refsect1-function.strtotime-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2061">
+   <div class="example" id="example-2092">
     <p><strong>Example #1 <span class="function"><strong>strtotime()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -125,7 +125,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2062">
+   <div class="example" id="example-2093">
     <p><strong>Example #2 Ê§°Ü¼ì²é</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -210,7 +210,33 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125853""></a>
+<div id="allnotes">  <a name="127162""></a>
+  <div class="note">
+   <strong class="user">phpmanual at NOSPAM dot headbank dot co dot uk</strong>
+   <a href="#127162" class="date">08-Jun-2022 07:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For those still using php versions &lt; 8.0.0, it may help to know that explicitly supplying the 2nd argument $baseTime as NULL does *not* have the same effect as omitting it.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">adjustedTime</span><span class="keyword">(</span><span class="default">$adjustment</span><span class="keyword">, </span><span class="default">$baseTime </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br />
+&nbsp; echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'Y-m-d H:i:s'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="default">$adjustment</span><span class="keyword">, </span><span class="default">$baseTime</span><span class="keyword">));<br />
+}<br />
+<br />
+</span><span class="default">adjustTime</span><span class="keyword">(</span><span class="string">'+1 day'</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">//1970-01-02 01:00:00<br />
+</span><span class="default">?&gt;<br />
+</span>Supplying NULL is equivalent to supplying int(0).<br />
+<br />
+So if you wrap strtotime() in this manner with a nullable $baseTime, make sure in your code to inspect $baseTime and supply time() instead of NULL, or call strtotime() without it in that case.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125853""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#125853" class="date">22-Feb-2021 05:18</a>

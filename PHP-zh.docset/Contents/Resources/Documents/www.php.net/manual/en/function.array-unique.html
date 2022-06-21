@@ -147,7 +147,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-unique-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4841">
+   <div class="example" id="example-4874">
     <p><strong>Example #1 <span class="function"><strong>array_unique()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -170,7 +170,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4842">
+   <div class="example" id="example-4875">
     <p><strong>Example #2 <span class="function"><strong>array_unique()</strong></span> 和类型</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -217,7 +217,59 @@ array(2) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125828""></a>
+<div id="allnotes">  <a name="127129""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#127129" class="date">24-May-2022 09:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Because of PHP comparaisons modalities, you can never distinguish null from others falsy values.<br />
+Note the absorbing nature of true and false booleans in mix types array.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$a </span><span class="keyword">= [</span><span class="default">true</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">, </span><span class="default">null</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="string">'0'</span><span class="keyword">, </span><span class="string">'123'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">123</span><span class="keyword">];<br />
+foreach ([</span><span class="string">'SORT_REGULAR'</span><span class="keyword">, </span><span class="string">'SORT_NUMERIC'</span><span class="keyword">, </span><span class="string">'SORT_STRING'</span><span class="keyword">, </span><span class="string">'SORT_LOCALE_STRING'</span><span class="keyword">] as </span><span class="default">$flag</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$a_new </span><span class="keyword">= </span><span class="default">array_unique</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">constant</span><span class="keyword">(</span><span class="default">$flag</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"</span><span class="keyword">{</span><span class="default">$flag</span><span class="keyword">}</span><span class="string"> ==&gt; "</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$a_new</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="comment">/*<br />
+<br />
+Gives :<br />
+<br />
+SORT_REGULAR ==&gt; array(2) {<br />
+&nbsp; [0]=&gt; bool(true)<br />
+&nbsp; [1]=&gt; bool(false)<br />
+}<br />
+SORT_NUMERIC ==&gt; array(3) {<br />
+&nbsp; [0]=&gt; bool(true)<br />
+&nbsp; [1]=&gt; bool(false)<br />
+&nbsp; [5]=&gt; string(3) "123"<br />
+}<br />
+SORT_STRING ==&gt; array(4) {<br />
+&nbsp; [0]=&gt; bool(true)<br />
+&nbsp; [1]=&gt; bool(false)<br />
+&nbsp; [4]=&gt; string(1) "0"<br />
+&nbsp; [5]=&gt; string(3) "123"<br />
+}<br />
+SORT_LOCALE_STRING ==&gt; array(4) {<br />
+&nbsp; [0]=&gt; bool(true)<br />
+&nbsp; [1]=&gt; bool(false)<br />
+&nbsp; [4]=&gt; string(1) "0"<br />
+&nbsp; [5]=&gt; string(3) "123"<br />
+}<br />
+<br />
+*/</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125828""></a>
   <div class="note">
    <strong class="user">contact at evoweb dot fr</strong>
    <a href="#125828" class="date">16-Feb-2021 08:32</a>

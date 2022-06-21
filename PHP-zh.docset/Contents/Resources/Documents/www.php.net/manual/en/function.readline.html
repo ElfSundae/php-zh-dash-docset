@@ -75,7 +75,7 @@
  <div class="refsect1 examples" id="refsect1-function.readline-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-684">
+   <div class="example" id="example-687">
     <p><strong>Example #1 <span class="function"><strong>readline()</strong></span> Example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -93,7 +93,73 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124703""></a>
+<div id="allnotes">  <a name="127175""></a>
+  <div class="note">
+   <strong class="user">divinity76 at gmail dot com</strong>
+   <a href="#127175" class="date">12-Jun-2022 10:40</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+</span><span class="comment">/**<br />
+&nbsp;* readline() with unicode support <br />
+&nbsp;* php's builtin readline has dodgy unicode support, it only works <br />
+&nbsp;* with the correct environment locale settings, it doesn't seem to work at Cygwin (strips ??????),<br />
+&nbsp;* and it has historically had bugs like https://bugs.php.net/bug.php?id=81598<br />
+&nbsp;* meanwhile this readline has consistent unicode support across all platforms (including Cygwin) <br />
+&nbsp;* and doesn't care about locale settings.<br />
+&nbsp;* <br />
+&nbsp;* @param string $prompt<br />
+&nbsp;* @return string|false<br />
+&nbsp;*/<br />
+</span><span class="keyword">function </span><span class="default">readline_with_unicode_support</span><span class="keyword">(?</span><span class="default">string $prompt </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">)</span><span class="comment">/*: string|false*/<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$prompt </span><span class="keyword">!== </span><span class="default">null </span><span class="keyword">&amp;&amp; </span><span class="default">$prompt </span><span class="keyword">!== </span><span class="string">''</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$prompt</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">STDIN</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// readline() removes the trailing newline, fgets() does not,<br />
+&nbsp;&nbsp;&nbsp; // to emulate the real readline(), we also need to remove it<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$line </span><span class="keyword">!== </span><span class="default">false </span><span class="keyword">&amp;&amp; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">) &gt;= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">PHP_EOL</span><span class="keyword">) &amp;&amp; </span><span class="default">substr_compare</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">, -</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">PHP_EOL</span><span class="keyword">)) === </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$line </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, -</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">PHP_EOL</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$line</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127160""></a>
+  <div class="note">
+   <strong class="user">divinity76+spam at gmail dot com</strong>
+   <a href="#127160" class="date">08-Jun-2022 02:03</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+for some reason readline() doesn't support unicode, readline STRIPS ?????? - for a readline function with unicode support, try<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">readline_with_unicode_support</span><span class="keyword">(?</span><span class="default">string $prompt </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">)</span><span class="comment">/*: string|false*/<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$prompt </span><span class="keyword">!== </span><span class="default">null </span><span class="keyword">&amp;&amp; </span><span class="default">$prompt </span><span class="keyword">!== </span><span class="string">''</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$prompt</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">STDIN</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// readline() removes the trailing newline, fgets does not,<br />
+&nbsp;&nbsp;&nbsp; // to emulate the real readline(), we also need to remove it<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$line </span><span class="keyword">!== </span><span class="default">false </span><span class="keyword">&amp;&amp; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">) &gt;= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">PHP_EOL</span><span class="keyword">) &amp;&amp; </span><span class="default">substr_compare</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">, -</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">PHP_EOL</span><span class="keyword">), </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">PHP_EOL</span><span class="keyword">), </span><span class="default">true</span><span class="keyword">) === </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$line </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, -</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">PHP_EOL</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$line</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124703""></a>
   <div class="note">
    <strong class="user">Antony Penn</strong>
    <a href="#124703" class="date">10-Feb-2020 01:41</a>

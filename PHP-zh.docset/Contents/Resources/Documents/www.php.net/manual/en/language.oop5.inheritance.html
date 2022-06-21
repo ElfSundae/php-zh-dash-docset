@@ -80,6 +80,63 @@
 
   </div>
  </div>
+
+ <div class="sect2" id="language.oop5.inheritance.internal-classes">
+  <h3 class="title">Return Type Compatibility with Internal Classes</h3>
+
+  <p class="para">
+   Prior to PHP 8.1, most internal classes or methods didn&#039;t declare their return types,
+   and any return type was allowed when extending them.
+  </p>
+
+  <p class="para">
+   As of PHP 8.1.0, most internal methods started to &quot;tentatively&quot; declare their return type,
+   in that case the return type of methods should be compatible with the parent being extended;
+   otherwise, a deprecation notice is emitted.
+   Note that lack of an explicit return declaration is also considered a signature mismatch,
+   and thus results in the deprecation notice.
+  </p>
+
+  <p class="para">
+   If the return type cannot be declared for an overriding method due to PHP cross-version compatibility concerns,
+   a <code class="code">#[ReturnTypeWillChange]</code> attribute can be added to silence the deprecation notice.
+  </p>
+
+  <div class="example" id="example-236">
+   <p><strong>Example #2 The overriding method does not declare any return type</strong></p>
+   <div class="example-contents">
+    <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDateTime&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string&nbsp;$modifier</span><span style="color: #007700">)&nbsp;{&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;"Deprecated:&nbsp;Return&nbsp;type&nbsp;of&nbsp;MyDateTime::modify(string&nbsp;$modifier)&nbsp;should&nbsp;either&nbsp;be&nbsp;compatible&nbsp;with&nbsp;DateTime::modify(string&nbsp;$modifier):&nbsp;DateTime|false,&nbsp;or&nbsp;the&nbsp;#[\ReturnTypeWillChange]&nbsp;attribute&nbsp;should&nbsp;be&nbsp;used&nbsp;to&nbsp;temporarily&nbsp;suppress&nbsp;the&nbsp;notice"&nbsp;as&nbsp;of&nbsp;PHP&nbsp;8.1.0<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <div class="example" id="example-237">
+   <p><strong>Example #3 The overriding method declares a wrong return type</strong></p>
+   <div class="example-contents">
+    <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDateTime&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string&nbsp;$modifier</span><span style="color: #007700">):&nbsp;?</span><span style="color: #0000BB">DateTime&nbsp;</span><span style="color: #007700">{&nbsp;return&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;"Deprecated:&nbsp;Return&nbsp;type&nbsp;of&nbsp;MyDateTime::modify(string&nbsp;$modifier):&nbsp;?DateTime&nbsp;should&nbsp;either&nbsp;be&nbsp;compatible&nbsp;with&nbsp;DateTime::modify(string&nbsp;$modifier):&nbsp;DateTime|false,&nbsp;or&nbsp;the&nbsp;#[\ReturnTypeWillChange]&nbsp;attribute&nbsp;should&nbsp;be&nbsp;used&nbsp;to&nbsp;temporarily&nbsp;suppress&nbsp;the&nbsp;notice"&nbsp;as&nbsp;of&nbsp;PHP&nbsp;8.1.0<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <div class="example" id="example-238">
+   <p><strong>Example #4 The overriding method declares a wrong return type without a deprecation notice</strong></p>
+   <div class="example-contents">
+    <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDateTime&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;DateTime|false<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;#[ReturnTypeWillChange]<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;function&nbsp;</span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string&nbsp;$modifier</span><span style="color: #007700">)&nbsp;{&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;No&nbsp;notice&nbsp;is&nbsp;triggered<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+ </div>
+
 </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>

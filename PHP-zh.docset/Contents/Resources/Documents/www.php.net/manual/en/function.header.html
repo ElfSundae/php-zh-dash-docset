@@ -164,7 +164,7 @@
  <div class="refsect1 examples" id="refsect1-function.header-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4333">
+   <div class="example" id="example-4366">
     <p><strong>Example #1 下载对话框</strong></p>
     <div class="example-contents"><p>
      如果你想提醒用户去保存你发送的数据，例如保存一个生成的PDF文件。你可以使用<a href="http://www.faqs.org/rfcs/rfc2183" class="link external" title="Link : http://www.faqs.org/rfcs/rfc2183">&raquo;&nbsp;Content-Disposition</a>的报文信息来提供一个推荐的文件名，并且强制浏览器显示一个文件下载的对话框。
@@ -179,7 +179,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4334">
+   <div class="example" id="example-4367">
     <p><strong>Example #2 缓存指令</strong></p>
     <div class="example-contents"><p>
      PHP 脚本经常生成一些动态内容，它不该被客户端、服务器与浏览器之间的代理缓存。
@@ -289,80 +289,6 @@ The proper MIME-setting function is "header('Content-type: text/javascript');".<
    </div>
   </div>
  <div class="foot"></div>
-  <a name="125146""></a>
-  <div class="note">
-   <strong class="user">atesin $ gmail</strong>
-   <a href="#125146" class="date">26-Jun-2020 07:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-CGI (not FastCGI) is easy to learn and good for small http servers ... i am writing one to learn programming (python)... that lead me to research php-cgi internals<br />
-.<br />
-<br />
-php running in CGI mode works like this:<br />
-<br />
-- if we type "php-cgi[.exe]" at console, seems it freezes and nothing happens, but is actually waiting for a valid html/php code from standard input until EOF is reached (*nix: ctrl-d , win: ctrl-z + enter, or an actual piped file or stream)<br />
-<br />
-- we can also enter a php file path as first parameter: "php-cgi /my/php/file"<br />
-<br />
-- the two behaviors described above are disabled when GATEWAY_INTERFACE env-var is set (commonly with "CGI/1.1") <br />
-<br />
-- if php-cgi was compiled with "--enable-force-cgi-redirect" option, it also requires the REDIRECT_STATUS env-var set to "200" (according php and nginx documentation)... <br />
-<br />
-- so the current way to provide the file path is setting the SCRIPT_FILENAME env-var ... it also works with PATH_TRANSLATED but discouraged by security reasons<br />
-.<br />
-<br />
-wikipedia and php have good documentation about CGI env-vars:<br />
-<br />
-- https://en.wikipedia.org/wiki/Common_Gateway_Interface<br />
-- https://www.php.net/manual/en/reserved.variables.server.php<br />
-.<br />
-<br />
-PHP CGI PROCESS<br />
-<br />
-suppose you pass this file/code to php-cgi<br />
-<br />
---------------------------------<br />
-<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">1000</span><span class="keyword">, </span><span class="default">999</span><span class="keyword">); </span><span class="default">?&gt;<br />
-</span>--------------------------------<br />
-<br />
-php-cgi standard output will show some like<br />
---------------------------------<br />
-X-Powered-By: PHP/7.1.0<br />
-Content-type: text/html; CHARSET=gb2312<br />
-<br />
-5806<br />
---------------------------------<br />
-<br />
-note the few included response headers and the lack of status line... seems was made this way to continue previous headers from http server <br />
-<br />
-this let me think about header() function, so i make little more tests<br />
-<br />
-input<br />
---------------------------------<br />
-<span class="default">&lt;?php header</span><span class="keyword">(</span><span class="string">'Location: <a href="http://some.web.page" rel="nofollow" target="_blank">http://some.web.page</a>'</span><span class="keyword">); </span><span class="default">?&gt;<br />
-</span>--------------------------------<br />
-<br />
-output<br />
---------------------------------<br />
-Status: 302 Found<br />
-X-Powered-By: PHP/7.1.0<br />
-Location: <a href="http://some.web.page" rel="nofollow" target="_blank">http://some.web.page</a><br />
-Content-type: text/html; CHARSET=gb2312<br />
---------------------------------<br />
-<br />
-note the new "status code" was not specified through "HTTP/..." status line but instead through a new "Status:" header ...&nbsp; in fact there are 2 new headers, "Status:" and "Location:" according php header() documentation<br />
-<br />
-this let me think, in cgi mode php header function don't have the access to actually change response status, maybe the cgi specification never intended ... i don't know what would happen with a response with "HTTP/X.Y 200 OK" and later "Status: 123 Other Status", the server should deal the situation<br />
-<br />
-i also realized header() don't have the ability to force replace (via the second paramter) the headers sent by server, at least in cgi mode<br />
-<br />
-cheers</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="124753""></a>
   <div class="note">
    <strong class="user">Angelica Perduta</strong>
@@ -393,31 +319,6 @@ I made a script that generates an optimized image for use on web pages using a 4
     <div class="phpcode">
 <code><span class="html">
 Since PHP 5.4, the function `http_?response_?code()` can be used to set the response code instead of using the `header()` function, which requires to also set the correct protocol version (which can lead to problems, as seen in other comments).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="123003""></a>
-  <div class="note">
-   <strong class="user">hrushiemail at gmail dot com</strong>
-   <a href="#123003" class="date">03-Aug-2018 09:34</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-[warning : "cannot modify header information"] in php<br />
-for fixing this issue follow below steps:<br />
-<br />
-1) open your php.ini file.......<br />
-In that php.ini enable the output_buffering<br />
-<br />
-&nbsp;&nbsp; output_buffering = 1<br />
-<br />
-2) save the file<br />
-3) and restart your web server<br />
-<br />
-for linux user type in terminal,<br />
-&nbsp;&nbsp;&nbsp; service httpd restart</span>
 </code>
     </div>
    </div>
@@ -458,30 +359,6 @@ It will also disregard any expressly set "Content-Type: " and forces:<br />
 <br />
 The HTTP RFCs don't call for such a drastic action. They simply state that a redirect content SHOULD include a link to the destination page (in which case ANY HTML compatible content type would do). But PHP even overrides a perfectly standards-compliant <br />
 "Content-Type: application/xhtml+xml"!</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122494""></a>
-  <div class="note">
-   <strong class="user">2962051004 at qq dot com</strong>
-   <a href="#122494" class="date">11-Mar-2018 11:36</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="comment">/*<br />
-In some special cases, to disable a web page from being cached by the browser, the following function can implement this function:<br />
-*/<br />
-</span><span class="keyword">function </span><span class="default">disabledcache</span><span class="keyword">()<br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Expires: 0"</span><span class="keyword">); </span><span class="comment">// 向后兼容HTTP/1.0&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Pragma: no-cache"</span><span class="keyword">); </span><span class="comment">// 支持HTTP/1.1&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Cache-Control: no-cache,no-store,max-age=0,s-maxage=0,must-revalidate"</span><span class="keyword">);<br />
-}</span>
-</span>
 </code>
     </div>
    </div>
@@ -659,25 +536,6 @@ header("Location: #wahtever"); // -&gt; will work forever !</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="116358""></a>
-  <div class="note">
-   <strong class="user">DC</strong>
-   <a href="#116358" class="date">18-Dec-2014 01:14</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In the bottom note:<br />
-<span class="default">&lt;?php <br />
-$uri&nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">dirname</span><span class="keyword">(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'REQUEST_URI'</span><span class="keyword">]), </span><span class="string">'/\\'</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span>not $_SERVER['PHP_SELF']!<br />
-<br />
-(But the strange behaviour of dirname is a problem for URL ending by a directory without file name!)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="116323""></a>
   <div class="note">
    <strong class="user">Vinay Kotekar</strong>
@@ -693,30 +551,6 @@ eg. <br />
 Would give something like this :-<br />
 <br />
 Warning: Cannot modify header information - headers already sent by (output started at C:\www\info.php:1) in C:\www\info.php on line 1</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="115804""></a>
-  <div class="note">
-   <strong class="user">dheeraj dot br2 at gmail dot com</strong>
-   <a href="#115804" class="date">26-Sep-2014 05:50</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The piece of code in the manual which is as follows<br />
-<br />
-&lt;html&gt;<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">/* This will give an error. Note the output<br />
-&nbsp;* above, which is before the header() call */<br />
-</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Location: <a href="http://www.example.com/" rel="nofollow" target="_blank">http://www.example.com/</a>'</span><span class="keyword">);<br />
-exit;<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-this will not throw a warning as the .ini settings for output buffering is by default on.<br />
-to get the error you may have to change the server setting or simply add a line explicitly to close output buffering by using "ob_end_clean()" or similar</span>
 </code>
     </div>
    </div>
@@ -854,21 +688,6 @@ As I found out, the problem was in the header directive 'Content-Disposition', n
 If you want your browser to simulate a plain link to a file, either change 'attachment' to 'inline' or omit it alltogether and you'll be fine.<br />
 <br />
 This took me a while to figure out and I hope it will help someone else out there, who runs into the same problem.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="95864""></a>
-  <div class="note">
-   <strong class="user">this dot person at joaocunha dot eti dot br</strong>
-   <a href="#95864" class="date">26-Jan-2010 10:39</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-AVOID ZERO BYTE ORDER MARK!<br />
-<br />
-Header MUST be sent before EVERYTHING in the page. Even a single space will break your script. In my case, there was BOM setted in the encoding, so I opened the file with notepad++ and set the encoding to UTF-8 (no BOM) and voila, everything is working great now.</span>
 </code>
     </div>
    </div>
@@ -1030,238 +849,6 @@ A 4-digits HexCode on top of the page (before any output of my php script), seem
 
 <br />
 It took me quite a while to find out about the wrong protocol in the HTTP-header.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="89452""></a>
-  <div class="note">
-   <strong class="user">Jamesb</strong>
-   <a href="#89452" class="date">08-Mar-2009 05:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Here is a php script I wrote to stream a file and crypt it with a xor operation on the bytes and with a key :
-<br />
-
-<br />
-The encryption works very good but the speed is decrease by 2, it is now 520KiB/s. The user is now asked for a md5 password (instead of keeping it in the code directly). There is some part in French because it's my native language so modify it as you want.
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="comment">// Stream files and encrypt the data on-the-fly
-<br />
-
-<br />
-// Settings
-<br />
-// -- File to stream
-<br />
-</span><span class="default">$file </span><span class="keyword">= </span><span class="string">"FILE_out"</span><span class="keyword">;
-<br />
-</span><span class="comment">// -- Reading buffer
-<br />
-</span><span class="default">$bufferlength </span><span class="keyword">= </span><span class="default">3840</span><span class="keyword">;
-<br />
-</span><span class="comment">// -- Key in hex
-<br />
-//$keychar = "9cdfb439c7876e703e307864c9167a15";
-<br />
-
-<br />
-// Function: Convertion hex key in a string into binary
-<br />
-</span><span class="keyword">function </span><span class="default">hex2bin</span><span class="keyword">(</span><span class="default">$h</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; if (!</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$h</span><span class="keyword">)) return </span><span class="default">null</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$r </span><span class="keyword">= array();
-<br />
-&nbsp;&nbsp;&nbsp; for (</span><span class="default">$a</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; (</span><span class="default">$a</span><span class="keyword">*</span><span class="default">2</span><span class="keyword">)&lt;</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$h</span><span class="keyword">); </span><span class="default">$a</span><span class="keyword">++) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ta </span><span class="keyword">= </span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$h</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">*</span><span class="default">$a</span><span class="keyword">]);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$tb </span><span class="keyword">= </span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$h</span><span class="keyword">[(</span><span class="default">2</span><span class="keyword">*</span><span class="default">$a</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">)]);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$r</span><span class="keyword">[</span><span class="default">$a</span><span class="keyword">] = (int) ((</span><span class="default">$ta </span><span class="keyword">&lt;&lt; </span><span class="default">4</span><span class="keyword">) + </span><span class="default">$tb</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$r</span><span class="keyword">;
-<br />
-}
-<br />
-
-<br />
-</span><span class="comment">// Function to send the auth headers
-<br />
-</span><span class="keyword">function </span><span class="default">askPassword</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">=</span><span class="string">"Enter the password"</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">header</span><span class="keyword">(</span><span class="string">'WWW-Authenticate: Basic realm="'</span><span class="keyword">. </span><span class="default">utf8_decode</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) .</span><span class="string">'"'</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">header</span><span class="keyword">(</span><span class="string">'HTTP/1.0 401 Unauthorized'</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">1</span><span class="keyword">;
-<br />
-}
-<br />
-
-<br />
-</span><span class="comment">// Key is asked at the first start
-<br />
-</span><span class="keyword">if (!isset(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'PHP_AUTH_PW'</span><span class="keyword">])) {
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">askPassword</span><span class="keyword">();
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">"Une clé est nécessaire !&lt;br /&gt;"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; exit;
-<br />
-}
-<br />
-</span><span class="comment">// Get the key in hex
-<br />
-</span><span class="default">$keychar </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'PHP_AUTH_PW'</span><span class="keyword">];
-<br />
-
-<br />
-</span><span class="comment">// Convert key and set the size of the key
-<br />
-</span><span class="default">$key </span><span class="keyword">= </span><span class="default">hex2bin</span><span class="keyword">(</span><span class="default">$keychar</span><span class="keyword">);
-<br />
-</span><span class="default">$keylength </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);
-<br />
-</span><span class="comment">// Teste si la clé est valide en hex
-<br />
-</span><span class="keyword">if (</span><span class="default">$key </span><span class="keyword">== </span><span class="string">"" </span><span class="keyword">|| </span><span class="default">$keylength </span><span class="keyword">&lt;= </span><span class="default">4</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">askPassword</span><span class="keyword">(</span><span class="string">"Clé incorrecte !"</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//echo "Clé incorrecte !&lt;br /&gt;";
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">exit();
-<br />
-}
-<br />
-</span><span class="comment">// Teste si la clé est de longueur d'une puissance de 2
-<br />
-</span><span class="keyword">if ( (</span><span class="default">$keylength</span><span class="keyword">%</span><span class="default">2</span><span class="keyword">) != </span><span class="default">0</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">askPassword</span><span class="keyword">(</span><span class="string">"Clé de longueur incorrecte (multiple de 2 uniquement)"</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//echo "Clé de longueur incorrecte (puissance de 2 uniquement)&lt;br /&gt;";
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">exit();
-<br />
-}
-<br />
-
-<br />
-</span><span class="comment">// Headers
-<br />
-</span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Type: application/octet-stream; "</span><span class="keyword">);
-<br />
-</span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Transfer-Encoding: binary"</span><span class="keyword">);
-<br />
-</span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: " </span><span class="keyword">. </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">) .</span><span class="string">"; "</span><span class="keyword">);
-<br />
-</span><span class="default">header</span><span class="keyword">(</span><span class="string">"filename=\""</span><span class="keyword">.</span><span class="default">$file</span><span class="keyword">.</span><span class="string">"\"; "</span><span class="keyword">);
-<br />
-</span><span class="default">flush</span><span class="keyword">(); </span><span class="comment">// this doesn't really matter.
-<br />
-
-<br />
-// Opening the file in read-only
-<br />
-</span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);
-<br />
-while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">))
-<br />
-{
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Read a buffer size of the file
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$buffer </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">$bufferlength</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$j</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$bufferlength</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// The key is read in loop to crypt the whole file
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$i</span><span class="keyword">%</span><span class="default">$keylength </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$j</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Apply a xor operation between the key and the file to crypt
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // This operation eats a lots of CPU time (Stream at 1MiB/s on my server; Intel E2180)
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$tmp </span><span class="keyword">= </span><span class="default">pack</span><span class="keyword">(</span><span class="string">"C"</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">[</span><span class="default">$j</span><span class="keyword">]);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$bufferE </span><span class="keyword">= ( </span><span class="default">$buffer</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]^</span><span class="default">$tmp</span><span class="keyword">); </span><span class="comment">// &lt;==== Le fameux XOR
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; /*
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo "&lt;br /&gt;key[".$j."]: ";
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; var_dump($tmp);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo "&lt;br /&gt;buffer[".$i."]: ";
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; var_dump($buffer[$i]);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo "&lt;br /&gt;bufferE: ";
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; var_dump($bufferE);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo "&lt;br /&gt;";
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; //*/
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // Send the encrypted data
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">$bufferE</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Clean the memory
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$bufferE </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$j</span><span class="keyword">++;
-<br />
-&nbsp;&nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$buffer </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">flush</span><span class="keyword">(); </span><span class="comment">// this is essential for large downloads
-<br />
-&nbsp;&nbsp;&nbsp; /*
-<br />
-&nbsp;&nbsp;&nbsp; fclose($fp);
-<br />
-&nbsp;&nbsp;&nbsp; exit();
-<br />
-&nbsp;&nbsp;&nbsp; //*/
-<br />
-</span><span class="keyword">}
-<br />
-</span><span class="comment">// Close the file and it's finished
-<br />
-</span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -1450,27 +1037,6 @@ A quick way to make redirects permanent or temporary is to make use of the $http
 </span><span class="default">?&gt;<br />
 </span><br />
 The HTTP status code changes the way browsers and robots handle redirects, so if you are using header(Location:) it's a good idea to set the status code at the same time.&nbsp; Browsers typically re-request a 307 page every time, cache a 302 page for the session, and cache a 301 page for longer, or even indefinitely.&nbsp; Search engines typically transfer "page rank" to the new location for 301 redirects, but not for 302, 303 or 307. If the status code is not specified, header('Location:') defaults to 302.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="76758""></a>
-  <div class="note">
-   <strong class="user">Kal</strong>
-   <a href="#76758" class="date">29-Jul-2007 01:07</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I spent a long time trying to determine why Internet Explorer 7 wasn't prompting the user to save a download based on the filename specified on a "'Content-Disposition: attachment; filename=..." header line.<br />
-<br />
-I eventually determined that my Apache installation was adding an additional header: "Vary: Host", which was throwing IE - as per <a href="http://support.microsoft.com/kb/824847" rel="nofollow" target="_blank">http://support.microsoft.com/kb/824847</a><br />
-<br />
-I found manually setting the Vary header from within PHP as follows header('Vary: User-Agent'); allowed IE to behave as intended.<br />
-<br />
-Hope this saves someone else some time,<br />
-<br />
-- Kal</span>
 </code>
     </div>
    </div>

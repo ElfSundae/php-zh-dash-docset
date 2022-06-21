@@ -276,7 +276,62 @@ echo &quot;&lt;?php phpinfo(); ?&gt;&quot; &gt;&gt; /usr/local/nginx/html/index.
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126291""></a>
+<div id="allnotes">  <a name="127148""></a>
+  <div class="note">
+   <strong class="user">timy.shark</strong>
+   <a href="#127148" class="date">30-May-2022 07:33</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Great effort for this tutorial, thanks a ton, here are my notes if may help anyone, considering default install on WSL2 container<br />
+Note: composer added for Laravel framework.<br />
+These are NOT to be copy and pasted as it is, need to be selective as there are annotations beside some commands,<br />
+Also I've commented # some of the defaults written by the original editor due to mismatch to my current environment.<br />
+<br />
+sha256sum&nbsp; php-x.x.x.tar.gz =&gt; e847745fd66fc8c57fac993a609fefcded93fddccd225f0620a26bb5ae5753c3 <br />
+&nbsp;&nbsp;&nbsp; tar zxf php-x.x.x<br />
+&nbsp;&nbsp;&nbsp; sudo apt install build-essential<br />
+&nbsp;&nbsp;&nbsp; sudo apt install -y composer nginx pkgconf libxml2-dev&nbsp; libsqlite3-dev zlib1g-dev<br />
+&nbsp;&nbsp;&nbsp; cd php-x.x.x<br />
+&nbsp;&nbsp;&nbsp; ./configure --enable-fpm --with-mysqli &lt;==Thank you for installing PHP.<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; make &lt;== takes a while <br />
+&nbsp;&nbsp;&nbsp; sudo make test &lt;== optional as recommended<br />
+&nbsp;&nbsp;&nbsp; sudo make install &lt;= /usr/local/bin /usr/local/php<br />
+&nbsp;&nbsp;&nbsp; sudo cp php.ini-development /usr/local/lib/php.ini<br />
+&nbsp;&nbsp;&nbsp; sudo cp /usr/local/etc/php-fpm.d/www.conf.default /usr/local/etc/php-fpm.d/www.conf<br />
+&nbsp;&nbsp;&nbsp; sudo cp sapi/fpm/php-fpm /usr/local/bin<br />
+&nbsp;&nbsp;&nbsp; sudo vim /usr/local/php/php.ini &lt;= cgi.fix_pathinfo=0<br />
+&nbsp;&nbsp;&nbsp; sudo vim /usr/local/etc/php-fpm.d/www.conf &lt;= user=www-data group=www-data<br />
+&nbsp;&nbsp;&nbsp; sudo vim sapi/fpm/php-fpm.conf &lt;= edit include=etc/php-fpm.d/*.conf&nbsp; &lt;- relative path<br />
+&nbsp;&nbsp;&nbsp; sudo cp sapi/fpm/php-fpm.conf /usr/local/etc<br />
+&nbsp;&nbsp;&nbsp; /usr/local/bin/php -v &lt;= $PATH$ uses /usr/local/bin at first /usr/local/lib/php.ini<br />
+&nbsp;&nbsp;&nbsp; sudo /usr/local/bin/php-fpm &lt;= start the service<br />
+&nbsp;&nbsp;&nbsp; sudo vim /etc/nginx/sites-available/default &lt;= edit the following under server {}<br />
+&nbsp;&nbsp;&nbsp; location / {<br />
+&nbsp;&nbsp;&nbsp; #root&nbsp;&nbsp; html;&nbsp; &nbsp; <br />
+&nbsp;&nbsp;&nbsp; #index&nbsp; index.php index.html index.htm;<br />
+}<br />
+&nbsp;&nbsp;&nbsp; location ~* \.php$ {<br />
+&nbsp;&nbsp;&nbsp; #fastcgi_index&nbsp;&nbsp; index.php;<br />
+&nbsp;&nbsp;&nbsp; fastcgi_pass&nbsp; &nbsp; 127.0.0.1:9000;<br />
+&nbsp;&nbsp;&nbsp; include&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; fastcgi_params;<br />
+&nbsp;&nbsp;&nbsp; fastcgi_param&nbsp;&nbsp; SCRIPT_FILENAME&nbsp; &nbsp; $document_root$fastcgi_script_name;<br />
+&nbsp;&nbsp;&nbsp; fastcgi_param&nbsp;&nbsp; SCRIPT_NAME&nbsp; &nbsp; &nbsp; &nbsp; $fastcgi_script_name;<br />
+}<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; *Restart nginx (root /var/www/html) if root path doesn't exist, default is: /usr/share/nginx/html<br />
+&nbsp;&nbsp;&nbsp; sudo nginx -t &lt;= Test Nginx conf files<br />
+&nbsp;&nbsp;&nbsp; sudo service nginx reload<br />
+&nbsp;&nbsp;&nbsp; sudo service nginx stop<br />
+&nbsp;&nbsp;&nbsp; sudo service nginx start &lt;= [OK]<br />
+&nbsp;&nbsp;&nbsp; <br />
+php-fpm needs to be in a service, or kill process manually ps -aux | grep php-fpm ; kill &lt;pid&gt;</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126291""></a>
   <div class="note">
    <strong class="user">Leon Nguyen vnlab</strong>
    <a href="#126291" class="date">30-Jul-2021 04:46</a>

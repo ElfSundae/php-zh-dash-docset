@@ -55,7 +55,7 @@
  <div class="refsect1 examples" id="refsect1-xmlreader.isvalid-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-5292">
+   <div class="example" id="example-5328">
     <p><strong>Example #1 Validating XML</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -93,7 +93,48 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="95750""></a>
+<div id="allnotes">  <a name="127150""></a>
+  <div class="note">
+   <strong class="user">me at lubu dot ch</strong>
+   <a href="#127150" class="date">31-May-2022 09:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Be aware that $xml-&gt;isValid() will return validity only for currently active node, so you have to loop trough the nodes.<br />
+<br />
+Here is a example how to validate a entire XML file against a XSD schema:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$xmlReader </span><span class="keyword">= new \</span><span class="default">XMLReader</span><span class="keyword">();<br />
+</span><span class="default">$xmlReader</span><span class="keyword">-&gt;</span><span class="default">open</span><span class="keyword">(</span><span class="string">'./example.xml'</span><span class="keyword">);<br />
+</span><span class="default">$xmlReader</span><span class="keyword">-&gt;</span><span class="default">setParserProperty</span><span class="keyword">(\</span><span class="default">XMLReader</span><span class="keyword">::</span><span class="default">VALIDATE</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">$xmlReader</span><span class="keyword">-&gt;</span><span class="default">setSchema</span><span class="keyword">(</span><span class="string">'./schema.xsd'</span><span class="keyword">);<br />
+<br />
+\</span><span class="default">libxml_use_internal_errors</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$msgs </span><span class="keyword">= [];<br />
+<br />
+while (</span><span class="default">$xmlReader</span><span class="keyword">-&gt;</span><span class="default">read</span><span class="keyword">()) {<br />
+&nbsp;&nbsp;&nbsp; if (!</span><span class="default">$xmlReader</span><span class="keyword">-&gt;</span><span class="default">isValid</span><span class="keyword">()) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$err </span><span class="keyword">= \</span><span class="default">libxml_get_last_error</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$err </span><span class="keyword">&amp;&amp; </span><span class="default">$err </span><span class="keyword">instanceof \</span><span class="default">libXMLError</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$msgs</span><span class="keyword">[] = \</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$err</span><span class="keyword">-&gt;</span><span class="default">message</span><span class="keyword">) . </span><span class="string">' on line ' </span><span class="keyword">. </span><span class="default">$err</span><span class="keyword">-&gt;</span><span class="default">line</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+if (</span><span class="default">$msgs</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"XML schema validation errors:\n - " </span><span class="keyword">. </span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\n - "</span><span class="keyword">, </span><span class="default">array_unique</span><span class="keyword">(</span><span class="default">$msgs</span><span class="keyword">)));<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="95750""></a>
   <div class="note">
    <strong class="user">zubin at trattonuovo dot com</strong>
    <a href="#95750" class="date">20-Jan-2010 03:00</a>

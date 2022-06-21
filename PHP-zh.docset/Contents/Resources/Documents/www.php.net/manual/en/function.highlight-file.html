@@ -122,7 +122,88 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125515""></a>
+<div id="allnotes">  <a name="127170""></a>
+  <div class="note">
+   <strong class="user">dev at tiagofranca dot com</strong>
+   <a href="#127170" class="date">10-Jun-2022 05:37</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Updating the example https://www.php.net/manual/pt_BR/function.highlight-file.php#92697<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">highlightContentOfFile</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">string $file</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ?</span><span class="default">bool $showLineNumbers </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ?</span><span class="default">bool $insertFinalNewLine </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">string $lineHeight </span><span class="keyword">= </span><span class="string">'1.1rem'<br />
+</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$showLineNumbers </span><span class="keyword">= </span><span class="default">$showLineNumbers </span><span class="keyword">?? </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$insertFinalNewLine </span><span class="keyword">= </span><span class="default">$insertFinalNewLine </span><span class="keyword">?? </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$endLine </span><span class="keyword">= (int) </span><span class="default">$insertFinalNewLine</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$lineCount </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">)) + </span><span class="default">$endLine</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$lines </span><span class="keyword">= </span><span class="default">array_reduce</span><span class="keyword">(</span><span class="default">range</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">$lineCount</span><span class="keyword">), </span><span class="default">fn </span><span class="keyword">(</span><span class="default">$keep</span><span class="keyword">, </span><span class="default">$item</span><span class="keyword">) =&gt; </span><span class="default">$keep </span><span class="keyword">.= </span><span class="string">"&lt;li&gt;</span><span class="keyword">{</span><span class="default">$item</span><span class="keyword">}</span><span class="string">&lt;/li&gt;\n"</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$content </span><span class="keyword">= </span><span class="default">highlight_file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$randomInt </span><span class="keyword">= </span><span class="default">rand</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$style </span><span class="keyword">= </span><span class="string">"<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;style&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; table.table-code-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string"> tr td.num-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string"> {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; float: left;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; color: gray;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; font-size: 13px;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; font-family: monospace;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; text-align: right;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; margin-right: 6pt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; padding-right: 0;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; border-right: 1px solid gray;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; line-height: </span><span class="keyword">{</span><span class="default">$lineHeight</span><span class="keyword">}</span><span class="string">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; background: #80808026;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; font-weight: bold;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; body {margin: 0px; margin-left: 5px;}<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; table.table-code-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string"> tr td {vertical-align: top;}<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; table.table-code-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string"> tr td code {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; white-space: nowrap;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; line-height: </span><span class="keyword">{</span><span class="default">$lineHeight</span><span class="keyword">}</span><span class="string">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; table.table-code-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string"> tr td.num-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string"> ul {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; margin: 0;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; padding: 0.1rem 0.5rem 0.1rem 0.1rem;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; list-style: none;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; min-width: 2.5rem;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;/style&gt;<br />
+&nbsp;&nbsp;&nbsp; "</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$linesContent </span><span class="keyword">= !</span><span class="default">$showLineNumbers </span><span class="keyword">? </span><span class="string">'' </span><span class="keyword">: &lt;&lt;&lt;"HTML"<br />
+</span><span class="string">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">{</span><span class="default">$style</span><span class="keyword">}</span><span class="string"><br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;td class="num-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string">"&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;ul&gt;</span><span class="default">$lines</span><span class="string">&lt;/ul&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;/td&gt;<br />
+&nbsp;&nbsp;&nbsp; HTML;<br />
+<br />
+&nbsp;&nbsp;&nbsp; return &lt;&lt;&lt;"HTML"<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;table class="table-code-</span><span class="keyword">{</span><span class="default">$randomInt</span><span class="keyword">}</span><span class="string">"&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;tr&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">{</span><span class="default">$linesContent</span><span class="keyword">}</span><span class="string"><br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;td&gt;</span><span class="default">$content</span><span class="string">&lt;/td&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;/tr&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;/table&gt;<br />
+&nbsp;&nbsp;&nbsp; HTML;<br />
+}<br />
+<br />
+echo highlightContentOfFile(__FILE__, true, true, '20px');</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125515""></a>
   <div class="note">
    <strong class="user">flussence at gmail dot com</strong>
    <a href="#125515" class="date">15-Nov-2020 01:30</a>

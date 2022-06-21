@@ -28,8 +28,10 @@
   <h2 class="title">Relative Formats</h2>
   <p class="para">
    This page describes the different relative date/time formats that the
-   <span class="function"><a href="function.strtotime.html" class="function">strtotime()</a></span>, <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> and
-   <span class="function"><a href="function.date-create.html" class="function">date_create()</a></span> parser understands.
+   <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span>, <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span>,
+   <span class="function"><a href="function.date-create.html" class="function">date_create()</a></span>,
+   <span class="function"><a href="function.date-create-immutable.html" class="function">date_create_immutable()</a></span>, and
+   <span class="function"><a href="function.strtotime.html" class="function">strtotime()</a></span> parser understands.
   </p>
   
   <table class="doctable table">
@@ -199,7 +201,9 @@
 
      <tr>
       <td><code class="literal">dayname</code></td>
-      <td>Moves to the next day of this name.</td>
+      <td>
+       Moves to the next day of this name. (See <a href="datetime.formats.relative.html#datetime.formats.relative.dayname-note" class="link">note</a>)
+      </td>
       <td>&quot;Monday&quot;</td>
      </tr>
 
@@ -228,10 +232,18 @@
     produces &quot;2008-07-24 00:00&quot;. The reason for this is that those
     five statements directly influence the current time.
    </p>
+   <p class="para">
+    Keywords such as &quot;first day of&quot; depend on the context in which the
+    relative format string is used. If used with a static method or function,
+    the referent is the current system timestamp. However, if used in
+    <span class="function"><a href="datetime.modify.html" class="function">DateTime::modify()</a></span> or
+    <span class="function"><a href="datetimeimmutable.modify.html" class="function">DateTimeImmutable::modify()</a></span>, the referent is the object
+    on which the <code class="literal">modify()</code> method is called.
+   </p>
   </p></blockquote>
   
   <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <p class="para">
+   <p class="para" id="datetime.formats.relative.dayname-note">
     Observe the following remarks when the current day-of-week is the
     same as the day-of-week used in the date/time string. The current
     day-of-week could have been (re-)calculated by non-relative parts of

@@ -801,7 +801,31 @@
           <td><span class="type">array</span></td>
           <td>
            <p class="para">
-            Provides options to enable automatic client-side field level encryption.
+            Provides options to enable automatic client-side field level
+            encryption.
+           </p>
+           <blockquote class="note"><p><strong class="note">Note</strong>: 
+            <p class="para">
+             Automatic encryption is an enterprise-only feature that only
+             applies to operations on a collection. Automatic encryption is not
+             supported for operations on a database or view, and operations that
+             are not bypassed will result in error (see
+             <a href="https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#libmongocrypt-auto-encryption-allow-list" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#libmongocrypt-auto-encryption-allow-list">&raquo;&nbsp;libmongocrypt: Auto Encryption Allow-List</a>). To bypass automatic encryption
+             for all operations, set <code class="literal">bypassAutoEncryption</code> to
+             <strong><code>true</code></strong>.
+            </p>
+            <p class="para">
+             Automatic encryption requires the authenticated user to have the
+             <a href="https://www.mongodb.com/docs/manual/reference/command/listCollections/#required-access" class="link external" title="Link : https://www.mongodb.com/docs/manual/reference/command/listCollections/#required-access">&raquo;&nbsp;listCollections</a>
+             privilege action.
+            </p>
+            <p class="para">
+             Explicit encryption/decryption and automatic decryption is a
+             community feature. The driver can still automatically decrypt when
+             <code class="literal">bypassAutoEncryption</code> is <strong><code>true</code></strong>.
+            </p>
+           </p></blockquote>
+           <p class="para">
             The following options are supported:
 
             <table class="doctable table">
@@ -925,10 +949,15 @@
 
                <tr>
                 <td>schemaMap</td>
-                <td><span class="type">array</span></td>
+                <td><span class="type"><span class="type">array</span>|<span class="type">object</span></span></td>
                 <td>
                  <p class="para">
-                  Allows specifying a local JSON schema that is used to configure encryption.
+                  Map of collection namespaces to a local JSON schema. This is
+                  used to configure automatic encryption. See
+                  <a href="https://www.mongodb.com/docs/manual/reference/security-client-side-automatic-json-schema/" class="link external" title="Link : https://www.mongodb.com/docs/manual/reference/security-client-side-automatic-json-schema/">&raquo;&nbsp;Automatic Encryption Rules</a>
+                  in the MongoDB manual for more information. It is an error to
+                  specify a collection in both <code class="literal">schemaMap</code> and
+                  <code class="literal">encryptedFieldsMap</code>.
                  </p>
                  <blockquote class="note"><p><strong class="note">Note</strong>: 
                   <span class="simpara">
@@ -954,9 +983,48 @@
                 <td>bypassAutoEncryption</td>
                 <td><span class="type">bool</span></td>
                 <td>
-                 With this option set to <strong><code>true</code></strong>, <code class="literal">mongocryptd</code>
-                 will not be spawned automatically. This is used to disable
-                 automatic encryption.
+                 If <strong><code>true</code></strong>, <code class="literal">mongocryptd</code> will not be spawned
+                 automatically. This is used to disable automatic encryption.
+                 Defaults to <strong><code>false</code></strong>.
+                </td>
+               </tr>
+
+               <tr>
+                <td>bypassQueryAnalysis</td>
+                <td><span class="type">bool</span></td>
+                <td>
+                 If <strong><code>true</code></strong>, automatic analysis of outgoing commands will be
+                 disabled and <code class="literal">mongocryptd</code> will not be spawned
+                 automatically. This enables the use case of explicit encryption
+                 for querying indexed fields without requiring the enterprise
+                 licensed <code class="literal">crypt_shared</code> library or
+                 <code class="literal">mongocryptd</code> process. Defaults to <strong><code>false</code></strong>.
+                </td>
+               </tr>
+
+               <tr>
+                <td>encryptedFieldsMap</td>
+                <td><span class="type"><span class="type">array</span>|<span class="type">object</span></span></td>
+                <td>
+                 <p class="para">
+                  Map of collection namespaces to an
+                  <code class="literal">encryptedFields</code> document. This is used to
+                  configure queryable encryption. See
+                  <a href="https://www.mongodb.com/docs/v6.0/core/queryable-encryption/fundamentals/encrypt-and-query/" class="link external" title="Link : https://www.mongodb.com/docs/v6.0/core/queryable-encryption/fundamentals/encrypt-and-query/">&raquo;&nbsp;Field Encryption and Queryability</a>
+                  in the MongoDB manual for more information. It is an error to
+                  specify a collection in both
+                  <code class="literal">encryptedFieldsMap</code> and
+                  <code class="literal">schemaMap</code>.
+                 </p>
+                 <blockquote class="note"><p><strong class="note">Note</strong>: 
+                  <span class="simpara">
+                   Supplying an <code class="literal">encryptedFieldsMap</code> provides
+                   more security than relying on an encrypted fields 
+                   <code class="literal">encryptedFields</code> obtained from the server.
+                   It protects against a malicious server advertising a false
+                   <code class="literal">encryptedFields</code>.
+                  </span>
+                 </p></blockquote>
                 </td>
                </tr>
 
@@ -969,16 +1037,14 @@
                   <code class="literal">mongocryptd</code> process. The following options
                   are supported:
                  </p>
-                 <div class="example-contents">
-<div class="javascriptcode"><pre class="javascriptcode">&lt;provider&gt;: {
-    mongocryptdURI: &lt;optional string&gt;, // Defaults to &quot;mongodb://localhost:27027&quot;
-    mongocryptdBypassSpawn: &lt;optional string&gt;, // Defaults to false
-    mongocryptdSpawnPath: &lt;optional string&gt;, // Defaults to empty string and uses default system paths
-    mongocryptdSpawnArgs: &lt;optional array of strings&gt; // Defaults to [ &quot;--idleShutdownTimeoutSecs=60&quot; ]
-}</pre>
-</div>
-                 </div>
-
+                 <ul class="simplelist">
+                  <li class="member"><code class="literal">mongocryptdURI</code> (<span class="type">string</span>): URI to connect to an existing <code class="literal">mongocryptd</code> process. Defaults to <code class="literal">&quot;mongodb://localhost:27020&quot;</code>.</li>
+                  <li class="member"><code class="literal">mongocryptdBypassSpawn</code> (<span class="type">bool</span>): If <strong><code>true</code></strong>, prevent the driver from spawning <code class="literal">mongocryptd</code>. Defaults to <strong><code>false</code></strong>.</li>
+                  <li class="member"><code class="literal">mongocryptdSpawnPath</code> (<span class="type">string</span>): Absolute path to search for <code class="literal">mongocryptd</code> binary. Defaults to empty string and consults system paths.</li>
+                  <li class="member"><code class="literal">mongocryptdSpawnArgs</code> (<span class="type">array</span>): Array of string arguments to pass to <code class="literal">mongocryptd</code> when spawning. Defaults to <code class="literal">[&quot;--idleShutdownTimeoutSecs=60&quot;]</code>.</li>
+                  <li class="member"><code class="literal">cryptSharedLibPath</code> (<span class="type">string</span>): Absolute path to <code class="literal">crypt_shared</code> shared library. Defaults to empty string and consults system paths.</li>
+                  <li class="member"><code class="literal">cryptSharedLibRequired</code> (<span class="type">bool</span>): If <strong><code>true</code></strong>, require the driver to load <code class="literal">crypt_shared</code>. Defaults to <strong><code>false</code></strong>.</li>
+                 </ul>
                  <p class="para">
                   See the <a href="https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#extraoptions" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#extraoptions">&raquo;&nbsp;Client-Side Encryption Specification</a> for more information.
                  </p>
@@ -1231,6 +1297,19 @@
 
      <tbody class="tbody">
       <tr>
+       <td>PECL mongodb 1.14.0</td>
+       <td>
+        <p class="para">
+         Added the <code class="literal">&quot;bypassQueryAnalysis&quot;</code> and
+         <code class="literal">&quot;encryptedFieldsMap&quot;</code> auto encryption options.
+         Additional options pertaining to <code class="literal">crypt_shared</code> are
+         now supported in the <code class="literal">&quot;extraOptions&quot;</code> auto encryption
+         option.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
        <td>PECL mongodb 1.13.0</td>
        <td>
         <p class="para">
@@ -1420,7 +1499,7 @@
 
  <div class="refsect1 examples" id="refsect1-mongodb-driver-manager.construct-examples">
   <h3 class="title">·¶Àý</h3>
-  <div class="example" id="example-1275">
+  <div class="example" id="example-1278">
    <p><strong>Example #1 <span class="function"><strong>MongoDB\Driver\Manager::__construct()</strong></span> basic examples</strong></p>
    <div class="example-contents"><p>Connecting to standalone MongoDB node:</p></div>
    <div class="example-contents">

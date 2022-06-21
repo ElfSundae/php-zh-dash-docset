@@ -87,7 +87,73 @@ Value used to resume fiber: test
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127029""></a>
+<div id="allnotes">  <a name="127125""></a>
+  <div class="note">
+   <strong class="user">maxpanchnko at gmail dot com</strong>
+   <a href="#127125" class="date">22-May-2022 12:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+One of examples, how to make multi_curl faster twice (pseudocode) using Fibers:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$curlHandles </span><span class="keyword">= [];<br />
+</span><span class="default">$urls </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'https://example.com/1'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'https://example.com/2'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ...<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'https://example.com/1000'</span><span class="keyword">,<br />
+];<br />
+</span><span class="default">$mh </span><span class="keyword">= </span><span class="default">curl_multi_init</span><span class="keyword">();<br />
+</span><span class="default">$mh_fiber </span><span class="keyword">= </span><span class="default">curl_multi_init</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$halfOfList </span><span class="keyword">= </span><span class="default">floor</span><span class="keyword">(</span><span class="default">count</span><span class="keyword">(</span><span class="default">$urls</span><span class="keyword">) / </span><span class="default">2</span><span class="keyword">);<br />
+foreach (</span><span class="default">$urls </span><span class="keyword">as </span><span class="default">$index </span><span class="keyword">=&gt; </span><span class="default">$url</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$curlHandles</span><span class="keyword">[] = </span><span class="default">$ch</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// half of urls will be run in background in fiber<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$index </span><span class="keyword">&gt; </span><span class="default">$halfOfList </span><span class="keyword">? </span><span class="default">curl_multi_add_handle</span><span class="keyword">(</span><span class="default">$mh_fiber</span><span class="keyword">, </span><span class="default">$ch</span><span class="keyword">) : </span><span class="default">curl_multi_add_handle</span><span class="keyword">(</span><span class="default">$mh</span><span class="keyword">, </span><span class="default">$ch</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$fiber </span><span class="keyword">= new </span><span class="default">Fiber</span><span class="keyword">(function (</span><span class="default">CurlMultiHandle $mh</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$still_running </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; do {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">curl_multi_exec</span><span class="keyword">(</span><span class="default">$mh</span><span class="keyword">, </span><span class="default">$still_running</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">Fiber</span><span class="keyword">::</span><span class="default">suspend</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; } while (</span><span class="default">$still_running</span><span class="keyword">);<br />
+});<br />
+<br />
+</span><span class="comment">// run curl multi exec in background while fiber is in suspend status<br />
+</span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">start</span><span class="keyword">(</span><span class="default">$mh_fiber</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$still_running </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+do {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$status </span><span class="keyword">= </span><span class="default">curl_multi_exec</span><span class="keyword">(</span><span class="default">$mh</span><span class="keyword">, </span><span class="default">$still_running</span><span class="keyword">);<br />
+} while (</span><span class="default">$still_running</span><span class="keyword">);<br />
+<br />
+do {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; &nbsp; * at this moment curl in fiber already finished (maybe)<br />
+&nbsp;&nbsp; &nbsp; * so we must refresh $still_running variable with one more cycle "do while" in fiber<br />
+&nbsp;&nbsp; &nbsp; **/<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$status_fiber </span><span class="keyword">= </span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">resume</span><span class="keyword">();<br />
+} while (!</span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">isTerminated</span><span class="keyword">());<br />
+<br />
+foreach (</span><span class="default">$curlHandles </span><span class="keyword">as </span><span class="default">$index </span><span class="keyword">=&gt; </span><span class="default">$ch</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$index </span><span class="keyword">&gt; </span><span class="default">$halfOfList </span><span class="keyword">? </span><span class="default">curl_multi_remove_handle</span><span class="keyword">(</span><span class="default">$mh_fiber</span><span class="keyword">, </span><span class="default">$ch</span><span class="keyword">) : </span><span class="default">curl_multi_remove_handle</span><span class="keyword">(</span><span class="default">$mh</span><span class="keyword">, </span><span class="default">$ch</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">curl_multi_close</span><span class="keyword">(</span><span class="default">$mh</span><span class="keyword">);<br />
+</span><span class="default">curl_multi_close</span><span class="keyword">(</span><span class="default">$mh_fiber</span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127029""></a>
   <div class="note">
    <strong class="user">user at csa dot es</strong>
    <a href="#127029" class="date">05-May-2022 07:11</a>

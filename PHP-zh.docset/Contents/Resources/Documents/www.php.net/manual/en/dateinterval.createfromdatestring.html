@@ -54,11 +54,10 @@
      <dd>
 
       <p class="para">
-       A date with relative parts. Specifically, the
-       <a href="datetime.formats.relative.html" class="link">relative formats</a>
-       supported by the parser used for <span class="function"><a href="function.strtotime.html" class="function">strtotime()</a></span> and
-       <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> will be used to construct the
-       DateInterval.
+       A date with relative parts. Specifically, the <a href="datetime.formats.relative.html" class="link">relative formats</a> supported
+       by the parser used for <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span>,
+       <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span>, and <span class="function"><a href="function.strtotime.html" class="function">strtotime()</a></span>
+       will be used to construct the DateInterval.
       </p>
      </dd>
 
@@ -77,10 +76,39 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-dateinterval.createfromdatestring-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.2.0</td>
+      <td>
+       Only the <code class="literal">from_string</code> and
+       <code class="literal">date_string</code> properties will be visible when a
+       <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> is created with this method.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-dateinterval.createfromdatestring-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2016">
+   <div class="example" id="example-2046">
     <p><strong>Example #1 Parsing valid date intervals</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -91,6 +119,108 @@
 
    </div>
   </p>
+  <p class="para">
+   <div class="example" id="example-2047">
+    <p><strong>Example #2 Parsing special relative date intervals</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateInterval</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromDateString</span><span style="color: #007700">(</span><span style="color: #DD0000">'last&nbsp;day&nbsp;of&nbsp;next&nbsp;month'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateInterval</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromDateString</span><span style="color: #007700">(</span><span style="color: #DD0000">'last&nbsp;weekday'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$i</span><span style="color: #007700">);</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>Output of the above example in PHP 8.2:</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+object(DateInterval)#1 (2) {
+  [&quot;from_string&quot;]=&gt;
+  bool(true)
+  [&quot;date_string&quot;]=&gt;
+  string(22) &quot;last day of next month&quot;
+}
+object(DateInterval)#2 (2) {
+  [&quot;from_string&quot;]=&gt;
+  bool(true)
+  [&quot;date_string&quot;]=&gt;
+  string(12) &quot;last weekday&quot;
+}
+</pre></div>
+    </div>
+    <div class="example-contents"><p>以上例程在 PHP 8 中的输出类似于：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+object(DateInterval)#1 (16) {
+  [&quot;y&quot;]=&gt;
+  int(0)
+  [&quot;m&quot;]=&gt;
+  int(1)
+  [&quot;d&quot;]=&gt;
+  int(0)
+  [&quot;h&quot;]=&gt;
+  int(0)
+  [&quot;i&quot;]=&gt;
+  int(0)
+  [&quot;s&quot;]=&gt;
+  int(0)
+  [&quot;f&quot;]=&gt;
+  float(0)
+  [&quot;weekday&quot;]=&gt;
+  int(0)
+  [&quot;weekday_behavior&quot;]=&gt;
+  int(0)
+  [&quot;first_last_day_of&quot;]=&gt;
+  int(2)
+  [&quot;invert&quot;]=&gt;
+  int(0)
+  [&quot;days&quot;]=&gt;
+  bool(false)
+  [&quot;special_type&quot;]=&gt;
+  int(0)
+  [&quot;special_amount&quot;]=&gt;
+  int(0)
+  [&quot;have_weekday_relative&quot;]=&gt;
+  int(0)
+  [&quot;have_special_relative&quot;]=&gt;
+  int(0)
+}
+object(DateInterval)#2 (16) {
+  [&quot;y&quot;]=&gt;
+  int(0)
+  [&quot;m&quot;]=&gt;
+  int(0)
+  [&quot;d&quot;]=&gt;
+  int(0)
+  [&quot;h&quot;]=&gt;
+  int(0)
+  [&quot;i&quot;]=&gt;
+  int(0)
+  [&quot;s&quot;]=&gt;
+  int(0)
+  [&quot;f&quot;]=&gt;
+  float(0)
+  [&quot;weekday&quot;]=&gt;
+  int(0)
+  [&quot;weekday_behavior&quot;]=&gt;
+  int(0)
+  [&quot;first_last_day_of&quot;]=&gt;
+  int(0)
+  [&quot;invert&quot;]=&gt;
+  int(0)
+  [&quot;days&quot;]=&gt;
+  bool(false)
+  [&quot;special_type&quot;]=&gt;
+  int(1)
+  [&quot;special_amount&quot;]=&gt;
+  int(-1)
+  [&quot;have_weekday_relative&quot;]=&gt;
+  int(0)
+  [&quot;have_special_relative&quot;]=&gt;
+  int(1)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
  </div>
 
 
@@ -98,7 +228,39 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="93777""></a>
+<div id="allnotes">  <a name="127135""></a>
+  <div class="note">
+   <strong class="user">BobRay</strong>
+   <a href="#127135" class="date">26-May-2022 05:10</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Weeks are always converted to days and added to any days specified. As far as I can tell, this is the only calculation done by the method. Somewhat surprisingly, this works (though obviously&nbsp; it would be a poor coding practice): <br />
+<br />
+$di = DateInterval::createFromDateString('62 weeks + 1 day + 2 weeks + 2 hours + 70 minutes');<br />
+&nbsp; /* Stored as 0 years, 449 days, 2 hours, 70 minutes */</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127134""></a>
+  <div class="note">
+   <strong class="user">BobRay</strong>
+   <a href="#127134" class="date">26-May-2022 05:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Unlike the DateInterval constructor, this method will accept negative values, so this works:<br />
+<br />
+&nbsp;&nbsp; &nbsp;&nbsp; $di = DateInterval::createFromDateString('1 year - 10 days');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* Stored as 1 year, -10 days */</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="93777""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#93777" class="date">28-Sep-2009 12:02</a>

@@ -86,7 +86,7 @@
  <div class="refsect1 examples" id="refsect1-datetimezone.getoffset-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2011">
+   <div class="example" id="example-2040">
     <p><strong>Example #1 <span class="function"><strong>DateTimeZone::getOffset()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -104,7 +104,35 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="115782""></a>
+<div id="allnotes">  <a name="127119""></a>
+  <div class="note">
+   <strong class="user">DMJ</strong>
+   <a href="#127119" class="date">19-May-2022 08:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I came here looking for a way to get the offset between PHP's current default timezone and UTC. I went down the rabbit hole with DateTimeZone::getOffset, but it turns out there's a much easier way:<br />
+<br />
+<span class="default">&lt;?php<br />
+$offset </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'O'</span><span class="keyword">);<br />
+</span><span class="comment">// Returns a string like '-0400' <br />
+<br />
+</span><span class="default">$offset </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'P'</span><span class="keyword">);<br />
+</span><span class="comment">// Returns a string like '-04:00' <br />
+<br />
+</span><span class="default">$offset </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'Z'</span><span class="keyword">);<br />
+</span><span class="comment">// Returns the offset in seconds, e.g. '-14400'<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+To be clear, this gets whatever the timezone offset is *right now*, but I imagine that's what is wanted most of the time.<br />
+<br />
+You can switch PHP's current timezone with date_default_timezone_set().</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="115782""></a>
   <div class="note">
    <strong class="user">Fred Gandt</strong>
    <a href="#115782" class="date">22-Sep-2014 12:43</a>
