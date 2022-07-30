@@ -119,6 +119,17 @@
  </div>
 
 
+ <div class="refsect1 errors" id="refsect1-function.array-walk-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   从 PHP 7.1.0 起，如果 <code class="parameter">callback</code> 函数需要的参数（数组成员的值和键）超过2个或者
+   也传递了 <code class="parameter">arg</code> 参数需要的参数超过3个时，会抛出 <span class="classname"><a href="class.argumentcounterror.html" class="classname">ArgumentCountError</a></span>。
+   在此之前，每次 <span class="function"><strong>array_walk()</strong></span> 调用 <code class="parameter">callback</code>
+   的时候都会生成 <a href="errorfunc.constants.html" class="link">E_WARNING</a> 级别的错误。
+  </p>
+ </div>
+
+
  <div class="refsect1 changelog" id="refsect1-function.array-walk-changelog">
   <h3 class="title">更新日志</h3>
   <table class="doctable informaltable">
@@ -147,16 +158,6 @@
  </div>
 
 
- <div class="refsect1 errors" id="refsect1-function.array-walk-errors">
-  <h3 class="title">错误／异常</h3>
-  <p class="para">
-   从 PHP 7.1.0 起，如果 <code class="parameter">callback</code> 函数需要的参数（数组成员的值和键）超过2个或者 
-   也传递了 <code class="parameter">arg</code> 参数需要的参数超过3个时，会抛出 <span class="classname"><a href="class.argumentcounterror.html" class="classname">ArgumentCountError</a></span>。
-   在此之前，每次 <span class="function"><strong>array_walk()</strong></span> 调用 <code class="parameter">callback</code>
-   的时候都会生成 <a href="errorfunc.constants.html" class="link">E_WARNING</a> 级别的错误。
-  </p>
- </div>
-
  <div class="refsect1 examples" id="refsect1-function.array-walk-examples">
   <h3 class="title">范例</h3>
   <p class="para">
@@ -182,6 +183,26 @@ d. fruit: lemon
 a. fruit: orange
 b. fruit: banana
 c. fruit: apple
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4880">
+    <p><strong>Example #2 <span class="function"><strong>array_walk()</strong></span> example using anonymous function</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$elements&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #DD0000">'a'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'b'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'c'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">array_walk</span><span style="color: #007700">(</span><span style="color: #0000BB">$elements</span><span style="color: #007700">,&nbsp;function&nbsp;(</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #007700">{</span><span style="color: #0000BB">$key</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;=&gt;&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$value</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />});<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+0 =&gt; a
+1 =&gt; b
+2 =&gt; c
 </pre></div>
     </div>
    </div>

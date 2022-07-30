@@ -264,7 +264,57 @@ array(2) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127052""></a>
+<div id="allnotes">  <a name="127216""></a>
+  <div class="note">
+   <strong class="user">justinphiggs at gmail dot com</strong>
+   <a href="#127216" class="date">03-Jul-2022 08:51</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Check if all elements in array are not empty/null/falsy.<br />
+------------------------------<br />
+Supposing you have a one dimensional array...<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp; $spicy_numbers </span><span class="keyword">= [</span><span class="default">69</span><span class="keyword">, </span><span class="default">420</span><span class="keyword">, </span><span class="default">?</span><span class="keyword">];<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+And you want to easily check that all elements in said array are not null/empty/any falsy value, instead of running a loop over each element, you can pass the array to <span class="default">&lt;?php array_filter</span><span class="keyword">() </span><span class="default">?&gt;</span>, with no callback function, and then check if the returned array is the same size as the original, since <span class="default">&lt;?php array_filter</span><span class="keyword">() </span><span class="default">?&gt;</span> strips out all non-truthy values including 0 when no callback is provided.<br />
+<br />
+Example:<br />
+<span class="default">&lt;?php<br />
+&nbsp; $spicy_numbers </span><span class="keyword">= [</span><span class="default">69</span><span class="keyword">, </span><span class="default">420</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">]; </span><span class="comment">// Phi is gone!<br />
+<br />
+&nbsp; </span><span class="keyword">if ( </span><span class="default">count</span><span class="keyword">( </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$spicy_numbers </span><span class="keyword">) ) !== </span><span class="default">count</span><span class="keyword">( </span><span class="default">$spicy_numbers </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// One of the elements is empty/null/falsy.<br />
+&nbsp; </span><span class="keyword">} else {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// All elements present and truthy.<br />
+&nbsp; </span><span class="keyword">}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+As a neat little function, you could do this:<br />
+<span class="default">&lt;?php<br />
+&nbsp; </span><span class="comment">/**<br />
+&nbsp;&nbsp; * Checks if all of given array's elements have a non-falsy value.<br />
+&nbsp;&nbsp; * Use-case: If all items in array are set and have a value (truthy, of course), then do X; else, do Y.<br />
+&nbsp;&nbsp; * <br />
+&nbsp;&nbsp; * @param array $arr <br />
+&nbsp;&nbsp; * @return bool<br />
+&nbsp;&nbsp; */<br />
+&nbsp; </span><span class="keyword">function </span><span class="default">is_array_full</span><span class="keyword">( </span><span class="default">$arr </span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$array_count&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">( </span><span class="default">$arr </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$filtered_count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">( </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$arr </span><span class="keyword">) );<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; return ( </span><span class="default">$array_count </span><span class="keyword">=== </span><span class="default">$filtered_count </span><span class="keyword">) ? </span><span class="default">true </span><span class="keyword">: </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp; }<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127052""></a>
   <div class="note">
    <strong class="user">TechNyquist</strong>
    <a href="#127052" class="date">13-May-2022 06:36</a>

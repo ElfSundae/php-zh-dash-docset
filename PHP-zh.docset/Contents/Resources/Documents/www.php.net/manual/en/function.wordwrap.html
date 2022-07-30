@@ -189,7 +189,40 @@ something
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124034""></a>
+<div id="allnotes">  <a name="127205""></a>
+  <div class="note">
+   <strong class="user">michdingpayc</strong>
+   <a href="#127205" class="date">30-Jun-2022 07:23</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A correction to ju1ius' utf-8 safe wordwrap from 10 years ago. <br />
+This version addresses issues where breaks were not being added to the first and last words in the input string.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">utf8_wordwrap</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$width</span><span class="keyword">=</span><span class="default">75</span><span class="keyword">, </span><span class="default">$break</span><span class="keyword">=</span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">$cut</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">)<br />
+{<br />
+&nbsp; if(</span><span class="default">$cut</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// Match anything 1 to $width chars long followed by whitespace,<br />
+&nbsp;&nbsp;&nbsp; // otherwise match anything $width chars long<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$search</span><span class="keyword">= </span><span class="string">'/(.{1,'</span><span class="keyword">.</span><span class="default">$width</span><span class="keyword">.</span><span class="string">'})(?:\s)|(.{'</span><span class="keyword">.</span><span class="default">$width</span><span class="keyword">.</span><span class="string">'})(?!$)/uS'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$replace </span><span class="keyword">= </span><span class="string">'$1$2'</span><span class="keyword">.</span><span class="default">$break</span><span class="keyword">;<br />
+&nbsp; } else {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// Anchor the beginning of the pattern with a lookbehind<br />
+&nbsp;&nbsp;&nbsp; // to avoid crazy backtracking when words are longer than $width<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$search</span><span class="keyword">= </span><span class="string">'/(?&lt;=\s|^)(.{1,'</span><span class="keyword">.</span><span class="default">$width</span><span class="keyword">.</span><span class="string">'}\S*)(?:\s)/uS'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$replace </span><span class="keyword">= </span><span class="string">'$1'</span><span class="keyword">.</span><span class="default">$break</span><span class="keyword">;<br />
+&nbsp; }<br />
+&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="default">$search</span><span class="keyword">, </span><span class="default">$replace</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124034""></a>
   <div class="note">
    <strong class="user">answers at clearcrescendo.com</strong>
    <a href="#124034" class="date">12-Jul-2019 01:38</a>

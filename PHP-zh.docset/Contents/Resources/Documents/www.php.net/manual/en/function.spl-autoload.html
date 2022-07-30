@@ -89,7 +89,57 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="114855""></a>
+<div id="allnotes">  <a name="127242""></a>
+  <div class="note">
+   <strong class="user">theking2 at king dot ma</strong>
+   <a href="#127242" class="date">09-Jul-2022 10:41</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Both namespaces and class names are case insensitive. This can cause problems with autoloading in OS/filesystems that _are_<br />
+<br />
+Consider this code:<br />
+<span class="default">&lt;?php </span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br />
+</span><span class="default">set_include_path</span><span class="keyword">(</span><span class="default">get_include_path</span><span class="keyword">() . </span><span class="default">PATH_SEPARATOR </span><span class="keyword">. </span><span class="string">'class/'</span><span class="keyword">);<br />
+</span><span class="default">spl_autoload_extensions</span><span class="keyword">(</span><span class="string">'.class.php'</span><span class="keyword">);<br />
+</span><span class="default">spl_autoload_register</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$foobar </span><span class="keyword">= new \</span><span class="default">foo</span><span class="keyword">\</span><span class="default">bar</span><span class="keyword">();<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+and a class file /class/foo/bar.class.php:<br />
+<span class="default">&lt;?php </span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br />
+namespace </span><span class="default">Foo</span><span class="keyword">;<br />
+<br />
+class </span><span class="default">Bar </span><span class="keyword">{<br />
+&nbsp; public function </span><span class="default">__construct</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'Map constructed'</span><span class="keyword">;<br />
+&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+this will work fine regardless of a case sensitive or not case sensitive OS/FS. <br />
+<br />
+A file called ./class/Foo/Bar.class.php will only be found on a not case sensitive situation as the default class loader will mb_strtolower() the class name to find the class filename.<br />
+<br />
+Btw. this content of a class file will be equivalent to the one above:<br />
+<span class="default">&lt;?php </span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br />
+namespace </span><span class="default">foo</span><span class="keyword">;<br />
+<br />
+class </span><span class="default">bar </span><span class="keyword">{<br />
+&nbsp; public function </span><span class="default">__construct</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'Map constructed'</span><span class="keyword">;<br />
+&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The class /foo/bar and /Foo/Bar are one and the same thing.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="114855""></a>
   <div class="note">
    <strong class="user">EVODelavega</strong>
    <a href="#114855" class="date">15-Apr-2014 08:39</a>

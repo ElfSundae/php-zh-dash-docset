@@ -87,7 +87,124 @@ Value used to resume fiber: test
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127125""></a>
+<div id="allnotes">  <a name="127282""></a>
+  <div class="note">
+   <strong class="user">Ali Madadi</strong>
+   <a href="#127282" class="date">14-Jul-2022 10:17</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here is a simple scheduler and thread pool that implements multithreading using fibers and tick functions in PHP 8.1 and returns the return value of each function in the pool in an array at the end.<br />
+<br />
+Note that due to some bugs, you need to register a new tick function for each "thread". Remember to unregister all of them at the end.<br />
+<br />
+The link bellow is the discussion on a bug that is going on right now (At the time of writing this). Note that based on the discussion, the ability to call Fiber::suspend() inside tick function may become forbidden in PHP 8.2+. But if the bug gets fixed, you can move register_tick_function() line to the top of the class, and this simple multithreading class in pure PHP code will work like a charm.<br />
+https://github.com/php/php-src/issues/8960<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">declare(</span><span class="default">ticks</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br />
+<br />
+class </span><span class="default">Thread </span><span class="keyword">{<br />
+&nbsp; protected static </span><span class="default">$names </span><span class="keyword">= [];<br />
+&nbsp; protected static </span><span class="default">$fibers </span><span class="keyword">= [];<br />
+&nbsp; protected static </span><span class="default">$params </span><span class="keyword">= [];<br />
+<br />
+&nbsp; public static function </span><span class="default">register</span><span class="keyword">(</span><span class="default">string</span><span class="keyword">|</span><span class="default">int $name</span><span class="keyword">, callable </span><span class="default">$callback</span><span class="keyword">, array </span><span class="default">$params</span><span class="keyword">)<br />
+&nbsp; {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">self</span><span class="keyword">::</span><span class="default">$names</span><span class="keyword">[]&nbsp; = </span><span class="default">$name</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">self</span><span class="keyword">::</span><span class="default">$fibers</span><span class="keyword">[] = new </span><span class="default">Fiber</span><span class="keyword">(</span><span class="default">$callback</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">self</span><span class="keyword">::</span><span class="default">$params</span><span class="keyword">[] = </span><span class="default">$params</span><span class="keyword">;<br />
+&nbsp; }<br />
+<br />
+&nbsp; public static function </span><span class="default">run</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">= [];<br />
+<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">self</span><span class="keyword">::</span><span class="default">$fibers</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; foreach (</span><span class="default">self</span><span class="keyword">::</span><span class="default">$fibers </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$fiber</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; try {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">isStarted</span><span class="keyword">()) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Register a new tick function for scheduling this fiber<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">register_tick_function</span><span class="keyword">(</span><span class="string">'Thread::scheduler'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">start</span><span class="keyword">(...</span><span class="default">self</span><span class="keyword">::</span><span class="default">$params</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } elseif (</span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">isTerminated</span><span class="keyword">()) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output</span><span class="keyword">[</span><span class="default">self</span><span class="keyword">::</span><span class="default">$names</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]] = </span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">getReturn</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; unset(</span><span class="default">self</span><span class="keyword">::</span><span class="default">$fibers</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } elseif (</span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">isSuspended</span><span class="keyword">()) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fiber</span><span class="keyword">-&gt;</span><span class="default">resume</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } catch (</span><span class="default">Throwable $e</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output</span><span class="keyword">[</span><span class="default">self</span><span class="keyword">::</span><span class="default">$names</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]] = </span><span class="default">$e</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$output</span><span class="keyword">;<br />
+&nbsp; }<br />
+<br />
+&nbsp; public static function </span><span class="default">scheduler </span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">Fiber</span><span class="keyword">::</span><span class="default">getCurrent</span><span class="keyword">() === </span><span class="default">null</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; return;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// running Fiber::suspend() in this if condition will prevent an infinite loop!<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">count</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">$fibers</span><span class="keyword">) &gt; </span><span class="default">1</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">Fiber</span><span class="keyword">::</span><span class="default">suspend</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+And here is an example code on how to use above Thread class:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// defining a non-blocking thread, so multiple calls will run in concurrent mode using above Thread class.<br />
+</span><span class="keyword">function </span><span class="default">thread </span><span class="keyword">(</span><span class="default">string $print</span><span class="keyword">, </span><span class="default">int $loop</span><span class="keyword">)<br />
+{<br />
+&nbsp; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$loop</span><span class="keyword">;<br />
+&nbsp; while (</span><span class="default">$i</span><span class="keyword">--){<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">$print</span><span class="keyword">;<br />
+&nbsp; }<br />
+<br />
+&nbsp; return </span><span class="string">"Thread '</span><span class="keyword">{</span><span class="default">$print</span><span class="keyword">}</span><span class="string">' finished after printing '</span><span class="keyword">{</span><span class="default">$print</span><span class="keyword">}</span><span class="string">' for </span><span class="keyword">{</span><span class="default">$loop</span><span class="keyword">}</span><span class="string"> times!"</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">// registering 6 Threads (A, B, C, D, E, and F)<br />
+</span><span class="keyword">foreach(</span><span class="default">range</span><span class="keyword">(</span><span class="string">'A'</span><span class="keyword">, </span><span class="string">'F'</span><span class="keyword">) as </span><span class="default">$c</span><span class="keyword">) {<br />
+&nbsp; </span><span class="default">Thread</span><span class="keyword">::</span><span class="default">register</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">, </span><span class="string">'thread'</span><span class="keyword">, [</span><span class="default">$c</span><span class="keyword">, </span><span class="default">rand</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">, </span><span class="default">20</span><span class="keyword">)]);<br />
+}<br />
+<br />
+</span><span class="comment">// run threads and wait until execution finishes<br />
+</span><span class="default">$outputs </span><span class="keyword">= </span><span class="default">Thread</span><span class="keyword">::</span><span class="default">run</span><span class="keyword">();<br />
+<br />
+</span><span class="comment">// print outputs<br />
+</span><span class="keyword">echo </span><span class="default">PHP_EOL</span><span class="keyword">, </span><span class="string">'-------------- RETURN VALUES --------------'</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$outputs</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The output will be something like this (but probably different):<br />
+<br />
+ABCDEFABCDEFABCDEFABCDEFABCDEFABCEFABFABFABEBEFBEFEFEFAABEABEBEFBEFFAAAAAA<br />
+-------------- RETURN VALUES --------------<br />
+Array<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [D] =&gt; Thread 'D' finished after printing 'D' for 5 times!<br />
+&nbsp;&nbsp;&nbsp; [C] =&gt; Thread 'C' finished after printing 'C' for 6 times!<br />
+&nbsp;&nbsp;&nbsp; [E] =&gt; Thread 'E' finished after printing 'E' for 15 times!<br />
+&nbsp;&nbsp;&nbsp; [B] =&gt; Thread 'B' finished after printing 'B' for 15 times!<br />
+&nbsp;&nbsp;&nbsp; [F] =&gt; Thread 'F' finished after printing 'F' for 15 times!<br />
+&nbsp;&nbsp;&nbsp; [A] =&gt; Thread 'A' finished after printing 'A' for 18 times!<br />
+)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127125""></a>
   <div class="note">
    <strong class="user">maxpanchnko at gmail dot com</strong>
    <a href="#127125" class="date">22-May-2022 12:16</a>

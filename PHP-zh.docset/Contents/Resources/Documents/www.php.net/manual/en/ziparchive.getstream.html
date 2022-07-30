@@ -121,7 +121,38 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126872""></a>
+<div id="allnotes">  <a name="127211""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#127211" class="date">02-Jul-2022 10:24</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here a way to handle specific files from a zip archive without full extract :<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$zip_file </span><span class="keyword">= </span><span class="string">'/path/to/file.zip'</span><span class="keyword">; </span><span class="comment">// I wan to get stream a CSV files<br />
+<br />
+</span><span class="default">$zip </span><span class="keyword">= new </span><span class="default">ZipArchive</span><span class="keyword">();<br />
+</span><span class="default">$zip</span><span class="keyword">-&gt;</span><span class="default">open</span><span class="keyword">(</span><span class="default">$zip_file</span><span class="keyword">);<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$zip</span><span class="keyword">-&gt;</span><span class="default">numFiles</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) { </span><span class="comment">// Check file by file<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$name </span><span class="keyword">= </span><span class="default">$zip</span><span class="keyword">-&gt;</span><span class="default">getNameIndex</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">); </span><span class="comment">// Retrieve entry name<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$extension </span><span class="keyword">= </span><span class="default">pathinfo</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">PATHINFO_EXTENSION</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">$extension </span><span class="keyword">=== </span><span class="string">'csv'</span><span class="keyword">) { </span><span class="comment">// I want to handle csv files<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stream </span><span class="keyword">= </span><span class="default">$zip</span><span class="keyword">-&gt;</span><span class="default">getStream</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">); </span><span class="comment">// No stream index access before PHP 8.2<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // Starting PHP 8.2 $zip-&gt;getStreamIndex() or $zip-&gt;getStreamName()<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // Do stuff with $stream<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // ...<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">}<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126872""></a>
   <div class="note">
    <strong class="user">oleg at andreyev dot lv</strong>
    <a href="#126872" class="date">23-Feb-2022 08:12</a>

@@ -8,17 +8,6 @@ String.prototype.toInt = function() {
   return parseInt(this);
 };
 
-/** {{{
-* jQuery.ScrollTo - Easy element scrolling using jQuery.
-* Copyright (c) 2007-2013 Ariel Flesler - aflesler<a>gmail<d>com | http://flesler.blogspot.com
-* Dual licensed under MIT and GPL.
-* @author Ariel Flesler
-* @version 2.1.2
-*/
-;(function(f){"use strict";"function"===typeof define&&define.amd?define(["jquery"],f):"undefined"!==typeof module&&module.exports?module.exports=f(require("jquery")):f(jQuery)})(function($){"use strict";function n(a){return!a.nodeName||-1!==$.inArray(a.nodeName.toLowerCase(),["iframe","#document","html","body"])}function h(a){return $.isFunction(a)||$.isPlainObject(a)?a:{top:a,left:a}}var p=$.scrollTo=function(a,d,b){return $(window).scrollTo(a,d,b)};p.defaults={axis:"xy",duration:0,limit:!0};$.fn.scrollTo=function(a,d,b){"object"=== typeof d&&(b=d,d=0);"function"===typeof b&&(b={onAfter:b});"max"===a&&(a=9E9);b=$.extend({},p.defaults,b);d=d||b.duration;var u=b.queue&&1<b.axis.length;u&&(d/=2);b.offset=h(b.offset);b.over=h(b.over);return this.each(function(){function k(a){var k=$.extend({},b,{queue:!0,duration:d,complete:a&&function(){a.call(q,e,b)}});r.animate(f,k)}if(null!==a){var l=n(this),q=l?this.contentWindow||window:this,r=$(q),e=a,f={},t;switch(typeof e){case "number":case "string":if(/^([+-]=?)?\d+(\.\d+)?(px|%)?$/.test(e)){e= h(e);break}e=l?$(e):$(e,q);case "object":if(e.length===0)return;if(e.is||e.style)t=(e=$(e)).offset()}var v=$.isFunction(b.offset)&&b.offset(q,e)||b.offset;$.each(b.axis.split(""),function(a,c){var d="x"===c?"Left":"Top",m=d.toLowerCase(),g="scroll"+d,h=r[g](),n=p.max(q,c);t?(f[g]=t[m]+(l?0:h-r.offset()[m]),b.margin&&(f[g]-=parseInt(e.css("margin"+d),10)||0,f[g]-=parseInt(e.css("border"+d+"Width"),10)||0),f[g]+=v[m]||0,b.over[m]&&(f[g]+=e["x"===c?"width":"height"]()*b.over[m])):(d=e[m],f[g]=d.slice&& "%"===d.slice(-1)?parseFloat(d)/100*n:d);b.limit&&/^\d+$/.test(f[g])&&(f[g]=0>=f[g]?0:Math.min(f[g],n));!a&&1<b.axis.length&&(h===f[g]?f={}:u&&(k(b.onAfterFirst),f={}))});k(b.onAfter)}})};p.max=function(a,d){var b="x"===d?"Width":"Height",h="scroll"+b;if(!n(a))return a[h]-$(a)[b.toLowerCase()]();var b="client"+b,k=a.ownerDocument||a.document,l=k.documentElement,k=k.body;return Math.max(l[h],k[h])-Math.min(l[b],k[b])};$.Tween.propHooks.scrollLeft=$.Tween.propHooks.scrollTop={get:function(a){return $(a.elem)[a.prop]()}, set:function(a){var d=this.get(a);if(a.options.interrupt&&a._last&&a._last!==d)return $(a.elem).stop();var b=Math.round(a.now);d!==b&&($(a.elem)[a.prop](b),a._last=this.get(a))}};return p});
-/*}}}*/
-
-
 var PHP_NET = {};
 
 PHP_NET.HEADER_HEIGHT = 0;
@@ -345,75 +334,62 @@ $(document).ready(function() {
         $this.append("<a class='genanchor' href='#" + $this.attr('id') + "'> ¶</a>");
     });
 
-    /* Don't load elephpants on browsers that don't support data: URIs.
-     * Unfortunately, the Modernizr test is asynchronous, so we have to spin
-     * until it actually gives us a yes or a no. */
-    var initElephpants = function () {
-        if (typeof Modernizr.datauri !== "undefined") {
-            var $elephpants = $(".elephpants");
+    (function () {
+        var $elephpants = $(".elephpants");
 
-            if (Modernizr.datauri) {
-                var $elephpantsImages = $elephpants.find('.images');
-                // load the elephpant images if elephpants div is in the dom.
-                $elephpantsImages.first().each(function (idx, node) {
+        var $elephpantsImages = $elephpants.find('.images');
+        // load the elephpant images if elephpants div is in the dom.
+        $elephpantsImages.first().each(function (idx, node) {
 
-                    // function to fetch and insert images.
-                    var fetchImages = function() {
+            // function to fetch and insert images.
+            var fetchImages = function() {
 
-                        // determine how many elephpants are required to fill the
-                        // viewport and subtract for any images we already have.
-                        var count = Math.ceil($(document).width() / 75)
-                                  - $elephpantsImages.find("img").length;
+                // determine how many elephpants are required to fill the
+                // viewport and subtract for any images we already have.
+                var count = Math.ceil($(document).width() / 75)
+                            - $elephpantsImages.find("img").length;
 
-                        // early exit if we don't need any images.
-                        if (count < 1) {
-                            return;
+                // early exit if we don't need any images.
+                if (count < 1) {
+                    return;
+                }
+
+                // do the fetch.
+                $.ajax({
+                    url:      '/images/elephpants.php?count=' + count,
+                    dataType: 'json',
+                    success:  function(data) {
+                        var photo, image;
+                        for (photo in data) {
+                            photo = data[photo];
+                            link  = $('<a>');
+                            link.attr('href',    photo.url);
+                            link.attr('title',   photo.title);
+                            image = $('<img>');
+                            image.attr('src',    'data:image/jpeg;base64,' + photo.data);
+                            $(node).append(link.append(image));
                         }
-
-                        // do the fetch.
-                        $.ajax({
-                            url:      '/images/elephpants.php?count=' + count,
-                            dataType: 'json',
-                            success:  function(data) {
-                                var photo, image;
-                                for (photo in data) {
-                                    photo = data[photo];
-                                    link  = $('<a>');
-                                    link.attr('href',    photo.url);
-                                    link.attr('title',   photo.title);
-                                    image = $('<img>');
-                                    image.attr('src',    'data:image/jpeg;base64,' + photo.data);
-                                    $(node).append(link.append(image));
-                                }
-                            },
-                            error:    function() {
-                                $elephpants.hide();
-                            }
-                        });
-
+                    },
+                    error:    function() {
+                        $elephpants.hide();
                     }
-
-                    // begin by fetching the images we need now.
-                    fetchImages();
-
-                    // fetch more if viewport gets larger.
-                    var deferred = null;
-                    $(window).resize(function() {
-                        window.clearTimeout(deferred);
-                        deferred = window.setTimeout(function(){
-                            fetchImages();
-                        }, 250);
-                    });
                 });
-            } else {
-                $elephpants.hide();
+
             }
-        } else {
-            // Modernizr is still testing; check again in 100 ms.
-            window.setTimeout(initElephpants, 100);
-        }
-    };
-    initElephpants();
+
+            // begin by fetching the images we need now.
+            fetchImages();
+
+            // fetch more if viewport gets larger.
+            var deferred = null;
+            $(window).resize(function() {
+                window.clearTimeout(deferred);
+                deferred = window.setTimeout(function(){
+                    fetchImages();
+                }, 250);
+            });
+        });
+    })();
 
     // We have <p> tags generated with nothing in them and it requires a PHD change, meanwhile this fixes it.
     $refsect1.find('p').each(function() {

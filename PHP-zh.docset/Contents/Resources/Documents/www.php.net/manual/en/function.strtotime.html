@@ -236,35 +236,6 @@ So if you wrap strtotime() in this manner with a nullable $baseTime, make sure i
    </div>
   </div>
  <div class="foot"></div>
-  <a name="125853""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#125853" class="date">22-Feb-2021 05:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I appreciate all the DateTime responses but I do not get an accurate system date from DateTime only from strtotime in linux</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125790""></a>
-  <div class="note">
-   <strong class="user">berniev</strong>
-   <a href="#125790" class="date">07-Feb-2021 10:44</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In modern 64-bit systems (tested on mac) the old 1970 to 2038 date range limitations are gone.<br />
-<br />
-strtotime("0001-10-30") gives int(-62109540728)<br />
-strtotime("6788-10-30") gives int(152067506400)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="125608""></a>
   <div class="note">
    <strong class="user">Black Hat Rocker</strong>
@@ -299,27 +270,6 @@ strtotime();<br />
 exemplo strtotime(date("Y-m-d") . "+1month");<br />
 <br />
 A strtotime tamb¨¦m funciona quando concatenamos strings,</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="123547""></a>
-  <div class="note">
-   <strong class="user">Aleksandr</strong>
-   <a href="#123547" class="date">25-Jan-2019 11:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-We can get timestamp from RFC 2822:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-$time </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'Mon, 30 Jun 2014 11:30:00 +0400'</span><span class="keyword">); </span><span class="comment">// timestamp from RFC 2822<br />
-</span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'Y-m-d H:i:s'</span><span class="keyword">, </span><span class="default">$time</span><span class="keyword">); </span><span class="comment">// 2014-06-30 10:30:00<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -484,54 +434,6 @@ It was really pazzling to me to read about parsing a string into a Unix timestam
    </div>
   </div>
  <div class="foot"></div>
-  <a name="121936""></a>
-  <div class="note">
-   <strong class="user">ivijan dot stefan at gmail dot com</strong>
-   <a href="#121936" class="date">29-Nov-2017 07:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In some countries I noticed that people storing in database strings like 20h or 20u what is equal to 20:00 and 21h30 or 21u30 what is equal to 21:30.<br />
-<br />
-strtotime() not understand that string and comparing or time modulation can be tricky. Because of that I wrote one good solution for it:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">bo_strtotime</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; if(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/([0-9]+)[uh]{1}/i'</span><span class="keyword">,</span><span class="default">$string</span><span class="keyword">))<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$string </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(array(</span><span class="string">'/[uh]/i'</span><span class="keyword">,</span><span class="string">'/:(?![0-9]+)/'</span><span class="keyword">), array(</span><span class="string">':'</span><span class="keyword">,</span><span class="string">':00'</span><span class="keyword">), </span><span class="default">$string</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">strtotime</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br />
-}<br />
-<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-This small function acts same like strtotime() only it accept 20u and 20h and convert into normal time, after that in normal unix timestamp.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="121538""></a>
-  <div class="note">
-   <strong class="user">jhonnymakis at gmail dot com</strong>
-   <a href="#121538" class="date">18-Aug-2017 05:44</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Should output '2017-06-30' but show '2017-07-01'<br />
-<br />
-$d = new DateTime( '2017-07-31' );<br />
-$d-&gt;modify( 'last month' );<br />
-echo $d-&gt;format( 'Y-m-d' );</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="121494""></a>
   <div class="note">
    <strong class="user">Steve GS</strong>
@@ -561,62 +463,6 @@ HTH</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="120703""></a>
-  <div class="note">
-   <strong class="user">alex at newpathconsulting dot com</strong>
-   <a href="#120703" class="date">24-Feb-2017 01:37</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be careful when sending a NULL string to strtotime() - it evaluates NULL to 0 and thus returns the UNIX timestamp at 0 (December 31, 1969).<br />
-<br />
-Can evaluate the string first like so ($dateString contains string):<br />
-<br />
-$dateString ? date('d-m-Y', strtotime($dateString ))</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="118999""></a>
-  <div class="note">
-   <strong class="user">trurl at mcbyte dot net</strong>
-   <a href="#118999" class="date">15-Mar-2016 09:03</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be carefull with weekdays names<br />
-<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'r'</span><span class="keyword">,</span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"Thursday 01:15"</span><span class="keyword">)), </span><span class="string">"\n"</span><span class="keyword">; </span><span class="default">?&gt;<br />
-</span>returns something like "Thu, 17 Mar 2016 01:15:00 +0200"<br />
-but <br />
-<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'r'</span><span class="keyword">,</span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"Thursdays 01:15"</span><span class="keyword">)), </span><span class="string">"\n"</span><span class="keyword">; </span><span class="default">?&gt;<br />
-</span>returns "Thu, 17 Mar 2016 09:15:00 +0200".<br />
-<br />
-So "s" at end mean "+8 hours".</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="117622""></a>
-  <div class="note">
-   <strong class="user">Andrey Kabakchiev</strong>
-   <a href="#117622" class="date">10-Jul-2015 12:48</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Actually the top-voted comment from 'sam at frontiermedia dot net dot au' is not quite right, as is the documentation Note. The correct assumptions made by strtotime() are:<br />
-<br />
-Forward slashes (/) assume US formatted dates, e.g mm/dd/yy<br />
-<br />
-Periods (.) assume Non-US dates, e.g dd.mm.yy<br />
-<br />
-Hypens (-) assume ISO 8601 (ATOM) formatted dates, e.g yy-mm-dd</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="116891""></a>
   <div class="note">
    <strong class="user">joe at strtotime dot co dot uk</strong>
@@ -626,59 +472,6 @@ Hypens (-) assume ISO 8601 (ATOM) formatted dates, e.g yy-mm-dd</span>
 <code><span class="html">
 A useful testing tool for strtotime() and unix timestamp conversion:<br />
 <a href="http://strtotime.co.uk/" rel="nofollow" target="_blank">http://strtotime.co.uk/</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116826""></a>
-  <div class="note">
-   <strong class="user">gabriel dot rempel at gmail dot com</strong>
-   <a href="#116826" class="date">05-Mar-2015 01:02</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-// small function auto detect to convert date<br />
-<br />
-function formatDate($date)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; if (strpos($date,'/') !== false) :<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $date = str_replace('/', '-', $date);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $date = date('Y-m-d h:i:s', strtotime($date));<br />
-&nbsp;&nbsp;&nbsp; else :<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $date = date('d-m-Y h:i:s', strtotime($date));<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $date = str_replace('-', '/', $date);<br />
-&nbsp;&nbsp;&nbsp; endif;<br />
-&nbsp;&nbsp;&nbsp; return $date;<br />
-}</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114545""></a>
-  <div class="note">
-   <strong class="user">peixoto at live dot com</strong>
-   <a href="#114545" class="date">05-Mar-2014 12:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php strtotime</span><span class="keyword">(</span><span class="string">'-5 weeks monday'</span><span class="keyword">) </span><span class="default">?&gt;</span> returns the monday of 5 weeks ago.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114462""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#114462" class="date">23-Feb-2014 03:13</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be aware that you cannot rely on this function alone to validate a date, as it will accept insane dates like the 31st of February.<br />
-<br />
-Also, the '... week' functionality by itself may not do what you expect. If used on a Sunday, 'next week' will not return a timestamp of the next Monday, but of the Monday after that. Similarly, a timestamp for the Monday of the current week is returned when 'previous/last week' is used and 'this week' returns a stamp of the Monday of the next week (i.e. the following day). This is not the 'week starts on Sunday' effect, as that would mean all the timestamps returned would have to be on a Sunday and none of them are.</span>
 </code>
     </div>
    </div>
@@ -829,50 +622,6 @@ For more information about ISO-8601 and ISO week date:
    </div>
   </div>
  <div class="foot"></div>
-  <a name="104368""></a>
-  <div class="note">
-   <strong class="user">Annomoys</strong>
-   <a href="#104368" class="date">11-Jun-2011 03:43</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Strtotime() can be used to loop through date range.
-<br />
-as follows
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$start </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'2009-02-01'</span><span class="keyword">);
-<br />
-</span><span class="default">$end </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'2009-03-10'</span><span class="keyword">);
-<br />
-</span><span class="default">$date </span><span class="keyword">= </span><span class="default">$start</span><span class="keyword">;
-<br />
-while(</span><span class="default">$date </span><span class="keyword">&lt; </span><span class="default">$end</span><span class="keyword">)
-<br />
-{
-<br />
-
-<br />
-&nbsp;&nbsp; </span><span class="comment">//write your code here
-<br />
-&nbsp;&nbsp; </span><span class="default">$date </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"+1 day"</span><span class="keyword">, </span><span class="default">$date</span><span class="keyword">);(</span><span class="default">counter</span><span class="keyword">)
-<br />
-
-<br />
-}
-<br />
-
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="102491""></a>
   <div class="note">
    <strong class="user">a dot fruchi at bit-runners dot com</strong>
@@ -888,60 +637,6 @@ If you want to confront a date stored into mysql as a date field (not a datetime
 </span><span class="keyword">echo </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'2011-01-01'</span><span class="keyword">); </span><span class="comment">//1293836400<br />
 </span><span class="keyword">echo </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'first day of last month'</span><span class="keyword">); </span><span class="comment">//1293888128 Note: it's different from the previous one, since it computes also the seconds passed from midnight!!! So this one is always greater than simple '2011-01-01'<br />
 </span><span class="keyword">echo </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'midnight first day of last monty'</span><span class="keyword">);</span><span class="comment">//1293836400 Note: it's the same as '2011-01-01'<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="101702""></a>
-  <div class="note">
-   <strong class="user">nyctimus at yahoo dot com</strong>
-   <a href="#101702" class="date">05-Jan-2011 05:54</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-strtotime() produces different output on 32 and 64 bit systems running PHP 5.3.3 (as mentioned previously).&nbsp; This affects the "zero date" ("0000-00-00 00:00:00") as well as dates outside the traditional 32 date range.<br />
-<br />
-strtotime("0000-00-00 00:00:00") returns FALSE on a 32 bit system.<br />
-strtotime("0000-00-00 00:00:00") returns -62169955200 on a 64 bit system.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="101508""></a>
-  <div class="note">
-   <strong class="user">x at xero dot nu</strong>
-   <a href="#101508" class="date">21-Dec-2010 09:41</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-strtotime is awesome for converting dates.
-<br />
-in this example i will make an RSS date, an
-<br />
-ATOM date, then convert them to a human
-<br />
-readable m/d/Y dates.
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$rss </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">"r"</span><span class="keyword">);
-<br />
-</span><span class="default">$atom </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">"c"</span><span class="keyword">);
-<br />
-</span><span class="default">$human1 </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'m/d/Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="default">$rss</span><span class="keyword">));
-<br />
-</span><span class="default">$human2 </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'m/d/Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="default">$atom</span><span class="keyword">));
-<br />
-
-<br />
-echo </span><span class="default">$rss</span><span class="keyword">.</span><span class="string">"&lt;br /&gt;"</span><span class="keyword">.</span><span class="default">$atom</span><span class="keyword">.</span><span class="string">"&lt;br /&gt;"</span><span class="keyword">.</span><span class="default">$human1</span><span class="keyword">.</span><span class="string">"&lt;br /&gt;"</span><span class="keyword">.</span><span class="default">$human2</span><span class="keyword">;
 <br />
 </span><span class="default">?&gt;</span>
 </span>
@@ -1003,153 +698,6 @@ A possible solution is to remove useless week day before passing the date string
 <br />
 &nbsp;&nbsp; </span><span class="default">$d3 </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="default">$date_string</span><span class="keyword">);
 <br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="100144""></a>
-  <div class="note">
-   <strong class="user">sam at frontiermedia dot net dot au</strong>
-   <a href="#100144" class="date">28-Sep-2010 03:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I've had a little trouble with this function in the past because (as some people have pointed out) you can't really set a locale for strtotime. If you're American, you see 11/12/10 and think "12 November, 2010". If you're Australian (or European), you think it's 11 December, 2010. If you're a sysadmin who reads in ISO, it looks like 10th December 2011.
-<br />
-
-<br />
-The best way to compensate for this is by modifying your joining characters. Forward slash (/) signifies American M/D/Y formatting, a dash (-) signifies European D-M-Y and a period (.) signifies ISO Y.M.D.
-<br />
-
-<br />
-Observe:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">"jS F, Y"</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"11.12.10"</span><span class="keyword">));
-<br />
-</span><span class="comment">// outputs 10th December, 2011
-<br />
-
-<br />
-</span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">"jS F, Y"</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"11/12/10"</span><span class="keyword">));
-<br />
-</span><span class="comment">// outputs 12th November, 2010
-<br />
-
-<br />
-</span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">"jS F, Y"</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"11-12-10"</span><span class="keyword">));
-<br />
-</span><span class="comment">// outputs 11th December, 2010&nbsp; 
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Hope this helps someone!</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="99992""></a>
-  <div class="note">
-   <strong class="user">Tim</strong>
-   <a href="#99992" class="date">18-Sep-2010 09:52</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Unlike "yesterday 14:00", "14:00 yesterday" will return 00:00 of yesterday.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="99149""></a>
-  <div class="note">
-   <strong class="user">Stefan Kunstmann</strong>
-   <a href="#99149" class="date">30-Jul-2010 06:32</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-UK dates (eg. 27/05/1990) won't work with strotime, even with timezone properly set. 
-<br />
-
-<br />
-/*
-<br />
-However, if you just replace "/" with "-" it will work fine.
-<br />
-<span class="default">&lt;?php
-<br />
-$timestamp </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'/'</span><span class="keyword">, </span><span class="string">'-'</span><span class="keyword">, </span><span class="string">'27/05/1990'</span><span class="keyword">));
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>*/
-<br />
-
-<br />
-[red., derick]: What you instead should do is:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$date </span><span class="keyword">= </span><span class="default">date_create_from_format</span><span class="keyword">(</span><span class="string">'d/m/y'</span><span class="keyword">, </span><span class="string">'27/05/1990'</span><span class="keyword">);
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-That does not make it a timestamp, but a DateTime object, which is much more versatile instead.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="94184""></a>
-  <div class="note">
-   <strong class="user">kooshal at live dot com</strong>
-   <a href="#94184" class="date">21-Oct-2009 06:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-when using PHP 5.3, you must use date_default_timezone_set() to set the time zone otherwise you will get warning similar to this (if you have display_errors=On)&mdash;<br />
-<br />
-Warning: date() [function.date]: It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'Asia/Dubai' for '4.0/no DST' instead in path/to/php/script.php<br />
-on line ##<br />
-<br />
-Example:<br />
-date_default_timezone_set('Indian/Mauritius');<br />
-<br />
-For a list of supported timezones in PHP, see <a href="http://www.php.net/manual/en/timezones.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/timezones.php</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="93898""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#93898" class="date">05-Oct-2009 03:47</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This function DOES NOT work from left-to-right as one would think. This function parses the string as a whole, then applies the intervals by size (year, month, ...). Take the following example:<br />
-<br />
-<span class="default">&lt;?php<br />
-$Date </span><span class="keyword">= </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'2011-02-22'</span><span class="keyword">); </span><span class="comment">// February 22nd, 2011. 28 days in this month, 29 next year.<br />
-</span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'n/j/Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'+1 year, +7 days'</span><span class="keyword">, </span><span class="default">$Date</span><span class="keyword">)); </span><span class="comment">// add 1 year and 7 days. prints 2/29/2012<br />
-</span><span class="keyword">echo </span><span class="string">"&lt;br /&gt;"</span><span class="keyword">;<br />
-echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'n/j/Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'+7 days, +1 year'</span><span class="keyword">, </span><span class="default">$Date</span><span class="keyword">)); </span><span class="comment">// add 7 days and 1 year, but this also prints 2/29/2012<br />
-</span><span class="keyword">echo </span><span class="string">"&lt;br /&gt;"</span><span class="keyword">;<br />
-echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'n/j/Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'+1 year'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'+7 days'</span><span class="keyword">, </span><span class="default">$Date</span><span class="keyword">))); </span><span class="comment">// this prints 3/1/2012, what the 2nd would do if it was left-to-right<br />
 </span><span class="default">?&gt;</span>
 </span>
 </code>
@@ -1234,90 +782,6 @@ Weeknumbers are (probably) computed according to ISO-8601 specification, so doin
    </div>
   </div>
  <div class="foot"></div>
-  <a name="92725""></a>
-  <div class="note">
-   <strong class="user">Travis Pulley</strong>
-   <a href="#92725" class="date">06-Aug-2009 12:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be aware that if you are running 5.2.8, there is a memory leak with this function and it could cost someone valuable time finding out what the problem was. Per usual, running the latest (minor) version tends to be a good idea.<br />
-<br />
-See here: <a href="http://bugs.php.net/bug.php?id=46889" rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=46889</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="92600""></a>
-  <div class="note">
-   <strong class="user">php at davidstockton dot com</strong>
-   <a href="#92600" class="date">30-Jul-2009 09:04</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Adding a note to an already long page:<br />
-<br />
-Try to be as specific as you can with the string you pass in.&nbsp; For example<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'F'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'February'</span><span class="keyword">)); <br />
-</span><span class="default">?&gt;<br />
-</span><br />
-is not specific enough.&nbsp; Depending on the day of the month, you may get a different response.&nbsp; For a non-leap year, you'll get March if the _current day of the month_ is the 29th, 30th or 31st.&nbsp; If it's a leap year, you'll get March on the 30th or 31st of the month.&nbsp; The same thing will happen on the 31st of any month when you pass in the name of any month with less than 31 days.&nbsp; This happens because the strtotime() function will fill in missing parts from the current day.<br />
-<br />
-Assuming today is July 31, the timestamp returned by strtotime('February') will ultimately be seen as February 31 (non-existant obviously), which then is interpreted as March 3, thus giving a month name of March.<br />
-<br />
-Interestingly, adding the year or the day will give you back the expected month.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="91801""></a>
-  <div class="note">
-   <strong class="user">Killermonk</strong>
-   <a href="#91801" class="date">25-Jun-2009 04:13</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-You are not restricted to the same date ranges when running PHP on a 64-bit machine. This is because you are using 64-bit integers instead of 32-bit integers (at least if your OS is smart enough to use 64-bit integers in a 64-bit OS)<br />
-<br />
-The following code will produce difference output in 32 and 64 bit environments.<br />
-<br />
-var_dump(strtotime('1000-01-30'));<br />
-<br />
-32-bit PHP: bool(false)<br />
-64-bit PHP: int(-30607689600)<br />
-<br />
-This is true for php 5.2.* and 5.3<br />
-<br />
-Also, note that the anything about the year 10000 is not supported. It appears to use only the last digit in the year field. As such, the year 10000 is interpretted as the year 2000; 10086 as 2006, 13867 as 2007, etc</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="91165""></a>
-  <div class="note">
-   <strong class="user">viper7 at viper-7 dot com</strong>
-   <a href="#91165" class="date">28-May-2009 03:42</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Observed date formats that strtotime expects, it can be quite confusing, so hopefully this makes things a little clearer for some.<br />
-<br />
-mm/dd/yyyy - 02/01/2003&nbsp; - strtotime() returns : 1st February 2003<br />
-mm/dd/yy&nbsp;&nbsp; - 02/01/03&nbsp; &nbsp; - strtotime() returns : 1st February 2003<br />
-yyyy/mm/dd&nbsp; - 2003/02/01 - strtotime() returns : 1st February 2003<br />
-dd-mm-yyyy - 01-02-2003&nbsp; - strtotime() returns : 1st February 2003<br />
-yy-mm-dd&nbsp;&nbsp; - 03-02-01&nbsp; &nbsp; - strtotime() returns : 1st February 2003<br />
-yyyy-mm-dd - 2003-02-01&nbsp; - strtotime() returns : 1st February 2003</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="89755""></a>
   <div class="note">
    <strong class="user">fuhrysteve at gmail dot com</strong>
@@ -1336,47 +800,6 @@ echo </span><span class="default">$time</span><span class="keyword">.</span><spa
 <br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="70173""></a>
-  <div class="note">
-   <strong class="user">sgutauckis</strong>
-   <a href="#70173" class="date">05-Oct-2006 12:02</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The following might produce something different than you might expect:
-<br />
-<span class="default">&lt;?php 
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'l, F jS Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"third wednesday"</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"2006-11-01"</span><span class="keyword">))) . </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'l, F jS Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"third sunday"</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">"2006-01-01"</span><span class="keyword">)));
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>Produces:
-<br />
-Wednesday, November 22nd 2006
-<br />
-Sunday, January 22nd 2006
-<br />
-
-<br />
-The problem stems from strtotime when the requested day falls on the date passed to strtotime. If you look at your calendar you will see that they should return:
-<br />
-
-<br />
-Wednesday, November 15th 2006
-<br />
-Sunday, January 15th 2006
-<br />
-
-<br />
-Because the date falls on the day requested it skips that day.</span>
 </code>
     </div>
    </div>

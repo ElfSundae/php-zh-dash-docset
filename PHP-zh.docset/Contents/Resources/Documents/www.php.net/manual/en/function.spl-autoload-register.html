@@ -190,7 +190,98 @@ Fatal error: Class &#039;Foobar\InexistentClass&#039; not found in ...
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126119""></a>
+<div id="allnotes">  <a name="127239""></a>
+  <div class="note">
+   <strong class="user">abhijeet dot sweden at gmail dot com</strong>
+   <a href="#127239" class="date">09-Jul-2022 04:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Type#1:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">require_once(</span><span class="string">'Second.php'</span><span class="keyword">);<br />
+require_once(</span><span class="string">'First.php'</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$Second </span><span class="keyword">= new </span><span class="default">Second</span><span class="keyword">;<br />
+</span><span class="default">$Second</span><span class="keyword">-&gt;</span><span class="default">run_second</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$First </span><span class="keyword">= new </span><span class="default">First</span><span class="keyword">;<br />
+</span><span class="default">$First</span><span class="keyword">-&gt;</span><span class="default">run_first</span><span class="keyword">();<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+---------------------------------------------------------<br />
+Type#2:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+spl_autoload_register</span><span class="keyword">(function(</span><span class="default">$class</span><span class="keyword">){<br />
+&nbsp; </span><span class="comment">//<br />
+&nbsp; </span><span class="keyword">require_once(</span><span class="default">$class</span><span class="keyword">.</span><span class="string">'.php'</span><span class="keyword">);<br />
+});<br />
+<br />
+</span><span class="default">$Second </span><span class="keyword">= new </span><span class="default">Second</span><span class="keyword">;<br />
+</span><span class="default">$Second</span><span class="keyword">-&gt;</span><span class="default">run_second</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$First </span><span class="keyword">= new </span><span class="default">First</span><span class="keyword">;<br />
+</span><span class="default">$First</span><span class="keyword">-&gt;</span><span class="default">run_first</span><span class="keyword">();<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127183""></a>
+  <div class="note">
+   <strong class="user">Daniel Klein</strong>
+   <a href="#127183" class="date">18-Jun-2022 05:25</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you want to be able to run your PHP script from anywhere without changing to the directory first, use chdir(__DIR__) in the first file you run (not any includes):<br />
+<br />
+<span class="default">&lt;?php<br />
+spl_autoload_register</span><span class="keyword">();<br />
+</span><span class="default">chdir</span><span class="keyword">(</span><span class="default">__DIR__</span><span class="keyword">);<br />
+<br />
+For </span><span class="default">some reason</span><span class="keyword">, </span><span class="default">trying to </span><span class="keyword">use </span><span class="default">namespaced classes from within other namespaced classes fails otherwise</span><span class="keyword">.<br />
+<br />
+</span><span class="default">e</span><span class="keyword">.</span><span class="default">g</span><span class="keyword">. </span><span class="default">Running </span><span class="string">"php src/main.php" </span><span class="default">will fail</span><span class="keyword">, </span><span class="default">but </span><span class="string">"cd src &amp;&amp; php main.php" </span><span class="default">will work</span><span class="keyword">.<br />
+<br />
+</span><span class="default">src</span><span class="keyword">/</span><span class="default">main</span><span class="keyword">.</span><span class="default">php<br />
+</span><span class="keyword">&lt;?</span><span class="default">php<br />
+spl_autoload_register</span><span class="keyword">();<br />
+</span><span class="comment">//chdir(__DIR__); // Uncomment this to make it work from any directory<br />
+</span><span class="default">MyNamespace</span><span class="keyword">\</span><span class="default">MyClass</span><span class="keyword">::</span><span class="default">foo</span><span class="keyword">();<br />
+<br />
+</span><span class="default">src</span><span class="keyword">/</span><span class="default">MyNamespace</span><span class="keyword">/</span><span class="default">MyClass</span><span class="keyword">.</span><span class="default">php<br />
+</span><span class="keyword">&lt;?</span><span class="default">php<br />
+</span><span class="keyword">namespace </span><span class="default">MyNamespace</span><span class="keyword">;<br />
+<br />
+class </span><span class="default">MyClass </span><span class="keyword">{<br />
+&nbsp; public static function </span><span class="default">foo</span><span class="keyword">(): </span><span class="default">void </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">MyOtherClass</span><span class="keyword">::</span><span class="default">BAR</span><span class="keyword">; </span><span class="comment">// This will fail even if MyOtherClass.php is in the right place<br />
+&nbsp; </span><span class="keyword">}<br />
+}<br />
+<br />
+</span><span class="default">src</span><span class="keyword">/</span><span class="default">MyNamespace</span><span class="keyword">/</span><span class="default">MyOtherClass</span><span class="keyword">.</span><span class="default">php<br />
+</span><span class="keyword">&lt;?</span><span class="default">php<br />
+</span><span class="keyword">namespace </span><span class="default">MyNamespace</span><span class="keyword">;<br />
+<br />
+class </span><span class="default">MyOtherClass </span><span class="keyword">{<br />
+&nbsp; public const </span><span class="default">BAR </span><span class="keyword">= </span><span class="string">'baz'</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126119""></a>
   <div class="note">
    <strong class="user">kuzawinski dot marcin at nospam dot gmail dot com</strong>
    <a href="#126119" class="date">29-May-2021 05:36</a>

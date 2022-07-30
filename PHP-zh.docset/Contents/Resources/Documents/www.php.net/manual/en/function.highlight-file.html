@@ -122,7 +122,66 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127170""></a>
+<div id="allnotes">  <a name="127202""></a>
+  <div class="note">
+   <strong class="user">cehem</strong>
+   <a href="#127202" class="date">28-Jun-2022 05:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This little code returns the file formatted as an array, line by line. You are free to choose which lines to display, and/or to add the line numbers in front of them. Index 0 = Line 1<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">highlightArray</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$cssRegexp </span><span class="keyword">= </span><span class="string">'/\&lt;span style=\"([^\"]+)\"\&gt;/'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># formatte le fichier complet<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$highlitedFile </span><span class="keyword">= </span><span class="default">highlight_file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># retire le tag &lt;code&gt; et &lt;span&gt; g¨¦n¨¦ral<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$code </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$highlitedFile</span><span class="keyword">, </span><span class="default">36</span><span class="keyword">, -</span><span class="default">15</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># r¨¦cup¨¨re le css du &lt;span&gt; g¨¦n¨¦ral<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$globCss </span><span class="keyword">= </span><span class="default">preg_match</span><span class="keyword">(</span><span class="default">$cssRegexp</span><span class="keyword">, </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$highlitedFile</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">36</span><span class="keyword">), </span><span class="default">$matche</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$globCss </span><span class="keyword">= </span><span class="default">$matche</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># d¨¦coupe le fichier en array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$array </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'&lt;br /&gt;'</span><span class="keyword">, </span><span class="default">$code</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lastCss </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lines </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">(function(</span><span class="default">$line</span><span class="keyword">) use (&amp;</span><span class="default">$lastCss</span><span class="keyword">, </span><span class="default">$globCss</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># nettoie les lignes vides<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^(&amp;nbsp;)*$/'</span><span class="keyword">,</span><span class="default">$line</span><span class="keyword">)) </span><span class="default">$line </span><span class="keyword">= </span><span class="string">'&amp;nbsp;'</span><span class="keyword">; <br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># ajoute le dernier style ouvert s'il est stock¨¦<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(!empty(</span><span class="default">$lastCss</span><span class="keyword">)) </span><span class="default">$line </span><span class="keyword">= </span><span class="string">'&lt;span style="'</span><span class="keyword">.</span><span class="default">$lastCss </span><span class="keyword">.</span><span class="string">'"&gt;'</span><span class="keyword">. </span><span class="default">$line</span><span class="keyword">; <br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># compare les ouverture et fermetures de span<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$diff </span><span class="keyword">= </span><span class="default">substr_count</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">, </span><span class="string">'&lt;span'</span><span class="keyword">) - </span><span class="default">substr_count</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">, </span><span class="string">'&lt;/span'</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># s'il y a une diff¨¦rence, ferme tous les span et enregistre le dernier style<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">$diff </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">) { <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$line </span><span class="keyword">.= </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">'&lt;/span&gt;'</span><span class="keyword">, </span><span class="default">$diff</span><span class="keyword">); <br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lastCss </span><span class="keyword">= </span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="string">'/\&lt;span style=\"([^\"]+)\"\&gt;/'</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lastCss </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lastCss </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment"># restaure le css g¨¦n¨¦ral sur chaque ligne<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">return </span><span class="string">"&lt;span style=\"</span><span class="default">$globCss</span><span class="string">\"&gt;</span><span class="default">$line</span><span class="string">&lt;/span&gt;"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }, </span><span class="default">$array</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$lines</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127170""></a>
   <div class="note">
    <strong class="user">dev at tiagofranca dot com</strong>
    <a href="#127170" class="date">10-Jun-2022 05:37</a>
