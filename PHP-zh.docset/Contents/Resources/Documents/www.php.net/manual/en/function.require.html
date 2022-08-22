@@ -128,36 +128,6 @@ So when require() or require_once() fails - don't be surprised to see two messag
    </div>
   </div>
  <div class="foot"></div>
-  <a name="114328""></a>
-  <div class="note">
-   <strong class="user">moreau dot marc dot web at gmail dot com</strong>
-   <a href="#114328" class="date">07-Feb-2014 10:10</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Petit script pour r¨¦soudre le probl¨¨me de l'inclusion dans l'inclusion.<br />
-<br />
-A requiert B qui requiert C -&gt; l'on doit normalement faire correspondre le requiere de B en fonction de l'endroit ou se trouve A dans l'arborescence du site. Pas de souci, sauf si l'on est amen¨¦ ¨¤ requ¨¦rir B depuis une autre page, impossible alors de faire appel au C -&gt; cela retourne une erreur "fichier non trouv¨¦".<br />
-<br />
-Voici une solution qui marche sur tout type de configuration:<br />
-<br />
-Dans B:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-chdir</span><span class="keyword">(</span><span class="default">__DIR__</span><span class="keyword">); </span><span class="comment">//Sert ¨¤ indiquer ¨¤ PHP le dossier de r¨¦f¨¦rence de travail<br />
-<br />
-</span><span class="default">$file_to_require</span><span class="keyword">=</span><span class="default">realpath</span><span class="keyword">(</span><span class="string">'./../../adresse_de_C_relative_par_raport_a_B.php'</span><span class="keyword">); </span><span class="comment">//Cr¨¦e l'adresse absolue de C<br />
-<br />
-</span><span class="keyword">require(</span><span class="default">$file_to_require</span><span class="keyword">); unset(</span><span class="default">$file_to_require</span><span class="keyword">);<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="113116""></a>
   <div class="note">
    <strong class="user">hans at ratzinger dot com</strong>
@@ -273,64 +243,6 @@ I'm wondering if there is a method for declaring class public/private/protected 
    </div>
   </div>
  <div class="foot"></div>
-  <a name="83187""></a>
-  <div class="note">
-   <strong class="user">ricardo dot ferro at gmail dot com</strong>
-   <a href="#83187" class="date">14-May-2008 11:15</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Two functions to help:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">add_include_path </span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">func_get_args</span><span class="keyword">() AS </span><span class="default">$path</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) OR (</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) &amp;&amp; </span><span class="default">filetype</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) !== </span><span class="string">'dir'</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">"Include path '</span><span class="keyword">{</span><span class="default">$path</span><span class="keyword">}</span><span class="string">' not exists"</span><span class="keyword">, </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$paths </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="default">PATH_SEPARATOR</span><span class="keyword">, </span><span class="default">get_include_path</span><span class="keyword">());<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$paths</span><span class="keyword">) === </span><span class="default">false</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_push</span><span class="keyword">(</span><span class="default">$paths</span><span class="keyword">, </span><span class="default">$path</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">set_include_path</span><span class="keyword">(</span><span class="default">implode</span><span class="keyword">(</span><span class="default">PATH_SEPARATOR</span><span class="keyword">, </span><span class="default">$paths</span><span class="keyword">));<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-function </span><span class="default">remove_include_path </span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">func_get_args</span><span class="keyword">() AS </span><span class="default">$path</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$paths </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="default">PATH_SEPARATOR</span><span class="keyword">, </span><span class="default">get_include_path</span><span class="keyword">());<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ((</span><span class="default">$k </span><span class="keyword">= </span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$paths</span><span class="keyword">)) !== </span><span class="default">false</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; unset(</span><span class="default">$paths</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">]);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">count</span><span class="keyword">(</span><span class="default">$paths</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">"Include path '</span><span class="keyword">{</span><span class="default">$path</span><span class="keyword">}</span><span class="string">' can not be removed because it is the only"</span><span class="keyword">, </span><span class="default">E_USER_NOTICE</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">set_include_path</span><span class="keyword">(</span><span class="default">implode</span><span class="keyword">(</span><span class="default">PATH_SEPARATOR</span><span class="keyword">, </span><span class="default">$paths</span><span class="keyword">));<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="78517""></a>
   <div class="note">
    <strong class="user">Peter McDonald</strong>
@@ -366,48 +278,6 @@ If you want to verify that a file can be included or required, the simplest solu
 </span><span class="default">?&gt;<br />
 </span><br />
 Does it really need to be any harder than that?</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="77656""></a>
-  <div class="note">
-   <strong class="user">daniel at nohair dot com</strong>
-   <a href="#77656" class="date">06-Sep-2007 07:24</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I love php.&nbsp; But when file can't be included, 'require' or 'require_once' throw fatal error and halt the script, which is almost never desirable on a mission-critical production server.&nbsp; I think it may be better to use something like the following.&nbsp; <br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">if (@include </span><span class="string">'plan_A.php'</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Plan A;<br />
-</span><span class="keyword">} elseif (@include </span><span class="string">'plan_B.php'</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Plan B;<br />
-</span><span class="keyword">} else {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Hope never happens.&nbsp; If does, then Email the webmaster;<br />
-&nbsp;&nbsp;&nbsp; // Call 911, Medic, Fire, Police, the president;<br />
-&nbsp;&nbsp;&nbsp; // Change hard drive, server, hosting service;<br />
-</span><span class="keyword">}<br />
-<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Or handle trouble first is you wish<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">if (!@include </span><span class="string">'plan_A.php'</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Someone has kidnapped/corrupted Plan_A.php;<br />
-&nbsp;&nbsp;&nbsp; // Email the webmaster;<br />
-&nbsp;&nbsp;&nbsp; // Change hard drive, server, hosting service;<br />
-</span><span class="keyword">} else {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Plan A;<br />
-</span><span class="keyword">}<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -623,30 +493,6 @@ I use the following to make my PHP applications work in more situations:<br />
 </span><span class="default">?&gt;<br />
 </span><br />
 ...but even that gets tripped up by symlinks to different mount points, etc. You could substitute realpath($_SERVER['PATH_TRANSLATED']), but that function has been reported not to work on some (Windows) servers. One could use the PATH_TRANSLATED for both servers, but I figure if Apache is going to tell me exactly what I want to know, I should listen.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="52596""></a>
-  <div class="note">
-   <strong class="user">Marc</strong>
-   <a href="#52596" class="date">06-May-2005 10:42</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This will sound elementary, but for C++ native programmers, be sure NOT to put a '#' in front of your include statements! The parser will not give you an error, but also will not include the file, making for a tedious debugging process.<br />
-<br />
-In short, USE:<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp; &nbsp; </span><span class="keyword">include </span><span class="string">"yourfile.php"</span><span class="keyword">;<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-and DON'T use:<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp; &nbsp; </span><span class="comment">#include "yourfile.php";<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>

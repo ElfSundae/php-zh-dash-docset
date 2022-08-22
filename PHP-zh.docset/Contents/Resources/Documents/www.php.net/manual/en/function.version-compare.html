@@ -182,7 +182,139 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="118230""></a>
+<div id="allnotes">  <a name="127315""></a>
+  <div class="note">
+   <strong class="user">Lcuis</strong>
+   <a href="#127315" class="date">20-Jul-2022 10:05</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In case you need to handle more complex version numbers like alpha, beta,..., here is a little something that can help:<br />
+<br />
+function multiExplode($delimiters,$string){<br />
+&nbsp;&nbsp;&nbsp; $pattern = '/['.preg_quote($delimiters).']/';<br />
+&nbsp;&nbsp;&nbsp; return(preg_split( $pattern, $string ));<br />
+}<br />
+<br />
+function isInteger($input){<br />
+&nbsp;&nbsp;&nbsp; return(ctype_digit(strval($input)));<br />
+}<br />
+<br />
+function keepIntsStartArray($arr){<br />
+&nbsp;&nbsp;&nbsp; $nonIntMappings=[<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "alpha"=&gt;1,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "beta"=&gt;2,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "gamma"=&gt;3,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "delta"=&gt;4,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "epsilon"=&gt;5,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "zeta"=&gt;6,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "eta"=&gt;7,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "theta"=&gt;8,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "iota"=&gt;9,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "kappa"=&gt;10,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "lambda"=&gt;11,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "mu"=&gt;12,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "nu"=&gt;13,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "xi"=&gt;14,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "omicron"=&gt;15,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "pi"=&gt;16,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "rho"=&gt;17,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "sigma"=&gt;18,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "tau"=&gt;19,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "upsilon"=&gt;20,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "phi"=&gt;21,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "chi"=&gt;22,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "psi"=&gt;23,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "omega"=&gt;24,<br />
+&nbsp;&nbsp;&nbsp; ];<br />
+&nbsp;&nbsp;&nbsp; $ret=[];<br />
+&nbsp;&nbsp;&nbsp; foreach($arr as $i){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(!isInteger($i)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!array_key_exists($i,$nonIntMappings)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $ret[]=$nonIntMappings[$i];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $ret[]=$i;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return($ret);<br />
+}<br />
+<br />
+function appVersionBigger($v1,$v2,$orEqual=false){<br />
+&nbsp;&nbsp;&nbsp; $delimiters=".-+";<br />
+&nbsp;&nbsp;&nbsp; $a1=keepIntsStartArray(multiExplode($delimiters,$v1));<br />
+&nbsp;&nbsp;&nbsp; $a2=keepIntsStartArray(multiExplode($delimiters,$v2));<br />
+&nbsp;&nbsp;&nbsp; $len=count($a1);<br />
+&nbsp;&nbsp;&nbsp; if($len&gt;count($a2)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $len=count($a2);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; for($i=0;$i&lt;$len;$i++){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $n1=$a1[$i];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $n2=$a2[$i];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if($n1&gt;$n2){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return(true);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if($n1&lt;$n2){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return(false);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; if(count($a1)&gt;count($a2)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return(true);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; if(count($a1)&lt;count($a2)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return(false);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return($orEqual);<br />
+}<br />
+<br />
+// usage examples:<br />
+<br />
+$versions=[<br />
+&nbsp;&nbsp;&nbsp; "1.2.3-45"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.2.3-44"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.2.3-46"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.2.3"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.2.4"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.2.2"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.2"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.3"=&gt;"1.2.3-45",<br />
+&nbsp;&nbsp;&nbsp; "1.2.3-ios"=&gt;"1.2.3-and",<br />
+&nbsp;&nbsp;&nbsp; "1.2-ios"=&gt;"1.2.3-and",<br />
+&nbsp;&nbsp;&nbsp; "2-ios"=&gt;"1.2.3-and",<br />
+&nbsp;&nbsp;&nbsp; "1.2.3-alpha"=&gt;"1.2.3-beta",<br />
+&nbsp;&nbsp;&nbsp; "1.2.3-beta"=&gt;"1.2.3-alpha",<br />
+&nbsp;&nbsp;&nbsp; "1-gamma"=&gt;"1.2.3-beta",<br />
+&nbsp;&nbsp;&nbsp; "1-alpha"=&gt;"1.2.3-beta",<br />
+];<br />
+<br />
+foreach($versions as $v1=&gt;$v2){<br />
+&nbsp;&nbsp;&nbsp; echo("v1: ".$v1."\tv2: ".$v2."\tgt: ".(appVersionBigger($v1,$v2,false)?"true":"false")."\tge: ".(appVersionBigger($v1,$v2,true)?"true":"false")."\n");<br />
+}<br />
+<br />
+// output with php version 8.1.8:<br />
+/*<br />
+v1: 1.2.3-45&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: true<br />
+v1: 1.2.3-44&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: false<br />
+v1: 1.2.3-46&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: true&nbsp; &nbsp; ge: true<br />
+v1: 1.2.3&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: false<br />
+v1: 1.2.4&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: true&nbsp; &nbsp; ge: true<br />
+v1: 1.2.2&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: false<br />
+v1: 1.2&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: false<br />
+v1: 1.3&nbsp; &nbsp; v2: 1.2.3-45&nbsp; &nbsp; gt: true&nbsp; &nbsp; ge: true<br />
+v1: 1.2.3-ios&nbsp; &nbsp; v2: 1.2.3-and&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: true<br />
+v1: 1.2-ios&nbsp; &nbsp; v2: 1.2.3-and&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: false<br />
+v1: 2-ios&nbsp; &nbsp; v2: 1.2.3-and&nbsp; &nbsp; gt: true&nbsp; &nbsp; ge: true<br />
+v1: 1.2.3-alpha&nbsp; &nbsp; v2: 1.2.3-beta&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: false<br />
+v1: 1.2.3-beta&nbsp; &nbsp; v2: 1.2.3-alpha&nbsp; &nbsp; gt: true&nbsp; &nbsp; ge: true<br />
+v1: 1-gamma&nbsp; &nbsp; v2: 1.2.3-beta&nbsp; &nbsp; gt: true&nbsp; &nbsp; ge: true<br />
+v1: 1-alpha&nbsp; &nbsp; v2: 1.2.3-beta&nbsp; &nbsp; gt: false&nbsp; &nbsp; ge: false<br />
+*/</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="118230""></a>
   <div class="note">
    <strong class="user">Bob Ray</strong>
    <a href="#118230" class="date">29-Oct-2015 11:07</a>

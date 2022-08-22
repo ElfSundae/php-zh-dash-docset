@@ -121,7 +121,9 @@
       <tr>
        <td><code class="literal">time</code></td>
        <td><span class="type">string</span></td>
-       <td><strong><code>DateTimeInterface::ISO8601</code></strong> time string</td>
+       <td><strong><code>DateTimeInterface::ISO8601_EXPANDED</code></strong> (PHP
+       8.2 and later), or <strong><code>DateTimeInterface::ISO8601</code></strong> (PHP
+       8.1 and lower) time string</td>
       </tr>
 
       <tr>
@@ -153,7 +155,7 @@
  <div class="refsect1 examples" id="refsect1-datetimezone.gettransitions-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2041">
+   <div class="example" id="example-2043">
     <p><strong>Example #1 A <span class="function"><a href="function.timezone-transitions-get.html" class="function">timezone_transitions_get()</a></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -199,7 +201,7 @@ Array
     </div>
    </div>
 
-   <div class="example" id="example-2042">
+   <div class="example" id="example-2044">
     <p><strong>Example #2 A <span class="function"><a href="function.timezone-transitions-get.html" class="function">timezone_transitions_get()</a></span> example with
     <code class="parameter">timestampBegin</code> set</strong></p>
     <div class="example-contents">
@@ -253,129 +255,6 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="113678""></a>
-  <div class="note">
-   <strong class="user">rubo77</strong>
-   <a href="#113678" class="date">14-Nov-2013 05:06</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This will work&nbsp; in PHP_VERSION &lt; 5.3:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">/** returns an array with two elements for spring and fall DST in a given year<br />
-&nbsp;*&nbsp; works in PHP_VERSION &lt; 5.3<br />
-&nbsp;* <br />
-&nbsp;* @param integer $year<br />
-&nbsp;* @param string $tz timezone<br />
-&nbsp;* @return array<br />
-&nbsp;**/<br />
-</span><span class="keyword">function </span><span class="default">getTransitionsForYear</span><span class="keyword">(</span><span class="default">$year</span><span class="keyword">=</span><span class="default">null</span><span class="keyword">, </span><span class="default">$tz </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">){<br />
-&nbsp;&nbsp;&nbsp; if(!</span><span class="default">$year</span><span class="keyword">) </span><span class="default">$year</span><span class="keyword">=</span><span class="default">date</span><span class="keyword">(</span><span class="string">"Y"</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp;&nbsp; if (!</span><span class="default">$tz</span><span class="keyword">) </span><span class="default">$tz </span><span class="keyword">= </span><span class="default">date_default_timezone_get</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$timeZone </span><span class="keyword">= new </span><span class="default">DateTimeZone</span><span class="keyword">(</span><span class="default">$tz</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp;&nbsp; if (</span><span class="default">version_compare</span><span class="keyword">(</span><span class="default">PHP_VERSION</span><span class="keyword">, </span><span class="string">'5.3.0'</span><span class="keyword">) &gt;= </span><span class="default">0</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$transitions </span><span class="keyword">= </span><span class="default">$timeZone</span><span class="keyword">-&gt;</span><span class="default">getTransitions</span><span class="keyword">(</span><span class="default">mktime</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">$year</span><span class="keyword">),</span><span class="default">mktime</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">11</span><span class="keyword">, </span><span class="default">31</span><span class="keyword">, </span><span class="default">$year</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$index</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; } else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// since 1980 it is regular, the 29th element is 1980-04-06<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // change this in your timezone<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$first_regular_index</span><span class="keyword">=</span><span class="default">29</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$first_regular_year</span><span class="keyword">=</span><span class="default">1980</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$transitions </span><span class="keyword">= </span><span class="default">$timeZone</span><span class="keyword">-&gt;</span><span class="default">getTransitions</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$index</span><span class="keyword">=(</span><span class="default">$year</span><span class="keyword">-</span><span class="default">$first_regular_year</span><span class="keyword">)*</span><span class="default">2</span><span class="keyword">+</span><span class="default">$first_regular_index</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">array_slice</span><span class="keyword">(</span><span class="default">$transitions</span><span class="keyword">, </span><span class="default">$index</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br />
-}</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="113670""></a>
-  <div class="note">
-   <strong class="user">rubo77</strong>
-   <a href="#113670" class="date">14-Nov-2013 05:04</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This function will work in PHP &lt; 5.3 :<br />
-<br />
-/** returns an array with two elements for spring and fall DST in a given year<br />
-&nbsp;*<br />
-&nbsp;* @param integer $year<br />
-&nbsp;* @param string $tz timezone<br />
-&nbsp;* @return array<br />
-&nbsp;**/<br />
-function getTransitionsForYear($year=null, $tz = null){<br />
-&nbsp;&nbsp;&nbsp; if(!$year) $year=date("Y");<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; if (!$tz) $tz = date_default_timezone_get();<br />
-&nbsp;&nbsp;&nbsp; $timeZone = new DateTimeZone($tz);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; $transitions = $timeZone-&gt;getTransitions(mktime(0, 0, 0, 1, 1, $year));<br />
-&nbsp;&nbsp;&nbsp; return array_slice($transitions, 1, 2);<br />
-}</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="112904""></a>
-  <div class="note">
-   <strong class="user">tanguy dot pruvot at gmail dot com</strong>
-   <a href="#112904" class="date">05-Aug-2013 01:38</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Beware if you use getTransitions() without a minimum date, it can be slow...</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="96574""></a>
-  <div class="note">
-   <strong class="user">scotts</strong>
-   <a href="#96574" class="date">05-Mar-2010 11:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Getting a timezone's offset and other data at a specified point in time (now, for example) using the new PHP5.3 parameters:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$theTime </span><span class="keyword">= </span><span class="default">time</span><span class="keyword">(); </span><span class="comment"># specific date/time we're checking, in epoch seconds.
-<br />
-
-<br />
-</span><span class="default">$tz </span><span class="keyword">= new </span><span class="default">DateTimeZone</span><span class="keyword">(</span><span class="string">'America/Los_Angeles'</span><span class="keyword">);
-<br />
-</span><span class="default">$transition </span><span class="keyword">= </span><span class="default">$tz</span><span class="keyword">-&gt;</span><span class="default">getTransitions</span><span class="keyword">(</span><span class="default">$theTime</span><span class="keyword">,</span><span class="default">$theTime</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="comment"># only one array should be returned into $transition. Now get the data:
-<br />
-</span><span class="default">$offset </span><span class="keyword">= </span><span class="default">$transition</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">'offset'</span><span class="keyword">];
-<br />
-</span><span class="default">$abbr </span><span class="keyword">= </span><span class="default">$transition</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">'abbr'</span><span class="keyword">];
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Before PHP5.3, you'd have to loop through all of the Transitions up until the current point in time, which would be a very inefficient process.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

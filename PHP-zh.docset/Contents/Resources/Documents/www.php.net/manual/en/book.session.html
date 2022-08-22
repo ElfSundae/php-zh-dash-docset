@@ -103,34 +103,7 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="116217""></a>
-  <div class="note">
-   <strong class="user">bouvrette dot nicolas at gmail dot com</strong>
-   <a href="#116217" class="date">23-Nov-2014 09:43</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be careful if you are updating to PHP 5.6 since the the Sessions's Write behavior changed.&nbsp; It now only writes the session if you changed the data. So this means that if you rely on your session to update an activity time stamp on the server (to control session expiry) you will end up having issues. Here is a quick fix if you are implementing SessionHandlerInterface:<br />
-<br />
-&nbsp;&nbsp;&nbsp; public function close() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;write($this-&gt;id, serialize($_SESSION));<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return true;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-Make sure you also use this:<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ini_set('session.serialize_handler', 'php_serialize'); // Force standard PHP functions handler for flexibility<br />
-<br />
-More details here:<br />
-<br />
-Request #17860 (Session write short circuit)<br />
-https://bugs.php.net/bug.php?id=17860</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="90351""></a>
+<div id="allnotes">  <a name="90351""></a>
   <div class="note">
    <strong class="user">e dot mortoray at ecircle dot com</strong>
    <a href="#90351" class="date">17-Apr-2009 05:02</a>

@@ -100,7 +100,7 @@
  <div class="refsect1 examples" id="refsect1-function.ldap-bind-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4260">
+   <div class="example" id="example-4262">
     <p><strong>Example #1 Ê¹ÓÃ LDAP Bind</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -110,7 +110,7 @@
     </div>
 
    </div>
-   <div class="example" id="example-4261">
+   <div class="example" id="example-4263">
     <p><strong>Example #2 Using LDAP Bind Anonymously</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -138,7 +138,37 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125082""></a>
+<div id="allnotes">  <a name="127351""></a>
+  <div class="note">
+   <strong class="user">php at richardneill dot org</strong>
+   <a href="#127351" class="date">27-Jul-2022 05:33</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+LDAPS over SSH port forwarding. <br />
+It may be that, when developing/debugging, you don't have direct access to the LDAP server.&nbsp; You can use SSH port-forwarding, but you need to disable the cert checks temporarily. Here's the easiest way to do it.<br />
+<br />
+//Enable debugging, so you can see what's failing.<br />
+ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL,7);<br />
+<br />
+//Disable the TLS certificate check (it will mismatch on the domain). Either<br />
+//edit /etc/ldap/ldap.conf and set "TLS_REQCERT never", or in your script:<br />
+putenv('LDAPTLS_REQCERT=never');<br />
+<br />
+//Point your ldaps url at localhost. E.g.<br />
+$ldap_url = "ldaps://localhost:63600";<br />
+<br />
+//Do the SSH port forward (in another terminal). E.g.<br />
+ssh -L 63600:your_real_ldap_server:636 your_proxy_server<br />
+<br />
+//And continue as normal...<br />
+ldap_connect($ldap_url);</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125082""></a>
   <div class="note">
    <strong class="user">peter dot mlich at volny dot cz</strong>
    <a href="#125082" class="date">05-Jun-2020 07:07</a>

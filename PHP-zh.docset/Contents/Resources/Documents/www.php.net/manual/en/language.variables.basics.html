@@ -218,42 +218,6 @@ variable scope are 3 types<br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="121752""></a>
-  <div class="note">
-   <strong class="user">baoquyen804 at gmail dot com</strong>
-   <a href="#121752" class="date">13-Oct-2017 01:50</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-When examining the variable name with the regular expression [a-zA-Z_ \ x7f- \ xff] [a-zA-Z0-9_ \ x7f- \ xff] this will cause an error:<br />
-<br />
-<span class="default">&lt;?php <br />
-$name</span><span class="keyword">=</span><span class="string">"aa'1'"</span><span class="keyword">;<br />
-if(!</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/'</span><span class="keyword">,</span><span class="default">$name</span><span class="keyword">))<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is not a valid PHP variable name'</span><span class="keyword">;<br />
-else<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is valid PHP variable name'</span><span class="keyword">;<br />
-</span><span class="comment">// output aa'1' is valid PHP variable name<br />
-//but:<br />
-</span><span class="default">$aa</span><span class="string">'1' </span><span class="keyword">= </span><span class="default">10</span><span class="keyword">; </span><span class="comment">// error syntac<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-instead use it ^[a-zA-Z][_]?[\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*<br />
-<br />
-<span class="default">&lt;?php <br />
-$name</span><span class="keyword">=</span><span class="string">"aa'1'"</span><span class="keyword">;<br />
-if(!</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^[a-zA-Z][_]?[\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/'</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">))<br />
-&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is not a valid PHP variable name'</span><span class="keyword">;<br />
-else<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is valid PHP variable name'</span><span class="keyword">;<br />
-</span><span class="comment">// output aa'1' is not valid PHP variable name<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="120617""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
@@ -278,43 +242,6 @@ With an editor that list all variable names in a separate window such "double" v
 <br />
 BTW:<br />
 It would have been better, if the PHP language would require to use some sort of keyword to define a variable the first time.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="101978""></a>
-  <div class="note">
-   <strong class="user">maurizio dot domba at pu dot t-com dot hr</strong>
-   <a href="#101978" class="date">21-Jan-2011 02:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you need to check user entered value for a proper PHP variable naming convention you need to add ^ to the above regular expression so that the regular expression should be '^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'.<br />
-<br />
-Example<br />
-<br />
-<span class="default">&lt;?php<br />
-$name</span><span class="keyword">=</span><span class="string">"20011aa"</span><span class="keyword">;<br />
-if(!</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/'</span><span class="keyword">,</span><span class="default">$name</span><span class="keyword">))<br />
-&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is not a valid PHP variable name'</span><span class="keyword">;<br />
-else<br />
-&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is valid PHP variable name'</span><span class="keyword">;<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Outputs: 2011aa is valid PHP variable name<br />
-<br />
-but<br />
-<br />
-<span class="default">&lt;?php<br />
-$name</span><span class="keyword">=</span><span class="string">"20011aa"</span><span class="keyword">;<br />
-if(!</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/'</span><span class="keyword">,</span><span class="default">$name</span><span class="keyword">))<br />
-&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is not a valid PHP variable name'</span><span class="keyword">;<br />
-else<br />
-&nbsp;&nbsp; echo </span><span class="default">$name</span><span class="keyword">.</span><span class="string">' is valid PHP variable name'</span><span class="keyword">;<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Outputs: 2011aa is not a valid PHP variable name</span>
 </code>
     </div>
    </div>

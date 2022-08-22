@@ -316,7 +316,37 @@ array(1) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126803""></a>
+<div id="allnotes">  <a name="127341""></a>
+  <div class="note">
+   <strong class="user">S2</strong>
+   <a href="#127341" class="date">26-Jul-2022 04:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+As noted the options not required or optional (parameter does not accept any value) only returns the index key with a value of FALSE when provided as an argument. That is counter-intuitive to how the option will likely be used, so simply leverage the keys existence and reset the variable's index for that option:<br />
+<br />
+<span class="default">&lt;?php <br />
+$options </span><span class="keyword">= </span><span class="default">getopt</span><span class="keyword">(</span><span class="string">''</span><span class="keyword">, [</span><span class="string">'update'</span><span class="keyword">, </span><span class="string">'insert'</span><span class="keyword">]);<br />
+</span><span class="default">$options</span><span class="keyword">[</span><span class="string">'update'</span><span class="keyword">] = </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">'update'</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">);<br />
+</span><span class="default">$options</span><span class="keyword">[</span><span class="string">'insert'</span><span class="keyword">] = </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">'insert'</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">);<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$options</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+shell&gt; php testfile.php --insert<br />
+<br />
+array(2) {<br />
+&nbsp; ["update"]=&gt;<br />
+&nbsp; bool(false)<br />
+&nbsp; ["insert"]=&gt;<br />
+&nbsp; bool(true)<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126803""></a>
   <div class="note">
    <strong class="user">Dominik Deobald</strong>
    <a href="#126803" class="date">26-Jan-2022 01:51</a>

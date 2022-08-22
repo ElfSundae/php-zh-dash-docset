@@ -152,7 +152,113 @@ C
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126959""></a>
+<div id="allnotes">  <a name="127364""></a>
+  <div class="note">
+   <strong class="user">5imun at github dot com</strong>
+   <a href="#127364" class="date">29-Jul-2022 07:38</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Example of setting up static property in child class from parent only if it isn't already defined, many people would expect that output will be "Foo Bar" but instead we get "Foo Foo":<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Foo<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public static </span><span class="default">string $A</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">init</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"Foo"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">get</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!isset(static::</span><span class="default">$A</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; static::</span><span class="default">$A </span><span class="keyword">= static::</span><span class="default">init</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return static::</span><span class="default">$A</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+class </span><span class="default">Bar </span><span class="keyword">extends </span><span class="default">Foo </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">init</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"Bar"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
+</span><span class="default">$bar </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">();<br />
+<br />
+echo </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">get</span><span class="keyword">();<br />
+echo </span><span class="default">$bar</span><span class="keyword">-&gt;</span><span class="default">get</span><span class="keyword">();<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Output:<br />
+Foo<br />
+Foo</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127363""></a>
+  <div class="note">
+   <strong class="user">5imun at github dot com</strong>
+   <a href="#127363" class="date">29-Jul-2022 07:14</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You must be careful when getting static property of extended class from parent class, in example below you can see that using property_exists (method getA2) instead of isset with static keyword (method getA1) to check if the static property exist gives much more intuitive result:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">Foo<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public static </span><span class="default">string $A</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">init</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return static::class;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">getA1</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!isset(static::</span><span class="default">$A</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; static::</span><span class="default">$A </span><span class="keyword">= static::class;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return static::</span><span class="default">$A</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">getA2</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">property_exists</span><span class="keyword">(static::class, </span><span class="string">'A'</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; static::</span><span class="default">$A </span><span class="keyword">= static::class;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return static::</span><span class="default">$A</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+class </span><span class="default">Bar </span><span class="keyword">extends </span><span class="default">Foo </span><span class="keyword">{}<br />
+<br />
+</span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
+echo </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">getA1</span><span class="keyword">();<br />
+echo </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">getA2</span><span class="keyword">();<br />
+echo </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">getA1</span><span class="keyword">();<br />
+<br />
+</span><span class="default">$bar </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">();<br />
+echo </span><span class="default">$bar</span><span class="keyword">-&gt;</span><span class="default">getA1</span><span class="keyword">();<br />
+echo </span><span class="default">$bar</span><span class="keyword">-&gt;</span><span class="default">getA2</span><span class="keyword">();<br />
+echo </span><span class="default">$bar</span><span class="keyword">-&gt;</span><span class="default">getA1</span><span class="keyword">();<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Output:<br />
+Foo<br />
+Foo<br />
+Foo<br />
+<br />
+Foo<br />
+Bar<br />
+Bar<br />
+<br />
+Notice how $bar-&gt;getA1() returns "Foo" instead of "Bar" that many people would expect to see.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126959""></a>
   <div class="note">
    <strong class="user">aabweber at gmail dot com</strong>
    <a href="#126959" class="date">27-Mar-2022 07:05</a>

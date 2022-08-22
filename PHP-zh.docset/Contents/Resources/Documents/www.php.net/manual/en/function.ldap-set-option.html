@@ -53,7 +53,9 @@
      <dd>
 
       <p class="para">
-       通过 <span class="function"><a href="function.ldap-connect.html" class="function">ldap_connect()</a></span> 返回的 <span class="classname"><a href="class.ldap-connection.html" class="classname">LDAP\Connection</a></span> 实例。
+       Either an <span class="classname"><a href="class.ldap-connection.html" class="classname">LDAP\Connection</a></span> instance, returned by
+       <span class="function"><a href="function.ldap-connect.html" class="function">ldap_connect()</a></span>, to set the option for that connection,
+       or <strong><code>null</code></strong> to set the option globally.
       </p>
      </dd>
 
@@ -326,7 +328,7 @@
  <div class="refsect1 examples" id="refsect1-function.ldap-set-option-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4284">
+   <div class="example" id="example-4286">
     <p><strong>Example #1 Set protocol version</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -336,7 +338,7 @@
     </div>
 
    </div>
-   <div class="example" id="example-4285">
+   <div class="example" id="example-4287">
     <p><strong>Example #2 Set server controls</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -375,7 +377,30 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124602""></a>
+<div id="allnotes">  <a name="127352""></a>
+  <div class="note">
+   <strong class="user">php at richardneill dot org</strong>
+   <a href="#127352" class="date">27-Jul-2022 05:41</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you want to disable the TLS cert check (e.g. because you are doing an SSH port-forward, and ldaps is pointing to localhost), then you must invoke:<br />
+<br />
+ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT,0)<br />
+*before* calling ldap_connect()<br />
+<br />
+If you try: <br />
+<br />
+$ds = ldap_connect(...)<br />
+ldap_set_option($ds, LDAP_OPT_X_TLS_REQUIRE_CERT,0)<br />
+<br />
+then the option won't actually take effect, and the certificate will be checked anyway, and a TLS failure will happen..</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124602""></a>
   <div class="note">
    <strong class="user">Maarten at Aerobe</strong>
    <a href="#124602" class="date">11-Jan-2020 09:31</a>

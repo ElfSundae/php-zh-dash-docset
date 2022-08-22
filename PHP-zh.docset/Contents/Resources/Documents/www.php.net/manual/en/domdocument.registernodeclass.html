@@ -94,7 +94,7 @@
  <div class="refsect1 examples" id="refsect1-domdocument.registernodeclass-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5244">
+   <div class="example" id="example-5299">
     <p><strong>Example #1 Adding a new method to DOMElement to ease our code</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -113,7 +113,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5245">
+   <div class="example" id="example-5300">
     <p><strong>Example #2 Retrieving elements as custom class</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -132,18 +132,20 @@ text in child
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5246">
+   <div class="example" id="example-5301">
     <p><strong>Example #3 Retrieving owner document</strong></p>
     <div class="example-contents"><p>
      When instantiating a custom <span class="classname"><a href="class.domdocument.html" class="classname">DOMDocument</a></span> the
      <var class="varname">ownerDocument</var> property will refer to the instantiated
-     class, meaning there is no need (and in fact not possible) to use
+     class. However, if all references to that class are removed, it
+     will be destroyed and new <span class="classname"><a href="class.domdocument.html" class="classname">DOMDocument</a></span> will be
+     created instead. For that reason you might use
      <span class="function"><strong>DOMDocument::registerNodeClass()</strong></span> with
      <span class="classname"><a href="class.domdocument.html" class="classname">DOMDocument</a></span>
     </p></div>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">myDOMDocument&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">DOMDocument&nbsp;</span><span style="color: #007700">{<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">myOtherDOMDocument&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">DOMDocument&nbsp;</span><span style="color: #007700">{<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Create&nbsp;myDOMDocument&nbsp;with&nbsp;some&nbsp;XML<br /></span><span style="color: #0000BB">$doc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">myDOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">loadXML</span><span style="color: #007700">(</span><span style="color: #DD0000">"&lt;root&gt;&lt;element&gt;&lt;child&gt;text&nbsp;in&nbsp;child&lt;/child&gt;&lt;/element&gt;&lt;/root&gt;"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$child&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getElementsByTagName</span><span style="color: #007700">(</span><span style="color: #DD0000">"child"</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">item</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;The&nbsp;current&nbsp;owner&nbsp;of&nbsp;the&nbsp;node&nbsp;is&nbsp;myDOMDocument<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ownerDocument</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;Import&nbsp;a&nbsp;node&nbsp;from&nbsp;myDOMDocument<br /></span><span style="color: #0000BB">$newdoc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">myOtherDOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$child&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$newdoc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">importNode</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;The&nbsp;new&nbsp;owner&nbsp;of&nbsp;the&nbsp;node&nbsp;has&nbsp;changed&nbsp;to&nbsp;myOtherDOMDocument<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ownerDocument</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDOMDocument&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">DOMDocument&nbsp;</span><span style="color: #007700">{<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">MyOtherDOMDocument&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">DOMDocument&nbsp;</span><span style="color: #007700">{<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Create&nbsp;MyDOMDocument&nbsp;with&nbsp;some&nbsp;XML<br /></span><span style="color: #0000BB">$doc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyDOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">loadXML</span><span style="color: #007700">(</span><span style="color: #DD0000">"&lt;root&gt;&lt;element&gt;&lt;child&gt;text&nbsp;in&nbsp;child&lt;/child&gt;&lt;/element&gt;&lt;/root&gt;"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$child&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getElementsByTagName</span><span style="color: #007700">(</span><span style="color: #DD0000">"child"</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">item</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;The&nbsp;current&nbsp;owner&nbsp;of&nbsp;the&nbsp;node&nbsp;is&nbsp;MyDOMDocument<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ownerDocument</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">//&nbsp;MyDOMDocument&nbsp;is&nbsp;destroyed<br /></span><span style="color: #007700">unset(</span><span style="color: #0000BB">$doc</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;And&nbsp;new&nbsp;DOMDocument&nbsp;instance&nbsp;is&nbsp;created<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ownerDocument</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;Import&nbsp;a&nbsp;node&nbsp;from&nbsp;MyDOMDocument<br /></span><span style="color: #0000BB">$newdoc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyOtherDOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$child&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$newdoc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">importNode</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Register&nbsp;custom&nbsp;DOMDocument<br /></span><span style="color: #0000BB">$newdoc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">registerNodeClass</span><span style="color: #007700">(</span><span style="color: #DD0000">"DOMDocument"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"MyOtherDOMDocument"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ownerDocument</span><span style="color: #007700">));<br />unset(</span><span style="color: #0000BB">$doc</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;New&nbsp;MyOtherDOMDocument&nbsp;is&nbsp;created<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ownerDocument</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -151,8 +153,10 @@ text in child
     <div class="example-contents"><p>以上例程会输出：</p></div>
     <div class="example-contents screen">
 <div class="cdata"><pre>
-string(13) &quot;myDOMDocument&quot;
-string(18) &quot;myOtherDOMDocument&quot;
+string(13) &quot;MyDOMDocument&quot;
+string(11) &quot;DOMDocument&quot;
+string(18) &quot;MyOtherDOMDocument&quot;
+string(18) &quot;MyOtherDOMDocument&quot;
 </pre></div>
     </div>
    </div>

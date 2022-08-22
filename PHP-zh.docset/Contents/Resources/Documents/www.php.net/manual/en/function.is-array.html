@@ -50,7 +50,21 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124039""></a>
+<div id="allnotes">  <a name="127480""></a>
+  <div class="note">
+   <strong class="user">thomas dot hebinck at digionline dot de</strong>
+   <a href="#127480" class="date">11-Aug-2022 11:31</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Since PHP 8.1 there is a function called array_is_list() to check if an array is "assoc" or not:<br />
+https://www.php.net/manual/en/function.array-is-list.php</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124039""></a>
   <div class="note">
    <strong class="user">Daniel</strong>
    <a href="#124039" class="date">14-Jul-2019 06:54</a>
@@ -350,40 +364,6 @@ This version is based on the one from dmitry dot sushilov, which is unfortunatel
    </div>
   </div>
  <div class="foot"></div>
-  <a name="120065""></a>
-  <div class="note">
-   <strong class="user">marko at newvibrations dot net</strong>
-   <a href="#120065" class="date">20-Oct-2016 12:08</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-hperrin at gmail dot com<br />
-i tested modified version of your code:<br />
-<br />
-<span class="default">&lt;?php<br />
-$test </span><span class="keyword">= </span><span class="default">array_fill</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$size</span><span class="keyword">, </span><span class="default">rand</span><span class="keyword">());<br />
-</span><span class="default">$test3 </span><span class="keyword">= (object) </span><span class="default">$test</span><span class="keyword">;&nbsp; &nbsp; <br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Results are quite different!<br />
-<br />
-PHP 5.5:<br />
-is_array - execution time is constant over different $size<br />
-cast, === - execution time is proportional with $size, for small arrays, it's faster than is_array, but for bigger arrays, it's way slower. Also, bigger memory allocation because casting actually allocates memory<br />
-<br />
-PHP 7.0:<br />
-is_array and cast, === have constant execution time over different $size:<br />
-is_array&nbsp; :&nbsp; 0.12564396858215<br />
-cast, === :&nbsp; 0.24629783630371<br />
-<br />
-Looks like casting is optimised, but still slower.<br />
-<br />
-Bottom line is: optimisation is not done for special scenario, but for average use and scalability. Don't reinvent wheel.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="119990""></a>
   <div class="note">
    <strong class="user">Rob Thomas</strong>
@@ -399,26 +379,6 @@ is_array&nbsp; :&nbsp; 0.93975400924683<br />
 cast, === :&nbsp; 1.2425191402435<br />
 <br />
 So, please use 'is_array', not the horrible casting hack.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="119865""></a>
-  <div class="note">
-   <strong class="user">mt at banita dot de</strong>
-   <a href="#119865" class="date">08-Sep-2016 09:30</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I'm using PHP 5.3.10 and the remark from hperrin is not (no longer?) valid<br />
-<br />
-is_array is (now?) faster than if ( (array) $unknown !== $unknown )&nbsp; <br />
-<br />
-my result of hperrins test script<br />
-<br />
-is_array&nbsp; :&nbsp; 0.61710119247437<br />
-cast, === :&nbsp; 1.1551909446716</span>
 </code>
     </div>
    </div>
@@ -532,88 +492,6 @@ is_assoc2&nbsp; :&nbsp; 18.954080104828<br />
 <br />
 The first one is from <br />
 skaimauve (<a href="http://www.php.net/manual/en/function.is-array.php#89332" rel="nofollow" target="_blank">http://www.php.net/manual/en/function.is-array.php#89332</a>). The second one is mine.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="102652""></a>
-  <div class="note">
-   <strong class="user">magentix at gmail dot com</strong>
-   <a href="#102652" class="date">26-Feb-2011 09:12</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you wanted to have 'pure' associative arrays,<br />
-you could filter out non-string keys and then compare the count of the original array with the count of the filtered array.<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Only validates empty or completely associative arrays<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">is_assoc </span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) &amp;&amp; </span><span class="default">count</span><span class="keyword">(</span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">),</span><span class="string">'is_string'</span><span class="keyword">)) == </span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">));<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$a </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$b </span><span class="keyword">= </span><span class="string">'z'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$c </span><span class="keyword">= array();<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$d </span><span class="keyword">= array(</span><span class="string">'x'</span><span class="keyword">,</span><span class="string">'y'</span><span class="keyword">,</span><span class="string">'z'</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$e </span><span class="keyword">= array(</span><span class="string">'x'</span><span class="keyword">,</span><span class="string">'y'</span><span class="keyword">,</span><span class="string">'zed'</span><span class="keyword">=&gt;</span><span class="string">'z'</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$f </span><span class="keyword">= array(</span><span class="string">'ex'</span><span class="keyword">=&gt;</span><span class="string">'x'</span><span class="keyword">,</span><span class="string">'why'</span><span class="keyword">=&gt;</span><span class="string">'y'</span><span class="keyword">,</span><span class="string">'zed'</span><span class="keyword">=&gt;</span><span class="string">'z'</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">'$a: ' </span><span class="keyword">. ( (</span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">)) ? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false' </span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// False<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$b: ' </span><span class="keyword">. ( (</span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">)) ? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false' </span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// False<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$c: ' </span><span class="keyword">. ( (</span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">)) ? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false' </span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// True<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$d: ' </span><span class="keyword">. ( (</span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">)) ? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false' </span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// False<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$e: ' </span><span class="keyword">. ( (</span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">)) ? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false' </span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// False<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$f: ' </span><span class="keyword">. ( (</span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">)) ? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false' </span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// True<br />
-</span><span class="default">?&gt;</span>&nbsp; &nbsp; <br />
-<br />
-I've tested the point of checking whether the array is empty first.<br />
-The overall result was a 200% speed increase when the array was indeed empty,<br />
-but an average 10% slow when it had elements inside.<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">/***********************************************************<br />
-&nbsp;&nbsp; &nbsp; *&nbsp; &nbsp; Benchmarks: checking for empty array vs. not checking&nbsp; *<br />
-&nbsp;&nbsp; &nbsp; ***********************************************************/<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; // With empty check<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">is_assoc </span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) &amp;&amp; (!</span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) || </span><span class="default">count</span><span class="keyword">(</span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">),</span><span class="string">'is_string'</span><span class="keyword">)) == </span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)));<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; function </span><span class="default">test_speed</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) {&nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$t </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">100000</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">) </span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$t</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">'$a: ' </span><span class="keyword">. </span><span class="default">test_speed</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.20597505569458<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$b: ' </span><span class="keyword">. </span><span class="default">test_speed</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.19199514389038<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$c: ' </span><span class="keyword">. </span><span class="default">test_speed</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.28803396224976<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$d: ' </span><span class="keyword">. </span><span class="default">test_speed</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.94685983657837<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$e: ' </span><span class="keyword">. </span><span class="default">test_speed</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.96698403358459<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$f: ' </span><span class="keyword">. </span><span class="default">test_speed</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.98052096366882<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; // Without empty check<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">is_assoc_2 </span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) &amp;&amp; </span><span class="default">count</span><span class="keyword">(</span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">),</span><span class="string">'is_string'</span><span class="keyword">)) == </span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">));<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; function </span><span class="default">test_speed_2</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) {&nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$t </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">100000</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">) </span><span class="default">is_assoc_2</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$t</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">'$a: ' </span><span class="keyword">. </span><span class="default">test_speed_2</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.18811202049255 = FASTER:&nbsp; 91.3% of is_assoc<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$b: ' </span><span class="keyword">. </span><span class="default">test_speed_2</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.18782901763916 = FASTER:&nbsp; 97.8% of is_assoc<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$c: ' </span><span class="keyword">. </span><span class="default">test_speed_2</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.64437484741211 = SLOWER: 223.7% of is_assoc<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$d: ' </span><span class="keyword">. </span><span class="default">test_speed_2</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.84632205963135 = FASTER:&nbsp; 89.4% of is_assoc<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$e: ' </span><span class="keyword">. </span><span class="default">test_speed_2</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.86739897727966 = FASTER:&nbsp; 89.7% of is_assoc<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$f: ' </span><span class="keyword">. </span><span class="default">test_speed_2</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">) .</span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// 0.87963700294495 = FASTER:&nbsp; 89.7% of is_assoc<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -850,28 +728,6 @@ I'm not an assoc array.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="87401""></a>
-  <div class="note">
-   <strong class="user">Matthias Loitsch</strong>
-   <a href="#87401" class="date">03-Dec-2008 11:36</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Or you could make use of the array_diff_key and range functions:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">isVector</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">) { return </span><span class="default">count</span><span class="keyword">(</span><span class="default">array_diff_key</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">, </span><span class="default">range</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">count</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">))) == </span><span class="default">0</span><span class="keyword">; }<br />
-<br />
-function </span><span class="default">isAssociative</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">) { return !</span><span class="default">isVector</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">); }<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="86658""></a>
   <div class="note">
    <strong class="user">jim at akubo dot net</strong>
@@ -1033,102 +889,6 @@ function </span><span class="default">is_assoc_callback</span><span class="keywo
    </div>
   </div>
  <div class="foot"></div>
-  <a name="77428""></a>
-  <div class="note">
-   <strong class="user">gabriel at bumpt dot nothing-here dot net</strong>
-   <a href="#77428" class="date">29-Aug-2007 08:34</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Yet another safer, faster way of detecting whether an array is associative.<br />
-<br />
-The principle is: using array reduction on the keys, we verify that each key is numeric and is equal to its rank.<br />
-<br />
-Beware: integer keys that are not in sequence, or are negative, or with "holes", still make an associative array.<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">/**<br />
-&nbsp; * @param array $arr<br />
-&nbsp; * @returns boolean<br />
-&nbsp; */<br />
-</span><span class="keyword">function </span><span class="default">isNotAssocArray</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; return (</span><span class="default">0 </span><span class="keyword">!== </span><span class="default">array_reduce</span><span class="keyword">(<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">create_function</span><span class="keyword">(</span><span class="string">'$a, $b'</span><span class="keyword">, </span><span class="string">'return ($b === $a ? $a + 1 : 0);'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">0<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; );<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Of course, it is still faster if the callback for array_reduce is not an anonymous function:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">callbackReduceNotArray</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; return (</span><span class="default">$b </span><span class="keyword">=== </span><span class="default">$a </span><span class="keyword">? </span><span class="default">$a </span><span class="keyword">+ </span><span class="default">1 </span><span class="keyword">: </span><span class="default">0</span><span class="keyword">);<br />
-}<br />
-function </span><span class="default">isVector</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; return (</span><span class="default">0 </span><span class="keyword">!== </span><span class="default">array_reduce</span><span class="keyword">(<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'callbackReduceNotArray'</span><span class="keyword">,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">0<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; );<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="74317""></a>
-  <div class="note">
-   <strong class="user">Alfred J Fazio &lt;alfred dot fazio at gmail dot com&gt;</strong>
-   <a href="#74317" class="date">04-Apr-2007 04:32</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Yet another associative array test:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">function </span><span class="default">binary_nand </span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">) { return !</span><span class="default">$a </span><span class="keyword">&amp;&amp; !</span><span class="default">$b</span><span class="keyword">; }
-<br />
-function </span><span class="default">binary_nor </span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">)&nbsp; { return !</span><span class="default">$a </span><span class="keyword">|| !</span><span class="default">$b</span><span class="keyword">; }
-<br />
-
-<br />
-</span><span class="comment">// Returns true if array has elements with non-numeric keys
-<br />
-</span><span class="keyword">function </span><span class="default">is_associative_array </span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) {
-<br />
-&nbsp; return </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) &amp;&amp; !empty(</span><span class="default">$arr</span><span class="keyword">) &amp;&amp; </span><span class="default">array_reduce</span><span class="keyword">(</span><span class="default">array_map</span><span class="keyword">(</span><span class="string">"is_numeric"</span><span class="keyword">, </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)), </span><span class="string">"binary_nor"</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);
-<br />
-}
-<br />
-
-<br />
-</span><span class="comment">// Returns true if all elements of array have a non-numeric key
-<br />
-</span><span class="keyword">function </span><span class="default">is_strict_associative_array </span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) {
-<br />
-&nbsp; return </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">) &amp;&amp; !empty(</span><span class="default">$arr</span><span class="keyword">) &amp;&amp; </span><span class="default">array_reduce</span><span class="keyword">(</span><span class="default">array_map</span><span class="keyword">(</span><span class="string">"is_numeric"</span><span class="keyword">, </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)), </span><span class="string">"binary_nand"</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">);
-<br />
-}
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="73505""></a>
   <div class="note">
    <strong class="user">angelo [at] mandato &lt;dot&gt; com</strong>
@@ -1199,33 +959,6 @@ if (</span><span class="default">isDeepMultiArray</span><span class="keyword">(a
    </div>
   </div>
  <div class="foot"></div>
-  <a name="66809""></a>
-  <div class="note">
-   <strong class="user">jupiter at nospam dot com</strong>
-   <a href="#66809" class="date">29-May-2006 09:15</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Simple check for a Multi-Dimentional Array of any depth<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">// checks for multiarray (2 or more levels deep)<br />
-</span><span class="keyword">function </span><span class="default">isMultiArray</span><span class="keyword">(</span><span class="default">$multiarray</span><span class="keyword">) {<br />
-&nbsp; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$multiarray</span><span class="keyword">)) {&nbsp; </span><span class="comment">// confirms array<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">foreach (</span><span class="default">$multiarray </span><span class="keyword">as </span><span class="default">$array</span><span class="keyword">) {&nbsp; </span><span class="comment">// goes one level deeper<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">)) {&nbsp; </span><span class="comment">// is subarray an array<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;&nbsp; </span><span class="comment">// return will stop function<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="keyword">}&nbsp; </span><span class="comment">// end 2nd check<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">}&nbsp; </span><span class="comment">// end loop<br />
-&nbsp; </span><span class="keyword">}&nbsp; </span><span class="comment">// end 1st check<br />
-&nbsp; </span><span class="keyword">return </span><span class="default">false</span><span class="keyword">;&nbsp; </span><span class="comment">// not a multiarray if this far<br />
-</span><span class="keyword">} <br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="63780""></a>
   <div class="note">
    <strong class="user">March</strong>
@@ -1244,77 +977,6 @@ And here is another variation for a function to test if an array is associative.
 &nbsp; </span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
 &nbsp; return </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$keys</span><span class="keyword">) !== </span><span class="default">$keys</span><span class="keyword">;<br />
 }<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="48083""></a>
-  <div class="note">
-   <strong class="user">dan at cain dot sh</strong>
-   <a href="#48083" class="date">10-Dec-2004 05:05</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-is_array() under PHP 5.0.2 will return FALSE when passed an object descended from the internal class interface ArrayAccess(<a href="http://www.php.net/spl" rel="nofollow" target="_blank">http://www.php.net/spl</a>) even though said object behaves as an array would in most instances.<br />
-<br />
-I've found the following user function helpful with my own classes and functions that expect array(s) as arguments, but work fine with objects that behave as an array would.<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">is_array_abled</span><span class="keyword">(&amp;</span><span class="default">$x</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; return (bool)(</span><span class="default">$x </span><span class="keyword">instanceof </span><span class="default">ArrayAccess </span><span class="keyword">or </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">));<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="41179""></a>
-  <div class="note">
-   <strong class="user">vhermecz at ixpert dot hu</strong>
-   <a href="#41179" class="date">01-Apr-2004 04:58</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Mike's function is quite cool, it is just the one, I was searching for. Using range is a great idea! But it's a bit long for me. Here is a shorter version:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">function </span><span class="default">is_assoc_array</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; if (!</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)) {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)!==</span><span class="default">range</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">,</span><span class="default">sizeof</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)-</span><span class="default">1</span><span class="keyword">);
-<br />
-}
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Or, if you don't want to type that much:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">function </span><span class="default">is_assoc</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">) &amp;&amp; </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)!==</span><span class="default">range</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">,</span><span class="default">sizeof</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)-</span><span class="default">1</span><span class="keyword">);
-<br />
-}
-<br />
 </span><span class="default">?&gt;</span>
 </span>
 </code>

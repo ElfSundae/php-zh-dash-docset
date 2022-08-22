@@ -346,7 +346,7 @@ Array
  <div class="refsect1 examples" id="refsect1-function.preg-match-all-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4654">
+   <div class="example" id="example-4656">
     <p><strong>Example #1 查找所有文本中的电话号码。</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -358,7 +358,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4655">
+   <div class="example" id="example-4657">
     <p><strong>Example #2 查找匹配的HTML标签（贪婪）</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -386,7 +386,7 @@ part 4: &lt;/a&gt;
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4656">
+   <div class="example" id="example-4658">
     <p><strong>Example #3 使用子命名组</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -462,7 +462,63 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126746""></a>
+<div id="allnotes">  <a name="127431""></a>
+  <div class="note">
+   <strong class="user">biziclop at vipmail dot hu</strong>
+   <a href="#127431" class="date">06-Aug-2022 07:22</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Sometimes you don't just want to cherry-pick the matches but need that the entire subject is made up from matching substrings, so every character of the subject is a member of a match. None of the existing preg_* function is easily applicable for this task, so I made the preg_match_entire() function.<br />
+It uses the (*MARK) syntax which is documented here: https://pcre.org/original/doc/html/pcrepattern.html#SEC27<br />
+<br />
+<span class="default">&lt;?php <br />
+<br />
+</span><span class="comment">// returns: the array of matches<br />
+// null if the string is not a repetition of the pattern<br />
+// false on error<br />
+</span><span class="keyword">function </span><span class="default">preg_match_entire</span><span class="keyword">( </span><span class="default">string $pattern</span><span class="keyword">, </span><span class="default">string $subject</span><span class="keyword">, </span><span class="default">int $flags </span><span class="keyword">= </span><span class="default">0 </span><span class="keyword">){<br />
+&nbsp; </span><span class="comment">// Rebuild and wrap the pattern<br />
+&nbsp; </span><span class="default">$delimiter </span><span class="keyword">= </span><span class="default">$pattern</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br />
+&nbsp; </span><span class="default">$ldp&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">strrpos</span><span class="keyword">( </span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">$delimiter </span><span class="keyword">);<br />
+&nbsp; </span><span class="default">$pattern&nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">$ldp </span><span class="keyword">- </span><span class="default">1 </span><span class="keyword">);<br />
+&nbsp; </span><span class="default">$modifiers </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$pattern</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$ldp </span><span class="keyword">+ </span><span class="default">1 </span><span class="keyword">);<br />
+&nbsp; </span><span class="default">$pattern&nbsp;&nbsp; </span><span class="keyword">= </span><span class="string">"</span><span class="keyword">{</span><span class="default">$delimiter</span><span class="keyword">}</span><span class="string">&nbsp;&nbsp; \G\z (*MARK:END)&nbsp;&nbsp; |&nbsp;&nbsp; \G (?:</span><span class="keyword">{</span><span class="default">$pattern</span><span class="keyword">}</span><span class="string">)&nbsp;&nbsp; </span><span class="keyword">{</span><span class="default">$delimiter</span><span class="keyword">}</span><span class="string">x</span><span class="keyword">{</span><span class="default">$modifiers</span><span class="keyword">}</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp; </span><span class="default">$r </span><span class="keyword">= </span><span class="default">preg_match_all</span><span class="keyword">( </span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">$subject</span><span class="keyword">, </span><span class="default">$m</span><span class="keyword">, </span><span class="default">PREG_SET_ORDER </span><span class="keyword">| </span><span class="default">$flags </span><span class="keyword">);<br />
+&nbsp; if( </span><span class="default">$r </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">)&nbsp; return </span><span class="default">false</span><span class="keyword">;&nbsp; </span><span class="comment">// error<br />
+&nbsp; </span><span class="default">$end </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">( </span><span class="default">$m </span><span class="keyword">);<br />
+&nbsp; if( </span><span class="default">$end </span><span class="keyword">=== </span><span class="default">null </span><span class="keyword">|| ! isset( </span><span class="default">$end</span><span class="keyword">[</span><span class="string">'MARK'</span><span class="keyword">]) || </span><span class="default">$end</span><span class="keyword">[</span><span class="string">'MARK'</span><span class="keyword">] !== </span><span class="string">'END'</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">null</span><span class="keyword">;&nbsp; </span><span class="comment">// end of string not reached<br />
+&nbsp; </span><span class="keyword">return </span><span class="default">$m</span><span class="keyword">;&nbsp; </span><span class="comment">// return actual matches, may be an empty array<br />
+</span><span class="keyword">}<br />
+<br />
+</span><span class="comment">// Same results:<br />
+</span><span class="default">test</span><span class="keyword">(</span><span class="string">'#{\d+}#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="comment">// []<br />
+</span><span class="default">test</span><span class="keyword">(</span><span class="string">'#{\d+}#'</span><span class="keyword">, </span><span class="string">'{11}{22}{33}'</span><span class="keyword">);&nbsp; </span><span class="comment">// {11},{22},{33}<br />
+<br />
+// Different results: preg_match_entire won't match this:<br />
+</span><span class="default">test</span><span class="keyword">(</span><span class="string">'#{\d+}#'</span><span class="keyword">, </span><span class="string">'{11}{}{aa}{22},{{33}}'</span><span class="keyword">);<br />
+</span><span class="comment">// preg_match_entire: null<br />
+// preg_match_all:&nbsp; &nbsp; {11},{22},{33}<br />
+<br />
+</span><span class="keyword">function </span><span class="default">test</span><span class="keyword">( </span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">$subject </span><span class="keyword">){<br />
+&nbsp; echo </span><span class="string">"pattern:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$pattern</span><span class="string">\n"</span><span class="keyword">;<br />
+&nbsp; echo </span><span class="string">"subject:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$subject</span><span class="string">\n"</span><span class="keyword">;<br />
+&nbsp; </span><span class="default">print_matches</span><span class="keyword">(</span><span class="string">'preg_match_entire: '</span><span class="keyword">, </span><span class="default">preg_match_entire</span><span class="keyword">( </span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">$subject </span><span class="keyword">));<br />
+&nbsp; </span><span class="default">preg_match_all</span><span class="keyword">( </span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">$subject</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">, </span><span class="default">PREG_SET_ORDER </span><span class="keyword">);<br />
+&nbsp; </span><span class="default">print_matches</span><span class="keyword">(</span><span class="string">'preg_match_all:&nbsp; &nbsp; '</span><span class="keyword">, </span><span class="default">$matches </span><span class="keyword">);<br />
+&nbsp; echo </span><span class="string">"\n"</span><span class="keyword">;<br />
+}<br />
+function </span><span class="default">print_matches</span><span class="keyword">( </span><span class="default">$t</span><span class="keyword">, </span><span class="default">$m </span><span class="keyword">){<br />
+&nbsp; echo </span><span class="default">$t</span><span class="keyword">, </span><span class="default">is_array</span><span class="keyword">( </span><span class="default">$m </span><span class="keyword">) &amp;&amp; </span><span class="default">$m </span><span class="keyword">? </span><span class="default">implode</span><span class="keyword">(</span><span class="string">','</span><span class="keyword">, </span><span class="default">array_column</span><span class="keyword">( </span><span class="default">$m</span><span class="keyword">, </span><span class="default">0 </span><span class="keyword">)) : </span><span class="default">json_encode</span><span class="keyword">( </span><span class="default">$m </span><span class="keyword">), </span><span class="string">"\n"</span><span class="keyword">;<br />
+} </span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126746""></a>
   <div class="note">
    <strong class="user">rajudec at gmail dot com</strong>
    <a href="#126746" class="date">04-Jan-2022 08:45</a>

@@ -110,7 +110,31 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="116134""></a>
+<div id="allnotes">  <a name="127471""></a>
+  <div class="note">
+   <strong class="user">eion at robbmob dot com</strong>
+   <a href="#127471" class="date">09-Aug-2022 09:56</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This function can also return 'false' if there was a row with corrupt data (eg bad binary data or invalid locale data) depending on what ODBC driver you're connecting to.&nbsp; Subsequent calls to odbc_fetch_array() will still return results in those cases.<br />
+<br />
+Either compare the number of rows fetched using the odbc_num_rows() function (if the driver provides such data), or verify that there's not some extra data after the failing rowduring your while loops:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// Allow for up to two sequential rows of bad/corrupt data<br />
+</span><span class="keyword">while((</span><span class="default">$row </span><span class="keyword">= </span><span class="default">odbc_fetch_array</span><span class="keyword">(</span><span class="default">$res</span><span class="keyword">)) || (</span><span class="default">$row </span><span class="keyword">= </span><span class="default">odbc_fetch_array</span><span class="keyword">(</span><span class="default">$res</span><span class="keyword">)) || (</span><span class="default">$row </span><span class="keyword">= </span><span class="default">odbc_fetch_array</span><span class="keyword">(</span><span class="default">$res</span><span class="keyword">))) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$row</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Seen in the wild when using PHP's ODBC to talk to Informix and Foxpro databases.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="116134""></a>
   <div class="note">
    <strong class="user">dinchu at gmail dot com</strong>
    <a href="#116134" class="date">12-Nov-2014 03:28</a>

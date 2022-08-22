@@ -265,56 +265,6 @@ Within this config it still returns /tmp</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="93390""></a>
-  <div class="note">
-   <strong class="user">dannel at aaronexodus dot com</strong>
-   <a href="#93390" class="date">07-Sep-2009 01:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-There's no need to use a random name for the directory for tempnam.
-<br />
-
-<br />
-Since a file and a directory can't share the same name on the filesystem, we can exploit this and simply use the name of the current file. It is guaranteed that the directory won't exist (because it's a file, of course).
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">if ( !</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'sys_get_temp_dir'</span><span class="keyword">)) {
-<br />
-&nbsp; function </span><span class="default">sys_get_temp_dir</span><span class="keyword">() {
-<br />
-&nbsp;&nbsp;&nbsp; if (!empty(</span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'TMP'</span><span class="keyword">])) { return </span><span class="default">realpath</span><span class="keyword">(</span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'TMP'</span><span class="keyword">]); }
-<br />
-&nbsp;&nbsp;&nbsp; if (!empty(</span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'TMPDIR'</span><span class="keyword">])) { return </span><span class="default">realpath</span><span class="keyword">( </span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'TMPDIR'</span><span class="keyword">]); }
-<br />
-&nbsp;&nbsp;&nbsp; if (!empty(</span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'TEMP'</span><span class="keyword">])) { return </span><span class="default">realpath</span><span class="keyword">( </span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'TEMP'</span><span class="keyword">]); }
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$tempfile</span><span class="keyword">=</span><span class="default">tempnam</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">,</span><span class="string">''</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; if (</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$tempfile</span><span class="keyword">)) {
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">unlink</span><span class="keyword">(</span><span class="default">$tempfile</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">realpath</span><span class="keyword">(</span><span class="default">dirname</span><span class="keyword">(</span><span class="default">$tempfile</span><span class="keyword">));
-<br />
-&nbsp;&nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">null</span><span class="keyword">;
-<br />
-&nbsp; }
-<br />
-}
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="80690""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>

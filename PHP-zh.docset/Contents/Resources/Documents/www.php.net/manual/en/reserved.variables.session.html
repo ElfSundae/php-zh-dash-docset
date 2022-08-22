@@ -77,68 +77,6 @@ https://bugs.php.net/bug.php?id=70584</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="121903""></a>
-  <div class="note">
-   <strong class="user">dbagnara</strong>
-   <a href="#121903" class="date">22-Nov-2017 06:27</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The key of values added to $_SESSION must not be numeric. An error message will be generated and the session will not be saved.<br />
-<br />
-"Notice: Unknown: Skipping numeric key 1511374723 in Unknown on line 0"</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="121018""></a>
-  <div class="note">
-   <strong class="user">ignasitort at gmail dot com</strong>
-   <a href="#121018" class="date">25-Apr-2017 08:07</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I have a weird problem, when using $_SESSION&nbsp; to store&nbsp; a nonce. My nonces never match.<br />
-Maybe the PHP code is called twice (maybe is WP or maybe is the BROWSER) but Html is rendered with the first NONCE value, but as random nonce&nbsp; are created twice, returning PHP function (called by Javascript AJAX ) checks for the second value. As far , as I can not solve <br />
-My solution is:&nbsp; always check first if the NONCE exist before creating a new random value for the nonce. This way nonce cannot&nbsp; change if PHP called twice.<br />
-<br />
-<span class="default">&lt;?PHP<br />
-<br />
-&nbsp;</span><span class="keyword">if (isset(</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'nonce'</span><span class="keyword">]) &amp;&amp; !empty(</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'nonce'</span><span class="keyword">])){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">error_log</span><span class="keyword">(</span><span class="string">"NONCE_ NOT EMPTY"</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'nonce'</span><span class="keyword">] =&nbsp; </span><span class="default">function_rand_str</span><span class="keyword">(</span><span class="default">32</span><span class="keyword">); <br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="119925""></a>
-  <div class="note">
-   <strong class="user">buckmanhands at gmail dot com</strong>
-   <a href="#119925" class="date">20-Sep-2016 10:56</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you are using a session variable as a token to use as a handshake on next page load and the token updates on the new page load, but they mysteriously will not match and there is no obvious explanation. I had the following happen and maybe it will save you some time.<br />
-<br />
-I was making a form that allowed an image upload and had an image tag ready to drop the src of the preview in after the file was chosen. But I had a preset src of "#"... this loaded the page a second time in the background and updated my token invisibly causing a broken handshake.<br />
-<br />
-My tag looked like this:<br />
-<br />
-&lt;img src="#" id="myimagepreview" alt="image preview" /&gt;<br />
-<br />
-Leave the source blank and the handshake will not break.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="116843""></a>
   <div class="note">
    <strong class="user">Tugrul</strong>
@@ -391,45 +329,6 @@ if (isset(</span><span class="default">$_POST</span><span class="keyword">[</spa
    </div>
   </div>
  <div class="foot"></div>
-  <a name="102295""></a>
-  <div class="note">
-   <strong class="user">pike-php at kw dot nl</strong>
-   <a href="#102295" class="date">07-Feb-2011 06:00</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-When accidently assigning a unset variable to $_SESSION, like <br />
-<br />
-&nbsp;&nbsp; $_SESSION['foo'] = $bar <br />
-<br />
-while $bar was not defined, I got the following error message:<br />
-<br />
-"Warning: Unknown(): Your script possibly relies on a session side-effect which existed until PHP 4.2.3. Please be advised that the session extension does not consider global variables as a source of data, unless register_globals is enabled. "<br />
-<br />
-The errormessage was quite unrelated and got me off-track. The real error was, $bar was not defined.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="94676""></a>
-  <div class="note">
-   <strong class="user">Dave</strong>
-   <a href="#94676" class="date">17-Nov-2009 02:05</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you deploy php code and cannot control whether register_globals is off, place this snippet in your code to prevent session injections:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">if (isset(</span><span class="default">$_REQUEST</span><span class="keyword">[</span><span class="string">'_SESSION'</span><span class="keyword">])) die(</span><span class="string">"Get lost Muppet!"</span><span class="keyword">);<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="92011""></a>
   <div class="note">
    <strong class="user">charlese at cvs dot com dot au</strong>
@@ -498,27 +397,6 @@ The solution is to do this after each time you do a session_start() :<br />
 <br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="85147""></a>
-  <div class="note">
-   <strong class="user">Steve Clay</strong>
-   <a href="#85147" class="date">17-Aug-2008 06:28</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Unlike a real PHP array, $_SESSION keys at the root level must be valid variable names.<br />
-<br />
-<span class="default">&lt;?php <br />
-$_SESSION</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">][</span><span class="default">1</span><span class="keyword">] = </span><span class="string">'cake'</span><span class="keyword">; </span><span class="comment">// fails<br />
-<br />
-</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'v1'</span><span class="keyword">][</span><span class="default">1</span><span class="keyword">] = </span><span class="string">'cake'</span><span class="keyword">; </span><span class="comment">// works<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-I imagine this is an internal limitation having to do with the legacy function session_register(), where the registered global var must similarly have a valid name.</span>
 </code>
     </div>
    </div>

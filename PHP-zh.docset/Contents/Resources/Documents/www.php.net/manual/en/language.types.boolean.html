@@ -439,31 +439,6 @@ it's NULL if string doesn't represent a valid boolean.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="114155""></a>
-  <div class="note">
-   <strong class="user">den</strong>
-   <a href="#114155" class="date">17-Jan-2014 09:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Casting bools to string is not working as maybe expected:<br />
-<br />
-echo 'true as string gives [' . (string) true . "] not [true].\n";<br />
-echo 'false as string gives [' . (string) false . "] not [false].\n";<br />
-<br />
-Output:<br />
-<br />
-true as string gives [1] not [true].<br />
-false as string gives [] not [false].<br />
-<br />
-This helps around that behavior:<br />
-<br />
-true ? 'true' : 'false'</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="112190""></a>
   <div class="note">
    <strong class="user">Fred Koschara</strong>
@@ -553,57 +528,6 @@ Note this one only checks for string and defaults to the PHP (boolean) cast wher
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (boolean) </span><span class="default">$_val</span><span class="keyword">;<br />
 &nbsp;&nbsp;&nbsp; }<br />
 }<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="100628""></a>
-  <div class="note">
-   <strong class="user">ledadu at gmail dot com</strong>
-   <a href="#100628" class="date">27-Oct-2010 08:56</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Function to sort array by elements and count of element (before php 5.3) (not use Lambda Functions, and Closures)<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="comment">//-----------------------------<br />
-<br />
-</span><span class="keyword">function </span><span class="default">arraySortByElements</span><span class="keyword">(</span><span class="default">$array2sort</span><span class="keyword">,</span><span class="default">$sortField</span><span class="keyword">,</span><span class="default">$order</span><span class="keyword">,</span><span class="default">$iscount</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$functionString</span><span class="keyword">=</span><span class="string">'<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ('</span><span class="keyword">.(</span><span class="default">$iscount</span><span class="keyword">?</span><span class="string">'true'</span><span class="keyword">:</span><span class="string">'false'</span><span class="keyword">).</span><span class="string">'){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(count($a["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"]) &gt; count($b["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"])) return 1*'</span><span class="keyword">.</span><span class="default">$order</span><span class="keyword">.</span><span class="string">';<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(count($a["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"]) &lt; count($b["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"])) return -1*'</span><span class="keyword">.</span><span class="default">$order</span><span class="keyword">.</span><span class="string">';<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }else{<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if($a["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"] &gt; $b["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"]) return 1*'</span><span class="keyword">.</span><span class="default">$order</span><span class="keyword">.</span><span class="string">';<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if($a["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"] &lt; $b["'</span><span class="keyword">.</span><span class="default">$sortField</span><span class="keyword">.</span><span class="string">'"]) return -1*'</span><span class="keyword">.</span><span class="default">$order</span><span class="keyword">.</span><span class="string">';<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return 0;'</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; </span><span class="default">usort</span><span class="keyword">(</span><span class="default">$array2sort</span><span class="keyword">, </span><span class="default">create_function</span><span class="keyword">(</span><span class="string">'$a,$b'</span><span class="keyword">,</span><span class="default">$functionString</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; return </span><span class="default">$array2sort</span><span class="keyword">;<br />
-}<br />
-<br />
-</span><span class="comment">//-----------------------------<br />
-<br />
-//init Array for testing :<br />
-</span><span class="default">$testArray </span><span class="keyword">= array( <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; array(</span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'Lenny'</span><span class="keyword">, </span><span class="string">'note' </span><span class="keyword">=&gt; </span><span class="default">5</span><span class="keyword">, </span><span class="string">'listId' </span><span class="keyword">=&gt; array(</span><span class="default">654</span><span class="keyword">,</span><span class="default">987</span><span class="keyword">,</span><span class="default">32165</span><span class="keyword">)), <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; array(</span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'Olivier'</span><span class="keyword">, </span><span class="string">'note' </span><span class="keyword">=&gt;</span><span class="default">3</span><span class="keyword">, </span><span class="string">'listId' </span><span class="keyword">=&gt; array(</span><span class="default">2</span><span class="keyword">)), <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; array(</span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'Gregory'</span><span class="keyword">, </span><span class="string">'note' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'listId' </span><span class="keyword">=&gt; array(</span><span class="default">45</span><span class="keyword">,</span><span class="default">58</span><span class="keyword">)), <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; array(</span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'Clement'</span><span class="keyword">, </span><span class="string">'note' </span><span class="keyword">=&gt; </span><span class="default">2</span><span class="keyword">, </span><span class="string">'listId' </span><span class="keyword">=&gt; array(</span><span class="default">584</span><span class="keyword">,</span><span class="default">587</span><span class="keyword">,</span><span class="default">741</span><span class="keyword">,</span><span class="default">14781</span><span class="keyword">,</span><span class="default">147</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );<br />
-<br />
-</span><span class="comment">//sorted Arrays :<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$testArrayByNameASC </span><span class="keyword">= </span><span class="default">arraySortByElements</span><span class="keyword">(</span><span class="default">$testArray</span><span class="keyword">,</span><span class="string">'name'</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$testArrayByNoteDESC </span><span class="keyword">= </span><span class="default">arraySortByElements</span><span class="keyword">(</span><span class="default">$testArray</span><span class="keyword">,</span><span class="string">'note'</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$testArrayByCountlistIdDESC </span><span class="keyword">= </span><span class="default">arraySortByElements</span><span class="keyword">(</span><span class="default">$testArray</span><span class="keyword">,</span><span class="string">'listId'</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">,</span><span class="default">true</span><span class="keyword">);<br />
-<br />
 </span><span class="default">?&gt;</span>
 </span>
 </code>
@@ -824,47 +748,6 @@ A boolean expresses a truth value.<br />
 It does not say "a boolean expresses a 0 or 1".<br />
 <br />
 It's true that symbolic constants are specifically designed to always and only reference their constant value.&nbsp; But booleans are not symbolic constants, they are values.&nbsp; If you're trying to add 2 boolean values you might have other problems in your application.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="80254""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#80254" class="date">06-Jan-2008 07:05</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Note that the symbolic constants TRUE and FALSE are treated differently.&nbsp; I was told that this is a feature, not a bug.<br />
-<br />
-echo false ;<br />
-echo (false) ;<br />
-echo false+false ;<br />
-echo (false+false) ;<br />
-echo intval(false) ;<br />
-echo '"'.false.'"' ;<br />
-<br />
-echo true ;<br />
-echo (true) ;<br />
-echo true+true ;<br />
-echo (true+true) ;<br />
-echo intval(true) ;<br />
-echo '"'.true.'"' ;<br />
-<br />
-should produce<br />
-<br />
-00000"0"11221"1"<br />
-<br />
-but instead produces<br />
-<br />
-000""11221"1"<br />
-<br />
-In other words, the only way to output the underlying zero or use it in a string is to use 'false+false' or pass it through intval().&nbsp; No such tricks are required to get at the 1 that underlies true.<br />
-<br />
-The whole idea of symbolic constants is that the underlying value *always* replaces them during translation, and thus anywhere you would otherwise have to use some obscure "magic number" such as 191, you can use a symbolic constant that makes sense, such as TOTAL_NATIONS.&nbsp; <br />
-<br />
-Exactly what php gets out of breaking this rule was not explained to me.</span>
 </code>
     </div>
    </div>

@@ -423,68 +423,6 @@ while (</span><span class="default">mysqli_more_results</span><span class="keywo
    </div>
   </div>
  <div class="foot"></div>
-  <a name="112262""></a>
-  <div class="note">
-   <strong class="user">Jonathon</strong>
-   <a href="#112262" class="date">24-May-2013 05:30</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php <br />
-</span><span class="comment">/*<br />
-* <br />
-*Creating Session Variable with Prepared Statement<br />
-*<br />
-*for IN/OUT variable to stored procedure<br />
-*<br />
-*using Data Binding to get the data back <br />
-*<br />
-*@params<br />
-*&nbsp; &nbsp; $mysql: mysqli() instance<br />
-*&nbsp; &nbsp; $var: input and output paramater to stored procedure<br />
-*/<br />
-&nbsp;</span><span class="keyword">function </span><span class="default">stored_procedure</span><span class="keyword">(</span><span class="default">$mysql </span><span class="keyword">, &amp;</span><span class="default">$var </span><span class="keyword">= </span><span class="string">'hello world'</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$mysql</span><span class="keyword">-&gt;</span><span class="default">stmt_init</span><span class="keyword">(); </span><span class="comment">// initialize statement<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">"SET @var = ?"</span><span class="keyword">)) </span><span class="comment">// prepare set command<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$var </span><span class="keyword">= </span><span class="default">$mysql</span><span class="keyword">-&gt;</span><span class="default">real_escape_string</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">); </span><span class="comment">// escape input<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bind_param</span><span class="keyword">(</span><span class="string">'s'</span><span class="keyword">,</span><span class="default">$var</span><span class="keyword">); </span><span class="comment">// bind data<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(); </span><span class="comment">// create session variable<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">free_result</span><span class="keyword">(); </span><span class="comment">// free resutl<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">"CALL stored_procedure(@var)"</span><span class="keyword">))</span><span class="comment">//call stored procedure with database server session variable<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">free_result</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">" SELECT @var AS var "</span><span class="keyword">)) </span><span class="comment">// prepare command to select the database server session variable<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(); </span><span class="comment">// execure<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$out_var </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bind_result</span><span class="keyword">(</span><span class="default">$out_var</span><span class="keyword">); </span><span class="comment">// bind<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(); </span><span class="comment">// fetch one row<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">$out_var</span><span class="keyword">.</span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;</span><span class="comment">// display OUT variable<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">}<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
 </div>
 </div>
 </div></div></body></html>

@@ -65,7 +65,7 @@
           </li>
         </ul></p>
         <p class="para">
-          <div class="example" id="example-5351">
+          <div class="example" id="example-5406">
             <p><strong>Example #1 隐藏的 HTML 表单单元</strong></p>
             <div class="example-contents">
               <div class="phpcode"><code><span style="color: #000000">
@@ -81,7 +81,7 @@
             <var class="varname">$data</var>是错误的，因为是浏览器的责任来 
             <span class="function"><a href="function.urlencode.html" class="function">urlencode()</a></span>数据。所有流行的浏览器都能正确处理。注意不论何种方法（例如 GET 或 POST）都会这样。不过只会在用 GET 请求时注意到这一点，因为 POST 请求通常是隐藏的。</span>
           </p></blockquote>
-          <div class="example" id="example-5352">
+          <div class="example" id="example-5407">
             <p><strong>Example #2 等待用户编辑的数据</strong></p>
             <div class="example-contents">
               <div class="phpcode"><code><span style="color: #000000">
@@ -95,7 +95,7 @@
             <span class="simpara">数据会按照预期的显示在浏览器中，因为浏览器会解释 HTML 转义符号。</span>
             <span class="simpara">当提交时，不论是 GET 或者 POST 方法，数据都会被浏览器进行 urlencode 来传输，并直接被 PHP urldecode。所以最终不需要自己处理任何 urlencoding/urldecoding，全都是自动处理的。</span>
           </p></blockquote>
-          <div class="example" id="example-5353">
+          <div class="example" id="example-5408">
             <p><strong>Example #3 URL 中的例子</strong></p>
             <div class="example-contents">
               <div class="phpcode"><code><span style="color: #000000">
@@ -246,183 +246,6 @@ AnotherArray 数组将包含键名 0，1，email 和 phone。</p>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125996""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#125996" class="date">09-Apr-2021 12:21</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-There is also a very easy XSS with the width and height parameters - they should be passed through htmlspecialchars</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125995""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#125995" class="date">09-Apr-2021 12:16</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I think the last example on this page may have a XSS vulnreability, e.g. sending the query string ?a="+alert('XSS')+" might cause alert('XSS') to be executed in the browser. The problem with that is that " will be percent encoded by the browser, but there could be some way to bypass the percent encoding and i think it's not good to rely on the percent encoding for security.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="124655""></a>
-  <div class="note">
-   <strong class="user">murphy</strong>
-   <a href="#124655" class="date">28-Jan-2020 08:58</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The scenario:<br />
-<br />
-1. There is a php script which (possibly complemented by a direct written HTML code) consrtucts a HTML page via its echo command, based on whatever algoritmus eventually based on supplementary data from server files or databases.<br />
-<br />
-2. This php script leads to data being saved into string variable(s), which (possibly) can contain arbitrary characters, including control codes (newline, tab...), HTML special characters (&amp;,&lt;...) and non-ASCII (international) characters.<br />
-<br />
-3. These non-ASCII characters are UTF-8 encoded, as well as the HTML page (I do highly recommend) *)<br />
-<br />
-4. The values of these PHP string variables have to be transferred into javascript variables for further processing by javascript (or exposing these values in HTML directly)<br />
-<br />
-The problem:<br />
-<br />
-it is not safe to PHP-echo such variables into HTML (javascript) directly, because some of characters possily contained in them cause malfunction of the HTML. These strings need some encoding/escaping in order to become strings of non-conflicting characters<br />
-<br />
-The solution<br />
-<br />
-There may be a big lot of ways of this encoding. The following one seems to me the easiest one:<br />
-The PHP variable with unpredictable value can originate from some file, as an example (or from user input as well):<br />
-<br />
-$variable=file_get_content(...)<br />
-<br />
-1. Convert all bytes of that string into hex values and prepend all hex-digit-pairs with %<br />
-<br />
-$variable_e=preg_replace("/(..)/","%$1",bin2hex($variable))<br />
-<br />
-The new variable is now guarantied to contain only %1234567890abcdefABCDEF chracters (e.g. %61%63%0a...) and can safely be directly echoed into HTML:<br />
-<br />
-var variable="<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">$variable_e</span><span class="keyword">;</span><span class="default">?&gt;</span>" //that's NOT all folks<br />
-<br />
-But now the value is still encoded. To get the original value of the variable, it has te be decoded: *)<br />
-<br />
-var variable=decodeURIComponent("<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">$variable_e</span><span class="keyword">;</span><span class="default">?&gt;</span>")<br />
-<br />
-The value of the variable is now the same as the original value.<br />
-<br />
-*) I have no idea about non-UTF-8 encoded pages/data, espetially how the decodeURIComponent works in such a case, because i have no reason to use other encodings and handle them as highly deprecatad.<br />
-<br />
-WARNING: this approach is not (generally) safe against code injection. I highly recommend some further check (parsing) of the value depending on the particular case.<br />
-<br />
-P.S. For very large amount of data, I would recomment to save them into file on the PHP side (file_put_content) and read them by javascript via HTTP Request.<br />
-<br />
-I use this approach as it needs one line of code on server as well as client side. I do agree with arguement that not all chaeacters have to be encoded.<br />
-<br />
-Do not enjoy my possibly stupid solution, if you have a better idea<br />
-<br />
-murphy</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="123894""></a>
-  <div class="note">
-   <strong class="user">starbugfourtytwo at gmail dot com</strong>
-   <a href="#123894" class="date">29-May-2019 11:04</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Why use such a complicated example for js to php? why not do this..so we can understand:<br />
-<br />
-javascript:<br />
-<br />
-const variable = "A"<br />
-<br />
-php:<br />
-<br />
-do whatever it takes to get A from javascript</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122349""></a>
-  <div class="note">
-   <strong class="user">smileytechguy at smileytechguy dot com</strong>
-   <a href="#122349" class="date">02-Feb-2018 04:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The (at least that I've found) best way to pass data from PHP to JS is json_encode.&nbsp; Doing so will convert arrays, strings, numbers, etc. as best as possible.<br />
-<br />
-<span class="default">&lt;?php<br />
-$myInt </span><span class="keyword">= </span><span class="default">7</span><span class="keyword">;<br />
-</span><span class="comment">// a bunch of special characters to demonstrate proper encoding<br />
-</span><span class="default">$myString </span><span class="keyword">= &lt;&lt;&lt;EOF<br />
-</span><span class="string">" ' ; &amp;\ $<br />
-</span><span class="keyword">EOF;<br />
-</span><span class="default">$myArr </span><span class="keyword">= [</span><span class="default">1</span><span class="keyword">, </span><span class="string">"str"</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">];<br />
-</span><span class="default">$myAssocArr </span><span class="keyword">= [</span><span class="string">"foo" </span><span class="keyword">=&gt; </span><span class="string">"bar"</span><span class="keyword">];<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-&lt;script&gt;<br />
-var myInt = <span class="default">&lt;?= json_encode</span><span class="keyword">(</span><span class="default">$myInt</span><span class="keyword">) </span><span class="default">?&gt;</span>;<br />
-var myString = <span class="default">&lt;?= json_encode</span><span class="keyword">(</span><span class="default">$myString</span><span class="keyword">) </span><span class="default">?&gt;</span>;<br />
-var myArr = <span class="default">&lt;?= json_encode</span><span class="keyword">(</span><span class="default">$myArr</span><span class="keyword">) </span><span class="default">?&gt;</span>;<br />
-var myAssocArr = <span class="default">&lt;?= json_encode</span><span class="keyword">(</span><span class="default">$myAssocArr</span><span class="keyword">) </span><span class="default">?&gt;</span>;<br />
-&lt;/script&gt;<br />
-<br />
-This will render the following JS code, which correctly stores the variables:<br />
-&lt;script&gt;<br />
-var myInt = 7;<br />
-var myString = "\" ' ; &amp;\\ $";<br />
-var myArr = [1,"str",2];<br />
-var myAssocArr = {"foo":"bar"};<br />
-&lt;/script&gt;<br />
-<br />
-Do note that there are no "s or anything like that around the json_encode output; json_encode handles that for you.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114744""></a>
-  <div class="note">
-   <strong class="user">Jay</strong>
-   <a href="#114744" class="date">01-Apr-2014 09:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you have a really large form, be sure to check your max_input_vars setting.&nbsp; Your array[] will get truncated if it exceeds this.&nbsp; <a href="http://www.php.net/manual/en/info.configuration.php#ini.max-input-vars" rel="nofollow" target="_blank">http://www.php.net/manual/en/info.configuration.php#ini.max-input-vars</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="60227""></a>
-  <div class="note">
-   <strong class="user">jetboy</strong>
-   <a href="#60227" class="date">30-Dec-2005 07:06</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-While previous notes stating that square brackets in the name attribute are valid in HTML 4 are correct, according to this:<br />
-<br />
-<a href="http://www.w3.org/TR/xhtml1/#C_8" rel="nofollow" target="_blank">http://www.w3.org/TR/xhtml1/#C_8</a><br />
-<br />
-the type of the name attribute has been changed in XHTML 1.0, meaning that square brackets in XHTML's name attribute are not valid.<br />
-<br />
-Regardless, at the time of writing, the W3C's validator doesn't pick this up on a XHTML document.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

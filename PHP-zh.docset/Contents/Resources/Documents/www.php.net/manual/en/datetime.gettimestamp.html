@@ -11,8 +11,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="datetime.getoffset.html">? DateTime::getOffset</a></li>
-      <li style="float: right;"><a href="datetime.gettimezone.html">DateTime::getTimezone ?</a></li>
+      <li style="float: left;"><a href="datetime.getoffset.html">? DateTimeInterface::getOffset</a></li>
+      <li style="float: right;"><a href="datetime.gettimezone.html">DateTimeInterface::getTimezone ?</a></li>
     </ul>
   </div>
 </div>
@@ -26,11 +26,11 @@
 <div id="layout">
   <div id="layout-content"><div id="datetime.gettimestamp" class="refentry">
  <div class="refnamediv">
-  <h1 class="refname">DateTime::getTimestamp</h1>
-  <h1 class="refname">DateTimeImmutable::getTimestamp</h1>
   <h1 class="refname">DateTimeInterface::getTimestamp</h1>
+  <h1 class="refname">DateTimeImmutable::getTimestamp</h1>
+  <h1 class="refname">DateTime::getTimestamp</h1>
   <h1 class="refname">date_timestamp_get</h1>
-  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">DateTime::getTimestamp</span> -- <span class="refname">DateTimeImmutable::getTimestamp</span> -- <span class="refname">DateTimeInterface::getTimestamp</span> -- <span class="refname">date_timestamp_get</span> &mdash; <span class="dc-title">Gets the Unix timestamp</span></p>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">DateTimeInterface::getTimestamp</span> -- <span class="refname">DateTimeImmutable::getTimestamp</span> -- <span class="refname">DateTime::getTimestamp</span> -- <span class="refname">date_timestamp_get</span> &mdash; <span class="dc-title">Gets the Unix timestamp</span></p>
 
  </div>
 
@@ -38,11 +38,11 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>DateTime::getTimestamp</strong></span>(): <span class="type">int</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>DateTimeInterface::getTimestamp</strong></span>(): <span class="type">int</span></div>
 
   <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><strong>DateTimeImmutable::getTimestamp</strong></span>(): <span class="type">int</span></div>
 
-  <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><strong>DateTimeInterface::getTimestamp</strong></span>(): <span class="type">int</span></div>
+  <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><strong>DateTime::getTimestamp</strong></span>(): <span class="type">int</span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
   <div class="methodsynopsis dc-description"><span class="methodname"><a href="function.date-timestamp-get.html" class="methodname">date_timestamp_get</a></span>(<span class="methodparam"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span> <code class="parameter">$object</code></span>): <span class="type">int</span></div>
@@ -107,12 +107,12 @@
 
  <div class="refsect1 examples" id="refsect1-datetime.gettimestamp-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-2036">
+  <div class="example" id="example-2038">
    <p><strong>Example #1 <span class="function"><strong>DateTime::getTimestamp()</strong></span> example</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTimestamp</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeImmutable</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTimestamp</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -148,82 +148,6 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127131""></a>
-  <div class="note">
-   <strong class="user">mike at eastghost dot com</strong>
-   <a href="#127131" class="date">25-May-2022 07:10</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Not clearly noted in documentation:<br />
-<br />
-UNIX timestamps are by definition in UTC timezone only: @1234567890 represents the same date/time regardless of timezone.<br />
-<br />
-Therefore, DateTime::getTimestamp() always returns (seconds since epoch) in the UTC timezone, even when DateTime object has its DateTimeZone set to any non-UTC timezone.<br />
-<br />
-To make a 'timestamp' that is local to your server (in any non-UTC timezone), use mktime() and feed it the desired/offset local time components.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="124977""></a>
-  <div class="note">
-   <strong class="user">Julien Bornstein</strong>
-   <a href="#124977" class="date">05-May-2020 09:06</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Please note that DateTime::gettimestamp() will return an integer, but DateTime::format("U") will return a string.<br />
-<br />
-timestamp must always be typed as int because in PHP, timestamps are integers.<br />
-<br />
-eg:<br />
-- strftime ( string $format [, int $timestamp = time() ] ) : string<br />
-- time() // return int<br />
-- ...<br />
-<br />
-So IMHO, as PHP becomes more and more a typed language, avoid using DateTime::format("U") to avoid this kind of errors "strftime() expects parameter 2 to be int, string given"</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114590""></a>
-  <div class="note">
-   <strong class="user">heiccih at gmail dot com</strong>
-   <a href="#114590" class="date">10-Mar-2014 08:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In 32-bit system the unix timestamp will overflow if the date goes beyond year 2038 and this method will return false. In 64-bit systems this function will still work as intended. For more information please see <a href="http://en.wikipedia.org/wiki/Year_2038_problem." rel="nofollow" target="_blank">http://en.wikipedia.org/wiki/Year_2038_problem.</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="98374""></a>
-  <div class="note">
-   <strong class="user">Justin Heesemann</strong>
-   <a href="#98374" class="date">11-Jun-2010 02:57</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Note that for dates before the unix epoch getTimestamp() will return false, whereas format("U") will return a negative number.<br />
-<br />
-<span class="default">&lt;?php<br />
-$date </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">"1899-12-31"</span><span class="keyword">);<br />
-</span><span class="comment">// "-2209078800"<br />
-</span><span class="keyword">echo </span><span class="default">$date</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">"U"</span><span class="keyword">);<br />
-</span><span class="comment">// false<br />
-</span><span class="keyword">echo </span><span class="default">$date</span><span class="keyword">-&gt;</span><span class="default">getTimestamp</span><span class="keyword">();<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

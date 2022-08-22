@@ -500,7 +500,41 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123167""></a>
+<div id="allnotes">  <a name="127427""></a>
+  <div class="note">
+   <strong class="user">nikospapoutsis</strong>
+   <a href="#127427" class="date">06-Aug-2022 10:47</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Be EXTREMELY cautious when using the code majid4466 at gmail dot com provided, or JSON_NUMERIC_CHECK in general.<br />
+<br />
+For example, in php 7.4 and 8.1 with precision: 14 and serialize_precision: -1 we get:<br />
+<br />
+<span class="default">&lt;?php<br />
+$array </span><span class="keyword">= [</span><span class="string">'€'</span><span class="keyword">, </span><span class="default">55.6666666666666666</span><span class="keyword">, </span><span class="string">'<a href="http://example.com/some/cool/page" rel="nofollow" target="_blank">http://example.com/some/cool/page</a>'</span><span class="keyword">, </span><span class="string">'000337'</span><span class="keyword">, </span><span class="string">'55.6666666666666666'</span><span class="keyword">];<br />
+echo </span><span class="default">$case1 </span><span class="keyword">= </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
+echo </span><span class="default">$case2 </span><span class="keyword">= </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">,&nbsp; </span><span class="default">JSON_UNESCAPED_UNICODE </span><span class="keyword">| </span><span class="default">JSON_UNESCAPED_SLASHES </span><span class="keyword">);<br />
+echo </span><span class="default">$case3 </span><span class="keyword">= </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">,&nbsp; </span><span class="default">JSON_UNESCAPED_UNICODE </span><span class="keyword">| </span><span class="default">JSON_UNESCAPED_SLASHES </span><span class="keyword">| </span><span class="default">JSON_NUMERIC_CHECK</span><span class="keyword">);<br />
+<br />
+[</span><span class="string">"\u20ac"</span><span class="keyword">,</span><span class="default">55.666666666666664</span><span class="keyword">,</span><span class="string">"http:\/\/example.com\/some\/cool\/page"</span><span class="keyword">,</span><span class="string">"000337"</span><span class="keyword">,</span><span class="string">"55.6666666666666666"</span><span class="keyword">]<br />
+</span><span class="comment">// in $case1, both euro sign and the url change but we also lost a digit in our unquoted float (due to precision)<br />
+<br />
+</span><span class="keyword">[</span><span class="string">"€"</span><span class="keyword">,</span><span class="default">55.666666666666664</span><span class="keyword">,</span><span class="string">"<a href="http://example.com/some/cool/page" rel="nofollow" target="_blank">http://example.com/some/cool/page</a>"</span><span class="keyword">,</span><span class="string">"000337"</span><span class="keyword">,</span><span class="string">"55.6666666666666666"</span><span class="keyword">]<br />
+</span><span class="comment">// in $case2, both euro sign and the url stay exactly the same but we still lost a digit in our unquoted float (due to precision)<br />
+<br />
+</span><span class="keyword">[</span><span class="string">"€"</span><span class="keyword">,</span><span class="default">55.666666666666664</span><span class="keyword">,</span><span class="string">"<a href="http://example.com/some/cool/page" rel="nofollow" target="_blank">http://example.com/some/cool/page</a>"</span><span class="keyword">,</span><span class="default">337</span><span class="keyword">,</span><span class="default">55.666666666666664</span><span class="keyword">]<br />
+</span><span class="comment">// in $case3, we once again keep euro sign and the url intact but this time not only our unquoted float lost a digit<br />
+// but the same happened to our quoted float and the number/string lost its leading zeros too<br />
+<br />
+</span><span class="default">Also</span><span class="keyword">, </span><span class="default">note that in php 5.x you will probably get some different but equally wrong results </span><span class="keyword">as default </span><span class="default">values may be different </span><span class="keyword">and </span><span class="default">some functions have changed internally </span><span class="keyword">as </span><span class="default">well</span><span class="keyword">.</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123167""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#123167" class="date">28-Sep-2018 08:52</a>
@@ -588,45 +622,6 @@ Updated format values list:<br />
 &nbsp;&nbsp;&nbsp; JSON_UNESCAPED_UNICODE =&gt; 256<br />
 &nbsp;&nbsp;&nbsp; JSON_PARTIAL_OUTPUT_ON_ERROR =&gt; 512<br />
 &nbsp;&nbsp;&nbsp; JSON_PRESERVE_ZERO_FRACTION =&gt; 1024</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="117466""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#117466" class="date">13-Jun-2015 07:58</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I am working with "Marathi Language Data" and I found that when I encoded Marathi data to json using json_encode it returned me unicode values of each character like below:<br />
-<br />
-Program : <br />
-<br />
-<span class="default">&lt;?php<br />
-$ar </span><span class="keyword">= array(</span><span class="string">"word" </span><span class="keyword">=&gt; </span><span class="string">"????"</span><span class="keyword">);<br />
-echo </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$ar</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Output of program is : <br />
-<br />
-{"word":"\u0927\u093e\u0921\u0938"}<br />
-<br />
-This is not expected output because what I need is output as<br />
-<br />
-{"word":"????"}<br />
-<br />
-So I used following code:<br />
-<br />
-<span class="default">&lt;?php<br />
-$ar </span><span class="keyword">= array(</span><span class="string">"word" </span><span class="keyword">=&gt; </span><span class="string">"????"</span><span class="keyword">);<br />
-echo </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$ar</span><span class="keyword">, </span><span class="default">JSON_UNESCAPED_UNICODE</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-And I got the required output as :<br />
-<br />
-{"word":"????"}</span>
 </code>
     </div>
    </div>

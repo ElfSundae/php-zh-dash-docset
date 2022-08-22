@@ -94,7 +94,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-diff-assoc-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4810">
+   <div class="example" id="example-4812">
     <p><strong>Example #1 <span class="function"><strong>array_diff_assoc()</strong></span> 例子</strong></p>
     <div class="example-contents"><p>
    上面的例子中可以看到键值对 <code class="literal">&quot;a&quot; =&gt; &quot;green&quot;</code>
@@ -123,7 +123,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4811">
+   <div class="example" id="example-4813">
     <p><strong>Example #2 <span class="function"><strong>array_diff_assoc()</strong></span> 示例</strong></p>
     <div class="example-contents"><p>
      键值对 <em class="emphasis">key =&gt; value</em>
@@ -188,7 +188,64 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127005""></a>
+<div id="allnotes">  <a name="127305""></a>
+  <div class="note">
+   <strong class="user">nekto</strong>
+   <a href="#127305" class="date">19-Jul-2022 01:53</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+PHP associative keys are case-sensitive, key "a" is different from key "A":<br />
+<br />
+<span class="default">&lt;?php<br />
+$arr </span><span class="keyword">= [</span><span class="string">"A" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">];<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">[</span><span class="string">"a"</span><span class="keyword">]);<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">[</span><span class="string">"A"</span><span class="keyword">]);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+produces:<br />
+NULL<br />
+int(666)<br />
+<br />
+And in the same way, array_diff_assoc treats keys case-sensitively, and key "A" is not equal to key "a" and will be diffed:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// in arrays below value of "a" and "A" are the same, but keys are different<br />
+// values of "b" are different<br />
+// values of "c" are the same<br />
+</span><span class="default">$compareWhat </span><span class="keyword">= [</span><span class="string">"a" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, </span><span class="string">"b" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, </span><span class="string">"c" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, ];<br />
+</span><span class="default">$compareWith </span><span class="keyword">= [</span><span class="string">"A" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, </span><span class="string">"b" </span><span class="keyword">=&gt; </span><span class="default">667</span><span class="keyword">, </span><span class="string">"c" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, ];<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">array_diff_assoc</span><span class="keyword">(</span><span class="default">$compareWhat</span><span class="keyword">, </span><span class="default">$compareWith</span><span class="keyword">));<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+produces:<br />
+array(2) {<br />
+["a"]=&gt; int(666)<br />
+["b"]=&gt; int(666)<br />
+}<br />
+<br />
+And if the order of values in array is different, the order of the result will be different, although essentially the result stays the same:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// the same as above, but "b" comes before "a" in $compareWhat <br />
+</span><span class="default">$compareWhat </span><span class="keyword">= [</span><span class="string">"b" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, </span><span class="string">"a" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, </span><span class="string">"c" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, ];<br />
+</span><span class="default">$compareWith </span><span class="keyword">= [</span><span class="string">"A" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, </span><span class="string">"b" </span><span class="keyword">=&gt; </span><span class="default">667</span><span class="keyword">, </span><span class="string">"c" </span><span class="keyword">=&gt; </span><span class="default">666</span><span class="keyword">, ];<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">array_diff_assoc</span><span class="keyword">(</span><span class="default">$compareWhat</span><span class="keyword">, </span><span class="default">$compareWith</span><span class="keyword">));<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+produces:<br />
+array(2) {<br />
+["b"]=&gt; int(666)<br />
+["a"]=&gt; int(666)<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127005""></a>
   <div class="note">
    <strong class="user">folurinyinka at gmail dot com</strong>
    <a href="#127005" class="date">23-Apr-2022 08:38</a>
