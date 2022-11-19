@@ -48,8 +48,8 @@
   <p class="para rdfs-comment">
    Quick formatting function that formats the string without having to
    explicitly create the formatter object. Use this function when the format
-   operation is done only once and does not need and parameters or state to be
-   kept.
+   operation is done only once and does not need any parameters or state to be
+   kept or when wanting to customize the output by providing additional context to ICU directly.
   </p>
  </div>
 
@@ -113,7 +113,7 @@
 
  <div class="refsect1 examples" id="refsect1-messageformatter.formatmessage-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-2351">
+  <div class="example" id="example-2367">
    <p><strong>Example #1 <span class="function"><strong>msgfmt_format_message()</strong></span> example</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -123,7 +123,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-2352">
+  <div class="example" id="example-2368">
    <p><strong>Example #2 OO example</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -139,6 +139,24 @@
 4,560 monkeys on 123 trees make 37.073 monkeys per tree
 4.560 Affen auf 123 B?umen sind 37,073 Affen pro Baum
 </pre></div>
+  </div>
+  <div class="example" id="example-2369">
+   <p><strong>Example #3 Instructing ICU to format currency with common and with narrow currency symbol</strong></p>
+   <div class="example-contents"><p>Requires ICU ≥ 67.</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">msgfmt_format_message</span><span style="color: #007700">(</span><span style="color: #DD0000">"cs_CZ"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,&nbsp;number,&nbsp;::&nbsp;currency/CAD}"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">123.45</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #0000BB">msgfmt_format_message</span><span style="color: #007700">(</span><span style="color: #DD0000">"cs_CZ"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,&nbsp;number,&nbsp;::&nbsp;currency/CAD&nbsp;unit-width-narrow}"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">123.45</span><span style="color: #007700">));</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>以上例程会输出：</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+123,45&nbsp;CA$
+123,45&nbsp;$
+</pre></div>
+   </div>
   </div>
  </div>
 

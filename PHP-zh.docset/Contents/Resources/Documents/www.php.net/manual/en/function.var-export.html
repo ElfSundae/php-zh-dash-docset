@@ -102,10 +102,10 @@
       <tr>
        <td>7.3.0</td>
        <td>
-        现在将 <span class="classname"><strong class="classname">stdClass</strong></span> 对象作为数组类型转换为对象输出（
+        现在将 <span class="classname"><a href="class.stdclass.html" class="classname">stdClass</a></span> 对象作为数组类型转换为对象输出（
         <code class="code">(object) array( ... )</code>），而不是使用不存在的
         <span class="methodname"><strong>stdClass::__setState()</strong></span> 方法。实际效果是，现在
-        <span class="classname"><strong class="classname">stdClass</strong></span> 是可输出的，生成的代码甚至可以在早期的
+        <span class="classname"><a href="class.stdclass.html" class="classname">stdClass</a></span> 是可输出的，生成的代码甚至可以在早期的
         PHP 版本上运行。
        </td>
       </tr>
@@ -121,7 +121,7 @@
  <div class="refsect1 examples" id="refsect1-function.var-export-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5205">
+   <div class="example" id="example-5290">
     <p><strong>Example #1 <span class="function"><strong>var_export()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -161,7 +161,7 @@ array (
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5206">
+   <div class="example" id="example-5291">
     <p><strong>Example #2 输出 stdClass 类 (自 PHP 7.3.0 起)</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -182,7 +182,7 @@ array (
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5207">
+   <div class="example" id="example-5292">
     <p><strong>Example #3 输出对象 (自 PHP 5.1.0 起)</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -202,7 +202,7 @@ A::__set_state(array(
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5208">
+   <div class="example" id="example-5293">
     <p><strong>Example #4 使用 <a href="language.oop5.magic.html#object.set-state" class="link">__set_state()</a></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -249,7 +249,7 @@ object(A)#2 (2) {
    <p class="para">
     为了能够执行 <span class="function"><strong>var_export()</strong></span> 生成的 PHP
     ，所有被处理的对象必须实现 <a href="language.oop5.magic.html#object.set-state" class="link">__set_state</a>
-    魔术方法。 唯一的例外是 <span class="classname"><strong class="classname">stdClass</strong></span>
+    魔术方法。 唯一的例外是 <span class="classname"><a href="class.stdclass.html" class="classname">stdClass</a></span>
     ，它作为数组类型转换为对象输出。
    </p>
   </p></blockquote>
@@ -260,8 +260,8 @@ object(A)#2 (2) {
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.print-r.html" class="function" rel="rdfs-seeAlso">print_r()</a> - 以易于理解的格式打印变量。</span></li>
-    <li class="member"><span class="function"><a href="function.serialize.html" class="function" rel="rdfs-seeAlso">serialize()</a> - 产生一个可存储的值的表示</span></li>
+    <li class="member"><span class="function"><a href="function.print-r.html" class="function" rel="rdfs-seeAlso">print_r()</a> - 打印人类可读的变量信息</span></li>
+    <li class="member"><span class="function"><a href="function.serialize.html" class="function" rel="rdfs-seeAlso">serialize()</a> - 生成值的可存储表示</span></li>
     <li class="member"><span class="function"><a href="function.var-dump.html" class="function" rel="rdfs-seeAlso">var_dump()</a> - 打印变量的相关信息</span></li>
    </ul>
   </p>  
@@ -271,7 +271,94 @@ object(A)#2 (2) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124194""></a>
+<div id="allnotes">  <a name="127705""></a>
+  <div class="note">
+   <strong class="user">php dot net at rupert-eibauer dot de</strong>
+   <a href="#127705" class="date">08-Oct-2022 01:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Warning: var_export fails to create distinct property names if you have a private property in your class and one with the same name in a parent class. <br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">TestParent </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; private </span><span class="default">$priv </span><span class="keyword">= </span><span class="string">"Parent Private"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; protected </span><span class="default">$prot </span><span class="keyword">= </span><span class="string">"Parent Protected"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$pub </span><span class="keyword">= </span><span class="string">"Parent Public"</span><span class="keyword">;<br />
+}<br />
+class </span><span class="default">Test </span><span class="keyword">extends </span><span class="default">TestParent </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; private </span><span class="default">$priv </span><span class="keyword">= </span><span class="string">"Private Info"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; protected </span><span class="default">$prot </span><span class="keyword">= </span><span class="string">"Protected Info"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; public </span><span class="default">$pub </span><span class="keyword">= </span><span class="string">"Public Info"</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">$t </span><span class="keyword">= new </span><span class="default">Test</span><span class="keyword">;<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">$t</span><span class="keyword">);<br />
+</span><span class="default">Result</span><span class="keyword">:<br />
+</span><span class="default">Test</span><span class="keyword">::</span><span class="default">__set_state</span><span class="keyword">(array(<br />
+&nbsp;&nbsp; </span><span class="string">'priv' </span><span class="keyword">=&gt; </span><span class="string">'Private Info'</span><span class="keyword">,<br />
+&nbsp;&nbsp; </span><span class="string">'prot' </span><span class="keyword">=&gt; </span><span class="string">'Protected Info'</span><span class="keyword">,<br />
+&nbsp;&nbsp; </span><span class="string">'pub' </span><span class="keyword">=&gt; </span><span class="string">'Public Info'</span><span class="keyword">,<br />
+&nbsp;&nbsp; </span><span class="string">'priv' </span><span class="keyword">=&gt; </span><span class="string">'Parent Private'</span><span class="keyword">,<br />
+))<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+To work around that problem, I created my own var_export, which also uses a more compact format, and using [] for arrays:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">var_export3</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">, </span><span class="default">$indent </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$indent </span><span class="keyword">.= </span><span class="string">'&nbsp; &nbsp; '</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ret </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$is_num </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$var </span><span class="keyword">AS </span><span class="default">$idx </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$ret </span><span class="keyword">!= </span><span class="string">''</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ret </span><span class="keyword">.= </span><span class="string">",\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$is_num </span><span class="keyword">&amp;&amp; </span><span class="default">$idx </span><span class="keyword">=== </span><span class="default">$i</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$i</span><span class="keyword">++;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ret </span><span class="keyword">.= </span><span class="default">$indent</span><span class="keyword">.</span><span class="default">var_export3</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$indent</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$is_num </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ret </span><span class="keyword">.= </span><span class="default">$indent</span><span class="keyword">.</span><span class="default">var_export3</span><span class="keyword">(</span><span class="default">$idx</span><span class="keyword">).</span><span class="string">'=&gt;'</span><span class="keyword">.</span><span class="default">var_export3</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$indent</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$ret </span><span class="keyword">== </span><span class="string">''</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"[]"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"[\n"</span><span class="keyword">.</span><span class="default">$ret</span><span class="keyword">.</span><span class="string">"]"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; } else if (</span><span class="default">is_bool</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$var </span><span class="keyword">? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; } else if (</span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">) || </span><span class="default">is_float</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$var</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; } else if (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$var </span><span class="keyword">=== (string)(float)</span><span class="default">$var</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$var</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"'"</span><span class="keyword">.</span><span class="default">str_replace</span><span class="keyword">([</span><span class="string">"\0"</span><span class="keyword">, </span><span class="string">'\\'</span><span class="keyword">, </span><span class="string">'\''</span><span class="keyword">], [</span><span class="string">"\\0"</span><span class="keyword">, </span><span class="string">'\\'</span><span class="keyword">, </span><span class="string">'\\\''</span><span class="keyword">], </span><span class="default">$var</span><span class="keyword">).</span><span class="string">"'"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; } else if (</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$class </span><span class="keyword">= </span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$class </span><span class="keyword">== </span><span class="string">'stdClass'</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$prefix </span><span class="keyword">= ;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"(object)"</span><span class="keyword">.</span><span class="default">var_export3</span><span class="keyword">((array)</span><span class="default">$var</span><span class="keyword">, </span><span class="default">$indent</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">"</span><span class="default">$class</span><span class="string">::__set_state("</span><span class="keyword">.</span><span class="default">var_export3</span><span class="keyword">((array)</span><span class="default">$var</span><span class="keyword">, </span><span class="default">$indent</span><span class="keyword">).</span><span class="string">')'</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+echo </span><span class="default">var_export3</span><span class="keyword">(</span><span class="default">$t</span><span class="keyword">).</span><span class="string">"\n"</span><span class="keyword">;<br />
+</span><span class="default">Result</span><span class="keyword">:<br />
+</span><span class="default">Test</span><span class="keyword">::</span><span class="default">__set_state</span><span class="keyword">([<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'\0Test\0priv'</span><span class="keyword">=&gt;</span><span class="string">'Private Info'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'\0*\0prot'</span><span class="keyword">=&gt;</span><span class="string">'Protected Info'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'pub'</span><span class="keyword">=&gt;</span><span class="string">'Public Info'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'\0TestParent\0priv'</span><span class="keyword">=&gt;</span><span class="string">'Parent Private'</span><span class="keyword">])<br />
+</span><span class="default">?&gt;<br />
+</span>Note that replacement for non-printable characters is not complete.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124194""></a>
   <div class="note">
    <strong class="user">steven at nevvix dot com</strong>
    <a href="#124194" class="date">13-Sep-2019 03:52</a>

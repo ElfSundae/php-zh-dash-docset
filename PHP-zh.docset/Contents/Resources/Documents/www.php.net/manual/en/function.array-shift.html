@@ -77,7 +77,7 @@
  <div class="refsect1 examples" id="refsect1-function.array-shift-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-    <div class="example" id="example-4862">
+    <div class="example" id="example-4938">
      <p><strong>Example #1 <span class="function"><strong>array_shift()</strong></span> Àý×Ó</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -119,7 +119,102 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125152""></a>
+<div id="allnotes">  <a name="127563""></a>
+  <div class="note">
+   <strong class="user">malima</strong>
+   <a href="#127563" class="date">31-Aug-2022 08:12</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A simple benchmark (PHP 8.1.9 + macOS 12.4)<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+ini_set</span><span class="keyword">(</span><span class="string">'memory_limit'</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$times </span><span class="keyword">= </span><span class="default">25_000</span><span class="keyword">;<br />
+</span><span class="default">$length </span><span class="keyword">= </span><span class="default">256</span><span class="keyword">;<br />
+</span><span class="default">$arr </span><span class="keyword">= [];<br />
+<br />
+</span><span class="default">$random </span><span class="keyword">= </span><span class="default">random_bytes</span><span class="keyword">((</span><span class="default">$times </span><span class="keyword">+ </span><span class="default">$length</span><span class="keyword">) / </span><span class="default">2</span><span class="keyword">);<br />
+</span><span class="default">$random </span><span class="keyword">= </span><span class="default">bin2hex</span><span class="keyword">(</span><span class="default">$random</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// benchmark array_shift()<br />
+</span><span class="keyword">for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$random</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$shiftTimer </span><span class="keyword">= -</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">$shiftTimer </span><span class="keyword">+= </span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// benchmark array_reverse() + array_pop() + array_reverse()<br />
+</span><span class="keyword">for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$random</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$reverseTimer </span><span class="keyword">= -</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$arr </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$arr </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">$reverseTimer </span><span class="keyword">+= </span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// benchmark array_reverse() + array_pop()<br />
+</span><span class="keyword">for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$random</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$popTimer </span><span class="keyword">= -</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">$arr </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">$popTimer </span><span class="keyword">+= </span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// benchmark $arr[key()]+ unset(key())<br />
+</span><span class="keyword">for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$random</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />
+}<br />
+<br />
+</span><span class="default">$keyTimer </span><span class="keyword">= -</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">reset</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$times</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$key </span><span class="keyword">= </span><span class="default">key</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$val </span><span class="keyword">= </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; unset(</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />
+}<br />
+</span><span class="default">$keyTimer </span><span class="keyword">+= </span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">([<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'shift' </span><span class="keyword">=&gt; </span><span class="default">$shiftTimer </span><span class="keyword">/ (</span><span class="default">10 </span><span class="keyword">** </span><span class="default">9</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'reverse' </span><span class="keyword">=&gt; </span><span class="default">$reverseTimer </span><span class="keyword">/ (</span><span class="default">10 </span><span class="keyword">** </span><span class="default">9</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'pop' </span><span class="keyword">=&gt; </span><span class="default">$popTimer </span><span class="keyword">/ (</span><span class="default">10 </span><span class="keyword">** </span><span class="default">9</span><span class="keyword">),<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'key' </span><span class="keyword">=&gt; </span><span class="default">$keyTimer </span><span class="keyword">/ (</span><span class="default">10 </span><span class="keyword">** </span><span class="default">9</span><span class="keyword">),<br />
+]);<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Results interpretation:<br />
+<br />
+On an array of 25,000 unique items, each item a string of 256 byte:<br />
+<br />
+and key() + unset() is very fast.<br />
+<br />
+array_shift() is ~400 times slower<br />
+<br />
+array_reverse() + array_pop() + array_reverse() is ~5,000 times slower.<br />
+<br />
+p.s. I'm implementing a queue, so I need to add another array_reverse() after array_pop() which makes it extremely slow inside a loop. array_reverse() + array_pop() has no use for me, I just added for sake of checking it's performance. It is as fast as key() + unset().</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125152""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#125152" class="date">29-Jun-2020 07:05</a>

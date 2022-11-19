@@ -34,10 +34,10 @@
  <div class="refsect1 description" id="refsect1-function.json-decode-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>json_decode</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$json</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$assoc</code><span class="initializer"> = <strong><code>false</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$depth</code><span class="initializer"> = 512</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$options</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>json_decode</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$json</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">bool</span><span class="type"></span></span> <code class="parameter">$associative</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$depth</code><span class="initializer"> = 512</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
 
   <p class="para rdfs-comment">
-   接受一个 JSON 编码的字符串并且把它转换为 PHP 变量
+   接受一个 JSON 编码的字符串并且把它转换为 PHP 值。
   </p>
  </div>
 
@@ -71,12 +71,14 @@
     
     
      <dt>
-<code class="parameter">assoc</code></dt>
+<code class="parameter">associative</code></dt>
 
      <dd>
 
       <p class="para">
-       当该参数为 <strong><code>true</code></strong> 时，将返回 <span class="type">array</span> 而非 <span class="type">object</span> 。
+       当为 <strong><code>true</code></strong> 时，JSON 对象将返回关联 <span class="type">array</span>；当为 <strong><code>false</code></strong> 时，JSON 对象将返回
+       <span class="type">object</span>。当为 <strong><code>null</code></strong> 时，JSON 对象将返回关联 <span class="type">array</span> 或 <span class="type">object</span>，这取决于是否在
+       <code class="parameter">flags</code> 中设置 <strong><code>JSON_OBJECT_AS_ARRAY</code></strong>。
       </p>
      </dd>
 
@@ -88,26 +90,20 @@
      <dd>
 
       <p class="para">
-       指定递归深度。
+       需要解码的结构，其最大嵌套深度。该值必须大于 <code class="literal">0</code> 或者小于等于 <code class="literal">2147483647</code>。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">options</code></dt>
+<code class="parameter">flags</code></dt>
 
      <dd>
 
       <p class="para">
-       由
-       <strong><code>JSON_BIGINT_AS_STRING</code></strong>,
-       <strong><code>JSON_INVALID_UTF8_IGNORE</code></strong>,
-       <strong><code>JSON_INVALID_UTF8_SUBSTITUTE</code></strong>,
-       <strong><code>JSON_OBJECT_AS_ARRAY</code></strong>,
-       <strong><code>JSON_THROW_ON_ERROR</code></strong>
-       组成的掩码。
-       这些常量的行为在<a href="json.constants.html" class="link">JSON constants</a>页面有进一步描述。
+       由 <strong><code>JSON_BIGINT_AS_STRING</code></strong>、<strong><code>JSON_INVALID_UTF8_IGNORE</code></strong>、<strong><code>JSON_INVALID_UTF8_SUBSTITUTE</code></strong>、<strong><code>JSON_OBJECT_AS_ARRAY</code></strong>、<strong><code>JSON_THROW_ON_ERROR</code></strong>
+       组成的掩码。这些常量的行为在 <a href="json.constants.html" class="link">JSON constants</a> 页面有进一步描述。
       </p>
      </dd>
 
@@ -122,14 +118,22 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    通过恰当的 PHP 类型返回在 <code class="parameter">json</code>
-   中编码的数据。值<code class="literal">true</code>, <code class="literal">false</code> 和 <code class="literal">null</code>
-   会相应地返回 <strong><code>true</code></strong>, <strong><code>false</code></strong> 和 <strong><code>null</code></strong>。
-   如果 <code class="parameter">json</code> 无法被解码，
-   或者编码数据深度超过了递归限制的话，将会返回<strong><code>null</code></strong> 。
+   中编码的数据。值 <code class="literal">true</code>、<code class="literal">false</code> 和 <code class="literal">null</code>
+   会相应地返回 <strong><code>true</code></strong>、<strong><code>false</code></strong> 和 <strong><code>null</code></strong>。如果 <code class="parameter">json</code> 
+   无法被解码，或者编码数据深度超过了嵌套限制的话，将会返回 <strong><code>null</code></strong> 。
   </p>
  </div>
 
  
+ <div class="refsect1 errors" id="refsect1-function.json-decode-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   如果 <code class="parameter">depth</code> 超出允许的范围，自 PHP 8.0.0 起将会抛出
+   <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>，在此之前的版本将会引发
+   <strong><code>E_WARNING</code></strong> 级别的错误。
+  </p>
+ </div>
+
  
  <div class="refsect1 changelog" id="refsect1-function.json-decode-changelog">
   <h3 class="title">更新日志</h3>
@@ -148,17 +152,21 @@
       <tr>
        <td>7.3.0</td>
        <td>
-        <strong><code>JSON_THROW_ON_ERROR</code></strong>
-        <code class="parameter">options</code> was added.
+        <code class="parameter">flags</code> 新增 <strong><code>JSON_THROW_ON_ERROR</code></strong>。
        </td>
       </tr>
 
       <tr>
        <td>7.2.0</td>
        <td>
-        <strong><code>JSON_INVALID_UTF8_IGNORE</code></strong>, and
-        <strong><code>JSON_INVALID_UTF8_SUBSTITUTE</code></strong>
-        <code class="parameter">options</code> were added.
+        现在 <code class="parameter">associative</code> 允许为 null。
+       </td>
+      </tr>
+
+      <tr>
+       <td>7.2.0</td>
+       <td>
+        <code class="parameter">flags</code> 新增 <strong><code>JSON_INVALID_UTF8_IGNORE</code></strong>、<strong><code>JSON_INVALID_UTF8_SUBSTITUTE</code></strong>。
        </td>
       </tr>
 
@@ -167,70 +175,6 @@
        <td>
         An empty JSON key (&quot;&quot;) can be encoded to the empty object property
         instead of using a key with value <code class="literal">_empty_</code>.
-       </td>
-      </tr>
-
-      <tr>
-       <td>7.0.0</td>
-       <td>
-        Rejected RFC 7159 incompatible number formats - top level
-        (07, 0xff, .1, -.1) and all levels ([1.], [1.e1])
-       </td>
-      </tr>
-
-      <tr>
-       <td>7.0.0</td>
-       <td>
-        An empty PHP string or value that after casting to string is an empty
-        string (<code class="literal">NULL</code>, <code class="literal">FALSE</code>) results
-        in JSON syntax error.
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.6.0</td>
-       <td>
-        Invalid non-lowercased variants of the <code class="literal">true</code>,
-        <code class="literal">false</code> and <code class="literal">null</code> literals are no
-        longer accepted as valid input, and will generate warnings.
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.4.0</td>
-       <td>
-        <strong><code>JSON_BIGINT_AS_STRING</code></strong>, and
-        <strong><code>JSON_OBJECT_AS_ARRAY</code></strong>
-        <code class="parameter">options</code> were added.
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.4.0</td>
-       <td>
-        The <code class="parameter">options</code> parameter was added.
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.3.0</td>
-       <td>
-        Added the optional <code class="parameter">depth</code>. The default
-        recursion depth was increased from 128 to 512
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.2.3</td>
-       <td>
-        The nesting limit was increased from 20 to 128
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.2.1</td>
-       <td>
-        Added support for JSON decoding of basic types.
        </td>
       </tr>
 
@@ -245,7 +189,7 @@
  <div class="refsect1 examples" id="refsect1-function.json-decode-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3390">
+   <div class="example" id="example-3403">
     <p><strong>Example #1 <span class="function"><strong>json_decode()</strong></span> 的例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -275,7 +219,7 @@ array(5) {
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-3391">
+   <div class="example" id="example-3404">
     <p><strong>Example #2 Accessing invalid object properties</strong></p>
     <div class="example-contents"><p>
      Accessing elements within an object that contain characters not
@@ -290,7 +234,7 @@ array(5) {
     </div>
 
    </div>
-   <div class="example" id="example-3392">
+   <div class="example" id="example-3405">
     <p><strong>Example #3 common mistakes using <span class="function"><strong>json_decode()</strong></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -300,11 +244,11 @@ array(5) {
     </div>
 
    </div>
-   <div class="example" id="example-3393">
+   <div class="example" id="example-3406">
     <p><strong>Example #4 <code class="parameter">depth</code> errors</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Encode&nbsp;the&nbsp;data.<br /></span><span style="color: #0000BB">$json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">json_encode</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'English'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'One'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'January'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'French'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Une'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Janvier'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;&nbsp;&nbsp;)<br />);<br /><br /></span><span style="color: #FF8000">//&nbsp;Define&nbsp;the&nbsp;errors.<br /></span><span style="color: #0000BB">$constants&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_defined_constants</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$json_errors&nbsp;</span><span style="color: #007700">=&nbsp;array();<br />foreach&nbsp;(</span><span style="color: #0000BB">$constants</span><span style="color: #007700">[</span><span style="color: #DD0000">"json"</span><span style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">strncmp</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"JSON_ERROR_"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$json_errors</span><span style="color: #007700">[</span><span style="color: #0000BB">$value</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">$name</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Show&nbsp;the&nbsp;errors&nbsp;for&nbsp;different&nbsp;depths.<br /></span><span style="color: #007700">foreach&nbsp;(</span><span style="color: #0000BB">range</span><span style="color: #007700">(</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$depth</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$depth</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Last&nbsp;error:&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$json_errors</span><span style="color: #007700">[</span><span style="color: #0000BB">json_last_error</span><span style="color: #007700">()],&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Encode&nbsp;some&nbsp;data&nbsp;with&nbsp;a&nbsp;maximum&nbsp;depth&nbsp;&nbsp;of&nbsp;4&nbsp;(array&nbsp;-&gt;&nbsp;array&nbsp;-&gt;&nbsp;array&nbsp;-&gt;&nbsp;string)<br /></span><span style="color: #0000BB">$json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">json_encode</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'English'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'One'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'January'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'French'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Une'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Janvier'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;&nbsp;&nbsp;)<br />);<br /><br /></span><span style="color: #FF8000">//&nbsp;Show&nbsp;the&nbsp;errors&nbsp;for&nbsp;different&nbsp;depths.<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #DD0000">'Last&nbsp;error:&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">json_last_error_msg</span><span style="color: #007700">(),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #DD0000">'Last&nbsp;error:&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">json_last_error_msg</span><span style="color: #007700">(),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -331,14 +275,14 @@ array(1) {
     }
   }
 }
-Last error: JSON_ERROR_NONE
+Last error: No error
 
 NULL
-Last error: JSON_ERROR_DEPTH
+Last error: Maximum stack depth exceeded
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-3394">
+   <div class="example" id="example-3407">
     <p><strong>Example #5 <span class="function"><strong>json_decode()</strong></span> of large integers</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">

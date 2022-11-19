@@ -89,7 +89,33 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="119869""></a>
+<div id="allnotes">  <a name="127627""></a>
+  <div class="note">
+   <strong class="user">bohwaz</strong>
+   <a href="#127627" class="date">14-Sep-2022 09:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Please be advised that setting a large post_max_size or upload_max_filesize for a complete server or a complete virtual host is not a good idea as it may lead to increased security risks.<br />
+<br />
+The risk is that an attacker may send very large POST requests and overloading your server memory and CPU as it has to parse and process those requests before handling them to your PHP script.<br />
+<br />
+So it's best to limit changing this setting to some files or directories. For example if I want to /admin/files/ and /admin/images/ I can use:<br />
+<br />
+&lt;If "%{REQUEST_URI} =~ m!^/admin/(files|images)/! &amp;&amp; -n %{HTTP_COOKIE}"&gt;<br />
+&nbsp;&nbsp;&nbsp; php_value post_max_size 256M<br />
+&nbsp;&nbsp;&nbsp; php_value upload_max_filesize 256M<br />
+&lt;/If&gt;<br />
+<br />
+I also require the request to have a cookie to avoid basic attacks. This will not protect you against attacks coming from non-authenticated users, but may delay any attack.<br />
+<br />
+This setting can be used in Apache server configuration files, and .htaccess files as well.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="119869""></a>
   <div class="note">
    <strong class="user">adrien.nizon+phpnet at gmail dot com</strong>
    <a href="#119869" class="date">09-Sep-2016 07:48</a>

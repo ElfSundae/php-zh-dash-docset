@@ -33,7 +33,7 @@
  <div class="refsect1 description" id="refsect1-function.bindec-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>bindec</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$binary_string</code></span>): <span class="type"><span class="type number">number</span></span></div>
+   <span class="methodname"><strong>bindec</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$binary_string</code></span>): <span class="type"><span class="type">int</span>|<span class="type">float</span></span></div>
 
   <p class="para rdfs-comment">
    返回
@@ -41,7 +41,7 @@
   </p>
   <p class="para">
    <span class="function"><strong>bindec()</strong></span> 将一个二进制数转换成
-   <span class="type">integer</span>，或者出于大小的需要，转换为 <span class="type">float</span> 类型。
+   <span class="type">int</span>，或者出于大小的需要，转换为 <span class="type">float</span> 类型。
   </p>
   <p class="para">
    <span class="function"><strong>bindec()</strong></span> 将所有的
@@ -61,7 +61,8 @@
      <dd>
 
       <p class="para">
-       要转换的二进制字符串
+       要转换的二进制字符串。<code class="parameter">binary_string</code>
+       中的任何无效字符都会默认忽略。自 PHP 7.4.0 起，弃用使用任何无效字符。
       </p>
      </dd>
 
@@ -83,40 +84,40 @@
   </p>
  </div>
 
+
  <div class="refsect1 changelog" id="refsect1-function.bindec-changelog">
   <h3 class="title">更新日志</h3>
   <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
 
-     </thead>
+    </thead>
 
-     <tbody class="tbody">
-      <tr>
-       <td>4.1.0</td>
-       <td>
-        本函数如今可以转换超过程序运行平台中
-        <span class="type">integer</span> 类型最大值的数，此时其值会返回为
-        <span class="type">float</span> 类型。
-       </td>
-      </tr>
+    <tbody class="tbody">
+     <tr>
+      <td>7.4.0</td>
+      <td>
+       传递任何无效字符现在将生成弃用通知。但仍会计算结果，就好像无效字符不存在一样。
+      </td>
+     </tr>
 
-     </tbody>
-    
-   </table>
+    </tbody>
+   
+  </table>
 
   </p>
  </div>
 
+
  <div class="refsect1 examples" id="refsect1-function.bindec-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3059">
+   <div class="example" id="example-3077">
     <p><strong>Example #1 <span class="function"><strong>bindec()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -136,7 +137,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-3060">
+   <div class="example" id="example-3078">
     <p><strong>Example #2 <span class="function"><strong>bindec()</strong></span> 将输入解读为无符号整数</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -204,6 +205,17 @@ NOTE:         interpreted to be the largest unsigned integer
     </div>
    </div>
   </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.bindec-notes">
+  <h3 class="title">注释</h3>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    此函数可以将太大的数字转换为适应平台的 <span class="type">int</span> 类型，在这种情况下，较大值将会作为
+    <span class="type">float</span> 返回。
+   </p>
+  </p></blockquote>
  </div>
 
  <div class="refsect1 seealso" id="refsect1-function.bindec-seealso">

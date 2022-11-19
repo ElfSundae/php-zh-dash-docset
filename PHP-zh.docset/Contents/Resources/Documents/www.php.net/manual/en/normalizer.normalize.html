@@ -85,7 +85,7 @@
 
  <div class="refsect1 examples" id="refsect1-normalizer.normalize-examples">
   <h3 class="title">·¶Àý</h3>
-  <div class="example" id="example-2347">
+  <div class="example" id="example-2363">
    <p><strong>Example #1 
     <span class="function"><strong>normalizer_normalize()</strong></span> example
    </strong></p>
@@ -97,7 +97,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-2348">
+  <div class="example" id="example-2364">
    <p><strong>Example #2 OO example</strong></p>
    <div class="example-contents">
     <div class="phpcode"><code><span style="color: #000000">
@@ -161,124 +161,6 @@ Normalizer</span><span class="keyword">::</span><span class="default">NFD</span>
 </span><span class="default">Normalizer</span><span class="keyword">::</span><span class="default">NFKC</span><span class="keyword">;<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114835""></a>
-  <div class="note">
-   <strong class="user">tom dot vom dot berg at online dot de</strong>
-   <a href="#114835" class="date">12-Apr-2014 08:54</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you get error messages while starting apache of xampp package with activated extension=intl.dll, copy the files<br />
-<br />
-&nbsp;&nbsp;&nbsp; * icudt##.dll<br />
-&nbsp;&nbsp;&nbsp; * icuin##.dll<br />
-&nbsp;&nbsp;&nbsp; * icuio##.dll<br />
-&nbsp;&nbsp;&nbsp; * icule##.dll<br />
-&nbsp;&nbsp;&nbsp; * iculx##.dll<br />
-&nbsp;&nbsp;&nbsp; * icutu##.dll<br />
-&nbsp;&nbsp;&nbsp; * icuuc##.dll<br />
-<br />
-## = version number<br />
-<br />
-from "/program files/xampp/php"<br />
-into your "/program files/xampp/apache/bin" or whereever your xampp resides :-)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="92592""></a>
-  <div class="note">
-   <strong class="user">akniep at rayo dot info</strong>
-   <a href="#92592" class="date">30-Jul-2009 09:03</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Especially when matching texts against each-other or against keywords, it is helpful to normalize the texts before.<br />
-The following function removes all diacritics (marks like accents) from a given UTF8-encoded texts and returns ASCii-text.<br />
-<br />
-Be sure to have the PHP-Normalizer-extension (intl and icu) installed.<br />
-<br />
-Tipp: You may also want to map the text to lower case before execute matching procedures ...<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">normalizeUtf8String</span><span class="keyword">( </span><span class="default">$s</span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Normalizer-class missing!<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (! </span><span class="default">class_exists</span><span class="keyword">(</span><span class="string">"Normalizer"</span><span class="keyword">, </span><span class="default">$autoload </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$original_string</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// maps German (umlauts) and other European characters onto two characters before just removing diacritics<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00c4}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"AE"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// umlaut ? =&gt; AE<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00d6}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"OE"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// umlaut ? =&gt; OE<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00dc}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"UE"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// umlaut ¨¹ =&gt; UE<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00e4}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"ae"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// umlaut ? =&gt; ae<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00f6}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"oe"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// umlaut ? =&gt; oe<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00fc}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"ue"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// umlaut ¨¹ =&gt; ue<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00f1}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"ny"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; ny<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00ff}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"yu"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; yu<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; // maps special characters (characters with diacritics) on their base-character followed by the diacritical mark<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // exmaple:&nbsp; ¨² =&gt; U¡ä,&nbsp; ¨¢ =&gt; a`<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">Normalizer</span><span class="keyword">::</span><span class="default">normalize</span><span class="keyword">( </span><span class="default">$s</span><span class="keyword">, </span><span class="default">Normalizer</span><span class="keyword">::</span><span class="default">FORM_D </span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\pM@u'&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">""</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// removes diacritics<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00df}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"ss"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// maps German ? onto ss<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00c6}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"AE"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; AE<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00e6}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"ae"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; ae<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0132}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"IJ"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; IJ<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0133}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"ij"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; ij<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0152}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"OE"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; OE<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0153}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"oe"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; oe<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00d0}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"D"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// D =&gt; D<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0110}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"D"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// D =&gt; D<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00f0}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"d"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// e =&gt; d<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0111}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"d"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// d =&gt; d<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0126}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"H"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// H =&gt; H<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0127}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"h"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// h =&gt; h<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0131}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"i"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// i =&gt; i<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0138}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"k"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; k<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{013f}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"L"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; L<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0141}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"L"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// L =&gt; L<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0140}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"l"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; l<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0142}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"l"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// l =&gt; l<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{014a}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"N"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; N<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0149}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"n"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; n<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{014b}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"n"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; n<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00d8}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"O"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; O<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00f8}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"o"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; o<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{017f}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"s"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// ? =&gt; s<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00de}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"T"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// T =&gt; T<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0166}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"T"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// T =&gt; T<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{00fe}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"t"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// t =&gt; t<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@\x{0167}@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">"t"</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// t =&gt; t<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; // remove all non-ASCii characters<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$s&nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">'@[^\0-\x80]@u'&nbsp; &nbsp; </span><span class="keyword">, </span><span class="string">""</span><span class="keyword">,&nbsp; &nbsp; </span><span class="default">$s </span><span class="keyword">); <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// possible errors in UTF8-regular-expressions<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (empty(</span><span class="default">$s</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$original_string</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$s</span><span class="keyword">; <br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-The above function is mainly based on the following article:<br />
-<a href="http://ahinea.com/en/tech/accented-translate.html" rel="nofollow" target="_blank">http://ahinea.com/en/tech/accented-translate.html</a></span>
 </code>
     </div>
    </div>

@@ -322,7 +322,8 @@
     <dd>
 
      <p class="para">
-      设置 listen(2) 的 backlog 最大值。"-1"表示无限制。默认值：-1。
+      设置 listen(2) backlog 的值。在 BSD 系统上 <code class="literal">-1</code> 
+      表示无限制。默认值：<code class="literal">-1</code>（FreeBSD 或 OpenBSD）或者 <code class="literal">511</code>（Linux 或其他平台）。
      </p> 
     </dd>
 
@@ -336,9 +337,8 @@
     <dd>
 
      <p class="para">
-      设置允许连接到 FastCGI 的服务器 IPV4 地址。等同于 PHP FastCGI (5.2.2+) 中的 FCGI_WEB_SERVER_ADDRS
-      环境变量。仅对 TCP 监听起作用。每个地址是用逗号分隔，如果没有设置或者为空，则允许任何服务器请求连接。默认值：any。
-      支持 IPv6 地址。
+      设置允许连接到 FastCGI 客户端的 IPv4 或 IPv6 地址列表。等同于 PHP FastCGI (5.2.2+) 中的 FCGI_WEB_SERVER_ADDRS
+      环境变量。仅对 TCP 监听起作用。每个地址是用逗号分隔，如果没有设置或者为空，则允许任何服务器请求连接。默认值：未设置（接受任何 IP 地址）。
      </p> 
     </dd>
 
@@ -537,6 +537,21 @@
 
    
      
+      <dt id="pm.max-spawn-rate">
+       <code class="parameter">pm.max_spawn_rate</code>
+       <span class="type">int</span>
+      </dt>
+
+      <dd>
+
+       <p class="para">
+        同时生成子进程的速率。仅当 <code class="literal">pm</code> 设置为 <code class="literal">dynamic</code>
+        时使用。默认值： 32
+       </p>
+      </dd>
+
+     
+     
       <dt id="pm.process-idle-timeout">
        <code class="parameter">pm.process_idle_timeout</code>
        <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span>
@@ -568,6 +583,22 @@
     </dd>
 
    
+     
+      <dt id="pm.status-listen">
+       <code class="parameter">pm.status_listen</code>
+       <span class="type">string</span>
+      </dt>
+
+      <dd>
+
+       <p class="para">
+        接受 FastCGI 状态请求的地址。会创建一个新不可见池用来独立处理请求。如果主池处理长时间运行的请求时很繁忙，
+        那么对长时间运行的请求结束之前能够获得 <a href="fpm.status.html" class="link">FPM 
+        状态页面</a>会非常有用。语法与 <a href="install.fpm.configuration.html#listen" class="link">listen</a> 指令相同。默认值：none。
+       </p>
+      </dd>
+
+     
    
     <dt id="pm.status-path">
      <code class="parameter">pm.status_path</code>
@@ -577,7 +608,8 @@
     <dd>
 
      <p class="para">
-      FPM 状态页面的网址。如果没有设置，则无法访问状态页面，默认值：无。
+      查看 <a href="fpm.status.html" class="link">FPM 状态页面</a>的 
+      URI。此值必须以斜线（/）开头。如果没有设置，则无法访问状态页面，默认值：无。
      </p> 
     </dd>
 
@@ -673,6 +705,22 @@
     </dd>
 
    
+     
+      <dt id="request-terminate-timeout-track-finished">
+       <code class="parameter">request_terminate_timeout_track_finished</code>
+       <span class="type">bool</span>
+      </dt>
+
+      <dd>
+
+       <p class="para">
+        在 <a href="function.fastcgi-finish-request.html" class="link">fastcgi_finish_request</a> 
+        之后或当应用程序结束且调用内部关闭命令时，不会使用通过 <a href="install.fpm.configuration.html#request-terminate-timeout" class="link">request_terminate_timeout</a>
+        设置的超时时间。但即使在这种情况下，该指令也可以无条件应用超时限制。默认值：no。自 PHP 7.3.0 启用。
+       </p>
+      </dd>
+
+     
    
     <dt id="request-slowlog-timeout">
      <code class="parameter">request_slowlog_timeout</code>
@@ -689,6 +737,20 @@
     </dd>
 
    
+     
+      <dt id="request-slowlog-trace-depth">
+       <code class="parameter">request_slowlog_trace_depth</code>
+       <span class="type">int</span>
+      </dt>
+
+      <dd>
+
+       <p class="para">
+        slowlog 日志堆栈追踪的深度。默认值：20。自 PHP 7.2.0 起可用。
+       </p>
+      </dd>
+
+     
    
     <dt id="slowlog">
      <code class="parameter">slowlog</code>
@@ -820,6 +882,21 @@
         此设置可以预防 web 服务器配置的错误。
         应当限制 FPM 仅仅解析 .php 扩展名，阻止恶意用户使用其他扩展名运行 php 代码。
         默认值： .php .phar
+       </p>
+      </dd>
+
+     
+     
+      <dt id="apparmor-hat">
+       <code class="parameter">apparmor_hat</code>
+       <span class="type">string</span>
+      </dt>
+
+      <dd>
+
+       <p class="para">
+        如果启用 AppArmor，允许更换帽子（hat）。
+        默认值：未设置
        </p>
       </dd>
 

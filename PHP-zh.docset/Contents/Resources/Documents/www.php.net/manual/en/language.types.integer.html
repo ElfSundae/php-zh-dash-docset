@@ -207,8 +207,17 @@ integer     : decimal
    </h4> 
 
    <p class="simpara">
-    当从浮点数 <span class="type">float</span> 转换成整数 <span class="type">int</span> 时，将<em class="emphasis">向下</em>取整。
+    当从浮点数 <span class="type">float</span> 转换成整数 <span class="type">int</span>时，将<em class="emphasis">向下</em>取整。自
+    PHP 8.1.0 起，当将非整数类型的 <span class="type">float</span> 转换为失去精度的 <span class="type">int</span> 时，会发出弃用通知。
    </p>
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">):&nbsp;</span><span style="color: #0000BB">int&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">;&nbsp;<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">8.1</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;自&nbsp;PHP&nbsp;8.1.0&nbsp;起："Deprecated:&nbsp;Implicit&nbsp;conversion&nbsp;from&nbsp;float&nbsp;8.1&nbsp;to&nbsp;int&nbsp;loses&nbsp;precision"<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">8.1</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;8.1.0&nbsp;之前为&nbsp;8<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">8.0</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;8&nbsp;in&nbsp;both&nbsp;cases<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">((int)</span><span style="color: #0000BB">8.1</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;8&nbsp;in&nbsp;both&nbsp;cases<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">8.1</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;8&nbsp;in&nbsp;both&nbsp;cases<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
     
    <p class="para">
     如果浮点数超出了 <span class="type">int</span> 范围（32 位平台下通常为

@@ -58,10 +58,10 @@
        返回的数组的第一个索引值。
       </p>
       <p class="para">
-       如果 <code class="parameter">start_index</code> 是负数，
-       那么返回的数组的第一个索引将会是
-       <code class="parameter">start_index</code> ，而后面索引则从0开始。
-          (参见 <a href="function.array-fill.html#function.array-fill.example.basic" class="link">例子</a>)。
+       如果 <code class="parameter">start_index</code> 是负数，在 PHP 8.0.0 
+       之前，返回的数组的第一个索引是 <code class="parameter">start_index</code>，
+       而后面索引则从 0 开始；自 PHP 8.0.0 起，
+       负数键将会正常递增。（参见 <a href="function.array-fill.html#function.array-fill.example.basic" class="link">例子</a>）
       </p>
      </dd>
 
@@ -74,8 +74,7 @@
      <dd>
 
       <p class="para">
-       要插入元素的数量。
-       必须大于或等于 0。
+       要插入元素的数量。必须大于或等于 0 且小于或等于 <code class="literal">2147483647</code>。
       </p>
      </dd>
 
@@ -111,8 +110,37 @@
  <div class="refsect1 errors" id="refsect1-function.array-fill-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
-   如果 <code class="parameter">count</code> 小于零，将会抛出 <strong><code>E_WARNING</code></strong>。
+   如果 <code class="parameter">count</code> 超出范围，将会抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.array-fill-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       如果 <span class="function"><strong>array_fill()</strong></span> 的 <code class="parameter">count</code>
+       超出范围现在将会抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>，
+       之前会引发 <strong><code>E_WARNING</code></strong> 且函数返回 <strong><code>false</code></strong>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 
@@ -123,7 +151,7 @@
     <p><strong>Example #1 <span class="function"><strong>array_fill()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">6</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'banana'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(-</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'pear'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">6</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'banana'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -140,6 +168,23 @@ Array
     [9]  =&gt; banana
     [10] =&gt; banana
 )
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="function.array-fill.example.negative-start-index">
+    <p><strong>Example #2 开始索引为负数的 <span class="function"><strong>array_fill()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(-</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'pear'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程在 PHP 7 中的输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
 Array
 (
     [-2] =&gt; pear
@@ -149,7 +194,22 @@ Array
 )
 </pre></div>
     </div>
+    <div class="example-contents"><p>以上例程在 PHP 8 中的输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [-2] =&gt; pear
+    [-1] =&gt; pear
+    [0] =&gt; pear
+    [1] =&gt; pear
+)
+</pre></div>
+    </div>
    </div>
+  </p>
+  <p class="para">
+   注意 索引 <code class="literal">-1</code> 在 PHP 8.0.0 之前不存在。
   </p>
  </div>
 

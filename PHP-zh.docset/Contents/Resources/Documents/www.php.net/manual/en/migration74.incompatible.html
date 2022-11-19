@@ -104,7 +104,7 @@
    <ul class="itemizedlist">
     <li class="listitem">
      <span class="simpara">
-      <strong><code>PASSWORD_DEFAULT</code></strong> 之前是 int 1; 现在是 <strong><code>null</code></strong>
+      <strong><code>PASSWORD_DEFAULT</code></strong> 之前是 int 1; 现在是"2y"（在 PHP 7.4.0、7.4.1、7.4.2 中是 <strong><code>null</code></strong>）
      </span>
     </li>
     <li class="listitem">
@@ -157,15 +157,11 @@
 
  </div>
 
- 
-
-
  <div class="sect2" id="migration74.incompatible.bcmath">
-  <h3 class="title">BCMath Arbitrary Precision Mathematics</h3>
+  <h3 class="title">BCMath 任意精度数学</h3>
 
   <p class="para">
-   BCMath functions will now warn if a non well-formed number is passed, such
-   as <code class="literal">&quot;32foo&quot;</code>. The argument will be interpreted as zero, as before.
+   如果传递了例如 <code class="literal">&quot;32foo&quot;</code> 这种格式不正确的数字，BCMath 函数现在将发出警告。和以前一样，参数将解释为 0。
   </p>
  </div>
 
@@ -173,22 +169,19 @@
   <h3 class="title">CURL</h3>
 
   <p class="para">
-   Attempting to serialize a <span class="classname"><a href="class.curlfile.html" class="classname">CURLFile</a></span> class will now
-   generate an exception. Previously the exception was only thrown on unserialization.
+   现在尝试序列化 <span class="classname"><a href="class.curlfile.html" class="classname">CURLFile</a></span> 类将会生成异常。之前仅会在反序列化时引发。
   </p>
   <p class="para">
-   Using <strong><code>CURLPIPE_HTTP1</code></strong> is deprecated, and is no longer
-   supported as of cURL 7.62.0.
+   弃用 <strong><code>CURLPIPE_HTTP1</code></strong>，并在 cURL 7.62.0 起不再支持。
   </p>
   <p class="para">
-   The <code class="literal">$version</code> parameter of <span class="function"><a href="function.curl-version.html" class="function">curl_version()</a></span>
-   is deprecated. If any value not equal to the default <strong><code>CURLVERSION_NOW</code></strong>
-   is passed, a warning is raised and the parameter is ignored.
+   弃用 <span class="function"><a href="function.curl-version.html" class="function">curl_version()</a></span> 的 <code class="literal">$version</code> 参数。如果传递了任何不等于默认
+   <strong><code>CURLVERSION_NOW</code></strong> 的值，则会引发警告并忽略参数。
   </p>
  </div>
 
  <div class="sect2" id="migration74.incompatible.datetime">
-  <h3 class="title">Date and Time</h3>
+  <h3 class="title">日期和时间</h3>
 
   <p class="para">
    Calling <span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span> or similar on a
@@ -196,10 +189,9 @@
    instance will no longer leave behind accessible properties on the object.
   </p>
   <p class="para">
-   Comparison of <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> objects
-   (using <code class="literal">==</code>, <code class="literal">&lt;</code>, and so on) will now generate
-   a warning and always return <strong><code>false</code></strong>. Previously all <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span>
-   objects were considered equal, unless they had properties.
+   <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> 对象的比较（使用
+   <code class="literal">==</code>、<code class="literal">&lt;</code> 等）现在将生成警告并始终返回
+   <strong><code>false</code></strong>。之前所有的 <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> 对象都认为相等，除非它们有属性。
   </p>
  </div>
 
@@ -263,28 +255,30 @@
  </div>
 
  <div class="sect2" id="migration74.incompatible.reflection">
-  <h3 class="title">Reflection</h3>
+  <h3 class="title">反射</h3>
 
   <p class="para">
-   Reflection objects will now generate an exception if an attempt is made
-   to serialize them. Serialization for reflection objects was never
-   supported and resulted in corrupted reflection objects. It has been
-   explicitly prohibited now.
+   现在如果尝试对 Reflection 对象序列化将会生成异常。从未支持反射对象序列化并会引起反射对象错误。现在已明确禁止。
+  </p>
+
+  <p class="para">
+   <span class="classname"><a href="class.reflectionclassconstant.html" class="classname">ReflectionClassConstant</a></span>、<span class="classname"><a href="class.reflectionmethod.html" class="classname">ReflectionMethod</a></span> 和
+   <span class="classname"><a href="class.reflectionproperty.html" class="classname">ReflectionProperty</a></span> 类常量的值发生了变化。
   </p>
  </div>
 
  <div class="sect2" id="migration74.incompatible.spl">
-  <h3 class="title">Standard PHP Library (SPL)</h3>
+  <h3 class="title">PHP 标准库（SPL）</h3>
 
   <p class="para">
-   Calling <span class="function"><a href="function.get-object-vars.html" class="function">get_object_vars()</a></span> on an <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span>
-   instance will now always return the properties of the <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span>
-   itself (or a subclass). Previously it returned the values of the wrapped
+   现在对 <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span> 实例调用 <span class="function"><a href="function.get-object-vars.html" class="function">get_object_vars()</a></span>
+   将始终返回 <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span> 本身（或子类）的属性。
+   Previously it returned the values of the wrapped
    array/object unless the <strong><code>ArrayObject::STD_PROP_LIST</code></strong>
    flag was specified.
   </p>
   <p class="para">
-   Other affected operations are:
+   其它受到影响的操作有：
   </p>
   <ul class="itemizedlist">
    <li class="listitem">
@@ -294,13 +288,13 @@
    </li>
    <li class="listitem">
     <span class="simpara">
-     <span class="function"><a href="function.reset.html" class="function">reset()</a></span>, <span class="function"><a href="function.current.html" class="function">current()</a></span>, etc.
-     Use <span class="interfacename"><a href="class.iterator.html" class="interfacename">Iterator</a></span> methods instead.
+     <span class="function"><a href="function.reset.html" class="function">reset()</a></span>、<span class="function"><a href="function.current.html" class="function">current()</a></span> 等等。
+     改用 <span class="interfacename"><a href="class.iterator.html" class="interfacename">Iterator</a></span> 方法。
     </span>
    </li>
    <li class="listitem">
     <span class="simpara">
-     Potentially others working on object properties as a list.
+     可能将对象属性作为列表处理的其它情况。比如 <span class="function"><a href="function.array-walk.html" class="function">array_walk()</a></span>。
     </span>
    </li>
   </ul>

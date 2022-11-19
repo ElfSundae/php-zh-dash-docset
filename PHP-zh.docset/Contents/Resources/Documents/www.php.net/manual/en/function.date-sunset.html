@@ -27,15 +27,26 @@
   <div id="layout-content"><div id="function.date-sunset" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">date_sunset</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">date_sunset</span> &mdash; <span class="dc-title">返回给定的日期与地点的日落时间</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">date_sunset</span> &mdash; <span class="dc-title">
+   返回给定的日期与地点的日落时间
+  </span></p>
 
  </div>
+
+ <div id="function.date-sunset-refsynopsisdiv">
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">
+    该函数自 PHP 8.1.0 起<em class="emphasis">弃用</em>。强烈建议不要依赖此函数。请改用 <span class="function"><a href="function.date-sun-info.html" class="function">date_sun_info()</a></span>。
+   </p>
+  </div>
+ </div>
+
  <div class="refsect1 description" id="refsect1-function.date-sunset-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>date_sunset</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$timestamp</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$format</code><span class="initializer"> = SUNFUNCS_RET_STRING</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$latitude</code><span class="initializer"> = ini_get(&quot;date.default_latitude&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$longitude</code><span class="initializer"> = ini_get(&quot;date.default_longitude&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$zenith</code><span class="initializer"> = ini_get(&quot;date.sunset_zenith&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$gmt_offset</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>date_sunset</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$timestamp</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$returnFormat</code><span class="initializer"> = <strong><code>SUNFUNCS_RET_STRING</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">float</span><span class="type"></span></span> <code class="parameter">$latitude</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">float</span><span class="type"></span></span> <code class="parameter">$longitude</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">float</span><span class="type"></span></span> <code class="parameter">$zenith</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">float</span><span class="type"></span></span> <code class="parameter">$utcOffset</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type"><span class="type">string</span>|<span class="type">int</span>|<span class="type">float</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
-  <p class="para rdfs-comment">
+   <p class="para rdfs-comment">
    <span class="function"><strong>date_sunset()</strong></span> 返回给定的日期（以
    <code class="parameter">timestamp</code> 指定）与地点的日落时间。
   </p>
@@ -61,13 +72,13 @@
     
     
      <dt>
-<code class="parameter">format</code></dt>
+<code class="parameter">returnFormat</code></dt>
 
      <dd>
 
       <p class="para">
        <table class="doctable table">
-        <caption><strong><code class="parameter">format</code> 常量</strong></caption>
+        <caption><strong><code class="parameter">returnFormat</code> 常量</strong></caption>
         
          <thead>
           <tr>
@@ -93,7 +104,7 @@
 
           <tr>
            <td>SUNFUNCS_RET_TIMESTAMP</td>
-           <td>以 <span class="type">integer</span> 格式（时间戳）返回结果</td>
+           <td>以 <span class="type">int</span> 格式（时间戳）返回结果</td>
            <td>1095034606</td>
           </tr>
 
@@ -112,7 +123,7 @@
      <dd>
 
       <p class="para">
-       默认是指北纬。因此如果要指定南纬，必须传递一个负值。参见： <code class="literal">date.default_latitude</code>。
+       默认是指北纬。因此如果要指定南纬，必须传递一个负值。参见：<a href="datetime.configuration.html#ini.date.default-latitude" class="link">date.default_latitude</a>
       </p>
      </dd>
 
@@ -124,7 +135,7 @@
      <dd>
 
       <p class="para">
-       默认是指东经。因此如果要指定西经，必须传递一个负值。参见： <code class="literal">date.default_longitude</code>
+       默认是指东经。因此如果要指定西经，必须传递一个负值。参见：<a href="datetime.configuration.html#ini.date.default-longitude" class="link">date.default_longitude</a>
       </p>
      </dd>
 
@@ -136,19 +147,60 @@
      <dd>
 
       <p class="para">
-       默认： <code class="literal">date.sunset_zenith</code>。
+       <code class="parameter">zenith</code> is the angle between the center of the sun
+       and a line perpendicular to earth&#039;s surface. It defaults to
+       <a href="datetime.configuration.html#ini.date.sunrise-zenith" class="link">date.sunrise_zenith</a>
+       <table class="doctable table">
+        <caption><strong>Common <code class="parameter">zenith</code> angles</strong></caption>
+        
+         <thead>
+          <tr>
+           <th>Angle</th>
+           <th>Description</th>
+          </tr>
+
+         </thead>
+
+         <tbody class="tbody">
+          <tr>
+           <td>90°50&#039;</td>
+           <td>Sunrise: the point where the sun becomes visible.</td>
+          </tr>
+
+          <tr>
+           <td>96°</td>
+           <td>Civil twilight: conventionally used to signify the start of dawn.</td>
+          </tr>
+
+          <tr>
+           <td>102°</td>
+           <td>Nautical twilight: the point at which the horizon starts being visible at sea.</td>
+          </tr>
+
+          <tr>
+           <td>108°</td>
+           <td>Astronomical twilight: the point at which the sun starts being the source of any illumination.</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">gmtoffset</code></dt>
+<code class="parameter">utcOffset</code></dt>
 
      <dd>
 
       <p class="para">
        单位是小时。
+       The <code class="parameter">utcOffset</code> is ignored, if
+       <code class="parameter">returnFormat</code> is
+       <strong><code>SUNFUNCS_RET_TIMESTAMP</code></strong>.
       </p>
      </dd>
 
@@ -158,14 +210,25 @@
   </p>
  </div>
 
- 
+
+ <div class="refsect1 returnvalues" id="refsect1-function.date-sunset-returnvalues">
+  <h3 class="title">返回值</h3>
+  <p class="para">
+   用指定的格式 <code class="parameter">returnFormat</code> 返回日落时间， 或者在失败时返回 <strong><code>false</code></strong>。
+   One potential reason for failure is that the
+   sun does not rise at all, which happens inside the polar circles for part of
+   the year.
+  </p>
+ </div>
+
+
  <div class="refsect1 errors" id="refsect1-function.date-sunset-errors">
   <h3 class="title">错误／异常</h3>
-  
-  <p class="para">
+   
+   <p class="para">
 在每次调用日期/时间函数时，如果时区无效则会引发 <strong><code>E_NOTICE</code></strong> 错误。参见
 <span class="function"><a href="function.date-default-timezone-set.html" class="function">date_default_timezone_set()</a></span>。</p>
-  
+ 
  </div>
 
  
@@ -183,12 +246,21 @@
      </thead>
 
      <tbody class="tbody">
-      
-      <tr><td>5.1.0</td><td><p class="para">
-现在发布 <strong><code>E_STRICT</code></strong> 和 <strong><code>E_NOTICE</code></strong>
-时区错误。</p></td></tr>
+      <tr>
+       <td>8.1.0</td>
+       <td>
+        此函数已弃用，请改用 <span class="function"><a href="function.date-sun-info.html" class="function">date_sun_info()</a></span>。
+       </td>
+      </tr>
 
-      
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        <code class="parameter">latitude</code>, <code class="parameter">longitude</code>,
+        <code class="parameter">zenith</code> and <code class="parameter">utcOffset</code> are nullable now.
+       </td>
+      </tr>
+
      </tbody>
     
    </table>
@@ -197,18 +269,10 @@
  </div>
 
  
- <div class="refsect1 returnvalues" id="refsect1-function.date-sunset-returnvalues">
-  <h3 class="title">返回值</h3>
-  <p class="para">
-   用指定的格式 <code class="parameter">format</code> 返回日落时间， 或者在失败时返回 <strong><code>false</code></strong>。
-  </p>
- </div>
-
- 
  <div class="refsect1 examples" id="refsect1-function.date-sunset-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2070">
+   <div class="example" id="example-2086">
     <p><strong>Example #1 <span class="function"><strong>date_sunset()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -224,6 +288,22 @@ Mon Dec 20 2004, sunset time : 18:13
 </pre></div>
     </div>
    </div>
+   <div class="example" id="example-2087">
+    <p><strong>Example #2 No sunrise</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$solstice&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2017-12-21'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">date_sunrise</span><span style="color: #007700">(</span><span style="color: #0000BB">$solstice</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SUNFUNCS_RET_STRING</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">69.245833</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">53.537222</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+bool(false)
+</pre></div>
+    </div>
+   </div>
   </p>
  </div>
 
@@ -232,7 +312,7 @@ Mon Dec 20 2004, sunset time : 18:13
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.date-sunrise.html" class="function" rel="rdfs-seeAlso">date_sunrise()</a> - 返回给定的日期与地点的日出时间</span></li>
+    <li class="member"><span class="function"><a href="function.date-sun-info.html" class="function" rel="rdfs-seeAlso">date_sun_info()</a> - Returns an array with information about sunset/sunrise and twilight begin/end</span></li>
    </ul>
   </p>
  </div>
@@ -241,94 +321,6 @@ Mon Dec 20 2004, sunset time : 18:13
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123971""></a>
-  <div class="note">
-   <strong class="user">matt at mctsoft dot net</strong>
-   <a href="#123971" class="date">21-Jun-2019 06:26</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-yes SUNFUNCS_RET_TIMESTAMP does return GMT(0) time<br />
-<br />
-so something like...<br />
-<br />
-$arr = localtime(date_sunset(time(),SUNFUNCS_RET_TIMESTAMP,51.5,0)); // London<br />
-<br />
-$hh = $arr[2];<br />
-$mm = $arr[1];<br />
-<br />
-Will give figure out your localtime and daylight saving (BST)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122601""></a>
-  <div class="note">
-   <strong class="user">nospam at nomail dot com</strong>
-   <a href="#122601" class="date">07-Apr-2018 06:13</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-maybe I am wrong, but I think<br />
-<br />
-SUNFUNCS_RET_TIMESTAMP&nbsp; &nbsp;&nbsp; return GMT(0) time<br />
-<br />
-SUNFUNCS_RET_STRING&nbsp; &nbsp;&nbsp; Return local time<br />
-SUNFUNCS_RET_DOUBLE&nbsp; &nbsp;&nbsp; Return local time</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="70031""></a>
-  <div class="note">
-   <strong class="user">michael at dayah dot com</strong>
-   <a href="#70031" class="date">30-Sep-2006 05:17</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I use an IP to location database to determine the visitor's approximate latitude and longitude and then serve them a day or night color scheme based on whether it is before civil dawn or dusk. I've had problems when not specifying the timezone, specifically a 1 hour error, so I use GMT.
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-date_default_timezone_set</span><span class="keyword">(</span><span class="string">"GMT"</span><span class="keyword">);
-<br />
-
-<br />
-function </span><span class="default">scheme</span><span class="keyword">() {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sunrise </span><span class="keyword">= </span><span class="default">date_sunrise</span><span class="keyword">(</span><span class="default">time</span><span class="keyword">(), </span><span class="default">SUNFUNCS_RET_DOUBLE</span><span class="keyword">, </span><span class="default">$latitude</span><span class="keyword">, </span><span class="default">$longitude</span><span class="keyword">, </span><span class="default">96</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sunset </span><span class="keyword">= </span><span class="default">date_sunset</span><span class="keyword">(</span><span class="default">time</span><span class="keyword">(), </span><span class="default">SUNFUNCS_RET_DOUBLE</span><span class="keyword">, </span><span class="default">$latitude</span><span class="keyword">, </span><span class="default">$longitude</span><span class="keyword">, </span><span class="default">96</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$now </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">"H"</span><span class="keyword">) + </span><span class="default">date</span><span class="keyword">(</span><span class="string">"i"</span><span class="keyword">) / </span><span class="default">60 </span><span class="keyword">+ </span><span class="default">date</span><span class="keyword">(</span><span class="string">"s"</span><span class="keyword">) / </span><span class="default">3600</span><span class="keyword">;
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$sunrise </span><span class="keyword">&lt; </span><span class="default">$sunset</span><span class="keyword">)
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ((</span><span class="default">$now </span><span class="keyword">&gt; </span><span class="default">$sunrise</span><span class="keyword">) &amp;&amp; (</span><span class="default">$now </span><span class="keyword">&lt; </span><span class="default">$sunset</span><span class="keyword">)) return </span><span class="string">"day"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else return </span><span class="string">"night"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ((</span><span class="default">$now </span><span class="keyword">&gt; </span><span class="default">$sunrise</span><span class="keyword">) || (</span><span class="default">$now </span><span class="keyword">&lt; </span><span class="default">$sunset</span><span class="keyword">)) return </span><span class="string">"day"</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else return </span><span class="string">"night"</span><span class="keyword">;
-<br />
-}
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

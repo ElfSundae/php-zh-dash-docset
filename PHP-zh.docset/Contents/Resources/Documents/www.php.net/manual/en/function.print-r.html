@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>以易于理解的格式打印变量。</title>
+  <title>打印人类可读的变量信息</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,33 +20,30 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.var.html">Variable handling 函数</a></li>
-    <li>以易于理解的格式打印变量。</li>
+    <li>打印人类可读的变量信息</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.print-r" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">print_r</h1>
-    <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">print_r</span> &mdash; <span class="dc-title">
-     以易于理解的格式打印变量。
-    </span></p>
+ <div class="refnamediv">
+  <h1 class="refname">print_r</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">print_r</span> &mdash; <span class="dc-title">
+   打印人类可读的变量信息
+  </span></p>
 
-   </div>
-   
+ </div>
+ 
  <div class="refsect1 description" id="refsect1-function.print-r-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>print_r</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$expression</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$return</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>print_r</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$return</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type"><span class="type">string</span>|<span class="type">bool</span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>print_r()</strong></span> 以人类易读的格式显示一个变量的信息。
+   <span class="function"><strong>print_r()</strong></span> 以人类可读的方式显示变量的信息。
   </p>
   <p class="para">
-   <span class="function"><strong>print_r()</strong></span>、
-   <span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span>、
-   <span class="function"><a href="function.var-export.html" class="function">var_export()</a></span> 
-   都会显示对象 protected 和 private 的属性。
-   Class 的静态属性（static） 则不会显示。
+   <span class="function"><strong>print_r()</strong></span>、<span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span>、<span class="function"><a href="function.var-export.html" class="function">var_export()</a></span> 
+   还将显示对象的 protected 和 private 属性。不会显示静态类成员。
   </p>
  </div>
 
@@ -57,7 +54,7 @@
    <dl>
     
      <dt>
-<code class="parameter">expression</code></dt>
+<code class="parameter">value</code></dt>
 
      <dd>
 
@@ -74,8 +71,8 @@
      <dd>
 
       <p class="para">
-       想要获取 <span class="function"><strong>print_r()</strong></span> 输出的内容，使用 <code class="parameter">return</code> 参数。
-       当此参数为 <strong><code>true</code></strong>，<span class="function"><strong>print_r()</strong></span> 会直接返回信息，而不是输出。
+       想要捕获 <span class="function"><strong>print_r()</strong></span> 的输出，请使用 <code class="parameter">return</code>
+       参数。当此参数为 <strong><code>true</code></strong>，<span class="function"><strong>print_r()</strong></span> 将返回信息，而不是打印它。
       </p>
      </dd>
 
@@ -89,27 +86,19 @@
  <div class="refsect1 returnvalues" id="refsect1-function.print-r-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果输入的内容是 <span class="type">string</span>、 <span class="type">integer</span> 或 <span class="type">float</span>，会直接输出值本身。
-   如果输入的内容是 <span class="type">array</span>，展示的格式会显示数组的键和包含的元素。<span class="type">object</span> 也类似。
+   如果是指定 <span class="type">string</span>、<span class="type">int</span> 或 <span class="type">float</span>，会直接打印值本身。如果是指定
+   <span class="type">array</span>，值将以键和元素的格式显示。<span class="type">object</span> 也一样。
   </p>
   <p class="para">
-   当 <code class="parameter">return</code> 参数设置成 <strong><code>true</code></strong>，本函数会返回 <span class="type">string</span> 格式。否则返回 <strong><code>true</code></strong>。
+   当 <code class="parameter">return</code> 参数设置成 <strong><code>true</code></strong>，本函数会返回 <span class="type">string</span>。否则返回 <strong><code>true</code></strong>。
   </p>
- </div>
-
-
- <div class="refsect1 notes" id="refsect1-function.print-r-notes">
-  <h3 class="title">注释</h3>
-  <blockquote class="note"><p><strong class="note">Note</strong>: <p class="para">当使用了<code class="parameter">return</code>
-参数时，本函数使用其内部输出缓冲，因此不能在
-<span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> 回调函数的内部使用。</p></p></blockquote>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.print-r-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5196">
+   <div class="example" id="example-5280">
     <p><strong>Example #1 <span class="function"><strong>print_r()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -138,7 +127,7 @@ Array
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-5197">
+   <div class="example" id="example-5281">
     <p><strong>Example #2 <code class="parameter">return</code> 参数的例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -149,6 +138,14 @@ Array
 
    </div>
   </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.print-r-notes">
+  <h3 class="title">注释</h3>
+  <blockquote class="note"><p><strong class="note">Note</strong>: <p class="para">When the <code class="parameter">return</code> parameter
+is used, this function uses internal output buffering prior to PHP 7.1.0, so it cannot be used inside an
+<span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> callback function.</p></p></blockquote>
  </div>
 
 
@@ -163,9 +160,8 @@ Array
   </p>
  </div>
 
-   
-   
-  </div><div id="usernotes">
+
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

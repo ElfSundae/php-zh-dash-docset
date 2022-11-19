@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>注册一个会在php中止时执行的函数</title>
+  <title>注册在关闭时执行的函数</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,28 +20,32 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.funchand.html">函数处理 函数</a></li>
-    <li>注册一个会在php中止时执行的函数</li>
+    <li>注册在关闭时执行的函数</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.register-shutdown-function" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">register_shutdown_function</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">register_shutdown_function</span> &mdash; <span class="dc-title">注册一个会在php中止时执行的函数</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">register_shutdown_function</span> &mdash; <span class="dc-title">注册在关闭时执行的函数</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.register-shutdown-function-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>register_shutdown_function</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$parameter</code><span class="initializer"> = ?</span></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$...</code><span class="initializer"> = ?</span></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>register_shutdown_function</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">...$args</code></span>): <span class="type"><span class="type">?</span><span class="type">bool</span></span></div>
 
   <p class="para rdfs-comment">
-  注册一个 <code class="parameter">callback</code> ，它会在脚本执行完成或者 <span class="function"><a href="function.exit.html" class="function">exit()</a></span> 后被调用。
+   注册一个 <code class="parameter">callback</code> ，它会在脚本执行完成或者 <span class="function"><a href="function.exit.html" class="function">exit()</a></span> 后被调用。
   </p>
   <p class="para">
-   可以多次调用 <span class="function"><strong>register_shutdown_function()</strong></span> ，这些被注册的回调会按照他们注册时的顺序被依次调用。
-   如果你在注册的方法内部调用 <span class="function"><a href="function.exit.html" class="function">exit()</a></span>， 那么所有处理会被中止，并且其他注册的中止回调也不会再被调用。
+   可以多次调用
+   <span class="function"><strong>register_shutdown_function()</strong></span>，这些被注册的回调会按照他们注册时的顺序被依次调用。如果你在注册的方法内部调用
+   <span class="function"><a href="function.exit.html" class="function">exit()</a></span>，那么所有处理会被中止，并且其他注册的中止回调也不会再被调用。
+  </p>
+  <p class="para">
+   关闭函数也可以调用 <span class="function"><strong>register_shutdown_function()</strong></span> 来将关闭函数添加到队列的末尾。
   </p>
  </div>
 
@@ -57,7 +61,7 @@
      <dd>
 
       <p class="para">
-       待注册的中止回调
+       待注册的中止回调。
       </p>
       <p class="para">
        中止回调是作为请求的一部分被执行的，因此可以在它们中进行输出或者读取输出缓冲区。
@@ -67,23 +71,12 @@
     
     
      <dt>
-<code class="parameter">parameter</code></dt>
+<code class="parameter">args</code></dt>
 
      <dd>
 
       <p class="para">
-       可以通过传入额外的参数来将参数传给中止函数
-      </p>
-     </dd>
-
-    
-    
-     <dt>
-<code class="parameter">...</code></dt>
-
-     <dd>
-
-      <p class="para">
+       可以通过传入额外的参数来将参数传给中止函数。
       </p>
      </dd>
 
@@ -105,7 +98,7 @@
  <div class="refsect1 errors" id="refsect1-function.register-shutdown-function-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
-   如果传入的callback不是可调用的，那么将会产生一个 <strong><code>E_WARNING</code></strong>
+   如果传入的 callback 不能调用，那么将会产生 <strong><code>E_WARNING</code></strong>
    级别的错误。
   </p>
  </div>
@@ -114,11 +107,11 @@
  <div class="refsect1 examples" id="refsect1-function.register-shutdown-function-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5004">
+   <div class="example" id="example-5076">
     <p><strong>Example #1 <span class="function"><strong>register_shutdown_function()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">shutdown</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;This&nbsp;is&nbsp;our&nbsp;shutdown&nbsp;function,&nbsp;in&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;here&nbsp;we&nbsp;can&nbsp;do&nbsp;any&nbsp;last&nbsp;operations<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;before&nbsp;the&nbsp;script&nbsp;is&nbsp;complete.<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Script&nbsp;executed&nbsp;with&nbsp;success'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">register_shutdown_function</span><span style="color: #007700">(</span><span style="color: #DD0000">'shutdown'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">shutdown</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;这是关闭函数，在脚本完成前可以进行任何最后的操作。<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Script&nbsp;executed&nbsp;with&nbsp;success'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">register_shutdown_function</span><span style="color: #007700">(</span><span style="color: #DD0000">'shutdown'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -132,12 +125,21 @@
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    在某些web server（如Apache）上，可以在中止函数内对脚本的工作目录进行修改。
+    在某些 web 服务器（如 Apache）上，可以在中止函数内对脚本的工作目录进行修改。
    </p>
   </p></blockquote>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    如果进程被信号SIGTERM或SIGKILL杀死，那么中止函数将不会被调用。尽管你无法中断SIGKILL，但你可以通过<span class="function"><a href="function.pcntl-signal.html" class="function">pcntl_signal()</a></span> 来捕获SIGTERM，通过在其中调用<span class="function"><a href="function.exit.html" class="function">exit()</a></span>来进行一个正常的中止。
+    如果进程被信号 SIGTERM 或 SIGKILL 杀死，那么中止函数将不会被调用。尽管你无法中断
+    SIGKILL，但你可以通过 <span class="function"><a href="function.pcntl-signal.html" class="function">pcntl_signal()</a></span> 来捕获
+    SIGTERM，通过在其中调用 <span class="function"><a href="function.exit.html" class="function">exit()</a></span> 来进行一个正常的中止。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    关闭函数与 <a href="info.configuration.html#ini.max-execution-time" class="link">max_execution_time</a>
+    追踪的时间分开运行。这意味着即使进程因为运行时间过长而终止，仍会调用关闭函数。此外，如果关闭函数运行时正好
+    <code class="literal">max_execution_time</code> 用完，也会被终止。
    </p>
   </p></blockquote>
  </div>
@@ -149,7 +151,8 @@
    <ul class="simplelist">
     <li class="member"><a href="ini.core.html#ini.auto-append-file" class="link">auto_append_file</a></li>
     <li class="member"><span class="function"><a href="function.exit.html" class="function" rel="rdfs-seeAlso">exit()</a> - 输出一个消息并且退出当前脚本</span></li>
-    <li class="member"><a href="features.connection-handling.html" class="link">连接处理</a> 章节</li>
+    <li class="member"><span class="function"><a href="function.fastcgi-finish-request.html" class="function" rel="rdfs-seeAlso">fastcgi_finish_request()</a> - 冲刷(flush)所有响应的数据给客户端</span></li>
+    <li class="member"><a href="features.connection-handling.html" class="link">连接处理</a>节</li>
    </ul>
   </p>
  </div>

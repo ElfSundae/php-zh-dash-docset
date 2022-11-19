@@ -208,12 +208,10 @@
     </li>
     <li class="listitem">
      <p class="para">
-      Private methods declared on a parent class no longer enforce any inheritance rules on the methods
-      of a child class (with the exception of final private constructors).
-      The following example illustrates which restrictions have been removed:
+      父类中声明的私有方法不在对子类中的方法执行任何继承规则（final private 构造函数除外）。下列示例说明删除了那些限制：
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">ParentClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;function&nbsp;</span><span style="color: #0000BB">method1</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;function&nbsp;</span><span style="color: #0000BB">method2</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">method3</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Throws&nbsp;a&nbsp;warning,&nbsp;as&nbsp;"final"&nbsp;no&nbsp;longer&nbsp;has&nbsp;an&nbsp;effect:<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">private&nbsp;final&nbsp;function&nbsp;</span><span style="color: #0000BB">method4</span><span style="color: #007700">()&nbsp;{}<br />}<br />class&nbsp;</span><span style="color: #0000BB">ChildClass&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">ParentClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;All&nbsp;of&nbsp;the&nbsp;following&nbsp;are&nbsp;now&nbsp;allowed,&nbsp;even&nbsp;though&nbsp;the&nbsp;modifiers&nbsp;aren't<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;the&nbsp;same&nbsp;as&nbsp;for&nbsp;the&nbsp;private&nbsp;methods&nbsp;in&nbsp;the&nbsp;parent&nbsp;class.<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;abstract&nbsp;function&nbsp;</span><span style="color: #0000BB">method1</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">method2</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">method3</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">method4</span><span style="color: #007700">()&nbsp;{}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">ParentClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;function&nbsp;</span><span style="color: #0000BB">method1</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;function&nbsp;</span><span style="color: #0000BB">method2</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">method3</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;抛出警告，因为"final"不再有效：<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">private&nbsp;final&nbsp;function&nbsp;</span><span style="color: #0000BB">method4</span><span style="color: #007700">()&nbsp;{}<br />}<br />class&nbsp;</span><span style="color: #0000BB">ChildClass&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">ParentClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;现在允许以下所有内容，即使修饰符与父类中的私有方法不同。<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;abstract&nbsp;function&nbsp;</span><span style="color: #0000BB">method1</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">method2</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">method3</span><span style="color: #007700">()&nbsp;{}<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">method4</span><span style="color: #007700">()&nbsp;{}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
@@ -223,8 +221,13 @@
     </li>
     <li class="listitem">
      <p class="para">
-      <span class="function"><a href="function.get-resource-id.html" class="function">get_resource_id()</a></span> has been added, which returns the same value as
-      <code class="code">(int) $resource</code>. It provides the same functionality under a clearer API.
+      新增 <span class="function"><a href="function.get-resource-id.html" class="function">get_resource_id()</a></span>，返回值跟 <code class="code">(int) $resource</code>
+      相同。其在更清晰的 API 下提供了相同的功能。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      新增 <span class="classname"><a href="class.internaliterator.html" class="classname">InternalIterator</a></span>。
      </p>
     </li>
    </ul>
@@ -232,20 +235,19 @@
  </div>
 
  <div class="sect2" id="migration80.new-features.date">
-  <h3 class="title">Date and Time</h3>
+  <h3 class="title">日期和时间</h3>
   
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     <span class="methodname"><a href="datetime.createfrominterface.html" class="methodname">DateTime::createFromInterface()</a></span> and
-     <span class="methodname"><a href="datetimeimmutable.createfrominterface.html" class="methodname">DateTimeImmutable::createFromInterface()</a></span> have been added.
+     新增 <span class="methodname"><a href="datetime.createfrominterface.html" class="methodname">DateTime::createFromInterface()</a></span> 和
+     <span class="methodname"><a href="datetimeimmutable.createfrominterface.html" class="methodname">DateTimeImmutable::createFromInterface()</a></span>。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     The DateTime format specifier <code class="literal">p</code> has been added, which is the same as
-     <code class="literal">P</code> but returns <code class="literal">Z</code> rather than <code class="literal">+00:00</code>
-     for UTC.
+     新增 DateTime 格式化标识符 <code class="literal">p</code>，跟 <code class="literal">P</code> 相同，但对于 UTC
+     返回 <code class="literal">Z</code> 而不是 <code class="literal">+00:00</code>。
     </p>
    </li>
   </ul>
@@ -255,8 +257,8 @@
   <h3 class="title">DOM</h3>
 
   <p class="para">
-   <span class="interfacename"><a href="class.domparentnode.html" class="interfacename">DOMParentNode</a></span> and <span class="interfacename"><a href="class.domchildnode.html" class="interfacename">DOMChildNode</a></span> with
-   new traversal and manipulation APIs have been added.
+   新增新遍历和操作 API：<span class="interfacename"><a href="class.domparentnode.html" class="interfacename">DOMParentNode</a></span> 和
+   <span class="interfacename"><a href="class.domchildnode.html" class="interfacename">DOMChildNode</a></span>。
    
   </p>
  </div>
@@ -265,9 +267,8 @@
   <h3 class="title">Filter</h3>
 
   <p class="para">
-   <strong><code>FILTER_VALIDATE_BOOL</code></strong> has been added as an alias for
-   <strong><code>FILTER_VALIDATE_BOOLEAN</code></strong>. The new name is preferred, as it uses the canonical
-   type name.
+   新增 <strong><code>FILTER_VALIDATE_BOOL</code></strong>，是 <strong><code>FILTER_VALIDATE_BOOLEAN</code></strong>
+   的别名。首选新名称，因为其使用规范类型名称。
   </p>
  </div>
 
@@ -275,8 +276,8 @@
   <h3 class="title">Enchant</h3>
 
   <p class="para">
-   <span class="function"><a href="function.enchant-dict-add.html" class="function">enchant_dict_add()</a></span>, <span class="function"><a href="function.enchant-dict-is-added.html" class="function">enchant_dict_is_added()</a></span>, and
-   <strong><code>LIBENCHANT_VERSION</code></strong> have been added.
+   新增 <span class="function"><a href="function.enchant-dict-add.html" class="function">enchant_dict_add()</a></span>、<span class="function"><a href="function.enchant-dict-is-added.html" class="function">enchant_dict_is_added()</a></span>
+   和 <strong><code>LIBENCHANT_VERSION</code></strong>。
   </p>
  </div>
 
@@ -284,9 +285,8 @@
   <h3 class="title">FPM</h3>
 
   <p class="para">
-   Added a new option <code class="literal">pm.status_listen</code> that allows getting the status from
-   different endpoint (e.g. port or UDS file) which is useful for getting the status when all
-   children are busy with serving long running requests.
+   新增新选项 <code class="literal">pm.status_listen</code>，允许从不同的端点（例如端口或者 UDS
+   文件）获取状态。这对于所有的子进程忙于处理长时间运行的请求时获取状态特别有用。
   </p>
  </div>
 
@@ -294,19 +294,16 @@
   <h3 class="title">Hash</h3>
 
   <p class="para">
-   <span class="classname"><strong class="classname">HashContext</strong></span> objects can now be serialized.
+   <span class="classname"><a href="class.hashcontext.html" class="classname">HashContext</a></span> 对象现在可序列化。
   </p>
  </div>
 
  <div class="sect2" id="migration80.new-features.intl">
-  <h3 class="title">Internationalization Functions</h3>
+  <h3 class="title">国际化函数</h3>
 
   <p class="para">
-   The <strong><code>IntlDateFormatter::RELATIVE_FULL</code></strong>,
-   <strong><code>IntlDateFormatter::RELATIVE_LONG</code></strong>,
-   <strong><code>IntlDateFormatter::RELATIVE_MEDIUM</code></strong>, and
-   <strong><code>IntlDateFormatter::RELATIVE_SHORT</code></strong>
-   constants have been added.
+   新增 <strong><code>IntlDateFormatter::RELATIVE_FULL</code></strong>、<strong><code>IntlDateFormatter::RELATIVE_LONG</code></strong>、<strong><code>IntlDateFormatter::RELATIVE_MEDIUM</code></strong>
+   和 <strong><code>IntlDateFormatter::RELATIVE_SHORT</code></strong> 常量。
   </p>
  </div>
 
@@ -362,23 +359,21 @@
  </div>
 
  <div class="sect2" id="migration80.new-features.pcre">
-  <h3 class="title">Regular Expressions (Perl-Compatible)</h3>
+  <h3 class="title">正则表达式（兼容 Perl）</h3>
 
   <p class="para">
-   <span class="function"><a href="function.preg-last-error-msg.html" class="function">preg_last_error_msg()</a></span> has been added, which returns a human-readable message for the last
-   PCRE error. It complements <span class="function"><a href="function.preg-last-error.html" class="function">preg_last_error()</a></span>, which returns an integer enum value
-   instead.
+   新增 <span class="function"><a href="function.preg-last-error-msg.html" class="function">preg_last_error_msg()</a></span>，返回最后一条人可读的 PCRE
+   错误消息。它是对 <span class="function"><a href="function.preg-last-error.html" class="function">preg_last_error()</a></span> （返回整数枚举值）的补充。
   </p>
  </div>
 
  <div class="sect2" id="migration80.new-features.reflection">
-  <h3 class="title">Reflection</h3>
+  <h3 class="title">反射</h3>
 
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     The following methods can now return information about default values of
-     parameters of internal functions:
+     下列方法现在返回内部函数参数默认值的相关信息：
     </p>
     <p class="para">
      <ul class="simplelist">
@@ -403,14 +398,14 @@
  </div>
 
  <div class="sect2" id="migration80.new-features.standard">
-  <h3 class="title">Standard Library</h3>
+  <h3 class="title">标准库</h3>
 
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     <span class="function"><a href="function.str-contains.html" class="function">str_contains()</a></span>, <span class="function"><a href="function.str-starts-with.html" class="function">str_starts_with()</a></span> and
-     <span class="function"><a href="function.str-ends-with.html" class="function">str_ends_with()</a></span> have been added, which check whether <code class="parameter">haystack</code> contains,
-     starts with or ends with <code class="parameter">needle</code>, respectively.
+     新增 <span class="function"><a href="function.str-contains.html" class="function">str_contains()</a></span>、<span class="function"><a href="function.str-starts-with.html" class="function">str_starts_with()</a></span> 和
+     <span class="function"><a href="function.str-ends-with.html" class="function">str_ends_with()</a></span>，分别检查 <code class="parameter">haystack</code>
+     是否包含 <code class="parameter">needle</code> 或以 <code class="parameter">needle</code> 开头/结尾。
      
      
     </p>
@@ -494,21 +489,19 @@
    </li>
    <li class="listitem">
     <p class="para">
-     Sorting functions are now stable, which means that equal-comparing elements will retain their
-     original order.
+     排序函数现在已稳定，这意味着相等的元素比较将保留其原始顺序。
      
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <span class="function"><a href="function.array-diff.html" class="function">array_diff()</a></span>, <span class="function"><a href="function.array-intersect.html" class="function">array_intersect()</a></span> and their variations can
-     now be used with a single array as argument. This means that usages like the following are now
-     possible:
+     <span class="function"><a href="function.array-diff.html" class="function">array_diff()</a></span> 和 <span class="function"><a href="function.array-intersect.html" class="function">array_intersect()</a></span>
+     及其变体现在可以接受单个数组作为参数。这意味着现在可以使用下列用法：
     </p>
     <p class="para">
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;OK&nbsp;even&nbsp;if&nbsp;$excludes&nbsp;is&nbsp;empty:<br /></span><span style="color: #0000BB">array_diff</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">,&nbsp;...</span><span style="color: #0000BB">$excludes</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;OK&nbsp;even&nbsp;if&nbsp;$arrays&nbsp;only&nbsp;contains&nbsp;a&nbsp;single&nbsp;array:<br /></span><span style="color: #0000BB">array_intersect</span><span style="color: #007700">(...</span><span style="color: #0000BB">$arrays</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;如果&nbsp;$excludes&nbsp;为空也可以：<br /></span><span style="color: #0000BB">array_diff</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">,&nbsp;...</span><span style="color: #0000BB">$excludes</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;如果&nbsp;$arrays&nbsp;仅包含单个数组也可以：<br /></span><span style="color: #0000BB">array_intersect</span><span style="color: #007700">(...</span><span style="color: #0000BB">$arrays</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
      </div>
@@ -517,8 +510,8 @@
    </li>
    <li class="listitem">
     <p class="para">
-     The <code class="parameter">flag</code> parameter of <span class="function"><a href="function.ob-implicit-flush.html" class="function">ob_implicit_flush()</a></span> was changed
-     to accept a <span class="type">bool</span> rather than an <span class="type">int</span>.
+     <span class="function"><a href="function.ob-implicit-flush.html" class="function">ob_implicit_flush()</a></span> 的 <code class="parameter">flag</code> 参数已经从接受 <span class="type">int</span>
+     变更为接受 <span class="type">bool</span>。
     </p>
    </li>
   </ul>
@@ -528,8 +521,7 @@
   <h3 class="title">Tokenizer</h3>
 
   <p class="para">
-   <span class="classname"><a href="class.phptoken.html" class="classname">PhpToken</a></span> adds an object-based interface to the tokenizer. It provides a
-   more uniform and ergonomic representation, while being more memory efficient and faster.
+   <span class="classname"><a href="class.phptoken.html" class="classname">PhpToken</a></span> 为分词器（tokenizer）新增基于对象的接口。表现更为统一且符合人体工程学，同时内存效率更高、速度更快。
    
   </p>
  </div>
@@ -540,68 +532,61 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     The Zip extension has been updated to version 1.19.1.
+     Zip 扩展更新到版本 1.19.1。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     New <span class="methodname"><a href="ziparchive.setmtimename.html" class="methodname">ZipArchive::setMtimeName()</a></span> and
-     <span class="methodname"><a href="ziparchive.setmtimeindex.html" class="methodname">ZipArchive::setMtimeIndex()</a></span> to set the modification time of an entry.
+     新的 <span class="methodname"><a href="ziparchive.setmtimename.html" class="methodname">ZipArchive::setMtimeName()</a></span> 和
+     <span class="methodname"><a href="ziparchive.setmtimeindex.html" class="methodname">ZipArchive::setMtimeIndex()</a></span> 设置条目的修改时间。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     New <span class="methodname"><a href="ziparchive.registerprogresscallback.html" class="methodname">ZipArchive::registerProgressCallback()</a></span> to provide updates during archive close.
+     新的 <span class="methodname"><a href="ziparchive.registerprogresscallback.html" class="methodname">ZipArchive::registerProgressCallback()</a></span> 提供在关闭归档期间更新。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     New <span class="methodname"><a href="ziparchive.registercancelcallback.html" class="methodname">ZipArchive::registerCancelCallback()</a></span> to allow cancellation during archive
-     close.
+     新的 <span class="methodname"><a href="ziparchive.registercancelcallback.html" class="methodname">ZipArchive::registerCancelCallback()</a></span> 允许在归档关闭期间取消。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     New <span class="methodname"><a href="ziparchive.replacefile.html" class="methodname">ZipArchive::replaceFile()</a></span> to replace an entry content.
+     新的 <span class="methodname"><a href="ziparchive.replacefile.html" class="methodname">ZipArchive::replaceFile()</a></span> 替换条目内容。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     New <span class="methodname"><a href="ziparchive.iscompressionmethoddupported.html" class="methodname">ZipArchive::isCompressionMethodSupported()</a></span> to check optional compression
-     features.
+     新的 <span class="methodname"><a href="ziparchive.iscompressionmethoddupported.html" class="methodname">ZipArchive::isCompressionMethodSupported()</a></span> 检查可选的压缩功能。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     New <span class="methodname"><a href="ziparchive.isencryptionmethoddupported.html" class="methodname">ZipArchive::isEncryptionMethodSupported()</a></span> to check optional encryption
-     features.
+     新的 <span class="methodname"><a href="ziparchive.isencryptionmethoddupported.html" class="methodname">ZipArchive::isEncryptionMethodSupported()</a></span> 检查可选的加密功能。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     The <var class="varname">ZipArchive::lastId</var> property to get the index value of
-     the last added entry has been added.
+     新增 <var class="varname">ZipArchive::lastId</var> 属性，用于获取最后新增实体的索引值。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     Errors can now be checked after an archive has been closed using the
-     <var class="varname">ZipArchive::status</var> and
-     <var class="varname">ZipArchive::statusSys</var> properties, or the
-     <span class="methodname"><a href="ziparchive.getstatusstring.html" class="methodname">ZipArchive::getStatusString()</a></span> method.
+     现在使用 <var class="varname">ZipArchive::status</var> 和 <var class="varname">ZipArchive::statusSys</var>
+     属性或者 <span class="methodname"><a href="ziparchive.getstatusstring.html" class="methodname">ZipArchive::getStatusString()</a></span> 方法可以在归档关闭后检查错误。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     The <code class="literal">&#039;remove_path&#039;</code> option of <span class="methodname"><a href="ziparchive.addglob.html" class="methodname">ZipArchive::addGlob()</a></span> and
-     <span class="methodname"><a href="ziparchive.addpattern.html" class="methodname">ZipArchive::addPattern()</a></span> is now treated as an arbitrary string prefix (for
-     consistency with the <code class="literal">&#039;add_path&#039;</code> option), whereas formerly it was treated as a
-     directory name.
+     <span class="methodname"><a href="ziparchive.addglob.html" class="methodname">ZipArchive::addGlob()</a></span> 和 <span class="methodname"><a href="ziparchive.addpattern.html" class="methodname">ZipArchive::addPattern()</a></span>
+     的 <code class="literal">&#039;remove_path&#039;</code> 选项现在视为任意字符串前缀（为了跟 <code class="literal">&#039;add_path&#039;</code>
+     选项保持一致），之前视为目录名称。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     Optional compression / encryption features are now listed in phpinfo.
+     可选的压缩/加密功能现在在 phpinfo 中列出。
     </p>
    </li>
   </ul>

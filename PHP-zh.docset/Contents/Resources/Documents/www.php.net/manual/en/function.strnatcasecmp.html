@@ -34,10 +34,11 @@
  <div class="refsect1 description" id="refsect1-function.strnatcasecmp-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>strnatcasecmp</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$str1</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$str2</code></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>strnatcasecmp</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string1</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$string2</code></span>): <span class="type">int</span></div>
 
   <p class="para rdfs-comment">
-   该函数实现了以人类习惯对数字型字符串进行排序的比较算法。除了不区分大小写，该函数的行为与 <span class="function"><a href="function.strnatcmp.html" class="function">strnatcmp()</a></span> 类似。更多信息，参见：Martin Pool 的<a href="https://github.com/sourcefrog/natsort" class="link external" title="Link : https://github.com/sourcefrog/natsort">&raquo;&nbsp;自然顺序的字符串比较</a>页面。
+   该函数实现了以人类习惯对数字型字符串进行排序的比较算法。除了不区分大小写，该函数的行为与 <span class="function"><a href="function.strnatcmp.html" class="function">strnatcmp()</a></span>
+   类似。更多信息，参见：Martin Pool 的<a href="https://github.com/sourcefrog/natsort" class="link external" title="Link : https://github.com/sourcefrog/natsort">&raquo;&nbsp;自然顺序的字符串比较</a>页面。
   </p>
  </div>
 
@@ -48,7 +49,7 @@
    <dl>
     
      <dt>
-<code class="parameter">str1</code></dt>
+<code class="parameter">string1</code></dt>
 
      <dd>
 
@@ -60,7 +61,7 @@
     
     
      <dt>
-<code class="parameter">str2</code></dt>
+<code class="parameter">string2</code></dt>
 
      <dd>
 
@@ -79,11 +80,63 @@
  <div class="refsect1 returnvalues" id="refsect1-function.strnatcasecmp-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   与其他字符串比较函数类似，如果 <code class="parameter">str1</code> 小于
-   <code class="parameter">str2</code> 返回 &lt; 0；
-   如果 <code class="parameter">str1</code>
-   大于 <code class="parameter">str2</code>
-   返回 &gt; 0；如果两者相等，返回 0。
+   与其他字符串比较函数类似，如果 <code class="parameter">string1</code> 小于
+   <code class="parameter">string2</code> 返回 <code class="literal">-1</code>；
+   如果 <code class="parameter">string1</code> 大于 <code class="parameter">string2</code>
+   返回 <code class="literal">1</code>；如果两者相等，返回 <code class="literal">0</code>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.strnatcasecmp-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.2.0</td>
+ <td>
+  现在此函数返回 <code class="literal">-1</code> 或者 <code class="literal">1</code>，之前返回负数或正数。
+ </td>
+</tr>
+
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strnatcasecmp-examples">
+  <h3 class="title">范例</h3>
+  <p class="para">
+   <div class="example" id="example-4835">
+    <p><strong>Example #1 <span class="function"><strong>strnatcasecmp()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">strnatcasecmp</span><span style="color: #007700">(</span><span style="color: #DD0000">'Apple'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Banana'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">strnatcasecmp</span><span style="color: #007700">(</span><span style="color: #DD0000">'Banana'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Apple'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">strnatcasecmp</span><span style="color: #007700">(</span><span style="color: #DD0000">'apple'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Apple'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+int(-1)
+int(1)
+int(0)
+</pre></div>
+    </div>
+   </div>
   </p>
  </div>
 
@@ -100,7 +153,7 @@
     <li class="member"><span class="function"><a href="function.strncasecmp.html" class="function" rel="rdfs-seeAlso">strncasecmp()</a> - 二进制安全比较字符串开头的若干个字符（不区分大小写）</span></li>
     <li class="member"><span class="function"><a href="function.strncmp.html" class="function" rel="rdfs-seeAlso">strncmp()</a> - 二进制安全比较字符串开头的若干个字符</span></li>
     <li class="member"><span class="function"><a href="function.strstr.html" class="function" rel="rdfs-seeAlso">strstr()</a> - 查找字符串的首次出现</span></li>
-    <li class="member"><span class="function"><a href="function.setlocale.html" class="function" rel="rdfs-seeAlso">setlocale()</a> - 设置地区信息</span></li>
+    <li class="member"><span class="function"><a href="function.setlocale.html" class="function" rel="rdfs-seeAlso">setlocale()</a> - 设置区域信息</span></li>
    </ul>
   </p>
  </div>

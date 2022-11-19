@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.umask-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>umask</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$mask</code><span class="initializer"> = ?</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>umask</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$mask</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">int</span></div>
 
   <p class="para rdfs-comment">
  <span class="function"><strong>umask()</strong></span> 将 PHP 的 umask 设定为
@@ -70,19 +70,46 @@
   <div class="refsect1 returnvalues" id="refsect1-function.umask-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   无参数调用 <span class="function"><strong>umask()</strong></span> 会返回当前的 umask，有参数则返回原来的 umask。
+   如果 <code class="parameter">mask</code> 为 <strong><code>null</code></strong>，<span class="function"><strong>umask()</strong></span> 仅返回当前的 umask，有参数则返回原来的 umask。
   </p>
  </div>
 
  
-  <div class="refsect1 examples" id="refsect1-function.umask-examples">
+ <div class="refsect1 changelog" id="refsect1-function.umask-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">mask</code> 现在可以为 null。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.umask-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2215">
+   <div class="example" id="example-2231">
     <p><strong>Example #1 <span class="function"><strong>umask()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$old&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">umask</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/path/some_dir/some_file.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0755</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">umask</span><span style="color: #007700">(</span><span style="color: #0000BB">$old</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Checking<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$old&nbsp;</span><span style="color: #007700">!=&nbsp;</span><span style="color: #0000BB">umask</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'An&nbsp;error&nbsp;occured&nbsp;while&nbsp;changing&nbsp;back&nbsp;the&nbsp;umask'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$old&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">umask</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/path/some_dir/some_file.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0755</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">umask</span><span style="color: #007700">(</span><span style="color: #0000BB">$old</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Checking<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$old&nbsp;</span><span style="color: #007700">!=&nbsp;</span><span style="color: #0000BB">umask</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'An&nbsp;error&nbsp;occurred&nbsp;while&nbsp;changing&nbsp;back&nbsp;the&nbsp;umask'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

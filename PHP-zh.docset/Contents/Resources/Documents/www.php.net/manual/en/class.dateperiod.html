@@ -38,8 +38,7 @@
     DatePeriod 类表示一个时间周期。
    </p>
    <p class="para">
-    一个时间周期可以用来在给定的一段时间之内，
-    以一定的时间间隔进行迭代。
+    时间周期内允许对一组日期和时间进行迭代，在指定的时间间隔内定期重复。
    </p>
   </div>
 
@@ -49,48 +48,66 @@
 
 
    <div class="classsynopsis">
-    <div class="ooclass"></div>
-
+    <div class="ooclass">
+     
+    </div>
 
     <div class="classsynopsisinfo">
      <span class="ooclass">
       <span class="modifier">class</span> <strong class="classname">DatePeriod</strong>
      </span>
-     
+
      <span class="oointerface"><span class="modifier">implements</span> 
-       <a href="class.traversable.html" class="interfacename">Traversable</a></span> {</div>
+       <a href="class.iteratoraggregate.html" class="interfacename">IteratorAggregate</a></span> {</div>
 
     <div class="classsynopsisinfo classsynopsisinfo_comment">/* 常量 */</div>
     <div class="fieldsynopsis">
+     <span class="modifier">public</span>
      <span class="modifier">const</span>
-     <span class="type">integer</span>
-      <var class="fieldsynopsis_varname"><a href="class.dateperiod.html#dateperiod.constants.exclude-start-date"><var class="varname">EXCLUDE_START_DATE</var></a></var><span class="initializer"> = 1</span>;</div>
+     <span class="type">int</span>
+      <var class="fieldsynopsis_varname"><a href="class.dateperiod.html#dateperiod.constants.exclude-start-date"><var class="varname">EXCLUDE_START_DATE</var></a></var>;</div>
+
+    <div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">const</span>
+     <span class="type">int</span>
+      <var class="fieldsynopsis_varname"><a href="class.dateperiod.html#dateperiod.constants.include-end-date"><var class="varname">INCLUDE_END_DATE</var></a></var>;</div>
 
 
     <div class="classsynopsisinfo classsynopsisinfo_comment">/* 属性 */</div>
     <div class="fieldsynopsis"><span class="modifier">public</span>
-     <span class="type">integer</span>
-      <var class="varname"><a href="class.dateperiod.html#dateperiod.props.recurrences">$<var class="varname">recurrences</var></a></var>;</div>
-
-    <div class="fieldsynopsis"><span class="modifier">public</span>
-     <span class="type">boolean</span>
-      <var class="varname"><a href="class.dateperiod.html#dateperiod.props.include_start_date">$<var class="varname">include_start_date</var></a></var>;</div>
-
-    <div class="fieldsynopsis"><span class="modifier">public</span>
-     <span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span>
+     <span class="modifier">readonly</span>
+     <span class="type">?</span><span class="type"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span><span class="type"></span></span>
       <var class="varname"><a href="class.dateperiod.html#dateperiod.props.start">$<var class="varname">start</var></a></var>;</div>
 
     <div class="fieldsynopsis"><span class="modifier">public</span>
-     <span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span>
+     <span class="modifier">readonly</span>
+     <span class="type">?</span><span class="type"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span><span class="type"></span></span>
       <var class="varname"><a href="class.dateperiod.html#dateperiod.props.current">$<var class="varname">current</var></a></var>;</div>
 
     <div class="fieldsynopsis"><span class="modifier">public</span>
-     <span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span>
+     <span class="modifier">readonly</span>
+     <span class="type">?</span><span class="type"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span><span class="type"></span></span>
       <var class="varname"><a href="class.dateperiod.html#dateperiod.props.end">$<var class="varname">end</var></a></var>;</div>
 
     <div class="fieldsynopsis"><span class="modifier">public</span>
-     <span class="type"><a href="class.dateinterval.html" class="type DateInterval">DateInterval</a></span>
+     <span class="modifier">readonly</span>
+     <span class="type">?</span><span class="type"><span class="type"><a href="class.dateinterval.html" class="type DateInterval">DateInterval</a></span><span class="type"></span></span>
       <var class="varname"><a href="class.dateperiod.html#dateperiod.props.interval">$<var class="varname">interval</var></a></var>;</div>
+
+    <div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">readonly</span>
+     <span class="type">int</span>
+      <var class="varname"><a href="class.dateperiod.html#dateperiod.props.recurrences">$<var class="varname">recurrences</var></a></var>;</div>
+
+    <div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">readonly</span>
+     <span class="type">bool</span>
+      <var class="varname"><a href="class.dateperiod.html#dateperiod.props.include-start-date">$<var class="varname">include_start_date</var></a></var>;</div>
+
+    <div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">readonly</span>
+     <span class="type">bool</span>
+      <var class="varname"><a href="class.dateperiod.html#dateperiod.props.include-end-date">$<var class="varname">include_end_date</var></a></var>;</div>
 
 
     <div class="classsynopsisinfo classsynopsisinfo_comment">/* 方法 */</div>
@@ -99,12 +116,10 @@
 <div class="constructorsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="dateperiod.construct.html" class="methodname">__construct</a></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span> <code class="parameter">$start</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.dateinterval.html" class="type DateInterval">DateInterval</a></span> <code class="parameter">$interval</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span> <code class="parameter">$end</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$options</code><span class="initializer"> = 0</span></span><br>)</div>
 <div class="constructorsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="dateperiod.construct.html" class="methodname">__construct</a></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$isostr</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$options</code><span class="initializer"> = 0</span></span>)</div>
 
-    
     <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="dateperiod.getdateinterval.html" class="methodname">getDateInterval</a></span>(): <span class="type"><a href="class.dateinterval.html" class="type DateInterval">DateInterval</a></span></div>
 <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="dateperiod.getenddate.html" class="methodname">getEndDate</a></span>(): <span class="type"><span class="type">?</span><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span></span></div>
 <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="dateperiod.getrecurrences.html" class="methodname">getRecurrences</a></span>(): <span class="type"><span class="type">?</span><span class="type">int</span></span></div>
 <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="dateperiod.getstartdate.html" class="methodname">getStartDate</a></span>(): <span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span></div>
-
 
    }</div>
 
@@ -120,7 +135,17 @@
 
      <dd>
 
-      <p class="para">在 <span class="function"><a href="dateperiod.construct.html" class="function">DatePeriod::__construct()</a></span> 构造函数中使用，表示不包含开始时间。</p>
+      <p class="para">在 <span class="function"><a href="dateperiod.construct.html" class="function">DatePeriod::__construct()</a></span> 构造函数中使用，排除开始时间。</p>
+     </dd>
+
+    
+
+    
+     <dt id="dateperiod.constants.include-end-date"><strong><code>DatePeriod::INCLUDE_END_DATE</code></strong></dt>
+
+     <dd>
+
+      <p class="para">在 <span class="function"><a href="dateperiod.construct.html" class="function">DatePeriod::__construct()</a></span> 构造函数中使用，包含结束时间。</p>
      </dd>
 
     
@@ -139,15 +164,58 @@
      <dd>
 
       <p class="para">
-       如果通过显式的传入 <code class="literal">$recurrences</code> 来创建的 <span class="classname"><strong class="classname">DatePeriod</strong></span> 实例，
-       那么这个参数表示循环次数。
+       迭代器返回的最小实例数。
+      </p>
+      <p class="para">
+       如果在 <span class="classname"><strong class="classname">DatePeriod</strong></span> 实例的构造函数中显式通过 <code class="literal">$recurrences</code>
+       参数传递重复次数，然后此属性将包含该值，如果开始时间没有通过 <strong><code>DatePeriod::EXCLUDE_START_DATE</code></strong>
+       禁用，则该属性<em class="emphasis">加</em> 1，如果结束时间已经通过 <strong><code>DatePeriod::INCLUDE_END_DATE</code></strong>
+       启用，则该属性<em class="emphasis">加</em> 1。
+      </p>
+      <p class="para">
+       如果没有显式传递重复次数，则此属性包含返回实例的最小数量。这将是 
+       <code class="literal">0</code>，如果开始时间没有通过 <strong><code>DatePeriod::EXCLUDE_START_DATE</code></strong>
+       禁用，则该属性<em class="emphasis">加</em> 1，如果结束时间已经通过 <strong><code>DatePeriod::INCLUDE_END_DATE</code></strong>
+       启用，则该属性<em class="emphasis">加</em> 1。
+      </p>
+      <p class="para">
+       <div class="example" id="example-2058">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$start&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2018-12-31&nbsp;00:00:00'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$end&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2021-12-31&nbsp;00:00:00'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$interval&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateInterval</span><span style="color: #007700">(</span><span style="color: #DD0000">'P1M'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$recurrences&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;通过构造函数显式设置重复次数<br /></span><span style="color: #0000BB">$period&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">(</span><span style="color: #0000BB">$start</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$interval</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$recurrences</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">::</span><span style="color: #0000BB">EXCLUDE_START_DATE</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$period</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">recurrences</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$period&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">(</span><span style="color: #0000BB">$start</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$interval</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$recurrences</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$period</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">recurrences</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$period&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">(</span><span style="color: #0000BB">$start</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$interval</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$recurrences</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">::</span><span style="color: #0000BB">INCLUDE_END_DATE</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$period</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">recurrences</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;构造函数中没有设置重复次数<br /></span><span style="color: #0000BB">$period&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">(</span><span style="color: #0000BB">$start</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$interval</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$end</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$period</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">recurrences</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$period&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">(</span><span style="color: #0000BB">$start</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$interval</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$end</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">::</span><span style="color: #0000BB">EXCLUDE_START_DATE</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$period</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">recurrences</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+         </div>
+
+         <div class="example-contents"><p>以上例程会输出：</p></div>
+         <div class="example-contents screen"><br />
+5<br />
+6<br />
+7<br />
+1<br />
+0<br />
+         </div>
+        </div>
+       </p>
+      <p class="para">
        参见：<span class="methodname"><a href="dateperiod.getrecurrences.html" class="methodname">DatePeriod::getRecurrences()</a></span>。
       </p>
      </dd>
 
     
     
-     <dt id="dateperiod.props.include_start_date"><var class="varname">include_start_date</var></dt>
+     <dt id="dateperiod.props.include-end-date"><var class="varname">include_end_date</var></dt>
+
+     <dd>
+
+      <p class="para">
+       在循环过程中，是否包含结束时间。
+      </p>
+     </dd>
+
+    
+    
+     <dt id="dateperiod.props.include-start-date"><var class="varname">include_start_date</var></dt>
 
      <dd>
 
@@ -205,35 +273,40 @@
 
   </div>
 
-  <div class="section" id="dateperiod.changelog">
+  <div class="section">
    <h2 class="title">更新日志</h2>
-   <p class="para">
-    <table class="doctable informaltable">
-     
-      <thead>
-       <tr>
-        <th>版本</th>
-        <th>说明</th>
-       </tr>
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
 
-      </thead>
+     </thead>
 
-      <tbody class="tbody">
-       <tr>
-        <td>5.3.27, 5.4.17</td>
-        <td>
-         公开以下属性：<var class="varname">recurrences</var>，
-         <var class="varname">include_start_date</var>，<var class="varname">start</var>，
-         <var class="varname">current</var>，<var class="varname">end</var> 和
-         <var class="varname">interval</var>。
-        </td>
-       </tr>
+     <tbody class="tbody">
+      <tr>
+       <td>8.2.0</td>
+       <td>
+        新增 <strong><code>DatePeriod::INCLUDE_END_DATE</code></strong> 常量和
+        <span class="property">include_end_date</span> 属性。
+       </td>
+      </tr>
 
-      </tbody>
-     
-    </table>
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        现在 <span class="classname"><strong class="classname">DatePeriod</strong></span> 实现了（implement）
+        <span class="interfacename"><a href="class.iteratoraggregate.html" class="interfacename">IteratorAggregate</a></span>。之前实现的是
+        <span class="interfacename"><a href="class.traversable.html" class="interfacename">Traversable</a></span>。
+       </td>
+      </tr>
 
-   </p>
+     </tbody>
+    
+   </table>
+
   </div>
 
  </div>
@@ -273,164 +346,7 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124147""></a>
-  <div class="note">
-   <strong class="user">Joey</strong>
-   <a href="#124147" class="date">27-Aug-2019 03:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This class isn't always intuitive. End is exclusive. All you need to do to include it is to add a second (the smallest amount).<br />
-<br />
-Microseconds are ignored.<br />
-<br />
-php -r '<br />
-/***/$p1d = new DateInterval("P1D");<br />
-/***/$b = (new DateTime())-&gt;setTime(0, 0, 0, 0);<br />
-/***/$a = (clone $b)-&gt;sub($p1d);<br />
-<br />
-/***/$f = function(DateTime $b)use($a, $p1d):void {<br />
-/***//***/$p = new DatePeriod($a, $p1d, $b);<br />
-/***//***/$i = iterator_to_array($p);<br />
-/***//***/print_r([$i[0], end($i), $a, $b]);<br />
-/***/};<br />
-<br />
-/***/$f($b);<br />
-/***/$f($b-&gt;setTime(0, 0, 0, 1));<br />
-/***/$f($b-&gt;setTime(0, 0, 1, 0));<br />
-'<br />
-<br />
-It is a sign of the end times.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="123388""></a>
-  <div class="note">
-   <strong class="user">johnzenith71(at)gmail.com</strong>
-   <a href="#123388" class="date">29-Nov-2018 08:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-An extra piece of information on how to use the (modify method) to easily get date ranges:<br />
-<br />
-<span class="default">&lt;?php<br />
-$subscription_start_date </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">( </span><span class="string">'now' </span><span class="keyword">);<br />
-<br />
-</span><span class="comment">// Modify the $subscription_start_date date value to required date range, <br />
-// this could be in days or months depending on how your application is designed<br />
-<br />
-// Days<br />
-</span><span class="default">$subscription_expiration </span><span class="keyword">= </span><span class="default">$subscription_start_date</span><span class="keyword">-&gt;</span><span class="default">modify</span><span class="keyword">( </span><span class="string">'+60 days' </span><span class="keyword">); <br />
-echo </span><span class="default">$subscription_expiration</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">( </span><span class="string">'Y-m-d' </span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">// Months<br />
-</span><span class="default">$subscription_expiration </span><span class="keyword">= </span><span class="default">$subscription_start_date</span><span class="keyword">-&gt;</span><span class="default">modify</span><span class="keyword">( </span><span class="string">'+2 Months' </span><span class="keyword">);<br />
-echo </span><span class="default">$subscription_expiration</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">( </span><span class="string">'Y-m-d' </span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">// Or even in years<br />
-</span><span class="default">$subscription_expiration </span><span class="keyword">= </span><span class="default">$subscription_start_date</span><span class="keyword">-&gt;</span><span class="default">modify</span><span class="keyword">( </span><span class="string">'+2 years' </span><span class="keyword">);<br />
-echo </span><span class="default">$subscription_expiration</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">( </span><span class="string">'Y-m-d' </span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122666""></a>
-  <div class="note">
-   <strong class="user">joseph dot cardwell at jbcwebservices dot com</strong>
-   <a href="#122666" class="date">26-Apr-2018 01:27</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-As someone noted, at least in 7.2, dates with time 0 are excluded from the start and end. <br />
-<br />
-To get a regular span of dates I ended up with:<br />
-<br />
-$dates = new DatePeriod(<br />
-&nbsp;&nbsp;&nbsp; ( new DateTime($date_start) )-&gt;setTime(0,0,1),<br />
-&nbsp;&nbsp;&nbsp; new DateInterval('P1D'),<br />
-&nbsp;&nbsp;&nbsp; ( new DateTime($date_end) )-&gt;setTime(0,0,1)<br />
-);</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="121074""></a>
-  <div class="note">
-   <strong class="user">mike at saymikeo dot com</strong>
-   <a href="#121074" class="date">11-May-2017 04:06</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Calculating business days can be cumbersome. Here is an iterator for handling business days. Usage examples below for adding # of business days and calculating how many business days between two dates.<br />
-<br />
-Here is the iterator class<br />
-https://gist.github.com/styks1987/29dd0f6a68e3b07ba70fec18f732eb86<br />
-<br />
-Usage<br />
-<br />
-Counting # of Business Days between two dates<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">countBusinessDays</span><span class="keyword">(</span><span class="default">$start</span><span class="keyword">, </span><span class="default">$stop</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$start </span><span class="keyword">&gt; </span><span class="default">$stop</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$tmpStart </span><span class="keyword">= clone </span><span class="default">$start</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$start </span><span class="keyword">= clone </span><span class="default">$stop</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$stop </span><span class="keyword">= clone </span><span class="default">$tmpStart</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Adding the time to the end date will include it<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$period </span><span class="keyword">= new \</span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$start</span><span class="keyword">-&gt;</span><span class="default">setTime</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">), new \</span><span class="default">DateInterval</span><span class="keyword">(</span><span class="string">'P1D'</span><span class="keyword">), </span><span class="default">$stop</span><span class="keyword">-&gt;</span><span class="default">setTime</span><span class="keyword">(</span><span class="default">23</span><span class="keyword">,</span><span class="default">59</span><span class="keyword">,</span><span class="default">59</span><span class="keyword">), \</span><span class="default">DatePeriod</span><span class="keyword">::</span><span class="default">EXCLUDE_START_DATE</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$periodIterator </span><span class="keyword">= new </span><span class="default">BusinessDayPeriodIterator</span><span class="keyword">(</span><span class="default">$period</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$businessDays </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while(</span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">()){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// If we run into a weekend, don't count it<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(!</span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">isWeekend</span><span class="keyword">()){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$businessDays</span><span class="keyword">++;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$businessDays</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Add # of business days<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">addBusinessDays</span><span class="keyword">(\</span><span class="default">DateTime $startDateTime</span><span class="keyword">, </span><span class="default">$daysToAdd</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$endDateTime </span><span class="keyword">= clone </span><span class="default">$startDateTime</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$endDateTime</span><span class="keyword">-&gt;</span><span class="default">add</span><span class="keyword">(new \</span><span class="default">DateInterval</span><span class="keyword">(</span><span class="string">'P' </span><span class="keyword">. </span><span class="default">$daysToAdd </span><span class="keyword">. </span><span class="string">'D'</span><span class="keyword">))-&gt;</span><span class="default">setTime</span><span class="keyword">(</span><span class="default">23</span><span class="keyword">,</span><span class="default">59</span><span class="keyword">,</span><span class="default">59</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$period </span><span class="keyword">= new \</span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$startDateTime</span><span class="keyword">, new \</span><span class="default">DateInterval</span><span class="keyword">(</span><span class="string">'P1D'</span><span class="keyword">), </span><span class="default">$endDateTime</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$periodIterator </span><span class="keyword">= new </span><span class="default">BusinessDayPeriodIterator</span><span class="keyword">(</span><span class="default">$period</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$adjustedEndingDate </span><span class="keyword">= clone </span><span class="default">$startDateTime</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while(</span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">()){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$adjustedEndingDate </span><span class="keyword">= </span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// If we run into a weekend, extend our days<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">isWeekend</span><span class="keyword">()){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">extend</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$periodIterator</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$adjustedEndingDate</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="120483""></a>
+<div id="allnotes">  <a name="120483""></a>
   <div class="note">
    <strong class="user">mail at pascalhofmann dot de</strong>
    <a href="#120483" class="date">19-Jan-2017 09:58</a>
@@ -438,180 +354,6 @@ Add # of business days<br />
     <div class="phpcode">
 <code><span class="html">
 When looping over a DatePeriod object, the returned objects always implement DateTimeInterface. The exact type returned depends on how the DatePeriod was created. If $start was a DateTimeImmutable, the objects returned will be of type DateTimeImmutable. If a DateTime object was used, the objects returned will be of type DateTime.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="117515""></a>
-  <div class="note">
-   <strong class="user">php at karlsruler dot de</strong>
-   <a href="#117515" class="date">22-Jun-2015 12:34</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The iterator seems to check the time as well, it excludes the end element if its time is 00:00:00. So the slightly safer version (to compare it against joshs suggestion) is to use $date-&gt;setTime(23, 59, 59) instead of $date-&gt;modify("+1 day").</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114188""></a>
-  <div class="note">
-   <strong class="user">patrick at adrichem dot nu</strong>
-   <a href="#114188" class="date">22-Jan-2014 11:32</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-DatePeriod is not compatible with negative intervals.<br />
-<br />
-To do so you can simply use DateInterval and loop through it yourself like this: (not start should be ahead of end if you use a negative interval<br />
-<br />
-&nbsp;&nbsp;&nbsp; class DateRange extends ArrayIterator<br />
-&nbsp;&nbsp;&nbsp; {<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; protected $oDate = null;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; protected $oStartDate = null;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; protected $oEndDate = null;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; protected $oInterval = null;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function __construct( DateTime $oStartDate, DateTime $oEndDate, DateInterval $oInterval = null )<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;oStartDate = $oStartDate;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;oDate = clone $oStartDate;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;oEndDate = $oEndDate;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;oInterval = $oInterval;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function next()<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;oDate-&gt;add($this-&gt;oInterval);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return $this-&gt;oDate;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function current()<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return $this-&gt;oDate;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function valid()<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ($this-&gt;oStartDate &gt; $this-&gt;oEndDate)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return $this-&gt;oDate &gt;= $this-&gt;oEndDate;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return $this-&gt;oDate &lt;= $this-&gt;oEndDate;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-$oRange = new DateRange(new DateTime("2013-10-01"), new DateTime("2013-01-01"), DateInterval::createFromDateString("-1 month") );<br />
-&nbsp;&nbsp;&nbsp; foreach ($oRange as $oDate)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo $oDate-&gt;format("Y-m-d") . "&lt;br /&gt;";<br />
-&nbsp;&nbsp;&nbsp; }</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="109846""></a>
-  <div class="note">
-   <strong class="user">josh dot love at verizon dot net</strong>
-   <a href="#109846" class="date">27-Aug-2012 02:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Just an example to include the end date using the DateTime method 'modify'<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-$begin </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">( </span><span class="string">'2012-08-01' </span><span class="keyword">);<br />
-</span><span class="default">$end </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">( </span><span class="string">'2012-08-31' </span><span class="keyword">);<br />
-</span><span class="default">$end </span><span class="keyword">= </span><span class="default">$end</span><span class="keyword">-&gt;</span><span class="default">modify</span><span class="keyword">( </span><span class="string">'+1 day' </span><span class="keyword">); <br />
-<br />
-</span><span class="default">$interval </span><span class="keyword">= new </span><span class="default">DateInterval</span><span class="keyword">(</span><span class="string">'P1D'</span><span class="keyword">);<br />
-</span><span class="default">$daterange </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$begin</span><span class="keyword">, </span><span class="default">$interval </span><span class="keyword">,</span><span class="default">$end</span><span class="keyword">);<br />
-<br />
-foreach(</span><span class="default">$daterange </span><span class="keyword">as </span><span class="default">$date</span><span class="keyword">){<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">$date</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">"Ymd"</span><span class="keyword">) . </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="109315""></a>
-  <div class="note">
-   <strong class="user">logos-php at kith dot org</strong>
-   <a href="#109315" class="date">05-Jul-2012 07:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Thanks much to those of you who supplied sample code; that helps a lot.<br />
-<br />
-I wanted to mention another thing that helped me: when you do that foreach ( $period as $dt ), the $dt values are DateTime objects.<br />
-<br />
-That may be obvious to those of you with more experience, but I wasn't sure until I looked it up on Stack Overflow. So I figured it was worth posting here to help others like me who might've been confused or uncertain.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="102629""></a>
-  <div class="note">
-   <strong class="user">Memori</strong>
-   <a href="#102629" class="date">25-Feb-2011 12:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you want to include the end-date, add one day to it:<br />
-<br />
-<span class="default">&lt;?php<br />
-$startDate </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">();<br />
-</span><span class="default">$endDate </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">();<br />
-<br />
-</span><span class="default">$startDateInt </span><span class="keyword">= new </span><span class="default">DateInterval</span><span class="keyword">( </span><span class="string">"P1Y" </span><span class="keyword">);<br />
-</span><span class="default">$endDateInt </span><span class="keyword">= new </span><span class="default">DateInterval</span><span class="keyword">( </span><span class="string">"P1D" </span><span class="keyword">);<br />
-<br />
-</span><span class="default">$startDate</span><span class="keyword">-&gt;</span><span class="default">sub</span><span class="keyword">( </span><span class="default">$startDateInt </span><span class="keyword">);<br />
-</span><span class="default">$endDate</span><span class="keyword">-&gt;</span><span class="default">add</span><span class="keyword">( </span><span class="default">$endDateInt </span><span class="keyword">);<br />
-<br />
-</span><span class="default">$periodInt </span><span class="keyword">= new </span><span class="default">DateInterval</span><span class="keyword">( </span><span class="string">"P1M" </span><span class="keyword">);<br />
-</span><span class="default">$period </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">( </span><span class="default">$startDate</span><span class="keyword">, </span><span class="default">$periodInt</span><span class="keyword">, </span><span class="default">$endDate </span><span class="keyword">);<br />
-<br />
-</span><span class="comment">// At februari 2011:<br />
-// $period = (8,9,10,11,12,1,2)<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="92130""></a>
-  <div class="note">
-   <strong class="user">jkaatz at gmx dot de</strong>
-   <a href="#92130" class="date">10-Jul-2009 01:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Nice example from PHP Spring Conference (thanks to Johannes Schlüter and David Zülke)<br />
-<br />
-<span class="default">&lt;?php<br />
-$begin </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">( </span><span class="string">'2007-12-31' </span><span class="keyword">);<br />
-</span><span class="default">$end </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">( </span><span class="string">'2009-12-31 23:59:59' </span><span class="keyword">);<br />
-<br />
-</span><span class="default">$interval </span><span class="keyword">= </span><span class="default">DateInterval</span><span class="keyword">::</span><span class="default">createFromDateString</span><span class="keyword">(</span><span class="string">'last thursday of next month'</span><span class="keyword">);<br />
-</span><span class="default">$period </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$begin</span><span class="keyword">, </span><span class="default">$interval</span><span class="keyword">, </span><span class="default">$end</span><span class="keyword">, </span><span class="default">DatePeriod</span><span class="keyword">::</span><span class="default">EXCLUDE_START_DATE</span><span class="keyword">);<br />
-<br />
-foreach ( </span><span class="default">$period </span><span class="keyword">as </span><span class="default">$dt </span><span class="keyword">)<br />
-&nbsp; echo </span><span class="default">$dt</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">( </span><span class="string">"l Y-m-d H:i:s\n" </span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-DateInterval specs could be found at <a href="http://en.wikipedia.org/wiki/ISO_8601#Time_intervals" rel="nofollow" target="_blank">http://en.wikipedia.org/wiki/ISO_8601#Time_intervals</a></span>
 </code>
     </div>
    </div>

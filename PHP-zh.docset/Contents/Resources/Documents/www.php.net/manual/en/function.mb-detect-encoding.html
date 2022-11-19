@@ -104,7 +104,7 @@
  <div class="refsect1 examples" id="refsect1-function.mb-detect-encoding-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2546">
+   <div class="example" id="example-2563">
     <p><strong>Example #1 <span class="function"><strong>mb_detect_encoding()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -132,7 +132,55 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126968""></a>
+<div id="allnotes">  <a name="127905""></a>
+  <div class="note">
+   <strong class="user">geompse at gmail dot com</strong>
+   <a href="#127905" class="date">08-Nov-2022 10:35</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Major undocumented breaking change since 8.1.7<br />
+https://3v4l.org/BLjZ3<br />
+<br />
+Make sure to replace mb_detect_encoding with a loop of calls to mb_check_encoding</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127650""></a>
+  <div class="note">
+   <strong class="user">mta59066 at gmail dot com</strong>
+   <a href="#127650" class="date">19-Sep-2022 07:47</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The documentation is no longer correct for php8.1 and mb_detect_encoding no longer supports order of encodings. The example outputs given in the documentation are also no longer correct for php8.1. This is somewhat explained here https://github.com/php/php-src/issues/8279<br />
+<br />
+I understand the previous ambiguity in these functions, but in my option 8.1 should have deprecated mb_detect_encoding and mb_detect_order and came up with different functions. It now tries to find the encoding that will use the least amount of space regardless of the order, and I am not sure who needs that.<br />
+<br />
+Below is an example function that will do what mb_detect_encoding was doing prior to the 8.1 change.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">mb_detect_enconding_in_order</span><span class="keyword">(</span><span class="default">string $string</span><span class="keyword">, array </span><span class="default">$encodings</span><span class="keyword">): </span><span class="default">string</span><span class="keyword">|</span><span class="default">false<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; foreach(</span><span class="default">$encodings </span><span class="keyword">as </span><span class="default">$enc</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">mb_check_encoding</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$enc</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$enc</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126968""></a>
   <div class="note">
    <strong class="user">d_maksimov</strong>
    <a href="#126968" class="date">04-Apr-2022 01:48</a>

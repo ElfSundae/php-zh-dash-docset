@@ -67,10 +67,11 @@
 
  <p class="para">
   <var class="filename">preload.php</var> is an arbitrary file that will run once at server startup
-  (PHP-FPM, mod_php, etc.) and load code into persistent memory.  If PHP will be run as
-  root (not recommended), the <a href="opcache.configuration.html#ini.opcache.preload-user" class="link">opcache.preload_user</a>
-  value can specify an alternate system user to run the preloading.  Running preloading as
-  root is not allowed.
+  (PHP-FPM, mod_php, etc.) and load code into persistent memory.  In servers that startup as
+  root before switching to an unprivileged system user, or if PHP will be run as root
+  (not recommended), the <a href="opcache.configuration.html#ini.opcache.preload-user" class="link">opcache.preload_user</a>
+  value can specify the system user to run the preloading.  Running preloading as root is not allowed
+  by default. Set <code class="literal">opcache.preload_user=root</code> to explicitly allow it.
  </p>
 
  <p class="para">
@@ -123,6 +124,32 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="127916""></a>
+  <div class="note">
+   <strong class="user">postmaster at greg0ire dot fr</strong>
+   <a href="#127916" class="date">11-Nov-2022 08:57</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+There are caveats when enabling preloading, one of them being that it should be enabled via a php.ini file. Enabling it with a php-fpm pool configuration won't work, for instance, since preloading is global and not per-pool. To make sure that you successfully enabled preloading, you should check for a preload_statistics key in the output of opcache_get_status(). There should already be an opcache_statistics key, but that's something else entirely.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127788""></a>
+  <div class="note">
+   <strong class="user">postmaster at greg0ire dot fr</strong>
+   <a href="#127788" class="date">20-Oct-2022 07:17</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+PHP 8.1 comes with an inheritance cache that partially overlaps with what the preloading already does. If you enabled preloading on lower versions then migrated to PHP 8.1, you might want to turn off preloading and see if that comes with a performance penalty or not.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

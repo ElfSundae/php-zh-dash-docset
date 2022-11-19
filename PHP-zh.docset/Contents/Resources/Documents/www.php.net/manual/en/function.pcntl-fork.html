@@ -64,7 +64,7 @@
  <div class="refsect1 examples" id="refsect1-function.pcntl-fork-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-3254">
+   <div class="example" id="example-3267">
     <p><strong>Example #1 <span class="function"><strong>pcntl_fork()</strong></span> Ê¾Àý</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -93,7 +93,95 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126991""></a>
+<div id="allnotes">  <a name="127790""></a>
+  <div class="note">
+   <strong class="user">qu4qu426com123 at gmail dot com</strong>
+   <a href="#127790" class="date">21-Oct-2022 06:40</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Simple solution if you want to reading result from child process into the parent thread that based on socket.<br />
+Hope this can be of use to someone.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">fork_process</span><span class="keyword">(...</span><span class="default">$callbacks</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$callbackSocket </span><span class="keyword">= [];<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$callbacks </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$callbacks</span><span class="keyword">, function (</span><span class="default">$callback</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$callback </span><span class="keyword">instanceof \</span><span class="default">Closure</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; });<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/* On Windows need to use AF_INET */<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$domain </span><span class="keyword">= (</span><span class="default">strtoupper</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">PHP_OS</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">)) == </span><span class="string">'WIN' </span><span class="keyword">? </span><span class="default">AF_INET </span><span class="keyword">: </span><span class="default">AF_UNIX</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$pids </span><span class="keyword">= [];<br />
+&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">$callbacks </span><span class="keyword">as </span><span class="default">$index </span><span class="keyword">=&gt; </span><span class="default">$callback</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$setUpCallbackSocket </span><span class="keyword">= </span><span class="default">socket_create_pair</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$callbackSocket</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">$setUpCallbackSocket</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"socket_create_pair failed. Reason: " </span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">1<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$pid </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; try {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$returnValue </span><span class="keyword">= </span><span class="default">$callback</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Declare $sendingData end of line , prevent socket_read hangs<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$sendingData </span><span class="keyword">= </span><span class="default">serialize</span><span class="keyword">(</span><span class="default">$returnValue</span><span class="keyword">) . </span><span class="string">"\0\r\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$bufferLength </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$sendingData</span><span class="keyword">, </span><span class="string">'8bit'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// If not declare $bufferLength, it is silently truncated to the length of SO_SNDBUF<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // @see https://www.php.net/manual/en/function.socket-write.php<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // @see https://www.php.net/manual/en/function.socket-get-option.php<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$callbackSocket</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">], </span><span class="default">$sendingData</span><span class="keyword">, </span><span class="default">$bufferLength</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$callbackSocket</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } finally {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Explicity kill process, or else the resource shared with parent will be closed<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">posix_kill</span><span class="keyword">(</span><span class="default">getmypid</span><span class="keyword">(), </span><span class="default">SIGTERM</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit();<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$pids</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">] = </span><span class="default">$pid</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$results </span><span class="keyword">= [];<br />
+&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">$pids </span><span class="keyword">as </span><span class="default">$index </span><span class="keyword">=&gt; </span><span class="default">$pid</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">pcntl_waitpid</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">, </span><span class="default">$status</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$msg </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while (</span><span class="default">$resp </span><span class="keyword">= </span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$callbackSocket</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">][</span><span class="default">1</span><span class="keyword">], </span><span class="default">102400</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$msg </span><span class="keyword">.= </span><span class="default">$resp</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// prevent socket_read hangs<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$msg</span><span class="keyword">[-</span><span class="default">1</span><span class="keyword">] === </span><span class="string">"\n" </span><span class="keyword">&amp;&amp; </span><span class="default">$msg</span><span class="keyword">[-</span><span class="default">2</span><span class="keyword">] === </span><span class="string">"\r" </span><span class="keyword">&amp;&amp; </span><span class="default">$msg</span><span class="keyword">[-</span><span class="default">3</span><span class="keyword">] === </span><span class="string">"\0"</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$callbackSocket</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">][</span><span class="default">1</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$results</span><span class="keyword">[] = </span><span class="default">unserialize</span><span class="keyword">(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$results</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$time </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">$resp </span><span class="keyword">= </span><span class="default">fork_process</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; function () {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">'first'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; function () {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">'second'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; },<br />
+);<br />
+echo (</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$time</span><span class="keyword">);<br />
+</span><span class="comment">// 2.0448851585388<br />
+</span><span class="keyword">echo </span><span class="default">implode</span><span class="keyword">(</span><span class="string">' '</span><span class="keyword">, </span><span class="default">$resp</span><span class="keyword">);<br />
+</span><span class="comment">// first second<br />
+</span><span class="default">?&gt;<br />
+</span>Inspired by https://stackoverflow.com/questions/8707339/sharing-variables-between-child-processes-in-php</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126991""></a>
   <div class="note">
    <strong class="user">williamdes at wdes dot fr</strong>
    <a href="#126991" class="date">17-Apr-2022 02:53</a>

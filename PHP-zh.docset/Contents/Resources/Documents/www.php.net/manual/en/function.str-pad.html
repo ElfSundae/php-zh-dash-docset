@@ -114,7 +114,7 @@
  <div class="refsect1 examples" id="refsect1-function.str-pad-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4741">
+   <div class="example" id="example-4813">
     <p><strong>Example #1 <span class="function"><strong>str_pad()</strong></span> ·¶Àý</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -132,7 +132,76 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125092""></a>
+<div id="allnotes">  <a name="127742""></a>
+  <div class="note">
+   <strong class="user">Borszczuk</strong>
+   <a href="#127742" class="date">18-Oct-2022 03:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Beware, \str_pad() is NOT able to correctly handle multibyte characters and as \strlen() it is assuming one char ==&nbsp; byte. If you have multibyte chars in your string your result string will be shorter than you expect:<br />
+<br />
+<span class="default">&lt;?php<br />
+$a </span><span class="keyword">= </span><span class="string">'¨¢?'</span><span class="keyword">; </span><span class="comment">// 2 accented chars<br />
+</span><span class="default">$lenA </span><span class="keyword">= \</span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br />
+echo </span><span class="default">$lenA </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+<br />
+</span><span class="default">$b </span><span class="keyword">= \</span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$lenA </span><span class="keyword">+ </span><span class="default">10</span><span class="keyword">, </span><span class="string">' '</span><span class="keyword">);<br />
+</span><span class="default">$lenB </span><span class="keyword">= \</span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">);<br />
+echo </span><span class="default">$lenB </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+would produce:<br />
+<br />
+2<br />
+10<br />
+<br />
+instead of expected 12. There seem noth to be mb_str_pad() equivalent so you may end you concatenating your string and padding manually:<br />
+<br />
+<span class="default">&lt;?php<br />
+$a </span><span class="keyword">= </span><span class="string">'¨¢?'</span><span class="keyword">; </span><span class="comment">// 2 accented chars<br />
+<br />
+</span><span class="default">$b </span><span class="keyword">= </span><span class="default">mb_str_pad</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$lenA </span><span class="keyword">+ </span><span class="default">10</span><span class="keyword">, </span><span class="string">' '</span><span class="keyword">);<br />
+</span><span class="default">$lenB </span><span class="keyword">= \</span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">);<br />
+echo </span><span class="default">$lenB </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+<br />
+function </span><span class="default">mb_str_pad</span><span class="keyword">(</span><span class="default">string $str</span><span class="keyword">, </span><span class="default">int $len</span><span class="keyword">, </span><span class="default">string $pad</span><span class="keyword">, </span><span class="default">int $align </span><span class="keyword">= \</span><span class="default">STR_PAD_RIGHT</span><span class="keyword">): </span><span class="default">string<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp; </span><span class="default">$strLen </span><span class="keyword">= \</span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);<br />
+&nbsp;&nbsp; if (</span><span class="default">$strLen </span><span class="keyword">&gt;= </span><span class="default">$len</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">$str</span><span class="keyword">;<br />
+&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; </span><span class="default">$diff </span><span class="keyword">= </span><span class="default">$len </span><span class="keyword">- </span><span class="default">$strLen</span><span class="keyword">;<br />
+&nbsp;&nbsp; </span><span class="default">$padding </span><span class="keyword">= \</span><span class="default">mb_substr</span><span class="keyword">(\</span><span class="default">str_repeat</span><span class="keyword">(</span><span class="default">$pad</span><span class="keyword">, </span><span class="default">$diff</span><span class="keyword">), </span><span class="default">0</span><span class="keyword">, </span><span class="default">$diff</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp; switch (</span><span class="default">$align</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; case \</span><span class="default">STR_PAD_BOTH</span><span class="keyword">:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$diffHalf </span><span class="keyword">= (int)(</span><span class="default">$diff</span><span class="keyword">/</span><span class="default">2 </span><span class="keyword">+ </span><span class="default">0.5</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$padding </span><span class="keyword">= \</span><span class="default">str_repeat</span><span class="keyword">(</span><span class="default">$pad</span><span class="keyword">, </span><span class="default">$diffHalf</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="string">"</span><span class="keyword">{</span><span class="default">$padding</span><span class="keyword">}{</span><span class="default">$str</span><span class="keyword">}{</span><span class="default">$padding</span><span class="keyword">}</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; break;<br />
+&nbsp;&nbsp; &nbsp;&nbsp; case \</span><span class="default">STR_PAD_LEFT</span><span class="keyword">:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="string">"</span><span class="keyword">{</span><span class="default">$padding</span><span class="keyword">}{</span><span class="default">$str</span><span class="keyword">}</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="string">"</span><span class="keyword">{</span><span class="default">$str</span><span class="keyword">}{</span><span class="default">$padding</span><span class="keyword">}</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; break;<br />
+&nbsp;&nbsp; &nbsp;&nbsp; case \</span><span class="default">STR_PAD_RIGHT</span><span class="keyword">:<br />
+&nbsp;&nbsp; &nbsp;&nbsp; default:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="string">"</span><span class="keyword">{</span><span class="default">$str</span><span class="keyword">}{</span><span class="default">$padding</span><span class="keyword">}</span><span class="string">"</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; break;<br />
+&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; return \</span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$len</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+returns expected 12 char long string.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125092""></a>
   <div class="note">
    <strong class="user">robertwhishaw at gmail dot com</strong>
    <a href="#125092" class="date">07-Jun-2020 03:44</a>

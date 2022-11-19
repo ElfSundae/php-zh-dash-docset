@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Sets nonblocking mode for file descriptor fd</title>
+  <title>设置套接字为非阻塞模式</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,14 +20,14 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.sockets.html">Socket 函数</a></li>
-    <li>Sets nonblocking mode for file descriptor fd</li>
+    <li>设置套接字为非阻塞模式</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.socket-set-nonblock" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">socket_set_nonblock</h1>
-  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">socket_set_nonblock</span> &mdash; <span class="dc-title">Sets nonblocking mode for file descriptor fd </span></p>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">socket_set_nonblock</span> &mdash; <span class="dc-title">设置套接字为非阻塞模式</span></p>
 
  </div>
  
@@ -37,15 +37,11 @@
    <span class="methodname"><strong>socket_set_nonblock</strong></span>(<span class="methodparam"><span class="type"><a href="class.socket.html" class="type Socket">Socket</a></span> <code class="parameter">$socket</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   The <span class="function"><strong>socket_set_nonblock()</strong></span> function sets the 
-   <strong><code>O_NONBLOCK</code></strong> flag on the socket specified by
-   the <code class="parameter">socket</code> parameter.
+   <span class="function"><strong>socket_set_nonblock()</strong></span> 为由 <code class="parameter">socket</code> 
+   参数指定的套接字设置 <strong><code>O_NONBLOCK</code></strong> 标记。
   </p>
   <p class="para">
-   When an operation (e.g. receive, send, connect, accept, ...) is performed on 
-   a non-blocking socket, the script will not pause its execution until it receives a 
-   signal or it can perform the operation. Rather, if the operation would result
-   in a block, the called function will fail.
+   当一个操作（例如接收、发送、连接、接受连接......）在一个非阻塞套接字上执行时，脚本在接受到信号或操作处理完成前都不会暂停执行。如果操作会导致阻塞，被调用的函数将失败。
   </p>
  </div>
 
@@ -61,8 +57,8 @@
      <dd>
 
       <p class="para">
-       A <span class="classname"><a href="class.socket.html" class="classname">Socket</a></span> instance created with <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span>
-       or <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span>.
+       由 <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> 或 <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span> 
+       创建的 <span class="classname"><a href="class.socket.html" class="classname">Socket</a></span> 实例。
       </p>
      </dd>
 
@@ -112,8 +108,8 @@
  <div class="refsect1 examples" id="refsect1-function.socket-set-nonblock-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4438">
-    <p><strong>Example #1 <span class="function"><strong>socket_set_nonblock()</strong></span> example</strong></p>
+   <div class="example" id="example-4501">
+    <p><strong>Example #1 <span class="function"><strong>socket_set_nonblock()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />$socket&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">socket_create_listen</span><span style="color: #007700">(</span><span style="color: #0000BB">1223</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">socket_set_nonblock</span><span style="color: #007700">(</span><span style="color: #0000BB">$socket</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">socket_accept</span><span style="color: #007700">(</span><span style="color: #0000BB">$socket</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -122,10 +118,8 @@
     </div>
 
     <div class="example-contents"><p>
-     This example creates a listening socket on all interfaces on port 1223 and
-     sets the socket to <strong><code>O_NONBLOCK</code></strong> mode. 
-     <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span> will immediately fail unless there is a
-     pending connection exactly at this moment.
+     此示例在 1223 端口上创建了监听所有接口的套接字，并把此套接字设置为 <strong><code>O_NONBLOCK</code></strong> 
+     模式。除非此时恰好有待处理的连接，否则 <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span> 将立即失败。
     </p></div>
    </div>
   </p>
@@ -136,8 +130,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.socket-set-block.html" class="function" rel="rdfs-seeAlso">socket_set_block()</a> - Sets blocking mode on a socket</span></li>
-    <li class="member"><span class="function"><a href="function.socket-set-option.html" class="function" rel="rdfs-seeAlso">socket_set_option()</a> - Sets socket options for the socket</span></li>
+    <li class="member"><span class="function"><a href="function.socket-set-block.html" class="function" rel="rdfs-seeAlso">socket_set_block()</a> - 设置套接字为阻塞模式</span></li>
+    <li class="member"><span class="function"><a href="function.socket-set-option.html" class="function" rel="rdfs-seeAlso">socket_set_option()</a> - 为套接字设置套接字选项</span></li>
     <li class="member"><span class="function"><a href="function.stream-set-blocking.html" class="function" rel="rdfs-seeAlso">stream_set_blocking()</a> - 为资源流设置阻塞或者阻塞模式</span></li>
    </ul>
   </p>

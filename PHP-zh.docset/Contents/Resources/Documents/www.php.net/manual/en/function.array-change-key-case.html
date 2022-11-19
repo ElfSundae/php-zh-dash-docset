@@ -88,14 +88,6 @@
  </div>
 
 
- <div class="refsect1 errors" id="refsect1-function.array-change-key-case-errors">
-  <h3 class="title">错误／异常</h3>
-  <p class="para">
-   如果输入值（<code class="parameter">array</code>）不是一个数组，就会抛出一个错误警告（<strong><code>E_WARNING</code></strong>）。
-  </p>
- </div>
-
-
  <div class="refsect1 examples" id="refsect1-function.array-change-key-case-examples">
   <h3 class="title">范例</h3>
   <p class="para">
@@ -137,7 +129,96 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125663""></a>
+<div id="allnotes">  <a name="127715""></a>
+  <div class="note">
+   <strong class="user">wendri dot net at gmail dot com</strong>
+   <a href="#127715" class="date">12-Oct-2022 04:15</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Array of partitions with always the same number of sub-array indexes.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">partitionFixedSubArray</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">, </span><span class="default">$empty_space</span><span class="keyword">)<br />
+{&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= [];<br />
+<br />
+&nbsp;&nbsp;&nbsp; if ( </span><span class="default">sizeof</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">) ) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">array_chunk</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$last_array_count </span><span class="keyword">= </span><span class="default">sizeof</span><span class="keyword">(</span><span class="default">end</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">));<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$last_array_count </span><span class="keyword">&lt; </span><span class="default">$length</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">$last_array_count</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$length</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_push</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">[</span><span class="default">key</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">)], </span><span class="default">$empty_space</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$result</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$employees </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Paidi"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Paijo"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Darno"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Kusnan"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Mukidi"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Sarno"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Nurdin"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Parmen"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Sukinah"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Sartini"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Sukijan"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Yono"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">"Supoyo"<br />
+</span><span class="keyword">];<br />
+<br />
+echo </span><span class="string">"&lt;pre&gt;"</span><span class="keyword">;<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">partitionFixedSubArray</span><span class="keyword">(</span><span class="default">$employees</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">, </span><span class="string">"empty space"</span><span class="keyword">));<br />
+echo </span><span class="string">"&lt;/pre&gt;"</span><span class="keyword">;<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Output:<br />
+Array<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [0] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; Paidi<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; Paijo<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [2] =&gt; Darno<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [3] =&gt; Kusnan<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [4] =&gt; Mukidi<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+<br />
+&nbsp;&nbsp;&nbsp; [1] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; Sarno<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; Nurdin<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [2] =&gt; Parmen<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [3] =&gt; Sukinah<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [4] =&gt; Sartini<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+<br />
+&nbsp;&nbsp;&nbsp; [2] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [0] =&gt; Sukijan<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [1] =&gt; Yono<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [2] =&gt; Supoyo<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [3] =&gt; empty space<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [4] =&gt; empty space<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
+<br />
+)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125663""></a>
   <div class="note">
    <strong class="user">msegit post pl</strong>
    <a href="#125663" class="date">08-Jan-2021 07:54</a>

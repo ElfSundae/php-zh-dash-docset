@@ -34,11 +34,11 @@
  <div class="refsect1 description" id="refsect1-function.htmlentities-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>htmlentities</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = ENT_COMPAT | ENT_HTML401</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$encoding</code><span class="initializer"> = ini_get(&quot;default_charset&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$double_encode</code><span class="initializer"> = <strong><code>true</code></strong></span></span><br>): <span class="type">string</span></div>
+   <span class="methodname"><strong>htmlentities</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$encoding</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$double_encode</code><span class="initializer"> = <strong><code>true</code></strong></span></span><br>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   本函数各方面都和 <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span> 一样，
-   除了 <span class="function"><strong>htmlentities()</strong></span> 会转换所有具有 HTML 实体的字符。
+   本函数各方面都和 <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span> 一样，除了 <span class="function"><strong>htmlentities()</strong></span> 会转换所有具有 HTML 
+   实体的字符。<span class="function"><a href="function.get-html-translation-table.html" class="function">get_html_translation_table()</a></span> 可根据提供的 <code class="parameter">flags</code> 常量返回使用的翻译表。
   </p>
   <p class="para">
    如果要解码（反向操作），可以使用 <span class="function"><a href="function.html-entity-decode.html" class="function">html_entity_decode()</a></span>。
@@ -69,9 +69,8 @@
      <dd>
 
       <p class="para">
-       以下一组位掩码标记，用于设置如何处理引号、无效代码序列、使用文档的类型。
-       默认是
-       <code class="literal">ENT_COMPAT | ENT_HTML401</code>。
+       以下一组位掩码标记，用于设置如何处理引号、无效代码序列、使用文档的类型。默认是
+       <code class="literal">ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401</code>。
        <table class="doctable table">
         <caption><strong>有效 <code class="parameter">flags</code> 标记常量</strong></caption>
         
@@ -376,72 +375,42 @@
 
  <div class="refsect1 changelog" id="refsect1-function.htmlentities-changelog">
   <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
 
-     </thead>
+    </thead>
 
-     <tbody class="tbody">
-      
- <tr>
-  <td>5.6.0</td>
-  <td>
-   The default value for the <code class="parameter">encoding</code> parameter was
-   changed to be the value of the
-   <a href="ini.core.html#ini.default-charset" class="link">default_charset</a> configuration
-   option.
-  </td>
- </tr>
+    <tbody class="tbody">
+     <tr>
+      <td>8.1.0</td>
+      <td>
+       <code class="parameter">flags</code> 从 <strong><code>ENT_COMPAT</code></strong> 变更为 <strong><code>ENT_QUOTES</code></strong> | <strong><code>ENT_SUBSTITUTE</code></strong> | <strong><code>ENT_HTML401</code></strong>。
+      </td>
+     </tr>
 
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">encoding</code> 现在可以为 null。
+      </td>
+     </tr>
 
-      <tr>
-       <td>5.4.0</td>
-       <td>
-        <code class="parameter">encoding</code> 参数的默认值改成 UTF-8。
-       </td>
-      </tr>
+    </tbody>
+   
+  </table>
 
-      <tr>
-       <td>5.4.0</td>
-       <td>
-        增加常量 <strong><code>ENT_SUBSTITUTE</code></strong>、 <strong><code>ENT_DISALLOWED</code></strong>、
-        <strong><code>ENT_HTML401</code></strong>、 <strong><code>ENT_XML1</code></strong>、
-        <strong><code>ENT_XHTML</code></strong>、 <strong><code>ENT_HTML5</code></strong>。
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.3.0</td>
-       <td>
-        增加常量 <strong><code>ENT_IGNORE</code></strong>。
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.2.3</td>
-       <td>
-        增加参数 <code class="parameter">double_encode</code>。
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
-  </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.htmlentities-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4697">
+   <div class="example" id="example-4766">
     <p><strong>Example #1 <span class="function"><strong>htmlentities()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -454,7 +423,7 @@
   </p>
   
   <p class="para">
-   <div class="example" id="example-4698">
+   <div class="example" id="example-4767">
     <p><strong>Example #2 <strong><code>ENT_IGNORE</code></strong> 用法示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">

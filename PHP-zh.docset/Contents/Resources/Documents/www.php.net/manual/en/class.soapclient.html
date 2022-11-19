@@ -675,7 +675,35 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120647""></a>
+<div id="allnotes">  <a name="127604""></a>
+  <div class="note">
+   <strong class="user">spam at kacke dot de</strong>
+   <a href="#127604" class="date">09-Sep-2022 08:46</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In case a soap response returns nodes with the attribute xsi:nil="false", they are currently not processed by php-soapclient.<br />
+<br />
+This seems to be a bug (not correct).<br />
+<br />
+Workaround:<br />
+<br />
+class mySoapClient extends SoapClient {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function __doRequest($request, $location, $action, $version, $one_way = 0) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $response = parent::__doRequest($request, $location, $action, $version, $one_way);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $response = str_replace('xsi:nil="false"',"",$response);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return $response;<br />
+&nbsp;&nbsp;&nbsp; }&nbsp; &nbsp; <br />
+}<br />
+<br />
+Took me a day. Hope it can help<br />
+Toppi</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120647""></a>
   <div class="note">
    <strong class="user">David</strong>
    <a href="#120647" class="date">15-Feb-2017 12:57</a>

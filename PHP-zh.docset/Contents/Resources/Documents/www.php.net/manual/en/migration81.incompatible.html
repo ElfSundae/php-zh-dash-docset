@@ -63,6 +63,47 @@
    </p>
   </div>
 
+  <div class="sect3" id="migration81.incompatible.core.optional-before-required">
+   <h4 class="title">在强制参数之前指定可选参数</h4>
+
+   <p class="para">
+    现在在强制参数之前指定<a href="functions.arguments.html#functions.arguments.default" class="link">可选参数</a>都被视为强制参数，即使是使用<a href="functions.arguments.html#functions.named-arguments" class="link">命名参数</a>调用也是如此。自 PHP 8.0.0 起至 PHP
+    8.1.0 之前，在定义时会发出弃用通知，但能成功调用。自 PHP 8.1.0 起，会抛出类为
+    <span class="classname"><a href="class.argumentcounterror.html" class="classname">ArgumentCountError</a></span> 的错误，就跟使用位置参数调用一样。
+
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">makeyogurt</span><span style="color: #007700">(</span><span style="color: #0000BB">$container&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"bowl"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$flavour</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"Making&nbsp;a&nbsp;</span><span style="color: #0000BB">$container</span><span style="color: #DD0000">&nbsp;of&nbsp;</span><span style="color: #0000BB">$flavour</span><span style="color: #DD0000">&nbsp;yogurt.\n"</span><span style="color: #007700">;<br />}<br />try<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">makeyogurt</span><span style="color: #007700">(</span><span style="color: #0000BB">flavour</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">"raspberry"</span><span style="color: #007700">);<br />}<br />catch&nbsp;(</span><span style="color: #0000BB">Error&nbsp;$e</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$e</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'&nbsp;-&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">(),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <p class="para">以上例程在 PHP 8.0 中的输出：</p>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+Deprecated: Required parameter $flavour follows optional parameter $container
+ in example.php on line 3
+Making a bowl of raspberry yogurt.
+</pre></div>
+     </div>
+     <p class="para">以上例程在 PHP 8.1 中的输出：</p>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+Deprecated: Optional parameter $container declared before required parameter
+ $flavour is implicitly treated as a required parameter in example.php on line 3
+ArgumentCountError - makeyogurt(): Argument #1 ($container) not passed
+</pre></div>
+     </div>
+    </div>
+   </p>
+   <p class="para">
+    Note that a default value of <strong><code>null</code></strong> can be used before required parameters to
+    specify a <a href="language.types.declarations.html#language.types.declarations.nullable" class="link">nullable type</a>,
+    but the parameter will still be required.
+   </p>
+  </div>
+
   <div class="sect3" id="migration81.incompatible.core.type-compatibility-internal">
    <h4 class="title">返回类型与内部类的兼容性</h4>
 
@@ -76,6 +117,10 @@
    <h4 class="title">新的关键词</h4>
    <p class="para">
     现在 <code class="literal">readonly</code> 是一个关键词。不过，它仍然可以被用作函数名。
+   </p>
+   <p class="para">
+    <code class="literal">never</code> 现在是保留字，所以不能用于类，接口或者
+    trait，也禁止在命名空间中使用。
    </p>
   </div>
  </div>

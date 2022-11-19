@@ -78,7 +78,7 @@
  <div class="refsect1 examples" id="refsect1-function.openssl-get-cipher-methods-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-926">
+   <div class="example" id="example-938">
     <p><strong>Example #1 <span class="function"><strong>openssl_get_cipher_methods()</strong></span> example</strong></p>
     <div class="example-contents"><p>
      展示了哪些加密算法能被找到，哪些别名可用。
@@ -245,77 +245,6 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121662""></a>
-  <div class="note">
-   <strong class="user">karel dot wintersky at gmail dot com</strong>
-   <a href="#121662" class="date">20-Sep-2017 11:29</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-May be useful for cyphers execution speed.<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">const </span><span class="default">TEST_COUNT </span><span class="keyword">= </span><span class="default">100000</span><span class="keyword">;<br />
-const </span><span class="default">SOURCE </span><span class="keyword">= </span><span class="string">'Note that HTML tags are not allowed in the posts, but the note formatting is preserved.'</span><span class="keyword">;<br />
-const </span><span class="default">KEY </span><span class="keyword">= </span><span class="string">"password"</span><span class="keyword">;<br />
-<br />
-function </span><span class="default">TESTER</span><span class="keyword">( </span><span class="default">$testing_function</span><span class="keyword">, </span><span class="default">$argument </span><span class="keyword">)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$t </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp;&nbsp; for (</span><span class="default">$test_iterator </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$test_iterator </span><span class="keyword">&lt; </span><span class="default">TEST_COUNT</span><span class="keyword">; </span><span class="default">$test_iterator</span><span class="keyword">++) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$testing_function</span><span class="keyword">( </span><span class="default">$argument </span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">round</span><span class="keyword">(</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$t</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br />
-}<br />
-<br />
-</span><span class="default">$crypt </span><span class="keyword">= function(</span><span class="default">$cipher</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$ivlen </span><span class="keyword">= </span><span class="default">openssl_cipher_iv_length</span><span class="keyword">(</span><span class="default">$cipher</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$iv </span><span class="keyword">= </span><span class="default">openssl_random_pseudo_bytes</span><span class="keyword">(</span><span class="default">$ivlen</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">openssl_encrypt</span><span class="keyword">(</span><span class="default">SOURCE</span><span class="keyword">, </span><span class="default">$cipher</span><span class="keyword">, </span><span class="default">KEY</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">, </span><span class="default">$iv</span><span class="keyword">);<br />
-};<br />
-<br />
-</span><span class="default">$methods </span><span class="keyword">= </span><span class="default">openssl_get_cipher_methods</span><span class="keyword">(</span><span class="default">false</span><span class="keyword">);<br />
-<br />
-</span><span class="default">array_splice</span><span class="keyword">( </span><span class="default">$methods</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">count</span><span class="keyword">(</span><span class="default">$methods</span><span class="keyword">) / </span><span class="default">2</span><span class="keyword">);<br />
-<br />
-</span><span class="default">$timings </span><span class="keyword">= array();<br />
-<br />
-foreach (</span><span class="default">$methods </span><span class="keyword">as </span><span class="default">$cypher</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$time </span><span class="keyword">= </span><span class="default">TESTER</span><span class="keyword">( </span><span class="default">$crypt</span><span class="keyword">, </span><span class="default">$cypher </span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$timings</span><span class="keyword">[ </span><span class="default">$cypher </span><span class="keyword">] = </span><span class="default">$time</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$cypher</span><span class="keyword">, </span><span class="default">40</span><span class="keyword">, </span><span class="string">' '</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">), </span><span class="string">" have time&nbsp; "</span><span class="keyword">, </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$time</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">), </span><span class="string">' seconds. '</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-}<br />
-<br />
-</span><span class="default">uasort</span><span class="keyword">(</span><span class="default">$timings</span><span class="keyword">, function(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">){<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$a </span><span class="keyword">&lt;=&gt; </span><span class="default">$b</span><span class="keyword">;<br />
-});<br />
-<br />
-</span><span class="default">$min_time </span><span class="keyword">= </span><span class="default">round</span><span class="keyword">(</span><span class="default">reset</span><span class="keyword">(</span><span class="default">$timings</span><span class="keyword">) / </span><span class="default">TEST_COUNT</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">);<br />
-</span><span class="default">$min_cypher </span><span class="keyword">= </span><span class="default">key</span><span class="keyword">(</span><span class="default">$timings</span><span class="keyword">);<br />
-<br />
-</span><span class="default">$max_time </span><span class="keyword">= </span><span class="default">round</span><span class="keyword">(</span><span class="default">end</span><span class="keyword">(</span><span class="default">$timings</span><span class="keyword">) / </span><span class="default">TEST_COUNT</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">);<br />
-</span><span class="default">$max_cypher </span><span class="keyword">= </span><span class="default">key</span><span class="keyword">(</span><span class="default">$timings</span><span class="keyword">);<br />
-<br />
-echo </span><span class="string">'-------------'</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-echo </span><span class="string">"Total tests: "</span><span class="keyword">, </span><span class="default">count</span><span class="keyword">(</span><span class="default">$timings</span><span class="keyword">), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-echo </span><span class="string">"Max timing : </span><span class="keyword">{</span><span class="default">$max_time</span><span class="keyword">}</span><span class="string"> seconds for `</span><span class="keyword">{</span><span class="default">$max_cypher</span><span class="keyword">}</span><span class="string">` algorithm."</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-echo </span><span class="string">"Min timing : </span><span class="keyword">{</span><span class="default">$min_time</span><span class="keyword">}</span><span class="string"> seconds for `</span><span class="keyword">{</span><span class="default">$min_cypher</span><span class="keyword">}</span><span class="string">` algorithm."</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-<br />
-echo </span><span class="string">'Details: '</span><span class="keyword">, </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-<br />
-foreach (</span><span class="default">$timings </span><span class="keyword">as </span><span class="default">$m </span><span class="keyword">=&gt; </span><span class="default">$t</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">'- '</span><span class="keyword">, </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$t</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">), </span><span class="string">" seconds for `</span><span class="keyword">{</span><span class="default">$m</span><span class="keyword">}</span><span class="string">`"</span><span class="keyword">,&nbsp; </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-}<br />
-<br />
-echo </span><span class="default">PHP_EOL</span><span class="keyword">;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

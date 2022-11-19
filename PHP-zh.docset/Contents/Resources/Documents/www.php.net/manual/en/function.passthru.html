@@ -122,7 +122,47 @@ PHP 挂起，直至程序执行结束。</p></p></blockquote>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124165""></a>
+<div id="allnotes">  <a name="127699""></a>
+  <div class="note">
+   <strong class="user">divinity76+spam at gmail dot com</strong>
+   <a href="#127699" class="date">06-Oct-2022 04:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+if you have problems with passthru("docker-compose ...bash") losing interactive shell size information, try using proc_open instead, for some reason docker-compose bash knows the size of the outer terminal when i use use proc_open, but loses that information when i use passthru,<br />
+<br />
+eg i replaced<br />
+<span class="default">&lt;?php<br />
+passthru</span><span class="keyword">(</span><span class="string">"docker-compose -f docker-compose.yml bash"</span><span class="keyword">,</span><span class="default">$ret</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span>with<br />
+<span class="default">&lt;?php<br />
+$empty1</span><span class="keyword">=array();<br />
+</span><span class="default">$empty2</span><span class="keyword">=array();<br />
+</span><span class="default">$proc</span><span class="keyword">=</span><span class="default">proc_open</span><span class="keyword">(</span><span class="string">"docker-compose -f docker-compose.yml bash"</span><span class="keyword">,</span><span class="default">$empty1</span><span class="keyword">,</span><span class="default">$empty2 </span><span class="keyword">);<br />
+</span><span class="default">$ret </span><span class="keyword">= </span><span class="default">proc_close</span><span class="keyword">(</span><span class="default">$proc</span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+and suddenly docker-compose bash knew my terminal size :)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127611""></a>
+  <div class="note">
+   <strong class="user">mail at dtrasbo dot dk</strong>
+   <a href="#127611" class="date">12-Sep-2022 09:26</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+To capture the output of a command in a string without using output buffer functions, use shell_exec()</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124165""></a>
   <div class="note">
    <strong class="user">tox at novasonica dot com</strong>
    <a href="#124165" class="date">03-Sep-2019 10:57</a>

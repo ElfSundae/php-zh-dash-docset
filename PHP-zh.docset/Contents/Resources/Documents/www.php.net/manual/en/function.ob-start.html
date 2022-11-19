@@ -34,57 +34,50 @@
  <div class="refsect1 description" id="refsect1-function.ob-start-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ob_start</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$output_callback</code><span class="initializer"> = <strong><code>null</code></strong></span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$chunk_size</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = <strong><code>PHP_OUTPUT_HANDLER_STDFLAGS</code></strong></span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>ob_start</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code><span class="initializer"> = <strong><code>null</code></strong></span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$chunk_size</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = <strong><code>PHP_OUTPUT_HANDLER_STDFLAGS</code></strong></span></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（除http标头外），相反需要输出的内容被存储在内部缓冲区中。
+   此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（消息头除外），相反需要输出的内容被存储在内部缓冲区中。
   </p>
-
   <p class="para">
-    内部缓冲区的内容可以用 <span class="function"><a href="function.ob-get-contents.html" class="function">ob_get_contents()</a></span> 函数复制到一个字符串变量中。
-    想要输出存储在内部缓冲区中的内容，可以使用 <span class="function"><a href="function.ob-end-flush.html" class="function">ob_end_flush()</a></span> 函数。另外，
-    使用 <span class="function"><a href="function.ob-end-clean.html" class="function">ob_end_clean()</a></span> 函数会静默丢弃掉缓冲区的内容。
+    内部缓冲区的内容可以用 <span class="function"><a href="function.ob-get-contents.html" class="function">ob_get_contents()</a></span>
+    复制到字符串变量中。想要输出存储在内部缓冲区中的内容，使用 <span class="function"><a href="function.ob-end-flush.html" class="function">ob_end_flush()</a></span>
+    函数。另外，使用 <span class="function"><a href="function.ob-end-clean.html" class="function">ob_end_clean()</a></span> 函数会静默丢弃掉缓冲区的内容。
   </p>
-
-  
   <div class="warning"><strong class="warning">Warning</strong>
    <p class="para">
-    当有正在调用的回调函数时，一些网络服务器（例如Apache）会改变一个脚本的工作目录。
-    你可以在回调函数中再把它改回来，例如
-    <code class="literal">chdir(dirname($_SERVER[&#039;SCRIPT_FILENAME&#039;]))</code> 。
+    当有正在调用的回调函数时，一些 Web 服务器（例如 Apache）会改变脚本的工作目录。可以在回调函数中再把它改回来，例如
+    <code class="literal">chdir(dirname($_SERVER[&#039;SCRIPT_FILENAME&#039;]))</code>。
    </p>
   </div>
   <p class="para">
-   输出缓冲区是可堆叠的，这即意谓着，当有一个 <span class="function"><strong>ob_start()</strong></span> 是活跃的时，
-   你可以调用另一个 <span class="function"><strong>ob_start()</strong></span> 。
-   只要确保又正确调用了 <span class="function"><a href="function.ob-end-flush.html" class="function">ob_end_flush()</a></span> 恰当的次数即可。
-   如果有多重输出回调函数是活跃的，输出内容会一直按嵌套的顺序依次通过它们而被过滤。
+   输出缓冲区是可堆叠的，这就意味着，当有一个 <span class="function"><strong>ob_start()</strong></span> 是活跃的时，可以调用另一个
+   <span class="function"><strong>ob_start()</strong></span>。只要确保正确调用了 <span class="function"><a href="function.ob-end-flush.html" class="function">ob_end_flush()</a></span>
+   恰当的次数即可。如果有多重输出回调函数是活跃的，输出内容会一直按嵌套的顺序依次过滤。
+  </p>
+  <p class="para">
+   如果脚本结束时输出缓存仍处于激活状态，PHP 会自动输出内容。
   </p>
  </div>
 
 
-
- 
- 
- 
  <div class="refsect1 parameters" id="refsect1-function.ob-start-parameters">
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
     
      <dt>
-<code class="parameter">output_callback</code></dt>
+<code class="parameter">callback</code></dt>
 
      <dd>
 
       <p class="para">
-       可选参数 <code class="parameter">output_callback</code> 函数可以被指定。 
-       此函数把一个字符串当作参数并返回一个字符串。
-       当输出缓冲区被( <span class="function"><a href="function.ob-flush.html" class="function">ob_flush()</a></span>, <span class="function"><a href="function.ob-clean.html" class="function">ob_clean()</a></span> 或者相似的函数)冲刷（送出）或者被清洗的时候；或者在请求结束之际输出缓冲区内容被冲刷到浏览器的时候该函数将会被调用。 
-       当调用 <code class="parameter">output_callback</code> 时，它将收到输出缓冲区的内容作为参数
-       并预期返回一个新的输出缓冲区作为结果，这个新返回的输出缓冲区内容将被送到浏览器。
-       如果这个 <code class="parameter">output_callback</code> 不是一个可以调用的函数，此函数
-       会返回 <strong><code>false</code></strong>。以下是回调签名：
+       可选参数 <code class="parameter">callback</code> 
+       函数可以被指定。此函数把一个字符串当作参数并返回一个字符串。当输出缓冲区被（<span class="function"><a href="function.ob-flush.html" class="function">ob_flush()</a></span>、<span class="function"><a href="function.ob-clean.html" class="function">ob_clean()</a></span>
+       或者相似的函数）冲刷（送出）或者被清洗的时候；或者在请求结束之际输出缓冲区内容被冲刷到浏览器的时候该函数将会被调用。当调用
+       <code class="parameter">callback</code>
+       时，它将收到输出缓冲区的内容作为参数并预期返回一个新的输出缓冲区作为结果，这个新返回的输出缓冲区内容将被送到浏览器。如果这个
+       <code class="parameter">callback</code> 不是一个可以调用的函数，此函数会返回 <strong><code>false</code></strong>。以下是回调签名：
       </p>
 
       <p class="para">
@@ -120,12 +113,10 @@
 
       </p>
       <p class="para">
-       如果 <code class="parameter">output_callback</code> 返回 <strong><code>false</code></strong> ，其原来的输入
-       内容被直接送到浏览器。
+       如果 <code class="parameter">callback</code> 返回 <strong><code>false</code></strong> ，其原来的输入内容被直接送到浏览器。
       </p>
       <p class="para">
-       这个参数 <code class="parameter">output_callback</code> 可以通过直接给一个 <strong><code>null</code></strong> 
-       值而避开。
+       这个参数 <code class="parameter">callback</code> 可以通过直接给一个 <strong><code>null</code></strong> 值而避开。
       </p>
       <p class="para">
        <span class="function"><a href="function.ob-end-clean.html" class="function">ob_end_clean()</a></span>, <span class="function"><a href="function.ob-end-flush.html" class="function">ob_end_flush()</a></span>,
@@ -138,11 +129,8 @@
       </p>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <p class="para">
-        <span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span> function exists to
-        facilitate sending gz-encoded data to web browsers that support
-        compressed web pages.  <span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span> determines
-        what type of content encoding the browser will accept and will return
-        its output accordingly.
+        <span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span> 函数的存在有助于将 gz 编码的数据发送到支持压缩网页的 Web
+        浏览器。<span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span> 确定浏览器将接受哪种类型的内容编码并相应的返回输出。
        </p>
       </p></blockquote>
      </dd>
@@ -159,9 +147,6 @@
        或超过 <code class="parameter">chunk_size</code> 的输出操作后，缓冲区都会被刷送。
        默认值 <code class="literal">0</code> 意味着函数仅在最后被调用。
       </p>
-      <p class="para">
-       PHP 5.4.0 之前，<code class="literal">1</code> 是一个特殊情况下的值，代表将 chunk_size 设置为 4096 字节。
-      </p>
      </dd>
 
     
@@ -172,14 +157,12 @@
      <dd>
 
       <p class="para">
-       <code class="parameter">flags</code> 参数代表了一个掩码位，用来控制对缓冲区的操作。
-       The default
-       is to allow output buffers to be cleaned, flushed and removed, which
-       can be set explicitly via
+       <code class="parameter">flags</code>
+       参数代表了一个掩码位，用来控制对缓冲区的操作。默认是允许清理、刷新和移除输出缓冲区，可以通过
        <strong><code>PHP_OUTPUT_HANDLER_CLEANABLE</code></strong> |
        <strong><code>PHP_OUTPUT_HANDLER_FLUSHABLE</code></strong> |
-       <strong><code>PHP_OUTPUT_HANDLER_REMOVABLE</code></strong>, or
-       <strong><code>PHP_OUTPUT_HANDLER_STDFLAGS</code></strong> as shorthand.
+       <strong><code>PHP_OUTPUT_HANDLER_REMOVABLE</code></strong> 显式设置或使用
+       <strong><code>PHP_OUTPUT_HANDLER_STDFLAGS</code></strong> 作为简写。
       </p>
       <p class="para">
        每个标志都控制着对一组功能的访问，详细介绍如下：
@@ -187,8 +170,8 @@
         
          <thead>
           <tr>
-           <th>Constant</th>
-           <th>Functions</th>
+           <th>常量</th>
+           <th>函数</th>
           </tr>
 
          </thead>
@@ -246,7 +229,7 @@
  <div class="refsect1 examples" id="refsect1-function.ob-start-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-529">
+   <div class="example" id="example-542">
     <p><strong>Example #1 用户自定义回调函数的例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -270,10 +253,10 @@
 
  <p class="para">
    <div class="example" id="function.ob-start.flags-bc">
-    <p><strong>Example #2 以兼容 PHP 5.3 和 5.4 的方式创建一个不可擦除的输出缓冲区</strong></p>
+    <p><strong>Example #2 创建不可擦除的输出缓冲区</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">version_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_VERSION</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'5.4.0'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;='</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">ob_start</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_OUTPUT_HANDLER_STDFLAGS&nbsp;</span><span style="color: #007700">^<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">PHP_OUTPUT_HANDLER_REMOVABLE</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">ob_start</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />ob_start</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_OUTPUT_HANDLER_STDFLAGS&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #0000BB">PHP_OUTPUT_HANDLER_REMOVABLE</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -289,9 +272,9 @@
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="function.ob-get-contents.html" class="function" rel="rdfs-seeAlso">ob_get_contents()</a> - 返回输出缓冲区的内容</span></li>
     <li class="member"><span class="function"><a href="function.ob-end-clean.html" class="function" rel="rdfs-seeAlso">ob_end_clean()</a> - 清空（擦除）缓冲区并关闭输出缓冲</span></li>
-    <li class="member"><span class="function"><a href="function.ob-end-flush.html" class="function" rel="rdfs-seeAlso">ob_end_flush()</a> - 冲刷出（送出）输出缓冲区内容并关闭缓冲</span></li>
+    <li class="member"><span class="function"><a href="function.ob-end-flush.html" class="function" rel="rdfs-seeAlso">ob_end_flush()</a> - 冲刷出（送出）输出缓冲区内容并关闭缓冲区</span></li>
     <li class="member"><span class="function"><a href="function.ob-implicit-flush.html" class="function" rel="rdfs-seeAlso">ob_implicit_flush()</a> - 打开/关闭绝对刷送</span></li>
-    <li class="member"><span class="function"><a href="function.ob-gzhandler.html" class="function" rel="rdfs-seeAlso">ob_gzhandler()</a> - 在ob_start中使用的用来压缩输出缓冲区中内容的回调函数。ob_start callback function to gzip output buffer</span></li>
+    <li class="member"><span class="function"><a href="function.ob-gzhandler.html" class="function" rel="rdfs-seeAlso">ob_gzhandler()</a> - ob_start 回调函数压缩输出缓冲区</span></li>
     <li class="member"><span class="function"><a href="function.ob-iconv-handler.html" class="function" rel="rdfs-seeAlso">ob_iconv_handler()</a> - 以输出缓冲处理程序转换字符编码</span></li>
     <li class="member"><span class="function"><a href="function.mb-output-handler.html" class="function" rel="rdfs-seeAlso">mb_output_handler()</a> - 在输出缓冲中转换字符编码的回调函数</span></li>
     <li class="member"><span class="function"><a href="function.ob-tidyhandler.html" class="function" rel="rdfs-seeAlso">ob_tidyhandler()</a> - ob_start callback function to repair the buffer</span></li>

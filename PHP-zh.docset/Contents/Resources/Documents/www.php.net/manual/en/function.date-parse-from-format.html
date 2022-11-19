@@ -52,7 +52,10 @@
      <dd>
 
       <p class="para">
-       Format accepted by <span class="function"><a href="datetime.createfromformat.html" class="function">DateTime::createFromFormat()</a></span>.
+       Documentation on how the <code class="parameter">format</code> is used, please
+       refer to the documentation of
+       <span class="function"><a href="datetimeimmutable.createfromformat.html" class="function">DateTimeImmutable::createFromFormat()</a></span>. The same
+       rules apply.
       </p>
      </dd>
 
@@ -81,6 +84,48 @@
   <p class="para">
    Returns associative array with detailed info about given date/time.
   </p>
+  <p class="para">
+   The returned array has keys for <code class="literal">year</code>,
+   <code class="literal">month</code>, <code class="literal">day</code>, <code class="literal">hour</code>,
+   <code class="literal">minute</code>, <code class="literal">second</code>,
+   <code class="literal">fraction</code>, and <code class="literal">is_localtime</code>.
+  </p>
+  <p class="para">
+   If <code class="literal">is_localtime</code> is present then
+   <code class="literal">zone_type</code> indicates the type of timezone. For type
+   <code class="literal">1</code> (UTC offset) the <code class="literal">zone</code>,
+   <code class="literal">is_dst</code> fields are added; for type <code class="literal">2</code>
+   (abbreviation) the fields <code class="literal">tz_abbr</code>,
+   <code class="literal">is_dst</code> are added; and for type <code class="literal">3</code>
+   (timezone identifier) the <code class="literal">tz_abbr</code>,
+   <code class="literal">tz_id</code> are added.
+  </p>
+  <p class="para">
+   The array includes <code class="literal">warning_count</code> and
+   <code class="literal">warnings</code> fields. The first one indicate how many
+   warnings there were.
+   The keys of elements <code class="literal">warnings</code> array indicate the
+   position in the given <code class="parameter">datetime</code> where the warning
+   occurred, with the string value describing the warning itself. An example
+   below shows such a warning.
+  </p>
+  <p class="para">
+   The array also contains <code class="literal">error_count</code> and
+   <code class="literal">errors</code> fields. The first one indicate how many errors
+   were found.
+   The keys of elements <code class="literal">errors</code> array indicate the
+   position in the given <code class="parameter">datetime</code> where the error
+   occurred, with the string value describing the error itself. An example
+   below shows such an error.
+  </p>
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">
+    The number of array elements in the <code class="literal">warnings</code> and
+    <code class="literal">errors</code> arrays might be less than
+    <code class="literal">warning_count</code> or <code class="literal">error_count</code> if they
+    occurred at the same position.
+   </p>
+  </div>
  </div>
 
 
@@ -116,7 +161,7 @@
  <div class="refsect1 examples" id="refsect1-function.date-parse-from-format-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2063">
+   <div class="example" id="example-2071">
     <p><strong>Example #1 <span class="function"><strong>date_parse_from_format()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -136,7 +181,7 @@ Array
     [hour] =&gt; 13
     [minute] =&gt; 0
     [second] =&gt; 0
-    [fraction] =&gt; 
+    [fraction] =&gt;
     [warning_count] =&gt; 0
     [warnings] =&gt; Array
         (
@@ -150,19 +195,61 @@ Array
     [is_localtime] =&gt; 1
     [zone_type] =&gt; 1
     [zone] =&gt; 3600
-    [is_dst] =&gt; 
+    [is_dst] =&gt;
 )
+</pre></div>
+    </div>
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-2072">
+    <p><strong>Example #2 <span class="function"><strong>date_parse_from_format()</strong></span> with warnings example</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"26&nbsp;August&nbsp;2022&nbsp;22:30&nbsp;pm"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$parsed&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j&nbsp;F&nbsp;Y&nbsp;G:i&nbsp;a"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Warnings&nbsp;count:&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'warning_count'</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />foreach&nbsp;(</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'warnings'</span><span style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$position&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$message</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"\tOn&nbsp;position&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$position</span><span style="color: #007700">}</span><span style="color: #DD0000">:&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$message</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Warnings count: 1
+	On position 23: The parsed time was invalid
+</pre></div>
+    </div>
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-2073">
+    <p><strong>Example #3 <span class="function"><strong>date_parse_from_format()</strong></span> with errors example</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"26&nbsp;August&nbsp;2022&nbsp;CEST"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$parsed&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j&nbsp;F&nbsp;Y&nbsp;H:i"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Errors&nbsp;count:&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'error_count'</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />foreach&nbsp;(</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'errors'</span><span style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$position&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$message</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"\tOn&nbsp;position&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$position</span><span style="color: #007700">}</span><span style="color: #DD0000">:&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$message</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Errors count: 3
+	On position 15: A two digit hour could not be found
+	On position 19: Data missing
 </pre></div>
     </div>
    </div>
   </p>
  </div>
 
+
  <div class="refsect1 seealso" id="refsect1-function.date-parse-from-format-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="datetime.createfromformat.html" class="function" rel="rdfs-seeAlso">DateTime::createFromFormat()</a> - 根据给定的格式解析日期时间字符串</span></li>
+    <li class="member"><span class="function"><a href="datetimeimmutable.createfromformat.html" class="function" rel="rdfs-seeAlso">DateTimeImmutable::createFromFormat()</a> - Parses a time string according to a specified format</span></li>
     <li class="member"><span class="function"><a href="function.checkdate.html" class="function" rel="rdfs-seeAlso">checkdate()</a> - 验证一个格里高里日期</span></li>
    </ul>
   </p>
@@ -172,137 +259,6 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123232""></a>
-  <div class="note">
-   <strong class="user">gilles dot migliori at gmail dot com</strong>
-   <a href="#123232" class="date">15-Oct-2018 08:48</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-$date = "10 October 2018 19:30 pm";<br />
-print_r (date_parse_from_format("j F Y G:i a", $date));<br />
-<br />
-Output:<br />
-<br />
-Array (<br />
-&nbsp;&nbsp;&nbsp; [year]&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =&gt; 2018<br />
-&nbsp;&nbsp;&nbsp; [month]&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =&gt; 10<br />
-&nbsp;&nbsp;&nbsp; [day]&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =&gt; 10<br />
-&nbsp;&nbsp;&nbsp; [hour]&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =&gt; 31<br />
-&nbsp;&nbsp;&nbsp; [minute]&nbsp; &nbsp; &nbsp; &nbsp; =&gt; 30<br />
-&nbsp;&nbsp;&nbsp; [second]&nbsp; &nbsp; &nbsp; &nbsp; =&gt; 0<br />
-&nbsp;&nbsp;&nbsp; [fraction]&nbsp; &nbsp; &nbsp; =&gt;<br />
-&nbsp;&nbsp;&nbsp; [warning_count] =&gt; 1<br />
-&nbsp;&nbsp;&nbsp; [warnings]&nbsp; &nbsp; &nbsp; =&gt; Array (<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [24] =&gt; The parsed time was invalid<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; )<br />
-&nbsp;&nbsp;&nbsp; [error_count]&nbsp;&nbsp; =&gt; 0<br />
-&nbsp;&nbsp;&nbsp; [errors]&nbsp; &nbsp; &nbsp; &nbsp; =&gt; Array ( )<br />
-&nbsp;&nbsp;&nbsp; [is_localtime]&nbsp; =&gt;<br />
-)<br />
-<br />
-19:30 pm is invalid, 24-hour format of an hour can't be used with am/pm<br />
-<br />
-must be replaced with:<br />
-<br />
-$date = "10 October 2018 19:30";<br />
-print_r (date_parse_from_format("j F Y G:i", $date));<br />
-<br />
-or:<br />
-<br />
-$date = "10 October 2018 7:30 pm";<br />
-print_r (date_parse_from_format("j F Y g:i a", $date));</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="115684""></a>
-  <div class="note">
-   <strong class="user">Archetrix</strong>
-   <a href="#115684" class="date">08-Sep-2014 08:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-For use in Versions prior V5.3:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'date_parse_from_format'</span><span class="keyword">)) {<br />
-<br />
-&nbsp;&nbsp;&nbsp; function </span><span class="default">date_parse_from_format</span><span class="keyword">(</span><span class="default">$format</span><span class="keyword">, </span><span class="default">$date</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// reverse engineer date formats<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$keys </span><span class="keyword">= array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Y' </span><span class="keyword">=&gt; array(</span><span class="string">'year'</span><span class="keyword">, </span><span class="string">'\d{4}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'y' </span><span class="keyword">=&gt; array(</span><span class="string">'year'</span><span class="keyword">, </span><span class="string">'\d{2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'m' </span><span class="keyword">=&gt; array(</span><span class="string">'month'</span><span class="keyword">, </span><span class="string">'\d{2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'n' </span><span class="keyword">=&gt; array(</span><span class="string">'month'</span><span class="keyword">, </span><span class="string">'\d{1,2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'M' </span><span class="keyword">=&gt; array(</span><span class="string">'month'</span><span class="keyword">, </span><span class="string">'[A-Z][a-z]{3}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'F' </span><span class="keyword">=&gt; array(</span><span class="string">'month'</span><span class="keyword">, </span><span class="string">'[A-Z][a-z]{2,8}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'d' </span><span class="keyword">=&gt; array(</span><span class="string">'day'</span><span class="keyword">, </span><span class="string">'\d{2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'j' </span><span class="keyword">=&gt; array(</span><span class="string">'day'</span><span class="keyword">, </span><span class="string">'\d{1,2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'D' </span><span class="keyword">=&gt; array(</span><span class="string">'day'</span><span class="keyword">, </span><span class="string">'[A-Z][a-z]{2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'l' </span><span class="keyword">=&gt; array(</span><span class="string">'day'</span><span class="keyword">, </span><span class="string">'[A-Z][a-z]{6,9}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'u' </span><span class="keyword">=&gt; array(</span><span class="string">'hour'</span><span class="keyword">, </span><span class="string">'\d{1,6}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'h' </span><span class="keyword">=&gt; array(</span><span class="string">'hour'</span><span class="keyword">, </span><span class="string">'\d{2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'H' </span><span class="keyword">=&gt; array(</span><span class="string">'hour'</span><span class="keyword">, </span><span class="string">'\d{2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'g' </span><span class="keyword">=&gt; array(</span><span class="string">'hour'</span><span class="keyword">, </span><span class="string">'\d{1,2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'G' </span><span class="keyword">=&gt; array(</span><span class="string">'hour'</span><span class="keyword">, </span><span class="string">'\d{1,2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'i' </span><span class="keyword">=&gt; array(</span><span class="string">'minute'</span><span class="keyword">, </span><span class="string">'\d{2}'</span><span class="keyword">),<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'s' </span><span class="keyword">=&gt; array(</span><span class="string">'second'</span><span class="keyword">, </span><span class="string">'\d{2}'</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// convert format string to regex<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$regex </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$chars </span><span class="keyword">= </span><span class="default">str_split</span><span class="keyword">(</span><span class="default">$format</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$chars </span><span class="keyword">AS </span><span class="default">$n </span><span class="keyword">=&gt; </span><span class="default">$char</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lastChar </span><span class="keyword">= isset(</span><span class="default">$chars</span><span class="keyword">[</span><span class="default">$n </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">]) ? </span><span class="default">$chars</span><span class="keyword">[</span><span class="default">$n </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">] : </span><span class="string">''</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$skipCurrent </span><span class="keyword">= </span><span class="string">'\\' </span><span class="keyword">== </span><span class="default">$lastChar</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">$skipCurrent </span><span class="keyword">&amp;&amp; isset(</span><span class="default">$keys</span><span class="keyword">[</span><span class="default">$char</span><span class="keyword">])) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$regex </span><span class="keyword">.= </span><span class="string">'(?P&lt;' </span><span class="keyword">. </span><span class="default">$keys</span><span class="keyword">[</span><span class="default">$char</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">] . </span><span class="string">'&gt;' </span><span class="keyword">. </span><span class="default">$keys</span><span class="keyword">[</span><span class="default">$char</span><span class="keyword">][</span><span class="default">1</span><span class="keyword">] . </span><span class="string">')'</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else if (</span><span class="string">'\\' </span><span class="keyword">== </span><span class="default">$char</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$regex </span><span class="keyword">.= </span><span class="default">$char</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$regex </span><span class="keyword">.= </span><span class="default">preg_quote</span><span class="keyword">(</span><span class="default">$char</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt </span><span class="keyword">= array();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'error_count'</span><span class="keyword">] = </span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// now try to match it<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'#^' </span><span class="keyword">. </span><span class="default">$regex </span><span class="keyword">. </span><span class="string">'$#'</span><span class="keyword">, </span><span class="default">$date</span><span class="keyword">, </span><span class="default">$dt</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$dt </span><span class="keyword">AS </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$k</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; unset(</span><span class="default">$dt</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">]);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">checkdate</span><span class="keyword">(</span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'month'</span><span class="keyword">], </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'day'</span><span class="keyword">], </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'year'</span><span class="keyword">])) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'error_count'</span><span class="keyword">] = </span><span class="default">1</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'error_count'</span><span class="keyword">] = </span><span class="default">1</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'errors'</span><span class="keyword">] = array();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'fraction'</span><span class="keyword">] = </span><span class="string">''</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'warning_count'</span><span class="keyword">] = </span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'warnings'</span><span class="keyword">] = array();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'is_localtime'</span><span class="keyword">] = </span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'zone_type'</span><span class="keyword">] = </span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'zone'</span><span class="keyword">] = </span><span class="default">0</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$dt</span><span class="keyword">[</span><span class="string">'is_dst'</span><span class="keyword">] = </span><span class="string">''</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$dt</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Not my invention though. I found it here: <a href="http://stackoverflow.com/questions/6668223/php-date-parse-from-format-alternative-in-php-5-2" rel="nofollow" target="_blank">http://stackoverflow.com/questions/6668223/php-date-parse-from-format-alternative-in-php-5-2</a><br />
-<br />
-Thought this might be a good place to keep a copy in case someone stumbles upon the same problem facing outdated PHP versions on customer servers ....</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

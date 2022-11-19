@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Listens for a connection on a socket</title>
+  <title>监听套接字的连接</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,14 +20,14 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.sockets.html">Socket 函数</a></li>
-    <li>Listens for a connection on a socket</li>
+    <li>监听套接字的连接</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.socket-listen" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">socket_listen</h1>
-  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">socket_listen</span> &mdash; <span class="dc-title">Listens for a connection on a socket</span></p>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">socket_listen</span> &mdash; <span class="dc-title">监听套接字的连接</span></p>
 
  </div>
  
@@ -37,15 +37,13 @@
    <span class="methodname"><strong>socket_listen</strong></span>(<span class="methodparam"><span class="type"><a href="class.socket.html" class="type Socket">Socket</a></span> <code class="parameter">$socket</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$backlog</code><span class="initializer"> = 0</span></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   After the socket <code class="parameter">socket</code> has been created
-   using <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> and bound to a name with
-   <span class="function"><a href="function.socket-bind.html" class="function">socket_bind()</a></span>, it may be told to listen for incoming
-   connections on <code class="parameter">socket</code>.
+   <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> 创建套接字 <code class="parameter">socket</code> 
+   并通过 <span class="function"><a href="function.socket-bind.html" class="function">socket_bind()</a></span> 绑定名称后，可以监听 <code class="parameter">socket</code> 
+   收到的连接。
   </p>
   <p class="para">
-   <span class="function"><strong>socket_listen()</strong></span> is applicable only to sockets of
-   type <strong><code>SOCK_STREAM</code></strong> or
-   <strong><code>SOCK_SEQPACKET</code></strong>.
+   <span class="function"><strong>socket_listen()</strong></span> 仅适用于 <strong><code>SOCK_STREAM</code></strong> 
+   或 <strong><code>SOCK_SEQPACKET</code></strong> 类型的套接字。
   </p>
  </div>
 
@@ -61,8 +59,8 @@
      <dd>
 
       <p class="para">
-       A <span class="classname"><a href="class.socket.html" class="classname">Socket</a></span> instance created with <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span>
-       or <span class="function"><a href="function.socket-addrinfo-bind.html" class="function">socket_addrinfo_bind()</a></span>
+       由 <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> 或 <span class="function"><a href="function.socket-addrinfo-bind.html" class="function">socket_addrinfo_bind()</a></span> 
+       创建的套接字实例。
       </p>
      </dd>
 
@@ -74,21 +72,15 @@
      <dd>
 
       <p class="para">
-       A maximum of <code class="parameter">backlog</code> incoming connections will be
-       queued for processing. If a connection request arrives with the queue
-       full the client may receive an error with an indication of
-       <code class="literal">ECONNREFUSED</code>, or, if the underlying protocol supports
-       retransmission, the request may be ignored so that retries may succeed.
+       <code class="parameter">backlog</code> 指定处理连接请求队列的最大值。如果一个连接请求到达时队列已满，客户端可能会收到 <code class="literal">ECONNREFUSED</code> 
+       的错误提示。若底层协议支持重传，则忽略该请求，以便重试成功。。
       </p>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <p class="para">
-        The maximum number passed to the <code class="parameter">backlog</code>
-        parameter highly depends on the underlying platform. On Linux, it is
-        silently truncated to <strong><code>SOMAXCONN</code></strong>. On win32, if
-        passed <strong><code>SOMAXCONN</code></strong>, the underlying service provider
-        responsible for the socket will set the backlog to a maximum
-        <em class="emphasis">reasonable</em> value. There is no standard provision to
-        find out the actual backlog value on this platform.
+        传递给 <code class="parameter">backlog</code> 
+        参数的最大值取决于底层平台。Linux 中，超过最大值将默认截取为 <strong><code>SOMAXCONN</code></strong>。win32 中，如果超过 <strong><code>SOMAXCONN</code></strong> 
+        的值，负责套接字的底层服务将把 backlog 设置为最大的 <em class="emphasis">reasonable</em> 
+        合理值，在此平台上，没有提供可以找到 backlog 实际值的标准描述。
        </p>
       </p></blockquote>
      </dd>
@@ -103,10 +95,8 @@
  <div class="refsect1 returnvalues" id="refsect1-function.socket-listen-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。 The error code can be retrieved with
-   <span class="function"><a href="function.socket-last-error.html" class="function">socket_last_error()</a></span>. This code may be passed to
-   <span class="function"><a href="function.socket-strerror.html" class="function">socket_strerror()</a></span> to get a textual explanation of the
-   error.
+   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。 可以通过 <span class="function"><a href="function.socket-last-error.html" class="function">socket_last_error()</a></span> 
+   来检索错误码。将错误码作为参数传递给 <span class="function"><a href="function.socket-strerror.html" class="function">socket_strerror()</a></span> 以获得错误的文本解释。
   </p>
  </div>
 
@@ -147,7 +137,7 @@
     <li class="member"><span class="function"><a href="function.socket-bind.html" class="function" rel="rdfs-seeAlso">socket_bind()</a> - 给套接字绑定名字</span></li>
     <li class="member"><span class="function"><a href="function.socket-connect.html" class="function" rel="rdfs-seeAlso">socket_connect()</a> - 开启一个套接字连接</span></li>
     <li class="member"><span class="function"><a href="function.socket-create.html" class="function" rel="rdfs-seeAlso">socket_create()</a> - 创建一个套接字（通讯节点）</span></li>
-    <li class="member"><span class="function"><a href="function.socket-strerror.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - Return a string describing a socket error</span></li>
+    <li class="member"><span class="function"><a href="function.socket-strerror.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - 返回描述套接字错误的字符串</span></li>
     <li class="member"><span class="function"><a href="function.socket-addrinfo-bind.html" class="function" rel="rdfs-seeAlso">socket_addrinfo_bind()</a> - 从给定的 addrinfo 创建并绑定一个套接字</span></li>
    </ul>
   </p>

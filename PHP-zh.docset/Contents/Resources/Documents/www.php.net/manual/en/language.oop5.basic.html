@@ -42,7 +42,7 @@
   <p class="para">
    一个类可以包含有属于自己的 <a href="language.oop5.constants.html" class="link">常量</a>，<a href="language.oop5.properties.html" class="link">变量</a>（称为"属性"）以及函数（称为"方法"）。
   </p>
-  <div class="example" id="example-191">
+  <div class="example" id="example-196">
    <p><strong>Example #1 简单的类定义</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -103,6 +103,48 @@ Stack trace:
      </div>
     </div>
    </div>
+
+   <div class="sect3" id="language.oop5.basic.class.readonly">
+    <h4 class="title">只读类</h4>
+    <p class="para">
+     自 PHP 8.2.0 起，可以使用 <span class="modifier">readonly</span> 修饰符来标记类。将类标记为 <span class="modifier">readonly</span>
+     只会向每个声明的属性添加 <a href="language.oop5.properties.html#language.oop5.properties.readonly-properties" class="link"><span class="modifier">readonly</span>
+     修饰符</a>并禁止创建<a href="language.oop5.properties.html#language.oop5.properties.dynamic-properties" class="link">动态属性</a>。此外，不能通过使用
+     <span class="classname"><a href="class.allow-dynamic-properties.html" class="classname">AllowDynamicProperties</a></span> 注解来添加对后者的支持。尝试这样做会触发编译错误。
+    </p>
+    <div class="example" id="example-198">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">#[AllowDynamicProperties]<br /></span><span style="color: #0000BB">readonly&nbsp;</span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Foo&nbsp;</span><span style="color: #007700">{<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Fatal&nbsp;error:&nbsp;Cannot&nbsp;apply&nbsp;#[AllowDynamicProperties]&nbsp;to&nbsp;readonly&nbsp;class&nbsp;Foo<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+
+    <p class="para">
+     由于无类型的属性和静态属性不能用 <code class="literal">readonly</code> 修饰符，所以 readonly 也不会对其声明：
+    </p>
+    <div class="example" id="example-199">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />readonly&nbsp;</span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Fatal&nbsp;error:&nbsp;Readonly&nbsp;property&nbsp;Foo::$bar&nbsp;must&nbsp;have&nbsp;type<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />readonly&nbsp;</span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;</span><span style="color: #0000BB">int&nbsp;$bar</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Fatal&nbsp;error:&nbsp;Readonly&nbsp;class&nbsp;Foo&nbsp;cannot&nbsp;declare&nbsp;static&nbsp;properties<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    <p class="para">
+     仅当子类也是 <span class="modifier">readonly</span> 类时，才可以<a href="language.oop5.basic.html#language.oop5.basic.extends" class="link">继承</a> <span class="modifier">readonly</span> 类。
+    </p>
+   </div>
   </div>
 
  <div class="sect2" id="language.oop5.basic.new">
@@ -122,7 +164,7 @@ Stack trace:
     </p>
    </p></blockquote>
 
-  <div class="example" id="example-193">
+  <div class="example" id="example-200">
    <p><strong>Example #3 创建实例</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -136,7 +178,7 @@ Stack trace:
     PHP 8.0.0 起，支持任意表达式中使用 <code class="literal">new</code>。如果表达式生成一个 
     <span class="type">string</span>，这将允许更复杂的实例化。表达式必须使用括号括起来。
    </p>
-   <div class="example" id="example-194">
+   <div class="example" id="example-201">
     <p><strong>Example #4 使用任意表达式创建实例</strong></p>
     <div class="example-contents"><p>
      在下列示例中，我们展示了多个生成类名的任意有效表达式的示例。展示了函数调用，string 连接和 <strong><code>::class</code></strong> 常量。
@@ -170,7 +212,7 @@ object(ClassD)#1 (0) {
       当把一个对象已经创建的实例赋给一个新变量时，新变量会访问同一个实例，就和用该对象赋值一样。此行为和给函数传递入实例时一样。可以用
       <a href="language.oop5.cloning.html" class="link">克隆</a> 给一个已创建的对象建立一个新实例。
   </p>
-   <div class="example" id="example-195">
+   <div class="example" id="example-202">
     <p><strong>Example #5 对象赋值</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -194,7 +236,7 @@ object(SimpleClass)#1 (1) {
   <p class="para">
       有几种方法可以创建一个对象的实例。
   </p>
-  <div class="example" id="example-196">
+  <div class="example" id="example-203">
    <p><strong>Example #6 创建新对象</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -216,7 +258,7 @@ bool(true)
    <p class="para">
     可以通过一个表达式来访问新创建对象的成员：
    </p>
-   <div class="example" id="example-197">
+   <div class="example" id="example-204">
     <p><strong>Example #7 访问新创建对象的成员</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -246,7 +288,7 @@ bool(true)
     类的属性和方法存在于不同的"命名空间"中，这意味着同一个类的属性和方法可以使用同样的名字。
     在类中访问属性和调用方法使用同样的操作符，具体是访问一个属性还是调用一个方法，取决于你的上下文，即用法是变量访问还是函数调用。
    </p>
-   <div class="example" id="example-198">
+   <div class="example" id="example-205">
     <p><strong>Example #8 访问类属性 vs. 调用类方法</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -268,7 +310,7 @@ method
     <a href="functions.anonymous.html" class="link">匿名函数</a>
     你将无法直接调用它。因为访问类属性的优先级要更高，在此场景下需要用括号包裹起来调用。
    </p>
-   <div class="example" id="example-199">
+   <div class="example" id="example-206">
     <p><strong>Example #9 类属性被赋值为匿名函数时的调用示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -305,7 +347,7 @@ method
      从 PHP 8.1.0 起，常量可以声明为 final。
     </span>
    </p></blockquote>
-  <div class="example" id="example-200">
+  <div class="example" id="example-207">
    <p><strong>Example #10 简单的类继承</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -335,7 +377,7 @@ a default value
      私有（<code class="literal">private</code>）方法不需要遵循签名兼容规则，
      哪怕签名不匹配也不会导致 Fatal 错误。
     </p>
-    <div class="example" id="example-201">
+    <div class="example" id="example-208">
      <p><strong>Example #11 兼容的子类方法</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -356,7 +398,7 @@ Valid
     <p class="para">
      下面演示子类与父类方法不兼容的例子：通过移除参数、修改可选参数为必填参数。
     </p>
-    <div class="example" id="example-202">
+    <div class="example" id="example-209">
      <p><strong>Example #12 子类方法移除参数后，导致 Fatal 错误</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -372,7 +414,7 @@ Fatal error: Declaration of Extend::foo() must be compatible with Base::foo(int 
 </pre></div>
      </div>
     </div>
-    <div class="example" id="example-203">
+    <div class="example" id="example-210">
      <p><strong>Example #13 子类方法把可选参数改成强制参数，导致 Fatal 错误</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -395,7 +437,7 @@ Fatal error: Declaration of Extend::foo(int $a) must be compatible with Base::fo
       然而我们不建议这样做，因为使用<a href="functions.arguments.html#functions.named-arguments" class="link">命名参数</a>时，
       这种做法会导致运行时的 <span class="classname"><a href="class.error.html" class="classname">Error</a></span>。
      </p>
-     <div class="example" id="example-204">
+     <div class="example" id="example-211">
       <p><strong>Example #14 在子类中重命一个命名参数，导致 Error</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -502,7 +544,7 @@ NS\ClassName
    函数判断方法和属性是否存在，但更加简洁。
   </p>
   <p class="para">
-   <div class="example" id="example-208">
+   <div class="example" id="example-215">
     <p><strong>Example #18 Nullsafe 操作符</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">

@@ -27,19 +27,16 @@
   <div id="layout-content"><div id="features.xforms" class="chapter">
  <h1>处理 XForms</h1>
 
-
  <p class="para">
-  <a href="http://www.w3.org/MarkUp/Forms/" class="link external" title="Link : http://www.w3.org/MarkUp/Forms/">&raquo;&nbsp;XForms</a> 定义了一种传统 web
-  表单的变种，它可以用于更多的平台和浏览器，甚至非传统的媒体例如 PDF 文档。
+  <a href="http://www.w3.org/MarkUp/Forms/" class="link external" title="Link : http://www.w3.org/MarkUp/Forms/">&raquo;&nbsp;XForms</a> 定义了传统 web
+  表单的变种，可以用于更广泛的平台和浏览器，甚至非传统的媒体（例如 PDF 文档）。
  </p>
-
  <p class="para">
   XFroms 的第一个关键区别是表单怎样发送到客户端。<a href="http://www.w3.org/MarkUp/Forms/2003/xforms-for-html-authors.html" class="link external" title="Link : http://www.w3.org/MarkUp/Forms/2003/xforms-for-html-authors.html">&raquo;&nbsp;XForms for HTML Authors</a>
-  包含有怎样创建 XForms 的详细说明。本节只看一个简单例子。
+  包含如何创建 XForms 的详细说明。处于本教程的目的，将只看简单的示例。
  </p>
-
- <div class="example" id="example-439">
-  <p><strong>Example #1 一个简单的 XForms 搜索表单</strong></p>
+ <div class="example" id="example-451">
+  <p><strong>Example #1 简单的 XForms 搜索表单</strong></p>
   <div class="example-contents">
 <div class="htmlcode"><pre class="htmlcode">&lt;h:html xmlns:h=&quot;http://www.w3.org/1999/xhtml&quot;
         xmlns=&quot;http://www.w3.org/2002/xforms&quot;&gt;
@@ -47,7 +44,7 @@
  &lt;h:title&gt;Search&lt;/h:title&gt;
  &lt;model&gt;
   &lt;submission action=&quot;http://example.com/search&quot;
-              method=&quot;post&quot; xml:id=&quot;s&quot;/&gt;
+              method=&quot;post&quot; id=&quot;s&quot;/&gt;
  &lt;/model&gt;
 &lt;/h:head&gt;
 &lt;h:body&gt;
@@ -61,36 +58,30 @@
   </div>
 
  </div>
-
  <p class="para">
-  上面的表单显示一个文本输入框（命名为
+  上面的表单显示一个文本输入框（名为
   <code class="parameter">q</code>）和一个提交按钮。当点击提交按钮，表单将被发送到
   <code class="literal">action</code> 所指示的页面。
  </p>
-
  <p class="para">
-  下面是从 web 应用端的角度看上去的区别。在普通的
-  HTML 表单中，数据发送格式是
-  <code class="literal">application/x-www-form-urlencoded</code>，在
-  XForms 的世界中，该信息是以 XML 格式数据发送的。
+  从 web 应用程序的角度来看，这就是看起来不同的地方。在普通的
+  HTML 表单中，数据将作为
+  <code class="literal">application/x-www-form-urlencoded</code> 发送，在
+  XForms 的世界中，该信息是以 <acronym title="eXtensible Markup Language">XML</acronym> 格式数据发送的。
  </p>
-
  <p class="para">
-  如果选择使用 XForms，那么数据为 XML，这种情况下，在
-  <var class="varname">$HTTP_RAW_POST_DATA</var> 中包含了由浏览器产生的
-  XML 文档，可以将其传递给所偏好的 XSLT 引擎或者文档解析器。
+  如果选择使用 XForms，这种情况下，肯定期望数据为 <acronym title="eXtensible Markup Language">XML</acronym>，查看
+  <var class="varname">$HTTP_RAW_POST_DATA</var> 将会找到包含由浏览器生成的
+  <acronym title="eXtensible Markup Language">XML</acronym> 文档，可以将其传递给喜欢的 <acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> 引擎或者文档解析器。
  </p>
-
  <p class="para">
-  如果对格式不感兴趣，只想让数据进入到传统的
-  <var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var> 变量中，可以指示客户端浏览器将其以
-  <code class="literal">application/x-www-form-urlencoded</code>
-  格式发送，只要将 <code class="parameter">method</code> 属性改成
-  <em class="emphasis">urlencoded-post</em> 即可。
+  如果对格式不感兴趣，只想让数据加载到传统的 <var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var>
+  变量中，只要将 <code class="parameter">method</code> 属性修改为
+  <em class="emphasis">urlencoded-post</em> 就可以指示客户端浏览器将其作为
+  <code class="literal">application/x-www-form-urlencoded</code> 发送。
  </p>
-
- <div class="example" id="example-440">
-  <p><strong>Example #2 使用 XForm 来产生 <var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></strong></p>
+ <div class="example" id="example-452">
+  <p><strong>Example #2 使用 XForm 来填充 <var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></strong></p>
   <div class="example-contents">
 <div class="htmlcode"><pre class="htmlcode">&lt;h:html xmlns:h=&quot;http://www.w3.org/1999/xhtml&quot;
         xmlns=&quot;http://www.w3.org/2002/xforms&quot;&gt;
@@ -98,7 +89,7 @@
  &lt;h:title&gt;Search&lt;/h:title&gt;
  &lt;model&gt;
   &lt;submission action=&quot;http://example.com/search&quot;
-              method=&quot;urlencoded-post&quot; xml:id=&quot;s&quot;/&gt;
+              method=&quot;urlencoded-post&quot; id=&quot;s&quot;/&gt;
  &lt;/model&gt;
 &lt;/h:head&gt;
 &lt;h:body&gt;
@@ -112,13 +103,11 @@
   </div>
 
  </div>
-
  <blockquote class="note"><p><strong class="note">Note</strong>: 
   <span class="simpara">
-   在写本文档时，许多浏览器还不支持 XForms。如果上面例子失败请检查自己的浏览器版本。
+   在编写本文档时，许多浏览器还不支持 XForms。如果上述例子失败，请检查自己的浏览器版本。
   </span>
  </p></blockquote>
-
 </div>
 <div id="usernotes">
  <div class="head">

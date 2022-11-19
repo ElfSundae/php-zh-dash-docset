@@ -98,7 +98,7 @@
  <div class="refsect1 examples" id="refsect1-function.mb-decode-numericentity-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2544">
+   <div class="example" id="example-2561">
     <p><strong>Example #1 <code class="parameter">convmap</code> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -121,7 +121,7 @@
   </p>
   
    <p class="para">
-   <div class="example" id="example-2545">
+   <div class="example" id="example-2562">
     <p><strong>Example #2 <code class="parameter">convmap</code> µÄÀý×Ó£º ±àÂë(escape) JavaScript ×Ö·û´®</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -139,7 +139,39 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125080""></a>
+<div id="allnotes">  <a name="127555""></a>
+  <div class="note">
+   <strong class="user">abderrahmanekaddour dot aissat at gmail dot com</strong>
+   <a href="#127555" class="date">29-Aug-2022 11:41</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// the following documentation depending on understanding of the code source of php mbr<br />
+// first in order to optimise the work of php<br />
+// the string must contain "&amp;" or else php won't bother trying to decode.<br />
+// for the map : int start_codeN, int end_codeN, int offsetN, int maskN<br />
+// the entity must be in the range [start_codeN, end_codeN] , if the entity is greater or less<br />
+// mb_decode_numericentity will ignore the decode process and return the $string as it is.<br />
+// in the late version of php, $map : "must have a multiple of 4 elements"<br />
+<br />
+</span><span class="default">$map </span><span class="keyword">= [ </span><span class="default">0x0</span><span class="keyword">, </span><span class="default">0xFFFF</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">];<br />
+echo </span><span class="default">mb_decode_numericentity</span><span class="keyword">(</span><span class="string">'&amp;#109;'</span><span class="keyword">, </span><span class="default">$map </span><span class="keyword">); </span><span class="comment">// result "m"<br />
+// if offsetN = 1 result "l" ; the more you increase the decimal the more it use OR operrand.<br />
+</span><span class="default">$map_2 </span><span class="keyword">= [ </span><span class="default">0x0</span><span class="keyword">, </span><span class="default">0xFFFF</span><span class="keyword">, </span><span class="default">60</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">];<br />
+echo </span><span class="default">mb_decode_numericentity</span><span class="keyword">(</span><span class="string">'&amp;#109;'</span><span class="keyword">, </span><span class="default">$map_2 </span><span class="keyword">); </span><span class="comment">// decode ( &amp;#49; ) result : "1"<br />
+<br />
+// entity Reference to check the result : https://cs.stanford.edu/people/miles/iso8859.html#ISO<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125080""></a>
   <div class="note">
    <strong class="user">fernandosilveira at yahoo dot com dot br</strong>
    <a href="#125080" class="date">05-Jun-2020 12:49</a>

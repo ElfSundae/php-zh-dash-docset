@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Returns the difference between two DateTime objects</title>
+  <title>返回两个 DateTime 之间的差值</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.datetimeinterface.html">DateTimeInterface</a></li>
-    <li>Returns the difference between two DateTime objects</li>
+    <li>返回两个 DateTime 之间的差值</li>
   </ul>
 </div>
 <div id="layout">
@@ -30,7 +30,7 @@
   <h1 class="refname">DateTimeImmutable::diff</h1>
   <h1 class="refname">DateTime::diff</h1>
   <h1 class="refname">date_diff</h1>
-  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">DateTimeInterface::diff</span> -- <span class="refname">DateTimeImmutable::diff</span> -- <span class="refname">DateTime::diff</span> -- <span class="refname">date_diff</span> &mdash; <span class="dc-title">Returns the difference between two DateTime objects</span></p>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">DateTimeInterface::diff</span> -- <span class="refname">DateTimeImmutable::diff</span> -- <span class="refname">DateTime::diff</span> -- <span class="refname">date_diff</span> &mdash; <span class="dc-title">返回两个 DateTime 之间的差值</span></p>
 
  </div>
 
@@ -48,8 +48,7 @@
   <div class="methodsynopsis dc-description"><span class="methodname"><a href="function.date-diff.html" class="methodname">date_diff</a></span>(<span class="methodparam"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span> <code class="parameter">$baseObject</code></span>, <span class="methodparam"><span class="type"><a href="class.datetimeinterface.html" class="type DateTimeInterface">DateTimeInterface</a></span> <code class="parameter">$targetObject</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$absolute</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type"><a href="class.dateinterval.html" class="type DateInterval">DateInterval</a></span></div>
 
   <p class="para rdfs-comment">
-   Returns the difference between two <span class="classname"><a href="class.datetimeinterface.html" class="classname">DateTimeInterface</a></span>
-   objects.
+   返回两个 <span class="classname"><a href="class.datetimeinterface.html" class="classname">DateTimeInterface</a></span> 对象的差值。
   </p>
  </div>
 
@@ -64,7 +63,7 @@
     <dd>
 
      <p class="para">
-      The date to compare to.
+      要比较的日期。
      </p>
     </dd>
 
@@ -76,7 +75,7 @@
     <dd>
 
      <p class="para">
-      Should the interval be forced to be positive?
+      间隔是否强制为正的？
      </p>
     </dd>
 
@@ -89,23 +88,26 @@
  <div class="refsect1 returnvalues" id="refsect1-datetime.diff-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   The <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> object represents the
-   difference between the two dates.
+   <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> 对象表示两个日期之间的差值。
   </p>
   <p class="para">
-   The return value more specifically represents the interval to apply to the
-   original object (<code class="parameter">$this</code> or
-   <code class="parameter">$originObject</code>) to arrive at the
-   <code class="parameter">$targetObject</code>. This process is not always
-   reversible.
+   返回更具体的表示应用于原始对象（<code class="parameter">$this</code> 或
+   <code class="parameter">$originObject</code>）到达 <code class="parameter">$targetObject</code>
+   的时钟时间间隔的值。该过程始终不可逆。
+  </p>
+  <p class="para">
+   该方法知道 DST 转换，因此可以根据示例返回 <code class="literal">24 小时 30
+   分钟</code>的时间间隔。如果想使用绝对时间计算，则需要先将
+   <code class="parameter">$this</code>/<code class="parameter">$baseObject</code> 和
+   <code class="parameter">$targetObject</code> 都转换为 UTC。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-datetime.diff-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-2034">
-   <p><strong>Example #1 <span class="function"><strong>DateTimeImmutable::diff()</strong></span> example</strong></p>
+  <div class="example" id="example-2030">
+   <p><strong>Example #1 <span class="function"><strong>DateTimeImmutable::diff()</strong></span> 示例</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -129,13 +131,30 @@
 </pre></div>
    </div>
   </div>
-  <div class="example" id="example-2035">
-   <p><strong>Example #2 <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> object comparison</strong></p>
+
+  <div class="example" id="example-2031">
+   <p><strong>Example #2 DST 转换期间的 <span class="methodname"><strong>DateTimeInterface::diff()</strong></span></strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$originalTime&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeImmutable</span><span style="color: #007700">(</span><span style="color: #DD0000">"2021-10-30&nbsp;09:00:00&nbsp;Europe/London"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$targedTime&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeImmutable</span><span style="color: #007700">(</span><span style="color: #DD0000">"2021-10-31&nbsp;08:30:00&nbsp;Europe/London"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$interval&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$originalTime</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">diff</span><span style="color: #007700">(</span><span style="color: #0000BB">$targedTime</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$interval</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">"%H:%I:%S&nbsp;(Full&nbsp;days:&nbsp;%a)"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>以上例程会输出：</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+24:30:00 (Full days: 0)
+</pre></div>
+   </div>
+  </div>
+
+  <div class="example" id="example-2032">
+   <p><strong>Example #3 <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> 对象比较</strong></p>
    <blockquote class="note"><p><strong class="note">Note</strong>: 
     <p class="para">
-     <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span> and
-     <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> objects can be compared using
-     <a href="language.operators.comparison.html" class="link">comparison operators</a>.
+     <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span> 和 <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span>
+     对象可以使用<a href="language.operators.comparison.html" class="link">比较运算符</a>进行比较。
     </p>
    </p></blockquote>
    <div class="example-contents">
@@ -161,10 +180,8 @@ bool(false)
   <h3 class="title">参见</h3>
   <ul class="simplelist">
    <li class="member"><span class="function"><a href="dateinterval.format.html" class="function" rel="rdfs-seeAlso">DateInterval::format()</a> - Formats the interval</span></li>
-   <li class="member"><span class="function"><a href="datetime.add.html" class="function" rel="rdfs-seeAlso">DateTime::add()</a> - 给一个 DateTime 对象增加一定量的天，月，年，小时，分钟
-   以及秒。</span></li>
-   <li class="member"><span class="function"><a href="datetime.sub.html" class="function" rel="rdfs-seeAlso">DateTime::sub()</a> - 对一个 DateTime 对象减去一定量的
-   日、月、年、小时、分钟和秒。</span></li>
+   <li class="member"><span class="function"><a href="datetime.add.html" class="function" rel="rdfs-seeAlso">DateTime::add()</a> - 修改 DateTime 对象，增加天、月、年、小时、分钟以及秒的数量。</span></li>
+   <li class="member"><span class="function"><a href="datetime.sub.html" class="function" rel="rdfs-seeAlso">DateTime::sub()</a> - 对 DateTime 对象减去一定量的日、月、年、小时、分钟和秒。</span></li>
   </ul>
  </div>
 

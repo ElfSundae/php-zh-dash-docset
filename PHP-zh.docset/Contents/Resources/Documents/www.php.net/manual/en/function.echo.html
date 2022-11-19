@@ -34,21 +34,18 @@
  <div class="refsect1 description" id="refsect1-function.echo-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>echo</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$arg1</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$...</code><span class="initializer"> = ?</span></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>echo</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">...$expressions</code></span>): <span class="type"><span class="type void">void</span></span></div>
 
   <p class="simpara">
-   输出所有参数。不会换行。
+   输出一个或多个表达式，没有额外的换行符或者空格。
   </p>
   <p class="para">
-   <span class="function"><strong>echo</strong></span> 不是一个函数（它是一个语言结构），
-   因此你不一定要使用小括号来指明参数，单引号，双引号都可以。
-   <span class="function"><strong>echo</strong></span> （不像其他语言构造）不表现得像一个函数，
-   所以不能总是使用一个函数的上下文。 另外，如果你想给<span class="function"><strong>echo</strong></span>
-   传递多个参数， 那么就不能使用小括号。
+   <code class="literal">echo</code> 不是函数，而是语言结构。它的参数是表达式列表，跟在 <code class="literal">echo</code>
+   关键字后面，用逗号分隔，不用括号分隔。与其它的返回结构不同，<code class="literal">echo</code>
+   没有返回值，因为不能在表达式的上下文中使用。
   </p>
   <p class="para">
-   <span class="function"><strong>echo</strong></span> 也有一个快捷用法，你可以在打开标记前直接用一个等号。在 PHP 5.4.0 之前，必须在php.ini
-   里面启用 <a href="ini.core.html#ini.short-open-tag" class="link">short_open_tag</a> 才有效。
+   <code class="literal">echo</code> 也有快捷语法，可以在开始标记后直接跟等号。即使禁用了 <a href="ini.core.html#ini.short-open-tag" class="link">short_open_tag</a> 配置，此语法也可用。
    <div class="informalexample">
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -59,8 +56,7 @@ I&nbsp;have&nbsp;<span style="color: #0000BB">&lt;?=$foo?&gt;</span>&nbsp;foo.</
    </div>
   </p>
   <p class="para">
-   和 <code class="literal">print</code> 最主要的不同之处是，
-   <code class="literal">echo</code> 接受参数列表，并且没有返回值。
+   跟 <span class="function"><a href="function.print.html" class="function">print</a></span> 的主要区别是 <code class="literal">echo</code> 接受多个参数且没有返回值。
   </p>
  </div>
 
@@ -71,23 +67,13 @@ I&nbsp;have&nbsp;<span style="color: #0000BB">&lt;?=$foo?&gt;</span>&nbsp;foo.</
    <dl>
     
      <dt>
-<code class="parameter">arg1</code></dt>
+<code class="parameter">expressions</code></dt>
 
      <dd>
 
       <p class="para">
-       要输出的参数
-      </p>
-     </dd>
-
-    
-    
-     <dt>
-<code class="parameter">...</code></dt>
-
-     <dd>
-
-      <p class="para">
+       要输出的一个或多个字符串表达式，用逗号分隔。即使启用 <a href="language.types.declarations.html#language.types.declarations.strict" class="link"><code class="literal">strict_types</code>
+       指令</a>，非字符串值也会强制转换为字符串。
       </p>
      </dd>
 
@@ -109,11 +95,11 @@ I&nbsp;have&nbsp;<span style="color: #0000BB">&lt;?=$foo?&gt;</span>&nbsp;foo.</
  <div class="refsect1 examples" id="refsect1-function.echo-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4688">
-    <p><strong>Example #1 <span class="function"><strong>echo</strong></span> 例子</strong></p>
+   <div class="example" id="example-4756">
+    <p><strong>Example #1 <code class="literal">echo</code> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;World"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Strings&nbsp;can&nbsp;either&nbsp;be&nbsp;passed&nbsp;individually&nbsp;as&nbsp;multiple&nbsp;arguments&nbsp;or<br />//&nbsp;concatenated&nbsp;together&nbsp;and&nbsp;passed&nbsp;as&nbsp;a&nbsp;single&nbsp;argument<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'This&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'string&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'was&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'made&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'with&nbsp;multiple&nbsp;parameters.'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">'This&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'string&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'was&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'made&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'with&nbsp;concatenation.'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Because&nbsp;echo&nbsp;does&nbsp;not&nbsp;behave&nbsp;like&nbsp;a&nbsp;function,&nbsp;the&nbsp;following&nbsp;code&nbsp;is&nbsp;invalid.<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">$some_var</span><span style="color: #007700">)&nbsp;?&nbsp;echo&nbsp;</span><span style="color: #DD0000">'true'&nbsp;</span><span style="color: #007700">:&nbsp;echo&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;However,&nbsp;the&nbsp;following&nbsp;examples&nbsp;will&nbsp;work:<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">$some_var</span><span style="color: #007700">)&nbsp;?&nbsp;print&nbsp;</span><span style="color: #DD0000">'true'&nbsp;</span><span style="color: #007700">:&nbsp;print&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;print&nbsp;is&nbsp;also&nbsp;a&nbsp;construct,&nbsp;but<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;it&nbsp;behaves&nbsp;like&nbsp;a&nbsp;function,&nbsp;so<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;it&nbsp;may&nbsp;be&nbsp;used&nbsp;in&nbsp;this&nbsp;context.<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$some_var&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">'true'</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;changing&nbsp;the&nbsp;statement&nbsp;around<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"echo&nbsp;does&nbsp;not&nbsp;require&nbsp;parentheses."</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;字符串可以作为多个参数单独传递，<br />//&nbsp;也可以连接在一起作为单个参数传递<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'This&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'string&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'was&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'made&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'with&nbsp;multiple&nbsp;parameters.'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">'This&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'string&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'was&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'made&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'with&nbsp;concatenation.'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;不会有新行或者空格；下面将会在一行中输出"helloworld"<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;跟上面一样<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">"This&nbsp;string&nbsp;spans<br />multiple&nbsp;lines.&nbsp;The&nbsp;newlines&nbsp;will&nbsp;be<br />output&nbsp;as&nbsp;well"</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">"This&nbsp;string&nbsp;spans\nmultiple&nbsp;lines.&nbsp;The&nbsp;newlines&nbsp;will&nbsp;be\noutput&nbsp;as&nbsp;well."</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;参数是可以产生字符串的任意表达式<br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"example"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"foo&nbsp;is&nbsp;</span><span style="color: #0000BB">$foo</span><span style="color: #DD0000">"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;foo&nbsp;is&nbsp;example<br /><br /></span><span style="color: #0000BB">$fruits&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #DD0000">"lemon"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"orange"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"banana"</span><span style="color: #007700">];<br />echo&nbsp;</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">"&nbsp;and&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$fruits</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;lemon&nbsp;and&nbsp;orange&nbsp;and&nbsp;banana<br /><br />//&nbsp;即使使用&nbsp;declare(strict_types=1)，非字符串表达式也会强制转换字符串<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">6&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">7</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;42<br /><br />//&nbsp;因为&nbsp;echo&nbsp;的表现跟表达式不同，所以下面的代码无效。<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">$some_var</span><span style="color: #007700">)&nbsp;?&nbsp;echo&nbsp;</span><span style="color: #DD0000">'true'&nbsp;</span><span style="color: #007700">:&nbsp;echo&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;但是，下面的示例又正常：<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">$some_var</span><span style="color: #007700">)&nbsp;?&nbsp;print&nbsp;</span><span style="color: #DD0000">'true'&nbsp;</span><span style="color: #007700">:&nbsp;print&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;print&nbsp;也是语言结构，<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;但它是有效的表达式，返回&nbsp;1，<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;所以可以在此上下文中使用。<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$some_var&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">'true'</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;首先运行表达式然后传递它到&nbsp;echo<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -125,30 +111,52 @@ I&nbsp;have&nbsp;<span style="color: #0000BB">&lt;?=$foo?&gt;</span>&nbsp;foo.</
 
  <div class="refsect1 notes" id="refsect1-function.echo-notes">
   <h3 class="title">注释</h3>
-  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">因为是一个语言构造器而不是一个函数，不能被
+  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">因为是语言构造器而不是函数，不能被
 <a href="functions.variable-functions.html" class="link">可变函数</a> 或者
 <a href="functions.arguments.html#functions.named-arguments" class="link">命名参数</a> 调用。
 </span>
 </p></blockquote>
+
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <strong>使用括号</strong><br />
+   <p class="para">
+    使用括号括住 <code class="literal">echo</code>
+    后的单个参数并不会引发语法错误，而且还会产生看起来像普通函数调用的语法。但是，这可能会产生误导，因为括号实际上是输出表达式的一部分，而不是
+    <code class="literal">echo</code> 语法本身的一部分。
+   </p>
+   <p class="para">
+    <div class="example" id="example-4757">
+     
+     <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;输出"hello"<br /><br /></span><span style="color: #007700">echo(</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;也会输出"hello"，因为&nbsp;("hello")&nbsp;是有效表达式<br /><br /></span><span style="color: #007700">echo(</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">)&nbsp;*&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;输出"9"；首先对括号内的&nbsp;1+2&nbsp;求值，然后&nbsp;echo&nbsp;语句将&nbsp;<br />//&nbsp;整个表达式&nbsp;3*3&nbsp;视为一个参数<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"&nbsp;world"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;输出"hello&nbsp;world"<br /><br /></span><span style="color: #007700">echo(</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">),&nbsp;(</span><span style="color: #DD0000">"&nbsp;world"</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;输出"hello&nbsp;world"；括号是每个表达式的一部分<br /><br /></span><span style="color: #007700">echo(</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"&nbsp;world"</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;抛出解析错误，因为&nbsp;("hello",&nbsp;"&nbsp;world")&nbsp;不是有效的表达式<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  </p></blockquote>
+
   <div class="tip"><strong class="tip">Tip</strong>
    <p class="para">
-    相对 <span class="function"><strong>echo</strong></span> 中拼接字符串而言，传递多个参数比较好，考虑到了 PHP 中连接运算符（"."）的优先级。
-    传入多个参数，不需要圆括号保证优先级：
+    将多个参数传递给 <code class="literal">echo</code> 可以避免 PHP
+    中连接运算符中优先级引起的复杂性。例如，连接运算符的优先级高于三元运算符，在
+    PHP 8.0.0 之前与加减法具有相同的优先级。
    </p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Sum:&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;"</span><span style="color: #007700">,&nbsp;isset(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">"John&nbsp;Doe"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"!"</span><span style="color: #007700">;</span>
+    <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;下面的表达式&nbsp;'Hello&nbsp;'&nbsp;.&nbsp;isset($name)&nbsp;将首先求值，<br />//&nbsp;因为始终为&nbsp;true，所以&nbsp;echo&nbsp;的参数始终是&nbsp;$name<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Hello&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;isset(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'John&nbsp;Doe'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'!'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;预期的行为需要额外的括号<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Hello&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;(isset(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'John&nbsp;Doe'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'!'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;在&nbsp;PHP&nbsp;8.0.0&nbsp;之前，下面会输出"2"，而不是"Sum:&nbsp;3"<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Sum:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;再次添加括号以确保期望的求值顺序<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Sum:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;(</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);</span>
 </span>
 </code></div>
    </div>
 
-
    <p class="para">
-    如果拼接字符串，连接运算符（"."）相对于加号优先级相同，比三元运算符优先级更高。为了正确，必须使用圆括号：
+    如果传递多个参数，则不需要括号来强制执行优先级，因为每个表达式都是独立的：
    </p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Sum:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;(</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">'Hello&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;(isset(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'John&nbsp;Doe'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'!'</span><span style="color: #007700">;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;"</span><span style="color: #007700">,&nbsp;isset(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">"John&nbsp;Doe"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"!"</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Sum:&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;</span>
 </span>
 </code></div>
    </div>
@@ -157,17 +165,18 @@ I&nbsp;have&nbsp;<span style="color: #0000BB">&lt;?=$foo?&gt;</span>&nbsp;foo.</
  </div>
 
 
-  <div class="refsect1 seealso" id="refsect1-function.echo-seealso">
+ <div class="refsect1 seealso" id="refsect1-function.echo-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="function.print.html" class="function" rel="rdfs-seeAlso">print</a> - 输出字符串</span></li>
     <li class="member"><span class="function"><a href="function.printf.html" class="function" rel="rdfs-seeAlso">printf()</a> - 输出格式化字符串</span></li>
-    <li class="member"><span class="function"><a href="function.flush.html" class="function" rel="rdfs-seeAlso">flush()</a> - 刷新输出缓冲</span></li>
-    <li class="member"><a href="language.types.string.html#language.types.string.syntax.heredoc" class="link">Heredoc 语法</a></li>
+    <li class="member"><span class="function"><a href="function.flush.html" class="function" rel="rdfs-seeAlso">flush()</a> - 刷新系统输出缓冲区</span></li>
+    <li class="member"><a href="language.types.string.html" class="link">指定文本字符串的方式</a></li>
    </ul>
   </p>
  </div>
+
 
 </div><div id="usernotes">
  <div class="head">

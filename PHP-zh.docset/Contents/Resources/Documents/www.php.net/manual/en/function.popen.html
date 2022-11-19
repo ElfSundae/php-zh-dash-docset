@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.popen-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>popen</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$command</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$mode</code></span>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>popen</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$command</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$mode</code></span>): <span class="type"><span class="type">resource</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
    打开一个指向进程的管道，该进程由派生给定的 command 命令执行而产生。
@@ -65,7 +65,12 @@
      <dd>
 
       <p class="para">
-       模式。
+       模式。<code class="literal">&#039;r&#039;</code> 表示阅读，<code class="literal">&#039;w&#039;</code> 表示写入。
+      </p>
+      <p class="para">
+       在 Windows 上，<span class="function"><strong>popen()</strong></span> 默认是文本模式，即任何从管道中读取/写入的 <code class="literal">\n</code>
+       字符都将转换为 <code class="literal">\r\n</code>。如果避免这种情况，可以通过将 <code class="parameter">mode</code>
+       设置为 <code class="literal">&#039;rb&#039;</code> 和 <code class="literal">&#039;wb&#039;</code> 来强制执行二进制模式。
       </p>
      </dd>
 
@@ -95,7 +100,7 @@
  <div class="refsect1 examples" id="refsect1-function.popen-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2197">
+   <div class="example" id="example-2213">
     <p><strong>Example #1 <span class="function"><strong>popen()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -107,9 +112,9 @@
    </div>
   </p>
   <p class="para">
-  如果未找到要执行的命令，会返回一个合法的资源。这看上去很怪，但有道理。它允许访问
-    shell 返回的任何错误信息：
-   <div class="example" id="example-2198">
+   如果未找到要执行的命令，会返回一个合法的资源。这看上去很怪，但有道理。它允许访问
+   shell 返回的任何错误信息：
+   <div class="example" id="example-2214">
     <p><strong>Example #2 <span class="function"><strong>popen()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -143,6 +148,7 @@
    </ul>
   </p>
  </div>
+
 
 </div><div id="usernotes">
  <div class="head">

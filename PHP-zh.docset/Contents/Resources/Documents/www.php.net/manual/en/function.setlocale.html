@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>设置地区信息</title>
+  <title>设置区域信息</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,27 +20,35 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.strings.html">字符串 函数</a></li>
-    <li>设置地区信息</li>
+    <li>设置区域信息</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.setlocale" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">setlocale</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">setlocale</span> &mdash; <span class="dc-title">设置地区信息</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">setlocale</span> &mdash; <span class="dc-title">设置区域信息</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.setlocale-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>setlocale</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$category</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$locale</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$...</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>setlocale</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$category</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$locales</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">...$rest</code></span>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>setlocale</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$category</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$locale</code></span>): <span class="type">string</span></div>
+  <p class="simpara">替代签名（不支持命名参数）：</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>setlocale</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$category</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$locale_array</code></span>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   设置地区信息。
+   设置区域信息。
   </p>
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">
+    区域信息是按进程维护的，而不是线程。如果在多线程服务器 API 上运行 PHP，区域设置可能在脚本运行时突然变化，尽管脚本本身并没有调用
+    <span class="function"><strong>setlocale()</strong></span>。这是因为其它脚本在同一时刻的同一进程的不同线程中运行，使用 <span class="function"><strong>setlocale()</strong></span>
+    改变了进程级别的区域。在 Windows 上，自 PHP 7.0.5 起，每个线程都维护自己的区域信息。
+   </p>
+  </div>
  </div>
 
 
@@ -81,8 +89,8 @@
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>LC_NUMERIC</code></strong> 对于小数点的分隔 (另请参见
-          <span class="function"><a href="function.localeconv.html" class="function">localeconv()</a></span>)
+          <strong><code>LC_NUMERIC</code></strong> 对于小数点的分隔（另请参见
+          <span class="function"><a href="function.localeconv.html" class="function">localeconv()</a></span>）
          </span>
         </li>
         <li class="listitem">
@@ -93,7 +101,7 @@
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>LC_MESSAGES</code></strong> 系统响应 (如果PHP使用<code class="literal">libintl</code>编译)
+          <strong><code>LC_MESSAGES</code></strong> 系统响应（如果 PHP 使用 <code class="literal">libintl</code> 编译）
          </span>
         </li>
        </ul>
@@ -103,38 +111,44 @@
     
     
      <dt>
-<code class="parameter">locale</code></dt>
+<code class="parameter">locales</code></dt>
 
      <dd>
 
       <p class="para">
-       If <code class="parameter">locale</code> is <strong><code>null</code></strong> or the empty string
-       <code class="literal">&quot;&quot;</code>, the locale names will be set from the
-       values of environment variables with the same names as the above
-       categories, or from &quot;LANG&quot;.
+       如果 <code class="parameter">locales</code> 是空字符串
+       <code class="literal">&quot;&quot;</code>，则区域名将从跟上述类别同名的环境变量的值或"LANG"中设置。
       </p>
       <p class="para">
-       If <code class="parameter">locale</code> is <code class="literal">&quot;0&quot;</code>,
-       the locale setting is not affected, only the current setting is returned.
+       如果 <code class="parameter">locales</code> 是 <code class="literal">&quot;0&quot;</code>，则区域设置不受影响，仅返回当前设置。
       </p>
       <p class="para">
-       If <code class="parameter">locale</code> is an array or followed by additional
-       parameters then each array element or parameter is tried to be set as
-       new locale until success. This is useful if a locale is known under
-       different names on different systems or for providing a fallback
-       for a possibly not available locale.
+       如果 <code class="parameter">locales</code>
+       后跟附加参数，则每个参数都会尝试设置为新的区域，直至成功。对于以下情况非常有用：不同的系统已知的区域名称不同；为可能无效的区域提供后备。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">...</code></dt>
+<code class="parameter">rest</code></dt>
 
      <dd>
 
       <p class="para">
-       (可使用字符串或数组参数进行尝试直到设置成功。)
+       可选的字符串参数，尝试作为区域设置，直至成功。
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">locale_array</code></dt>
+
+     <dd>
+
+      <p class="para">
+       尝试将数组中的每个元素设置为新的区域，直至成功。对于以下情况非常有用：不同的系统已知的区域名称不同；为可能无效的区域提供后备。
       </p>
      </dd>
 
@@ -143,7 +157,7 @@
 
    <blockquote class="note"><p><strong class="note">Note</strong>: 
     <p class="para">
-     在Windows中，setlocale(LC_ALL, &#039;&#039;)要从系统中的区域/语言设置(通过控制面板访问) 。
+     在 Windows 中，setlocale(LC_ALL, &#039;&#039;) 从系统中的区域/语言设置（通过控制面板访问）中设置区域设置信息。
     </p>
    </p></blockquote>
   </p>
@@ -153,65 +167,29 @@
  <div class="refsect1 returnvalues" id="refsect1-function.setlocale-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns the new current locale, or <strong><code>false</code></strong> if the locale functionality is
-   not implemented on your platform, the specified locale does not exist or
-   the category name is invalid.
+   返回新的当前区域，如果区域功能没有在当前平台实现、指定区域不存在或类别名无效时返回 <strong><code>false</code></strong>。
   </p>
   <p class="para">
-   An invalid category name also causes a warning message. Category/locale
-   names can be found in <a href="http://www.faqs.org/rfcs/rfc1766" class="link external" title="Link : http://www.faqs.org/rfcs/rfc1766">&raquo;&nbsp;RFC 1766</a>
-   and <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php" class="link external" title="Link : http://www.loc.gov/standards/iso639-2/php/code_list.php">&raquo;&nbsp;ISO 639</a>.
-   Different systems have different naming schemes for locales.
+   无效的类别名也会导致警告消息。类别/区域名可以在 <a href="http://www.faqs.org/rfcs/rfc1766" class="link external" title="Link : http://www.faqs.org/rfcs/rfc1766">&raquo;&nbsp;RFC 1766</a>
+   和 <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php" class="link external" title="Link : http://www.loc.gov/standards/iso639-2/php/code_list.php">&raquo;&nbsp;ISO 639</a> 中找到。不同的系统有不同的区域命名方案。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    The return value of <span class="function"><strong>setlocale()</strong></span> depends
-    on the system that PHP is running.  It returns exactly
-    what the system <code class="literal">setlocale</code> function returns.
+    <span class="function"><strong>setlocale()</strong></span> 的返回值依赖运行 PHP 的系统。它准确返回系统
+    <code class="literal">setlocale</code> 函数返回的内容。
    </p>
   </p></blockquote>
- </div>
-
-
- <div class="refsect1 changelog" id="refsect1-function.setlocale-changelog">
-  <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
-
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>5.3.0</td>
-       <td>
-        This function now throws an <strong><code>E_DEPRECATED</code></strong> notice if a string is passed 
-        to the <code class="parameter">category</code> parameter instead of one of the 
-        <code class="literal">LC_*</code> constants.
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
-  </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.setlocale-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4723">
-    <p><strong>Example #1 <span class="function"><strong>setlocale()</strong></span> Examples</strong></p>
+   <div class="example" id="example-4795">
+    <p><strong>Example #1 <span class="function"><strong>setlocale()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;Set&nbsp;locale&nbsp;to&nbsp;Dutch&nbsp;*/<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'nl_NL'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Output:&nbsp;vrijdag&nbsp;22&nbsp;december&nbsp;1978&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%A&nbsp;%e&nbsp;%B&nbsp;%Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">12</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1978</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;try&nbsp;different&nbsp;possible&nbsp;locale&nbsp;names&nbsp;for&nbsp;german&nbsp;as&nbsp;of&nbsp;PHP&nbsp;4.3.0&nbsp;*/<br /></span><span style="color: #0000BB">$loc_de&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE@euro'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ge'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Preferred&nbsp;locale&nbsp;for&nbsp;german&nbsp;on&nbsp;this&nbsp;system&nbsp;is&nbsp;'</span><span style="color: #0000BB">$loc_de</span><span style="color: #DD0000">'"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;设置区域为荷兰&nbsp;*/<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'nl_NL'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;输出：vrijdag&nbsp;22&nbsp;december&nbsp;1978&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%A&nbsp;%e&nbsp;%B&nbsp;%Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">12</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1978</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;尝试为德语设置不同的可能区域&nbsp;*/<br /></span><span style="color: #0000BB">$loc_de&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE@euro'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ge'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Preferred&nbsp;locale&nbsp;for&nbsp;german&nbsp;on&nbsp;this&nbsp;system&nbsp;is&nbsp;'</span><span style="color: #0000BB">$loc_de</span><span style="color: #DD0000">'"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -219,11 +197,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4724">
-    <p><strong>Example #2 <span class="function"><strong>setlocale()</strong></span> Examples for Windows</strong></p>
+   <div class="example" id="example-4796">
+    <p><strong>Example #2 Windows 的 <span class="function"><strong>setlocale()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;Set&nbsp;locale&nbsp;to&nbsp;Dutch&nbsp;*/<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'nld_nld'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Output:&nbsp;vrijdag&nbsp;22&nbsp;december&nbsp;1978&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%A&nbsp;%d&nbsp;%B&nbsp;%Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">12</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1978</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;try&nbsp;different&nbsp;possible&nbsp;locale&nbsp;names&nbsp;for&nbsp;german&nbsp;as&nbsp;of&nbsp;PHP&nbsp;4.3.0&nbsp;*/<br /></span><span style="color: #0000BB">$loc_de&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE@euro'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'deu_deu'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Preferred&nbsp;locale&nbsp;for&nbsp;german&nbsp;on&nbsp;this&nbsp;system&nbsp;is&nbsp;'</span><span style="color: #0000BB">$loc_de</span><span style="color: #DD0000">'"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;设置区域为荷兰&nbsp;*/<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'nld_nld'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;输出：vrijdag&nbsp;22&nbsp;december&nbsp;1978&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%A&nbsp;%d&nbsp;%B&nbsp;%Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">12</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1978</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;尝试为德语设置不同的可能区域&nbsp;*/<br /></span><span style="color: #0000BB">$loc_de&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_ALL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE@euro'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'deu_deu'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Preferred&nbsp;locale&nbsp;for&nbsp;german&nbsp;on&nbsp;this&nbsp;system&nbsp;is&nbsp;'</span><span style="color: #0000BB">$loc_de</span><span style="color: #DD0000">'"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -235,26 +213,11 @@
 
  <div class="refsect1 notes" id="refsect1-function.setlocale-notes">
   <h3 class="title">注释</h3>
-  <div class="warning"><strong class="warning">Warning</strong>
-   <p class="para">
-    The locale information is maintained per process, not per thread. If you
-    are running PHP on a multithreaded server API like IIS or Apache on
-    Windows, you may experience sudden changes in locale settings while a
-    script is running, though the script itself never called 
-    <span class="function"><strong>setlocale()</strong></span>. This happens due to other scripts
-    running in different threads of the same process at the same time,
-    changing the process-wide locale using <span class="function"><strong>setlocale()</strong></span>.
-   </p>
-  </div>
   <div class="tip"><strong class="tip">Tip</strong>
    <p class="para">
-    Windows users will find useful information about
-    <code class="parameter">locale</code> strings at Microsoft&#039;s
-    <acronym title="Microsoft Developer Network">MSDN</acronym> website. Supported language strings can be found
-    in the
-    <a href="http://msdn.microsoft.com/en-us/library/39cwe7zf%28v=vs.90%29.aspx" class="link external" title="Link : http://msdn.microsoft.com/en-us/library/39cwe7zf%28v=vs.90%29.aspx">&raquo;&nbsp;language strings documentation</a>
-    and supported country/region strings in the
-    <a href="http://msdn.microsoft.com/en-us/library/cdax410z%28v=vs.90%29.aspx" class="link external" title="Link : http://msdn.microsoft.com/en-us/library/cdax410z%28v=vs.90%29.aspx">&raquo;&nbsp;country/region strings documentation</a>.
+    Windows 用户可以在 Microsoft 的 <acronym title="Microsoft Developer Network">MSDN</acronym> 网站上找到有关
+    <code class="parameter">locales</code> 字符串的有用信息。支持的语言字符串可在<a href="http://msdn.microsoft.com/en-us/library/39cwe7zf%28v=vs.90%29.aspx" class="link external" title="Link : http://msdn.microsoft.com/en-us/library/39cwe7zf%28v=vs.90%29.aspx">&raquo;&nbsp;语言字符串文档</a>中找到，支持的国家/区域字符串可在<a href="http://msdn.microsoft.com/en-us/library/cdax410z%28v=vs.90%29.aspx" class="link external" title="Link : http://msdn.microsoft.com/en-us/library/cdax410z%28v=vs.90%29.aspx">&raquo;&nbsp;国家/区域文档</a>中找到。
+
    </p>
   </div>
  </div>

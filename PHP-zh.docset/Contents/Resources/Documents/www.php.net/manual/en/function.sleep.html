@@ -39,6 +39,12 @@
   <p class="simpara">
    程序延迟执行指定的 <code class="parameter">seconds</code> 的秒数。
   </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    为了让程序执行延迟几分之一秒，应使用 <span class="function"><a href="function.usleep.html" class="function">usleep()</a></span>，因为 <span class="function"><strong>sleep()</strong></span>
+    需要 <span class="type">int</span>。例如 <code class="code">sleep(0.25)</code> 会使程序暂停 <code class="literal">0</code> 秒。
+   </p>
+  </p></blockquote>
  </div>
 
 
@@ -53,7 +59,7 @@
      <dd>
 
       <p class="para">
-       暂停的秒数。
+       暂停的秒数（必须大于或等于 <code class="literal">0</code>）。
       </p>
      </dd>
 
@@ -67,10 +73,12 @@
  <div class="refsect1 returnvalues" id="refsect1-function.sleep-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 0，错误时返回 <strong><code>false</code></strong>。
+   成功时返回 0。
   </p>
   <p class="para">
-   如果函数的调用被一个信号中止，<span class="function"><strong>sleep()</strong></span> 会返回一个非零的值。在Windows上，该值总是 <code class="literal">192</code>（即Windows API常量<strong><code>WAIT_IO_COMPLETION</code></strong>的值）。其他平台上，该返回值是剩余未sleep的秒数。
+   如果函数的调用被一个信号中止，<span class="function"><strong>sleep()</strong></span> 会返回一个非零的值。在
+   Windows 上，该值总是 <code class="literal">192</code>（即 Windows API 常量
+   <strong><code>WAIT_IO_COMPLETION</code></strong> 的值）。其他平台上，该返回值是剩余未 sleep 的秒数。
   </p>
  </div>
 
@@ -78,19 +86,47 @@
  <div class="refsect1 errors" id="refsect1-function.sleep-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
-   如果指定的 <code class="parameter">seconds</code> 是负数，该函数会产生一个 <strong><code>E_WARNING</code></strong> 级别的错误。
+   如果指定的 <code class="parameter">seconds</code> 是负数，该函数会抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.sleep-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       此函数在负数 <code class="parameter">seconds</code> 时抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>，之前会引发
+       <strong><code>E_WARNING</code></strong> 且函数返回 <strong><code>false</code></strong>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.sleep-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3435">
-    <p><strong>Example #1 <span class="function"><strong>sleep()</strong></span> 的例子</strong></p>
+   <div class="example" id="example-3456">
+    <p><strong>Example #1 <span class="function"><strong>sleep()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;current&nbsp;time<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'h:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;sleep&nbsp;for&nbsp;10&nbsp;seconds<br /></span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;wake&nbsp;up&nbsp;!<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'h:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;当前时间<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'h:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;睡眠&nbsp;10&nbsp;秒<br /></span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;醒来！<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'h:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -115,7 +151,7 @@
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="function.usleep.html" class="function" rel="rdfs-seeAlso">usleep()</a> - 以指定的微秒数延迟执行</span></li>
     <li class="member"><span class="function"><a href="function.time-nanosleep.html" class="function" rel="rdfs-seeAlso">time_nanosleep()</a> - 延缓执行若干秒和纳秒</span></li>
-    <li class="member"><span class="function"><a href="function.time-sleep-until.html" class="function" rel="rdfs-seeAlso">time_sleep_until()</a> - 使脚本睡眠到指定的时间为止。</span></li>
+    <li class="member"><span class="function"><a href="function.time-sleep-until.html" class="function" rel="rdfs-seeAlso">time_sleep_until()</a> - 使脚本睡眠到指定的时间为止</span></li>
     <li class="member"><span class="function"><a href="function.set-time-limit.html" class="function" rel="rdfs-seeAlso">set_time_limit()</a> - 设置脚本最大执行时间</span></li>
    </ul>
   </p>
@@ -126,7 +162,21 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126400""></a>
+<div id="allnotes">  <a name="127652""></a>
+  <div class="note">
+   <strong class="user">ealexs at gmail dot com</strong>
+   <a href="#127652" class="date">20-Sep-2022 08:29</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+From my testing calling sleep(0); will do a `thread spin`.<br />
+It would be nice if this was to be put explicitly in the documentation as it is useful. You can do the minimum wait without overloading the CPU thread.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126400""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#126400" class="date">08-Sep-2021 08:08</a>

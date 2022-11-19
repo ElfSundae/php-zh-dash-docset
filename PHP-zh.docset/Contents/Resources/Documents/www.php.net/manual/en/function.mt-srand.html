@@ -12,39 +12,38 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="function.mt-rand.html">? mt_rand</a></li>
-      <li style="float: right;"><a href="function.octdec.html">octdec ?</a></li>
+      <li style="float: right;"><a href="function.rand.html">rand ?</a></li>
     </ul>
   </div>
 </div>
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="ref.math.html">Math 函数</a></li>
+    <li><a href="ref.random.html">Random 函数</a></li>
     <li>播下一个更好的随机数发生器种子</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.mt-srand" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">mt_srand</h1>
-    <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mt_srand</span> &mdash; <span class="dc-title">播下一个更好的随机数发生器种子</span></p>
+ <div class="refnamediv">
+  <h1 class="refname">mt_srand</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mt_srand</span> &mdash; <span class="dc-title">播下一个更好的随机数发生器种子</span></p>
 
-   </div>
+ </div>
  <div class="refsect1 description" id="refsect1-function.mt-srand-description">
   <h3 class="title">说明</h3>
-   <div class="methodsynopsis dc-description">
-    <span class="methodname"><strong>mt_srand</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$seed</code><span class="initializer"> = ?</span></span>): <span class="type"><span class="type void">void</span></span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>mt_srand</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$seed</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = <strong><code>MT_RAND_MT19937</code></strong></span></span>): <span class="type"><span class="type void">void</span></span></div>
 
-    <p class="para rdfs-comment">
-     用
-     <code class="parameter">seed</code> 来给随机数发生器播种。 没有设定 <code class="parameter">seed</code> 参数时，会被设为随时数。
-    </p>
+  <p class="para rdfs-comment">
+   用 <code class="parameter">seed</code> 来给随机数发生器播种。 没有设定 <code class="parameter">seed</code> 参数时，会被设为随时数。
+  </p>
 
-    <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">不再需要用
+  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">不再需要用
 <span class="function"><a href="function.srand.html" class="function">srand()</a></span> 或 <span class="function"><strong>mt_srand()</strong></span>
 给随机数发生器播种，因为现在是由系统自动完成的。</span></p></blockquote>
-  
-   </div>
+ 
+ </div>
 
  <div class="refsect1 parameters" id="refsect1-function.mt-srand-parameters">
   <h3 class="title">参数</h3>
@@ -57,7 +56,49 @@
      <dd>
 
       <p class="para">
-       可选的种子值
+       任意 <span class="type">int</span> 种子值。
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">mode</code></dt>
+
+     <dd>
+
+      <p class="para">
+       使用以下一个常量指定要使用的实现算法。
+       <table class="doctable informaltable">
+        
+         <thead>
+          <tr>
+           <th>常量</th>
+           <th>说明</th>
+          </tr>
+
+         </thead>
+
+         <tbody class="tbody">
+          <tr>
+           <td><strong><code>MT_RAND_MT19937</code></strong></td>
+           <td>
+            使用固定、正确的梅森旋转（Mersenne Twister）实现，自 PHP 7.1.0 起可用。
+           </td>
+          </tr>
+
+          <tr>
+           <td><strong><code>MT_RAND_PHP</code></strong></td>
+           <td>
+            使用不正确的梅森旋转（Mersenne Twister）实现，在 PHP 7.1.0
+            之前一直用于默认实现，此模式可用于向后兼容。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
       </p>
      </dd>
 
@@ -91,21 +132,19 @@
 
      <tbody class="tbody">
       <tr>
-       <td>4.2.0</td>
+       <td>7.1.0</td>
        <td>
-        The <code class="parameter">seed</code> becomes optional 
-        and defaults to a random value if omitted.
+        <span class="function"><a href="function.srand.html" class="function">srand()</a></span> <a href="migration71.incompatible.html#migration71.incompatible.rand-srand-aliases" class="link">成为</a>
+        <span class="function"><strong>mt_srand()</strong></span> 的别名。
        </td>
       </tr>
 
       <tr>
-       <td>5.2.1</td>
+       <td>7.1.0</td>
        <td>
-        The Mersenne Twister implementation in PHP now uses a new seeding
-        algorithm by Richard Wagner. Identical seeds no longer produce the same
-        sequence of values they did in previous versions. This behavior is not
-        expected to change again, but it is considered unsafe to rely upon it
-        nonetheless.
+        <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> <a href="migration71.incompatible.html#migration71.incompatible.fixes-to-mt_rand-algorithm" class="link">成为</a>使用梅森旋转（Mersenne
+        Twister）算法的固定、正确版本。要使用旧行为，请使用 <span class="function"><strong>mt_srand()</strong></span> 并将
+        <strong><code>MT_RAND_PHP</code></strong> 作为第二个参数。
        </td>
       </tr>
 
@@ -119,11 +158,11 @@
  <div class="refsect1 examples" id="refsect1-function.mt-srand-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3079">
+   <div class="example" id="example-3468">
     <p><strong>Example #1 <span class="function"><strong>mt_srand()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;seed&nbsp;with&nbsp;microseconds<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">make_seed</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;list(</span><span style="color: #0000BB">$usec</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$sec</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">'&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">microtime</span><span style="color: #007700">());<br />&nbsp;&nbsp;return&nbsp;(float)&nbsp;</span><span style="color: #0000BB">$sec&nbsp;</span><span style="color: #007700">+&nbsp;((float)&nbsp;</span><span style="color: #0000BB">$usec&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">100000</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">mt_srand</span><span style="color: #007700">(</span><span style="color: #0000BB">make_seed</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$randval&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mt_rand</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;以微秒为单位的种子<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">make_seed</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;list(</span><span style="color: #0000BB">$usec</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$sec</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">'&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">microtime</span><span style="color: #007700">());<br />&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$sec&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$usec&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">1000000</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">mt_srand</span><span style="color: #007700">(</span><span style="color: #0000BB">make_seed</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$randval&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mt_rand</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -136,14 +175,14 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.mt-rand.html" class="function" rel="rdfs-seeAlso">mt_rand()</a> - 生成更好的随机数</span></li>
+    <li class="member"><span class="function"><a href="function.mt-rand.html" class="function" rel="rdfs-seeAlso">mt_rand()</a> - 通过梅森旋转（Mersenne Twister）随机数生成器生成随机值</span></li>
     <li class="member"><span class="function"><a href="function.mt-getrandmax.html" class="function" rel="rdfs-seeAlso">mt_getrandmax()</a> - 显示随机数的最大可能值</span></li>
     <li class="member"><span class="function"><a href="function.srand.html" class="function" rel="rdfs-seeAlso">srand()</a> - 播下随机数发生器种子</span></li>
    </ul>
   </p>
  </div>
 
-  </div><div id="usernotes">
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

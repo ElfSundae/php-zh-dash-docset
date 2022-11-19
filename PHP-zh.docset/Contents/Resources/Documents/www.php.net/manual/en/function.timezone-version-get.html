@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>获取 timezonedb 的版本</title>
+  <title>获取 timezonedb 版本</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.datetime.html">Date/Time 函数</a></li>
-    <li>获取 timezonedb 的版本</li>
+    <li>获取 timezonedb 版本</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,7 +28,7 @@
  <div class="refnamediv">
   <h1 class="refname">timezone_version_get</h1>
   <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">timezone_version_get</span> &mdash; <span class="dc-title">
-   获取 timezonedb 的版本
+   获取 timezonedb 版本
   </span></p>
 
  </div>
@@ -37,15 +37,28 @@
   <div class="methodsynopsis dc-description"><span class="methodname"><strong>timezone_version_get</strong></span>(): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   返回当前 timezonedb 的版本。
+   返回当前 timezonedb 版本。
   </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.timezone-version-get-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">此函数没有参数。</p>
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-function.timezone-version-get-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回一个 <span class="type">string</span>。
+   返回格式为 <code class="literal">YYYY.increment</code> 的 <span class="type">string</span>，比如 <code class="literal">2022.2</code>。
+  </p>
+  <p class="para">
+   如果时区数据库版本比较旧（比如不显示今年），然后可以通过升级 PHP 版本或者安装 <a href="https://pecl.php.net/package/timezonedb" class="link external" title="Link : https://pecl.php.net/package/timezonedb">&raquo;&nbsp;timezonedb</a> PECL 包来更新时区信息。
+  </p>
+  <p class="para">
+   一些系统发行版对 PHP 的日期/时间支持打了补丁，以便使用另一个来源的时区信息。在这种情况下，此函数将会返回
+   <code class="literal">0.system</code>。在这种情况下也建议安装 <a href="https://pecl.php.net/package/timezonedb" class="link external" title="Link : https://pecl.php.net/package/timezonedb">&raquo;&nbsp;timezonedb</a> 包。
   </p>
  </div>
 
@@ -53,7 +66,7 @@
  <div class="refsect1 examples" id="refsect1-function.timezone-version-get-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2098">
+   <div class="example" id="example-2113">
     <p><strong>Example #1 获取 timezonedb 版本</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -65,7 +78,7 @@
     <div class="example-contents"><p>以上例程的输出类似于：</p></div>
     <div class="example-contents screen">
 <div class="cdata"><pre>
-2009.7
+2022.2
 </pre></div>
     </div>
    </div>
@@ -77,7 +90,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><a href="timezones.html" class="link">支持的时区列表</a></li>
+    <li class="member"><a href="timezones.html" class="link">时区支持列表</a></li>
    </ul>
   </p>
  </div>
@@ -86,39 +99,6 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125756""></a>
-  <div class="note">
-   <strong class="user">chupaka at gmail dot com</strong>
-   <a href="#125756" class="date">02-Feb-2021 01:22</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-On Ubuntu:<br />
-If you get '0.system' for the version, this means PHP is using system version of timezone database. For a newer version, simply upgrade 'tzdata' package without installing any PECL extensions:<br />
-<br />
-sudo apt update<br />
-sudo apt install tzdata</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="105787""></a>
-  <div class="note">
-   <strong class="user">Omar</strong>
-   <a href="#105787" class="date">14-Sep-2011 10:15</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-On Ubutu:<br />
-If you get 0.system for the version, this means you have the version that PHP shipped with. For a newer version, you must upgrade via the PECL extension (sudo pecl install timezonedb)<br />
-<br />
-<a href="http://pecl.php.net/package/timezonedb" rel="nofollow" target="_blank">http://pecl.php.net/package/timezonedb</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

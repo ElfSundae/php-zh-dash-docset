@@ -11,8 +11,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="faq.passwords.html">? 密码散列</a></li>
-      <li style="float: right;"><a href="faq.com.html">PHP 和 COM ?</a></li>
+      <li style="float: left;"><a href="faq.passwords.html">? Password Hashing</a></li>
+      <li style="float: right;"><a href="faq.com.html">PHP and COM ?</a></li>
     </ul>
   </div>
 </div>
@@ -28,9 +28,13 @@
   <h1>PHP 和 HTML</h1>
 
   
-  <p class="para">PHP 和 HTML 有很多相互作用：PHP 能生成 HTML，HTML 可以向 PHP 传递信息。在阅读这些常见问题之前，先学会怎样
-  <a href="language.variables.external.html" class="link">从 PHP 之外取得变量</a>很重要。此主题的手册页也包括很多例子。还要仔细留意 
-  <code class="literal">register_globals</code>对你意味着什么。</p>
+
+  <p class="para">
+   PHP 和 HTML 有很多相互作用：PHP 能生成 HTML，HTML 可以向 PHP
+   传递信息。在阅读这些常见问题之前，先学会怎样<a href="language.variables.external.html" class="link">从
+   PHP 之外取得变量</a>很重要。此主题的手册页也包括很多例子。
+  </p>
+
   <div class="qandaset"><ol class="qandaset_questions"><li><a href="#faq.html.encoding">
         当我通过表单／URL 传值时需要用什么编码／解码方法？
       </a></li><li><a href="#faq.html.form-image">
@@ -60,28 +64,30 @@
           </li>
           <li class="listitem">
             <p class="para">URL：URL 由几部分组成。如果希望自己的数据被当作其中一项来解释，
-            <em class="emphasis">必须</em>用 
-            <span class="function"><a href="function.urlencode.html" class="function">urlencode()</a></span>对其编码。</p>
-          </li>
-        </ul></p>
-        <p class="para">
-          <div class="example" id="example-5406">
-            <p><strong>Example #1 隐藏的 HTML 表单单元</strong></p>
-            <div class="example-contents">
+            <em class="emphasis">必须</em>用 <span class="function"><a href="function.urlencode.html" class="function">urlencode()</a></span> 对其编码。
+        </p>
+       </li>
+      </ul>
+     </p>
+     <p class="para">
+      <div class="example" id="example-5491">
+       <p><strong>Example #1 隐藏的 HTML 表单单元</strong></p>
+        <div class="example-contents">
               <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"&lt;input&nbsp;type='hidden'&nbsp;value='"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"'&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+&lt;![CDATA[<br /><span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;input&nbsp;type="hidden"&nbsp;value="'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'"&nbsp;/&gt;'</span><span style="color: #007700">.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
-</div>
+        </div>
 
-          </div>
-          <blockquote class="note"><p><strong class="note">Note</strong>: 
-            <span class="simpara">用 
+      </div>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        用 
             <span class="function"><a href="function.urlencode.html" class="function">urlencode()</a></span>来处理 
             <var class="varname">$data</var>是错误的，因为是浏览器的责任来 
             <span class="function"><a href="function.urlencode.html" class="function">urlencode()</a></span>数据。所有流行的浏览器都能正确处理。注意不论何种方法（例如 GET 或 POST）都会这样。不过只会在用 GET 请求时注意到这一点，因为 POST 请求通常是隐藏的。</span>
           </p></blockquote>
-          <div class="example" id="example-5407">
+          <div class="example" id="example-5492">
             <p><strong>Example #2 等待用户编辑的数据</strong></p>
             <div class="example-contents">
               <div class="phpcode"><code><span style="color: #000000">
@@ -95,14 +101,14 @@
             <span class="simpara">数据会按照预期的显示在浏览器中，因为浏览器会解释 HTML 转义符号。</span>
             <span class="simpara">当提交时，不论是 GET 或者 POST 方法，数据都会被浏览器进行 urlencode 来传输，并直接被 PHP urldecode。所以最终不需要自己处理任何 urlencoding/urldecoding，全都是自动处理的。</span>
           </p></blockquote>
-          <div class="example" id="example-5408">
+          <div class="example" id="example-5493">
             <p><strong>Example #3 URL 中的例子</strong></p>
-            <div class="example-contents">
-              <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"&lt;a&nbsp;href='"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #DD0000">"/nextpage.php?stage=23&amp;data="&nbsp;</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">urlencode</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"'&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;a&nbsp;href="'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #DD0000">"/nextpage.php?stage=23&amp;data="&nbsp;</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">urlencode</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">'"&gt;'</span><span style="color: #007700">.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
-</div>
+        </div>
 
           </div>
           <blockquote class="note"><p><strong class="note">Note</strong>: 
@@ -113,7 +119,7 @@
             <span class="simpara">需要对整个 URL 进行 
             <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span>，因为 URL 是作为 HTML 属性的一个值出现的。在本例中，浏览器会首先对值进行 un-
             <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span>，然后再传递此 URL。PHP 将能正确理解 URL，因为对数据进行了 
-            <span class="function"><strong>urlencoded()</strong></span>。</span>
+            <span class="function"><a href="function.urlencode.html" class="function">urlencode()</a></span>。</span>
             <span class="simpara">要注意到 URL 中的 
             <code class="literal">&amp;</code>被替换成了 
             <code class="literal">&amp;amp;</code>。如果忘了这一步，尽管大多数浏览器都能恢复，但也不总是这样。因此即使 URL 不是动态的，也
@@ -218,10 +224,14 @@ AnotherArray 数组将包含键名 0，1，email 和 phone。</p>
         <span class="function"><a href="function.sort.html" class="function">sort()</a></span>函数来对选项的数组进行排序。</p>
         <p class="para">注意如果在 JavaScript 中通过名字来引用单元，单元名字中的 
         <code class="literal">[]</code>可能会造成问题。用表单单元中的数字序号来替代，或者将变量名用单引号括起来并用其作为单元数组的索引，例如： 
-        <div class="example-contents"><div class="cdata"><pre>variable = documents.forms[0].elements[&#039;var[]&#039;];</pre></div></div>
-</p>
-      </dd>
-    </dl>
+      <div class="example-contents"><div class="cdata"><pre>
+variable = document.forms[0].elements[&#039;var[]&#039;];
+      </pre></div></div>
+
+     </p>
+    </dd>
+   </dl>
+
     <dl class="qandaentry" id="faq.html.javascript-variable">
       <dt><strong>
         怎样从 Javascript 传递一个变量到 PHP？

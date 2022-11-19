@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>返回指定对象的hash id</title>
+  <title>返回指定对象的 hash id</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.spl.html">SPL 函数</a></li>
-    <li>返回指定对象的hash id</li>
+    <li>返回指定对象的 hash id</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,17 +28,19 @@
  <div class="refnamediv">
   <h1 class="refname">spl_object_hash</h1>
   <p class="verinfo">(PHP 5 &gt;= 5.2.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">spl_object_hash</span> &mdash; <span class="dc-title">
-   返回指定对象的hash id
+   返回指定对象的 hash id
   </span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-function.spl-object-hash-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>spl_object_hash</strong></span>(<span class="methodparam"><span class="type">object</span> <code class="parameter">$obj</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>spl_object_hash</strong></span>(<span class="methodparam"><span class="type">object</span> <code class="parameter">$object</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   本函数为指定对象返回一个唯一标识符。这个标识符可用于作为保存对象或区分不同对象的hash key。
+   本函数为对象返回唯一标识符。只要对象没有销毁，这个 id
+   可用作保存对象的散列键，或者用于标识对象。一旦对象销毁，它的散列值可能会被其它对象重用。此行为类似为
+   <span class="function"><a href="function.spl-object-id.html" class="function">spl_object_id()</a></span>。
   </p>
  </div>
 
@@ -54,7 +56,7 @@
       <dd>
 
        <p class="para">
-        Any object. 
+        任何对象。 
        </p>
       </dd>
 
@@ -68,7 +70,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.spl-object-hash-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   字符串，对于每个对象它都是唯一的，并且对同一个对象它总是相同。
+   字符串，对于当前存在的每个对象都是唯一的，且对同一个对象始终相同。
   </p>
  </div>
 
@@ -76,8 +78,8 @@
  <div class="refsect1 examples" id="refsect1-function.spl-object-hash-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3606">
-    <p><strong>Example #1 A <span class="function"><strong>spl_object_hash()</strong></span> example</strong></p>
+   <div class="example" id="example-3666">
+    <p><strong>Example #1 A <span class="function"><strong>spl_object_hash()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br />$id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">spl_object_hash</span><span style="color: #007700">(</span><span style="color: #0000BB">$object</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$storage</span><span style="color: #007700">[</span><span style="color: #0000BB">$id</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">$object</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -94,11 +96,19 @@
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    When an object is destroyed, its hash may be reused for other objects.
+    当对象销毁后，它的散列值可能会被其它对象重用。
    </p>
   </p></blockquote>
  </div>
  
+ <div class="refsect1 seealso" id="refsect1-function.spl-object-hash-seealso">
+  <h3 class="title">参见</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.spl-object-id.html" class="function" rel="rdfs-seeAlso">spl_object_id()</a> - Return the integer object handle for given object</span></li>
+   </ul>
+  </p>
+ </div>
 
 </div><div id="usernotes">
  <div class="head">

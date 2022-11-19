@@ -42,7 +42,7 @@
     private 的话）。
    </span>
   </p></blockquote>
-  <div class="example" id="example-225">
+  <div class="example" id="example-230">
    <p><strong>Example #1 继承中的构造函数</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -62,7 +62,7 @@
     因此可以定义任何数量的参数，可以是必选、可以有类型、可以有默认值。
     构造器的参数放在类名后的括号里调用。
   </p>
-  <div class="example" id="example-226">
+  <div class="example" id="example-231">
    <p><strong>Example #2 使用构造器参数</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -97,7 +97,7 @@
      而构造器提升的功能则为这种场景提供了便利。
      因此上面的例子可以用以下方式重写：
     </p>
-    <div class="example" id="example-227">
+    <div class="example" id="example-232">
      <p><strong>Example #3 使用构造器属性提升</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -130,6 +130,30 @@
      </p>
     </p></blockquote>
    </div>
+
+   <div class="sect3" id="language.oop5.decon.constructor.new">
+    <h4 class="title">初始化新功能</h4>
+    <p class="para">
+     自 PHP 8.1.0 起，对象可以用于默认参数值，静态变量，全局常量，以及属性参数。<span class="function"><a href="function.define.html" class="function">define()</a></span>
+     现在也接受对象。
+    </p>
+    <blockquote class="note"><p><strong class="note">Note</strong>: 
+     <p class="para">
+      禁止使用动态类名、非字符串类名以及匿名类。禁止使用参数解包。禁止使用不支持的表达式作为参数。
+     </p>
+    </p></blockquote>
+    <div class="example" id="example-233">
+     <p><strong>Example #4 初始化中使用 new</strong></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;全部允许：<br /></span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$x&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">C&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br />&nbsp;<br />function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">(</span><span style="color: #0000BB">$param&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">)&nbsp;{}<br />&nbsp;<br /></span><span style="color: #FF8000">#[AnAttribute(new&nbsp;Foo)]<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Test&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$prop&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;{}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;全部禁止（编译时错误）:<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;(</span><span style="color: #0000BB">CLASS_NAME_CONSTANT</span><span style="color: #007700">)(),&nbsp;</span><span style="color: #FF8000">//&nbsp;动态类名<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;class&nbsp;{},&nbsp;</span><span style="color: #FF8000">//&nbsp;匿名类<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">(...[]),&nbsp;</span><span style="color: #FF8000">//&nbsp;参数解包<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$d&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">B</span><span style="color: #007700">(</span><span style="color: #0000BB">$abc</span><span style="color: #007700">),&nbsp;</span><span style="color: #FF8000">//&nbsp;不支持的常量表达式<br /></span><span style="color: #007700">)&nbsp;{}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </div>
+   
    <div class="sect3" id="language.oop5.decon.constructor.static">
     <h4 class="title">Static 创造方法</h4>
     <p class="para">
@@ -137,8 +161,8 @@
      然而有些情况下，需要用不同的输入实现不同的方式构造对象。
      这种情况下推荐使用 static 方法包装构造。
     </p>
-    <div class="example" id="example-228">
-     <p><strong>Example #4 使用 static 创造方法</strong></p>
+    <div class="example" id="example-234">
+     <p><strong>Example #5 使用 static 创造方法</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Product&nbsp;</span><span style="color: #007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;?</span><span style="color: #0000BB">int&nbsp;$id</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;?</span><span style="color: #0000BB">string&nbsp;$name</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">(?</span><span style="color: #0000BB">int&nbsp;$id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;?</span><span style="color: #0000BB">string&nbsp;$name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$id</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$name</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">fromBasicData</span><span style="color: #007700">(</span><span style="color: #0000BB">int&nbsp;$id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">string&nbsp;$name</span><span style="color: #007700">):&nbsp;static&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$new&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;static(</span><span style="color: #0000BB">$id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$name</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">fromJson</span><span style="color: #007700">(</span><span style="color: #0000BB">string&nbsp;$json</span><span style="color: #007700">):&nbsp;static&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;new&nbsp;static(</span><span style="color: #0000BB">$data</span><span style="color: #007700">[</span><span style="color: #DD0000">'id'</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">fromXml</span><span style="color: #007700">(</span><span style="color: #0000BB">string&nbsp;$xml</span><span style="color: #007700">):&nbsp;static&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;自定义代码逻辑。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">convert_xml_to_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$xml</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$new&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;static();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">[</span><span style="color: #DD0000">'id'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$p1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Product</span><span style="color: #007700">::</span><span style="color: #0000BB">fromBasicData</span><span style="color: #007700">(</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Widget'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$p2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Product</span><span style="color: #007700">::</span><span style="color: #0000BB">fromJson</span><span style="color: #007700">(</span><span style="color: #0000BB">$some_json_string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$p3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Product</span><span style="color: #007700">::</span><span style="color: #0000BB">fromXml</span><span style="color: #007700">(</span><span style="color: #0000BB">$some_xml_string</span><span style="color: #007700">);</span>
@@ -178,8 +202,8 @@
    PHP 有析构函数的概念，这类似于其它面向对象的语言，如
    C++。析构函数会在到某个对象的所有引用都被删除或者当对象被显式销毁时执行。
   </p>
-  <div class="example" id="example-229">
-   <p><strong>Example #5 析构函数示例</strong></p>
+  <div class="example" id="example-235">
+   <p><strong>Example #6 析构函数示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDestructableClass&nbsp;<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"In&nbsp;constructor\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__destruct</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"Destroying&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">__CLASS__&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyDestructableClass</span><span style="color: #007700">();</span>
@@ -214,7 +238,41 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126914""></a>
+<div id="allnotes">  <a name="127493""></a>
+  <div class="note">
+   <strong class="user">ziggy at start dot dust</strong>
+   <a href="#127493" class="date">16-Aug-2022 09:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Please note that constructor argument promotion is kind of half-baked (at least as of 8.1 and it does not look to be changed in 8.2) and you are not allowed to reuse promoted argument with other promoted arguments. For example having "old style" constructor:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">(protected </span><span class="default">string $val</span><span class="keyword">, protected </span><span class="default">Foo $foo </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">val </span><span class="keyword">= </span><span class="default">$val</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">foo </span><span class="keyword">= </span><span class="default">$foo </span><span class="keyword">?? new </span><span class="default">Foo</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+you will not be able to use argument promotion like this:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">(protected </span><span class="default">string $val</span><span class="keyword">, protected </span><span class="default">Foo $foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">)) {}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+nor<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">(protected </span><span class="default">string $val</span><span class="keyword">, protected </span><span class="default">Foo $foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">val</span><span class="keyword">)) {}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+as in both cases you will face "PHP Fatal error:&nbsp; Constant expression contains invalid operations".</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126914""></a>
   <div class="note">
    <strong class="user">mmulej at gmail dot com</strong>
    <a href="#126914" class="date">10-Mar-2022 04:56</a>

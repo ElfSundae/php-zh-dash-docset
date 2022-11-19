@@ -19,7 +19,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="opcache.setup.html">安装／配置</a></li>
+    <li><a href="opcache.setup.html">安装/配置</a></li>
     <li>安装</li>
   </ul>
 </div>
@@ -28,59 +28,28 @@
  <h2 class="title">安装</h2>
 
  <p class="para">
-  安装 OPcache 的过程根据所用的 PHP 版本有所不同。
-  请参考以下小节中适用的内容。
+  OPcache 只能编译为共享扩展。
+  如果你使用 <strong class="option configure">--disable-all</strong> 参数
+  禁用了默认扩展的构建，
+  那么必须使用 <strong class="option configure">--enable-opcache</strong> 
+  选项来开启 OPcache。
+ </p>
+ 
+ <p class="para">
+  编译之后，就可以使用
+  <a href="ini.core.html#ini.zend-extension" class="link">zend_extension</a>
+  指令来将 OPcache 扩展加载到 PHP 中。在非 Windows 平台使用
+  <code class="literal">zend_extension=/full/path/to/opcache.so</code>，
+  Windows 平台使用
+  <code class="literal">zend_extension=C:\path\to\php_opcache.dll</code>。
  </p>
 
  <blockquote class="note"><p><strong class="note">Note</strong>: 
   <p class="para">
-   如果需要将 <a href="http://xdebug.org/" class="link external" title="Link : http://xdebug.org/">&raquo;&nbsp;Xdebug</a> 扩展和 OPcache 一起使用，必须在 Xdebug 扩展之前加载
-   OPcache 扩展。
+   如果想将 <a href="http://xdebug.org/" class="link external" title="Link : http://xdebug.org/">&raquo;&nbsp;Xdebug</a> 与 OPcache 一起使用，必须在
+   Xdebug 之前加载 OPcache。
   </p>
  </p></blockquote>
-
- <div class="sect2" id="opcache.installation.bundled">
-  <h3 class="title">PHP 5.5.0 及后续版本</h3>
-  <p class="para">
-   OPcache 只能编译为共享扩展。
-   如果你使用 <strong class="option configure">--disable-all</strong> 参数
-   禁用了默认扩展的构建，
-   那么必须使用 <strong class="option configure">--enable-opcache</strong> 
-   选项来开启 OPcache。
-  </p>
-  
-  <p class="para">
-   编译之后，就可以使用
-   <a href="ini.core.html#ini.zend-extension" class="link">zend_extension</a>
-   指令来将 OPcache 扩展加载到 PHP 中。在非 Windows 平台使用
-   <code class="literal">zend_extension=/full/path/to/opcache.so</code>，
-   Windows 平台使用
-   <code class="literal">zend_extension=C:\path\to\php_opcache.dll</code>。
-  </p>
- </div>
-
- <div class="sect2" id="opcache.installation.pecl">
-  <h3 class="title">PHP 5.2, 5.3 和 5.4 版本</h3>
-
-  <p class="para">
-   此 <a href="https://pecl.php.net/" class="link external" title="Link : https://pecl.php.net/">&raquo;&nbsp;PECL</a> 扩展未与
-PHP 捆绑。
-  </p>
-
-  <p class="para">
-   安装此 PECL 扩展相关的信息可在手册中标题为
-<a href="install.pecl.html" class="link">PECL
-扩展的安装</a>章节中找到。更多信息如新的发行版本、下载、源文件、
-维护人员信息及变更日志等，都在此处：
-   <a href="https://pecl.php.net/package/ZendOpcache" class="link external" title="Link : https://pecl.php.net/package/ZendOpcache">&raquo;&nbsp;https://pecl.php.net/package/ZendOpcache</a>.
-  </p>
-
-  <p class="para">
-   <acronym title="PHP Extension and Application Repository">PECL</acronym> 扩展的
-<acronym title="Dynamic Link Library">DLL</acronym> 当前不可用。参见
-<a href="install.windows.building.html" class="link">在 Windows 上构建</a>章节。
-  </p>
- </div>
 
  <div class="sect2" id="opcache.installation.recommended">
   <h3 class="title">推荐的 php.ini 设置</h3>
@@ -112,6 +81,12 @@ opcache.enable_cli=1
    需要提醒的是，在生产环境中使用上述配置之前，必须经过严格测试。
    因为上述配置存在一个已知问题，它会引发一些框架和应用的异常，
    尤其是在存在文档使用了备注注解的时候。
+  </p>
+
+  <p class="para">
+   在 Windows 上，应该启用 <a href="opcache.configuration.html#ini.opcache.file-cache-fallback" class="link">opcache.file_cache_fallback</a>，以及应该将
+   <a href="opcache.configuration.html#ini.opcache.file-cache" class="link">opcache.file_cache</a>
+   设置为存在且可写的目录。
   </p>
 
   <p class="para">

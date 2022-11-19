@@ -27,7 +27,7 @@
   <div id="layout-content"><div id="features.gc.collecting-cycles" class="sect1">
    <h2 class="title">回收周期(Collecting Cycles)</h2>
    <p class="para">
-    传统上，像以前的 php 用到的引用计数内存机制，无法处理循环的引用内存泄漏。然而 5.3.0 PHP 使用文章<a href="http://researcher.watson.ibm.com/researcher/files/us-bacon/Bacon01Concurrent.pdf" class="link external" title="Link : http://researcher.watson.ibm.com/researcher/files/us-bacon/Bacon01Concurrent.pdf">&raquo;&nbsp;引用计数系统中的同步周期回收(Concurrent Cycle Collection in Reference Counted Systems)</a>中的同步算法，来处理这个内存泄漏问题。  
+    传统上，像以前的 php 用到的引用计数内存机制，无法处理循环的引用内存泄漏。然而 5.3.0 PHP 使用文章<a href="https://pages.cs.wisc.edu/~cymen/misc/interests/Bacon01Concurrent.pdf" class="link external" title="Link : https://pages.cs.wisc.edu/~cymen/misc/interests/Bacon01Concurrent.pdf">&raquo;&nbsp;引用计数系统中的同步周期回收(Concurrent Cycle Collection in Reference Counted Systems)</a>中的同步算法，来处理这个内存泄漏问题。  
    </p>
    <p class="para">
     对算法的完全说明有点超出这部分内容的范围，将只介绍其中基础部分。首先，我们先要建立一些基本规则，如果一个引用计数增加，它将继续被使用，当然就不再在垃圾中。如果引用计数减少到零，所在变量容器将被清除(free)。就是说，仅仅在引用计数减少到非零值时，才会产生垃圾周期(garbage cycle)。其次，在一个垃圾周期中，通过检查引用计数是否减1，并且检查哪些变量容器的引用次数是零，来发现哪部分是垃圾。

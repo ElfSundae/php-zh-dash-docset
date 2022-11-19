@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>转换指定字符</title>
+  <title>转换字符或替换字串</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,46 +20,42 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.strings.html">字符串 函数</a></li>
-    <li>转换指定字符</li>
+    <li>转换字符或替换字串</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.strtr" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">strtr</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">strtr</span> &mdash; <span class="dc-title">转换指定字符</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">strtr</span> &mdash; <span class="dc-title">转换字符或替换字串</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.strtr-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>strtr</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$from</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$to</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>strtr</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$from</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$to</code></span>): <span class="type">string</span></div>
 
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>strtr</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$replace_pairs</code></span>): <span class="type">string</span></div>
+  <p class="simpara">替代签名（不支持命名参数）：</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>strtr</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$replace_pairs</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   该函数返回 <code class="parameter">str</code> 的一个副本，并将在 <code class="parameter">from</code> 中指定的字符转换为 <code class="parameter">to</code> 中相应的字符。
-   比如， <code class="literal">$from[$n]</code>中每次的出现都会被替换为
-   <code class="literal">$to[$n]</code>，其中 <code class="literal">$n</code> 是两个参数都有效的位移(offset)。
+   如果指定三个参数，则该函数返回 <code class="parameter">string</code> 的副本，<code class="parameter">from</code>
+   中所有出现的每个（单字节）字符都已转换为 <code class="parameter">to</code> 中的相应字符。例如，每次出现的
+   <code class="literal">$from[$n]</code> 都会替换为 <code class="literal">$to[$n]</code>，<code class="literal">$n</code>
+   是两个参数中的有效位移(offset)。
   </p>
   <p class="para">
-   如果 <code class="parameter">from</code> 与 <code class="parameter">to</code> 长度不相等，那么多余的字符部分将被忽略。 <code class="parameter">str</code> 的长度将会和返回的值一样。
+   如果 <code class="parameter">from</code> 与 <code class="parameter">to</code>
+   长度不相等，那么忽略两者中较长的多余字符。<code class="parameter">string</code> 的长度将与返回的长度一样。
   </p>
   <p class="para">
-   If given two arguments, the second should be an <span class="type">array</span> in the
-   form <code class="literal">array(&#039;from&#039; =&gt; &#039;to&#039;, ...)</code>. The return value is
-   a <span class="type">string</span> where all the occurrences of the array keys have been
-   replaced by the corresponding values. The longest keys will be tried first.
-   Once a substring has been replaced, its new value will not be searched
-   again.
+   如果指定两个参数，则第二个参数应该是 <code class="literal">array(&#039;from&#039; =&gt; &#039;to&#039;, ...)</code> 形式的 <span class="type">array</span>。返回值是
+   <span class="type">string</span>，数组中所有所有出现的键都替换为相应的值。首先会尝试最长的键。一旦子字符串被替换，则新值将不会再次搜索。
   </p>
   <p class="para">
-   In this case, the keys and the values may have any length, provided that
-   there is no empty key; additionally, the length of the return value may
-   differ from that of <code class="parameter">str</code>.
-   However, this function will be the most efficient when all the keys have the
-   same size.
+   在这种情况下，键和值可以是任意长度，前提是没有空值的键；另外，返回值的长度可以跟 <code class="parameter">string</code>
+   的长度不同。但是，当所有键的长度相同时，函数最有效。
   </p>
  </div>
 
@@ -70,12 +66,12 @@
    <dl>
     
      <dt>
-<code class="parameter">str</code></dt>
+<code class="parameter">string</code></dt>
 
      <dd>
 
       <p class="para">
-       待转换的<span class="type"><span class="type 字符串">字符串</span></span>。
+       待转换的 <span class="type">string</span>。
       </p>
      </dd>
 
@@ -87,7 +83,7 @@
      <dd>
 
       <p class="para">
-       <span class="type"><span class="type 字符串">字符串</span></span>中与将要被转换的目的字符 <code class="parameter">to</code> 相对应的源字符。
+       要转成 <code class="parameter">to</code> 的 <span class="type">string</span>。
       </p>
      </dd>
 
@@ -99,7 +95,7 @@
      <dd>
 
       <p class="para">
-       <span class="type"><span class="type 字符串">字符串</span></span>中与将要被转换的字符 <code class="parameter">from</code> 相对应的目的字符。
+       替换 <code class="parameter">from</code> 的 <span class="type">string</span>。
       </p>
      </dd>
 
@@ -111,7 +107,13 @@
      <dd>
 
       <p class="para">
-       参数 <code class="parameter">replace_pairs</code> 可以用来取代 <code class="parameter">to</code> 和 <code class="parameter">from</code> 参数，因为它是以  <code class="literal">array(&#039;from&#039; =&gt; &#039;to&#039;, ...)</code> 格式出现的数组。
+       参数 <code class="parameter">replace_pairs</code> 可以用来取代 <code class="parameter">to</code> 和 <code class="parameter">from</code>
+       ，因为它是 <code class="literal">array(&#039;from&#039; =&gt; &#039;to&#039;, ...)</code> 形式的 <span class="type">array</span>。
+      </p>
+      <p class="para">
+       如果 <code class="parameter">replace_pairs</code> 包含空
+       <span class="type">string</span>（<code class="literal">&quot;&quot;</code>）键，将忽略该元素；自 PHP 8.0.0
+       起，这种情况会引发 <strong><code>E_WARNING</code></strong>。
       </p>
      </dd>
 
@@ -125,13 +127,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.strtr-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回转换后的<span class="type"><span class="type 字符串">字符串</span></span>。
-  </p>
-  <p class="para">
-   如果 <code class="parameter">replace_pairs</code> 中包含一个空<span class="type"><span class="type 字符串">字符串</span></span>（<code class="literal">&quot;&quot;</code>）键，那么将返回 <strong><code>false</code></strong>。
-   If the <code class="parameter">str</code> is not a scalar
-   then it is not typecasted into a string, instead a warning is raised and 
-   <strong><code>null</code></strong> is returned. 
+   返回转换后的 <span class="type">string</span>。
   </p>
  </div>
 
@@ -139,11 +135,11 @@
  <div class="refsect1 examples" id="refsect1-function.strtr-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4778">
+   <div class="example" id="example-4853">
     <p><strong>Example #1 <span class="function"><strong>strtr()</strong></span> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$addr&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strtr</span><span style="color: #007700">(</span><span style="color: #0000BB">$addr</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"???"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"aao"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;在这种形式中，strtr()&nbsp;进行逐字节转换<br />//&nbsp;因此，假设这里是单字节编码：<br /></span><span style="color: #0000BB">$addr&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strtr</span><span style="color: #007700">(</span><span style="color: #0000BB">$addr</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"???"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"aao"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -151,16 +147,14 @@
    </div>
   </p>
   <p class="para">
-   The next example shows the behavior of <span class="function"><strong>strtr()</strong></span> when
-   called with only two arguments. Note the preference of the replacements
-   (<code class="literal">&quot;h&quot;</code> is not picked because there are longer matches)
-   and how replaced text was not searched again.
+   下面的示例展示了仅使用两个参数调用 <span class="function"><strong>strtr()</strong></span> 的行为。注意优先替换（没有选择
+   <code class="literal">&quot;h&quot;</code>，因为有更长的匹配项）以及不再搜索已替换的文本。
   </p>
-  <div class="example" id="example-4779">
+  <div class="example" id="example-4854">
    <p><strong>Example #2 使用两个参数的 <span class="function"><strong>strtr()</strong></span> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$trans&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"hello"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"hi"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hi"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strtr</span><span style="color: #007700">(</span><span style="color: #DD0000">"hi&nbsp;all,&nbsp;I&nbsp;said&nbsp;hello"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$trans</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$trans&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"h"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"-"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hello"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"hi"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hi"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strtr</span><span style="color: #007700">(</span><span style="color: #DD0000">"hi&nbsp;all,&nbsp;I&nbsp;said&nbsp;hello"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$trans</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -173,12 +167,11 @@ hello all, I said hi
     </div>
   </div>
   <p class="para">
-   The two modes of behavior are substantially different. With three arguments,
-   <span class="function"><strong>strtr()</strong></span> will replace bytes; with two, it may replace
-   longer substrings.
+   两种行为的模式本质上是不同的。使用三个参数，<span class="function"><strong>strtr()</strong></span>
+   将按字节替换；使用两个参数，优先替换更长的子字符串，
   </p>
-  <div class="example" id="example-4780">
-   <p><strong>Example #3 <span class="function"><strong>strtr()</strong></span> behavior comparison</strong></p>
+  <div class="example" id="example-4855">
+   <p><strong>Example #3 <span class="function"><strong>strtr()</strong></span> 行为比较</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strtr</span><span style="color: #007700">(</span><span style="color: #DD0000">"baab"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"ab"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"01"</span><span style="color: #007700">),</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$trans&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"ab"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"01"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strtr</span><span style="color: #007700">(</span><span style="color: #DD0000">"baab"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$trans</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>

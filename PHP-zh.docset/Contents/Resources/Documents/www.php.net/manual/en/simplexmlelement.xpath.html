@@ -77,7 +77,7 @@
  <div class="refsect1 examples" id="refsect1-simplexmlelement.xpath-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-5361">
+   <div class="example" id="example-5446">
     <p><strong>Example #1 Xpath</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -120,7 +120,54 @@ b/c: stuff
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120564""></a>
+<div id="allnotes">  <a name="127677""></a>
+  <div class="note">
+   <strong class="user">Filippo Vicari</strong>
+   <a href="#127677" class="date">28-Sep-2022 09:56</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You can also search for siblings with a condition. For example immagine to need the title for a desidered language which with the two siblings tags in this XML file<br />
+<br />
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br />
+&lt;IDOC BEGIN="1"&gt;<br />
+...<br />
+&lt;PRODUCT SEGMENT="1"&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;PRODUCTCODE&gt;005&lt;/PRODUCTCODE&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;LANG&gt;E&lt;/LANG&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;TITLE&gt;Name&lt;/TITLE&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;LANG_ISO&gt;EN&lt;/LANG_ISO&gt;<br />
+&lt;/PRODUCT&gt;<br />
+&lt;PRODUCT SEGMENT="1"&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;PRODUCTCODE&gt;005&lt;/PRODUCTCODE&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;LANG&gt;I&lt;/LANG&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;TITLE&gt;Name I&lt;/TITLE&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;LANG_ISO&gt;IT&lt;/LANG_ISO&gt;<br />
+&lt;/PRODUCT&gt;<br />
+...&nbsp; <br />
+&lt;/IDOC&gt;<br />
+<br />
+Let's break it down<br />
+<span class="default">&lt;?php<br />
+</span><span class="string">"//PRODUCT" </span><span class="comment">// find product tag<br />
+</span><span class="string">"//PRODUCT/LANG[.='E']" </span><span class="comment">// whithin it find lang == "E"<br />
+</span><span class="string">"//PRODUCT/LANG[.='E']/../"&nbsp; </span><span class="comment">// go up one step<br />
+</span><span class="string">"//PRODUCT/LANG[.='E']/../TITLE" </span><span class="comment">// get the title Tag content<br />
+<br />
+// Combined search and find siblings ----------------------------<br />
+</span><span class="default">$xml </span><span class="keyword">= </span><span class="default">simplexml_load_file</span><span class="keyword">(</span><span class="string">"fname.xml"</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Search for the TITLE field which sibling is == "E" ----------<br />
+</span><span class="default">$title_E_array </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">xpath</span><span class="keyword">(</span><span class="string">"//PRODUCT/LANG[.='E']/../TITLE"</span><span class="keyword">); </span><span class="comment">// By default gives back an array of&nbsp; SimpleXmlElement <br />
+</span><span class="default">$title </span><span class="keyword">= (string) </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">xpath</span><span class="keyword">(</span><span class="string">"//PRODUCT/LANG[.='E']/../TITLE"</span><span class="keyword">)[</span><span class="default">0</span><span class="keyword">]; </span><span class="comment">// in this way saves only the value as a string<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120564""></a>
   <div class="note">
    <strong class="user">awoerl at contentserv dot com</strong>
    <a href="#120564" class="date">31-Jan-2017 12:43</a>

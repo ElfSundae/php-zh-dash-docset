@@ -115,7 +115,7 @@
    </p>
 
    <p class="para">
-    <div class="example" id="example-99">
+    <div class="example" id="example-100">
      <p><strong>Example #1 可变属性示例</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -145,7 +145,83 @@ I am r.<br />
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126036""></a>
+<div id="allnotes">  <a name="127568""></a>
+  <div class="note">
+   <strong class="user">sebastopolys at gmail dot com</strong>
+   <a href="#127568" class="date">03-Sep-2022 03:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In addition, it is possible to use associative array to secure name of variables available to be used within a function (or class / not tested).<br />
+<br />
+This way the variable variable feature is useful to validate variables; define, output and manage only within the function that receives as parameter <br />
+an associative array : <br />
+&nbsp;&nbsp;&nbsp; array('index'=&gt;'value','index'=&gt;'value');<br />
+index = reference to variable to be used within function<br />
+value = name of the variable to be used within function<br />
+<span class="default">&lt;?php <br />
+<br />
+$vars </span><span class="keyword">= [</span><span class="string">'id'</span><span class="keyword">=&gt;</span><span class="string">'user_id'</span><span class="keyword">,</span><span class="string">'email'</span><span class="keyword">=&gt;</span><span class="string">'user_email'</span><span class="keyword">];<br />
+<br />
+</span><span class="default">validateVarsFunction</span><span class="keyword">(</span><span class="default">$vars</span><span class="keyword">);<br />
+<br />
+function </span><span class="default">validateVarsFunction</span><span class="keyword">(</span><span class="default">$vars</span><span class="keyword">){<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">//$vars['id']=34; &lt;- does not work<br />
+&nbsp;&nbsp; &nbsp; // define allowed variables<br />
+&nbsp;&nbsp; &nbsp; </span><span class="default">$user_id</span><span class="keyword">=</span><span class="default">21</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; </span><span class="default">$user_email</span><span class="keyword">=</span><span class="string">'email@mail.com'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp; &nbsp; echo </span><span class="default">$vars</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">]; </span><span class="comment">// prints name of variable: user_id<br />
+&nbsp;&nbsp; &nbsp; </span><span class="keyword">echo ${</span><span class="default">$vars</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">]}; </span><span class="comment">// prints 21&nbsp; &nbsp; <br />
+&nbsp;&nbsp; &nbsp; </span><span class="keyword">echo </span><span class="string">'Email: '</span><span class="keyword">.${</span><span class="default">$vars</span><span class="keyword">[</span><span class="string">'email'</span><span class="keyword">]};&nbsp; </span><span class="comment">// print email@mail.com<br />
+<br />
+&nbsp;&nbsp; &nbsp; // we don't have the name of the variables before declaring them inside the function<br />
+</span><span class="keyword">}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127526""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#127526" class="date">24-Aug-2022 02:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I've found this could be useful in some way for using on multidimensional arrays:<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; $f="1";$g="2";$h="3";<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $m="4";$n="5";$b="6";<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $q="7";$w="8";$e="9";<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $s="10";$d="11";$a="12";<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $l="13";$o="14";$p="15";<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $x="16";$c="17";$v="18";<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $one=["f","g","h"];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $two=["m","n","b"];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $three=["q","w","e"];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $four=["s","d","a"];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $five=["l","o","p"];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $six=["x","c","v"]; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $first = array("one", "two", "three") ;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $second = array("four", "five", "six") ;<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $a = ["first","second"] ;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; print_r(${${${$a[1]}[1]}[1]});&nbsp; &nbsp; // 16</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126036""></a>
   <div class="note">
    <strong class="user">derek at deperu dot com</strong>
    <a href="#126036" class="date">23-Apr-2021 07:14</a>

@@ -207,7 +207,7 @@
        or through your web server&#039;s configuration, the default flags is set to 
        <strong><code>FILTER_FLAG_NO_ENCODE_QUOTES</code></strong>.  You need to explicitly set
        filter.default_flags to 0 to have quotes encoded by default. Like this:
-       <div class="example" id="example-4969">
+       <div class="example" id="example-5044">
          <p><strong>Example #1 Configuring the default filter to act like htmlspecialchars</strong></p>
          <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -434,49 +434,6 @@ Use FILTER_VALIDATE_FLOAT and FILTER_VALIDATE_INT, which will convert the result
    </div>
   </div>
  <div class="foot"></div>
-  <a name="119431""></a>
-  <div class="note">
-   <strong class="user">Ruth</strong>
-   <a href="#119431" class="date">03-Jun-2016 02:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This is an example for a form having a group of checkboxes besides a lot of other inputs:<br />
-<br />
-$args = array(<br />
-&nbsp;&nbsp;&nbsp; 'details' =&gt; array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'name' =&gt; 'details[]',<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'filter' =&gt; FILTER_SANITIZE_STRING,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'flags'&nbsp; =&gt; FILTER_REQUIRE_ARRAY<br />
-&nbsp;&nbsp;&nbsp; )<br />
-&nbsp;&nbsp;&nbsp; // , <br />
-&nbsp;&nbsp;&nbsp; // a lot of other stuff here (all the form's elements)<br />
-);<br />
-$myInputs = filter_input_array( INPUT_GET, $args, true );<br />
-<br />
-where the checkboxes are (their form is in a page that reloads itself):<br />
-<br />
-&lt;label&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;input type="checkbox" name="details[]" value="A" <span class="default">&lt;?php </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">( </span><span class="default">"A"</span><span class="keyword">, </span><span class="default">$myInputs</span><span class="keyword">[</span><span class="string">'details'</span><span class="keyword">] )) { echo </span><span class="string">'checked'</span><span class="keyword">; } </span><span class="default">?&gt;</span>&gt;<br />
-&nbsp;&nbsp;&nbsp; Show A<br />
-&lt;/label&gt;<br />
-&lt;label&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;input type="checkbox" name="details[]" value="B" <span class="default">&lt;?php </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">( </span><span class="default">"B"</span><span class="keyword">, </span><span class="default">$myInputs</span><span class="keyword">[</span><span class="string">'details'</span><span class="keyword">] )) { echo </span><span class="string">'checked'</span><span class="keyword">; } </span><span class="default">?&gt;</span>&gt;<br />
-&nbsp;&nbsp;&nbsp; Show B<br />
-&lt;/label&gt;<br />
-&lt;label&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;input type="checkbox" name="details[]" value="C" <span class="default">&lt;?php </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">( </span><span class="default">"C"</span><span class="keyword">, </span><span class="default">$myInputs</span><span class="keyword">[</span><span class="string">'details'</span><span class="keyword">] )) { echo </span><span class="string">'checked'</span><span class="keyword">; } </span><span class="default">?&gt;</span>&gt;<br />
-&nbsp;&nbsp;&nbsp; Show C<br />
-&lt;/label&gt;<br />
-&lt;label&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;input type="checkbox" name="details[]" value="D" <span class="default">&lt;?php </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">( </span><span class="default">"D"</span><span class="keyword">, </span><span class="default">$myInputs</span><span class="keyword">[</span><span class="string">'details'</span><span class="keyword">] )) { echo </span><span class="string">'checked'</span><span class="keyword">; } </span><span class="default">?&gt;</span>&gt;<br />
-&nbsp;&nbsp;&nbsp; Show D<br />
-&lt;/label&gt;</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="118970""></a>
   <div class="note">
    <strong class="user">Willscrlt</strong>
@@ -606,34 +563,6 @@ Remember to trim() the $_POST before your filters are applied:<br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="110026""></a>
-  <div class="note">
-   <strong class="user">googlybash24 at aol dot com</strong>
-   <a href="#110026" class="date">13-Sep-2012 08:39</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This should help with most simple "textarea" fields in post forms.<br />
-<br />
-Removing user html tags while maintaining text formatting such as newlines and carriage returns involves using the FILTER_SANITIZE_STRING filter ID with the flag !FILTER_FLAG_STRIP_LOW. The formatting text (the low ASCII values under decimal 32) are encoded because of the included FILTER_FLAG_ENCODE_LOW flag, but you are now preventing these from being removed. When you want to display the value on the page back in its intended format, use nl2br() so the encoded newlines are formatted properly on the page.<br />
-<br />
-This example cleans $_POST data from a textarea field with the name "user_tasks" on a previous html form, stripping tags but maintaining formatting (at least for newlines):<br />
-<br />
-<span class="default">&lt;?php<br />
-$postfilter </span><span class="keyword">=<br />
-&nbsp;&nbsp;&nbsp; array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'user_tasks'&nbsp; &nbsp; </span><span class="keyword">=&gt;&nbsp; &nbsp; array(</span><span class="string">'filter' </span><span class="keyword">=&gt; </span><span class="default">FILTER_SANITIZE_STRING</span><span class="keyword">, </span><span class="string">'flags' </span><span class="keyword">=&gt; !</span><span class="default">FILTER_FLAG_STRIP_LOW</span><span class="keyword">),&nbsp; &nbsp; </span><span class="comment">// removes tags. formatting code is encoded -- add nl2br() when displaying<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">);<br />
-<br />
-</span><span class="default">$revised_post_array </span><span class="keyword">= </span><span class="default">filter_input_array</span><span class="keyword">(</span><span class="default">INPUT_POST</span><span class="keyword">, </span><span class="default">$postfilter</span><span class="keyword">);&nbsp; &nbsp; </span><span class="comment">// must be referenced via a variable which is now an array that takes the place of $_POST[]<br />
-</span><span class="keyword">echo (</span><span class="default">nl2br</span><span class="keyword">(</span><span class="default">$revised_post_array</span><span class="keyword">[</span><span class="string">'user_tasks'</span><span class="keyword">]));&nbsp; &nbsp; </span><span class="comment">// here we use nl2br() for the displayed value, for the ['user_tasks'] array value so that the newlines are formatted<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="109350""></a>
   <div class="note">
    <strong class="user">adellemfrank at hotmail dot com</strong>
@@ -642,27 +571,6 @@ $postfilter </span><span class="keyword">=<br />
     <div class="phpcode">
 <code><span class="html">
 A good list of which ASCII characters are &lt; 32 and &gt; 127 can be found at: <a href="http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters" rel="nofollow" target="_blank">http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="105279""></a>
-  <div class="note">
-   <strong class="user">scamber256 at hotmail dot de</strong>
-   <a href="#105279" class="date">06-Aug-2011 02:37</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Just a hint I tested,<br />
-<br />
-You can obtain all the chars &lt;32 (so newline and c.return), by using not operator &gt; !FILTER_FLAG_STRIP_LOW as the last argument.<br />
-<br />
-Example:<br />
-filter_input(INPUT_GET,'test',FILTER_SANITIZE_STRING,!FILTER_FLAG_STRIP_LOW);<br />
-<br />
-The filter keeps working as before removing anything else as before apart from FILTER_FLAG_STRIP_LOW.<br />
-Just filter those "bad" chars &lt;32 manually you don't want.</span>
 </code>
     </div>
    </div>

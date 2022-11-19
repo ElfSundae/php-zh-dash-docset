@@ -33,10 +33,10 @@
  <div class="refsect1 description" id="refsect1-function.is-a-description">
     <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>is_a</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$object</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$class_name</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$allow_string</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>is_a</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$object_or_class</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$class</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$allow_string</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   如果 <code class="parameter">object</code> 是该类或该类是此对象的父类。
+   如果 <code class="parameter">object_or_class</code> 是该类或该类是此对象的父类。
   </p>
  </div>
 
@@ -46,7 +46,7 @@
    <dl>
     
      <dt>
-<code class="parameter">object</code></dt>
+<code class="parameter">object_or_class</code></dt>
 
      <dd>
 
@@ -58,7 +58,7 @@
     
     
      <dt>
-<code class="parameter">class_name</code></dt>
+<code class="parameter">class</code></dt>
 
      <dd>
 
@@ -75,7 +75,7 @@
      <dd>
 
       <p class="para">
-       如果本参数设置为 <strong><code>false</code></strong>，<code class="parameter">object</code> 就不允许传入字符串类名。
+       如果本参数设置为 <strong><code>false</code></strong>，<code class="parameter">object_or_class</code> 就不允许传入字符串类名。
        这也会在类不存在时，阻止调用自动加载器（autoloader）。
       </p>
      </dd>
@@ -97,18 +97,18 @@
  <div class="refsect1 examples" id="refsect1-function.is-a-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-    <div class="example" id="example-4949">
+    <div class="example" id="example-5024">
       <p><strong>Example #1 <span class="function"><strong>is_a()</strong></span> 例子</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;define&nbsp;a&nbsp;class<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">WidgetFactory<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$oink&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'moo'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;create&nbsp;a&nbsp;new&nbsp;object<br /></span><span style="color: #0000BB">$WF&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">WidgetFactory</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">is_a</span><span style="color: #007700">(</span><span style="color: #0000BB">$WF</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'WidgetFactory'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"yes,&nbsp;\$WF&nbsp;is&nbsp;still&nbsp;a&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;定义类<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">WidgetFactory<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$oink&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'moo'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;创建新对象<br /></span><span style="color: #0000BB">$WF&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">WidgetFactory</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">is_a</span><span style="color: #007700">(</span><span style="color: #0000BB">$WF</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'WidgetFactory'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"yes,&nbsp;\$WF&nbsp;is&nbsp;still&nbsp;a&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
 
     </div>
-   <div class="example" id="example-4950">
-    <p><strong>Example #2 在 PHP 5 中使用 <em class="emphasis">instanceof</em> 运算符</strong></p>
+   <div class="example" id="example-5025">
+    <p><strong>Example #2 使用 <em class="emphasis">instanceof</em> 运算符</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$WF&nbsp;</span><span style="color: #007700">instanceof&nbsp;</span><span style="color: #0000BB">WidgetFactory</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Yes,&nbsp;$WF&nbsp;is&nbsp;a&nbsp;WidgetFactory'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -126,7 +126,7 @@
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="function.get-class.html" class="function" rel="rdfs-seeAlso">get_class()</a> - 返回对象的类名</span></li>
     <li class="member"><span class="function"><a href="function.get-parent-class.html" class="function" rel="rdfs-seeAlso">get_parent_class()</a> - 检索对象或者类的父级类名</span></li>
-    <li class="member"><span class="function"><a href="function.is-subclass-of.html" class="function" rel="rdfs-seeAlso">is_subclass_of()</a> - 如果此对象是该类的子类，则返回 true</span></li>
+    <li class="member"><span class="function"><a href="function.is-subclass-of.html" class="function" rel="rdfs-seeAlso">is_subclass_of()</a> - 检查对象是否继承或者实现（implement）此类</span></li>
    </ul>
   </p>
  </div>
@@ -135,7 +135,20 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122252""></a>
+<div id="allnotes">  <a name="127930""></a>
+  <div class="note">
+   <strong class="user">SlimDeluxe</strong>
+   <a href="#127930" class="date">14-Nov-2022 03:52</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For anyone wondering, this does not work with traits :(</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122252""></a>
   <div class="note">
    <strong class="user">dkrupyanskiy[at]gmail</strong>
    <a href="#122252" class="date">10-Jan-2018 09:36</a>

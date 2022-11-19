@@ -99,7 +99,7 @@
  <div class="refsect1 examples" id="refsect1-function.cal-days-in-month-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-1968">
+   <div class="example" id="example-1984">
     <p><strong>Example #1 <span class="function"><strong>cal_days_in_month()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -117,7 +117,36 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="79598""></a>
+<div id="allnotes">  <a name="127560""></a>
+  <div class="note">
+   <strong class="user">datlx at yahoo dot com</strong>
+   <a href="#127560" class="date">31-Aug-2022 03:59</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+function lastDayOfMonth(string $time, int $deltaMonth, string $format = 'Y-m-d')<br />
+{<br />
+&nbsp;&nbsp;&nbsp; try {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $year = date('Y', strtotime($time));<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $month = date('m', strtotime($time));<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $increaYear = floor(($deltaMonth + $month - 1) / 12);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $year += $increaYear;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $month = (($deltaMonth + $month) % 12) ?: 12;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $day = cal_days_in_month(CAL_GREGORIAN, $month, $year);<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return $time . ' + ' . $deltaMonth . ' =&gt; ' . date($format, strtotime($year . '-' . $month . '-' . $day)) . "\n";<br />
+&nbsp;&nbsp;&nbsp; } catch (Exception $e) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw $e;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="79598""></a>
   <div class="note">
    <strong class="user">brian at b5media dot com</strong>
    <a href="#79598" class="date">04-Dec-2007 04:55</a>

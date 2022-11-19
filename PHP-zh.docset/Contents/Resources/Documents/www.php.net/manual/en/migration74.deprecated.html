@@ -38,8 +38,19 @@
     <div class="informalexample">
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />1&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">3&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">4&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;deprecated<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #0000BB">4&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;ok<br /></span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">:&nbsp;(</span><span style="color: #0000BB">3&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">4&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;ok<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />1&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">3&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">4&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;弃用<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #0000BB">4&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;ok<br /></span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">:&nbsp;(</span><span style="color: #0000BB">3&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">4&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;ok<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    当运算对象嵌套到中间时，<em class="emphasis">不</em>需要括号，因为没有歧义且不受关联顺序的影响：
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+1&nbsp;?&nbsp;2&nbsp;?&nbsp;3&nbsp;:&nbsp;4&nbsp;:&nbsp;5&nbsp;//&nbsp;ok</span>
 </code></div>
      </div>
 
@@ -200,22 +211,20 @@
  </div>
 
  <div class="sect2" id="migration74.deprecated.mbstring">
-  <h3 class="title">Multibyte String</h3>
+  <h3 class="title">多字节字符串</h3>
 
   <p class="para">
-   Passing a non-string pattern to <span class="function"><a href="function.mb-ereg-replace.html" class="function">mb_ereg_replace()</a></span>
-   is deprecated. Currently, non-string patterns are interpreted as
-   ASCII codepoints. In PHP 8, the pattern will be interpreted as a
-   string instead.
+   弃用向 <span class="function"><a href="function.mb-ereg-replace.html" class="function">mb_ereg_replace()</a></span> 传递非字符串 pattern。目前，非字符串
+   pattern 被解释为 ASCII 码点。在 PHP 8 中，pattern 将被解释为字符串。
   </p>
   <p class="para">
-   Passing the encoding as 3rd parameter to <span class="function"><a href="function.mb-strrpos.html" class="function">mb_strrpos()</a></span>
-   is deprecated. Instead pass a 0 offset, and encoding as 4th parameter.
+   弃用传递 encoding 作为 <span class="function"><a href="function.mb-strrpos.html" class="function">mb_strrpos()</a></span> 的第三个参数。而是替换为第三个参数 offset
+   默认传 0，且 encoding 作为第四个参数。
   </p>
  </div>
 
  <div class="sect2" id="migration74.deprecated.ldap">
-  <h3 class="title">Lightweight Directory Access Protocol</h3>
+  <h3 class="title">轻量目录访问协议</h3>
 
   <p class="para">
    <span class="function"><a href="function.ldap-control-paged-result-response.html" class="function">ldap_control_paged_result_response()</a></span> 和
@@ -234,13 +243,12 @@
    的文档中已经被声明废弃，但是由于技术原因，并没有抛出弃用通知。
   </p>
   <p class="para">
-   The <code class="literal">export()</code> methods on all <span class="classname"><a href="class.reflection.html" class="classname">Reflection</a></span>
-   classes are deprecated. Construct a <span class="classname"><a href="class.reflection.html" class="classname">Reflection</a></span> object and
-   convert it to string instead:
+   弃用所有 <span class="classname"><a href="class.reflection.html" class="classname">Reflection</a></span> 类的 <code class="literal">export()</code> 方法。而是替换为构造
+   <span class="classname"><a href="class.reflection.html" class="classname">Reflection</a></span> 对象并转换为字符串：
    <div class="informalexample">
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ReflectionClass::export(Foo::class,&nbsp;false)&nbsp;is:<br /></span><span style="color: #007700">echo&nbsp;new&nbsp;</span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;$str&nbsp;=&nbsp;ReflectionClass::export(Foo::class,&nbsp;true)&nbsp;is:<br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;(string)&nbsp;new&nbsp;</span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ReflectionClass::export(Foo::class,&nbsp;false)&nbsp;是：<br /></span><span style="color: #007700">echo&nbsp;new&nbsp;</span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;$str&nbsp;=&nbsp;ReflectionClass::export(Foo::class,&nbsp;true)&nbsp;是：<br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;(string)&nbsp;new&nbsp;</span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
      </div>

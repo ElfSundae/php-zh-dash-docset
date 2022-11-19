@@ -69,10 +69,10 @@
 
       <p class="para">
        通信类型:
-       <strong><code>STREAM_SOCK_DGRAM</code></strong>,
-       <strong><code>STREAM_SOCK_RAW</code></strong>,
-       <strong><code>STREAM_SOCK_RDM</code></strong>,
-       <strong><code>STREAM_SOCK_SEQPACKET</code></strong> or
+       <strong><code>STREAM_SOCK_DGRAM</code></strong>、
+       <strong><code>STREAM_SOCK_RAW</code></strong>、
+       <strong><code>STREAM_SOCK_RDM</code></strong>、
+       <strong><code>STREAM_SOCK_SEQPACKET</code></strong>、
        <strong><code>STREAM_SOCK_STREAM</code></strong>
       </p>
      </dd>
@@ -85,10 +85,10 @@
      <dd>
 
       <p class="para">
-       使用的传输协议: <strong><code>STREAM_IPPROTO_ICMP</code></strong>,
-       <strong><code>STREAM_IPPROTO_IP</code></strong>,
-       <strong><code>STREAM_IPPROTO_RAW</code></strong>,
-       <strong><code>STREAM_IPPROTO_TCP</code></strong> or
+       使用的传输协议: <strong><code>STREAM_IPPROTO_ICMP</code></strong>、
+       <strong><code>STREAM_IPPROTO_IP</code></strong>、
+       <strong><code>STREAM_IPPROTO_RAW</code></strong>、
+       <strong><code>STREAM_IPPROTO_TCP</code></strong>、
        <strong><code>STREAM_IPPROTO_UDP</code></strong>       
       </p>
      </dd>
@@ -99,9 +99,7 @@
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <span class="simpara">
-    关于每个常量的更多细节，请查阅
-    <a href="stream.constants.html" class="link">Streams
-    常量列表</a>。
+    关于每个常量的更多细节，请查阅 <a href="stream.constants.html" class="link">Stream 常量列表</a>。
    </span>
   </p></blockquote>
  </div>
@@ -118,7 +116,7 @@
  <div class="refsect1 examples" id="refsect1-function.stream-socket-pair-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3717">
+   <div class="example" id="example-3779">
     <p><strong>Example #1 <span class="function"><strong>stream_socket_pair()</strong></span> 例子</strong></p>
     <div class="example-contents"><p>
      这个例子展示了
@@ -126,7 +124,7 @@
     </p></div>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$sockets&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_socket_pair</span><span style="color: #007700">(</span><span style="color: #0000BB">STREAM_PF_UNIX</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_SOCK_STREAM</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_IPPROTO_IP</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pcntl_fork</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">$pid&nbsp;</span><span style="color: #007700">==&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'could&nbsp;not&nbsp;fork'</span><span style="color: #007700">);<br /><br />}&nbsp;else&nbsp;if&nbsp;(</span><span style="color: #0000BB">$pid</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;parent&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"child&nbsp;PID:&nbsp;</span><span style="color: #0000BB">$pid</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">fgets</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;child&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"message&nbsp;from&nbsp;child\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">fgets</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$sockets&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_socket_pair</span><span style="color: #007700">(</span><span style="color: #0000BB">STREAM_PF_UNIX</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_SOCK_STREAM</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_IPPROTO_IP</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pcntl_fork</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">$pid&nbsp;</span><span style="color: #007700">==&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'could&nbsp;not&nbsp;fork'</span><span style="color: #007700">);<br /><br />}&nbsp;else&nbsp;if&nbsp;(</span><span style="color: #0000BB">$pid</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;父进程&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"child&nbsp;PID:&nbsp;</span><span style="color: #0000BB">$pid</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">fgets</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;子进程&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"message&nbsp;from&nbsp;child\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">fgets</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

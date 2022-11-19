@@ -201,7 +201,7 @@
        <p><strong>Example #7 声明静态变量</strong></p>
        <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(){<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;correct<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;correct&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sqrt</span><span style="color: #007700">(</span><span style="color: #0000BB">121</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;wrong&nbsp;&nbsp;(as&nbsp;it&nbsp;is&nbsp;a&nbsp;function)<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$int</span><span style="color: #007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$int</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(){<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;正确<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;正确<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sqrt</span><span style="color: #007700">(</span><span style="color: #0000BB">121</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;错误（因为它是函数）<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$int</span><span style="color: #007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$int</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
        </div>
@@ -209,10 +209,28 @@
       </div>
     </p>
      
-    <p class="para">
-     静态声明是在编译时解析的。
-    </p>
+   <p class="para">
+    从 PHP 8.1.0
+    开始，当继承（不是覆盖）使用有静态变量的方法时，继承的方法将会跟父级方法共享静态变量。这意味着方法中的静态变量现在跟静态属性有相同的行为。
+   </p>
+
+   <div class="example" id="example-99">
+    <p><strong>Example #8 在继承方法中使用静态变量</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">counter</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$counter&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$counter</span><span style="color: #007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$counter</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br />class&nbsp;</span><span style="color: #0000BB">Bar&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">Foo&nbsp;</span><span style="color: #007700">{}<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">());&nbsp;</span><span style="color: #FF8000">//&nbsp;int(1)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">());&nbsp;</span><span style="color: #FF8000">//&nbsp;int(2)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">());&nbsp;</span><span style="color: #FF8000">//&nbsp;int(3)，PHP&nbsp;8.1.0&nbsp;之前&nbsp;int(1)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">());&nbsp;</span><span style="color: #FF8000">//&nbsp;int(4)，PHP&nbsp;8.1.0&nbsp;之前&nbsp;int(2)<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
    </div>
+
+   <blockquote class="note"><p><strong class="note">Note</strong>: 
+    <p class="para">
+     静态声明在编译时解析。
+    </p>
+   </p></blockquote>
+  </div>
 
    <div class="sect2" id="language.variables.scope.references">
     <h3 class="title">全局和静态变量的引用</h3>

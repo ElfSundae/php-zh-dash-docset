@@ -38,14 +38,16 @@
 
   <p class="para rdfs-comment">
    此函数给URL重写机制添加名/值对。
-   这种名值对将被添加到URL（以GET参数的形式）和表单（以input隐藏域的形式），当透明URL重写用 
+   这种名值对将被添加到 URL（以 GET 参数的形式）和表单（以 input 隐藏域的形式），当透明 URL 重写用 
    <a href="session.configuration.html#ini.session.use-trans-sid" class="link">session.use_trans_sid</a>
-   开启时同样可以添加到session ID。
-   要注意，绝对URL(http://example.com/..)不能被重写。
+   开启时同样可以添加到 session ID。
   </p>
   <p class="para">
-   此函数的行为由<a href="outcontrol.configuration.html#ini.url-rewriter.tags" class="link">url_rewriter.tags</a> <var class="filename">php.ini</var>
-   参数控制。
+   此函数的行为受 <a href="outcontrol.configuration.html#ini.url-rewriter.tags" class="link">url_rewriter.tags</a> 和
+   <a href="outcontrol.configuration.html#ini.url-rewriter.hosts" class="link">url_rewriter.hosts</a> <var class="filename">php.ini</var> 参数控制。
+  </p>
+  <p class="para">
+   注意，每个请求最多可以成功调用此函数一次。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <span class="simpara">
@@ -97,10 +99,41 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.output-add-rewrite-var-changelog">
+  <h3 class="title">更新日志</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>7.1.0</td>
+       <td>
+        在 PHP 7.1.0 之前，使用 <span class="function"><strong>output_add_rewrite_var()</strong></span> 设置重写变量使用相同的
+        Session 模块 trans sid 输出缓冲区。从 PHP 7.1.0 起，使用专用的输出缓冲区，<a href="outcontrol.configuration.html#ini.url-rewriter.tags" class="link">
+        url_rewriter.tags</a> 仅用于输出函数，新增 <a href="outcontrol.configuration.html#ini.url-rewriter.tags" class="link">url_rewriter.hosts</a>。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.output-add-rewrite-var-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-531">
+   <div class="example" id="example-544">
     <p><strong>Example #1 <span class="function"><strong>output_add_rewrite_var()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -137,7 +170,11 @@ Array
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="function.output-reset-rewrite-vars.html" class="function" rel="rdfs-seeAlso">output_reset_rewrite_vars()</a> - 重设URL重写器的值（Reset URL rewriter values）</span></li>
     <li class="member"><span class="function"><a href="function.ob-flush.html" class="function" rel="rdfs-seeAlso">ob_flush()</a> - 冲刷出（送出）输出缓冲区中的内容</span></li>
-    <li class="member"><span class="function"><a href="function.ob-list-handlers.html" class="function" rel="rdfs-seeAlso">ob_list_handlers()</a> - 列出所有使用中的输出处理程序。</span></li>
+    <li class="member"><span class="function"><a href="function.ob-list-handlers.html" class="function" rel="rdfs-seeAlso">ob_list_handlers()</a> - 列出所有使用的输出处理程序</span></li>
+    <li class="member"><a href="outcontrol.configuration.html#ini.url-rewriter.tags" class="link">url_rewriter.tags</a></li>
+    <li class="member"><a href="outcontrol.configuration.html#ini.url-rewriter.hosts" class="link">url_rewriter.hosts</a></li>
+    <li class="member"><a href="session.configuration.html#ini.session.trans-sid-tags" class="link">session.trans_sid_tags</a></li>
+    <li class="member"><a href="session.configuration.html#ini.session.trans-sid-hosts" class="link">session.trans_sid_hosts</a></li>
    </ul>
   </p>
  </div>

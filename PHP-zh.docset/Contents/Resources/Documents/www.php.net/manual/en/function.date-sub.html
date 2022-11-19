@@ -39,108 +39,21 @@
  </div>
 
 
+ <div class="refsect1 seealso" id="refsect1-function.date-sub-seealso">
+  <h3 class="title">参见</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="datetimeimmutable.sub.html" class="function" rel="rdfs-seeAlso">DateTimeImmutable::sub()</a> - Subtracts an amount of days, months, years, hours, minutes and seconds</span></li>
+    <li class="member"><span class="function"><a href="datetime.sub.html" class="function" rel="rdfs-seeAlso">DateTime::sub()</a> - 对 DateTime 对象减去一定量的日、月、年、小时、分钟和秒。</span></li>
+   </ul>
+  </p>
+ </div>
+
+
 </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122597""></a>
-  <div class="note">
-   <strong class="user">fpradove at gmail dot com</strong>
-   <a href="#122597" class="date">07-Apr-2018 12:05</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In version 5.6.31 the variable $ today is passed by reference in the function date_sub () and the interval is also applied<br />
-<br />
-<span class="default">&lt;?php <br />
-$today </span><span class="keyword">= </span><span class="default">date_create</span><span class="keyword">(</span><span class="default">date</span><span class="keyword">(</span><span class="string">'Y-m-d'</span><span class="keyword">));<br />
-</span><span class="default">$yesterday </span><span class="keyword">= </span><span class="default">date_sub</span><span class="keyword">(</span><span class="default">$today</span><span class="keyword">, </span><span class="default">date_interval_create_from_date_string</span><span class="keyword">(</span><span class="string">"1 days"</span><span class="keyword">));<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$today</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$yesterday</span><span class="keyword">)<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="117472""></a>
-  <div class="note">
-   <strong class="user">vitkor dot kruglikov at gmail dot com</strong>
-   <a href="#117472" class="date">15-Jun-2015 08:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-It can be unclear for someone how to use this function.<br />
-Here is the example:<br />
-<br />
-$date=date_create("2013-03-15");<br />
-date_sub($date,date_interval_create_from_date_string("40 days"));<br />
-echo date_format($date,"Y-m-d");</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116647""></a>
-  <div class="note">
-   <strong class="user">Thomas LEDUC</strong>
-   <a href="#116647" class="date">04-Feb-2015 11:14</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-To glue to the OOP, it's better to use it with DateInterval::createFromDateString<br />
-<br />
-<span class="default">&lt;?php <br />
-$dateB </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">'2020-12-20'</span><span class="keyword">); <br />
-</span><span class="default">$dateA </span><span class="keyword">= </span><span class="default">$dateB</span><span class="keyword">-&gt;</span><span class="default">sub</span><span class="keyword">(</span><span class="default">DateInterval</span><span class="keyword">::</span><span class="default">createFromDateString</span><span class="keyword">(</span><span class="string">'10 days'</span><span class="keyword">));<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-more detail here :<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">public static function </span><span class="default">createFromDateString </span><span class="keyword">(</span><span class="default">$time</span><span class="keyword">) {}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="101983""></a>
-  <div class="note">
-   <strong class="user">Jonathan Poissant</strong>
-   <a href="#101983" class="date">21-Jan-2011 07:26</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-You cannot replace date_sub('2000-01-20') by DateTime::sub('2000-01-20') because DateTime::sub is not static. You have to create the DateTime object first.
-<br />
-
-<br />
-Example:
-<br />
-
-<br />
-<span class="default">&lt;?php $dateA </span><span class="keyword">= </span><span class="default">date_sub</span><span class="keyword">(</span><span class="string">'2000-01-20'</span><span class="keyword">, </span><span class="default">date_interval_create_from_date_string</span><span class="keyword">(</span><span class="string">'10 days'</span><span class="keyword">)); </span><span class="default">?&gt;
-<br />
-</span>
-<br />
-will be replace by
-<br />
-<span class="default">&lt;?php
-<br />
-$dateB </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">'2000-01-20'</span><span class="keyword">);
-<br />
-</span><span class="default">$dateA </span><span class="keyword">= </span><span class="default">$dateB</span><span class="keyword">-&gt;</span><span class="default">sub</span><span class="keyword">(</span><span class="default">date_interval_create_from_date_string</span><span class="keyword">(</span><span class="string">'10 days'</span><span class="keyword">));
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

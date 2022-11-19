@@ -350,100 +350,6 @@ baz</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="125032""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#125032" class="date">20-May-2020 07:32</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Trait, utility, or inheritance?<br />
-<br />
-You can view a trait as a collection of utility functions with access to $this, without first having to declare (or think about) which classes $this could belong to.<br />
-<br />
-Anytime you want to carve out (a.k.a factor out, "cut &amp; paste") a section of code that you want to use in other classes too, and you need $this, then you should put the code in a trait function. <br />
-<br />
-Trait functions can also use $this to share data among each other.<br />
-<br />
-If you don't need access to $this, you could carve out the code into a utility function or a separate utility class outside your original class. To share data among functions of a utility class you will have to pass around a utility object. Since a trait is more intimately tied in through $this, there is nothing you need to pass around.<br />
-<br />
-Common functionality can also be factored out into a parent class. Such a parent class could sit in between a base class from a library and several child classes that you write. However, all your classes that use the common functionality must then inherit from the "in between" parent. This means they cannot be children from any other class. If the common functionality is general enough to be used with other base classes, you will end up having to duplicate ("copy &amp; paste") the code into several "in between" classes. With a trait you won't have to, which in most cases makes it easier to update and improve the common functionality.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="124025""></a>
-  <div class="note">
-   <strong class="user">gulaschsuppe2 at gmail dot com</strong>
-   <a href="#124025" class="date">08-Jul-2019 11:34</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Like shown in other examples it is possible to define a constructors and destructors in traits:<br />
-<br />
-&lt;? php<br />
-&nbsp;&nbsp;&nbsp; trait T {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public $prop = null;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function __construct($prop) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo "Constructor called\n";<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;prop = $prop;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function __destruct() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo "Destructor called\n";<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; class A {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; use T;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; $a = new A("Hello World\n"); // Constructor called<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; echo $a-&gt;prop; // Hello World<br />
-<br />
-&nbsp;&nbsp;&nbsp; // Destructor called<br />
-<br />
-?&gt;<br />
-<br />
-It is also possible to use trait methods as constructor/destructor using them with the alias '__construct'/'__destruct':<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">trait </span><span class="default">T </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public </span><span class="default">$prop </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function </span><span class="default">constructor</span><span class="keyword">(</span><span class="default">$prop</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Constructor called\n"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">prop </span><span class="keyword">= </span><span class="default">$prop</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function </span><span class="default">destructor</span><span class="keyword">() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Destructor called\n"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; class </span><span class="default">A </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; use </span><span class="default">T </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">T</span><span class="keyword">::</span><span class="default">constructor </span><span class="keyword">as </span><span class="default">__construct</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">T</span><span class="keyword">::</span><span class="default">destructor </span><span class="keyword">as </span><span class="default">__destruct</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$a </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">(</span><span class="string">"Hello World\n"</span><span class="keyword">); </span><span class="comment">// Constructor called<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">prop</span><span class="keyword">; </span><span class="comment">// Hello World<br />
-<br />
-&nbsp;&nbsp;&nbsp; // Destructor called&nbsp; &nbsp; <br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="123648""></a>
   <div class="note">
    <strong class="user">yeu_ym at yahoo dot com</strong>
@@ -529,37 +435,6 @@ class </span><span class="default">Talker<br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="123453""></a>
-  <div class="note">
-   <strong class="user">nobody</strong>
-   <a href="#123453" class="date">19-Dec-2018 04:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-</span><span class="keyword">trait </span><span class="default">MyTrait </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">sayHello</span><span class="keyword">() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'Hello World! from MyTrait'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-class </span><span class="default">MyClass1 </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; use </span><span class="default">MyTrait</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">sayHello</span><span class="keyword">() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'Hello World from MyClasss!'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-&nbsp;</span><span class="default">$obj</span><span class="keyword">=new </span><span class="default">MyClass1</span><span class="keyword">();<br />
-</span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">sayHello</span><span class="keyword">(); </span><span class="comment">//Hello World from MyClasss!?<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="122773""></a>
   <div class="note">
    <strong class="user">rawsrc</strong>
@@ -588,92 +463,6 @@ class </span><span class="default">Foo2 </span><span class="keyword">extends </s
 </span><span class="default">Foo2</span><span class="keyword">::</span><span class="default">$_bar </span><span class="keyword">= </span><span class="string">'World'</span><span class="keyword">;<br />
 echo </span><span class="default">Foo1</span><span class="keyword">::</span><span class="default">$_bar </span><span class="keyword">. </span><span class="string">' ' </span><span class="keyword">. </span><span class="default">Foo2</span><span class="keyword">::</span><span class="default">$_bar</span><span class="keyword">; </span><span class="comment">// Prints: World World</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122254""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#122254" class="date">11-Jan-2018 12:05</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-", §ß§à §ß§Ö§Ý§î§Ù§ñ §à§á§â§Ö§Õ§Ö§Ý§Ú§ä§î §ã§ä§Ñ§ä§Ú§é§Ö§ã§Ü§Ú§Ö §á§Ö§â§Ö§Þ§Ö§ß§ß§í§Ö §Ó §ã§Ñ§Þ§à§Þ §ä§â§Ö§Û§ä§Ö." - §Ù§Ñ§é§Ö§Þ §Ó§Ó§à§Õ§Ú§ä§Ö §Ý§ð§Õ§Ö§Û §Ó §Ù§Ñ§Ò§Ý§å§Ø§Õ§Ö§ß§Ú§Ö?<br />
-<br />
-§¥§à§Ü§å§Þ§Ö§ß§ä§Ñ§è§Ú§ñ §á§à§Þ§Ö§é§Ö§ß§Ñ §Ü§Ñ§Ü §à§à§á5 (§ñ §ß§Ö §Ù§ß§Ñ§ð §ã §Ü§Ñ§Ü§à§Û §Ó§Ö§â§ã§Ú§Ú §Ö§ã§ä§î §ä§Ñ§Ü§Ñ§ñ §Ó§à§Ù§Þ§à§Ø§ß§à§ã§ä§î, §Õ§à §ã§Ö§Ô§à §Õ§ß§ñ §Ó§Ö§â§Ú§Ý §Ó§Ñ§Þ §Ú §Õ§å§Þ§Ñ§Ý §é§ä§à §ß§Ö§Ý§î§Ù§ñ), §ß§à §å§é§Ú§ä§í§Ó§Ñ§ñ §é§ä§à §Ù§Õ§Ö§ã§î §Ú §á§à §Ò§à§Ý§Ö§Ö §á§à§Ù§Õ§ß§Ú§Þ §Ó§Ö§â§ã§Ú§ñ§Þ §Ú§ß§æ§à§â§Þ§Ñ§è§Ú§ñ, §ä§à §£§í §Ü§Ñ§Ü §ä§à §á§à§Þ§Ö§ä§î§ä§Ö §é§ä§à §ã§ä§Ñ§ä§Ú§é§Ö§ã§Ü§Ú§Ö §á§Ö§â§Ö§Þ§Ö§ß§ß§í§Ö §Þ§à§Ô§å§ä §Ò§í§ä§î §Ó §ä§â§Ö§Û§ä§Ö §ß§Ö §ä§à§Ý§î§Ü§à §Ó §Þ§Ö§ä§à§Õ§Ñ§ç §ä§â§Ö§Û§ä§Ñ, §ß§à §Ú §ã§Ñ§Þ§Ú §á§à §ã§Ö§Ò§Ö §ã§Ó§à§Û§ã§ä§Ó§Ñ§Þ§Ú §ä§â§Ö§Û§ä§Ñ.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122178""></a>
-  <div class="note">
-   <strong class="user">tz at za-ek dot ru</strong>
-   <a href="#122178" class="date">26-Dec-2017 08:29</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I want to make flexible module that contains different functionality and I want to combine this but using the same methods:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">class </span><span class="default">Brain </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">ask</span><span class="keyword">(</span><span class="default">$q</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Trate the question <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">return </span><span class="string">'Some response'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-trait </span><span class="default">BrainLogger </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">ask</span><span class="keyword">(</span><span class="default">$q</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">log</span><span class="keyword">(</span><span class="string">'Received a question: ' </span><span class="keyword">. </span><span class="default">$q</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">ask</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-trait </span><span class="default">BrainMad </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">ask</span><span class="keyword">(</span><span class="default">$q</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">) == </span><span class="default">1</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">ask</span><span class="keyword">(</span><span class="default">$q</span><span class="keyword">);&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return </span><span class="string">'I don\'t wanna talk with you.'</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-In some part of my application I want to use different combinations of that functionality so if I want one brain instance:<br />
-<br />
-<span class="default">&lt;?php <br />
-$brain </span><span class="keyword">= new </span><span class="default">Brain</span><span class="keyword">;<br />
-</span><span class="default">$brain</span><span class="keyword">-&gt;</span><span class="default">ask</span><span class="keyword">(</span><span class="string">'what we gonna do tonight?'</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-If I want log all received questions:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">class </span><span class="default">NiceBrain </span><span class="keyword">extends </span><span class="default">Brain </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; use </span><span class="default">BrainLog</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">$brain </span><span class="keyword">= new </span><span class="default">Brain</span><span class="keyword">;<br />
-</span><span class="default">$brain</span><span class="keyword">-&gt;</span><span class="default">ask</span><span class="keyword">(</span><span class="string">'what we gonna do tonight?'</span><span class="keyword">); </span><span class="comment">// Will log<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-If I want to extend more I need to make a cascade of classes:<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">class </span><span class="default">NiceBrain </span><span class="keyword">extends </span><span class="default">Brain </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; use </span><span class="default">BrainLog</span><span class="keyword">;<br />
-}<br />
-class </span><span class="default">CrazyBrain </span><span class="keyword">extends </span><span class="default">NiceBrain </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; use </span><span class="default">BrainMad</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">$brain </span><span class="keyword">= new </span><span class="default">CrazyBrain</span><span class="keyword">;<br />
-</span><span class="default">$brain</span><span class="keyword">-&gt;</span><span class="default">ask</span><span class="keyword">(</span><span class="string">'What we gonna do tonight?'</span><span class="keyword">);<br />
-</span><span class="comment">// Will output&nbsp; 'I don't wanna talk with you.' or normal response<br />
-// but logging only in case BrainMad has a good mood<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Because using of multiple traits will call only one selected in section "use Trait;".</span>
 </code>
     </div>
    </div>
@@ -1103,53 +892,6 @@ The "use" keyword to import a trait into a class will resolve relative to the cu
    </div>
   </div>
  <div class="foot"></div>
-  <a name="118388""></a>
-  <div class="note">
-   <strong class="user">Vasyl Sovyak</strong>
-   <a href="#118388" class="date">27-Nov-2015 01:05</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-</span><span class="keyword">trait </span><span class="default">A<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">bar</span><span class="keyword">()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'A::bar'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-trait </span><span class="default">B<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">bar</span><span class="keyword">()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'B::bar'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-trait </span><span class="default">C<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">bar</span><span class="keyword">()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'C::bar'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-class </span><span class="default">Foo<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; use </span><span class="default">A</span><span class="keyword">, </span><span class="default">B</span><span class="keyword">, </span><span class="default">C </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">C</span><span class="keyword">::</span><span class="default">bar </span><span class="keyword">insteadof </span><span class="default">A</span><span class="keyword">, </span><span class="default">B</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
-</span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">(); </span><span class="comment">//C::bar</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="116907""></a>
   <div class="note">
    <strong class="user">qeremy (!) gmail</strong>
@@ -1227,46 +969,6 @@ $obj-&gt;stfunc();&nbsp;&nbsp; //prints Hello world!<br />
 <br />
 A static property (trvar) can only be accessed using the classname (C1).<br />
 But a static function (stfunc) can be accessed using the classname or the instance ($obj).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116656""></a>
-  <div class="note">
-   <strong class="user">aram dot petrosyan dot 88 at gmail dot com</strong>
-   <a href="#116656" class="date">06-Feb-2015 04:34</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-It's possible to define abstract function in a trait as static and implement non-static version of the function , and it will works. Like this<br />
-<br />
-trait B<br />
-{<br />
-&nbsp;&nbsp;&nbsp; public function smallTalk()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo 'b';<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; public function bigTalk()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo 'B';<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; abstract public function talk();<br />
-}<br />
-<br />
-class traitTest<br />
-{<br />
-&nbsp;&nbsp;&nbsp; use B;<br />
-<br />
-&nbsp;&nbsp;&nbsp; public static function talk()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo 111;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-Also, it's possible to define abstract non static , and implement static version. <br />
-<br />
-Can't understand , is this a bug or it's a feature :)</span>
 </code>
     </div>
    </div>
@@ -1357,43 +1059,6 @@ class </span><span class="default">Talker </span><span class="keyword">{<br />
 </span><span class="default">?&gt;<br />
 </span><br />
 The method sayHello is imported, but the method sayWorld is simply excluded.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="113554""></a>
-  <div class="note">
-   <strong class="user">atorich at gmail dot com</strong>
-   <a href="#113554" class="date">29-Oct-2013 01:56</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-add to "chris dot rutledge at gmail dot com":<br />
-__CLASS__ will return the name of the class in which the trait is being used (!) not the class in which trait method is being called:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">trait </span><span class="default">TestTrait </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">testMethod</span><span class="keyword">() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Class: " </span><span class="keyword">. </span><span class="default">__CLASS__ </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Trait: " </span><span class="keyword">. </span><span class="default">__TRAIT__ </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-class </span><span class="default">BaseClass </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; use </span><span class="default">TestTrait</span><span class="keyword">;<br />
-}<br />
-<br />
-class </span><span class="default">TestClass </span><span class="keyword">extends </span><span class="default">BaseClass </span><span class="keyword">{<br />
-<br />
-}<br />
-<br />
-</span><span class="default">$t </span><span class="keyword">= new </span><span class="default">TestClass</span><span class="keyword">();<br />
-</span><span class="default">$t</span><span class="keyword">-&gt;</span><span class="default">testMethod</span><span class="keyword">();<br />
-<br />
-</span><span class="comment">//Class: BaseClass<br />
-//Trait: TestTrait</span>
-</span>
 </code>
     </div>
    </div>
@@ -1583,61 +1248,6 @@ echo </span><span class="default">$t</span><span class="keyword">-&gt;</span><sp
    </div>
   </div>
  <div class="foot"></div>
-  <a name="109448""></a>
-  <div class="note">
-   <strong class="user">karolis at iwsolutions dot ie</strong>
-   <a href="#109448" class="date">18-Jul-2012 09:16</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Not very obvious but trait methods can be called as if they were defined as static methods in a regular class
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">trait </span><span class="default">Foo </span><span class="keyword">{
-<br />
-&nbsp;&nbsp;&nbsp; function </span><span class="default">bar</span><span class="keyword">() {
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">'baz'</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; }
-<br />
-}
-<br />
-
-<br />
-echo </span><span class="default">Foo</span><span class="keyword">::</span><span class="default">bar</span><span class="keyword">(),</span><span class="string">"\\n"</span><span class="keyword">;
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="108604""></a>
-  <div class="note">
-   <strong class="user">ryanhanekamp at yahoo dot com</strong>
-   <a href="#108604" class="date">10-May-2012 12:14</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Using AS on a __construct method (and maybe other magic methods) is really, really bad. The problem is that is doesn't throw any errors, at least in 5.4.0. It just sporadically resets the connection. And when I say "sporadically," I mean that arbitrary changes in the preceding code can cause the browser connection to reset or not reset *consistently*, so that subsequent page refreshes will continue to hang, crash, or display perfectly in the same fashion as the first load of the page after a change in the preceding code, but the slightest change in the code can change this state. (I believe it is related to precise memory usage.)<br />
-<br />
-I've spent a good part of the day chasing down this one, and weeping every time commenting or even moving a completely arbitrary section of code would cause the connection to reset. It was just by luck that I decided to comment the<br />
-<br />
-"__construct as primitiveObjectConstruct"<br />
-<br />
-line and then the crashes went away entirely.<br />
-<br />
-My parent trait constructor was very simple, so my fix this time was to copy the functionality into the child __construct. I'm not sure how I'll approach a more complicated parent trait constructor.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="108293""></a>
   <div class="note">
    <strong class="user">ryan at derokorian dot com</strong>
@@ -1701,20 +1311,6 @@ echo </span><span class="default">$bar</span><span class="keyword">-&gt;</span><
    </div>
   </div>
  <div class="foot"></div>
-  <a name="108086""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#108086" class="date">27-Mar-2012 09:30</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Traits can not implement interfaces.<br />
-(should be obvious, but tested is tested)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="107965""></a>
   <div class="note">
    <strong class="user">Safak Ozpinar / safakozpinar at gmail</strong>
@@ -1751,101 +1347,6 @@ class </span><span class="default">Foo2 </span><span class="keyword">{<br />
 </span><span class="default">Foo2</span><span class="keyword">::</span><span class="default">$_bar </span><span class="keyword">= </span><span class="string">'World'</span><span class="keyword">;<br />
 echo </span><span class="default">Foo1</span><span class="keyword">::</span><span class="default">$_bar </span><span class="keyword">. </span><span class="string">' ' </span><span class="keyword">. </span><span class="default">Foo2</span><span class="keyword">::</span><span class="default">$_bar</span><span class="keyword">; </span><span class="comment">// Prints: Hello World<br />
 </span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="107913""></a>
-  <div class="note">
-   <strong class="user">Jason dot Hofer dot deletify dot this dot part at gmail dot com</strong>
-   <a href="#107913" class="date">14-Mar-2012 04:39</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-A (somewhat) practical example of trait usage.<br />
-<br />
-Without traits:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">class </span><span class="default">Controller </span><span class="keyword">{<br />
-&nbsp; </span><span class="comment">/* Controller-specific methods defined here. */<br />
-</span><span class="keyword">}<br />
-<br />
-class </span><span class="default">AdminController </span><span class="keyword">extends </span><span class="default">Controller </span><span class="keyword">{<br />
-&nbsp; </span><span class="comment">/* Controller-specific methods inherited from Controller. */<br />
-&nbsp; /* Admin-specific methods defined here. */<br />
-</span><span class="keyword">}<br />
-<br />
-class </span><span class="default">CrudController </span><span class="keyword">extends </span><span class="default">Controller </span><span class="keyword">{<br />
-&nbsp; </span><span class="comment">/* Controller-specific methods inherited from Controller. */<br />
-&nbsp; /* CRUD-specific methods defined here. */<br />
-</span><span class="keyword">}<br />
-<br />
-class </span><span class="default">AdminCrudController </span><span class="keyword">extends </span><span class="default">CrudController </span><span class="keyword">{<br />
-&nbsp; </span><span class="comment">/* Controller-specific methods inherited from Controller. */<br />
-&nbsp; /* CRUD-specific methods inherited from CrudController. */<br />
-&nbsp; /* (!!!) Admin-specific methods copied and pasted from AdminController. */<br />
-</span><span class="keyword">}<br />
-<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-With traits:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">class </span><span class="default">Controller </span><span class="keyword">{<br />
-&nbsp; </span><span class="comment">/* Controller-specific methods defined here. */<br />
-</span><span class="keyword">}<br />
-<br />
-class </span><span class="default">AdminController </span><span class="keyword">extends </span><span class="default">Controller </span><span class="keyword">{<br />
-&nbsp; </span><span class="comment">/* Controller-specific methods inherited from Controller. */<br />
-&nbsp; /* Admin-specific methods defined here. */<br />
-</span><span class="keyword">}<br />
-<br />
-trait </span><span class="default">CrudControllerTrait </span><span class="keyword">{<br />
-&nbsp; </span><span class="comment">/* CRUD-specific methods defined here. */<br />
-</span><span class="keyword">}<br />
-<br />
-class </span><span class="default">AdminCrudController </span><span class="keyword">extends </span><span class="default">AdminController </span><span class="keyword">{<br />
-&nbsp; use </span><span class="default">CrudControllerTrait</span><span class="keyword">;<br />
-&nbsp; </span><span class="comment">/* Controller-specific methods inherited from Controller. */<br />
-&nbsp; /* Admin-specific methods inherited from AdminController. */<br />
-&nbsp; /* CRUD-specific methods defined by CrudControllerTrait. */<br />
-</span><span class="keyword">}<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="107769""></a>
-  <div class="note">
-   <strong class="user">anthony bishopric</strong>
-   <a href="#107769" class="date">03-Mar-2012 12:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The magic method __call works as expected using traits.<br />
-<br />
-<span class="default">&lt;?php <br />
-</span><span class="keyword">trait </span><span class="default">Call_Helper</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">count</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-class </span><span class="default">Foo</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; use </span><span class="default">Call_Helper</span><span class="keyword">;<br />
-}<br />
-<br />
-</span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
-echo </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">go</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">,</span><span class="default">3</span><span class="keyword">,</span><span class="default">4</span><span class="keyword">); </span><span class="comment">// echoes 4</span>
 </span>
 </code>
     </div>

@@ -185,7 +185,31 @@ Fatal error: Uncaught TypeError: Argument 1 passed to Animal::eat() must be an i
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127047""></a>
+<div id="allnotes">  <a name="127860""></a>
+  <div class="note">
+   <strong class="user">Hayley Watson</strong>
+   <a href="#127860" class="date">26-Oct-2022 12:48</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The gist of how the Liskov Substition Princple applies to class types is, basically: "If an object is an instance of something, it should be possible to use it wherever an instance of something is allowed". The Co- and Contravariance rules come from this expectation when you remember that "something" could be a parent class of the object.<br />
+<br />
+For the Cat/Animal example of the text, Cats are Animals, so it should be possible for Cats to go anywhere Animals can go. The variance rules formalise this.<br />
+<br />
+Covariance: A subclass can override a method in the parent class with one that has a narrower return type. (Return values can be more specific in more specific subclasses; they "vary in the same direction", hence "covariant").<br />
+If an object has a method you expect to produce Animals, you should be able to replace it with an object where that method produces only Cats. You'll only get Cats from it but Cats are Animals, which are what you expected from the object.<br />
+<br />
+Contravariance: A subclass can override a method in the parent class with one that has a parameter with a wider type. (Parameters can be less specific in more specific subclasses; they "vary in the opposite direction", hence "contravariant").<br />
+If an object has a method you expect to take Cats, you should be able to replace it with an object where that method takes any sort of Animal. You'll only be giving it Cats but Cats are Animals, which are what the object expected from you.<br />
+<br />
+So, if your code is working with an object of a certain class, and it's given an instance of a subclass to work with, it shouldn't cause any trouble:<br />
+It might accept any sort of Animal where you're only giving it Cats, or it might only return Cats when you're happy to receive any sort of Animal, but LSP says "so what? Cats are Animals so you should both be satisfied."</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127047""></a>
   <div class="note">
    <strong class="user">hrustbb2 at gmail dot com</strong>
    <a href="#127047" class="date">11-May-2022 04:05</a>

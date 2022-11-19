@@ -107,7 +107,7 @@
 <div class="refsect1 examples" id="refsect1-function.array-merge-recursive-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4843">
+   <div class="example" id="example-4919">
     <p><strong>Example #1 <span class="function"><strong>array_merge_recursive()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -157,7 +157,51 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125329""></a>
+<div id="allnotes">  <a name="127724""></a>
+  <div class="note">
+   <strong class="user">dev at oove dot blue</strong>
+   <a href="#127724" class="date">15-Oct-2022 12:01</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I was looking for a function like this one :<br />
+merge one ore more arrays without appending values, just override and extend the array if needed. <br />
+Useful for merging configurations or merging json data to be saved in database (my case)<br />
+<br />
+Similar to Object.assign in javascript<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function array_merge()<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // Holds all the arrays passed<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $params = func_get_args ();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // First array is used as the base, everything else overwrites on it<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $return = array_shift ( $params );<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(!is_array($return))<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $return = [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // Merge all arrays on the first array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach ( $params as $array ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach ( $array as $key =&gt; $value ) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!isset($return[$key]) || !is_array($value)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $return[$key] = $value;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $return[$key] = ArrayTools::array_merge( $return[$key], $value );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return $return;<br />
+<br />
+&nbsp;&nbsp;&nbsp; }</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125329""></a>
   <div class="note">
    <strong class="user">andrew at indigo - sphere dot co dot uk</strong>
    <a href="#125329" class="date">04-Sep-2020 11:27</a>

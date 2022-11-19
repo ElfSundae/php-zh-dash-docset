@@ -33,7 +33,7 @@
  <div class="refsect1 description" id="refsect1-function.file-get-contents-description">
   <h3 class="title">ËµÃ÷</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>file_get_contents</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$use_include_path</code><span class="initializer"> = <strong><code>false</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$context</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$length</code><span class="initializer"> = ?</span></span><br>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
+   <span class="methodname"><strong>file_get_contents</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$use_include_path</code><span class="initializer"> = <strong><code>false</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">resource</span><span class="type"></span></span> <code class="parameter">$context</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$length</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
    ºÍ <span class="function"><a href="function.file.html" class="function">file()</a></span> Ò»Ñù£¬Ö»³ıÁË
@@ -166,59 +166,6 @@
  </div>
 
 
- <div class="refsect1 examples" id="refsect1-function.file-get-contents-examples">
-  <h3 class="title">·¶Àı</h3>
-  <p class="para">
-   <div class="example" id="example-2140">
-    <p><strong>Example #1 »ñÈ¡²¢Êä³öÍøÕ¾Ê×Ò³ HTML Ô´Âë</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$homepage&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$homepage</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-   <div class="example" id="example-2141">
-    <p><strong>Example #2 ÔÚ include_path ÀïËÑË÷</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Èç¹û¿ªÆôÁËÑÏ¸ñÀàĞÍ£¬ÀıÈç&nbsp;declare(strict_types=1);<br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'./people.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;·ñÔò¾ÍÕâÑùĞ´<br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'./people.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILE_USE_INCLUDE_PATH</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-   <div class="example" id="example-2142">
-    <p><strong>Example #3 ¶ÁÈ¡ÎÄ¼şÒ»Ğ¡½Ú</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;´ÓµÚ&nbsp;21&nbsp;¸ö×Ö·û¿ªÊ¼£¬¶ÁÈ¡&nbsp;14&nbsp;×Ö·û³¤¶È<br /></span><span style="color: #0000BB">$section&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'./people.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">14</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$section</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-    <div class="example-contents"><p>ÒÔÉÏÀı³ÌµÄÊä³öÀàËÆÓÚ£º</p></div>
-    <div class="example-contents screen">
-<div class="cdata"><pre>
-string(14) &quot;lle Bjori Ro&quot; 
-</pre></div>
-    </div>
-   </div>
-   <div class="example" id="example-2143">
-    <p><strong>Example #4 Ê¹ÓÃ stream ÉÏÏÂÎÄ£¨context£©</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;´´½¨&nbsp;stream<br /></span><span style="color: #0000BB">$opts&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'http'</span><span style="color: #007700">=&gt;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'method'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"GET"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'header'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"Accept-language:&nbsp;en\r\n"&nbsp;</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"Cookie:&nbsp;foo=bar\r\n"<br />&nbsp;&nbsp;</span><span style="color: #007700">)<br />);<br /><br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">(</span><span style="color: #0000BB">$opts</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ÒÔÏÂÃæÉèÖÃµÄ&nbsp;HTTP&nbsp;Í·À´´ò¿ªÎÄ¼ş<br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$context</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
- </div>
-
- 
  <div class="refsect1 changelog" id="refsect1-function.file-get-contents-changelog">
   <h3 class="title">¸üĞÂÈÕÖ¾</h3>
   <p class="para">
@@ -234,6 +181,13 @@ string(14) &quot;lle Bjori Ro&quot;
 
      <tbody class="tbody">
       <tr>
+       <td>8.0.0</td>
+       <td>
+        ÏÖÔÚ <code class="parameter">length</code> ÔÊĞíÎª null¡£
+       </td>
+      </tr>
+
+      <tr>
        <td>7.1.0</td>
        <td>
         Ö§³Ö¸ºÊı <code class="parameter">offset</code>¡£
@@ -244,6 +198,59 @@ string(14) &quot;lle Bjori Ro&quot;
     
    </table>
 
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.file-get-contents-examples">
+  <h3 class="title">·¶Àı</h3>
+  <p class="para">
+   <div class="example" id="example-2154">
+    <p><strong>Example #1 »ñÈ¡²¢Êä³öÍøÕ¾Ê×Ò³ HTML Ô´Âë</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$homepage&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$homepage</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-2155">
+    <p><strong>Example #2 ÔÚ include_path ÀïËÑË÷</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Èç¹û¿ªÆôÁËÑÏ¸ñÀàĞÍ£¬ÀıÈç&nbsp;declare(strict_types=1);<br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'./people.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;·ñÔò¾ÍÕâÑùĞ´<br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'./people.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILE_USE_INCLUDE_PATH</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-2156">
+    <p><strong>Example #3 ¶ÁÈ¡ÎÄ¼şÒ»Ğ¡½Ú</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;´ÓµÚ&nbsp;21&nbsp;¸ö×Ö·û¿ªÊ¼£¬¶ÁÈ¡&nbsp;14&nbsp;×Ö·û³¤¶È<br /></span><span style="color: #0000BB">$section&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'./people.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">14</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$section</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>ÒÔÉÏÀı³ÌµÄÊä³öÀàËÆÓÚ£º</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(14) &quot;lle Bjori Ro&quot; 
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-2157">
+    <p><strong>Example #4 Ê¹ÓÃ stream ÉÏÏÂÎÄ£¨context£©</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;´´½¨&nbsp;stream<br /></span><span style="color: #0000BB">$opts&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'http'</span><span style="color: #007700">=&gt;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'method'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"GET"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'header'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"Accept-language:&nbsp;en\r\n"&nbsp;</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"Cookie:&nbsp;foo=bar\r\n"<br />&nbsp;&nbsp;</span><span style="color: #007700">)<br />);<br /><br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">(</span><span style="color: #0000BB">$opts</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ÒÔÏÂÃæÉèÖÃµÄ&nbsp;HTTP&nbsp;Í·À´´ò¿ªÎÄ¼ş<br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$context</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
   </p>
  </div>
 
@@ -269,7 +276,7 @@ PHP 4.3.7 ¼°¸ü¸ß°æ±¾¿ÉÒÔÔÚÊ¹ÓÃ <code class="literal">https://</code> °ü×°Æ÷´ò¿ªÁ
     <li class="member"><span class="function"><a href="function.fgets.html" class="function" rel="rdfs-seeAlso">fgets()</a> - ´ÓÎÄ¼şÖ¸ÕëÖĞ¶ÁÈ¡Ò»ĞĞ</span></li>
     <li class="member"><span class="function"><a href="function.fread.html" class="function" rel="rdfs-seeAlso">fread()</a> - ¶ÁÈ¡ÎÄ¼ş£¨¿É°²È«ÓÃÓÚ¶ş½øÖÆÎÄ¼ş£©</span></li>
     <li class="member"><span class="function"><a href="function.readfile.html" class="function" rel="rdfs-seeAlso">readfile()</a> - Êä³öÎÄ¼ş</span></li>
-    <li class="member"><span class="function"><a href="function.file-put-contents.html" class="function" rel="rdfs-seeAlso">file_put_contents()</a> - ½«Ò»¸ö×Ö·û´®Ğ´ÈëÎÄ¼ş</span></li>
+    <li class="member"><span class="function"><a href="function.file-put-contents.html" class="function" rel="rdfs-seeAlso">file_put_contents()</a> - ½«Êı¾İĞ´ÈëÎÄ¼ş</span></li>
     <li class="member"><span class="function"><a href="function.stream-get-contents.html" class="function" rel="rdfs-seeAlso">stream_get_contents()</a> - ¶ÁÈ¡×ÊÔ´Á÷µ½Ò»¸ö×Ö·û´®</span></li>
     <li class="member"><span class="function"><a href="function.stream-context-create.html" class="function" rel="rdfs-seeAlso">stream_context_create()</a> - ´´½¨×ÊÔ´Á÷ÉÏÏÂÎÄ</span></li>
     <li class="member"><a href="reserved.variables.httpresponseheader.html" class="link">$http_response_header</a></li>
@@ -281,7 +288,35 @@ PHP 4.3.7 ¼°¸ü¸ß°æ±¾¿ÉÒÔÔÚÊ¹ÓÃ <code class="literal">https://</code> °ü×°Æ÷´ò¿ªÁ
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126423""></a>
+<div id="allnotes">  <a name="127655""></a>
+  <div class="note">
+   <strong class="user">soger</strong>
+   <a href="#127655" class="date">20-Sep-2022 12:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+There's barely a mention on this page but the $http_response_header will be populated with the HTTP headers if your file was a link. For example if you're expecting an image you can do this:<br />
+<br />
+<span class="default">&lt;?php<br />
+$data </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">'https://example.net/some-link'</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$mimetype </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
+foreach (</span><span class="default">$http_response_header </span><span class="keyword">as </span><span class="default">$v</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^content\-type:\s*(image\/[^;\s\n\r]+)/i'</span><span class="keyword">, </span><span class="default">$v</span><span class="keyword">, </span><span class="default">$m</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$mimetype </span><span class="keyword">= </span><span class="default">$m</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+if (!</span><span class="default">$mimetype</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// not an image<br />
+</span><span class="keyword">}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126423""></a>
   <div class="note">
    <strong class="user">453034559 at qq dot com</strong>
    <a href="#126423" class="date">14-Sep-2021 03:22</a>

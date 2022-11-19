@@ -34,6 +34,26 @@
   如果设置了 <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_EXTENDED</a> 选项，
   一个字符类外部的未转义的 # 字符就代表本行剩余部分为注释。
   </p>
+  <p class="para">
+   <div class="example" id="example-4715">
+    <p><strong>Example #1 PCRE 模式中注释的用法</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$subject&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'test'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;(?#&nbsp;可用于添加注释而不启用&nbsp;PCRE_EXTENDED&nbsp;*/<br /></span><span style="color: #0000BB">$match&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_match</span><span style="color: #007700">(</span><span style="color: #DD0000">'/te(?#&nbsp;this&nbsp;is&nbsp;a&nbsp;comment)st/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$subject</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$match</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;除非启用&nbsp;PCRE_EXTENDED，否则空格和&nbsp;#&nbsp;视为模式的一部分&nbsp;*/<br /></span><span style="color: #0000BB">$match&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_match</span><span style="color: #007700">(</span><span style="color: #DD0000">'/te&nbsp;&nbsp;&nbsp;#~~~~<br />st/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$subject</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$match</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;启用&nbsp;PCRE_EXTENDED&nbsp;后，所有空白数据字符以及<br />&nbsp;&nbsp;&nbsp;同一行未转义的&nbsp;#&nbsp;后面的任何内容都将会忽略&nbsp;*/<br /></span><span style="color: #0000BB">$match&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_match</span><span style="color: #007700">(</span><span style="color: #DD0000">'/te&nbsp;&nbsp;&nbsp;&nbsp;#~~~~<br />st/x'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$subject</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$match</span><span style="color: #007700">);</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+int(1)
+int(0)
+int(1)
+</pre></div>
+    </div>
+   </div>
+  </p>
  </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>

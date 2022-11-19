@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>返回指定的字符</title>
+  <title>从数字生成单字节字符串</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,27 +20,32 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.strings.html">字符串 函数</a></li>
-    <li>返回指定的字符</li>
+    <li>从数字生成单字节字符串</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.chr" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">chr</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">chr</span> &mdash; <span class="dc-title">返回指定的字符</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">chr</span> &mdash; <span class="dc-title">从数字生成单字节字符串</span></p>
 
  </div>
+ 
  <div class="refsect1 description" id="refsect1-function.chr-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>chr</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$ascii</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>chr</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$codepoint</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   返回相对应于 <code class="parameter">ascii</code>
-   所指定的单个字符。
+   返回单字符字符串，包含将 <code class="parameter">codepoint</code> 作为无符号整数解释的指定字符。
   </p>
   <p class="para">
-   此函数与 <span class="function"><a href="function.ord.html" class="function">ord()</a></span> 是互补的。
+   这可用于在一种单字节编码（像是 ASCII、ISO-8859 或 Windows
+   1252）中通过传递想要的字符在编码映射表中的位置来创建单字符字符串。但是，注意此函数并不清楚任何字符串编码，特别是无法通过传递一个 
+   Unicode 码位值来生成多字节编码（像是 UTF-8 或 UTF-16）字符串。
+  </p>
+  <p class="para">
+   此函数与 <span class="function"><a href="function.ord.html" class="function">ord()</a></span> 互补。
   </p>
  </div>
 
@@ -51,12 +56,21 @@
    <dl>
     
      <dt>
-<code class="parameter">ascii</code></dt>
+<code class="parameter">codepoint</code></dt>
 
      <dd>
 
       <p class="para">
-       Ascii 码。
+       一个介于 0 与 255 之间的整数。
+      </p>
+      <p class="para">
+       超过有效范围（0..255）的值将和 255"按位与"，与以下算法等效：
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+while&nbsp;($bytevalue&nbsp;&lt;&nbsp;0)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;$bytevalue&nbsp;+=&nbsp;256;<br />}<br />$bytevalue&nbsp;%=&nbsp;256;</span>
+</code></div>
+       </div>
+
       </p>
      </dd>
 
@@ -70,23 +84,82 @@
  <div class="refsect1 returnvalues" id="refsect1-function.chr-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回规定的字符。
+   包含指定字节的单字符字符串。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.chr-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>7.4.0</td>
+      <td>
+       此函数不再静默接受不支持的 <code class="parameter">codepoint</code>，并会将它们转为 <code class="literal">0</code>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.chr-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4679">
+   <div class="example" id="example-4745">
     <p><strong>Example #1 <span class="function"><strong>chr()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"The&nbsp;string&nbsp;ends&nbsp;in&nbsp;escape:&nbsp;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">27</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">/*&nbsp;在&nbsp;$str&nbsp;后边增加换码符&nbsp;*/<br /><br />/*&nbsp;通常这样更有用&nbsp;*/<br /><br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sprintf</span><span style="color: #007700">(</span><span style="color: #DD0000">"The&nbsp;string&nbsp;ends&nbsp;in&nbsp;escape:&nbsp;%c"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">27</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;假设该字符串将被作为&nbsp;ASCII&nbsp;或是一个与&nbsp;ASCII&nbsp;兼容的编码使用<br /><br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"The&nbsp;string&nbsp;ends&nbsp;in&nbsp;escape:&nbsp;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">27</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">/*&nbsp;在&nbsp;$str&nbsp;末尾添加一个转义字符&nbsp;*/<br /><br />/*&nbsp;通常这样更有用&nbsp;*/<br /><br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sprintf</span><span style="color: #007700">(</span><span style="color: #DD0000">"The&nbsp;string&nbsp;ends&nbsp;in&nbsp;escape:&nbsp;%c"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">27</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
+   </div>
+   <div class="example" id="example-4746">
+    <p><strong>Example #2 溢出行为</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(-</span><span style="color: #0000BB">159</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">833</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+aA
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para"> 
+   <div class="example" id="example-4747">
+    <p><strong>Example #3 从单个字节构建 UTF-8 字符串</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">240</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">159</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">144</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">152</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen"><br />
+??<br />
+    </div>
    </div>
   </p>
  </div>
@@ -96,12 +169,15 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - 返回格式化字符串</span> 如何使用格式字符串 <code class="literal">%c</code>。</li>
+    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - 返回格式化字符串</span> 如何使用格式字符串 <code class="literal">%c</code></li>
     <li class="member"><span class="function"><a href="function.ord.html" class="function">ord()</a></span></li>
-    <li class="member">可以在此处找到 ASCII 码表：<a href="https://www.man7.org/linux/man-pages/man7/ascii.7.html" class="link external" title="Link : https://www.man7.org/linux/man-pages/man7/ascii.7.html">&raquo;&nbsp;https://www.man7.org/linux/man-pages/man7/ascii.7.html</a>。</li>
+    <li class="member">一个 <a href="https://www.man7.org/linux/man-pages/man7/ascii.7.html" class="link external" title="Link : https://www.man7.org/linux/man-pages/man7/ascii.7.html">&raquo;&nbsp;ASCII 表</a></li>
+    <li class="member"><span class="function"><a href="function.mb-chr.html" class="function">mb_chr()</a></span></li>
+    <li class="member"><span class="function"><a href="intlchar.chr.html" class="function">IntlChar::chr()</a></span></li>
    </ul>
   </p>
  </div>
+
 
 </div><div id="usernotes">
  <div class="head">

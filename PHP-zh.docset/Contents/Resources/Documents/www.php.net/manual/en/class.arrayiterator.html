@@ -63,13 +63,15 @@
     
     <div class="classsynopsisinfo classsynopsisinfo_comment">/* 常量 */</div>
     <div class="fieldsynopsis">
+     <span class="modifier">public</span>
      <span class="modifier">const</span>
      <span class="type">int</span>
-      <var class="fieldsynopsis_varname"><a href="class.arrayiterator.html#arrayiterator.constants.std-prop-list"><var class="varname">STD_PROP_LIST</var></a></var><span class="initializer"> = 1</span>;</div>
+      <var class="fieldsynopsis_varname"><a href="class.arrayiterator.html#arrayiterator.constants.std-prop-list"><var class="varname">STD_PROP_LIST</var></a></var>;</div>
 
-    <div class="fieldsynopsis"><span class="modifier">const</span>
+    <div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">const</span>
      <span class="type">int</span>
-      <var class="fieldsynopsis_varname"><a href="class.arrayiterator.html#arrayiterator.constants.array-as-props"><var class="varname">ARRAY_AS_PROPS</var></a></var><span class="initializer"> = 2</span>;</div>
+      <var class="fieldsynopsis_varname"><a href="class.arrayiterator.html#arrayiterator.constants.array-as-props"><var class="varname">ARRAY_AS_PROPS</var></a></var>;</div>
 
 
     <div class="classsynopsisinfo classsynopsisinfo_comment">/* 方法 */</div>
@@ -280,7 +282,120 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125944""></a>
+<div id="allnotes">  <a name="127869""></a>
+  <div class="note">
+   <strong class="user">butesa at freenet dot de</strong>
+   <a href="#127869" class="date">28-Oct-2022 05:11</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The documentation states "This iterator allows to unset and modify values and keys while iterating over Arrays and Objects". But if you pass an array to the constructor, the iterator works with a copy of that array, so the modifications will not be written back to that initial array. ArrayObject behaves the same way.<br />
+<br />
+If you want an iterator that writes back to the array, you can use this function:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function &amp;</span><span class="default">getArrayIterator</span><span class="keyword">(array &amp;</span><span class="default">$a</span><span class="keyword">): </span><span class="default">Iterator </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">$a </span><span class="keyword">as </span><span class="default">$k </span><span class="keyword">=&gt; &amp;</span><span class="default">$v</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; yield </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Usage:<br />
+<br />
+<span class="default">&lt;?php<br />
+$array </span><span class="keyword">= [</span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">'a'</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">=&gt; </span><span class="string">'b'</span><span class="keyword">];<br />
+<br />
+</span><span class="default">$iterator </span><span class="keyword">= </span><span class="default">getArrayIterator</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
+foreach (</span><span class="default">$iterator </span><span class="keyword">as &amp;</span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">.= </span><span class="string">'x'</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">//array(2) {<br />
+//&nbsp; [1]=&gt;<br />
+//&nbsp; string(2) "ax"<br />
+//&nbsp; [2]=&gt;<br />
+//&nbsp; &amp;string(2) "bx"<br />
+//}<br />
+//object(Generator)#4 (0) {<br />
+//}<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Comparison with plain array, ArrayIterator and ArrayObject:<br />
+<br />
+<span class="default">&lt;?php<br />
+$array1 </span><span class="keyword">= [</span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">'a'</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">=&gt; </span><span class="string">'b'</span><span class="keyword">];<br />
+</span><span class="default">$array2 </span><span class="keyword">= [</span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">'a'</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">=&gt; </span><span class="string">'b'</span><span class="keyword">];<br />
+</span><span class="default">$array3 </span><span class="keyword">= [</span><span class="default">1 </span><span class="keyword">=&gt; </span><span class="string">'a'</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">=&gt; </span><span class="string">'b'</span><span class="keyword">];<br />
+<br />
+foreach (</span><span class="default">$array1 </span><span class="keyword">as &amp;</span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">.= </span><span class="string">'x'</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$iterator2 </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">);<br />
+foreach (</span><span class="default">$iterator2 </span><span class="keyword">as &amp;</span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">.= </span><span class="string">'x'</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$iterator3 </span><span class="keyword">= new </span><span class="default">ArrayObject</span><span class="keyword">(</span><span class="default">$array3</span><span class="keyword">);<br />
+foreach (</span><span class="default">$iterator3 </span><span class="keyword">as &amp;</span><span class="default">$value</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">.= </span><span class="string">'x'</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">//array(2) {<br />
+//&nbsp; [1]=&gt;<br />
+//&nbsp; string(2) "ax"<br />
+//&nbsp; [2]=&gt;<br />
+//&nbsp; string(2) "bx"<br />
+//}<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">//array(2) {<br />
+//&nbsp; [1]=&gt;<br />
+//&nbsp; string(1) "a"<br />
+//&nbsp; [2]=&gt;<br />
+//&nbsp; string(1) "b"<br />
+//}<br />
+//object(ArrayIterator)#1 (1) {<br />
+//&nbsp; ["storage":"ArrayIterator":private]=&gt;<br />
+//&nbsp; array(2) {<br />
+//&nbsp; &nbsp; [1]=&gt;<br />
+//&nbsp; &nbsp; string(2) "ax"<br />
+//&nbsp; &nbsp; [2]=&gt;<br />
+//&nbsp; &nbsp; string(2) "bx"<br />
+//&nbsp; }<br />
+//}<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">);<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$iterator2</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">//array(2) {<br />
+//&nbsp; [1]=&gt;<br />
+//&nbsp; string(1) "a"<br />
+//&nbsp; [2]=&gt;<br />
+//&nbsp; string(1) "b"<br />
+//}<br />
+//object(ArrayObject)#2 (1) {<br />
+//&nbsp; ["storage":"ArrayObject":private]=&gt;<br />
+//&nbsp; array(2) {<br />
+//&nbsp; &nbsp; [1]=&gt;<br />
+//&nbsp; &nbsp; string(2) "ax"<br />
+//&nbsp; &nbsp; [2]=&gt;<br />
+//&nbsp; &nbsp; string(2) "bx"<br />
+//&nbsp; }<br />
+//}<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$array3</span><span class="keyword">);<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$iterator3</span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125944""></a>
   <div class="note">
    <strong class="user">mail at markuszeller dot com</strong>
    <a href="#125944" class="date">19-Mar-2021 05:55</a>

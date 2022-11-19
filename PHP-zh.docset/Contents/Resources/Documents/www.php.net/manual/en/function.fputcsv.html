@@ -30,15 +30,16 @@
   <p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">fputcsv</span> &mdash; <span class="dc-title">将行格式化为 CSV 并写入文件指针</span></p>
 
  </div>
+ 
  <div class="refsect1 description" id="refsect1-function.fputcsv-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>fputcsv</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$handle</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$fields</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$delimiter</code><span class="initializer"> = &#039;,&#039;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$enclosure</code><span class="initializer"> = &#039;&quot;&#039;</span></span><br>): <span class="type">int</span></div>
+   <span class="methodname"><strong>fputcsv</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stream</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$fields</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$separator</code><span class="initializer"> = &quot;,&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$enclosure</code><span class="initializer"> = &quot;\&quot;&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$escape</code><span class="initializer"> = &quot;\\&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$eol</code><span class="initializer"> = &quot;\n&quot;</span></span><br>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>fputcsv()</strong></span> 将一行（用
    <code class="parameter">fields</code> 数组传递）格式化为 CSV
-   格式并写入由 <code class="parameter">handle</code>
+   格式并写入由 <code class="parameter">stream</code>
    指定的文件。
   </p>
  </div>
@@ -50,7 +51,7 @@
    <dl>
     
      <dt>
-<code class="parameter">handle</code></dt>
+<code class="parameter">stream</code></dt>
 
      <dd>
 
@@ -66,20 +67,20 @@
      <dd>
 
       <p class="para">
-       值的一个数组。
+       <span class="type">string</span> 数组。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">delimiter</code></dt>
+<code class="parameter">separator</code></dt>
 
      <dd>
 
       <p class="para">
-       可选的 <code class="parameter">delimiter</code>
-   参数设定字段分界符（只允许一个字符）。
+       可选的 <code class="parameter">separator</code>
+       参数设定字段分界符（只允许一个单字节字符）。
       </p>
      </dd>
 
@@ -92,7 +93,32 @@
 
       <p class="para">
        可选的 <code class="parameter">enclosure</code>
-   参数设定字段字段环绕符（只允许一个字符）。
+       参数设定字段字段环绕符（只允许一个单字节字符）。
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">escape</code></dt>
+
+     <dd>
+
+      <p class="para">
+       可选的 <code class="parameter">escape</code>
+       参数设置转义字符（只允许一个单字节字符）。空字符串（<code class="literal">&quot;&quot;</code>）禁用专有转义机制。
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">eol</code></dt>
+
+     <dd>
+
+      <p class="para">
+       可选的 <code class="parameter">eol</code> 参数设置自定义行尾序列。
       </p>
      </dd>
 
@@ -100,6 +126,13 @@
    </dl>
 
   </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    If an <code class="parameter">enclosure</code> character is contained in a field,
+    it will be escaped by doubling it, unless it is immediately preceded by an
+    <code class="parameter">escape</code>.
+   </p>
+  </p></blockquote> 
  </div>
 
 
@@ -111,10 +144,46 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.fputcsv-changelog">
+  <h3 class="title">更新日志</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>8.1.0</td>
+       <td>
+        新增可选的 <code class="parameter">eol</code> 参数。
+       </td>
+      </tr>
+
+      <tr>
+       <td>7.4.0</td>
+       <td>
+        <code class="parameter">escape</code> 参数现在接受空字符串来禁用专有转义机制。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.fputcsv-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2162">
+   <div class="example" id="example-2176">
     <p><strong>Example #1 <span class="function"><strong>fputcsv()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">

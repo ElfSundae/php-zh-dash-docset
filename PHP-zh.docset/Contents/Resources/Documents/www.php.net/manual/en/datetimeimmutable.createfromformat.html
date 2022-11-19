@@ -64,7 +64,7 @@
       <span class="function"><a href="function.date.html" class="function">date()</a></span> can be used.
      </p>
      <p class="para">
-      ALl fields are initialised with the current date/time. In most cases you
+      All fields are initialised with the current date/time. In most cases you
       would want to reset these to &quot;zero&quot; (the Unix epoch, <code class="literal">1970-01-01
       00:00:00 UTC</code>). You do that by including the
       <code class="literal">!</code> character as first character in your
@@ -74,7 +74,7 @@
      </p>
      <p class="para">
       The format is parsed from left to right, which means that in some
-      situations the order in which the format characters are present effects
+      situations the order in which the format characters are present affects
       the result. In the case of <code class="literal">z</code> (the day of the year),
       it is required that a year has already been parsed,
       for example through the <code class="literal">Y</code> or <code class="literal">y</code>
@@ -88,6 +88,14 @@
       on the amount of digits. The date/time parser&#039;s overflow mechanism is
       used when out-of-range values are given. The examples below show some of
       this behaviour.
+     </p>
+     <p class="para">
+      This also means that the data parsed for a format letter is greedy, and
+      will read up to the amount of digits its format allows for. That can
+      then also mean that there are no
+      longer enough characters in the <code class="parameter">datetime</code> string
+      for following format characters. An example on this page also
+      illustrates this issue.
      </p>
      <p class="para">
       <table class="doctable table">
@@ -540,7 +548,7 @@
 
  <div class="refsect1 examples" id="refsect1-datetimeimmutable.createfromformat-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-2011">
+  <div class="example" id="example-2006">
    <p><strong>Example #1 <span class="function"><strong>DateTimeImmutable::createFromFormat()</strong></span> example</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
@@ -551,7 +559,7 @@
    </div>
 
   </div>
-  <div class="example" id="example-2012">
+  <div class="example" id="example-2007">
    <p><strong>Example #2 Intricacies of <span class="function"><strong>DateTimeImmutable::createFromFormat()</strong></span></strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -573,7 +581,7 @@ Format: i; 2022-06-02 00:15:00
    </div>
   </div>
 
-  <div class="example" id="example-2013">
+  <div class="example" id="example-2008">
    <p><strong>Example #3 Format string with literal characters</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -590,7 +598,7 @@ Format: i; 2022-06-02 00:15:00
    </div>
   </div>
 
-  <div class="example" id="example-2014">
+  <div class="example" id="example-2009">
    <p><strong>Example #4 Overflow behaviour</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -638,7 +646,7 @@ Sat, 04 Jun 2022 17:01:37 +0000
    </ol>
   </div>
 
-  <div class="example" id="example-2015">
+  <div class="example" id="example-2010">
    <p><strong>Example #5 Overflowing day name behaviour</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -681,7 +689,7 @@ Mon, 10 Aug 2020 01:00:00 +0000
    <span class="methodname"><a href="datetimeimmutable.getlasterrors.html" class="methodname">DateTimeImmutable::getLastErrors()</a></span> name, which will
    include a warning if an overflow occured.
   </p>
-  <div class="example" id="example-2016">
+  <div class="example" id="example-2011">
    <p><strong>Example #6 Detecting overflown dates</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -711,6 +719,65 @@ array(4) {
 }
 </pre></div>
    </div>
+  </div>
+
+  <div class="example" id="example-2012">
+   <p><strong>Example #7 Greedy parsing behaviour</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Gis'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'60101'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [year] =&gt;
+    [month] =&gt;
+    [day] =&gt;
+    [hour] =&gt; 60
+    [minute] =&gt; 10
+    [second] =&gt; 0
+    [fraction] =&gt; 0
+    [warning_count] =&gt; 1
+    [warnings] =&gt; Array
+        (
+            [5] =&gt; The parsed time was invalid
+        )
+
+    [error_count] =&gt; 1
+    [errors] =&gt; Array
+        (
+            [4] =&gt; A two digit second could not be found
+        )
+
+    [is_localtime] =&gt;
+)
+</pre></div>
+   </div>
+   <div class="example-contents"><p>
+    The <code class="literal">G</code> format is to parse 24 hour clock hours, with or
+    without leading zero. This requires to parse 1 or 2 digits. Because there
+    are two following digits, it greedily reads this as <code class="literal">60</code>.
+   </p></div>
+   <div class="example-contents"><p>
+    The following <code class="literal">i</code> and <code class="literal">s</code> format
+    characters both require two digits. This means that <code class="literal">10</code>
+    is passed as minute (<code class="literal">i</code>), and that there are then not
+    enough digits left to parse for as second (<code class="literal">s</code>).
+   </p></div>
+   <div class="example-contents"><p>
+    The <code class="literal">errors</code> array indicates this problem.
+   </p></div>
+   <div class="example-contents"><p>
+    Additionally, an hour of <code class="literal">60</code> is outside the range
+    <code class="literal">0</code>-<code class="literal">24</code>, which causes the
+    <code class="literal">warnings</code> array to include a warning that the time is
+    invalid.
+   </p></div>
   </div>
 
  </div>

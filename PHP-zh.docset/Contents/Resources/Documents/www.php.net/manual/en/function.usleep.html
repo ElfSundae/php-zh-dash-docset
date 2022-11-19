@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.usleep-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>usleep</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$micro_seconds</code></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>usleep</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$microseconds</code></span>): <span class="type"><span class="type void">void</span></span></div>
 
   <p class="para rdfs-comment">
    以指定的微秒数延缓程序的执行。
@@ -48,13 +48,25 @@
    <dl>
     
      <dt>
-<code class="parameter">micro_seconds</code></dt>
+<code class="parameter">microseconds</code></dt>
 
      <dd>
 
       <p class="para">
        暂停的时间以微秒计。1微秒（micro second）是百万分之一秒。
       </p>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        操作系统不支持大于 <code class="literal">1000000</code> 的值（即休眠不能超过 1 秒）。使用
+        <span class="function"><a href="function.sleep.html" class="function">sleep()</a></span> 代替。
+       </span>
+      </p></blockquote>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        任何系统活动或处理调用所花费的时间或系统计时器的粒度都可能会稍微延长睡眠时间（即可能会长于
+        <code class="parameter">microseconds</code>）。
+       </span>
+      </p></blockquote>
      </dd>
 
     
@@ -75,7 +87,7 @@
  <div class="refsect1 examples" id="refsect1-function.usleep-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3443">
+   <div class="example" id="example-3464">
     <p><strong>Example #1 <span class="function"><strong>usleep()</strong></span>例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -102,7 +114,7 @@
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="function.sleep.html" class="function" rel="rdfs-seeAlso">sleep()</a> - 延缓执行</span></li>
     <li class="member"><span class="function"><a href="function.time-nanosleep.html" class="function" rel="rdfs-seeAlso">time_nanosleep()</a> - 延缓执行若干秒和纳秒</span></li>
-    <li class="member"><span class="function"><a href="function.time-sleep-until.html" class="function" rel="rdfs-seeAlso">time_sleep_until()</a> - 使脚本睡眠到指定的时间为止。</span></li>
+    <li class="member"><span class="function"><a href="function.time-sleep-until.html" class="function" rel="rdfs-seeAlso">time_sleep_until()</a> - 使脚本睡眠到指定的时间为止</span></li>
     <li class="member"><span class="function"><a href="function.set-time-limit.html" class="function" rel="rdfs-seeAlso">set_time_limit()</a> - 设置脚本最大执行时间</span></li>
    </ul>
   </p>

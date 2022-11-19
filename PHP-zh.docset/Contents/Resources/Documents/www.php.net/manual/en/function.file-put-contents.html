@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>将一个字符串写入文件</title>
+  <title>将数据写入文件</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,29 +20,29 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.filesystem.html">文件系统函数</a></li>
-    <li>将一个字符串写入文件</li>
+    <li>将数据写入文件</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.file-put-contents" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">file_put_contents</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">file_put_contents</span> &mdash; <span class="dc-title">将一个字符串写入文件</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">file_put_contents</span> &mdash; <span class="dc-title">将数据写入文件</span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-function.file-put-contents-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>file_put_contents</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$context</code><span class="initializer"> = ?</span></span><br>): <span class="type">int</span></div>
+   <span class="methodname"><strong>file_put_contents</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">resource</span><span class="type"></span></span> <code class="parameter">$context</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment"> 
    和依次调用 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>，<span class="function"><a href="function.fwrite.html" class="function">fwrite()</a></span>
    以及 <span class="function"><a href="function.fclose.html" class="function">fclose()</a></span> 功能一样。
   </p>
   <p class="para">
-   If <code class="parameter">filename</code> does not exist, the file is created.
-   Otherwise, the existing file is overwritten, unless the 
-   <strong><code>FILE_APPEND</code></strong> flag is set.
+   如果 <code class="parameter">filename</code>
+   不存在，将会创建文件。反之，存在的文件将会重写，除非设置
+   <strong><code>FILE_APPEND</code></strong> flag。
   </p>
  </div>
 
@@ -75,13 +75,13 @@
       </p>
       <p class="para">
        如果 <code class="parameter">data</code>
-   指定为 stream 资源，这里 stream
-   中所保存的缓存数据将被写入到指定文件中，这种用法就相似于使用
-   <span class="function"><a href="function.stream-copy-to-stream.html" class="function">stream_copy_to_stream()</a></span> 函数。
+       指定为 stream 资源，这里 stream
+       中所保存的缓存数据将被写入到指定文件中，这种用法就相似于使用
+       <span class="function"><a href="function.stream-copy-to-stream.html" class="function">stream_copy_to_stream()</a></span> 函数。
       </p>
       <p class="para">
        参数 <code class="parameter">data</code> 可以是数组（但不能为多维数组），这就相当于
-   <code class="literal">file_put_contents($filename, join(&#039;&#039;, $array))</code>。
+       <code class="literal">file_put_contents($filename, join(&#039;&#039;, $array))</code>。
       </p>
      </dd>
 
@@ -133,11 +133,12 @@
             <strong><code>LOCK_EX</code></strong>
            </td>
            <td>
-            在写入时获得一个独占锁。
+            在写入时获取文件独占锁。换句话说，在调用 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>
+            和 <span class="function"><a href="function.fwrite.html" class="function">fwrite()</a></span> 中间发生了 <span class="function"><a href="function.flock.html" class="function">flock()</a></span>
+            调用。这与调用带模式"x"的 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> 不同。
            </td>
           </tr>
 
-          
          </tbody>
         
        </table>
@@ -179,17 +180,17 @@
  <div class="refsect1 examples" id="refsect1-function.file-put-contents-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2144">
-    <p><strong>Example #1 Simple usage example</strong></p>
+   <div class="example" id="example-2158">
+    <p><strong>Example #1 简单用法示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'people.txt'</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;Open&nbsp;the&nbsp;file&nbsp;to&nbsp;get&nbsp;existing&nbsp;content<br /></span><span style="color: #0000BB">$current&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;Append&nbsp;a&nbsp;new&nbsp;person&nbsp;to&nbsp;the&nbsp;file<br /></span><span style="color: #0000BB">$current&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">"John&nbsp;Smith\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;Write&nbsp;the&nbsp;contents&nbsp;back&nbsp;to&nbsp;the&nbsp;file<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$current</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'people.txt'</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;打开文件获取已经存在的内容<br /></span><span style="color: #0000BB">$current&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;追加新成员到文件<br /></span><span style="color: #0000BB">$current&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">"John&nbsp;Smith\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;将内容写回文件<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$current</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
    </div>
-   <div class="example" id="example-2145">
+   <div class="example" id="example-2159">
     <p><strong>Example #2 Using flags</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -199,44 +200,6 @@
     </div>
 
    </div>
-  </p>
- </div>
-
-
- <div class="refsect1 changelog" id="refsect1-function.file-put-contents-changelog">
-  <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
-
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>5.0.0</td>
-       <td>
-        Added context support
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.1.0</td>
-       <td>
-        添加了对 <strong><code>LOCK_EX</code></strong> 的支持和 <code class="parameter">data</code>
-        参数处理 stream 资源的功能。
-       </td>
-      </tr>
-
-      
-     </tbody>
-    
-   </table>
-
   </p>
  </div>
 

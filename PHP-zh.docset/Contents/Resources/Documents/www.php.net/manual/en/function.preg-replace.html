@@ -113,6 +113,9 @@
         如果 <code class="parameter">subject</code> 是一个数组，搜索和替换回在
         <code class="parameter">subject</code> 的每一个元素上进行, 并且返回值也会是一个数组。
       </p>
+      <p class="para">
+       如果 <code class="parameter">subject</code> 是关联数组，则键会保留在返回值中。
+      </p>
      </dd>
 
     
@@ -166,13 +169,16 @@
    &quot;\e&quot; 会并忽略，并产生
    <strong><code>E_WARNING</code></strong> 错误。
   </p>
+  <p class="para">
+如果传递的正则表达式无法正常解析，会发出 <strong><code>E_WARNING</code></strong>。 
+</p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.preg-replace-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4669">
+   <div class="example" id="example-4733">
     <p><strong>Example #1 使用后向引用紧跟数值原文</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -190,7 +196,7 @@ April1,2003
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4670">
+   <div class="example" id="example-4734">
     <p><strong>Example #2 <span class="function"><strong>preg_replace()</strong></span> 中使用基于索引的数组</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -224,7 +230,7 @@ The slow black bear jumps over the lazy dog.
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4671">
+   <div class="example" id="example-4735">
     <p><strong>Example #3 替换一些值</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -242,7 +248,7 @@ $startDate = 5/27/1999
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4672">
+   <div class="example" id="example-4736">
     <p><strong>Example #4 剥离空白字符</strong></p>
     <div class="example-contents"><p>
      这个例子剥离多余的空白字符
@@ -257,7 +263,7 @@ $startDate = 5/27/1999
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4673">
+   <div class="example" id="example-4737">
     <p><strong>Example #5 使用参数 <code class="parameter">count</code></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -288,6 +294,26 @@ xp***to
    进行替换, 你可以在调用<span class="function"><strong>preg_replace()</strong></span>之前对两个数组各进行一次<span class="function"><a href="function.ksort.html" class="function">ksort()</a></span>排序.
    </p>
   </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    当 <code class="parameter">pattern</code> 和 <code class="parameter">replacement</code>
+    都是数组时，匹配规则将按顺序执行。也就是说第二个 <code class="parameter">pattern</code>/<code class="parameter">replacement</code>
+    将作用于第一个 <code class="parameter">pattern</code>/<code class="parameter">replacement</code>
+    生成的字符串，而不是原始字符串。
+    If you want to simulate replacements operating in parallel,
+    such as swapping two values, replace one pattern by an intermediary placeholder, then in a
+    later pair replace that intermediary placeholder with the desired replacement.
+   </p>
+   <div class="example" id="example-4738">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$p&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'/a/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/b/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/c/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$r&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'b'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'c'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$p</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$r</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'a'</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">//&nbsp;打印&nbsp;d<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p></blockquote>
  </div>
 
 
@@ -310,7 +336,68 @@ xp***to
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124391""></a>
+<div id="allnotes">  <a name="127704""></a>
+  <div class="note">
+   <strong class="user">razvan_bc at yahoo dot com</strong>
+   <a href="#127704" class="date">08-Oct-2022 10:11</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+How to replace all comments inside code without remove crln&nbsp; = \r\n or cr \r each line?<br />
+<br />
+<span class="default">&lt;?php<br />
+$txt_target</span><span class="keyword">=&lt;&lt;&lt;t1<br />
+</span><span class="string">this;//&nbsp; &nbsp; dsdsds<br />
+&nbsp;&nbsp;&nbsp; nope<br />
+&nbsp;&nbsp;&nbsp; <br />
+/*<br />
+&nbsp;&nbsp;&nbsp; ok<br />
+&nbsp;&nbsp;&nbsp; */<br />
+is;huge<br />
+/*text bla*/<br />
+&nbsp;&nbsp;&nbsp; /*bla*/<br />
+&nbsp;<br />
+</span><span class="keyword">t1;<br />
+<br />
+</span><span class="comment">/*<br />
+=======================================================================<br />
+expected result:<br />
+=======================================================================<br />
+this;<br />
+&nbsp;&nbsp;&nbsp; nope<br />
+<br />
+is;huge<br />
+=======================================================================<br />
+visualizing in a hex viewer .. to_check_with_a_hex_viewer.txt ...<br />
+&nbsp;t&nbsp; h&nbsp; i&nbsp; s&nbsp; ; LF TAB n&nbsp; o&nbsp; p&nbsp; e CR LF CR LF&nbsp; i&nbsp; s&nbsp; ;&nbsp; h&nbsp; u&nbsp; g&nbsp; e CR LF<br />
+74 68 69 73 3b 0a 09 6e 6f 70 65 0d 0a 0d 0a 69 73 3b 68 75 67 65 0d 0a<br />
+I used F3 (viewer + options 3: hex) in mythical TOTAL COMMANDER!<br />
+=======================================================================<br />
+*/<br />
+<br />
+</span><span class="keyword">echo </span><span class="string">'&lt;hr&gt;&lt;pre&gt;'</span><span class="keyword">;<br />
+echo&nbsp; </span><span class="default">$txt_target</span><span class="keyword">;<br />
+echo </span><span class="string">'&lt;/pre&gt;'</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">//&nbsp; a single line '//' comments<br />
+</span><span class="default">$txt_target </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'![ \t]*//.*[ \t]*!'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$txt_target</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">//&nbsp; /* comment */<br />
+</span><span class="default">$txt_target </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\/\*([^\/]*)\*\/(\s+)/smi'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$txt_target</span><span class="keyword">);<br />
+echo </span><span class="string">'&lt;hr&gt;&lt;pre&gt;'</span><span class="keyword">;<br />
+echo&nbsp; </span><span class="default">$txt_target</span><span class="keyword">;<br />
+echo </span><span class="string">'&lt;/pre&gt;&lt;hr&gt;'</span><span class="keyword">;<br />
+<br />
+</span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">'to_check_with_a_hex_viewer.txt'</span><span class="keyword">,</span><span class="default">$txt_target</span><span class="keyword">);<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124391""></a>
   <div class="note">
    <strong class="user">mail at johanvandemerwe dot nl</strong>
    <a href="#124391" class="date">13-Nov-2019 12:41</a>

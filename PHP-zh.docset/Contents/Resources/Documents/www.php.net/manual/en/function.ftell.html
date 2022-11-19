@@ -31,13 +31,13 @@
 
  </div>
  
-  <div class="refsect1 description" id="refsect1-function.ftell-description">
+ <div class="refsect1 description" id="refsect1-function.ftell-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ftell</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$handle</code></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>ftell</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stream</code></span>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   返回由 <code class="parameter">handle</code> 指定的文件指针的位置，也就是文件流中的偏移量。
+   返回由 <code class="parameter">stream</code> 指定的文件指针的位置，也就是文件流中的偏移量。
   </p>
  </div>
 
@@ -48,14 +48,14 @@
    <dl>
     
      <dt>
-<code class="parameter">handle</code></dt>
+<code class="parameter">stream</code></dt>
 
      <dd>
 
       <p class="para">
        文件指针必须是有效的，且必须指向一个通过 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>
-   或 <span class="function"><a href="function.popen.html" class="function">popen()</a></span> 成功打开的文件。在附加模式（加参数 &quot;a&quot; 打开文件）中 <span class="function"><strong>ftell()</strong></span>
-   会返回未定义错误。
+       或 <span class="function"><a href="function.popen.html" class="function">popen()</a></span> 成功打开的文件。在附加模式（加参数 &quot;a&quot; 打开文件）中 <span class="function"><strong>ftell()</strong></span>
+       会返回未定义错误。
       </p>
      </dd>
 
@@ -69,19 +69,21 @@
  <div class="refsect1 returnvalues" id="refsect1-function.ftell-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns the position of the file pointer referenced by
-   <code class="parameter">handle</code> as an integer; i.e., its offset into the file stream.
+   以整数形式返回由 <code class="parameter">stream</code> 引用的文件指针的位置，即文件流中的偏移量。
   </p>
   <p class="para">
    如果出错，返回 <strong><code>false</code></strong>。
   </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">
+因为 PHP 的整数类型是有符号整型而且很多平台使用 32 位整型，对 2GB
+以上的文件，一些文件系统函数可能返回无法预期的结果。</span></p></blockquote>
  </div>
 
 
   <div class="refsect1 examples" id="refsect1-function.ftell-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2171">
+   <div class="example" id="example-2185">
     <p><strong>Example #1 <span class="function"><strong>ftell()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -111,7 +113,57 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="116885""></a>
+<div id="allnotes">  <a name="127784""></a>
+  <div class="note">
+   <strong class="user">d9k at ya dot ru</strong>
+   <a href="#127784" class="date">20-Oct-2022 09:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Had to use <br />
+<br />
+<span class="default">&lt;?php<br />
+posix_isatty</span><span class="keyword">(</span><span class="default">STDIN</span><span class="keyword">) == </span><span class="default">false<br />
+?&gt;<br />
+</span><br />
+instead of <br />
+<br />
+<span class="default">&lt;?php<br />
+ftell</span><span class="keyword">(</span><span class="default">STDIN</span><span class="keyword">) !== </span><span class="default">false<br />
+?&gt;<br />
+</span><br />
+after upgrade from php 7 to 8 on ubuntu.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127783""></a>
+  <div class="note">
+   <strong class="user">d9k at ya dot ru</strong>
+   <a href="#127783" class="date">20-Oct-2022 09:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Had to use <br />
+<br />
+<span class="default">&lt;?php<br />
+posix_isatty</span><span class="keyword">(</span><span class="default">STDIN</span><span class="keyword">) == </span><span class="default">false<br />
+?&gt;<br />
+</span><br />
+instead of <br />
+<br />
+<span class="default">&lt;?php<br />
+ftell</span><span class="keyword">(</span><span class="default">STDIN</span><span class="keyword">) !== </span><span class="default">false<br />
+?&gt;<br />
+</span><br />
+after upgrade from php 7 to 8 on ubuntu.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="116885""></a>
   <div class="note">
    <strong class="user">Mindaugas</strong>
    <a href="#116885" class="date">15-Mar-2015 09:37</a>

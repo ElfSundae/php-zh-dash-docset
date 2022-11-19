@@ -34,10 +34,11 @@
  <div class="refsect1 description" id="refsect1-function.quoted-printable-decode-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>quoted_printable_decode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>quoted_printable_decode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   该函数返回 quoted-printable 解码之后的 8-bit 字符串 (参考 <a href="http://www.faqs.org/rfcs/rfc2045" class="link external" title="Link : http://www.faqs.org/rfcs/rfc2045">&raquo;&nbsp;RFC2045</a> 的6.7章节，而不是 <a href="http://www.faqs.org/rfcs/rfc2821" class="link external" title="Link : http://www.faqs.org/rfcs/rfc2821">&raquo;&nbsp;RFC2821</a> 的4.5.2章节，so additional periods are not stripped from the beginning of line)
+   该函数返回 8 位二进制字符串，对应解码后的带引号可打印的字符串（参考 <a href="http://www.faqs.org/rfcs/rfc2045" class="link external" title="Link : http://www.faqs.org/rfcs/rfc2045">&raquo;&nbsp;RFC2045</a>
+   的 6.7 章节，而不是 <a href="http://www.faqs.org/rfcs/rfc2821" class="link external" title="Link : http://www.faqs.org/rfcs/rfc2821">&raquo;&nbsp;RFC2821</a> 的 4.5.2 章节，因此不会去除行首的附加句号）。
   </p>
   <p class="para">
    该函数与 <span class="function"><a href="function.imap-qprint.html" class="function">imap_qprint()</a></span> 函数十分相似，但是该函数不需要依赖 IMAP 模块。
@@ -51,7 +52,7 @@
    <dl>
     
      <dt>
-<code class="parameter">str</code></dt>
+<code class="parameter">string</code></dt>
 
      <dd>
 
@@ -71,6 +72,30 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    返回的 8-bit 二进制字符串。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.quoted-printable-decode-examples">
+  <h3 class="title">范例</h3>
+  <p class="para">
+   <div class="example" id="example-4793">
+    <p><strong>Example #1 <span class="function"><strong>quoted_printable_decode()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$encoded&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">quoted_printable_encode</span><span style="color: #007700">(</span><span style="color: #DD0000">'M?chten&nbsp;Sie&nbsp;ein&nbsp;paar&nbsp;?pfel?'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$encoded</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">quoted_printable_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$encoded</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(37) &quot;M=C3=B6chten Sie ein paar =C3=84pfel?&quot;
+string(29) &quot;M?chten Sie ein paar ?pfel?&quot;
+</pre></div>
+    </div>
+   </div>
   </p>
  </div>
 

@@ -43,6 +43,18 @@
   <p class="para rdfs-comment">
    Creates a new DatePeriod object.
   </p>
+  <p class="para">
+   <span class="classname"><a href="class.dateperiod.html" class="classname">DatePeriod</a></span> objects can be used as an iterator to
+   generate a number of <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span> or
+   <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> object from a <code class="parameter">start</code>
+   date, a <code class="parameter">interval</code>, and an <code class="parameter">end</code>
+   date or the number of <code class="parameter">recurrences</code>.
+  </p>
+  <p class="para">
+   The class of returned objects is equivalent to the
+   <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span> or <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span>
+   ancestor class of the <code class="parameter">start</code> object.
+  </p>
  </div>
 
 
@@ -57,7 +69,7 @@
      <dd>
 
       <p class="para">
-       The start date of the period.
+       The start date of the period. Included by default in the result set.
       </p>
      </dd>
 
@@ -81,7 +93,9 @@
      <dd>
 
       <p class="para">
-       The number of recurrences. Must be greater than <code class="literal">0</code>.
+       The number of recurrences. The number of returned results is
+       one higher than this, as the start date is included in the result set
+       by default. Must be greater than <code class="literal">0</code>.
       </p>
      </dd>
 
@@ -93,7 +107,7 @@
      <dd>
 
       <p class="para">
-       The end date of the period.
+       The end date of the period. Excluded by default from the result set.
       </p>
      </dd>
 
@@ -105,9 +119,25 @@
      <dd>
 
       <p class="para">
-       An <a href="http://en.wikipedia.org/wiki/Iso8601#Repeating_intervals" class="link external" title="Link : http://en.wikipedia.org/wiki/Iso8601#Repeating_intervals">&raquo;&nbsp;ISO 8601 repeating interval specification</a>.
-       Zero occurrences (<code class="literal">R0/</code>) are not supported.
+       A subset of the <a href="http://en.wikipedia.org/wiki/Iso8601#Repeating_intervals" class="link external" title="Link : http://en.wikipedia.org/wiki/Iso8601#Repeating_intervals">&raquo;&nbsp;ISO 8601 repeating
+       interval specification</a>.
       </p>
+      <p class="para">
+       Examples of some ISO 8601 interval specification features that PHP does
+       not support are:
+      </p>
+      <ol type="1">
+       <li class="listitem">
+        <span class="simpara">
+         zero occurrences (<code class="literal">R0/</code>)
+        </span>
+       </li>
+       <li class="listitem">
+        <span class="simpara">
+         time offsets other than UTC (<code class="literal">Z</code>), such as <code class="literal">+02:00</code>.
+        </span>
+       </li>
+      </ol>
      </dd>
 
     
@@ -118,8 +148,17 @@
      <dd>
 
       <p class="para">
-       Can be set to <strong><code>DatePeriod::EXCLUDE_START_DATE</code></strong> to
+       A bit field which can be used to control certain behaviour with start-
+       and end- dates.
+      </p>
+      <p class="para">
+       With <strong><code>DatePeriod::EXCLUDE_START_DATE</code></strong> you
        exclude the start date from the set of recurring dates within the
+       period.
+      </p>
+      <p class="para">
+       With <strong><code>DatePeriod::INCLUDE_END_DATE</code></strong> you
+       include the end date in the set of recurring dates within the
        period.
       </p>
      </dd>
@@ -146,6 +185,13 @@
 
      <tbody class="tbody">
       <tr>
+       <td>8.2.0</td>
+       <td>
+        The <strong><code>DatePeriod::INCLUDE_END_DATE</code></strong> constant has been added.
+       </td>
+      </tr>
+
+      <tr>
        <td>7.2.19, 7.3.6, 7.4.0</td>
        <td>
         <code class="parameter">recurrences</code> must be greater than <code class="literal">0</code> now.
@@ -163,7 +209,7 @@
  <div class="refsect1 examples" id="refsect1-dateperiod.construct-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2053">
+   <div class="example" id="example-2059">
     <p><strong>Example #1 DatePeriod example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -185,7 +231,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2054">
+   <div class="example" id="example-2060">
     <p><strong>Example #2 DatePeriod example with <strong><code>DatePeriod::EXCLUDE_START_DATE</code></strong></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -201,6 +247,35 @@
 2012-07-15
 2012-07-22
 2012-07-29
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-2061">
+    <p><strong>Example #3 DatePeriod example showing all last Thursdays in a year</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$begin&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2021-12-31'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$end&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2022-12-31&nbsp;23:59:59'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$interval&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateInterval</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromDateString</span><span style="color: #007700">(</span><span style="color: #DD0000">'last&nbsp;thursday&nbsp;of&nbsp;next&nbsp;month'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$period&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">(</span><span style="color: #0000BB">$begin</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$interval</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$end</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DatePeriod</span><span style="color: #007700">::</span><span style="color: #0000BB">EXCLUDE_START_DATE</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$period&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$dt</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$dt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'l&nbsp;Y-m-d'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Thursday 2022-01-27
+Thursday 2022-02-24
+Thursday 2022-03-31
+Thursday 2022-04-28
+Thursday 2022-05-26
+Thursday 2022-06-30
+Thursday 2022-07-28
+Thursday 2022-08-25
+Thursday 2022-09-29
+Thursday 2022-10-27
+Thursday 2022-11-24
+Thursday 2022-12-29
 </pre></div>
     </div>
    </div>
@@ -223,251 +298,6 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126550""></a>
-  <div class="note">
-   <strong class="user">bill at bwi dot com</strong>
-   <a href="#126550" class="date">01-Nov-2021 06:58</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-With reference to the Changelog above, 'recurrences' must be greater than 0 now.<br />
-<br />
-This was not the case in PHP5 ( &gt;= 5.3.0). A foreach loop over a DatePeriod with recurrences == 0 would<br />
-execute one time. A function could accept a $count parameter which represented the number of times to execute<br />
-the code in a foreach loop, and then initialize a DatePeriod with 'recurrences' == ($count-1) to get the desired<br />
-number of iterations.<br />
-<br />
-The following example adds a special case for PHP7 and above to handle the situation where a single<br />
-iteration is desired.<br />
-<br />
-Note that an alternative solution to subracting 1 from the desired count is to subtract one month from the desired starting month,&nbsp; &nbsp; &nbsp;&nbsp; <br />
-and then intialize the DatePeriod with the option DatePeriod::EXCLUDE_START_DATE.<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// displayCalender() is a stub.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // In a real application, this would generate a displayable calendar for the specified month.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // $tp is a DateTime object used to specify the month for which a calendar will be displayed<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">displayCalendar</span><span class="keyword">(</span><span class="default">$tp</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$format </span><span class="keyword">= </span><span class="string">"F, Y"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Display Calendar for " </span><span class="keyword">. </span><span class="default">$tp</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="default">$format</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// $date is the first month to show<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // $count is the number of months to show<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // NOTE: the number of "recurrences" is one less than the number of months to display<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">function </span><span class="default">showMonths</span><span class="keyword">(</span><span class="default">$date </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">, </span><span class="default">$count </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$format </span><span class="keyword">= </span><span class="string">"Y-m-d 00:00:00"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$init </span><span class="keyword">= (</span><span class="default">$date </span><span class="keyword">? </span><span class="default">$date </span><span class="keyword">: </span><span class="default">date</span><span class="keyword">(</span><span class="default">$format</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$one_month </span><span class="keyword">= new </span><span class="default">DateInterval</span><span class="keyword">(</span><span class="string">"P1M"</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// get the starting month and day<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$start </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="default">$init</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Show </span><span class="default">$count</span><span class="string"> month" </span><span class="keyword">. (</span><span class="default">$count </span><span class="keyword">&gt; </span><span class="default">1 </span><span class="keyword">? </span><span class="string">"s" </span><span class="keyword">: </span><span class="string">""</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//check for PHP7 or greater<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$count </span><span class="keyword">== </span><span class="default">1 </span><span class="keyword">&amp;&amp; (</span><span class="default">substr</span><span class="keyword">(</span><span class="default">phpversion</span><span class="keyword">(), </span><span class="default">0</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">) &gt;= </span><span class="default">7</span><span class="keyword">) )<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Special case for PHP7 when $count == 1<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">displayCalendar</span><span class="keyword">(</span><span class="default">$start</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }&nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// PHP5 does not need special case, because 0 is accepted value<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; //&nbsp; &nbsp; &nbsp; for number of recurrences<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$time_period </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$start</span><span class="keyword">, </span><span class="default">$one_month</span><span class="keyword">, (</span><span class="default">$count</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$time_period </span><span class="keyword">as </span><span class="default">$tp</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">displayCalendar</span><span class="keyword">(</span><span class="default">$tp</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"\n"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Show calendar for specific month<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$first_month </span><span class="keyword">= </span><span class="string">"2021-11"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">showMonths</span><span class="keyword">(</span><span class="default">$first_month</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Show calendars for a full year<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$first_month </span><span class="keyword">= </span><span class="string">"2021-01"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">showMonths</span><span class="keyword">(</span><span class="default">$first_month</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-The above example will output:<br />
-<br />
-Show 1 month<br />
-Display Calendar for November, 2021<br />
-<br />
-Show 12 months<br />
-Display Calendar for January, 2021<br />
-Display Calendar for February, 2021<br />
-Display Calendar for March, 2021<br />
-Display Calendar for April, 2021<br />
-Display Calendar for May, 2021<br />
-Display Calendar for June, 2021<br />
-Display Calendar for July, 2021<br />
-Display Calendar for August, 2021<br />
-Display Calendar for September, 2021<br />
-Display Calendar for October, 2021<br />
-Display Calendar for November, 2021<br />
-Display Calendar for December, 2021</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="124573""></a>
-  <div class="note">
-   <strong class="user">youssef dot benhssaien at gmail dot com</strong>
-   <a href="#124573" class="date">07-Jan-2020 10:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The parameter isostr should accept an ISO 8601 format, but doing this is not work :<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp; &nbsp;&nbsp; $dateStart </span><span class="keyword">= </span><span class="default">date_create</span><span class="keyword">(</span><span class="string">'first day of next month this year'</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$isoStr </span><span class="keyword">= </span><span class="default">$dateStart </span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="default">DateTimeInterface</span><span class="keyword">::</span><span class="default">ISO8601</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$datePeriod </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="string">"R10/</span><span class="keyword">{</span><span class="default">$isoStr</span><span class="keyword">}</span><span class="string">/P1M"</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; </span><span class="comment">// Throw Exception : DatePeriod::__construct(): Unknown or bad format (R10/2020-02-01T22:52:26+0000Z/P1M)<br />
-&nbsp;&nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; // While doing it by this way works<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$datePeriod </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$dateStart </span><span class="keyword">, \</span><span class="default">DateInterval</span><span class="keyword">::</span><span class="default">createFromDateString</span><span class="keyword">(</span><span class="string">"+1 month"</span><span class="keyword">), </span><span class="default">10</span><span class="keyword">);<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="109661""></a>
-  <div class="note">
-   <strong class="user">lars at hp-designs dot com</strong>
-   <a href="#109661" class="date">07-Aug-2012 05:02</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-When you add the time 23:59:59 to the end DateTime object something like the following then the end date will be included in the period:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$date_start </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">'2012-03-12'</span><span class="keyword">);
-<br />
-</span><span class="default">$date_end </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">'2012-03-22 23:59:59'</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="default">$interval </span><span class="keyword">= </span><span class="string">'+2 days'</span><span class="keyword">;
-<br />
-</span><span class="default">$date_interval </span><span class="keyword">= </span><span class="default">DateInterval</span><span class="keyword">::</span><span class="default">createFromDateString</span><span class="keyword">(</span><span class="default">$interval</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="default">$period </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$date_start</span><span class="keyword">, </span><span class="default">$date_interval</span><span class="keyword">, </span><span class="default">$date_end</span><span class="keyword">, </span><span class="default">DatePeriod</span><span class="keyword">::</span><span class="default">EXCLUDE_START_DATE</span><span class="keyword">);
-<br />
-
-<br />
-foreach(</span><span class="default">$period </span><span class="keyword">as </span><span class="default">$dt</span><span class="keyword">) {
-<br />
-&nbsp;echo </span><span class="default">$dt</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">'d/m'</span><span class="keyword">);
-<br />
-}
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-OUTPUT:
-<br />
-14/03
-<br />
-16/03
-<br />
-18/03
-<br />
-20/03
-<br />
-22/03</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="100730""></a>
-  <div class="note">
-   <strong class="user">simon dot kohlmeyer at mayflower dot de</strong>
-   <a href="#100730" class="date">03-Nov-2010 03:50</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I found two things useful to know that aren't covered here.
-<br />
-
-<br />
-1. endDate is excluded:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$i </span><span class="keyword">= new </span><span class="default">DateInterval</span><span class="keyword">(</span><span class="string">'P1D'</span><span class="keyword">);
-<br />
-</span><span class="default">$d1 </span><span class="keyword">= new </span><span class="default">Datetime</span><span class="keyword">();
-<br />
-</span><span class="default">$d2 </span><span class="keyword">= clone </span><span class="default">$d1</span><span class="keyword">; </span><span class="default">$d2</span><span class="keyword">-&gt;</span><span class="default">add</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">);
-<br />
-foreach(new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$d1</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$d2</span><span class="keyword">) as </span><span class="default">$d</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">$d</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">'Y-m-d H:i:s'</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;
-<br />
-}
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Will output:
-<br />
-2010-11-03 12:39:53
-<br />
-
-<br />
-(Another one because I got it wrong at first)
-<br />
-2. For the first form, recurrences really means REcurrences, not occurences.
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-$i </span><span class="keyword">= new </span><span class="default">DateInterval</span><span class="keyword">(</span><span class="string">'P1D'</span><span class="keyword">);
-<br />
-</span><span class="default">$d </span><span class="keyword">= new </span><span class="default">Datetime</span><span class="keyword">();
-<br />
-foreach(new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">) as </span><span class="default">$d</span><span class="keyword">) {
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">$d</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">'Y-m-d H:i:s'</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;
-<br />
-}
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Will output:
-<br />
-2010-11-03 12:41:05
-<br />
-2010-11-04 12:41:05</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

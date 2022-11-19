@@ -73,7 +73,7 @@
 
  <div class="refsect1 examples" id="refsect1-intlchar.tolower-examples">
   <h3 class="title">·¶Àý</h3>
-  <div class="example" id="example-2525">
+  <div class="example" id="example-2542">
    <p><strong>Example #1 Testing different code points</strong></p>
    <div class="example-contents">
     <div class="phpcode"><code><span style="color: #000000">
@@ -144,38 +144,6 @@ foreach(</span><span class="default">$iterator</span><span class="keyword">-&gt;
 <br />
 </span><span class="comment">// return converted text<br />
 </span><span class="keyword">return </span><span class="default">$newtext</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="124660""></a>
-  <div class="note">
-   <strong class="user">Patanjali</strong>
-   <a href="#124660" class="date">28-Jan-2020 11:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-A function to convert a Unicode string to lowercase, directly replacing mb_strtolower, by converting one grapheme at a time:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">u_tolower</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">){<br />
-&nbsp;</span><span class="comment">// if blank, return blank (don't waste CPU cycles)<br />
-&nbsp;</span><span class="keyword">if(</span><span class="default">$text</span><span class="keyword">==</span><span class="string">''</span><span class="keyword">){return </span><span class="string">''</span><span class="keyword">;}<br />
-<br />
-&nbsp;</span><span class="comment">// for each grapheme<br />
-&nbsp;</span><span class="default">$str</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">;<br />
-&nbsp;for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">grapheme_strlen</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);</span><span class="default">$i</span><span class="keyword">++){<br />
-&nbsp; </span><span class="comment">// add to string if alpha, else as is<br />
-&nbsp; </span><span class="default">$char</span><span class="keyword">=</span><span class="default">grapheme_substr</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">,</span><span class="default">$i</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);<br />
-&nbsp; </span><span class="default">$str</span><span class="keyword">.=(</span><span class="default">IntlChar</span><span class="keyword">::</span><span class="default">isalnum</span><span class="keyword">(</span><span class="default">$char</span><span class="keyword">)?</span><span class="default">IntlChar</span><span class="keyword">::</span><span class="default">tolower</span><span class="keyword">(</span><span class="default">$char</span><span class="keyword">):</span><span class="default">$char</span><span class="keyword">);<br />
-&nbsp;}<br />
-<br />
-&nbsp;</span><span class="comment">// return converted text<br />
-&nbsp;</span><span class="keyword">return </span><span class="default">$str</span><span class="keyword">;<br />
 }<br />
 </span><span class="default">?&gt;</span>
 </span>

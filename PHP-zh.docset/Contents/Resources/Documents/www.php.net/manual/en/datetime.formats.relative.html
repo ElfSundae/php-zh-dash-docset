@@ -396,273 +396,43 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125449""></a>
+<div id="allnotes">  <a name="127881""></a>
   <div class="note">
-   <strong class="user">mike</strong>
-   <a href="#125449" class="date">21-Oct-2020 10:33</a>
+   <strong class="user">frederic dot royet at logipro dot com</strong>
+   <a href="#127881" class="date">31-Oct-2022 07:07</a>
    <div class="text">
     <div class="phpcode">
 <code><span class="html">
-in case of somone wonder 'last day of 1 month ago' is also posible (not only month names)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125398""></a>
-  <div class="note">
-   <strong class="user">yaroslav429 at gmail dot com</strong>
-   <a href="#125398" class="date">28-Sep-2020 11:51</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-@Igor, @Mark Simon, seems that was fixed.<br />
+Be careful when using "-1 month" the last days of a month.<br />
 <br />
-PHP 7.4.10<br />
+For instance the 31th of october: result won't be in september but in october !<br />
+<br />
+Please, consider this:<br />
 <span class="default">&lt;?php<br />
-</span><span class="keyword">new </span><span class="default">DateTimeImmutable</span><span class="keyword">(</span><span class="string">'midnight first day of'</span><span class="keyword">);<br />
-</span><span class="comment">/* date: 2020-09-01 00:00:00.0 UTC (+00:00) */<br />
-<br />
-</span><span class="keyword">new </span><span class="default">DateTimeImmutable</span><span class="keyword">(</span><span class="string">'midnight first day of next month next year'</span><span class="keyword">);<br />
-</span><span class="comment">/* date: 2021-10-01 00:00:00.0 UTC (+00:00) */<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125345""></a>
-  <div class="note">
-   <strong class="user">InvisibleSmiley</strong>
-   <a href="#125345" class="date">10-Sep-2020 05:52</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Both dayname AND daytext ("weekday"/"weekdays") reset time information to 0.<br />
-<br />
-Depending on how accurate you need it, the following may work for you:<br />
-<br />
-new DateTime('last weekday ' . date('H:i:s'));<br />
-new DateTime('last weekday ' . (new DateTime())-&gt;format('H:i:s.u'));<br />
-<br />
-(As documented, date() doesn't handle microseconds.)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122278""></a>
-  <div class="note">
-   <strong class="user">Igor</strong>
-   <a href="#122278" class="date">17-Jan-2018 12:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-@Mark Simon, while you're correct, it's still possible to get first/last day of the year using relative date formats, though in a somewhat roundabout way. <br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">gmdate</span><span class="keyword">(</span><span class="string">'F j, Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'first day of january this year'</span><span class="keyword">));;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">/* Output: January 1, 2018 */<br />
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">gmdate</span><span class="keyword">(</span><span class="string">'F j, Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'last day of december this year'</span><span class="keyword">));;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">/* Output: December 31, 2018 */<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="120254""></a>
-  <div class="note">
-   <strong class="user">php at rcs dot us</strong>
-   <a href="#120254" class="date">01-Dec-2016 01:44</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I'm not sure if this is a bug or expected. As erwin points out :<br />
-<br />
-"first monday of may 2011" is invalid, but "first monday may 2011" does work. Simply omit "of" if above examples do not work.<br />
-<br />
-This still applies in 5.5 as well, and I ran into it while building out a utility to check if a day was a holiday. <br />
-<br />
-Meaning "fourth day July 2016" /works/, but "fourth day of July 2016" does not. It will return an error. I emphasize works, because "fourth day July 2016" actually returns 2016-07-05. So you'll need "third day July 2016" for the Fourth of July.<br />
-<br />
-However, "Last Monday May 2016" and "Last Monday of May 2016" ( for Memorial Day ) are both /valid/, but produce different results. The first returns 2016-04-25, which is incorrect, while the second returns the correct 2016-05-30.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="119124""></a>
-  <div class="note">
-   <strong class="user">phpnet at rudde dot org</strong>
-   <a href="#119124" class="date">06-Apr-2016 01:45</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Get the first day of a month, in a typical calendar month, typically the Monday in the first week of the month. In my example when the code is ran at 2016-04-06, 1st of april will be a Friday, since Calendars typically start on monday, this is the date you might want, in this case this would be 28th of March. <br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">/* Code ran at 2016-04-06 */<br />
-</span><span class="default">$date </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">'first day of this month'</span><span class="keyword">);<br />
-</span><span class="default">$date</span><span class="keyword">-&gt;</span><span class="default">modify</span><span class="keyword">(</span><span class="string">'monday this week'</span><span class="keyword">);<br />
-<br />
-echo </span><span class="default">$date</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">'Y-m-d'</span><span class="keyword">);<br />
-</span><span class="comment">/* Output: 2016-03-28 */<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="118062""></a>
-  <div class="note">
-   <strong class="user">Mark Simon</strong>
-   <a href="#118062" class="date">28-Sep-2015 06:10</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Note that expressions such as "last day of" and "first day of" imply a day of a month, not, for example of the year or week.<br />
-<br />
-So, expressions, such as "first day of this year" will give the first day of this month, with no apparent regard for the year.<br />
-<br />
-As powerful as the parser is, it can lead to disappointing or confusing results.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116470""></a>
-  <div class="note">
-   <strong class="user">Pseudoname</strong>
-   <a href="#116470" class="date">08-Jan-2015 04:06</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-oguzkonya34 at gmail dot com<br />
-Point of correction:<br />
-Apparently 'next week' advances the week if and only if the day is Sunday. This:<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'F jS, Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'Monday next week 2012-03-31'</span><span class="keyword">));<br />
+print_r</span><span class="keyword">(new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">"now"</span><span class="keyword">));<br />
+</span><span class="default">print_r</span><span class="keyword">(new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">"-1 month"</span><span class="keyword">));<br />
+</span><span class="default">print_r</span><span class="keyword">(new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">"-2 months"</span><span class="keyword">));<br />
 </span><span class="default">?&gt;<br />
-</span>would still return April 2nd.<br />
-Quote "<br />
-Apparently 'next week' advances the week if and only if the day is Sunday. "<br />
-Not really. 2012-03-31 would be Saturday if 2012-04-01 is Sunday as you mentioned. Then Monday next week for 2012-03-31 is April 2nd which is correct.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="112126""></a>
-  <div class="note">
-   <strong class="user">chris at burnhamup dot com</strong>
-   <a href="#112126" class="date">07-May-2013 04:46</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Using strtotime('DAYNAME') like strtotime('Tuesday') returns midnight on the specified day. It doesn't preserve the current time or the time passed into the function.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="108317""></a>
-  <div class="note">
-   <strong class="user">oguzkonya34 at gmail dot com</strong>
-   <a href="#108317" class="date">17-Apr-2012 08:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-April 1st, 2012 is Sunday. You might expect to get April 2nd, 2012 with 'Monday next week', however this:<br />
+</span>Result is:<br />
 <br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'F jS, Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'Monday next week 2012-04-01'</span><span class="keyword">));<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-returns April 9th, 2012. To get April 2nd, you need to use this:<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'F jS, Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'next Monday 2012-04-01'</span><span class="keyword">));<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Apparently 'next week' advances the week if and only if the day is Sunday. This:<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'F jS, Y'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'Monday next week 2012-03-31'</span><span class="keyword">));<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-would still return April 2nd.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="106441""></a>
-  <div class="note">
-   <strong class="user">scragar at gmail dot com</strong>
-   <a href="#106441" class="date">09-Nov-2011 08:04</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Just for those who want the last day of the year without calling the function twice:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">'Y-m-d'</span><span class="keyword">,<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">strToTime</span><span class="keyword">(</span><span class="string">'1/1 next year -1 day'</span><span class="keyword">)<br />
-);<br />
-</span><span class="comment">//&nbsp;&nbsp; 2011-12-31<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-For reference this is actually saying "Take the first day of the first month next year, then subtract 1 day".</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="105784""></a>
-  <div class="note">
-   <strong class="user">matt</strong>
-   <a href="#105784" class="date">14-Sep-2011 02:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If the ordinal being used is "last" and the next month is n, use the "n 1". Otherwise, if the previous month is p and it has d number of days in it, use "p d".
-<br />
-
-<br />
-For example: "last thursday of November" becomes "last thursday December 1" and "fourth thursday of November" becomes "fourth thursday September 30th"
-<br />
-
-<br />
-Hopes this helps someone out there.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="103206""></a>
-  <div class="note">
-   <strong class="user">geneticdrift</strong>
-   <a href="#103206" class="date">31-Mar-2011 10:50</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Month skipping has issues with number of days in the month.<br />
-<br />
-'+1 month' may move to the following month if the next month has less days than the current:<br />
-<br />
-<span class="default">&lt;?php </span><span class="keyword">print </span><span class="default">date</span><span class="keyword">(</span><span class="string">'d M Y H:i:s'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'+1 month'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'Thu Mar 31 19:50:41 IST 2011'</span><span class="keyword">))); </span><span class="default">?&gt;<br />
-</span>Prints: 01 May 2011 19:50:41<br />
-<br />
-But with 'last day of +1 month' the result is different:<br />
-<br />
-<span class="default">&lt;?php </span><span class="keyword">print </span><span class="default">date</span><span class="keyword">(</span><span class="string">'d M Y H:i:s'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'last day of +1 month'</span><span class="keyword">, </span><span class="default">strtotime</span><span class="keyword">(</span><span class="string">'Thu Mar 31 19:50:41 IST 2011'</span><span class="keyword">))); </span><span class="default">?&gt;<br />
-</span>Prints: 30 Apr 2011 19:50:41<br />
-<br />
-(PHP 5.3.3)</span>
+DateTime Object<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [date] =&gt; 2022-10-31 07:42:32.968925<br />
+&nbsp;&nbsp;&nbsp; [timezone_type] =&gt; 3<br />
+&nbsp;&nbsp;&nbsp; [timezone] =&gt; Europe/Paris<br />
+)<br />
+DateTime Object<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [date] =&gt; 2022-10-01 07:42:32.969344<br />
+&nbsp;&nbsp;&nbsp; [timezone_type] =&gt; 3<br />
+&nbsp;&nbsp;&nbsp; [timezone] =&gt; Europe/Paris<br />
+)<br />
+DateTime Object<br />
+(<br />
+&nbsp;&nbsp;&nbsp; [date] =&gt; 2022-08-31 07:42:32.969349<br />
+&nbsp;&nbsp;&nbsp; [timezone_type] =&gt; 3<br />
+&nbsp;&nbsp;&nbsp; [timezone] =&gt; Europe/Paris<br />
+)</span>
 </code>
     </div>
    </div>

@@ -34,10 +34,10 @@
  <div class="refsect1 description" id="refsect1-function.trim-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>trim</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$character_mask</code><span class="initializer"> = &quot; \t\n\r\0\x0B&quot;</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>trim</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$characters</code><span class="initializer"> = &quot; \n\r\t\v\x00&quot;</span></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   此函数返回字符串 <code class="parameter">str</code> 去除首尾空白字符后的结果。如果不指定第二个参数，<span class="function"><strong>trim()</strong></span> 将去除这些字符：
+   此函数返回字符串 <code class="parameter">string</code> 去除首尾空白字符后的结果。如果不指定第二个参数，<span class="function"><strong>trim()</strong></span> 将去除这些字符：
    
    <ul class="itemizedlist">
     <li class="listitem">
@@ -71,8 +71,8 @@
      </span>
     </li>
     <li class="listitem">
-     <span class="simpara"> 
-      &quot;\x0B&quot; (<acronym title="American Standard Code for Information Interchange">ASCII</acronym> <code class="literal">11</code> 
+     <span class="simpara">
+      &quot;\v&quot; (<acronym title="American Standard Code for Information Interchange">ASCII</acronym> <code class="literal">11</code> 
       (<code class="literal">0x0B</code>))，垂直制表符。
      </span>
     </li>
@@ -87,7 +87,7 @@
    <dl>
     
      <dt>
-<code class="parameter">str</code></dt>
+<code class="parameter">string</code></dt>
 
      <dd>
 
@@ -99,12 +99,12 @@
     
     
      <dt>
-<code class="parameter">character_mask</code></dt>
+<code class="parameter">characters</code></dt>
 
      <dd>
 
       <p class="para">
-      可选参数，过滤字符也可由 <code class="parameter">character_mask</code> 参数指定。一般要列出所有希望过滤的字符，也可以使用 "<code class="literal">..</code>" 列出一个字符范围。
+      可选参数，过滤字符也可由 <code class="parameter">characters</code> 参数指定。一般要列出所有希望过滤的字符，也可以使用 "<code class="literal">..</code>" 列出一个字符范围。
       </p>
      </dd>
 
@@ -126,7 +126,7 @@
  <div class="refsect1 examples" id="refsect1-function.trim-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4791">
+   <div class="example" id="example-4866">
     <p><strong>Example #1 <span class="function"><strong>trim()</strong></span> 使用范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -152,7 +152,7 @@ string(14) &quot;Example string&quot;
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4792">
+   <div class="example" id="example-4867">
     <p><strong>Example #2 使用 <span class="function"><strong>trim()</strong></span> 清理数组值</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -192,13 +192,12 @@ array(3) {
  <div class="refsect1 notes" id="refsect1-function.trim-notes">
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <strong>Possible gotcha: removing middle characters</strong><br />
+   <strong>可能的问题：删除中间字符</strong><br />
    <p class="para">
-    Because <span class="function"><strong>trim()</strong></span> trims characters from the beginning and end of
-    a <span class="type">string</span>, it may be confusing when characters are (or are not) removed from
-    the middle. <code class="literal">trim(&#039;abc&#039;, &#039;bad&#039;)</code> removes both &#039;a&#039; and &#039;b&#039; because it
-    trims &#039;a&#039; thus moving &#039;b&#039; to the beginning to also be trimmed. So, this is why it &quot;works&quot;
-    whereas <code class="literal">trim(&#039;abc&#039;, &#039;b&#039;)</code> seemingly does not.
+    因为 <span class="function"><strong>trim()</strong></span>
+    从字符串的开始和末尾修剪字符。所以中间是否删除字符可能会造成混淆。<code class="literal">trim(&#039;abc&#039;, &#039;bad&#039;)</code>
+    移除了"a"和"b"，是因为修剪了"a"之后，"b"移动到了开头，所以也被修剪了。所以这就是为什么能正常工作而
+    <code class="literal">trim(&#039;abc&#039;, &#039;b&#039;)</code> 看起来没有的原因。
    </p>
   </p></blockquote>
  </div>

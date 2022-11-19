@@ -118,7 +118,7 @@
    <p class="para">
     <a href="language.oop5.magic.html#object.wakeup" class="link">__wakeup()</a> 经常用在反序列化操作中，例如重新建立数据库连接，或执行其它初始化操作。
    </p>
-   <div class="example" id="example-268">
+   <div class="example" id="example-274">
     <p><strong>Example #1 Sleep 和 wakeup</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -177,7 +177,7 @@
       此特性自 PHP 7.4.0 起可用。
     </p>
    </p></blockquote>
-   <div class="example" id="example-269">
+   <div class="example" id="example-275">
     <p><strong>Example #2 序列化和反序列化</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -225,7 +225,7 @@
      方法中抛出异常。这么做会导致致命错误。
     </p>
    </div>
-   <div class="example" id="example-270">
+   <div class="example" id="example-276">
     <p><strong>Example #3 简单示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -251,7 +251,7 @@ Hello
    <p class="para">
     当尝试以调用函数的方式调用一个对象时，<a href="language.oop5.magic.html#object.invoke" class="link">__invoke()</a> 方法会被自动调用。
    </p>
-   <div class="example" id="example-271">
+   <div class="example" id="example-277">
     <p><strong>Example #4 使用 <a href="language.oop5.magic.html#object.invoke" class="link">__invoke()</a></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -268,6 +268,63 @@ bool(true)
 </pre></div>
     </div>
    </div>
+   <div class="example" id="example-278">
+    <p><strong>Example #5 使用 <a href="language.oop5.magic.html#object.invoke" class="link">__invoke()</a></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Sort<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">string&nbsp;$key</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">key&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__invoke</span><span style="color: #007700">(array&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;array&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">):&nbsp;</span><span style="color: #0000BB">int<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">key</span><span style="color: #007700">]&nbsp;&lt;=&gt;&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">key</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">$customers&nbsp;</span><span style="color: #007700">=&nbsp;[<br />&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #DD0000">'id'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'first_name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'John'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'last_name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Do'</span><span style="color: #007700">],<br />&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #DD0000">'id'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'first_name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Alice'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'last_name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Gustav'</span><span style="color: #007700">],<br />&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #DD0000">'id'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'first_name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Bob'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'last_name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Filipe'</span><span style="color: #007700">]<br />];<br /></span><span style="color: #FF8000">//&nbsp;sort&nbsp;customers&nbsp;by&nbsp;first&nbsp;name<br /></span><span style="color: #0000BB">usort</span><span style="color: #007700">(</span><span style="color: #0000BB">$customers</span><span style="color: #007700">,&nbsp;new&nbsp;</span><span style="color: #0000BB">Sort</span><span style="color: #007700">(</span><span style="color: #DD0000">'first_name'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$customers</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;sort&nbsp;customers&nbsp;by&nbsp;last&nbsp;name<br /></span><span style="color: #0000BB">usort</span><span style="color: #007700">(</span><span style="color: #0000BB">$customers</span><span style="color: #007700">,&nbsp;new&nbsp;</span><span style="color: #0000BB">Sort</span><span style="color: #007700">(</span><span style="color: #DD0000">'last_name'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$customers</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; Array
+        (
+            [id] =&gt; 3
+            [first_name] =&gt; Alice
+            [last_name] =&gt; Gustav
+        )
+    [1] =&gt; Array
+        (
+            [id] =&gt; 2
+            [first_name] =&gt; Bob
+            [last_name] =&gt; Filipe
+        )
+    [2] =&gt; Array
+        (
+            [id] =&gt; 1
+            [first_name] =&gt; John
+            [last_name] =&gt; Do
+        )
+)
+Array
+(
+    [0] =&gt; Array
+        (
+            [id] =&gt; 1
+            [first_name] =&gt; John
+            [last_name] =&gt; Do
+        )
+    [1] =&gt; Array
+        (
+            [id] =&gt; 2
+            [first_name] =&gt; Bob
+            [last_name] =&gt; Filipe
+        )
+    [2] =&gt; Array
+        (
+            [id] =&gt; 3
+            [first_name] =&gt; Alice
+            [last_name] =&gt; Gustav
+        )
+)
+</pre></div>
+    </div>
+   </div>
   </div>
 
   <div class="sect2" id="language.oop5.magic.set-state">
@@ -281,8 +338,8 @@ bool(true)
    <p class="para">
     本方法的唯一参数是一个数组，其中包含按 <code class="literal">[&#039;property&#039; =&gt; value, ...]</code> 格式排列的类属性。
    </p>
-   <div class="example" id="example-272">
-    <p><strong>Example #5 使用 <a href="language.oop5.magic.html#object.set-state" class="link">__set_state()</a>&gt;</strong></p>
+   <div class="example" id="example-279">
+    <p><strong>Example #6 使用 <a href="language.oop5.magic.html#object.set-state" class="link">__set_state()</a>&gt;</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">A<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var2</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">__set_state</span><span style="color: #007700">(</span><span style="color: #0000BB">$an_array</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$an_array</span><span style="color: #007700">[</span><span style="color: #DD0000">'var1'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">var2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$an_array</span><span style="color: #007700">[</span><span style="color: #DD0000">'var2'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">var2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">var_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br />eval(</span><span style="color: #DD0000">'$c&nbsp;=&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">';'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
@@ -328,8 +385,8 @@ object(A)#2 (2) {
     当通过 <span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span> 转储对象，获取应该要显示的属性的时候，
     该函数就会被调用。如果对象中没有定义该方法，那么将会展示所有的公有、受保护和私有的属性。
    </p>
-   <div class="example" id="example-273">
-    <p><strong>Example #6 使用 <a href="language.oop5.magic.html#object.debuginfo" class="link">__debugInfo()</a></strong></p>
+   <div class="example" id="example-280">
+    <p><strong>Example #7 使用 <a href="language.oop5.magic.html#object.debuginfo" class="link">__debugInfo()</a></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">C&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;</span><span style="color: #0000BB">$prop</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$val</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prop&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__debugInfo</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;[<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'propSquared'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prop&nbsp;</span><span style="color: #007700">**&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;];<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">C</span><span style="color: #007700">(</span><span style="color: #0000BB">42</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>

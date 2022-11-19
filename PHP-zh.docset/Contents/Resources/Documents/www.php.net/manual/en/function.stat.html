@@ -34,16 +34,18 @@
  <div class="refsect1 description" id="refsect1-function.stat-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>stat</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>stat</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>): <span class="type"><span class="type">array</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
    获取由 <code class="parameter">filename</code> 指定的文件的统计信息。如果
    <code class="parameter">filename</code>
-   是符号连接，则统计信息是关于被连接文件本身的，而不是符号连接。
+   是符号连接，则统计信息是关于被连接文件本身的，而不是符号连接。在 PHP 7.4.0
+   之前，使用 Windows <abbr class="abbrev">NTS</abbr> 版本获取
+   <code class="literal">size</code>、<code class="literal">atime</code>、<code class="literal">mtime</code>
+   和 <code class="literal">ctime</code> 统计信息将从符号链接获取。
   </p>
   <p class="para">
-   <span class="function"><a href="function.lstat.html" class="function">lstat()</a></span>
-   和 <span class="function"><strong>stat()</strong></span> 相同，只除了它会返回符号连接的状态。
+   <span class="function"><a href="function.lstat.html" class="function">lstat()</a></span> 和 <span class="function"><strong>stat()</strong></span> 相同，只除了它会返回符号连接的状态。
   </p>
  </div>
 
@@ -79,7 +81,7 @@
      <thead>
       <tr>
        <th>数字下标</th>
-       <th>关联键名（自 PHP 4.0.6）</th>
+       <th>关联键名</th>
        <th>说明</th>
       </tr>
 
@@ -89,89 +91,163 @@
       <tr>
        <td>0</td>
        <td>dev</td>
-       <td>device number - 设备名</td>
+       <td>设备号 ***</td>
       </tr>
 
       <tr>
        <td>1</td>
        <td>ino</td>
-       <td>inode number - inode 号码</td>
+       <td>inode 号 ****</td>
       </tr>
 
       <tr>
        <td>2</td>
        <td>mode</td>
-       <td>inode protection mode - inode 保护模式</td>
+       <td>inode 保护模式 *****</td>
       </tr>
 
       <tr>
        <td>3</td>
        <td>nlink</td>
-       <td>number of links - 被连接数目</td>
+       <td>连接数目</td>
       </tr>
 
       <tr>
        <td>4</td>
        <td>uid</td>
-       <td>userid of owner - 所有者的用户 id</td>
+       <td>所有者的用户 id *</td>
       </tr>
 
       <tr>
        <td>5</td>
        <td>gid</td>
-       <td>groupid of owner- 所有者的组 id</td>
+       <td>所有者的组 id *</td>
       </tr>
 
       <tr>
        <td>6</td>
        <td>rdev</td>
-       <td>device type, if inode device * - 设备类型，如果是 inode 设备的话</td>
+       <td>设备类型，如果是 inode 设备的话</td>
       </tr>
 
       <tr>
        <td>7</td>
        <td>size</td>
-       <td>size in bytes - 文件大小的字节数</td>
+       <td>文件大小的字节数</td>
       </tr>
 
       <tr>
        <td>8</td>
        <td>atime</td>
-       <td>time of last access (unix timestamp) - 上次访问时间（Unix 时间戳）</td>
+       <td>上次访问时间（Unix 时间戳）</td>
       </tr>
 
       <tr>
        <td>9</td>
        <td>mtime</td>
-       <td>time of last modification (unix timestamp) - 上次修改时间（Unix 时间戳）</td>
+       <td>上次修改时间（Unix 时间戳）</td>
       </tr>
 
       <tr>
        <td>10</td>
        <td>ctime</td>
-       <td>time of last change (unix timestamp) - 上次改变时间（Unix 时间戳）</td>
+       <td>上次 inodb 改变时间（Unix 时间戳）</td>
       </tr>
 
       <tr>
        <td>11</td>
        <td>blksize</td>
-       <td>blocksize of filesystem IO * - 文件系统 IO 的块大小</td>
+       <td>文件系统 IO 的块大小 **</td>
       </tr>
 
       <tr>
        <td>12</td>
        <td>blocks</td>
-       <td>number of blocks allocated - 所占据块的数目</td>
+       <td>分配的 512 字节块数 **</td>
       </tr>
 
      </tbody>
     
    </table>
 
-   * Windows 下总是 0。
   </p>
   <p class="para">
-      * - 仅在支持 st_blksize 类型的系统下有效。其它系统（如 Windows）返回 -1。
+   * Windows 下总是 <code class="literal">0</code>。
+  </p>
+  <p class="para">
+   * - 仅在支持 st_blksize 类型的系统下有效。其它系统（如 Windows）返回 <code class="literal">-1</code>。
+  </p>
+  <p class="para">
+   *** On Windows, as of PHP 7.4.0, this is the serial number of the volume that contains the file,
+   which is a 64-bit <em class="emphasis">unsigned</em> integer, so may overflow.
+   Previously, it was the numeric representation of the drive letter (e.g. <code class="literal">2</code>
+   for <code class="literal">C:</code>) for <span class="function"><strong>stat()</strong></span>, and <code class="literal">0</code> for
+   <span class="function"><a href="function.lstat.html" class="function">lstat()</a></span>.
+  </p>
+  <p class="para">
+   **** 在 Windows 上，自 PHP 7.4.0 起，这是跟文件相关的标识符，因为是64位
+   <em class="emphasis">unsigned</em> 整数，因此可能会溢出。之前始终为 <code class="literal">0</code>。
+  </p>
+  <p class="para">
+   ***** On Windows, the writable permission bit is set according to the read-only
+   file attribute, and the same value is reported for all users, group and owner.
+   The ACL is not taken into account, contrary to <span class="function"><a href="function.is-writable.html" class="function">is_writable()</a></span>.
+  </p>
+  <p class="para">
+  <code class="literal">mode</code> 的值包含几个函数读取到的信息。当用八进制编写时，从右开始，前三位由
+  <span class="function"><a href="function.chmod.html" class="function">chmod()</a></span> 返回。PHP 忽略下一个数字。接下来的两位数字表示文件类型：
+   <table class="doctable table">
+    <caption><strong><code class="literal">mode</code> 文件类型</strong></caption>
+    
+     <thead>
+      <tr>
+       <th>八进制表示 <code class="literal">mode</code></th>
+       <th>含义</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td><strong><code>0140000</code></strong></td>
+       <td>socket</td>
+      </tr>
+
+      <tr>
+       <td><strong><code>0120000</code></strong></td>
+       <td>link</td>
+      </tr>
+
+      <tr>
+       <td><strong><code>0100000</code></strong></td>
+       <td>常规文件</td>
+      </tr>
+
+      <tr>
+       <td><strong><code>0060000</code></strong></td>
+       <td>块设备</td>
+      </tr>
+
+      <tr>
+       <td><strong><code>0040000</code></strong></td>
+       <td>目录</td>
+      </tr>
+
+      <tr>
+       <td><strong><code>0020000</code></strong></td>
+       <td>字符设备</td>
+      </tr>
+
+      <tr>
+       <td><strong><code>0010000</code></strong></td>
+       <td>fifo</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+   例如普通文件可能是 <strong><code>0100644</code></strong>，目录可能是 <strong><code>0040755</code></strong>。
   </p>
   <p class="para">
    如果出错，<span class="function"><strong>stat()</strong></span> 返回 <strong><code>false</code></strong>。
@@ -192,37 +268,45 @@
 
  <div class="refsect1 changelog" id="refsect1-function.stat-changelog">
   <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
 
-     </thead>
+    </thead>
 
-     <tbody class="tbody">
-      <tr>
-       <td>4.0.6</td>
-       <td>
-        返回一个数组包含有文件的统计信息，该数组具有以下列出的单元，数组下标从零开始。除了数字索引之外自还可以通过关联索引来访问。
-       </td>
-      </tr>
+    <tbody class="tbody">
+     <tr>
+      <td>7.4.0</td>
+      <td>
+       On Windows, the device number is now the serial number of the volume that
+       contains the file, and the inode number is the identifier associated with the file.
+      </td>
+     </tr>
 
-     </tbody>
-    
-   </table>
+     <tr>
+      <td>7.4.0</td>
+      <td>
+       The <code class="literal">size</code>, <code class="literal">atime</code>, <code class="literal">mtime</code> and
+       <code class="literal">ctime</code> statistics of symlinks are always those of the target.
+       This was previously not the case for <abbr class="abbrev">NTS</abbr> builds on Windows.
+      </td>
+     </tr>
 
-  </p>
+    </tbody>
+   
+  </table>
+
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.stat-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2208">
+   <div class="example" id="example-2224">
     <p><strong>Example #1 <span class="function"><strong>stat()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -234,7 +318,7 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2209">
+   <div class="example" id="example-2225">
     <p><strong>Example #2 Using <span class="function"><strong>stat()</strong></span> information together with <span class="function"><a href="function.touch.html" class="function">touch()</a></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -266,9 +350,11 @@ URL 包装器。请参见 <a href="wrappers.html" class="xref">支持的协议和封装协议</a>
     <li class="member"><span class="function"><a href="function.fstat.html" class="function" rel="rdfs-seeAlso">fstat()</a> - 通过已打开的文件指针取得文件信息</span></li>
     <li class="member"><span class="function"><a href="function.filemtime.html" class="function" rel="rdfs-seeAlso">filemtime()</a> - 取得文件修改时间</span></li>
     <li class="member"><span class="function"><a href="function.filegroup.html" class="function" rel="rdfs-seeAlso">filegroup()</a> - 取得文件的组</span></li>
+    <li class="member"><span class="classname"><a href="class.splfileinfo.html" class="classname">SplFileInfo</a></span></li>
    </ul>
   </p>
  </div>
+
 
 </div><div id="usernotes">
  <div class="head">

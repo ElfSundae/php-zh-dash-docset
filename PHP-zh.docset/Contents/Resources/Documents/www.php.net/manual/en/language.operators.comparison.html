@@ -203,8 +203,7 @@ a
        <td><span class="type">object</span></td>
        <td><span class="type">object</span></td>
        <td>
-        内置类可以定义自己的比较，不同类不能比较，相同类和数组同样方式比较属性（PHP
-        4 中），PHP 5 有其自己的<a href="language.oop5.object-comparison.html" class="link">说明</a>
+        内置类可以定义自己的比较，不同类不能比较，相同的类查看<a href="language.oop5.object-comparison.html" class="link">对象比较</a>
        </td>
       </tr>
 
@@ -218,7 +217,7 @@ a
        <td><span class="type">array</span></td>
        <td><span class="type">array</span></td>
        <td>
-        具有较少成员的数组较小，如果运算数 1 中的键不存在于运算数
+        成员越少的数组越小，如果运算数 1 中的键不存在于运算数
         2 中则数组无法比较，否则挨个值比较（见下例）
        </td>
       </tr>
@@ -241,7 +240,7 @@ a
 
 
    <p class="para">
-    <div class="example" id="example-114">
+    <div class="example" id="example-115">
      <p><strong>Example #1 Boolean/null comparison</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -253,13 +252,12 @@ a
     </div>
    </p>
 
-
    <p class="para">
-    <div class="example" id="example-115">
+    <div class="example" id="example-116">
      <p><strong>Example #2 标准数组比较代码</strong></p>
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;数组是用标准比较运算符这样比较的<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">standard_array_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">$op1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op1</span><span style="color: #007700">)&nbsp;&lt;&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op2</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$op1&nbsp;&lt;&nbsp;$op2<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op1</span><span style="color: #007700">)&nbsp;&gt;&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op2</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$op1&nbsp;&gt;&nbsp;$op2<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$op1&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$key&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;uncomparable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">])&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">])&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$op1&nbsp;==&nbsp;$op2<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;数组是用标准比较运算符或者太空船运算符进行比较的<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">standard_array_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">$op1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op1</span><span style="color: #007700">)&nbsp;&lt;&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op2</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$op1&nbsp;&lt;&nbsp;$op2<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op1</span><span style="color: #007700">)&nbsp;&gt;&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$op2</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$op1&nbsp;&gt;&nbsp;$op2<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$op1&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$key&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">])&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">$op2</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">])&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$op1&nbsp;==&nbsp;$op2<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
      </div>
@@ -279,6 +277,22 @@ a
     </p>
    </div>
 
+   <blockquote class="note"><p><strong class="note">Note</strong>: 
+    <span class="simpara">
+     请注意，在比较不同类型的值时，类型转换并不总是很明显，尤其是比较 <span class="type">int</span> 与 <span class="type">bool</span> 或者
+     <span class="type">int</span> 与 <span class="type">string</span>。因此，在大多数情况下，通常建议使用 <code class="literal">===</code> 和
+     <code class="literal">!==</code> 进行比较而不是 <code class="literal">==</code> 和 <code class="literal">!=</code>。
+    </span>
+   </p></blockquote>
+
+   <div class="sect2" id="language.operators.comparison.incomparable">
+    <h3 class="title">不能比较的值</h3>
+    <p class="simpara">
+     虽然恒等比较（<code class="literal">===</code> 和
+     <code class="literal">!==</code>）可以应用于任意值，其它比较运算符应该仅用于可比较的值。不能比较的值的比较的结果是不确定的，不应依赖。
+    </p>
+   </div>
+
    <div class="sect2">
     <h3 class="title">参见</h3>
     <p class="para">
@@ -295,11 +309,11 @@ a
     <h3 class="title">三元运算符</h3>
     <p class="para">
      另一个条件运算符是"?:"（或三元）运算符 。
-     <div class="example" id="example-116">
+     <div class="example" id="example-117">
       <p><strong>Example #3 赋默认值</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;三元运算符的例子<br /></span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;(empty(</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]))&nbsp;?&nbsp;</span><span style="color: #DD0000">'default'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">];<br /><br /></span><span style="color: #FF8000">//&nbsp;以上等同于以下的&nbsp;&nbsp;if/else&nbsp;语句<br /></span><span style="color: #007700">if&nbsp;(empty(</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'default'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;三元运算符的例子<br /></span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;(empty(</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]))&nbsp;?&nbsp;</span><span style="color: #DD0000">'default'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">];<br /><br /></span><span style="color: #FF8000">//&nbsp;以上等同于以下的&nbsp;&nbsp;if/else&nbsp;语句<br /></span><span style="color: #007700">if&nbsp;(empty(</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'default'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
@@ -313,10 +327,10 @@ a
     </p>
     <p class="para">
      可以省略三元运算符中间那部分。表达式
-     <code class="literal">expr1 ?: expr3</code> 在
+     <code class="literal">expr1 ?: expr3</code> 等同于如果
      <span class="replaceable">expr1</span> 求值为 <strong><code>true</code></strong> 时返回
-     <span class="replaceable">expr1</span>，否则返回
-     <span class="replaceable">expr3</span>。
+     <span class="replaceable">expr1</span> 的结果，否则返回
+     <span class="replaceable">expr3</span>。<span class="replaceable">expr1</span> 在这里仅执行一次。
     </p>
     <blockquote class="note"><p><strong class="note">Note</strong>: 
      <span class="simpara">
@@ -334,11 +348,26 @@ a
       而大多数其他编程语言是从右到左的。
       自 PHP 7.4.0 起，弃用依靠左联。
       PHP 8.0.0 起，三元运算符是非关联的。
-      <div class="example" id="example-117">
+      <div class="example" id="example-118">
        <p><strong>Example #4 不清晰的三元运算符行为</strong></p>
        <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;乍看起来下面的输出是&nbsp;'true'<br /></span><span style="color: #007700">echo&nbsp;(</span><span style="color: #0000BB">true&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">'true'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">false&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">'t'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'f'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;然而，上面语句的实际输出是't'，因为在&nbsp;PHP&nbsp;8.0.0&nbsp;之前三元运算符是左联的<br /><br />//&nbsp;下面是与上面等价的语句，但更清晰<br /></span><span style="color: #007700">echo&nbsp;((</span><span style="color: #0000BB">true&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">'true'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'t'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'f'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;这里可以看到第一个表达式的计算结果是&nbsp;"true"，第二个表达式的计算结果为&nbsp;(bool)true，<br />//&nbsp;因此返回第二个三元表达式的&nbsp;true&nbsp;分支。<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+     </p>
+    </p></blockquote>
+    <blockquote class="note"><p><strong class="note">Note</strong>: 
+     <p class="para">
+      然而，短三元运算符（<code class="literal">?:</code>）的链接是稳定且合理的。他将第一个参数进行求值，结果为非假值。注意，未定义的值将会引发警告。
+      <div class="example" id="example-119">
+       <p><strong>Example #5 Short-ternary chaining</strong></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//1<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//2<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">?:&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//3<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
        </div>
@@ -351,12 +380,12 @@ a
    <div class="sect2" id="language.operators.comparison.coalesce">
     <h3 class="title">NULL 合并运算符</h3>
     <p class="para">
-     而且存在 &quot;??&quot; （NULL 合并）运算符。
-     <div class="example" id="example-118">
-      <p><strong>Example #5 设置默认值</strong></p>
+     另一个简略运算符是 &quot;??&quot; （NULL 合并）运算符。
+     <div class="example" id="example-120">
+      <p><strong>Example #6 设置默认值</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;NULL&nbsp;合并运算符的例子<br /></span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]&nbsp;??&nbsp;</span><span style="color: #DD0000">'default'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;以上例子等同于于以下&nbsp;if/else&nbsp;语句<br /></span><span style="color: #007700">if&nbsp;(isset(</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">];<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'default'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;NULL&nbsp;合并运算符的例子<br /></span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]&nbsp;??&nbsp;</span><span style="color: #DD0000">'default'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;以上例子等同于于以下&nbsp;if/else&nbsp;语句<br /></span><span style="color: #007700">if&nbsp;(isset(</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'action'</span><span style="color: #007700">];<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$action&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'default'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
@@ -378,9 +407,21 @@ a
     </p></blockquote>
     <blockquote class="note"><p><strong class="note">Note</strong>: 
      <p class="para">
+      null 合并运算符的优先级较低。这意味着如果将它与其它运算符（比如字符串链接或者算术运算符）混合使用，可能需要括号。
+     </p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;$name&nbsp;未定义，引发警告。<br /></span><span style="color: #007700">print&nbsp;</span><span style="color: #DD0000">'Mr.&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">??&nbsp;</span><span style="color: #DD0000">'Anonymous'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;打印&nbsp;"Mr.&nbsp;Anonymous"<br /></span><span style="color: #007700">print&nbsp;</span><span style="color: #DD0000">'Mr.&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;(</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">??&nbsp;</span><span style="color: #DD0000">'Anonymous'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </p></blockquote>
+    <blockquote class="note"><p><strong class="note">Note</strong>: 
+     <p class="para">
       请注意，NULL 合并运算符支持简单的嵌套：
-      <div class="example" id="example-119">
-       <p><strong>Example #6 嵌套 NULL 合并运算符</strong></p>
+      <div class="example" id="example-121">
+       <p><strong>Example #7 嵌套 NULL 合并运算符</strong></p>
        <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /><br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$baz&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$qux&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">??&nbsp;</span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">??&nbsp;</span><span style="color: #0000BB">$baz&nbsp;</span><span style="color: #007700">??&nbsp;</span><span style="color: #0000BB">$qux</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;输出&nbsp;1<br /><br /></span><span style="color: #0000BB">?&gt;</span>

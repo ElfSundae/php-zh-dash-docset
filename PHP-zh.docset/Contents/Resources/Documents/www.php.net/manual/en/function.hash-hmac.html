@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>使用 HMAC 方法生成带有密钥的哈希值</title>
+  <title>使用 HMAC 方法生成带有密钥的散列值</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,20 +20,20 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.hash.html">Hash 函数</a></li>
-    <li>使用 HMAC 方法生成带有密钥的哈希值</li>
+    <li>使用 HMAC 方法生成带有密钥的散列值</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.hash-hmac" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">hash_hmac</h1>
-  <p class="verinfo">(PHP 5 &gt;= 5.1.2, PHP 7, PHP 8, PECL hash &gt;= 1.1)</p><p class="refpurpose"><span class="refname">hash_hmac</span> &mdash; <span class="dc-title">使用 HMAC 方法生成带有密钥的哈希值</span></p>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.2, PHP 7, PHP 8, PECL hash &gt;= 1.1)</p><p class="refpurpose"><span class="refname">hash_hmac</span> &mdash; <span class="dc-title">使用 HMAC 方法生成带有密钥的散列值</span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-function.hash-hmac-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>hash_hmac</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$algo</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$raw_output</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type">string</span></div>
+   <span class="methodname"><strong>hash_hmac</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$algo</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$binary</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type">string</span></div>
 
 
  </div>
@@ -49,8 +49,8 @@
      <dd>
 
       <p class="para">
-       要使用的哈希算法名称，例如：&quot;md5&quot;，&quot;sha256&quot;，&quot;haval160,4&quot; 等。
-       如何获取受支持的算法清单，请参见 <span class="function"><a href="function.hash-hmac-algos.html" class="function">hash_hmac_algos()</a></span> 函数。
+       要使用的散列算法名称，例如："md5"、"sha256"、"haval160,4"等。如何获取受支持的算法清单，请参见
+       <span class="function"><a href="function.hash-hmac-algos.html" class="function">hash_hmac_algos()</a></span> 函数。
       </p>
      </dd>
 
@@ -62,7 +62,7 @@
      <dd>
 
       <p class="para">
-       要进行哈希运算的消息。
+       要进行散列运算的消息。
       </p>
      </dd>
 
@@ -81,13 +81,12 @@
     
     
      <dt>
-<code class="parameter">raw_output</code></dt>
+<code class="parameter">binary</code></dt>
 
      <dd>
 
       <p class="para">
-       设置为 <strong><code>true</code></strong> 输出原始二进制数据，
-       设置为 <strong><code>false</code></strong> 输出小写 16 进制字符串。
+       设置为 <strong><code>true</code></strong> 输出原始二进制数据，设置为 <strong><code>false</code></strong> 输出小写 16 进制字符串。
       </p>
      </dd>
 
@@ -101,9 +100,17 @@
  <div class="refsect1 returnvalues" id="refsect1-function.hash-hmac-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果 <code class="parameter">raw_output</code> 设置为 <strong><code>true</code></strong>， 则返回原始二进制数据表示的信息摘要，
-   否则返回 16 进制小写字符串格式表示的信息摘要。
-   如果 <code class="parameter">algo</code> 参数指定的不是受支持的算法，返回 <strong><code>false</code></strong>。
+   如果 <code class="parameter">binary</code> 设置为 <strong><code>true</code></strong>，则返回原始二进制数据表示的信息摘要，否则返回
+   16 进制小写字符串格式表示的信息摘要。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.hash-hmac-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   如果 <code class="parameter">algo</code> 未知或非加密散列函数，则抛出
+   <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> 异常。
   </p>
  </div>
 
@@ -123,8 +130,16 @@
 
      <tbody class="tbody">
       <tr>
+       <td>8.0.0</td>
+       <td>
+        如果 <code class="parameter">algo</code> 未知或者非加密散列函数，现在将抛出
+        <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> 异常；以前返回 <strong><code>false</code></strong>。
+       </td>
+      </tr>
+
+      <tr>
        <td>7.2.0</td>
-       <td>不再支持非加密的哈希函数（adler32，crc32，crc32b，fnv132，fnv1a32，fnv164，fnv1a64，joaat）。</td>
+       <td>不再支持非加密的散列函数（adler32、crc32、crc32b、fnv132、fnv1a32、fnv164、fnv1a64、joaat）。</td>
       </tr>
 
      </tbody>
@@ -138,7 +153,7 @@
  <div class="refsect1 examples" id="refsect1-function.hash-hmac-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-888">
+   <div class="example" id="example-900">
     <p><strong>Example #1 <span class="function"><strong>hash_hmac()</strong></span> 例程</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -162,10 +177,10 @@ b8e7ae12510bdfb1812e463a7f086122cf37e4f7
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.hash.html" class="function" rel="rdfs-seeAlso">hash()</a> - 生成哈希值 （消息摘要）</span></li>
-    <li class="member"><span class="function"><a href="function.hash-hmac-algos.html" class="function" rel="rdfs-seeAlso">hash_hmac_algos()</a> - Return a list of registered hashing algorithms suitable for hash_hmac</span></li>
-    <li class="member"><span class="function"><a href="function.hash-init.html" class="function" rel="rdfs-seeAlso">hash_init()</a> - 初始化增量哈希运算上下文</span></li>
-    <li class="member"><span class="function"><a href="function.hash-hmac-file.html" class="function" rel="rdfs-seeAlso">hash_hmac_file()</a> - 使用 HMAC 方法和给定文件的内容生成带密钥的哈希值</span></li>
+    <li class="member"><span class="function"><a href="function.hash.html" class="function" rel="rdfs-seeAlso">hash()</a> - 生成散列值（消息摘要）</span></li>
+    <li class="member"><span class="function"><a href="function.hash-hmac-algos.html" class="function" rel="rdfs-seeAlso">hash_hmac_algos()</a> - 返回适用于 hash_hmac 的已注册散列算法列表</span></li>
+    <li class="member"><span class="function"><a href="function.hash-init.html" class="function" rel="rdfs-seeAlso">hash_init()</a> - 初始化增量散列运算上下文</span></li>
+    <li class="member"><span class="function"><a href="function.hash-hmac-file.html" class="function" rel="rdfs-seeAlso">hash_hmac_file()</a> - 使用 HMAC 方法和给定文件的内容生成带密钥的散列值</span></li>
    </ul>
   </p>
  </div>

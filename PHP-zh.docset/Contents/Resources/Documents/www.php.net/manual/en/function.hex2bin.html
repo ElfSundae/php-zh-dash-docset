@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.hex2bin-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>hex2bin</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>hex2bin</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
    转换十六进制字符串为二进制字符串。
@@ -52,7 +52,7 @@
   <dl>
    
     <dt>
-<code class="parameter">data</code></dt>
+<code class="parameter">string</code></dt>
 
     <dd>
 
@@ -84,42 +84,6 @@
  </div>
 
 
- <div class="refsect1 changelog" id="refsect1-function.hex2bin-changelog">
-  <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
-
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>5.5.1</td>
-       <td>
-        如果输入的字符串是无效的十六进制字符串则抛出一个警告，
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.4.4</td>
-       <td>
-        如果输入的字符串有多余将抛出异常。 PHP 5.4.0 起字符串将被静默地接受，但是最后的字节会被截断。
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
-  </p>
- </div>
-
-
  <div class="refsect1 examples" id="refsect1-function.hex2bin-examples">
   <h3 class="title">范例</h3>
   <div class="example" id="hex2bin.example.basic">
@@ -145,7 +109,7 @@ string(16) &quot;example hex data&quot;
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.bin2hex.html" class="function" rel="rdfs-seeAlso">bin2hex()</a> - 函数把包含数据的二进制字符串转换为十六进制值</span></li>
+    <li class="member"><span class="function"><a href="function.bin2hex.html" class="function" rel="rdfs-seeAlso">bin2hex()</a> - 将二进制数据转换为十六进制表示</span></li>
     <li class="member"><span class="function"><a href="function.unpack.html" class="function" rel="rdfs-seeAlso">unpack()</a> - Unpack data from binary string</span></li>
    </ul>
   </p>
@@ -156,7 +120,33 @@ string(16) &quot;example hex data&quot;
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126543""></a>
+<div id="allnotes">  <a name="127517""></a>
+  <div class="note">
+   <strong class="user">stanliwise at gmail dot com</strong>
+   <a href="#127517" class="date">21-Aug-2022 11:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+#error: <br />
+hex2bin(): Hexadecimal input string must have an even length<br />
+<br />
+For those who are facing the error above trying to convert hex to bin. you can pad your hex string with initial 0 before hex2bin.<br />
+<br />
+function hexPad(string $hex_string)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $st_l = strlen($hex_string);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return str_pad($hex_string, $st_l + ($st_l % 2), '0', STR_PAD_LEFT);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+hexPad('1bc') -&gt; '01bc';<br />
+<br />
+for usage hex2bin(hexPad('1bc'));</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126543""></a>
   <div class="note">
    <strong class="user">nino at re-gister dot com</strong>
    <a href="#126543" class="date">28-Oct-2021 03:16</a>

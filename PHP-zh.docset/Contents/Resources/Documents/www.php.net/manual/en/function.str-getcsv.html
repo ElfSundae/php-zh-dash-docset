@@ -123,7 +123,53 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125941""></a>
+<div id="allnotes">  <a name="127865""></a>
+  <div class="note">
+   <strong class="user">Wade Rossmann</strong>
+   <a href="#127865" class="date">26-Oct-2022 09:34</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For completeness, here is a userspace str_putcsv() that is fully compatible with fgetcsv() and fputcsv()'s arguments. Namely $escape and $eol, which all others seem to be omitting.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">str_putcsv</span><span class="keyword">(<br />
+&nbsp;&nbsp;&nbsp; array </span><span class="default">$fields</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">string $separator </span><span class="keyword">= </span><span class="string">","</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">string $enclosure </span><span class="keyword">= </span><span class="string">"\""</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">string $escape </span><span class="keyword">= </span><span class="string">"\\"</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">string $eol </span><span class="keyword">= </span><span class="string">"\n"<br />
+</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">implode</span><span class="keyword">(</span><span class="default">$separator</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_map</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; function(</span><span class="default">$a</span><span class="keyword">)use(</span><span class="default">$enclosure</span><span class="keyword">, </span><span class="default">$escape</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$type </span><span class="keyword">= </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; switch(</span><span class="default">$type</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'integer'</span><span class="keyword">: return </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'%d'</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'double'</span><span class="keyword">:&nbsp; return </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'%0.'</span><span class="keyword">.</span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">'precision'</span><span class="keyword">).</span><span class="string">'f'</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">), </span><span class="string">'0'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'boolean'</span><span class="keyword">: return ( </span><span class="default">$a </span><span class="keyword">? </span><span class="string">'true' </span><span class="keyword">: </span><span class="string">'false' </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'NULL'</span><span class="keyword">:&nbsp; &nbsp; return </span><span class="string">''</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'string'</span><span class="keyword">:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'"%s"'</span><span class="keyword">, </span><span class="default">str_replace</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="default">$escape</span><span class="keyword">, </span><span class="default">$enclosure</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; [</span><span class="default">$escape</span><span class="keyword">.</span><span class="default">$escape</span><span class="keyword">, </span><span class="default">$escape</span><span class="keyword">.</span><span class="default">$enclosure</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$a<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">));<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; default: throw new </span><span class="default">TypeError</span><span class="keyword">(</span><span class="string">"Cannot stringify type: </span><span class="default">$type</span><span class="string">"</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; },<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fields<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; ) . </span><span class="default">$eol</span><span class="keyword">;<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125941""></a>
   <div class="note">
    <strong class="user">ivijan dot stefan at gmail dot com</strong>
    <a href="#125941" class="date">18-Mar-2021 10:43</a>

@@ -34,13 +34,15 @@
  <div class="refsect1 description" id="refsect1-function.ignore-user-abort-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ignore_user_abort</strong></span>(<span class="methodparam"><span class="type">bool</span> <code class="parameter">$value</code><span class="initializer"> = ?</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>ignore_user_abort</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">bool</span><span class="type"></span></span> <code class="parameter">$enable</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">int</span></div>
 
   <p class="para rdfs-comment">
     设置客户端断开连接时是否中断脚本的执行
   </p>
   <p class="para">
-   PHP 以命令行脚本执行时，当脚本终端结束，脚本不会被立即中止，除非设置 <code class="parameter">value</code> 为 <strong><code>true</code></strong>，否则脚本输出任意字符时会被中止。</p>
+   PHP 以命令行脚本执行时，当脚本终端结束，脚本不会被立即中止，除非设置
+   <code class="parameter">enable</code>为 <strong><code>true</code></strong>，否则脚本输出任意字符时会被中止。
+  </p>
  </div>
 
 
@@ -50,13 +52,13 @@
    <dl>
     
      <dt>
-<code class="parameter">value</code></dt>
+<code class="parameter">enable</code></dt>
 
      <dd>
 
       <p class="para">
-       如果设置了该值，函数会把 <a href="misc.configuration.html#ini.ignore-user-abort" class="link">ignore_user_abort</a> ini 的值设置为 <code class="parameter">value</code>。
-       如果未设置该值，函数不会改变设置，仅会返回之前的设置。
+       如果设置了该值且不为 <strong><code>null</code></strong>，函数会设置 <a href="misc.configuration.html#ini.ignore-user-abort" class="link">ignore_user_abort</a>
+       ini 为 <code class="parameter">enable</code>。否则，函数不会改变设置，仅会返回之前的设置。
       </p>
      </dd>
 
@@ -75,14 +77,41 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.ignore-user-abort-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">enable</code> 现在允许为 null。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.ignore-user-abort-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3427">
+   <div class="example" id="example-3448">
     <p><strong>Example #1 <span class="function"><strong>ignore_user_abort()</strong></span>例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Ignore&nbsp;user&nbsp;aborts&nbsp;and&nbsp;allow&nbsp;the&nbsp;script<br />//&nbsp;to&nbsp;run&nbsp;forever<br /></span><span style="color: #0000BB">ignore_user_abort</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">set_time_limit</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Testing&nbsp;connection&nbsp;handling&nbsp;in&nbsp;PHP'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Run&nbsp;a&nbsp;pointless&nbsp;loop&nbsp;that&nbsp;sometime&nbsp;<br />//&nbsp;hopefully&nbsp;will&nbsp;make&nbsp;us&nbsp;click&nbsp;away&nbsp;from&nbsp;<br />//&nbsp;page&nbsp;or&nbsp;click&nbsp;the&nbsp;"Stop"&nbsp;button.<br /></span><span style="color: #007700">while(</span><span style="color: #0000BB">1</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Did&nbsp;the&nbsp;connection&nbsp;fail?<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if(</span><span style="color: #0000BB">connection_status</span><span style="color: #007700">()&nbsp;!=&nbsp;</span><span style="color: #0000BB">CONNECTION_NORMAL</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Sleep&nbsp;for&nbsp;10&nbsp;seconds<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;If&nbsp;this&nbsp;is&nbsp;reached,&nbsp;then&nbsp;the&nbsp;'break'&nbsp;<br />//&nbsp;was&nbsp;triggered&nbsp;from&nbsp;inside&nbsp;the&nbsp;while&nbsp;loop<br /><br />//&nbsp;So&nbsp;here&nbsp;we&nbsp;can&nbsp;log,&nbsp;or&nbsp;perform&nbsp;any&nbsp;other&nbsp;tasks<br />//&nbsp;we&nbsp;need&nbsp;without&nbsp;actually&nbsp;being&nbsp;dependent&nbsp;on&nbsp;the&nbsp;<br />//&nbsp;browser.<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;忽略用户中止并允许脚本<br />//&nbsp;永远运行<br /></span><span style="color: #0000BB">ignore_user_abort</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">set_time_limit</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Testing&nbsp;connection&nbsp;handling&nbsp;in&nbsp;PHP'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Run&nbsp;a&nbsp;pointless&nbsp;loop&nbsp;that&nbsp;sometime&nbsp;<br />//&nbsp;hopefully&nbsp;will&nbsp;make&nbsp;us&nbsp;click&nbsp;away&nbsp;from&nbsp;<br />//&nbsp;page&nbsp;or&nbsp;click&nbsp;the&nbsp;"Stop"&nbsp;button.<br /></span><span style="color: #007700">while(</span><span style="color: #0000BB">1</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;连接失败？<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if(</span><span style="color: #0000BB">connection_status</span><span style="color: #007700">()&nbsp;!=&nbsp;</span><span style="color: #0000BB">CONNECTION_NORMAL</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;睡眠&nbsp;10&nbsp;秒<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;If&nbsp;this&nbsp;is&nbsp;reached,&nbsp;then&nbsp;the&nbsp;'break'&nbsp;<br />//&nbsp;was&nbsp;triggered&nbsp;from&nbsp;inside&nbsp;the&nbsp;while&nbsp;loop<br /><br />//&nbsp;So&nbsp;here&nbsp;we&nbsp;can&nbsp;log,&nbsp;or&nbsp;perform&nbsp;any&nbsp;other&nbsp;tasks<br />//&nbsp;we&nbsp;need&nbsp;without&nbsp;actually&nbsp;being&nbsp;dependent&nbsp;on&nbsp;the&nbsp;<br />//&nbsp;browser.<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

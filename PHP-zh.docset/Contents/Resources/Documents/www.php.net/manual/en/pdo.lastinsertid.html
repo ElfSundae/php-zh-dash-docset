@@ -262,33 +262,6 @@ I'm using IBM db2 odbc driver...</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="115739""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#115739" class="date">16-Sep-2014 07:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Sorry to contradict Jonathon Hibbard's comment (<a href="http://php.net/manual/en/pdo.lastinsertid.php#82838" rel="nofollow" target="_blank">http://php.net/manual/en/pdo.lastinsertid.php#82838</a>), but my experiencie with INSERT INTO ... ON DUPLICATE KEY UPDATE is totally different; maybe it's due to PHP version (I'm on Windows, 5.4.7; I realize his post is 6 years old) or to the database engine (MySQL in my case).<br />
-<br />
-Nevertheless, if I do an INSERT INTO ... ON DUPLICATE KEY UPDATE (something like id=id or equivalent, where the updated value is equal to the original one), this is what I'm getting:<br />
-<br />
-- If the key didn't exist, the value is inserted, and lastInsertId() returns the expected id for the new row.<br />
-<br />
-- If the row exists AND a value is updated, with lastInsertId() I get the ID of the updated row.<br />
-<br />
-- If the row exists but NO value is updated, lastInsertId() returns 0.<br />
-<br />
-That contradicts his example, where he assures that<br />
-"INSERT INTO city (`city`) VALUES ('Paris') ON DUPLICATE KEY UPDATE `city` = 'Paris'"<br />
-returns 2 (??) on lastInsertId() and that he expected to return 1 "since no records were inserted" (??).<br />
-<br />
-Hope this helps someone.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="113402""></a>
   <div class="note">
    <strong class="user">mattbridges at me dot com</strong>
@@ -731,63 +704,6 @@ $last_id = intval($last_id[0]['last_id']);</span>
     <div class="phpcode">
 <code><span class="html">
 This function is not available for MSSQL either.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="82838""></a>
-  <div class="note">
-   <strong class="user">Jonathon Hibbard</strong>
-   <a href="#82838" class="date">28-Apr-2008 10:17</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-It should be noted here at this function will not display the correct ID if issuing ON DUPLICATE KEY UPDATE.
-<br />
-
-<br />
-Example on a new Row:
-<br />
-<span class="default">&lt;?php
-<br />
-$sql </span><span class="keyword">= </span><span class="string">"INSERT INTO city (`city`) VALUES ('Paris') ON DUPLICATE KEY UPDATE `city` = 'Paris"</span><span class="keyword">;
-<br />
-</span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">);
-<br />
-echo </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">lastInsertId</span><span class="keyword">();
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Above displays: 1
-<br />
-Expected display: 1
-<br />
-
-<br />
-Example on an existing row that gets updated:
-<br />
-<span class="default">&lt;?php
-<br />
-$sql </span><span class="keyword">= </span><span class="string">"INSERT INTO city (`city`) VALUES ('Paris') ON DUPLICATE KEY UPDATE `city` = 'Paris"</span><span class="keyword">;
-<br />
-</span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">);
-<br />
-echo </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">lastInsertId</span><span class="keyword">();
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Above displays: 2
-<br />
-Expected display: 1 (since no new records were inserted)
-<br />
-
-<br />
-You'll have to work around this.</span>
 </code>
     </div>
    </div>

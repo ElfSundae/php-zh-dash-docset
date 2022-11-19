@@ -39,10 +39,18 @@
    <span class="modifier">public</span> <span class="methodname"><strong>DateTimeZone::__construct</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$timezone</code></span>)</div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><a href="function.timezone-open.html" class="methodname">timezone_open</a></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$timezone</code></span>): <span class="type"><a href="class.datetimezone.html" class="type DateTimeZone">DateTimeZone</a></span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><a href="function.timezone-open.html" class="methodname">timezone_open</a></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$timezone</code></span>): <span class="type"><span class="type"><a href="class.datetimezone.html" class="type DateTimeZone">DateTimeZone</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   创建新的DateTimeZone对象.
+   创建新的 DateTimeZone 对象。
+  </p>
+  <p class="para">
+   DateTimeZone 对象提供了对三种不同类型的时区规则访问。UTC 时差（类型 <code class="literal">1</code>）、时区缩写（类型
+   <code class="literal">2</code>）、IANA 时区数据库中公布的<a href="timezones.html" class="link">时区标识符</a>（类型 <code class="literal">3</code>）。
+  </p>
+  <p class="para">
+   DateTimeZone 对象可以附加到 <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> 和 <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span>
+   对象上，以便能够在本地时区呈现这些对象所封装的时区。
   </p>
  </div>
 
@@ -58,7 +66,7 @@
      <dd>
 
       <p class="para">
-       所支持的 <a href="timezones.html" class="link">timezone names</a>之一.
+       所支持的<a href="timezones.html" class="link">时区名</a>之一，时差（+0200）或时区缩写（BSD）。
       </p>
      </dd>
 
@@ -68,16 +76,16 @@
   </p>
  </div>
 
- 
+
  <div class="refsect1 returnvalues" id="refsect1-datetimezone.construct-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <span class="classname"><a href="class.datetimezone.html" class="classname">DateTimeZone</a></span>对象.
+   成功时返回 <span class="classname"><a href="class.datetimezone.html" class="classname">DateTimeZone</a></span> 对象。
    过程化风格在失败时返回 <strong><code>false</code></strong>。
   </p>
  </div>
 
- 
+
  <div class="refsect1 errors" id="refsect1-datetimezone.construct-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
@@ -89,11 +97,31 @@
  <div class="refsect1 examples" id="refsect1-datetimezone.construct-examples">
   <h3 class="title">范例</h3>
   <p class="para">
+   <div class="example" id="example-2039">
+    <p><strong>Example #1 创建 DateTimeZone 并附加到 DateTimeImmutable</strong></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$d&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeImmutable</span><span style="color: #007700">(</span><span style="color: #DD0000">"2022-06-02&nbsp;15:44:48&nbsp;UTC"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$timezones&nbsp;</span><span style="color: #007700">=&nbsp;[&nbsp;</span><span style="color: #DD0000">'Europe/London'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'GMT+04:45'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'-06:00'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'CEST'&nbsp;</span><span style="color: #007700">];<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$timezones&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$tz</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$tzo&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeZone</span><span style="color: #007700">(</span><span style="color: #0000BB">$tz</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$local&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$d</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setTimezone</span><span style="color: #007700">(</span><span style="color: #0000BB">$tzo</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$local</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #0000BB">DateTimeInterface</span><span style="color: #007700">::</span><span style="color: #0000BB">RFC2822&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'&nbsp;&mdash;&nbsp;e'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen"><br />
+     Thu, 02 Jun 2022 16:44:48 +0100 &mdash; Europe/London<br />
+     Thu, 02 Jun 2022 20:29:48 +0445 &mdash; +04:45<br />
+     Thu, 02 Jun 2022 09:44:48 -0600 &mdash; -06:00<br />
+     Thu, 02 Jun 2022 17:44:48 +0200 &mdash; CEST<br />
+    </div>
+   </div>
+  </p>
+
+  <p class="para">
    <div class="example" id="example-2040">
-    <p><strong>Example #1 Catching errors when instantiating <span class="classname"><a href="class.datetimezone.html" class="classname">DateTimeZone</a></span></strong></p>
+    <p><strong>Example #2 实例化 <span class="classname"><a href="class.datetimezone.html" class="classname">DateTimeZone</a></span> 时捕捉错误</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Error&nbsp;handling&nbsp;by&nbsp;catching&nbsp;exceptions<br /></span><span style="color: #0000BB">$timezones&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'Europe/London'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Mars/Phobos'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Jupiter/Europa'</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$timezones&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$tz</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$mars&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeZone</span><span style="color: #007700">(</span><span style="color: #0000BB">$tz</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;catch(</span><span style="color: #0000BB">Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">'&lt;br&nbsp;/&gt;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;通过捕获异常来处理错误<br /></span><span style="color: #0000BB">$timezones&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'Europe/London'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Mars/Phobos'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Jupiter/Europa'</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$timezones&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$tz</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$mars&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeZone</span><span style="color: #007700">(</span><span style="color: #0000BB">$tz</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;catch(</span><span style="color: #0000BB">Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">'&lt;br&nbsp;/&gt;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>设置 DateTime 对象的时间</title>
+  <title>设置时间</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.datetime.html">DateTime</a></li>
-    <li>设置 DateTime 对象的时间</li>
+    <li>设置时间</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,7 +28,7 @@
  <div class="refnamediv">
   <h1 class="refname">DateTime::setTime</h1>
   <h1 class="refname">date_time_set</h1>
-  <p class="verinfo">(PHP 5 &gt;= 5.2.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">DateTime::setTime</span> -- <span class="refname">date_time_set</span> &mdash; <span class="dc-title">设置 DateTime 对象的时间</span></p>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">DateTime::setTime</span> -- <span class="refname">date_time_set</span> &mdash; <span class="dc-title">设置时间</span></p>
 
  </div>
 
@@ -42,7 +42,14 @@
   <div class="methodsynopsis dc-description"><span class="methodname"><a href="function.date-time-set.html" class="methodname">date_time_set</a></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <code class="parameter">$object</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$hour</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$minute</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$second</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$microsecond</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span></div>
 
   <p class="para rdfs-comment">
-   设置 DateTime 对象的时间。
+   将 DateTime 的当前时间重置为不同的时间。
+  </p>
+  <p class="para">
+   跟 <span class="methodname"><a href="datetimeimmutable.settime.html" class="methodname">DateTimeImmutable::setTime()</a></span> 一样，但适用于
+   <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span>。
+  </p>
+  <p class="para">
+   过程化版本将 <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> 对象作为第一个参数。
   </p>
  </div>
 
@@ -63,7 +70,7 @@
     <dd>
 
      <p class="para">
-      小时。
+      时间中的小时。
      </p>
     </dd>
 
@@ -75,7 +82,7 @@
     <dd>
 
      <p class="para">
-      分钟。
+      时间中的分钟。
      </p>
     </dd>
 
@@ -87,7 +94,7 @@
     <dd>
 
      <p class="para">
-      秒。
+      时间中的秒。
      </p>
     </dd>
 
@@ -99,7 +106,7 @@
     <dd>
 
      <p class="para">
-      微秒。
+      时间中的微秒。
      </p>
     </dd>
 
@@ -112,7 +119,7 @@
  <div class="refsect1 returnvalues" id="refsect1-datetime.settime-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回被修改的 DateTime 对象， 或者在失败时返回 <strong><code>false</code></strong>.
+   返回方法链修改后的 <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> 对象。
   </p>
  </div>
 
@@ -131,6 +138,14 @@
 
     <tbody class="tbody">
      <tr>
+      <td>8.1.0</td>
+      <td>The behaviour with double existing hours (during the fall-back
+      DST transition) changed. Previously PHP would pick the second occurrence
+      (after the DST transition), instead of the first occurrence (before DST
+       transition).</td>
+     </tr>
+
+     <tr>
       <td>7.1.0</td>
       <td>新增 <code class="parameter">microsecond</code> 参数。</td>
      </tr>
@@ -142,61 +157,10 @@
  </div>
 
 
- <div class="refsect1 examples" id="refsect1-datetime.settime-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-1996">
-   <p><strong>Example #1 <span class="function"><strong>DateTime::setTime()</strong></span> 例程</strong></p>
-   <div class="example-contents"><p>面向对象风格</p></div>
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2001-01-01'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setTime</span><span style="color: #007700">(</span><span style="color: #0000BB">14</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setTime</span><span style="color: #007700">(</span><span style="color: #0000BB">14</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">24</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
-   <div class="example-contents"><p>过程化风格</p></div>
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_create</span><span style="color: #007700">(</span><span style="color: #DD0000">'2001-01-01'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">date_time_set</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">14</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">date_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">date_time_set</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">14</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">24</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">date_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
-   <div class="example-contents screen">
-<div class="cdata"><pre>
-2001-01-01 14:55:00
-2001-01-01 14:55:24
-</pre></div>
-   </div>
-  </div>
-  <div class="example" id="example-1997">
-   <p><strong>Example #2 超出有效范围的部分会增加到上一级</strong></p>
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2001-01-01'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setTime</span><span style="color: #007700">(</span><span style="color: #0000BB">14</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">24</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setTime</span><span style="color: #007700">(</span><span style="color: #0000BB">14</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">65</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setTime</span><span style="color: #007700">(</span><span style="color: #0000BB">14</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">65</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">24</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setTime</span><span style="color: #007700">(</span><span style="color: #0000BB">25</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">24</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
-   <div class="example-contents"><p>以上例程会输出：</p></div>
-   <div class="example-contents screen">
-<div class="cdata"><pre>
-2001-01-01 14:55:24
-2001-01-01 14:56:05
-2001-01-01 15:05:24
-2001-01-02 01:55:24
-</pre></div>
-   </div>
-  </div>
- </div>
-
-
  <div class="refsect1 seealso" id="refsect1-datetime.settime-seealso">
   <h3 class="title">参见</h3>
   <ul class="simplelist">
-   <li class="member"><span class="function"><a href="datetime.setdate.html" class="function" rel="rdfs-seeAlso">DateTime::setDate()</a> - 设置 DateTime 对象的日期</span></li>
-   <li class="member"><span class="function"><a href="datetime.setisodate.html" class="function" rel="rdfs-seeAlso">DateTime::setISODate()</a> - 设置 ISO 日期</span></li>
+   <li class="member"><span class="function"><a href="datetimeimmutable.settime.html" class="function" rel="rdfs-seeAlso">DateTimeImmutable::setTime()</a> - Sets the time</span></li>
   </ul>
  </div>
 

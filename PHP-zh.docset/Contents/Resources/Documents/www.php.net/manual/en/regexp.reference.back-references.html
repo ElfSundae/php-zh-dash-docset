@@ -31,14 +31,13 @@
   反斜线紧跟一个大于 0 (可能还有一位数)的数字就是一个到模式中之前出现的某个捕获组的后向引用。
   </p>
   <p class="para">
-  如果紧跟反斜线的数字小于 10， 它总是一个后向引用，
-  并且如果在模式中没有足够多的捕获组，将会引发一个错误。换而言之，
-  被引用的括号不能少于被引用的小于 10 的数量。
-
+   如果紧跟反斜线的数字小于
+   10，它总是一个后向引用，并且如果在模式中没有足够多的捕获组，将会引发一个错误。换而言之，被引用的括号不能少于被引用的小于
+   10 的数量。
    A &quot;forward back reference&quot; can make sense when a repetition
    is involved and the subpattern to the right has participated
    in an earlier iteration.
-  查看上面的"反斜线"部分查看具体的数字处理方式。
+   查看<a href="regexp.reference.escape.html" class="link">转义序列</a>查看具体的数字处理方式。
   </p>
   <p class="para">
   一个后向引用会直接匹配被引用捕获组在目标字符串中实际捕获到的内容，
@@ -120,7 +119,83 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="119566""></a>
+<div id="allnotes">  <a name="127718""></a>
+  <div class="note">
+   <strong class="user">Steve</strong>
+   <a href="#127718" class="date">12-Oct-2022 09:22</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The escape sequence \g used as a backreference may not always behave as expected.<br />
+The following numbered backreferences refer to the text matching the specified capture group, as documented:<br />
+\1<br />
+\g1<br />
+\g{1}<br />
+\g-1<br />
+\g{-1}<br />
+<br />
+However, the following variants refer to the subpattern code instead of the matched text:<br />
+\g&lt;1&gt;<br />
+\g'1'<br />
+\g&lt;-1&gt;<br />
+\g'-1'<br />
+<br />
+With named backreferences, we may also use the \k escape sequence as well as the (?P=...) construct. The following combinations also refer to the text matching the named capture group, as documented:<br />
+\g{name}<br />
+\k{name}<br />
+\k&lt;name&gt;<br />
+\k'name'<br />
+(?P=name)<br />
+<br />
+However, these refer to the subpattern code instead of the matched text:<br />
+g&lt;name&gt;<br />
+\g'name'<br />
+<br />
+In the following example, the capture group searches for a single letter 'a' or 'b', and then the backreference looks for the same letter. Thus, the patterns are expected to match 'aa' and 'bb', but not 'ab' nor 'ba'.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">/* Matches to the following patterns are replaced by 'xx' in the subject string 'aa ab ba bb'. */<br />
+</span><span class="default">$patterns </span><span class="keyword">= [<br />
+&nbsp; </span><span class="comment"># numbered backreferences (absolute)<br />
+&nbsp; </span><span class="string">'/([ab])\1/'</span><span class="keyword">,&nbsp; &nbsp; &nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/([ab])\g1/'</span><span class="keyword">,&nbsp; &nbsp;&nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/([ab])\g{1}/'</span><span class="keyword">,&nbsp;&nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/([ab])\g&lt;1&gt;/'</span><span class="keyword">,&nbsp;&nbsp; </span><span class="comment">// 'xx xx xx xx' # unexpected behavior, backreference matches both 'a' and 'b'.<br />
+&nbsp; </span><span class="string">"/([ab])\g'1'/"</span><span class="keyword">,&nbsp;&nbsp; </span><span class="comment">// 'xx xx xx xx' # unexpected behavior, backreference matches both 'a' and 'b'.<br />
+&nbsp; </span><span class="string">'/([ab])\k{1}/'</span><span class="keyword">,&nbsp;&nbsp; </span><span class="comment">// 'aa ab ba bb' # No group with name "1", backreference to unset group always fails.<br />
+&nbsp; </span><span class="string">'/([ab])\k&lt;1&gt;/'</span><span class="keyword">,&nbsp;&nbsp; </span><span class="comment">// 'aa ab ba bb' # No group with name "1", backreference to unset group always fails.<br />
+&nbsp; </span><span class="string">"/([ab])\k'1'/"</span><span class="keyword">,&nbsp;&nbsp; </span><span class="comment">// 'aa ab ba bb' # No group with name "1", backreference to unset group always fails.<br />
+&nbsp; </span><span class="string">'/([ab])(?P=1)/'</span><span class="keyword">,&nbsp; </span><span class="comment">// NULL # Regex error: "subpattern name must start with a non-digit", (?P=) expects name not number.<br />
+&nbsp; # numbered backreferences (relative)<br />
+&nbsp; </span><span class="string">'/([ab])\-1/'</span><span class="keyword">,&nbsp; &nbsp;&nbsp; </span><span class="comment">// 'aa ab ba bb'<br />
+&nbsp; </span><span class="string">'/([ab])\g-1/'</span><span class="keyword">,&nbsp; &nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/([ab])\g{-1}/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/([ab])\g&lt;-1&gt;/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx xx xx xx' # unexpected behavior, backreference matches both 'a' and 'b'.<br />
+&nbsp; </span><span class="string">"/([ab])\g'-1'/"</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx xx xx xx' # unexpected behavior, backreference matches both 'a' and 'b'.<br />
+&nbsp; </span><span class="string">'/([ab])\k{-1}/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'aa ab ba bb' # No group with name "-1", backreference to unset group always fails.<br />
+&nbsp; </span><span class="string">'/([ab])\k&lt;-1&gt;/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'aa ab ba bb' # No group with name "-1", backreference to unset group always fails.<br />
+&nbsp; </span><span class="string">"/([ab])\k'-1'/"</span><span class="keyword">,&nbsp; </span><span class="comment">// 'aa ab ba bb' # No group with name "-1", backreference to unset group always fails.<br />
+&nbsp; </span><span class="string">'/([ab])(?P=-1)/'</span><span class="keyword">, </span><span class="comment">// NULL # Regex error: "subpattern name expected", (?P=) expects name not number.<br />
+&nbsp; # named backreferences<br />
+&nbsp; </span><span class="string">'/(?&lt;name&gt;[ab])\g{name}/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/(?&lt;name&gt;[ab])\g&lt;name&gt;/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx xx xx xx' # unexpected behavior, backreference matches both 'a' and 'b'.<br />
+&nbsp; </span><span class="string">"/(?&lt;name&gt;[ab])\g'name'/"</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx xx xx xx' # unexpected behavior, backreference matches both 'a' and 'b'.<br />
+&nbsp; </span><span class="string">'/(?&lt;name&gt;[ab])\k{name}/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/(?&lt;name&gt;[ab])\k&lt;name&gt;/'</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">"/(?&lt;name&gt;[ab])\k'name'/"</span><span class="keyword">,&nbsp; </span><span class="comment">// 'xx ab ba xx'<br />
+&nbsp; </span><span class="string">'/(?&lt;name&gt;[ab])(?P=name)/'</span><span class="keyword">, </span><span class="comment">// 'xx ab ba xx'<br />
+</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; <br />
+foreach (</span><span class="default">$patterns </span><span class="keyword">as </span><span class="default">$pat</span><span class="keyword">)<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"&nbsp; '</span><span class="default">$pat</span><span class="string">',\t// " </span><span class="keyword">. </span><span class="default">var_export</span><span class="keyword">(@</span><span class="default">preg_replace</span><span class="keyword">(</span><span class="default">$pat</span><span class="keyword">, </span><span class="string">'xx'</span><span class="keyword">, </span><span class="string">'aa ab ba bb'</span><span class="keyword">), </span><span class="default">1</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="119566""></a>
   <div class="note">
    <strong class="user">mnvx at yandex dot ru</strong>
    <a href="#119566" class="date">07-Jul-2016 09:35</a>

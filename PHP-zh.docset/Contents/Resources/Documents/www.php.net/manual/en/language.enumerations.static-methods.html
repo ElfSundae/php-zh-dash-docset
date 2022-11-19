@@ -49,7 +49,42 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126866""></a>
+<div id="allnotes">  <a name="127904""></a>
+  <div class="note">
+   <strong class="user">Aaron Saray</strong>
+   <a href="#127904" class="date">08-Nov-2022 10:29</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Need to retrieve all the names and values immediately from a backed enum (for something like a select box) and you don't want to loop over `Enum::cases()`?&nbsp; Try this:<br />
+<br />
+<span class="default">&lt;?php<br />
+enum Suit</span><span class="keyword">: </span><span class="default">string<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Hearts </span><span class="keyword">= </span><span class="string">'H'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Diamonds </span><span class="keyword">= </span><span class="string">'D'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Clubs </span><span class="keyword">= </span><span class="string">'C'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Spades </span><span class="keyword">= </span><span class="string">'S'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">forSelect</span><span class="keyword">(): array <br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">array_combine</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">cases</span><span class="keyword">(), </span><span class="string">'value'</span><span class="keyword">),<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">cases</span><span class="keyword">(), </span><span class="string">'name'</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">Suit</span><span class="keyword">::</span><span class="default">forSelect</span><span class="keyword">();<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Put `forSelect()` in a trait and use it in any enum you have that needs this functionality.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126866""></a>
   <div class="note">
    <strong class="user">niloofarfs</strong>
    <a href="#126866" class="date">21-Feb-2022 04:42</a>

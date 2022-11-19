@@ -167,7 +167,7 @@
  <div class="refsect1 examples" id="refsect1-function.mb-convert-encoding-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-2541">
+   <div class="example" id="example-2558">
     <p><strong>Example #1 <span class="function"><strong>mb_convert_encoding()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -195,7 +195,34 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126854""></a>
+<div id="allnotes">  <a name="127529""></a>
+  <div class="note">
+   <strong class="user">Rainer Perske</strong>
+   <a href="#127529" class="date">24-Aug-2022 01:35</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Text-encoding HTML-ENTITIES will be deprecated as of PHP 8.2.<br />
+<br />
+To convert all non-ASCII characters into entities (to produce pure 7-bit HTML output), I was using:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">echo </span><span class="default">mb_convert_encoding</span><span class="keyword">( </span><span class="default">htmlspecialchars</span><span class="keyword">( </span><span class="default">$text</span><span class="keyword">, </span><span class="default">ENT_QUOTES</span><span class="keyword">, </span><span class="string">'UTF-8' </span><span class="keyword">), </span><span class="string">'HTML-ENTITIES'</span><span class="keyword">, </span><span class="string">'UTF-8' </span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+I can get the identical result with:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">echo </span><span class="default">mb_encode_numericentity</span><span class="keyword">( </span><span class="default">htmlentities</span><span class="keyword">( </span><span class="default">$text</span><span class="keyword">, </span><span class="default">ENT_QUOTES</span><span class="keyword">, </span><span class="string">'UTF-8' </span><span class="keyword">), [</span><span class="default">0x80</span><span class="keyword">, </span><span class="default">0x10FFFF</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, ~</span><span class="default">0</span><span class="keyword">], </span><span class="string">'UTF-8' </span><span class="keyword">);<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The output contains well-known named entities for some often used characters and numeric entities for the rest.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126854""></a>
   <div class="note">
    <strong class="user">bmxmale at qwerty dot re</strong>
    <a href="#126854" class="date">15-Feb-2022 10:00</a>

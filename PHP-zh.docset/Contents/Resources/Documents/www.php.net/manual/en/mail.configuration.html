@@ -19,7 +19,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="mail.setup.html">安装／配置</a></li>
+    <li><a href="mail.setup.html">安装/配置</a></li>
     <li>运行时配置</li>
   </ul>
 </div>
@@ -48,14 +48,21 @@
      <td><a href="mail.configuration.html#ini.mail.add-x-header" class="link">mail.add_x_header</a></td>
      <td>&quot;0&quot;</td>
      <td>PHP_INI_PERDIR</td>
-     <td>自 PHP 5.3.0 起生效</td>
+     <td class="empty">&nbsp;</td>
     </tr>
 
     <tr>
      <td><a href="mail.configuration.html#ini.mail.log" class="link">mail.log</a></td>
      <td>NULL</td>
-     <td>PHP_INI_PERDIR</td>
-     <td>自 PHP 5.3.0 起生效</td>
+     <td>PHP_INI_SYSTEM|PHP_INI_PERDIR</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><a href="mail.configuration.html#ini.mail.force_extra_parameters" class="link">mail.force_extra_parameters</a></td>
+     <td>NULL</td>
+     <td>PHP_INI_SYSTEM|PHP_INI_PERDIR</td>
+     <td class="empty">&nbsp;</td>
     </tr>
 
     <tr>
@@ -69,7 +76,7 @@
      <td><a href="mail.configuration.html#ini.smtp-port" class="link">smtp_port</a></td>
      <td>&quot;25&quot;</td>
      <td>PHP_INI_ALL</td>
-     <td>自 PHP 4.3.0 起可用</td>
+     <td class="empty">&nbsp;</td>
     </tr>
 
     <tr>
@@ -107,8 +114,8 @@
    <dd>
 
     <p class="para">
-     Add <code class="literal">X-PHP-Originating-Script</code> that will include UID of
-     the script followed by the filename.
+     添加 <code class="literal">X-PHP-Originating-Script</code>，将会包含脚本的
+     UID 以及文件名。
     </p>
    </dd>
 
@@ -123,9 +130,24 @@
    <dd>
 
     <p class="para">
-     The path to a log file that will log all <span class="function"><a href="function.mail.html" class="function">mail()</a></span> calls.
-     Log entries include the full path of the script, line number,
-     <code class="literal">To</code> address and headers.
+     记录所有调用 <span class="function"><a href="function.mail.html" class="function">mail()</a></span>
+     的日志文件路径。日志条目包含脚本的完整路径、行号、<code class="literal">To</code> 地址和报头。
+    </p>
+   </dd>
+
+  
+
+  
+   <dt id="ini.mail.force_extra_parameters">
+    <code class="parameter">mail.force_extra_parameters</code>
+    <span class="type">string</span>
+   </dt>
+
+   <dd>
+
+    <p class="para">
+     强制添加指定参数作为额外参数传递给 sendmail 二进制文件。这些参数将始终代替
+     <span class="function"><a href="function.mail.html" class="function">mail()</a></span> 第五个参数的值，即使在安全模式下也是如此。
     </p>
    </dd>
 
@@ -156,8 +178,8 @@
    <dd>
 
     <p class="para">
-     仅用于 Windows：<code class="literal">SMTP</code> 服务器的端口号，默认为 25。自
-     PHP 4.3.0 起可用。
+     仅用于 Windows：使用 <span class="function"><a href="function.mail.html" class="function">mail()</a></span> 发送邮件时，连接到使用
+     <code class="literal">SMTP</code> 的指定服务器的端口号，默认为 25。
     </p>
    </dd>
 
@@ -172,8 +194,9 @@
    <dd>
 
     <p class="para">
-     在 Windows 下用 PHP 发送邮件时的"From:"邮件地址的值。该选项同时设置了
-     "Return-Path:"头。
+     通过 STMP 直接用 PHP 发送邮件时的 <code class="literal">&quot;From:&quot;</code>
+     邮件地址的值（仅限 Windows）。该选项同时设置了
+     <code class="literal">&quot;Return-Path:&quot;</code> 头。
     </p>
    </dd>
 

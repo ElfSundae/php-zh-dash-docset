@@ -110,6 +110,12 @@
     </li>
     <li class="listitem">
      <p class="para">
+      <code class="literal">mixed</code> 现在是保留字，所以不能用于类，接口或者
+      trait，也禁止在命名空间中使用。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
       与类名相同的方法名将不再被当做构造方法。应该使用<a href="language.oop5.decon.html#object.construct" class="link">__construct()</a>
       来取代它。
      </p>
@@ -226,7 +232,7 @@
      <p class="para">
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Replace<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;Silenced<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">//&nbsp;With<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;Silenced<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Replace<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">//&nbsp;With<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$err_msg</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linenum</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">$err_no</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
@@ -664,13 +670,12 @@
     </p>
    </li>
    <li class="listitem">
-     <p class="para">
-      <span class="function"><a href="function.shmop-open.html" class="function">shmop_open()</a></span> will now return a <span class="classname"><a href="class.shmop.html" class="classname">Shmop</a></span> object rather than
-      a <a href="language.types.resource.html" class="link">资源(resource)</a>. The <span class="function"><a href="function.shmop-close.html" class="function">shmop_close()</a></span> function no longer has an effect, and is
-      deprecated; instead the <span class="classname"><a href="class.shmop.html" class="classname">Shmop</a></span> instance is automatically destroyed if it is
-      no longer referenced.
-     </p>
-    </li>
+    <p class="para">
+     <span class="function"><a href="function.shmop-open.html" class="function">shmop_open()</a></span> 现在将返回 <span class="classname"><a href="class.shmop.html" class="classname">Shmop</a></span> 对象而不是
+     <a href="language.types.resource.html" class="link">资源(resource)</a>。<span class="function"><a href="function.shmop-close.html" class="function">shmop_close()</a></span> 函数将不再有效，已弃用；如果不在引用 
+     <span class="classname"><a href="class.shmop.html" class="classname">Shmop</a></span> 实例，其将会自动销毁。
+    </p>
+   </li>
    <li class="listitem">
     <p class="para">
      <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span>, <span class="function"><a href="function.socket-create-listen.html" class="function">socket_create_listen()</a></span>,
@@ -770,15 +775,34 @@
   </p>
   <p class="para">
    <ul class="simplelist">
-    <li class="member">DOMNameList</li>
-    <li class="member">DomImplementationList</li>
-    <li class="member">DOMConfiguration</li>
-    <li class="member">DomError</li>
-    <li class="member">DomErrorHandler</li>
-    <li class="member">DOMImplementationSource</li>
-    <li class="member">DOMLocator</li>
-    <li class="member">DOMUserDataHandler</li>
-    <li class="member">DOMTypeInfo</li>
+    <li class="member"><span class="classname"><strong class="classname">DOMNameList</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DomImplementationList</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DOMConfiguration</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DomError</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DomErrorHandler</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DOMImplementationSource</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DOMLocator</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DOMUserDataHandler</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DOMTypeInfo</strong></span></li>
+    <li class="member"><span class="classname"><strong class="classname">DOMStringExtend</strong></span></li>
+   </ul>
+  </p>
+  <p class="para">
+   DOM 扩展中没有实现行为的方法已被删除：
+  </p>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="methodname"><strong>DOMNamedNodeMap::setNamedItem()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNamedNodeMap::removeNamedItem()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNamedNodeMap::setNamedItemNS()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNamedNodeMap::removeNamedItemNS()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMText::replaceWholeText()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNode::compareDocumentPosition()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNode::isEqualNode()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNode::getFeature()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNode::setUserData()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMNode::getUserData()</strong></span></li>
+    <li class="member"><span class="methodname"><strong>DOMDocument::renameNode()</strong></span></li>
    </ul>
   </p>
  </div>
@@ -822,7 +846,7 @@
      The <strong><code>INPUT_REQUEST</code></strong> and <strong><code>INPUT_SESSION</code></strong> source for
      <span class="function"><a href="function.filter-input.html" class="function">filter_input()</a></span> etc. have been removed. These were never implemented and their
      use always generated a warning.
-    </p> 
+    </p>
    </li>
   </ul>
  </div>
@@ -833,14 +857,13 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     The deprecated functions <span class="function"><a href="function.image2wbmp.html" class="function">image2wbmp()</a></span> has been removed.
+     移除弃用函数 <span class="function"><a href="function.image2wbmp.html" class="function">image2wbmp()</a></span>。
      
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     The deprecated functions <span class="function"><a href="function.png2wbmp.html" class="function">png2wbmp()</a></span> and <span class="function"><a href="function.jpeg2wbmp.html" class="function">jpeg2wbmp()</a></span> have
-     been removed.
+     移除弃用函数 <span class="function"><a href="function.png2wbmp.html" class="function">png2wbmp()</a></span> 和 <span class="function"><a href="function.jpeg2wbmp.html" class="function">jpeg2wbmp()</a></span>。
      
     </p>
    </li>
@@ -906,9 +929,9 @@
     </p>
    </li>
    <li class="listitem">
-   <p class="para">
-    The deprecated <strong><code>Normalizer::NONE</code></strong> constant has been removed.
-   </p>
+    <p class="para">
+     移除弃用常量 <strong><code>Normalizer::NONE</code></strong>。
+    </p>
    </li>
   </ul>
  </div>
@@ -918,18 +941,16 @@
 
   <ul class="itemizedlist">
    <li class="listitem">
-   <p class="para">
-    The deprecated functions <span class="function"><a href="function.ldap-sort.html" class="function">ldap_sort()</a></span>,
-    <span class="function"><a href="function.ldap-control-paged-result.html" class="function">ldap_control_paged_result()</a></span> and
-    <span class="function"><a href="function.ldap-control-paged-result-response.html" class="function">ldap_control_paged_result_response()</a></span> have been removed.
-   </p>
-  </li>
-  <li class="listitem">
-   <p class="para">
-    The interface of <span class="function"><a href="function.ldap-set-rebind-proc.html" class="function">ldap_set_rebind_proc()</a></span> has changed; the
-    <code class="parameter">callback</code> parameter does not accept empty strings anymore; <strong><code>null</code></strong> should be
-    used instead.
-   </p>
+    <p class="para">
+     移除弃用函数 <span class="function"><a href="function.ldap-sort.html" class="function">ldap_sort()</a></span>、<span class="function"><a href="function.ldap-control-paged-result.html" class="function">ldap_control_paged_result()</a></span>
+     和 <span class="function"><a href="function.ldap-control-paged-result-response.html" class="function">ldap_control_paged_result_response()</a></span>。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <span class="function"><a href="function.ldap-set-rebind-proc.html" class="function">ldap_set_rebind_proc()</a></span> 的接口已修改；<code class="parameter">callback</code>
+     不再接受空字符串；应该使用 <strong><code>null</code></strong> 代替。
+    </p>
    </li>
   </ul>
  </div>
@@ -1274,8 +1295,8 @@
    </li>
    <li class="listitem">
     <p class="para">
-     <span class="methodname"><a href="splfileobject.seek.html" class="methodname">SplFileObject::seek()</a></span> now always seeks to the beginning of the line.
-     Previously, positions <code class="literal">=1</code> sought to the beginning of the next line.
+     <span class="methodname"><a href="splfileobject.seek.html" class="methodname">SplFileObject::seek()</a></span> 总是寻找到一行的开头。之前，位置 <code class="literal">&gt;=1</code>
+     会搜索到下一行的开头。
     </p>
    </li>
    <li class="listitem">
@@ -1535,8 +1556,8 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     The <code class="parameter">auto_release</code> parameter of <span class="function"><a href="function.sem-get.html" class="function">sem_get()</a></span> was changed to
-     accept bool values rather than int.
+     <span class="function"><a href="function.sem-get.html" class="function">sem_get()</a></span> 的 <code class="parameter">auto_release</code> 参数已从接受 int
+     更改为接受 bool。
     </p>
    </li>
   </ul>
@@ -1548,14 +1569,13 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     The <code class="parameter">use_include_path</code> parameter, which was not used internally, has been
-     removed from <span class="function"><a href="tidy.repairstring.html" class="function">tidy_repair_string()</a></span>.
+     从 <span class="function"><a href="tidy.repairstring.html" class="function">tidy_repair_string()</a></span> 中删除内部未使用的 
+     <code class="parameter">use_include_path</code> 参数。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <span class="methodname"><a href="tidy.repairstring.html" class="methodname">tidy::repairString()</a></span> and <span class="methodname"><a href="tidy.repairfile.html" class="methodname">tidy::repairFile()</a></span> became
-     static methods.
+     <span class="methodname"><a href="tidy.repairstring.html" class="methodname">tidy::repairString()</a></span> 和 <span class="methodname"><a href="tidy.repairfile.html" class="methodname">tidy::repairFile()</a></span> 成为静态方法。
     </p>
    </li>
   </ul>
@@ -1567,17 +1587,15 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     <code class="literal">T_COMMENT</code> tokens will no longer include a trailing newline. The newline will
-     instead be part of a following <code class="literal">T_WHITESPACE</code> token. It should be noted that
-     <code class="literal">T_COMMENT</code> is not always followed by whitespace, it may also be followed by
-     <code class="literal">T_CLOSE_TAG</code> or end-of-file.
+     <code class="literal">T_COMMENT</code> 记号将不再包含尾随的换行符。换行符将成为以下 <code class="literal">T_WHITESPACE</code>
+     记号的一部分。需要注意的是，<code class="literal">T_COMMENT</code> 后面并不总是跟空格，也可能跟着
+     <code class="literal">T_CLOSE_TAG</code> 或者文件结尾。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     Namespaced names are now represented using the <code class="literal">T_NAME_QUALIFIED</code>
-     (<code class="code">Foo\Bar</code>), <code class="literal">T_NAME_FULLY_QUALIFIED</code> (<code class="code">\Foo\Bar</code>) and
-     <code class="literal">T_NAME_RELATIVE</code> (<code class="code">namespace\Foo\Bar</code>) tokens.
+     命名空间名称现在使用 <code class="literal">T_NAME_QUALIFIED</code>（<code class="code">Foo\Bar</code>）、<code class="literal">T_NAME_FULLY_QUALIFIED</code>（<code class="code">\Foo\Bar</code>）
+     和 <code class="literal">T_NAME_RELATIVE</code>（<code class="code">namespace\Foo\Bar</code>）记号表示。
      <code class="literal">T_NS_SEPARATOR</code> is only used for standalone namespace separators, and only
      syntactially valid in conjunction with group use declarations.
      
@@ -1590,9 +1608,8 @@
   <h3 class="title">XMLReader</h3>
 
   <p class="para">
-   <span class="methodname"><a href="xmlreader.open.html" class="methodname">XMLReader::open()</a></span> and <span class="methodname"><a href="xmlreader.xml.html" class="methodname">XMLReader::xml()</a></span> are now
-   static methods. They can still be called as instance methods, but inheriting classes need to declare them
-   as static if they override these methods.
+   <span class="methodname"><a href="xmlreader.open.html" class="methodname">XMLReader::open()</a></span> 和 <span class="methodname"><a href="xmlreader.xml.html" class="methodname">XMLReader::xml()</a></span>
+   现在是静态方法。也可以作为实例方法调用，但如果继承类需要覆盖这些方法，要声明为 static。
   </p>
  </div>
 
@@ -1600,8 +1617,7 @@
   <h3 class="title">XML-RPC</h3>
 
   <p class="para">
-   The XML-RPC extension has been moved to PECL and is no longer part of the PHP
-   distribution.
+   XML-RPC 扩展已移动到 PECL，不再是 PHP 发行版的一部分。
   </p>
  </div>
 
@@ -1609,8 +1625,8 @@
   <h3 class="title">Zip</h3>
 
   <p class="para">
-   <strong><code>ZipArchive::OPSYS_Z_CPM</code></strong> has been removed (this name was a typo). Use
-   <strong><code>ZipArchive::OPSYS_CPM</code></strong> instead.
+   <strong><code>ZipArchive::OPSYS_Z_CPM</code></strong> 已移除（名字错误）。使用
+   <strong><code>ZipArchive::OPSYS_CPM</code></strong> 代替。
   </p>
  </div>
 
@@ -1620,24 +1636,24 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     <span class="function"><a href="function.gzgetss.html" class="function">gzgetss()</a></span> has been removed.
+     <span class="function"><a href="function.gzgetss.html" class="function">gzgetss()</a></span> 已移除。
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <a href="zlib.configuration.html#ini.zlib.output-compression" class="link">zlib.output_compression</a> is no longer
-     automatically disabled for <code class="literal">Content-Type: image/*</code>.
+     <a href="zlib.configuration.html#ini.zlib.output-compression" class="link">zlib.output_compression</a> 不再对
+     <code class="literal">Content-Type: image/*</code> 自动禁用。
     </p>
    </li>
   </ul>
  </div>
 
  <div class="sect2" id="migration80.incompatible.php-test-packs">
-  <h3 class="title">Windows PHP Test Packs</h3>
+  <h3 class="title">Windows PHP 测试包</h3>
 
   <p class="para">
-   The test runner has been renamed from <var class="filename">run-test.php</var> to
-   <var class="filename">run-tests.php</var>, to match its name in php-src.
+   测试运行器从 <var class="filename">run-test.php</var> 重命名为 <var class="filename">run-tests.php</var>，以匹配其在
+   php-src 中的名字。
   </p>
  </div>
 </div><div id="usernotes">

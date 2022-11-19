@@ -541,7 +541,175 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121682""></a>
+<div id="allnotes">  <a name="127495""></a>
+  <div class="note">
+   <strong class="user">phpnet at N_O_S_P_A_M dot osps dot net</strong>
+   <a href="#127495" class="date">16-Aug-2022 11:22</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I found the predefined "supported" scripts helpful, except that there's no apparent definition of what Unicode character ranges are covered by those definitions. So I wrote this to determine them and print out the equivalent PCRE character class definitions. An example fragment of output is (I can't include all output due to PHP.net Note-posting limits)<br />
+<br />
+Canadian_Aboriginal=[\x{1400}-\x{167f}\x{18b0}-\x{18f5}]<br />
+<br />
+The program:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$scriptNames </span><span class="keyword">= array(<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Arabic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Armenian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Avestan'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Balinese'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Bamum'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Batak'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Bengali'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Bopomofo'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Brahmi'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Braille'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Buginese'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Buhid'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Canadian_Aboriginal'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Carian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Chakma'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Cham'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Cherokee'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Common'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Coptic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Cuneiform'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Cypriot'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Cyrillic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Deseret'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Devanagari'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Egyptian_Hieroglyphs'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Ethiopic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Georgian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Glagolitic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Gothic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Greek'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Gujarati'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Gurmukhi'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Han'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Hangul'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Hanunoo'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Hebrew'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Hiragana'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Imperial_Aramaic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Inherited'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Inscriptional_Pahlavi'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Inscriptional_Parthian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Javanese'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Kaithi'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Kannada'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Katakana'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Kayah_Li'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Kharoshthi'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Khmer'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Lao'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Latin'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Lepcha'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Limbu'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Linear_B'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Lisu'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Lycian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Lydian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Malayalam'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Mandaic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Meetei_Mayek'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Meroitic_Cursive'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Meroitic_Hieroglyphs'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Miao'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Mongolian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Myanmar'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'New_Tai_Lue'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Nko'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Ogham'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Old_Italic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Old_Persian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Old_South_Arabian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Old_Turkic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Ol_Chiki'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Oriya'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Osmanya'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Phags_Pa'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Phoenician'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Rejang'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Runic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Samaritan'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Saurashtra'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Sharada'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Shavian'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Sinhala'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Sora_Sompeng'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Sundanese'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Syloti_Nagri'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Syriac'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tagalog'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tagbanwa'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tai_Le'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tai_Tham'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tai_Viet'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Takri'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tamil'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Telugu'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Thaana'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Thai'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tibetan'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Tifinagh'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Ugaritic'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Vai'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; </span><span class="string">'Yi'<br />
+</span><span class="keyword">);<br />
+</span><span class="default">$scriptTypes </span><span class="keyword">= array();<br />
+foreach( </span><span class="default">$scriptNames </span><span class="keyword">as </span><span class="default">$n </span><span class="keyword">) </span><span class="default">$scriptTypes</span><span class="keyword">[ </span><span class="default">$n </span><span class="keyword">] = array();<br />
+for( </span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;= </span><span class="default">0x10fff</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++ ) {<br />
+</span><span class="comment">//echo $i.PHP_EOL;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">foreach( </span><span class="default">$scriptNames </span><span class="keyword">as </span><span class="default">$scriptName </span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">preg_match</span><span class="keyword">( </span><span class="string">'/[\p{'</span><span class="keyword">. </span><span class="default">$scriptName </span><span class="keyword">.</span><span class="string">'}]/u'</span><span class="keyword">, </span><span class="default">mb_chr</span><span class="keyword">( </span><span class="default">$i</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">) ) ) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (empty( </span><span class="default">$scriptTypes</span><span class="keyword">[ </span><span class="default">$scriptName </span><span class="keyword">])<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; || ( (</span><span class="default">$i </span><span class="keyword">- </span><span class="default">$scriptTypes</span><span class="keyword">[ </span><span class="default">$scriptName </span><span class="keyword">][ </span><span class="default">count</span><span class="keyword">( </span><span class="default">$scriptTypes</span><span class="keyword">[ </span><span class="default">$scriptName </span><span class="keyword">] ) - </span><span class="default">1 </span><span class="keyword">][</span><span class="default">1</span><span class="keyword">]) &gt; </span><span class="default">1</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$scriptTypes</span><span class="keyword">[ </span><span class="default">$scriptName </span><span class="keyword">][] = [</span><span class="default">$i</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">];<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$scriptTypes</span><span class="keyword">[ </span><span class="default">$scriptName </span><span class="keyword">][ </span><span class="default">count</span><span class="keyword">( </span><span class="default">$scriptTypes</span><span class="keyword">[ </span><span class="default">$scriptName </span><span class="keyword">] ) - </span><span class="default">1 </span><span class="keyword">][</span><span class="default">1</span><span class="keyword">] = </span><span class="default">$i</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+foreach( </span><span class="default">$scriptTypes </span><span class="keyword">as </span><span class="default">$scriptName </span><span class="keyword">=&gt; </span><span class="default">$unicodeRanges </span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">printf</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'%s=['</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$scriptName<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; foreach( </span><span class="default">$unicodeRanges </span><span class="keyword">as </span><span class="default">$r </span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">printf</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'\x{%04x}'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$r</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$r</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] &gt; </span><span class="default">$r</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] )<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">printf</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'-\x{%04x}'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$r</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">printf</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">']'</span><span class="keyword">.</span><span class="default">PHP_EOL<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">);<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121682""></a>
   <div class="note">
    <strong class="user">php at lnx-bsp dot net</strong>
    <a href="#121682" class="date">25-Sep-2017 05:53</a>

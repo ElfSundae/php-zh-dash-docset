@@ -155,6 +155,13 @@
         <td class="empty">&nbsp;</td>
        </tr>
 
+       <tr>
+        <td><a href="ini.core.html#ini.zend.exception-string-param-max-len" class="link">zend.exception_string_param_max_len</a></td>
+        <td>&quot;15&quot;</td>
+        <td>PHP_INI_ALL</td>
+        <td>自 PHP 8.0.0 起可用。</td>
+       </tr>
+
       </tbody>
      
     </table>
@@ -324,6 +331,22 @@
       </dd>
 
      
+
+     
+      <dt id="ini.zend.exception-string-param-max-len">
+       <code class="parameter">zend.exception_string_param_max_len</code>
+       <span class="type">int</span>
+      </dt>
+
+      <dd>
+
+       <span class="simpara">
+        The maximum length of string function arguments in stringified stack traces.
+        Must range between <code class="literal">&quot;0&quot;</code> and <code class="literal">&quot;1000000&quot;</code>.
+       </span>
+      </dd>
+
+     
      
      
       <dt id="ini.hard-timeout">
@@ -334,6 +357,19 @@
       <dd>
 
        <p class="para">
+        When the timeout set in <a href="info.configuration.html#ini.max-execution-time" class="link">max_execution_time</a>
+        has been hit, the PHP runtime will tear down resources gracefully. If
+        something gets stuck while this happens, the hard timeout will tick
+        for the set amount of seconds. When the hard timeout is hit, PHP will
+        exit ungracefully. When set to 0, the hard timeout will never activate.
+       </p>
+       <p class="para">
+        When PHP stops from a hard timeout, it will look something like this:
+        <div class="example-contents screen">
+<div class="cdata"><pre>
+Fatal error: Maximum execution time of 30+2 seconds exceeded (terminated) in Unknown on line 0
+</pre></div>
+        </div>
        </p>
       </dd>
 
@@ -384,15 +420,12 @@
       <dd>
 
        <p class="para">
-        This value will be used unless a
-        <a href="control-structures.declare.html#control-structures.declare.encoding" class="link">declare(encoding=...)</a>
-        directive appears at the top of the script. When ISO-8859-1 incompatible encoding
-        is used, both zend.multibyte and zend.script_encoding must be used.
+        除非在脚本顶部出现 <a href="control-structures.declare.html#control-structures.declare.encoding" class="link">declare(encoding=...)</a>
+        指令，否则将会使用此值。当使用不兼容 ISO-8859-1 的编码时，必须同时使用 zend.multibyte 和 zend.script_encoding。
        </p>
        <p class="para">
-        Literal strings will be transliterated from zend.script_enconding to
-        mbstring.internal_encoding, as if
-        <span class="function"><a href="function.mb-convert-encoding.html" class="function">mb_convert_encoding()</a></span> would have been called.
+        文字字符串将从 zend.script_encoding 直译为 mbstring.internal_encoding，就像调用了
+        <span class="function"><a href="function.mb-convert-encoding.html" class="function">mb_convert_encoding()</a></span> 一样。
        </p>
       </dd>
 
@@ -500,8 +533,8 @@
         <code class="literal">-1</code>。
        </p>
        
-       <span class="simpara">当使用  <span class="type">int</span>
-时, 其值以字节来衡量。还可以使用在<a href="faq.using.html#faq.using.shorthandbytes" class="link">FAQ</a>中描述的速记符。</span>
+       <span class="simpara">当使用 <span class="type">int</span>
+时, 其值以字节来衡量。还可以使用在 <a href="faq.using.html#faq.using.shorthandbytes" class="link">FAQ</a> 中描述的速记符。</span>
        
       </dd>
 
@@ -673,7 +706,7 @@
         <td><a href="ini.core.html#ini.enable-post-data-reading" class="link">enable_post_data_reading</a></td>
         <td>&quot;1&quot;</td>
         <td>PHP_INI_PERDIR</td>
-        <td>从 PHP 5.4.0 起可用。</td>
+        <td class="empty">&nbsp;</td>
        </tr>
 
        <tr>
@@ -926,8 +959,8 @@
         larger than <code class="parameter">post_max_size</code>.
        </span>
        
-       <span class="simpara">当使用  <span class="type">int</span>
-时, 其值以字节来衡量。还可以使用在<a href="faq.using.html#faq.using.shorthandbytes" class="link">FAQ</a>中描述的速记符。</span>
+       <span class="simpara">当使用 <span class="type">int</span>
+时, 其值以字节来衡量。还可以使用在 <a href="faq.using.html#faq.using.shorthandbytes" class="link">FAQ</a> 中描述的速记符。</span>
        
        <span class="simpara">
         If the size of post data is greater than post_max_size, the
@@ -1146,12 +1179,6 @@
     </dl>
 
    </p>
-   <p class="para">
-    See also: <a href="info.configuration.html#ini.magic-quotes-gpc" class="link">magic_quotes_gpc</a>,
-    <a href="info.configuration.html#ini.magic-quotes-runtime" class="link">magic_quotes_runtime</a>,
-    and
-    magic_quotes_sybase.
-   </p>
   </div>
   
   <div class="section" id="ini.sect.path-directory">
@@ -1335,7 +1362,7 @@
         <span class="function"><a href="function.set-include-path.html" class="function">set_include_path()</a></span>.
        </p>
        <p class="para">
-        <div class="example" id="example-5411">
+        <div class="example" id="example-5496">
          <p><strong>Example #1 Unix include_path</strong></p>
          <div class="example-contents">
 <div class="php.inicode"><pre class="php.inicode">include_path=&quot;.:/php/includes&quot;</pre>
@@ -1345,7 +1372,7 @@
         </div>
        </p>
        <p class="para">
-        <div class="example" id="example-5412">
+        <div class="example" id="example-5497">
          <p><strong>Example #2 Windows include_path</strong></p>
          <div class="example-contents">
 <div class="php.inicode"><pre class="php.inicode">include_path=&quot;.;c:\php\includes&quot;</pre>
@@ -1373,7 +1400,7 @@
         </p>       
        </p></blockquote>
        <p class="para">
-        <div class="example" id="example-5413">
+        <div class="example" id="example-5498">
          <p><strong>Example #3 Unix include_path using ${USER} env variable</strong></p>
          <div class="example-contents">
 <div class="php.inicode"><pre class="php.inicode">include_path = &quot;.:${USER}/pear/php&quot;</pre>
@@ -1458,6 +1485,11 @@
          to <code class="literal">0</code> and thus <em class="emphasis">disable</em> the realpath cache.
         </p>
        </p></blockquote>
+       <div class="caution"><strong class="caution">Caution</strong>
+        <p class="para">
+         <code class="literal">open_basedir</code> 只是额外的安全保障，并不全面，因此在需要安全性时并不能依赖。
+        </p>
+       </div>
       </dd>
 
      
@@ -1537,9 +1569,8 @@
       <dd>
 
        <p class="para">
-        In what directory PHP should look for dynamically loadable
-        extensions. See also: <a href="info.configuration.html#ini.enable-dl" class="link">enable_dl</a>,
-        and <span class="function"><a href="function.dl.html" class="function">dl()</a></span>.
+        PHP 寻找可动态加载扩展的目录。建议指定绝对路径。参阅 <a href="info.configuration.html#ini.enable-dl" class="link">enable_dl</a>
+        和 <span class="function"><a href="function.dl.html" class="function">dl()</a></span>。
        </p>
       </dd>
 
@@ -1825,7 +1856,7 @@
        <tr>
         <td><a href="ini.core.html#ini.max-file-uploads" class="link">max_file_uploads</a></td>
         <td>20</td>
-        <td>PHP_INI_SYSTEM</td>
+        <td>PHP_INI_PERDIR</td>
         <td class="empty">&nbsp;</td>
        </tr>
 
@@ -1891,11 +1922,14 @@
       <dd>
 
        <p class="para">
-        The maximum size of an uploaded file.
+        上传文件的最大大小。
+       </p>
+       <p class="para">
+        <a href="ini.core.html#ini.post-max-size" class="link">post_max_size</a> 必须大于此值。
        </p>
        
-       <span class="simpara">当使用  <span class="type">int</span>
-时, 其值以字节来衡量。还可以使用在<a href="faq.using.html#faq.using.shorthandbytes" class="link">FAQ</a>中描述的速记符。</span>
+       <span class="simpara">当使用 <span class="type">int</span>
+时, 其值以字节来衡量。还可以使用在 <a href="faq.using.html#faq.using.shorthandbytes" class="link">FAQ</a> 中描述的速记符。</span>
        
       </dd>
 
@@ -1910,9 +1944,7 @@
       <dd>
 
        <p class="para">
-        The maximum number of files allowed to be uploaded simultaneously.
-        Starting with PHP 5.3.4, upload fields left blank on submission do not
-        count towards this limit.
+        允许同时上传的最大文件数。提交时留空的上传字段不计入此限制。
        </p>
       </dd>
 
@@ -2040,7 +2072,33 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125951""></a>
+<div id="allnotes">  <a name="127628""></a>
+  <div class="note">
+   <strong class="user">bohwaz</strong>
+   <a href="#127628" class="date">14-Sep-2022 09:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Please be advised that setting a large post_max_size or upload_max_filesize for a complete server or a complete virtual host is not a good idea as it may lead to increased security risks.<br />
+<br />
+The risk is that an attacker may send very large POST requests and overloading your server memory and CPU as it has to parse and process those requests before handling them to your PHP script.<br />
+<br />
+So it's best to limit changing this setting to some files or directories. For example if I want to /admin/files/ and /admin/images/ I can use:<br />
+<br />
+&lt;If "%{REQUEST_URI} =~ m!^/admin/(files|images)/! &amp;&amp; -n %{HTTP_COOKIE}"&gt;<br />
+&nbsp;&nbsp;&nbsp; php_value post_max_size 256M<br />
+&nbsp;&nbsp;&nbsp; php_value upload_max_filesize 256M<br />
+&lt;/If&gt;<br />
+<br />
+I also require the request to have a cookie to avoid basic attacks. This will not protect you against attacks coming from non-authenticated users, but may delay any attack.<br />
+<br />
+This setting can be used in Apache server configuration files, and .htaccess files as well.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125951""></a>
   <div class="note">
    <strong class="user">andre dot wetter at myelco dot ch</strong>
    <a href="#125951" class="date">23-Mar-2021 09:55</a>

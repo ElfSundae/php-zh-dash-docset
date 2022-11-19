@@ -32,11 +32,11 @@
  </div>
  <div class="refsect1 description" id="refsect1-function.get-class-description">
   <h3 class="title">说明</h3>
-<div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>get_class</strong></span>(<span class="methodparam"><span class="type">object</span> <code class="parameter">$object</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">string</span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>get_class</strong></span>(<span class="methodparam"><span class="type">object</span> <code class="parameter">$object</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   返回对象实例 <code class="parameter">object</code> 所属类的名字。
+   返回指定 <code class="parameter">object</code> 的类名。
   </p>
  </div>
 
@@ -53,6 +53,13 @@
       <p class="para">
        要测试的对象。如果在类里，此参数可以省略。
       </p>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        自 PHP 7.2.0 起，<code class="parameter">object</code> 不再允许显式传递 <strong><code>null</code></strong>
+        并抛出 <strong><code>E_WARNING</code></strong>。自 PHP 8.0.0 起，传递 <strong><code>null</code></strong>
+        会抛出 <span class="classname"><a href="class.typeerror.html" class="classname">TypeError</a></span>。
+       </span>
+      </p></blockquote>
      </dd>
 
     
@@ -64,12 +71,11 @@
  <div class="refsect1 returnvalues" id="refsect1-function.get-class-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回对象实例 <code class="parameter">object</code>
-   所属类的名字。
-   如果 <code class="parameter">object</code> 不是一个对象则返回 <strong><code>false</code></strong>。
+   返回 <code class="parameter">object</code>
+   实例的类名。
   </p>
   <p class="para">
-   如果在一个类里，省略了参数 <code class="parameter">object</code>，
+   如果在类中省略 <code class="parameter">object</code>，
    则返回当前所在类的名称。
   </p>
   <p class="para">
@@ -80,7 +86,14 @@
  <div class="refsect1 errors" id="refsect1-function.get-class-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
-   如果用其他类型调用 <span class="function"><strong>get_class()</strong></span>，而不是一个对象的话，就会产生 <strong><code>E_WARNING</code></strong> 级别的错误。
+   如果用除对象外的其它类型调用 <span class="function"><strong>get_class()</strong></span>，则会引发
+   <span class="classname"><a href="class.typeerror.html" class="classname">TypeError</a></span>。在 PHP 8.0.0 之前，会引发
+   <strong><code>E_WARNING</code></strong> 级别的错误。
+  </p>
+  <p class="para">
+   如果在类外不带任何参数调用 <span class="function"><strong>get_class()</strong></span>，会引发
+   <span class="classname"><a href="class.error.html" class="classname">Error</a></span>。在 PHP 8.0.0 之前，会引发
+   <strong><code>E_WARNING</code></strong> 级别的错误。
   </p>
  </div>
 
@@ -99,9 +112,19 @@
 
      <tbody class="tbody">
       <tr>
-       <td>5.3.0 起</td>
+       <td>8.0.0</td>
        <td>
-        <code class="parameter">object</code> 默认参数现在是 <strong><code>null</code></strong> ，所以，现在传入 <strong><code>null</code></strong> 到 <code class="parameter">object</code> 参数时，和没传参数的结果一样。
+        在类外不带任何参数调用此函数将会触发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span>。之前会引发
+        <strong><code>E_WARNING</code></strong> 并且函数会返回 <strong><code>false</code></strong>。
+       </td>
+      </tr>
+
+      <tr>
+       <td>7.2.0</td>
+       <td>
+        在此版本之前，<code class="parameter">object</code> 的默认值是 
+        <strong><code>null</code></strong>，它与不传递任何值有相同的效果。<code class="parameter">object</code>
+        已经移除了默认值 <strong><code>null</code></strong> 且不再是有效的输入。
        </td>
       </tr>
 
@@ -115,11 +138,11 @@
  <div class="refsect1 examples" id="refsect1-function.get-class-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4939">
+   <div class="example" id="example-5015">
     <p><strong>Example #1 使用 <span class="function"><strong>get_class()</strong></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">name</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"My&nbsp;name&nbsp;is&nbsp;"&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;create&nbsp;an&nbsp;object<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;external&nbsp;call<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Its&nbsp;name&nbsp;is&nbsp;"&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;internal&nbsp;call<br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">name</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"My&nbsp;name&nbsp;is&nbsp;"&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;创建对象<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;类外调用<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Its&nbsp;name&nbsp;is&nbsp;"&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;类内调用<br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -132,8 +155,8 @@ My name is foo
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-4940">
-    <p><strong>Example #2 超类中使用 <span class="function"><strong>get_class()</strong></span></strong></p>
+   <div class="example" id="example-5016">
+    <p><strong>Example #2 父类中使用 <span class="function"><strong>get_class()</strong></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">abstract&nbsp;class&nbsp;</span><span style="color: #0000BB">bar&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">bar&nbsp;</span><span style="color: #007700">{<br />}<br /><br />new&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
@@ -149,8 +172,8 @@ string(3) &quot;bar&quot;
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-4941">
-    <p><strong>Example #3 命名空间中的类使用 <span class="function"><strong>get_class()</strong></span></strong></p>
+   <div class="example" id="example-5017">
+    <p><strong>Example #3 命名空间中的类中使用 <span class="function"><strong>get_class()</strong></span></strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">;<br /><br />class&nbsp;</span><span style="color: #0000BB">Baz&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$baz&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;\</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">Baz</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$baz</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -175,7 +198,8 @@ string(11) &quot;Foo\Bar\Baz&quot;
     <li class="member"><span class="function"><a href="function.get-called-class.html" class="function" rel="rdfs-seeAlso">get_called_class()</a> - 后期静态绑定（&quot;Late Static Binding&quot;）类的名称</span></li>
     <li class="member"><span class="function"><a href="function.get-parent-class.html" class="function" rel="rdfs-seeAlso">get_parent_class()</a> - 检索对象或者类的父级类名</span></li>
     <li class="member"><span class="function"><a href="function.gettype.html" class="function" rel="rdfs-seeAlso">gettype()</a> - 获取变量的类型</span></li>
-    <li class="member"><span class="function"><a href="function.is-subclass-of.html" class="function" rel="rdfs-seeAlso">is_subclass_of()</a> - 如果此对象是该类的子类，则返回 true</span></li>
+    <li class="member"><span class="function"><a href="function.get-debug-type.html" class="function" rel="rdfs-seeAlso">get_debug_type()</a> - Gets the type name of a variable in a way that is suitable for debugging</span></li>
+    <li class="member"><span class="function"><a href="function.is-subclass-of.html" class="function" rel="rdfs-seeAlso">is_subclass_of()</a> - 检查对象是否继承或者实现（implement）此类</span></li>
    </ul>
   </p>
  </div>
