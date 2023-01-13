@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Send data in blocks</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli-stmt.html">MySQLi_STMT</a></li>
+    <li><a href="class.mysqli-stmt.html">mysqli_stmt</a></li>
     <li>Send data in blocks</li>
   </ul>
 </div>
@@ -102,11 +103,11 @@
 
  <div class="refsect1 examples" id="refsect1-mysqli-stmt.send-long-data-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1508">
+  <div class="example" id="example-3018">
    <p><strong>Example #1 面向对象风格</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;messages&nbsp;(message)&nbsp;VALUES&nbsp;(?)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$null&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_param</span><span style="color: #007700">(</span><span style="color: #DD0000">"b"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$null</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"messages.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br />while&nbsp;(!</span><span style="color: #0000BB">feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">send_long_data</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">8192</span><span style="color: #007700">));<br />}<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT INTO messages (message) VALUES (?)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$null </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_param</span><span style="color: #007700">(</span><span style="color: #DD0000">"b"</span><span style="color: #007700">, </span><span style="color: #0000BB">$null</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"messages.txt"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br />while (!</span><span style="color: #0000BB">feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">send_long_data</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">8192</span><span style="color: #007700">));<br />}<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
   </div>
@@ -119,7 +120,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="mysqli.prepare.html" class="function" rel="rdfs-seeAlso">mysqli_prepare()</a> - 准备执行一个 SQL 语句</span></li>
+    <li class="member"><span class="function"><a href="mysqli.prepare.html" class="function" rel="rdfs-seeAlso">mysqli_prepare()</a> - 预处理执行 SQL</span></li>
     <li class="member"><span class="function"><a href="mysqli-stmt.bind-param.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_param()</a> - Binds variables to a prepared statement as parameters</span></li>
    </ul>
   </p>

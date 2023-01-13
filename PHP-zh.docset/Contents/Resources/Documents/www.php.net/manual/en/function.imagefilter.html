@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>对图像使用过滤器</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,121 +34,11 @@
  <div class="refsect1 description" id="refsect1-function.imagefilter-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagefilter</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$src_im</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$filtertype</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$arg1</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$arg2</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$arg3</code><span class="initializer"> = ?</span></span><br>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>imagefilter</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$filter</code></span>, <span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">int</span>|<span class="type">float</span>|<span class="type">bool</span></span> <code class="parameter">...$args</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>imagefilter()</strong></span> 把过滤器
-   <code class="parameter">filtertype</code> 应用到图像上，在需要时使用
-   <code class="parameter">arg1</code>，<code class="parameter">arg2</code> 和
-   <code class="parameter">arg3</code>。
-  </p>
-  <p class="para">
-   <code class="parameter">filtertype</code> 可以是下列中的一个：
-   <ul class="itemizedlist">
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_NEGATE</code>：将图像中所有颜色反转。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_GRAYSCALE</code>：将图像转换为灰度的。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_BRIGHTNESS</code>：改变图像的亮度。用
-      <code class="parameter">arg1</code> 设定亮度级别。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_CONTRAST</code>：改变图像的对比度。用
-      <code class="parameter">arg1</code> 设定对比度级别。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_COLORIZE</code>：与
-      <code class="parameter">IMG_FILTER_GRAYSCALE</code> 类似，不过可以指定颜色。用
-      <code class="parameter">arg1</code>，<code class="parameter">arg2</code> 和
-      <code class="parameter">arg3</code> 分别指定
-      <code class="parameter">red</code>，<code class="parameter">blue</code> 和
-      <code class="parameter">green</code>。每种颜色范围是 0 到 255。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_EDGEDETECT</code>：用边缘检测来突出图像的边缘。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_EMBOSS</code>：使图像浮雕化。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_GAUSSIAN_BLUR</code>：用高斯算法模糊图像。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_SELECTIVE_BLUR</code>：模糊图像。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_MEAN_REMOVAL</code>：用平均移除法来达到轮廓效果。
-     </span>
-    </li>
-    <li class="listitem">
-     <span class="simpara">
-      <code class="parameter">IMG_FILTER_SMOOTH</code>：使图像更柔滑。用
-      <code class="parameter">arg1</code> 设定柔滑级别。
-     </span>
-    </li>
-   </ul>
-  </p>
-  
-  <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
-  </p>
-  <p class="para">
-   <div class="example" id="example-2666">
-    <p><strong>Example #1 <span class="function"><strong>imagefilter()</strong></span> 灰度例子</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'dave.png'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_GRAYSCALE</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;converted&nbsp;to&nbsp;grayscale.'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'dave.png'</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Conversion&nbsp;to&nbsp;grayscale&nbsp;failed.'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
-  <p class="para">
-   <div class="example" id="example-2667">
-    <p><strong>Example #2 <span class="function"><strong>imagefilter()</strong></span> 亮度例子</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'sean.png'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_BRIGHTNESS</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;brightness&nbsp;changed.'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'sean.png'</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;brightness&nbsp;change&nbsp;failed.'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
-  <p class="para">
-   <div class="example" id="example-2668">
-    <p><strong>Example #3 <span class="function"><strong>imagefilter()</strong></span> 上彩例子</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'philip.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;R,&nbsp;G,&nbsp;B,&nbsp;so&nbsp;0,&nbsp;255,&nbsp;0&nbsp;is&nbsp;green&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_COLORIZE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;successfully&nbsp;shaded&nbsp;green.'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'philip.png'</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Green&nbsp;shading&nbsp;failed.'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
+   <span class="function"><strong>imagefilter()</strong></span> 在 <code class="parameter">image</code>
+   上应用指定的过滤器 <code class="parameter">filter</code>。
   </p>
  </div>
 
@@ -164,89 +55,88 @@
 
     
      <dt>
-<code class="parameter">filtertype</code></dt>
+<code class="parameter">filter</code></dt>
 
      <dd>
 
       <p class="para">
-       <code class="parameter">filtertype</code> can be one of the following:
+       <code class="parameter">filter</code> 可以是下列中的一个：
        <ul class="itemizedlist">
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_NEGATE</code></strong>: Reverses all colors of
-          the image.
+          <strong><code>IMG_FILTER_NEGATE</code></strong>：将图像中所有颜色反转。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
           <strong><code>IMG_FILTER_GRAYSCALE</code></strong>: Converts the image into
-          grayscale.
+          grayscale by changing the red, green and blue components to their
+          weighted sum using the same coefficients as the REC.601 luma (Y&#039;)
+          calculation. The alpha components are retained. For palette images the
+          result may differ due to palette limitations.
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_BRIGHTNESS</code></strong>: Changes the brightness
-          of the image. Use <code class="parameter">arg1</code> to set the level of
-          brightness.
+          <strong><code>IMG_FILTER_BRIGHTNESS</code></strong>：更改图像的亮度。使用 <code class="parameter">args</code>
+          设置亮度级别。亮度的范围是 -255 到 255。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_CONTRAST</code></strong>: Changes the contrast of
-          the image. Use <code class="parameter">arg1</code> to set the level of
-          contrast.
+          <strong><code>IMG_FILTER_CONTRAST</code></strong>：更改图像的对比度。使用 <code class="parameter">args</code>
+          设置对比度级别。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_COLORIZE</code></strong>: Like
-          <strong><code>IMG_FILTER_GRAYSCALE</code></strong>, except you can specify the
-          color. Use <code class="parameter">arg1</code>, <code class="parameter">arg2</code> and
-          <code class="parameter">arg3</code> in the form of
-          <code class="parameter">red</code>, <code class="parameter">blue</code>,
-          <code class="parameter">green</code> and <code class="parameter">arg4</code> for the
-          <code class="parameter">alpha</code> channel. The range for each color is 0 to 255.
+          <strong><code>IMG_FILTER_COLORIZE</code></strong>：与 <strong><code>IMG_FILTER_GRAYSCALE</code></strong>
+          类似，区别是可以指定颜色。使用 <code class="parameter">args</code>、<code class="parameter">arg2</code> 和
+          <code class="parameter">arg3</code> 以 <code class="parameter">red</code>、<code class="parameter">green</code>、<code class="parameter">blue</code>
+          的形式和 <code class="parameter">arg4</code> 用于 <code class="parameter">alpha</code> 通道。每种颜色的范围是 0 到 255。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_EDGEDETECT</code></strong>: Uses edge detection to
-          highlight the edges in the image.
+          <strong><code>IMG_FILTER_EDGEDETECT</code></strong>：用边缘检测来突出图像的边缘。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_EMBOSS</code></strong>: Embosses the image.
+          <strong><code>IMG_FILTER_EMBOSS</code></strong>：使图像浮雕化。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_GAUSSIAN_BLUR</code></strong>: Blurs the image using
-          the Gaussian method.
+          <strong><code>IMG_FILTER_GAUSSIAN_BLUR</code></strong>：用高斯算法模糊图像。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_SELECTIVE_BLUR</code></strong>: Blurs the image.
+          <strong><code>IMG_FILTER_SELECTIVE_BLUR</code></strong>：模糊图像。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_MEAN_REMOVAL</code></strong>: Uses mean removal to
-          achieve a &quot;sketchy&quot; effect.
+          <strong><code>IMG_FILTER_MEAN_REMOVAL</code></strong>：用平均移除法来达到"轮廓"效果。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_SMOOTH</code></strong>: Makes the image smoother.
-          Use <code class="parameter">arg1</code> to set the level of smoothness.
+          <strong><code>IMG_FILTER_SMOOTH</code></strong>：使图像更平滑。用
+      <code class="parameter">args</code> 设定平滑级别。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_PIXELATE</code></strong>: Applies pixelation effect 
-          to the image, use <code class="parameter">arg1</code> to set the block size 
-          and <code class="parameter">arg2</code> to set the pixelation effect mode.
+          <strong><code>IMG_FILTER_PIXELATE</code></strong>：对图像应用像素化效果，使用 <code class="parameter">args</code>
+          设置块大小和 <code class="parameter">arg2</code> 设置像素化效果模式。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <strong><code>IMG_FILTER_SCATTER</code></strong>：将散射效果应用于图像，使用 <code class="parameter">args</code>
+          和 <code class="parameter">arg2</code> 定义效果强度，另外使用 <code class="parameter">arg3</code> 仅应用选定像素颜色。
          </span>
         </li>
        </ul>
@@ -256,7 +146,7 @@
     
     
      <dt>
-<code class="parameter">arg1</code></dt>
+<code class="parameter">args</code></dt>
 
      <dd>
 
@@ -264,12 +154,12 @@
        <ul class="itemizedlist">
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_BRIGHTNESS</code></strong>: Brightness level.
+          <strong><code>IMG_FILTER_BRIGHTNESS</code></strong>：亮度级别。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_CONTRAST</code></strong>: Contrast level.
+          <strong><code>IMG_FILTER_CONTRAST</code></strong>：对比度级别。
          </span>
         </li>
         <li class="listitem">
@@ -285,6 +175,13 @@
         <li class="listitem">
          <span class="simpara">
           <strong><code>IMG_FILTER_PIXELATE</code></strong>: Block size in pixels.
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <strong><code>IMG_FILTER_SCATTER</code></strong>: Effect substraction level. 
+          This must not be higher or equal to the addition level set with 
+          <code class="parameter">arg2</code>.
          </span>
         </li>
        </ul>
@@ -307,8 +204,12 @@
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>IMG_FILTER_PIXELATE</code></strong>: Whether to use advanced pixelation 
-          effect or not (defaults to <strong><code>false</code></strong>).
+          <strong><code>IMG_FILTER_PIXELATE</code></strong>：是否使用高级像素化效果（默认为 <strong><code>false</code></strong>）。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <strong><code>IMG_FILTER_SCATTER</code></strong>：效果添加级别。
          </span>
         </li>
        </ul>
@@ -327,6 +228,12 @@
         <li class="listitem">
          <span class="simpara">
           <strong><code>IMG_FILTER_COLORIZE</code></strong>: 蓝色成分的值。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <strong><code>IMG_FILTER_SCATTER</code></strong>: Optional array indexed color values 
+          to apply effect at.
          </span>
         </li>
        </ul>
@@ -381,16 +288,17 @@
 
      <tbody class="tbody">
       <tr>
-       <td>5.3.0</td>
-       <td>
-        Pixelation support (<strong><code>IMG_FILTER_PIXELATE</code></strong>) was added.
-       </td>
-      </tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
 
       <tr>
-       <td>5.2.5</td>
+       <td>7.4.0</td>
        <td>
-        Alpha support for <strong><code>IMG_FILTER_COLORIZE</code></strong> was added.
+        新增散射支持（<strong><code>IMG_FILTER_SCATTER</code></strong>）。
        </td>
       </tr>
 
@@ -404,11 +312,11 @@
  <div class="refsect1 examples" id="refsect1-function.imagefilter-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2669">
-    <p><strong>Example #4 <span class="function"><strong>imagefilter()</strong></span> grayscale example</strong></p>
+   <div class="example" id="example-5362">
+    <p><strong>Example #1 <span class="function"><strong>imagefilter()</strong></span> 灰度示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'dave.png'</span><span style="color: #007700">);<br /><br />if(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_GRAYSCALE</span><span style="color: #007700">))<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;converted&nbsp;to&nbsp;grayscale.'</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'dave.png'</span><span style="color: #007700">);<br />}<br />else<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Conversion&nbsp;to&nbsp;grayscale&nbsp;failed.'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'dave.png'</span><span style="color: #007700">);<br /><br />if(</span><span style="color: #0000BB">$im </span><span style="color: #007700">&amp;&amp; </span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_FILTER_GRAYSCALE</span><span style="color: #007700">))<br />{<br />    echo </span><span style="color: #DD0000">'Image converted to grayscale.'</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #DD0000">'dave.png'</span><span style="color: #007700">);<br />}<br />else<br />{<br />    echo </span><span style="color: #DD0000">'Conversion to grayscale failed.'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -416,11 +324,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2670">
-    <p><strong>Example #5 <span class="function"><strong>imagefilter()</strong></span> brightness example</strong></p>
+   <div class="example" id="example-5364">
+    <p><strong>Example #2 <span class="function"><strong>imagefilter()</strong></span> 亮度示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'sean.png'</span><span style="color: #007700">);<br /><br />if(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_BRIGHTNESS</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">))<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;brightness&nbsp;changed.'</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'sean.png'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;brightness&nbsp;change&nbsp;failed.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'sean.png'</span><span style="color: #007700">);<br /><br />if(</span><span style="color: #0000BB">$im </span><span style="color: #007700">&amp;&amp; </span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_FILTER_BRIGHTNESS</span><span style="color: #007700">, </span><span style="color: #0000BB">20</span><span style="color: #007700">))<br />{<br />    echo </span><span style="color: #DD0000">'Image brightness changed.'</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #DD0000">'sean.png'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else<br />{<br />    echo </span><span style="color: #DD0000">'Image brightness change failed.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -428,11 +336,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2671">
-    <p><strong>Example #6 <span class="function"><strong>imagefilter()</strong></span> colorize example</strong></p>
+   <div class="example" id="example-5366">
+    <p><strong>Example #3 <span class="function"><strong>imagefilter()</strong></span> 着色示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'philip.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;R,&nbsp;G,&nbsp;B,&nbsp;so&nbsp;0,&nbsp;255,&nbsp;0&nbsp;is&nbsp;green&nbsp;*/<br /></span><span style="color: #007700">if(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_COLORIZE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">))<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;successfully&nbsp;shaded&nbsp;green.'</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'philip.png'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Green&nbsp;shading&nbsp;failed.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'philip.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* R, G, B, so 0, 255, 0 is green */<br /></span><span style="color: #007700">if(</span><span style="color: #0000BB">$im </span><span style="color: #007700">&amp;&amp; </span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_FILTER_COLORIZE</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">))<br />{<br />    echo </span><span style="color: #DD0000">'Image successfully shaded green.'</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #DD0000">'philip.png'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else<br />{<br />    echo </span><span style="color: #DD0000">'Green shading failed.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -440,11 +348,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2672">
-    <p><strong>Example #7 <span class="function"><strong>imagefilter()</strong></span> negate example</strong></p>
+   <div class="example" id="example-5368">
+    <p><strong>Example #4 <span class="function"><strong>imagefilter()</strong></span> 反例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Define&nbsp;our&nbsp;negate&nbsp;function&nbsp;so&nbsp;its&nbsp;portable&nbsp;for&nbsp;<br />//&nbsp;php&nbsp;versions&nbsp;without&nbsp;imagefilter()<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">negate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if(</span><span style="color: #0000BB">function_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'imagefilter'</span><span style="color: #007700">))<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_NEGATE</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;for(</span><span style="color: #0000BB">$x&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$x&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);&nbsp;++</span><span style="color: #0000BB">$x</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(</span><span style="color: #0000BB">$y&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$y&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);&nbsp;++</span><span style="color: #0000BB">$y</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$index&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorat</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$x</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$y</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rgb&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorsforindex</span><span style="color: #007700">(</span><span style="color: #0000BB">$index</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$color&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255&nbsp;</span><span style="color: #007700">-&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #DD0000">'red'</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">255&nbsp;</span><span style="color: #007700">-&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #DD0000">'green'</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">255&nbsp;</span><span style="color: #007700">-&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #DD0000">'blue'</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagesetpixel</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$x</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$y</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$color</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;return(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefromjpeg</span><span style="color: #007700">(</span><span style="color: #DD0000">'kalle.jpg'</span><span style="color: #007700">);<br /><br />if(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">negate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">))<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Image&nbsp;successfully&nbsp;converted&nbsp;to&nbsp;negative&nbsp;colors.'</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagejpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'kalle.jpg'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Converting&nbsp;to&nbsp;negative&nbsp;colors&nbsp;failed.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Define our negate function so its portable for <br />// php versions without imagefilter()<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">negate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">)<br />{<br />    if(</span><span style="color: #0000BB">function_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'imagefilter'</span><span style="color: #007700">))<br />    {<br />        return </span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_FILTER_NEGATE</span><span style="color: #007700">);<br />    }<br /><br />    for(</span><span style="color: #0000BB">$x </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$x </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">); ++</span><span style="color: #0000BB">$x</span><span style="color: #007700">)<br />    {<br />        for(</span><span style="color: #0000BB">$y </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$y </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">); ++</span><span style="color: #0000BB">$y</span><span style="color: #007700">)<br />        {<br />            </span><span style="color: #0000BB">$index </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorat</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">$x</span><span style="color: #007700">, </span><span style="color: #0000BB">$y</span><span style="color: #007700">);<br />            </span><span style="color: #0000BB">$rgb </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorsforindex</span><span style="color: #007700">(</span><span style="color: #0000BB">$index</span><span style="color: #007700">);<br />            </span><span style="color: #0000BB">$color </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">255 </span><span style="color: #007700">- </span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #DD0000">'red'</span><span style="color: #007700">], </span><span style="color: #0000BB">255 </span><span style="color: #007700">- </span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #DD0000">'green'</span><span style="color: #007700">], </span><span style="color: #0000BB">255 </span><span style="color: #007700">- </span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #DD0000">'blue'</span><span style="color: #007700">]);<br /><br />            </span><span style="color: #0000BB">imagesetpixel</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">$x</span><span style="color: #007700">, </span><span style="color: #0000BB">$y</span><span style="color: #007700">, </span><span style="color: #0000BB">$color</span><span style="color: #007700">);<br />        }<br />    }<br /><br />    return(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefromjpeg</span><span style="color: #007700">(</span><span style="color: #DD0000">'kalle.jpg'</span><span style="color: #007700">);<br /><br />if(</span><span style="color: #0000BB">$im </span><span style="color: #007700">&amp;&amp; </span><span style="color: #0000BB">negate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">))<br />{<br />    echo </span><span style="color: #DD0000">'Image successfully converted to negative colors.'</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">imagejpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #DD0000">'kalle.jpg'</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else<br />{<br />    echo </span><span style="color: #DD0000">'Converting to negative colors failed.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -452,11 +360,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2673">
-    <p><strong>Example #8 <span class="function"><strong>imagefilter()</strong></span> pixelate example</strong></p>
+   <div class="example" id="example-5370">
+    <p><strong>Example #5 <span class="function"><strong>imagefilter()</strong></span> 像素化示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Load&nbsp;the&nbsp;PHP&nbsp;logo,&nbsp;we&nbsp;need&nbsp;to&nbsp;create&nbsp;two&nbsp;instances&nbsp;<br />//&nbsp;to&nbsp;show&nbsp;the&nbsp;differences<br /></span><span style="color: #0000BB">$logo1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./php.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$logo2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./php.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Create&nbsp;the&nbsp;image&nbsp;instance&nbsp;we&nbsp;want&nbsp;to&nbsp;show&nbsp;the&nbsp;<br />//&nbsp;differences&nbsp;on<br /></span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">)&nbsp;*&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;Apply&nbsp;pixelation&nbsp;to&nbsp;each&nbsp;instance,&nbsp;with&nbsp;a&nbsp;block&nbsp;<br />//&nbsp;size&nbsp;of&nbsp;3<br /></span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_PIXELATE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_FILTER_PIXELATE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Merge&nbsp;the&nbsp;differences&nbsp;onto&nbsp;the&nbsp;output&nbsp;image<br /></span><span style="color: #0000BB">imagecopy</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagecopy</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Output&nbsp;the&nbsp;differences<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type:&nbsp;image/png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Load the PHP logo, we need to create two instances <br />// to show the differences<br /></span><span style="color: #0000BB">$logo1 </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./php.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$logo2 </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./php.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Create the image instance we want to show the <br />// differences on<br /></span><span style="color: #0000BB">$output </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">) * </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">// Apply pixelation to each instance, with a block <br />// size of 3<br /></span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_FILTER_PIXELATE</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_FILTER_PIXELATE</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Merge the differences onto the output image<br /></span><span style="color: #0000BB">imagecopy</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">, </span><span style="color: #0000BB">$logo1</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">) - </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">) - </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagecopy</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">, </span><span style="color: #0000BB">$logo2</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">), </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">) - </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">) - </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Output the differences<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type: image/png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -465,7 +373,26 @@
     <div class="mediaobject">
      
      <div class="imageobject">
-      <img src="images/21009b70229598c6a80eef8b45bf282b-imagefilterpixelate.png" alt="Output of example : imagefilter() pixelate" width="190" height="51" />
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagefilterpixelate.png" alt="示例输出：imagefilter() 像素化" width="190" height="51" />
+     </div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-5372">
+    <p><strong>Example #6 <span class="function"><strong>imagefilter()</strong></span> 散射示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Load the image<br /></span><span style="color: #0000BB">$logo </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./php.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Apply a very soft scatter effect to the image<br /></span><span style="color: #0000BB">imagefilter</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_FILTER_SCATTER</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">5</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Output the image with the scatter effect<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type: image/png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$logo</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="mediaobject">
+     
+     <div class="imageobject">
+      <img src="images/21009b70229598c6a80eef8b45bf282b-scatter.png" alt="Output of example : imagefilter() scatter" width="200" height="106" />
      </div>
     </div>
    </div>
@@ -474,16 +401,18 @@
 
  <div class="refsect1 notes" id="refsect1-function.imagefilter-notes">
   <h3 class="title">注释</h3>
-  
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    <strong><code>IMG_FILTER_SCATTER</code></strong> 的结果始终随机。
+   </span>
+  </p></blockquote>
  </div>
 
  <div class="refsect1 seealso" id="refsect1-function.imagefilter-seealso">
   <h3 class="title">参见</h3>
-  <p class="para">
-   <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.imageconvolution.html" class="function" rel="rdfs-seeAlso">imageconvolution()</a> - 用系数 div 和 offset 申请一个 3x3 的卷积矩阵</span></li>
-   </ul>
-  </p>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imageconvolution.html" class="function" rel="rdfs-seeAlso">imageconvolution()</a> - 用系数 div 和 offset 申请一个 3x3 的卷积矩阵</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

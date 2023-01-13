@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用 FreeType 2 字体将文本写入图像</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,8 +34,14 @@
  <div class="refsect1 description" id="refsect1-function.imagefttext-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagefttext</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$size</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$angle</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$x</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$y</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$color</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$fontfile</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$text</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$extrainfo</code><span class="initializer"> = ?</span></span><br>): <span class="type">array</span></div>
+   <span class="methodname"><strong>imagefttext</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$size</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$angle</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$x</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$y</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$color</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$font_filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$text</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code><span class="initializer"> = []</span></span><br>): <span class="type"><span class="type">array</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    在 PHP 8.0.0 之前，<span class="function"><strong>imagefttext()</strong></span> 是 <span class="function"><a href="function.imagettftext.html" class="function">imagettftext()</a></span> 的扩展变体，它还支持 <code class="parameter">options</code>。
+    自 PHP 8.0.0 起，<span class="function"><a href="function.imagettftext.html" class="function">imagettftext()</a></span> 是 <span class="function"><strong>imagefttext()</strong></span> 的别名。
+   </p>
+  </p></blockquote>
  </div>
 
  <div class="refsect1 parameters" id="refsect1-function.imagefttext-parameters">
@@ -55,7 +62,7 @@
      <dd>
 
       <p class="para">
-       The font size to use in points.
+       字体的尺寸，单位：点（磅）。
       </p>
      </dd>
 
@@ -67,9 +74,8 @@
      <dd>
 
       <p class="para"> 
-       The angle in degrees, with 0 degrees being left-to-right reading text.
-       Higher values represent a counter-clockwise rotation. For example, a 
-       value of 90 would result in bottom-to-top reading text.
+       以度为单位的角度，0 度表示从左到右阅读文本。较高的值表示逆时针旋转。例如，值为
+       90 将导致从下到上阅读文本。
       </p>
      </dd>
 
@@ -81,13 +87,9 @@
      <dd>
 
       <p class="para">
-       The coordinates given by <code class="parameter">x</code> and
-       <code class="parameter">y</code> will define the basepoint of the first
-       character (roughly the lower-left corner of the character). This
-       is different from the <span class="function"><a href="function.imagestring.html" class="function">imagestring()</a></span>, where
-       <code class="parameter">x</code> and <code class="parameter">y</code> define the
-       upper-left corner of the first character. For example, &quot;top left&quot;
-       is 0, 0.
+       <code class="parameter">x</code> 和 <code class="parameter">y</code> 给出的坐标将定义第一个字符的基点（大致是字符的左下角）。 这与
+       <span class="function"><a href="function.imagestring.html" class="function">imagestring()</a></span> 不同，其中 <code class="parameter">x</code> 和 <code class="parameter">y</code>
+       定义第一个字符的左上角。例如，"左上角"是 0, 0。
       </p>
      </dd>
 
@@ -99,8 +101,7 @@
      <dd>
 
       <p class="para">
-       The y-ordinate. This sets the position of the fonts baseline, not the
-       very bottom of the character.
+       y 坐标。设置字体基线的位置，而不是字符的最底部。
       </p>
      </dd>
 
@@ -112,41 +113,29 @@
      <dd>
 
       <p class="para">
-       The index of the desired color for the text, see 
-       <span class="function"><a href="function.imagecolorexact.html" class="function">imagecolorexact()</a></span>.
+       文本所需颜色的索引，请参阅 <span class="function"><a href="function.imagecolorexact.html" class="function">imagecolorexact()</a></span>。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">fontfile</code></dt>
+<code class="parameter">font_filename</code></dt>
 
      <dd>
 
       <p class="para">
-       The path to the TrueType font you wish to use.
+       希望使用的 TrueType 字体的路径。
       </p>
       <p class="para">
-       Depending on which version of the GD library PHP is using, <em class="emphasis">when
-       <code class="parameter">fontfile</code> does not begin with a leading
-       <code class="literal">/</code> then <code class="literal">.ttf</code> will be appended</em>
-       to the filename and the library will attempt to search for that
-       filename along a library-defined font path.
+       根据 PHP 使用的 GD 库版本，<em class="emphasis">当 <code class="parameter">font_filename</code> 不以 <code class="literal">/</code>
+       开头时，将追加 <code class="literal">.ttf</code></em> 到文件名末尾，库将尝试沿着库定义的字体路径搜索该文件名。
       </p>
       <p class="para">
-       When using versions of the GD library lower than 2.0.18, a <code class="literal">space</code> character,
-       rather than a semicolon, was used as the &#039;path separator&#039; for different font files.
-       Unintentional use of this feature will result in the warning message:
-       <code class="literal">Warning: Could not find/open font</code>. For these affected versions, the
-       only solution is moving the font to a path which does not contain spaces.
-      </p>
-      <p class="para">
-       In many cases where a font resides in the same directory as the script using it
-       the following trick will alleviate any include problems.
+       在许多情况下，字体与使用的脚本位于同一目录中，以下技巧将缓解任何包含问题。
        <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Set&nbsp;the&nbsp;enviroment&nbsp;variable&nbsp;for&nbsp;GD<br /></span><span style="color: #0000BB">putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">'GDFONTPATH='&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'.'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;Name&nbsp;the&nbsp;font&nbsp;to&nbsp;be&nbsp;used&nbsp;(note&nbsp;the&nbsp;lack&nbsp;of&nbsp;the&nbsp;.ttf&nbsp;extension)<br /></span><span style="color: #0000BB">$font&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SomeFont'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 设置 GD 的环境变量<br /></span><span style="color: #0000BB">putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">'GDFONTPATH=' </span><span style="color: #007700">. </span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'.'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">// Name the font to be used (note the lack of the .ttf extension)<br /></span><span style="color: #0000BB">$font </span><span style="color: #007700">= </span><span style="color: #DD0000">'SomeFont'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
        </div>
@@ -162,26 +151,26 @@
      <dd>
 
       <p class="para">
-       Text to be inserted into image. 
+       要插入到图像中的文本。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">extrainfo</code></dt>
+<code class="parameter">options</code></dt>
 
      <dd>
 
       <p class="para">
        <table class="doctable table">
-       <caption><strong>Possible array indexes for <code class="parameter">extrainfo</code></strong></caption>
+       <caption><strong><code class="parameter">options</code> 可能的数组索引</strong></caption>
         
          <thead>
           <tr>
-           <th>Key</th>
-           <th>Type</th>
-           <th>Meaning</th>
+           <th>键</th>
+           <th>类型</th>
+           <th>含义</th>
           </tr>
 
          </thead>
@@ -190,7 +179,7 @@
           <tr>
            <td><code class="literal">linespacing</code></td>
            <td><span class="type">float</span></td>
-           <td>Defines drawing linespacing</td>
+           <td>定义绘制行距</td>
           </tr>
 
          </tbody>
@@ -209,48 +198,48 @@
  <div class="refsect1 returnvalues" id="refsect1-function.imagefttext-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   This function returns an array defining the four points of the box, starting in the lower left and moving counter-clockwise:
+   这个函数返回数组，定义了盒子的四个点，从左下角开始逆时针移动：
    <table class="doctable informaltable">
     
      <tbody class="tbody">
       <tr>
        <td>0</td>
-       <td>lower left x-coordinate</td>
+       <td>左下 x 坐标</td>
       </tr>
 
       <tr>
        <td>1</td>
-       <td>lower left y-coordinate</td>
+       <td>左下 y 坐标</td>
       </tr>
 
       <tr>
        <td>2</td>
-       <td>lower right x-coordinate</td>
+       <td>右下 x 坐标</td>
       </tr>
 
       <tr>
        <td>3</td>
-       <td>lower right y-coordinate</td>
+       <td>右下 x 坐标</td>
       </tr>
 
       <tr>
        <td>4</td>
-       <td>upper right x-coordinate</td>
+       <td>右上 x 坐标</td>
       </tr>
 
       <tr>
        <td>5</td>
-       <td>upper right y-coordinate</td>
+       <td>右上 x 坐标</td>
       </tr>
 
       <tr>
        <td>6</td>
-       <td>upper left x-coordinate</td>
+       <td>左上 x 坐标</td>
       </tr>
 
       <tr>
        <td>7</td>
-       <td>upper left y-coordinate</td>
+       <td>左上 y 坐标</td>
       </tr>
 
      </tbody>
@@ -258,16 +247,48 @@
    </table>
 
   </p>
+  <p class="para">
+   失败时返回 <strong><code>false</code></strong>。
+  </p>
  </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.imagefttext-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
 
  <div class="refsect1 examples" id="refsect1-function.imagefttext-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2677">
-    <p><strong>Example #1 <span class="function"><strong>imagefttext()</strong></span> example</strong></p>
+   <div class="example" id="example-5388">
+    <p><strong>Example #1 <span class="function"><strong>imagefttext()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Create&nbsp;a&nbsp;300x100&nbsp;image<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">300</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$red&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xFF</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$black&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Make&nbsp;the&nbsp;background&nbsp;red<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">299</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">99</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$red</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Path&nbsp;to&nbsp;our&nbsp;ttf&nbsp;font&nbsp;file<br /></span><span style="color: #0000BB">$font_file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'./arial.ttf'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Draw&nbsp;the&nbsp;text&nbsp;'PHP&nbsp;Manual'&nbsp;using&nbsp;font&nbsp;size&nbsp;13<br /></span><span style="color: #0000BB">imagefttext</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">13</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">105</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$black</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$font_file</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'PHP&nbsp;Manual'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Output&nbsp;image&nbsp;to&nbsp;the&nbsp;browser<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type:&nbsp;image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Create a 300x100 image<br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">300</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$red </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0xFF</span><span style="color: #007700">, </span><span style="color: #0000BB">0x00</span><span style="color: #007700">, </span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$black </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0x00</span><span style="color: #007700">, </span><span style="color: #0000BB">0x00</span><span style="color: #007700">, </span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Make the background red<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">299</span><span style="color: #007700">, </span><span style="color: #0000BB">99</span><span style="color: #007700">, </span><span style="color: #0000BB">$red</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Path to our ttf font file<br /></span><span style="color: #0000BB">$font_file </span><span style="color: #007700">= </span><span style="color: #DD0000">'./arial.ttf'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Draw the text 'PHP Manual' using font size 13<br /></span><span style="color: #0000BB">imagefttext</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">13</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">105</span><span style="color: #007700">, </span><span style="color: #0000BB">55</span><span style="color: #007700">, </span><span style="color: #0000BB">$black</span><span style="color: #007700">, </span><span style="color: #0000BB">$font_file</span><span style="color: #007700">, </span><span style="color: #DD0000">'PHP Manual'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Output image to the browser<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type: image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -282,32 +303,13 @@
 PHP 编译时加入 freetype 支持时有效（<strong class="option configure">--with-freetype-dir=DIR</strong>）。</span></p></blockquote>
  </div>
 
- <div class="refsect1 changelog" id="refsect1-function.imagefttext-changelog">
-  <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
 
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>4.3.5</td>
-       <td>
-        <code class="parameter">extrainfo</code> was made optional.
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
-  </p>
+ <div class="refsect1 seealso" id="refsect1-function.imagefttext-seealso">
+  <h3 class="title">参见</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imageftbbox.html" class="function" rel="rdfs-seeAlso">imageftbbox()</a> - 通过 freetype2 使用字体给出文本的边界框</span></li>
+   <li class="member"><span class="function"><a href="function.imagettftext.html" class="function" rel="rdfs-seeAlso">imagettftext()</a> - 用 TrueType 字体向图像写入文本</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

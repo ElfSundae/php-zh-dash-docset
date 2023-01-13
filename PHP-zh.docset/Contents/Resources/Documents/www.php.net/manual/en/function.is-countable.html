@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Verify that the contents of a variable is a countable value</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -106,11 +107,11 @@
  <div class="refsect1 examples" id="refsect1-function.is-countable-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5268">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>is_countable()</strong></span> examples</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">([</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">]));&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(true)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">ArrayIterator</span><span style="color: #007700">([</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">])));&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(true)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">ArrayIterator</span><span style="color: #007700">()));&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(true)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">stdClass</span><span style="color: #007700">()));&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(false)</span>
+<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">([</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">])); </span><span style="color: #FF8000">// bool(true)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">(new </span><span style="color: #0000BB">ArrayIterator</span><span style="color: #007700">([</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'bar'</span><span style="color: #007700">, </span><span style="color: #DD0000">'baz'</span><span style="color: #007700">]))); </span><span style="color: #FF8000">// bool(true)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">(new </span><span style="color: #0000BB">ArrayIterator</span><span style="color: #007700">())); </span><span style="color: #FF8000">// bool(true)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_countable</span><span style="color: #007700">(new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">())); </span><span style="color: #FF8000">// bool(false)</span>
 </span>
 </code></div>
     </div>
@@ -137,7 +138,27 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125463""></a>
+<div id="allnotes">  <a name="128015""></a>
+  <div class="note">
+   <strong class="user">zhaoyifans at gmail dot com</strong>
+   <a href="#128015" class="date">14-Dec-2022 03:53</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+polyfill:<br />
+<br />
+function is_countable($value) {<br />
+&nbsp;&nbsp;&nbsp; return is_array($value) <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; || $value instanceof Countable <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; || $value instanceof ResourceBundle <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; || $value instanceof SimpleXmlElement; <br />
+}</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125463""></a>
   <div class="note">
    <strong class="user">info at ensostudio dot ru</strong>
    <a href="#125463" class="date">25-Oct-2020 06:29</a>

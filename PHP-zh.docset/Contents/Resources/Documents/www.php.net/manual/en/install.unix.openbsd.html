@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>在 OpenBSD 系统下的安装</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -28,7 +29,7 @@
  <h2 class="title">在 OpenBSD 系统下的安装</h2>
  <p class="para">
   本章节的内容和提示仅限于将 PHP 安装到 
-  <a href="http://www.openbsd.org/" class="link external" title="Link : http://www.openbsd.org/">&raquo;&nbsp;OpenBSD 5.8</a> 系统上。
+  <a href="http://www.openbsd.org/" class="link external" title="Link : http://www.openbsd.org/">&raquo;&nbsp;OpenBSD</a> 系统上。
  </p>
  <div class="sect2" id="install.openbsd.packages">
   <h3 class="title">使用二进制包安装</h3>
@@ -38,19 +39,18 @@
    PHP 需要的文件可以在 OpenBSD 光盘或者在 FTP 站点上找到。
   </p>
   <p class="simpara">
-   需要安装的 PHP 核心包的文件是 
-   <var class="filename">php</var>，它包含了基本的引擎（包括 gettext 和
-   iconv）。其次，可能还需要安装一些模块包，如：<var class="filename">php-mysql</var> 或 
+   需要安装的核心包是 <var class="filename">php</var>，它包含了基本的引擎（加上 fpm、gettext 和
+   iconv）并且可能有几个版本可供选择。其次，可能还需要安装一些模块包，如：<var class="filename">php-mysqli</var> 或 
    <var class="filename">php-imap</var>。需要使用命令 
    <strong class="command">phpxs</strong> 去激活它，并且再通过修改 <var class="filename">php.ini</var> 文件来屏蔽他们。
   </p>
-  <div class="example" id="install.openbsd.ports.example">
+  <div class="example" id="example-24">
    <p><strong>Example #1 在 OpenBSD 系统下的软件包的安装示例</strong></p>
    <div class="example-contents">
 <div class="cdata"><pre>
 # pkg_add php
-# pkg_add php-fpm
-# pkg_add php-mysql
+# pkg_add php-apache
+# pkg_add php-mysqli
   （安装 PEAR 库）
 # pkg_add pear
 
@@ -58,8 +58,8 @@ Follow the instructions shown with each package!
 
   (移除包)
 # pkg_delete php
-# pkg_delete php-fpm
-# pkg_delete php-mysql
+# pkg_delete php-apache
+# pkg_delete php-mysqli
 # pkg_delete pear
 </pre></div>
    </div>
@@ -72,15 +72,15 @@ Follow the instructions shown with each package!
   </p>
  </div>
  <div class="sect2" id="install.openbsd.ports">
-  <h3 class="title">使用软件包</h3>
+  <h3 class="title">使用 Ports</h3>
   <p class="simpara">
-   同样可以使用<a href="http://www.openbsd.org/faq/ports/ports.html" class="link external" title="Link : http://www.openbsd.org/faq/ports/ports.html">&raquo;&nbsp;软件包目录（ports
-   tree）</a>来编译 PHP 的源代码。然而，这样的安装方式仅仅是建议对
-   OpenBSD 非常熟悉的高级用户去做。PHP4 的软件包被分别分为了两个子目录：core
-   和 extensions。其中 extensions 目录产生了所有 PHP
+   同样可以使用 <a href="http://www.openbsd.org/faq/ports/ports.html" class="link external" title="Link : http://www.openbsd.org/faq/ports/ports.html">&raquo;&nbsp;ports
+   tree</a> 来编译 PHP 的源代码。然而，这样的安装方式仅仅是建议对
+   OpenBSD 非常熟悉的高级用户去做。PHP port 分为 core
+   和 extensions。其中 extensions 产生了所有 PHP
    所支持的子模块。如果不希望创建并且使用这些模块中的某些模块，请使用
-   FLAVOR <strong class="command">no_*</strong> 参数。例如，如果希望跳过编译
-   imap 模块，设置 FLAVOR 为 <strong class="command">no_imap</strong>即可。
+   <strong class="command">no_*</strong> FLAVOR。例如，如果希望跳过编译
+   imap 模块，设置 FLAVOR 为 <strong class="command">no_imap</strong> 即可。
   </p>
  </div>
  <div class="sect2" id="install.openbsd.faq">
@@ -108,8 +108,12 @@ Follow the instructions shown with each package!
    </li>
    <li class="listitem">
     <span class="simpara">
-     对应于 <a href="http://www.libgd.org/" class="link external" title="Link : http://www.libgd.org/">&raquo;&nbsp;gd</a> 扩展的 OpenBSD 5.7+
-     包需要预先安装 XFree86。通过添加 <var class="filename">xbase.tgz</var> 文件集到 post-installation （参阅 OpenBSD FAQ#4） 中。
+     对应于 <a href="http://www.libgd.org/" class="link external" title="Link : http://www.libgd.org/">&raquo;&nbsp;gd</a> 扩展的 OpenBSD 包需要安装
+     Xorg。
+     Unless already installed at base install by
+     adding the <var class="filename">xbase.tgz</var> file set, this can be added at
+     post-installation (see
+     <a href="https://www.openbsd.org/faq/faq4.html#FilesNeeded" class="link external" title="Link : https://www.openbsd.org/faq/faq4.html#FilesNeeded">&raquo;&nbsp;OpenBSD FAQ#4</a>).
     </span>
    </li>
   </ul>

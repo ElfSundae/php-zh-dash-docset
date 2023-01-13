@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>比较并交换值</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -37,14 +38,13 @@
    <span class="modifier">public</span> <span class="methodname"><strong>Memcached::cas</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$cas_token</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$expiration</code><span class="initializer"> = ?</span></span><br>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>Memcached::cas()</strong></span>执行一个"检查并设置"的操作，因此，它仅在当前客户端最后一次取值后，该key
-   对应的值没有被其他客户端修改的情况下， 才能够将值写入。检查是通过<code class="parameter">cas_token</code>参数进行的， 
-   这个参数是Memcach指定给已经存在的元素的一个唯一的64位值， 怎样获取这个值请查看<span class="methodname"><strong>Memcached::get*()</strong></span>
-   系列方法的文档。注意：这个值作为double类型是因为PHP的整型空间限制。
+   <span class="function"><strong>Memcached::cas()</strong></span> 执行"检查并设置"的操作，因此仅在当前客户端最后一次取值后，该 key
+   对应的值没有被其他客户端修改的情况下，才能够将值写入。检查是通过 <code class="parameter">cas_token</code>
+   参数进行的，这个参数是 memcache 分配给已存在元素的唯一 64 位值。怎样获取这个值请查看 <span class="methodname"><strong>Memcached::get*()</strong></span>
+   系列方法的文档。注意：这个值作为 float 类型是因为 PHP 的整型空间限制。
   </p>
   <p class="para">
-  译注：这是Memcached扩展比Memcache扩展一个非常重要的优势， 在这样一个系统级（Memcache自身提供）的冲突检测机制（乐观锁）下，
-  我们才能保证高并发下的数据安全。
+  译注：这是 Memcached 扩展比 Memcache 扩展一个非常重要的优势，在这样一个系统级（Memcache 自身提供）的冲突检测机制（乐观锁）下，才能保证高并发下的数据安全。
   </p>
  </div>
 
@@ -60,7 +60,7 @@
      <dd>
 
       <p class="para">
-      与已存在元素关联的唯一的值，由Memcache生成。
+      与已存在元素关联的唯一的值，由 Memcache 生成。
       </p>
      </dd>
 
@@ -112,7 +112,7 @@
   <p class="para">
    成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
    如果在元素尝试存储时发现在本客户端最后一次获取后被其他客户端修改，<span class="methodname"><a href="memcached.getresultcode.html" class="methodname">Memcached::getResultCode()</a></span>
-   将返回<strong><code>Memcached::RES_DATA_EXISTS</code></strong>。
+   将返回 <strong><code>Memcached::RES_DATA_EXISTS</code></strong>。
   </p>
  </div>
 
@@ -120,11 +120,11 @@
  <div class="refsect1 examples" id="refsect1-memcached.cas-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4377">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>Memcached::cas()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br />do&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;获取ip列表以及它的标记&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$ips&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$cas</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;如果列表不存在，&nbsp;创建并进行一个原子添加（如果其他客户端已经添加，&nbsp;这里就返回false）*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getResultCode</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">RES_NOTFOUND</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$ips&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add</span><span style="color: #007700">(</span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ips</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;其他情况下，添加ip到列表中，&nbsp;并以cas方式去存储，&nbsp;这样当其他客户端修改过，&nbsp;则返回false&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}&nbsp;else&nbsp;{&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$ips</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cas</span><span style="color: #007700">(</span><span style="color: #0000BB">$cas</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ips</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;<br />}&nbsp;while&nbsp;(</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getResultCode</span><span style="color: #007700">()&nbsp;!=&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">RES_SUCCESS</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br />do {<br />    </span><span style="color: #FF8000">/* 获取ip列表以及它的标记 */<br />    </span><span style="color: #0000BB">$ips </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">, </span><span style="color: #0000BB">null</span><span style="color: #007700">, </span><span style="color: #0000BB">$cas</span><span style="color: #007700">);<br />    </span><span style="color: #FF8000">/* 如果列表不存在， 创建并进行一个原子添加（如果其他客户端已经添加， 这里就返回false）*/<br />    </span><span style="color: #007700">if (</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getResultCode</span><span style="color: #007700">() == </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">RES_NOTFOUND</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">$ips </span><span style="color: #007700">= array(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">]);<br />        </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add</span><span style="color: #007700">(</span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">, </span><span style="color: #0000BB">$ips</span><span style="color: #007700">);<br />    </span><span style="color: #FF8000">/* 其他情况下，添加ip到列表中， 并以cas方式去存储， 这样当其他客户端修改过， 则返回false */<br />    </span><span style="color: #007700">} else { <br />        </span><span style="color: #0000BB">$ips</span><span style="color: #007700">[] = </span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">];<br />        </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cas</span><span style="color: #007700">(</span><span style="color: #0000BB">$cas</span><span style="color: #007700">, </span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">, </span><span style="color: #0000BB">$ips</span><span style="color: #007700">);<br />    }   <br />} while (</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getResultCode</span><span style="color: #007700">() != </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">RES_SUCCESS</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

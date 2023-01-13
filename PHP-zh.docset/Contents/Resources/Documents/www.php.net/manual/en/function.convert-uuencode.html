@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用 uuencode 编码一个字符串</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -34,16 +35,21 @@
  <div class="refsect1 description" id="refsect1-function.convert-uuencode-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>convert_uuencode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>convert_uuencode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>convert_uuencode()</strong></span> 使用 uuencode 算法对一个字符串进行编码。
   </p>
   <p class="para">
-   uuencode 算法会将所有（含二进制数据）字符串转化为可输出的字符，
-   并且可以被安全的应用于网络传输。使用 uuencode 编码后的数据
-   将会比源数据大35%左右
+   uuencode 算法会将所有（含二进制数据）字符串转化为可输出的字符，并且可以被安全的应用于网络传输。使用
+   uuencode 编码后的数据将会比源数据大 35% 左右。
   </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    <span class="function"><strong>convert_uuencode()</strong></span> 既不生成 <code class="literal">begin</code> 行也不产生
+    <code class="literal">end</code>，它们是 uuencoded <em class="emphasis">files</em> 的一部分。
+   </span>
+  </p></blockquote> 
  </div>
 
 
@@ -53,7 +59,7 @@
    <dl>
     
      <dt>
-<code class="parameter">data</code></dt>
+<code class="parameter">string</code></dt>
 
      <dd>
 
@@ -72,23 +78,57 @@
  <div class="refsect1 returnvalues" id="refsect1-function.convert-uuencode-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回 uuencode 编码后的数据  或者在失败时返回 <strong><code>false</code></strong>。
+   返回 uuencode 编码后的数据。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.convert-uuencode-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       在此版本之前，尝试转换空字符串将返回 <strong><code>false</code></strong>，没有任何特殊原因。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.convert-uuencode-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4750">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>convert_uuencode()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$some_string&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"test\ntext&nbsp;text\r\n"</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">convert_uuencode</span><span style="color: #007700">(</span><span style="color: #0000BB">$some_string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$some_string </span><span style="color: #007700">= </span><span style="color: #DD0000">"test\ntext text\r\n"</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">convert_uuencode</span><span style="color: #007700">(</span><span style="color: #0000BB">$some_string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+0=&amp;5S=`IT97AT(&#039;1E&gt;&#039;0-&quot;@``
+`
+</pre></div>
+    </div>
    </div>
   </p>
  </div>

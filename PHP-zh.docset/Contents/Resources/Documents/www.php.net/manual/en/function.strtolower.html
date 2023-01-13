@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将字符串转化为小写</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -37,10 +38,14 @@
    <span class="methodname"><strong>strtolower</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-  将 <code class="parameter">string</code> 中所有的字母字符转换为小写并返回。
+  将 <code class="parameter">string</code> 中所有的 ASCII 字母字符转换为小写并返回。
   </p>
   <p class="para">
-   注意 "字母" 与当前所在区域有关。例如，在默认的 "C" 区域，字符 umlaut-A（?）就不会被转换。
+   <code class="literal">&quot;A&quot;</code>（0x41）到 <code class="literal">&quot;Z&quot;</code>（0x5a）范围内的字节会通过将每个字节值加 32 转为相应的小写字母。
+  </p>
+  <p class="para">
+   这可用于转换用 UTF-8 编码的字符串中的 ASCII 字符，但会忽略多字节 UTF-8 字符。要转换多字节非
+   ASCII 字符，请使用 <span class="function"><a href="function.mb-strtolower.html" class="function">mb_strtolower()</a></span>。
   </p>
  </div>
 
@@ -75,14 +80,43 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.strtolower-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     
+ <tr>
+  <td>8.2.0</td>
+  <td>
+   大小写转换不在依赖于使用 <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> 设置的区域。只会转换 ASCII 字符。
+  </td>
+ </tr>
+
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.strtolower-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4851">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>strtolower()</strong></span> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Mary&nbsp;Had&nbsp;A&nbsp;Little&nbsp;Lamb&nbsp;and&nbsp;She&nbsp;LOVED&nbsp;It&nbsp;So"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;打印&nbsp;mary&nbsp;had&nbsp;a&nbsp;little&nbsp;lamb&nbsp;and&nbsp;she&nbsp;loved&nbsp;it&nbsp;so<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$str </span><span style="color: #007700">= </span><span style="color: #DD0000">"Mary Had A Little Lamb and She LOVED It So"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= </span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$str</span><span style="color: #007700">; </span><span style="color: #FF8000">// 打印 mary had a little lamb and she loved it so<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用特定的过滤器过滤一个变量</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -89,7 +90,7 @@
       <p class="para">
        <div class="example-contents">
         <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;对于接受选项的过滤器，请使用此格式<br /></span><span style="color: #0000BB">$options&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'options'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'default'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #FF8000">//&nbsp;过滤器失败时返回的值<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;可以继续写过滤器接收其它选项<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'min_range'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">0<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'flags'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">FILTER_FLAG_ALLOW_OCTAL</span><span style="color: #007700">,<br />);<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'0755'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_INT</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;对于仅接受标志的过滤器，您可以直接将其传递<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'oops'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_BOOLEAN</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_NULL_ON_FAILURE</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;对于仅接受标志的过滤器，您还可以将其作为数组传递<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'oops'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_BOOLEAN</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'flags'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">FILTER_NULL_ON_FAILURE</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">//&nbsp;回调类型过滤器<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;预期值:&nbsp;Surname,&nbsp;GivenNames<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">strpos</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">",&nbsp;"</span><span style="color: #007700">)&nbsp;===&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;list(</span><span style="color: #0000BB">$surname</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$givennames</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">",&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$empty&nbsp;</span><span style="color: #007700">=&nbsp;(empty(</span><span style="color: #0000BB">$surname</span><span style="color: #007700">)&nbsp;||&nbsp;empty(</span><span style="color: #0000BB">$givennames</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$notstrings&nbsp;</span><span style="color: #007700">=&nbsp;(!</span><span style="color: #0000BB">is_string</span><span style="color: #007700">(</span><span style="color: #0000BB">$surname</span><span style="color: #007700">)&nbsp;||&nbsp;!</span><span style="color: #0000BB">is_string</span><span style="color: #007700">(</span><span style="color: #0000BB">$givennames</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$empty&nbsp;</span><span style="color: #007700">||&nbsp;</span><span style="color: #0000BB">$notstrings</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'Doe,&nbsp;Jane&nbsp;Sue'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_CALLBACK</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">'options'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 对于接受选项的过滤器，请使用此格式<br /></span><span style="color: #0000BB">$options </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'options' </span><span style="color: #007700">=&gt; array(<br />        </span><span style="color: #DD0000">'default' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #FF8000">// 过滤器失败时返回的值<br />        // 可以继续写过滤器接收其它选项<br />        </span><span style="color: #DD0000">'min_range' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0<br />    </span><span style="color: #007700">),<br />    </span><span style="color: #DD0000">'flags' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">FILTER_FLAG_ALLOW_OCTAL</span><span style="color: #007700">,<br />);<br /></span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'0755'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_VALIDATE_INT</span><span style="color: #007700">, </span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// 对于仅接受标志的过滤器，您可以直接将其传递<br /></span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'oops'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_VALIDATE_BOOLEAN</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_NULL_ON_FAILURE</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// 对于仅接受标志的过滤器，您还可以将其作为数组传递<br /></span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'oops'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_VALIDATE_BOOLEAN</span><span style="color: #007700">,<br />                  array(</span><span style="color: #DD0000">'flags' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">FILTER_NULL_ON_FAILURE</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// 回调类型过滤器<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">// 预期值: Surname, GivenNames<br />    </span><span style="color: #007700">if (</span><span style="color: #0000BB">strpos</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #DD0000">", "</span><span style="color: #007700">) === </span><span style="color: #0000BB">false</span><span style="color: #007700">) return </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />    list(</span><span style="color: #0000BB">$surname</span><span style="color: #007700">, </span><span style="color: #0000BB">$givennames</span><span style="color: #007700">) = </span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">", "</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$empty </span><span style="color: #007700">= (empty(</span><span style="color: #0000BB">$surname</span><span style="color: #007700">) || empty(</span><span style="color: #0000BB">$givennames</span><span style="color: #007700">));<br />    </span><span style="color: #0000BB">$notstrings </span><span style="color: #007700">= (!</span><span style="color: #0000BB">is_string</span><span style="color: #007700">(</span><span style="color: #0000BB">$surname</span><span style="color: #007700">) || !</span><span style="color: #0000BB">is_string</span><span style="color: #007700">(</span><span style="color: #0000BB">$givennames</span><span style="color: #007700">));<br />    if (</span><span style="color: #0000BB">$empty </span><span style="color: #007700">|| </span><span style="color: #0000BB">$notstrings</span><span style="color: #007700">) {<br />        return </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />    } else {<br />        return </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />    }<br />}<br /></span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'Doe, Jane Sue'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_CALLBACK</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'options' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
        </div>
@@ -114,11 +115,11 @@
  <div class="refsect1 examples" id="refsect1-function.filter-var-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5054">
+   <div class="example" id="">
     <p><strong>Example #1 一个 <span class="function"><strong>filter_var()</strong></span> 的示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'bob@example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_EMAIL</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_URL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_FLAG_PATH_REQUIRED</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'bob@example.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_VALIDATE_EMAIL</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://example.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_VALIDATE_URL</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_FLAG_PATH_REQUIRED</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -270,116 +271,6 @@ I wrote a JavaScript email validator fully compatible with PHP's filter_var() im
 <br />
 mpyw/FILTER_VALIDATE_EMAIL.js: Email validation compatible with PHP's filter_var($value, FILTER_VALIDATE_EMAIL) <br />
 https://github.com/mpyw/FILTER_VALIDATE_EMAIL.js</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122835""></a>
-  <div class="note">
-   <strong class="user">ccbsschucko at gmail dot com</strong>
-   <a href="#122835" class="date">15-Jun-2018 12:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">class </span><span class="default">Sanitizer </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $email = email a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">email</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_SANITIZE_EMAIL</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $valor = valor a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param bol =&gt; $allow_accents = permitir acentos<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param bol =&gt; $allow_spaces = permitir espa?os<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">alfabetico</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">, </span><span class="default">bool $allow_accents </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">bool $allow_spaces </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$valor </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">'"'</span><span class="keyword">, </span><span class="string">"'"</span><span class="keyword">, </span><span class="string">'`'</span><span class="keyword">, </span><span class="string">'′'</span><span class="keyword">, </span><span class="string">'¨'</span><span class="keyword">), </span><span class="string">''</span><span class="keyword">, </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; !</span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-z]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; !</span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-zà-?à-?]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; </span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-z ]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; </span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-zà-?à-? ]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $valor = valor a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">alfanumerico</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">, </span><span class="default">bool $allow_accents </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">bool $allow_spaces </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$valor </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">'"'</span><span class="keyword">, </span><span class="string">"'"</span><span class="keyword">, </span><span class="string">'`'</span><span class="keyword">, </span><span class="string">'′'</span><span class="keyword">, </span><span class="string">'¨'</span><span class="keyword">), </span><span class="string">''</span><span class="keyword">, </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; !</span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-z0-9]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; !</span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-zà-?à-?0-9]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; </span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-z0-9 ]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$allow_accents </span><span class="keyword">&amp;&amp; </span><span class="default">$allow_spaces</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#[^A-Za-zà-?à-?0-9 ]#'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $valor = valor a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">numerico</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\D/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $valor = valor a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">integer</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return (int)</span><span class="default">$valor</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $valor = valor a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">float</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return (float)</span><span class="default">$valor</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $valor = valor a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">money</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$valor </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\D/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$valor</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">) &lt; </span><span class="default">3</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$valor </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">)).</span><span class="string">'.00'</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return (float)</span><span class="default">$valor</span><span class="keyword">; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">) &gt; </span><span class="default">2</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$valor </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, (</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">)-</span><span class="default">2</span><span class="keyword">)).</span><span class="string">'.'</span><span class="keyword">.</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">, (</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">)-</span><span class="default">2</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return (float)</span><span class="default">$valor</span><span class="keyword">; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/**<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; * @param str =&gt; $valor = valor a ser sanitizado<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">url</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$valor </span><span class="keyword">= </span><span class="default">strip_tags</span><span class="keyword">(</span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">'"'</span><span class="keyword">, </span><span class="string">"'"</span><span class="keyword">, </span><span class="string">'`'</span><span class="keyword">, </span><span class="string">'′'</span><span class="keyword">, </span><span class="string">'¨'</span><span class="keyword">), </span><span class="string">''</span><span class="keyword">, </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">)));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$valor</span><span class="keyword">, </span><span class="default">FILTER_SANITIZE_URL</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// ex:<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">Sanitizer</span><span class="keyword">::</span><span class="default">numerico</span><span class="keyword">(</span><span class="string">'bgusybd458ad8964sdfsd'</span><span class="keyword">));<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// 4588964<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -713,57 +604,6 @@ Especially note that there is an (to date) unresolved issue (#49510) concerning 
 <br />
 I thus personally suggest that (to date) the best way to take the filter_var()-functions beyond their original purpose (and allow future extension and customization) is to wrap them in your own classes. This will allow you to work-around unexpected behavior on non-string input and add your custom checks, or back-port filters or sanitizers that may be added in later versions of PHP.<br />
 (Especially since PHP currently still lacks filters and sanitizers for some of the more exotic HTML5 input types, like "color". Thus there actually is a chance that we may see a need for custom filters or backports at some point in the future.)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="112880""></a>
-  <div class="note">
-   <strong class="user">CertaiN</strong>
-   <a href="#112880" class="date">01-Aug-2013 10:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-E-mail validator function that supports IPv6 and checking length.<br />
-This also supports Japanese old feature phone E-mail address by sending second argument $strict as FALSE.<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">validate_email</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">$strict </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$dot_string </span><span class="keyword">= </span><span class="default">$strict </span><span class="keyword">?<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'(?:[A-Za-z0-9!#$%&amp;*+=?^_`{|}~\'\\/-]|(?&lt;!\\.|\\A)\\.(?!\\.|@))' </span><span class="keyword">:<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'(?:[A-Za-z0-9!#$%&amp;*+=?^_`{|}~\'\\/.-])'<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$quoted_string </span><span class="keyword">= </span><span class="string">'(?:\\\\\\\\|\\\\"|\\\\?[A-Za-z0-9!#$%&amp;*+=?^_`{|}~()&lt;&gt;[\\]:;@,. \'\\/-])'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$ipv4_part </span><span class="keyword">= </span><span class="string">'(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$ipv6_part </span><span class="keyword">= </span><span class="string">'(?:[A-fa-f0-9]{1,4})'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$fqdn_part </span><span class="keyword">= </span><span class="string">'(?:[A-Za-z](?:[A-Za-z0-9-]{0,61}?[A-Za-z0-9])?)'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$ipv4 </span><span class="keyword">= </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv4_part</span><span class="keyword">}</span><span class="string">\\.){3}</span><span class="keyword">{</span><span class="default">$ipv4_part</span><span class="keyword">}</span><span class="string">)"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$ipv6 </span><span class="keyword">= </span><span class="string">'(?:' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">:){7}(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">:){6}(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">|:</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">:){5}(?:(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){1,2}|:</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">:){4}(?:(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){1,3}|(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">)?:</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">:){3}(?:(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){1,4}|(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){0,2}:</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">:){2}(?:(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){1,5}|(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){0,3}:</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">:){1}(?:(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){1,6}|(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){0,4}:</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">"(?::(?:(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){1,7}|(?::</span><span class="keyword">{</span><span class="default">$ipv6_part</span><span class="keyword">}</span><span class="string">){0,5}:</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">|:))" </span><span class="keyword">. <br />
-&nbsp;&nbsp;&nbsp; </span><span class="string">')'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$fqdn </span><span class="keyword">= </span><span class="string">"(?:(?:</span><span class="keyword">{</span><span class="default">$fqdn_part</span><span class="keyword">}</span><span class="string">\\.)+?</span><span class="keyword">{</span><span class="default">$fqdn_part</span><span class="keyword">}</span><span class="string">)"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$local </span><span class="keyword">= </span><span class="string">"(</span><span class="keyword">{</span><span class="default">$dot_string</span><span class="keyword">}</span><span class="string">++|(\")</span><span class="keyword">{</span><span class="default">$quoted_string</span><span class="keyword">}</span><span class="string">++\")"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$domain </span><span class="keyword">= </span><span class="string">"(</span><span class="keyword">{</span><span class="default">$fqdn</span><span class="keyword">}</span><span class="string">|\\[</span><span class="keyword">{</span><span class="default">$ipv4</span><span class="keyword">}</span><span class="string">]|\\[</span><span class="keyword">{</span><span class="default">$ipv6</span><span class="keyword">}</span><span class="string">]|\\[</span><span class="keyword">{</span><span class="default">$fqdn</span><span class="keyword">}</span><span class="string">])"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$pattern </span><span class="keyword">= </span><span class="string">"/\\A</span><span class="keyword">{</span><span class="default">$local</span><span class="keyword">}</span><span class="string">@</span><span class="keyword">{</span><span class="default">$domain</span><span class="keyword">}</span><span class="string">\\z/"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">preg_match</span><span class="keyword">(</span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">$email</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">) &amp;&amp;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; (<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; !empty(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]) &amp;&amp; !isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">][</span><span class="default">66</span><span class="keyword">]) &amp;&amp; !isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="default">256</span><span class="keyword">]) ||<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; !isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">][</span><span class="default">64</span><span class="keyword">]) &amp;&amp; !isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="default">254</span><span class="keyword">])<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; )<br />
-&nbsp;&nbsp;&nbsp; ;<br />
-}<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -1150,33 +990,6 @@ echo </span><span class="default">filter_var</span><span class="keyword">(</span
 </span><span class="comment">// returns 'asdf-123'<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="76700""></a>
-  <div class="note">
-   <strong class="user">John</strong>
-   <a href="#76700" class="date">26-Jul-2007 12:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I managed to get this to work with PHP 5.1.6 on CentOS 5 with minor difficulty.<br />
-<br />
-1) Download the PECL filter package<br />
-2) Extract the tarball<br />
-3) phpize the directory<br />
-4) ./configure<br />
-5) make<br />
-6) filter-0.11.0/logical_filters.c:25:31: error: ext/pcre/php_pcre.h: No such file or directory<br />
-7) find / -name php_pcre.h<br />
-8) Make sure php-devel is installed<br />
-9) Edit filter-0.11.0/logical_filters.c and replace "ext/pcre/php_pcre.h" with the absolute path of php_pcre.h<br />
-10) make<br />
-11) make install<br />
-12) add "extension=filter.so" to php.ini<br />
-13) Restart Apache</span>
 </code>
     </div>
    </div>

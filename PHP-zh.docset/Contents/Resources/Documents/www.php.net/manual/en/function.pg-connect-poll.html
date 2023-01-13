@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>正在进行尝试轮询 PostgreSQL 链接状态。</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>对正在进行尝试进行异步的 PostgreSQL 连接轮询其状态。</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,7 +21,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.pgsql.html">PostgreSQL 函数</a></li>
-    <li>正在进行尝试轮询 PostgreSQL 链接状态。</li>
+    <li>对正在进行尝试进行异步的 PostgreSQL 连接轮询其状态。</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,7 +29,7 @@
  <div class="refnamediv">
   <h1 class="refname">pg_connect_poll</h1>
   <p class="verinfo">(PHP 5 &gt;= 5.6.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_connect_poll</span> &mdash; <span class="dc-title">
-   正在进行尝试轮询 PostgreSQL 链接状态。
+   对正在进行尝试进行异步的 PostgreSQL 连接轮询其状态。
   </span></p>
 
  </div>
@@ -36,11 +37,11 @@
  <div class="refsect1 description" id="refsect1-function.pg-connect-poll-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>pg_connect_poll</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$connection</code><span class="initializer"> = ?</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>pg_connect_poll</strong></span>(<span class="methodparam"><span class="type"><a href="class.pgsql-connection.html" class="type PgSql\Connection">PgSql\Connection</a></span> <code class="parameter">$connection</code></span>): <span class="type">int</span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>pg_connect_poll()</strong></span> 轮询使用 <span class="function"><a href="function.pg-connect.html" class="function">pg_connect()</a></span> 创建的 PostgreSQL 链接状态，根据
-   <strong><code>PGSQL_CONNECT_ASYNC</code></strong> 选项
+   <span class="function"><strong>pg_connect_poll()</strong></span> 轮询通过 <strong><code>PGSQL_CONNECT_ASYNC</code></strong> 选项调用
+   <span class="function"><a href="function.pg-connect.html" class="function">pg_connect()</a></span> 创建的 PostgreSQL 连接的状态。
   </p>
  </div>
 
@@ -54,9 +55,7 @@
 
     <dd>
 
-     <p class="para">
-      PostgreSQL 数据库链接资源
-     </p>
+     <p class="para">An <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span> instance.</p>
     </dd>
 
    
@@ -68,12 +67,37 @@
  <div class="refsect1 returnvalues" id="refsect1-function.pg-connect-poll-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回常量 <strong><code>PGSQL_POLLING_FAILED</code></strong>,
-   <strong><code>PGSQL_POLLING_READING</code></strong>,
-   <strong><code>PGSQL_POLLING_WRITING</code></strong>,
-   <strong><code>PGSQL_POLLING_OK</code></strong>, 或者
-   <strong><code>PGSQL_POLLING_ACTIVE</code></strong>.
+   返回 <strong><code>PGSQL_POLLING_FAILED</code></strong>、<strong><code>PGSQL_POLLING_READING</code></strong>、<strong><code>PGSQL_POLLING_WRITING</code></strong>、<strong><code>PGSQL_POLLING_OK</code></strong>
+   或 <strong><code>PGSQL_POLLING_ACTIVE</code></strong>。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.pg-connect-poll-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">connection</code> 参数接受 <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">资源(resource)</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 </div><div id="usernotes">

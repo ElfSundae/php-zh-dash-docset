@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用 HMAC 方法生成带有密钥的散列值</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -153,11 +154,11 @@
  <div class="refsect1 examples" id="refsect1-function.hash-hmac-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-900">
+   <div class="example" id="example-1800">
     <p><strong>Example #1 <span class="function"><strong>hash_hmac()</strong></span> 例程</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">hash_hmac</span><span style="color: #007700">(</span><span style="color: #DD0000">'ripemd160'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'The&nbsp;quick&nbsp;brown&nbsp;fox&nbsp;jumped&nbsp;over&nbsp;the&nbsp;lazy&nbsp;dog.'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'secret'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">hash_hmac</span><span style="color: #007700">(</span><span style="color: #DD0000">'ripemd160'</span><span style="color: #007700">, </span><span style="color: #DD0000">'The quick brown fox jumped over the lazy dog.'</span><span style="color: #007700">, </span><span style="color: #DD0000">'secret'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -190,7 +191,30 @@ b8e7ae12510bdfb1812e463a7f086122cf37e4f7
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125905""></a>
+<div id="allnotes">  <a name="128038""></a>
+  <div class="note">
+   <strong class="user">pbuttelli at tutanota dot com</strong>
+   <a href="#128038" class="date">21-Dec-2022 09:23</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+While implementing a TOTP application, please note that hash_hmac() must receive data in binary, not in a hexadecimal string, to generate a valid OTP across platforms.<br />
+<br />
+This problem can be easily fixed by converting a hexadecimal string to its binary form before passing it to hash_hmac().<br />
+<br />
+<span class="default">&lt;?php<br />
+$time </span><span class="keyword">= </span><span class="default">hex2bin</span><span class="keyword">(</span><span class="string">'0000000003523f77'</span><span class="keyword">); </span><span class="comment">// time must be in this "hexadecimal and padded" form<br />
+</span><span class="default">$key </span><span class="keyword">= </span><span class="default">hex2bin</span><span class="keyword">(</span><span class="string">'bb57d1...'</span><span class="keyword">); </span><span class="comment">// 160-bits = 40-digit hexadecimal (4 bits) = 32-digit base32 (5 bits)<br />
+<br />
+</span><span class="default">hash_hmac</span><span class="keyword">(</span><span class="string">'sha1'</span><span class="keyword">, </span><span class="default">$time</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125905""></a>
   <div class="note">
    <strong class="user">Pawel M.</strong>
    <a href="#125905" class="date">11-Mar-2021 10:32</a>

@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>产生一个随机整数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -44,9 +45,16 @@
    之间的伪随机整数。例如想要 5 到 15（包括 5 和 15）之间的随机数，用
    <code class="literal">rand(5, 15)</code>。
   </p>
-  <div class="caution"><strong class="caution">Caution</strong><p class="para">本函数并不会生成安全加密的值，不应用于加密用途。若需要安全加密的值，考虑使用
-<span class="function"><a href="function.random-int.html" class="function">random_int()</a></span>、<span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span> 或 <span class="function"><a href="function.openssl-random-pseudo-bytes.html" class="function">openssl_random_pseudo_bytes()</a></span>
-替代。</p></div>
+  <div class="caution"><strong class="caution">Caution</strong>
+ <p class="para">
+  本函数并不会生成安全加密的值，并且<em class="emphasis">不可</em>用于加密或者要求返回值不可猜测的目的。
+ </p>
+ <p class="para">
+  如果需要加密安全随机，则可以将 <span class="classname"><a href="class.random-engine-secure.html" class="classname">Random\Engine\Secure</a></span> 引擎用于
+  <span class="classname"><a href="class.random-randomizer.html" class="classname">Random\Randomizer</a></span>。对于简单的用例，<span class="function"><a href="function.random-int.html" class="function">random_int()</a></span>
+  和 <span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span> 函数提供了操作系统的 <abbr title="Cryptographically Secure PseudoRandom Number Generator">CSPRNG</abbr> 支持的方便且安全的 <abbr title="Application Programming Interface">API</abbr>。
+ </p>
+</div>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <span class="simpara">
     在某些平台下（例如 Windows）<span class="function"><a href="function.getrandmax.html" class="function">getrandmax()</a></span>
@@ -145,11 +153,11 @@
  <div class="refsect1 examples" id="refsect1-function.rand-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3469">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>rand()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">rand</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">rand</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">rand</span><span style="color: #007700">(</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">15</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">rand</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">rand</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">rand</span><span style="color: #007700">(</span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #0000BB">15</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -187,7 +195,7 @@
     <li class="member"><span class="function"><a href="function.getrandmax.html" class="function" rel="rdfs-seeAlso">getrandmax()</a> - 显示随机数最大的可能值</span></li>
     <li class="member"><span class="function"><a href="function.mt-rand.html" class="function" rel="rdfs-seeAlso">mt_rand()</a> - 通过梅森旋转（Mersenne Twister）随机数生成器生成随机值</span></li>
     <li class="member"><span class="function"><a href="function.random-int.html" class="function" rel="rdfs-seeAlso">random_int()</a> - 生成加密安全的伪随机整数</span></li>
-    <li class="member"><span class="function"><a href="function.random-bytes.html" class="function" rel="rdfs-seeAlso">random_bytes()</a> - Generates cryptographically secure pseudo-random bytes</span></li>
+    <li class="member"><span class="function"><a href="function.random-bytes.html" class="function" rel="rdfs-seeAlso">random_bytes()</a> - Get cryptographically secure random bytes</span></li>
    </ul>
   </p>
  </div>

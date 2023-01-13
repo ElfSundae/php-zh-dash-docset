@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使一个图像中调色板版本的颜色与真彩色版本更能匹配</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.imagecolormatch-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagecolormatch</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image1</code></span>, <span class="methodparam"><span class="type">resource</span> <code class="parameter">$image2</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>imagecolormatch</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image1</code></span>, <span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image2</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
    使一个图像中调色板版本的颜色与真彩色版本更能匹配。
@@ -51,7 +52,7 @@
      <dd>
 
       <p class="para">
-       真彩色图像连接资源。
+       真彩色图像对象。
       </p>
      </dd>
 
@@ -63,7 +64,7 @@
      <dd>
 
       <p class="para">
-       必须是调色板图像，而且和  <code class="parameter">image1</code> 的大小必须相同。
+       调色板图像对象，指向与 <code class="parameter">image1</code> 相同大小的图像。
       </p>
      </dd>
 
@@ -80,13 +81,42 @@
   </p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.imagecolormatch-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">image1</code> 和 <code class="parameter">image2</code> 现在需要
+       <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span> 实例，之前需要 <span class="type">resource</span>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.imagecolormatch-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-2637">
-   <p><strong>Example #1 <span class="function"><strong>imagecolormatch()</strong></span> 例子</strong></p>
+  <div class="example" id="example-5280">
+   <p><strong>Example #1 <span class="function"><strong>imagecolormatch()</strong></span> 示例</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Setup&nbsp;the&nbsp;true&nbsp;color&nbsp;and&nbsp;palette&nbsp;images<br /></span><span style="color: #0000BB">$im1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./gdlogo.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$im2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreate</span><span style="color: #007700">(</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;Add&nbsp;some&nbsp;colors&nbsp;to&nbsp;$im2<br /></span><span style="color: #0000BB">$colors&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;Array();<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">36</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">74</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">40</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">240</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">82</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">84</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">63</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">44</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Match&nbsp;these&nbsp;colors&nbsp;with&nbsp;the&nbsp;true&nbsp;color&nbsp;image<br /></span><span style="color: #0000BB">imagecolormatch</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$im2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Free&nbsp;from&nbsp;memory<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Setup the true color and palette images<br /></span><span style="color: #0000BB">$im1 </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./gdlogo.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$im2 </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreate</span><span style="color: #007700">(</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">), </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">// Add some colors to $im2<br /></span><span style="color: #0000BB">$colors   </span><span style="color: #007700">= Array();<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[] = </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">36</span><span style="color: #007700">, </span><span style="color: #0000BB">74</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[] = </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">, </span><span style="color: #0000BB">40</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">240</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[] = </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">, </span><span style="color: #0000BB">82</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[] = </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">, </span><span style="color: #0000BB">84</span><span style="color: #007700">, </span><span style="color: #0000BB">63</span><span style="color: #007700">, </span><span style="color: #0000BB">44</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Match these colors with the true color image<br /></span><span style="color: #0000BB">imagecolormatch</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">, </span><span style="color: #0000BB">$im2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Free from memory<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -94,18 +124,12 @@
   </div>
  </div>
 
- <div class="refsect1 notes" id="refsect1-function.imagecolormatch-notes">
-  <h3 class="title">注释</h3>
-  
- </div>
 
  <div class="refsect1 seealso" id="refsect1-function.imagecolormatch-seealso">
   <h3 class="title">参见</h3>
-  <p class="para">
-   <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建一个真彩色图像</span></li>
-   </ul>
-  </p>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建真彩色图像</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

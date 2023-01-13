@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Inserts a breakpoint at a line in a file</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -98,6 +99,53 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="128047""></a>
+  <div class="note">
+   <strong class="user">Jeff B. Carter</strong>
+   <a href="#128047" class="date">23-Dec-2022 03:34</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here is an example of how to programmatically add a breakpoint based on a condition:<br />
+<br />
+<span class="default">&lt;?php<br />
+$blah </span><span class="keyword">= </span><span class="string">'meh'</span><span class="keyword">;<br />
+if (</span><span class="default">$blah </span><span class="keyword">!== </span><span class="string">'blah'</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">phpdbg_break_file</span><span class="keyword">(</span><span class="string">'blah.php'</span><span class="keyword">, </span><span class="default">6</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">$blah </span><span class="keyword">= </span><span class="string">'blah'</span><span class="keyword">;<br />
+echo </span><span class="default">$blah</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+OUTPUT when running the debugger (using ev to evaluate the value of $blah after each step):<br />
+<br />
+C:\path\to\dir&gt;phpdbg -e blah.php<br />
+[Welcome to phpdbg, the interactive PHP debugger, v8.1.6]<br />
+To get help using phpdbg type "help" and press enter<br />
+[Please report bugs to &lt;<a href="http://bugs.php.net/report.php&gt;]" rel="nofollow" target="_blank">http://bugs.php.net/report.php&gt;]</a><br />
+[Successful compilation of C:\path\to\dir\blah.php]<br />
+prompt&gt; run<br />
+[Breakpoint #0 added at C:\path\to\dir\blah.php:6]<br />
+[Breakpoint #0 at C:\path\to\dir\blah.php:6, hits: 1]<br />
+&gt;00006: $blah = 'blah';<br />
+&nbsp;00007: echo $blah;<br />
+&nbsp;00008: ?&gt;<br />
+prompt&gt; ev $blah<br />
+meh<br />
+prompt&gt; step<br />
+&gt;00007: echo $blah;<br />
+&nbsp;00008: ?&gt;<br />
+prompt&gt; ev $blah<br />
+blah<br />
+prompt&gt; step<br />
+blah&gt;00008: ?&gt;<br />
+prompt&gt; step<br />
+[Script ended normally]</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

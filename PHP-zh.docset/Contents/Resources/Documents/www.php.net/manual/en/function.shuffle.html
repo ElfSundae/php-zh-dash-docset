@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>打乱数组</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -25,21 +26,30 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.shuffle" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">shuffle</h1>
-    <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">shuffle</span> &mdash; <span class="dc-title">打乱数组</span></p>
+ <div class="refnamediv">
+  <h1 class="refname">shuffle</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">shuffle</span> &mdash; <span class="dc-title">打乱数组</span></p>
 
-   </div>
+ </div>
  <div class="refsect1 description" id="refsect1-function.shuffle-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
    <span class="methodname"><strong>shuffle</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$array</code></span>): <span class="type">bool</span></div>
 
-    <p class="para rdfs-comment">
-     本函数打乱（随机排列单元的顺序）一个数组。
-     它使用的是伪随机数产生器，并不适合密码学的场合。
-    </p>
-   </div>
+  <p class="para rdfs-comment">
+   本函数打乱（随机排列单元的顺序）一个数组。
+  </p>
+  <div class="caution"><strong class="caution">Caution</strong>
+ <p class="para">
+  本函数并不会生成安全加密的值，并且<em class="emphasis">不可</em>用于加密或者要求返回值不可猜测的目的。
+ </p>
+ <p class="para">
+  如果需要加密安全随机，则可以将 <span class="classname"><a href="class.random-engine-secure.html" class="classname">Random\Engine\Secure</a></span> 引擎用于
+  <span class="classname"><a href="class.random-randomizer.html" class="classname">Random\Randomizer</a></span>。对于简单的用例，<span class="function"><a href="function.random-int.html" class="function">random_int()</a></span>
+  和 <span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span> 函数提供了操作系统的 <abbr title="Cryptographically Secure PseudoRandom Number Generator">CSPRNG</abbr> 支持的方便且安全的 <abbr title="Application Programming Interface">API</abbr>。
+ </p>
+</div>
+ </div>
 
  <div class="refsect1 parameters" id="refsect1-function.shuffle-parameters">
   <h3 class="title">参数</h3>
@@ -101,11 +111,11 @@
  <div class="refsect1 examples" id="refsect1-function.shuffle-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4995">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>shuffle()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$numbers&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">range</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">shuffle</span><span style="color: #007700">(</span><span style="color: #0000BB">$numbers</span><span style="color: #007700">);<br />foreach&nbsp;(</span><span style="color: #0000BB">$numbers&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$number</span><span style="color: #DD0000">&nbsp;"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$numbers </span><span style="color: #007700">= </span><span style="color: #0000BB">range</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">20</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">shuffle</span><span style="color: #007700">(</span><span style="color: #0000BB">$numbers</span><span style="color: #007700">);<br />foreach (</span><span style="color: #0000BB">$numbers </span><span style="color: #007700">as </span><span style="color: #0000BB">$number</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$number</span><span style="color: #DD0000"> "</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -130,7 +140,9 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.array-rand.html" class="function" rel="rdfs-seeAlso">array_rand()</a> - 从数组中随机取出一个或多个随机键</span></li>
+    <li class="member"><span class="function"><a href="random-randomizer.shufflearray.html" class="function" rel="rdfs-seeAlso">Random\Randomizer::shuffleArray()</a> - Get a permutation of an array</span></li>
+    <li class="member"><span class="function"><a href="random-randomizer.shufflebytes.html" class="function" rel="rdfs-seeAlso">Random\Randomizer::shuffleBytes()</a> - Get a byte-wise permutation of a string</span></li>
+    <li class="member"><span class="function"><a href="random-randomizer.pickarraykeys.html" class="function" rel="rdfs-seeAlso">Random\Randomizer::pickArrayKeys()</a> - Select random array keys</span></li>
     <li class="member"><a href="array.sorting.html" class="link">数组排序函数对比</a></li>
    </ul>
   </p>

@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回规范化的绝对路径名</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -111,11 +112,11 @@
  <div class="refsect1 examples" id="refsect1-function.realpath-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2219">
+   <div class="example" id="example-4444">
     <p><strong>Example #1 <span class="function"><strong>realpath()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />chdir</span><span style="color: #007700">(</span><span style="color: #DD0000">'/var/www/'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'./../../etc/passwd'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp/'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />chdir</span><span style="color: #007700">(</span><span style="color: #DD0000">'/var/www/'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'./../../etc/passwd'</span><span style="color: #007700">) . </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp/'</span><span style="color: #007700">) . </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -128,14 +129,14 @@
 </pre></div>
     </div>
    </div>
-   <div class="example" id="example-2220">
+   <div class="example" id="example-4446">
     <p><strong>Example #2 Windows 上的 <span class="function"><strong>realpath()</strong></span></strong></p>
     <div class="example-contents"><p>
      在 Windows 上，<span class="function"><strong>realpath()</strong></span> 会将 unix 风格的路径改成 Windows 风格。
     </p></div>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'/windows/system32'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'C:\Program&nbsp;Files\\'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'/windows/system32'</span><span style="color: #007700">), </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'C:\Program Files\\'</span><span style="color: #007700">), </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -168,7 +169,52 @@ C:\Program Files
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126932""></a>
+<div id="allnotes">  <a name="128080""></a>
+  <div class="note">
+   <strong class="user">belisoful at icloud dot com</strong>
+   <a href="#128080" class="date">04-Jan-2023 06:58</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Sven Arduwie answer is not tested and does not replicate the behavior of realpath but is a close solution.<br />
+<br />
+This has been unit tested to be as close to realpath as possible but without the path having to actually exist in the system.<br />
+<br />
+This takes relative paths and realizes them properly based on actual current working directory, but everything can be virtual. eg.&nbsp; "../someVirtualDir/./virtualFile.jpg"<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">public static function </span><span class="default">virtualpath</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">): </span><span class="default">string<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$path </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">([</span><span class="string">'/'</span><span class="keyword">, </span><span class="string">'\\'</span><span class="keyword">], </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$path</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$len </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$relative </span><span class="keyword">= </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">$len </span><span class="keyword">|| (</span><span class="default">$len </span><span class="keyword">&gt; </span><span class="default">0 </span><span class="keyword">&amp;&amp; </span><span class="default">$path</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] == </span><span class="string">'.'</span><span class="keyword">) || </span><span class="default">$relative </span><span class="keyword">!== </span><span class="default">0</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$path </span><span class="keyword">= </span><span class="default">getcwd</span><span class="keyword">() . </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$path</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$parts </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">explode</span><span class="keyword">(</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$path</span><span class="keyword">), </span><span class="string">'strlen'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$absolutes </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$parts </span><span class="keyword">as </span><span class="default">$part</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="string">'.' </span><span class="keyword">== </span><span class="default">$part</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="string">'..' </span><span class="keyword">== </span><span class="default">$part</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$absolutes</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$absolutes</span><span class="keyword">[] = </span><span class="default">$part</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">implode</span><span class="keyword">(</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$absolutes</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126932""></a>
   <div class="note">
    <strong class="user">Enzo dot Barbaguelatta at alma dot cl</strong>
    <a href="#126932" class="date">16-Mar-2022 06:12</a>
@@ -192,7 +238,7 @@ If you're like me and you had a not very good time checking why realpath retuns 
 <code><span class="html">
 <span class="default">&lt;?php<br />
 <br />
-</span><span class="keyword">namespace </span><span class="default">MockingMagician</span><span class="keyword">\</span><span class="default">Organic</span><span class="keyword">\</span><span class="default">Helper</span><span class="keyword">;<br />
+</span><span class="keyword">namespace </span><span class="default">MockingMagician\Organic\Helper</span><span class="keyword">;<br />
 <br />
 class </span><span class="default">Path<br />
 </span><span class="keyword">{<br />

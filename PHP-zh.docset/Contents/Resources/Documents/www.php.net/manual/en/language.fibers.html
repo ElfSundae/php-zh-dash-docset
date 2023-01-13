@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>纤程</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -67,11 +68,11 @@
    </span>
   </p></blockquote>
 
-  <div class="example" id="language.fiber.example.basic">
+  <div class="example" id="example-678">
    <p><strong>Example #1 基础用法</strong></p>
    <div class="example-contents">
     <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$fiber&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Fiber</span><span style="color: #007700">(function&nbsp;():&nbsp;</span><span style="color: #0000BB">void&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Fiber</span><span style="color: #007700">::</span><span style="color: #0000BB">suspend</span><span style="color: #007700">(</span><span style="color: #DD0000">'fiber'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Value&nbsp;used&nbsp;to&nbsp;resume&nbsp;fiber:&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">start</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Value&nbsp;from&nbsp;fiber&nbsp;suspending:&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">resume</span><span style="color: #007700">(</span><span style="color: #DD0000">'test'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$fiber </span><span style="color: #007700">= new </span><span style="color: #0000BB">Fiber</span><span style="color: #007700">(function (): </span><span style="color: #0000BB">void </span><span style="color: #007700">{<br />   </span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">Fiber</span><span style="color: #007700">::</span><span style="color: #0000BB">suspend</span><span style="color: #007700">(</span><span style="color: #DD0000">'fiber'</span><span style="color: #007700">);<br />   echo </span><span style="color: #DD0000">"Value used to resume fiber: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">start</span><span style="color: #007700">();<br /><br />echo </span><span style="color: #DD0000">"Value from fiber suspending: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">resume</span><span style="color: #007700">(</span><span style="color: #DD0000">'test'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -102,7 +103,7 @@ Value used to resume fiber: test
 I think that in some cases it makes sense to convert a Fiber to a Generator (Coroutine) for convenience. In such cases, this code will be useful:<br />
 <br />
 <span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">fiber_to_coroutine</span><span class="keyword">(\</span><span class="default">Fiber $fiber</span><span class="keyword">): \</span><span class="default">Generator<br />
+</span><span class="keyword">function </span><span class="default">fiber_to_coroutine</span><span class="keyword">(</span><span class="default">\Fiber $fiber</span><span class="keyword">): </span><span class="default">\Generator<br />
 </span><span class="keyword">{<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$index </span><span class="keyword">= -</span><span class="default">1</span><span class="keyword">; </span><span class="comment">// Note: Pre-increment is faster than post-increment.<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />

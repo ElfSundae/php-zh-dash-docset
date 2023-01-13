@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>命名空间和动态语言特征</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -29,23 +30,23 @@
   <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p>
   <p class="para">
    PHP 命名空间的实现受到其语言自身的动态特征的影响。因此，如果要将下面的代码转换到命名空间中：
-   <div class="example" id="example-301">
+   <div class="example" id="example-600">
     <p><strong>Example #1 动态访问元素</strong></p>
     <div class="example-contents"><p>example1.php:</p></div>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">classname<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br />function&nbsp;</span><span style="color: #0000BB">funcname</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">__FUNCTION__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br />const&nbsp;</span><span style="color: #0000BB">constname&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"global"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;输出&nbsp;classname::__construct<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;输出&nbsp;funcname<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'constname'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;输出&nbsp;global<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">classname<br /></span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        echo </span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br />function </span><span style="color: #0000BB">funcname</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">__FUNCTION__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br />const </span><span style="color: #0000BB">constname </span><span style="color: #007700">= </span><span style="color: #DD0000">"global"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #DD0000">'classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">// 输出 classname::__construct<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #DD0000">'funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 输出 funcname<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'constname'</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">; </span><span style="color: #FF8000">// 输出 global<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
    </div>
    必须使用完全限定名称（包括命名空间前缀的类名称）。注意因为在动态的类名称、函数名称或常量名称中，限定名称和完全限定名称没有区别，因此其前导的反斜杠是不必要的。
-   <div class="example" id="example-302">
+   <div class="example" id="example-602">
     <p><strong>Example #2 动态访问命名空间的元素</strong></p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">namespacename</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">classname<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br />function&nbsp;</span><span style="color: #0000BB">funcname</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">__FUNCTION__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br />const&nbsp;</span><span style="color: #0000BB">constname&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"namespaced"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;注意，如果使用双引号，要这样写&nbsp;"\\namespacename\\classname"&nbsp;*/<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'\namespacename\classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;输出&nbsp;namespacename\classname::__construct<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'namespacename\classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;也会输出&nbsp;namespacename\classname::__construct<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'namespacename\funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;输出&nbsp;namespacename\funcname<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'\namespacename\funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;也会输出&nbsp;namespacename\funcname<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'\namespacename\constname'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;输出&nbsp;namespaced<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'namespacename\constname'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;也会输出&nbsp;namespaced<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">namespacename</span><span style="color: #007700">;<br />class </span><span style="color: #0000BB">classname<br /></span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        echo </span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br />function </span><span style="color: #0000BB">funcname</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">__FUNCTION__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br />const </span><span style="color: #0000BB">constname </span><span style="color: #007700">= </span><span style="color: #DD0000">"namespaced"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 注意，如果使用双引号，要这样写 "\\namespacename\\classname" */<br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #DD0000">'\namespacename\classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">// 输出 namespacename\classname::__construct<br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #DD0000">'namespacename\classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">// 也会输出 namespacename\classname::__construct<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #DD0000">'namespacename\funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 输出 namespacename\funcname<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #DD0000">'\namespacename\funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 也会输出 namespacename\funcname<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'\namespacename\constname'</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">; </span><span style="color: #FF8000">// 输出 namespaced<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'namespacename\constname'</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">; </span><span style="color: #FF8000">// 也会输出 namespaced<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -157,7 +158,7 @@ echo </span><span class="default">__METHOD__</span><span class="keyword">,</span
 Important to know is that you need to use the *fully qualified name* in a dynamic class name. Here is an example that emphasizes the difference between a dynamic class name and a normal class name.<br />
 <br />
 <span class="default">&lt;?php<br />
-</span><span class="keyword">namespace </span><span class="default">namespacename</span><span class="keyword">\</span><span class="default">foo</span><span class="keyword">;<br />
+</span><span class="keyword">namespace </span><span class="default">namespacename\foo</span><span class="keyword">;<br />
 <br />
 class </span><span class="default">classname&nbsp; &nbsp; &nbsp; <br />
 </span><span class="keyword">{&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
@@ -177,9 +178,9 @@ class </span><span class="default">classname&nbsp; &nbsp; &nbsp; <br />
 </span><span class="keyword">new </span><span class="default">$c</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'foo\classname' not found in <br />
 <br />
 // Use normal class name&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-</span><span class="keyword">new \</span><span class="default">namespacename</span><span class="keyword">\</span><span class="default">foo</span><span class="keyword">\</span><span class="default">classname</span><span class="keyword">; </span><span class="comment">// bar<br />
-</span><span class="keyword">new </span><span class="default">namespacename</span><span class="keyword">\</span><span class="default">foo</span><span class="keyword">\</span><span class="default">classname</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'namespacename\foo\namespacename\foo\classname' not found<br />
-</span><span class="keyword">new </span><span class="default">foo</span><span class="keyword">\</span><span class="default">classname</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'namespacename\foo\foo\classname' not found</span>
+</span><span class="keyword">new </span><span class="default">\namespacename\foo\classname</span><span class="keyword">; </span><span class="comment">// bar<br />
+</span><span class="keyword">new </span><span class="default">namespacename\foo\classname</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'namespacename\foo\namespacename\foo\classname' not found<br />
+</span><span class="keyword">new </span><span class="default">foo\classname</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'namespacename\foo\foo\classname' not found</span>
 </span>
 </code>
     </div>
@@ -334,7 +335,7 @@ class </span><span class="default">C </span><span class="keyword">{<br />
 </span><br />
 <span class="default">&lt;?php </span><span class="comment">// File2.php<br />
 </span><span class="keyword">namespace </span><span class="default">bar</span><span class="keyword">;<br />
-class </span><span class="default">B </span><span class="keyword">extends \</span><span class="default">foo</span><span class="keyword">\</span><span class="default">A </span><span class="keyword">{}<br />
+class </span><span class="default">B </span><span class="keyword">extends </span><span class="default">\foo\A </span><span class="keyword">{}<br />
 class </span><span class="default">C </span><span class="keyword">{<br />
 &nbsp;&nbsp;&nbsp; public function </span><span class="default">tell</span><span class="keyword">() {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"bar"</span><span class="keyword">;<br />
@@ -345,7 +346,7 @@ class </span><span class="default">C </span><span class="keyword">{<br />
 <span class="default">&lt;?php<br />
 </span><span class="keyword">include </span><span class="string">"File1.php"</span><span class="keyword">;<br />
 include </span><span class="string">"File2.php"</span><span class="keyword">;<br />
-</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">bar</span><span class="keyword">\</span><span class="default">B</span><span class="keyword">;<br />
+</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">bar\B</span><span class="keyword">;<br />
 </span><span class="default">$c </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">();<br />
 </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">tell</span><span class="keyword">(); </span><span class="comment">// "foo" but you want "bar"<br />
 </span><span class="default">?&gt;<br />
@@ -372,7 +373,7 @@ class </span><span class="default">C </span><span class="keyword">{<br />
 </span><br />
 <span class="default">&lt;?php </span><span class="comment">// File2.php<br />
 </span><span class="keyword">namespace </span><span class="default">bar</span><span class="keyword">;<br />
-class </span><span class="default">B </span><span class="keyword">extends \</span><span class="default">foo</span><span class="keyword">\</span><span class="default">A </span><span class="keyword">{<br />
+class </span><span class="default">B </span><span class="keyword">extends </span><span class="default">\foo\A </span><span class="keyword">{<br />
 &nbsp;&nbsp;&nbsp; protected </span><span class="default">$namespace </span><span class="keyword">= </span><span class="default">__NAMESPACE__</span><span class="keyword">;<br />
 }<br />
 class </span><span class="default">C </span><span class="keyword">{<br />
@@ -385,7 +386,7 @@ class </span><span class="default">C </span><span class="keyword">{<br />
 <span class="default">&lt;?php<br />
 </span><span class="keyword">include </span><span class="string">"File1.php"</span><span class="keyword">;<br />
 include </span><span class="string">"File2.php"</span><span class="keyword">;<br />
-</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">bar</span><span class="keyword">\</span><span class="default">B</span><span class="keyword">;<br />
+</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">bar\B</span><span class="keyword">;<br />
 </span><span class="default">$c </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">();<br />
 </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">tell</span><span class="keyword">(); </span><span class="comment">// "bar"<br />
 </span><span class="default">?&gt;<br />
@@ -489,7 +490,7 @@ function </span><span class="default">factory</span><span class="keyword">(</spa
 <br />
 </span><span class="comment">// File2.php
 <br />
-</span><span class="default">$bar </span><span class="keyword">= \</span><span class="default">foo</span><span class="keyword">\</span><span class="default">factory</span><span class="keyword">(</span><span class="string">'Bar'</span><span class="keyword">); </span><span class="comment">// Will try to instantiate \Bar, not \foo\Bar
+</span><span class="default">$bar </span><span class="keyword">= </span><span class="default">\foo\factory</span><span class="keyword">(</span><span class="string">'Bar'</span><span class="keyword">); </span><span class="comment">// Will try to instantiate \Bar, not \foo\Bar
 <br />
 
 <br />
@@ -531,11 +532,11 @@ function </span><span class="default">factory</span><span class="keyword">(</spa
 <br />
 </span><span class="comment">// File2.php
 <br />
-</span><span class="default">$bar </span><span class="keyword">= \</span><span class="default">foo</span><span class="keyword">\</span><span class="default">factory</span><span class="keyword">(</span><span class="string">'Bar'</span><span class="keyword">); </span><span class="comment">// Will correctly instantiate \foo\Bar
+</span><span class="default">$bar </span><span class="keyword">= </span><span class="default">\foo\factory</span><span class="keyword">(</span><span class="string">'Bar'</span><span class="keyword">); </span><span class="comment">// Will correctly instantiate \foo\Bar
 <br />
 
 <br />
-</span><span class="default">$bar2 </span><span class="keyword">= \</span><span class="default">foo</span><span class="keyword">\</span><span class="default">factory</span><span class="keyword">(</span><span class="string">'\anotherfoo\Bar'</span><span class="keyword">); </span><span class="comment">// Wil correctly instantiate \anotherfoo\Bar
+</span><span class="default">$bar2 </span><span class="keyword">= </span><span class="default">\foo\factory</span><span class="keyword">(</span><span class="string">'\anotherfoo\Bar'</span><span class="keyword">); </span><span class="comment">// Wil correctly instantiate \anotherfoo\Bar
 <br />
 
 <br />

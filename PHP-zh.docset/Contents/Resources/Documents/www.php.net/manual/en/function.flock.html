@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>可移植的协同文件锁定</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -128,11 +129,11 @@
  <div class="refsect1 examples" id="refsect1-function.flock-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2171">
+   <div class="example" id="example-4348">
     <p><strong>Example #1 <span class="function"><strong>flock()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/lock.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r+"</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">LOCK_EX</span><span style="color: #007700">))&nbsp;{&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;进行排它型锁定<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">ftruncate</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;truncate&nbsp;file<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Write&nbsp;something&nbsp;here\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fflush</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;flush&nbsp;output&nbsp;before&nbsp;releasing&nbsp;the&nbsp;lock<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">LOCK_UN</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;释放锁定<br /></span><span style="color: #007700">}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Couldn't&nbsp;get&nbsp;the&nbsp;lock!"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/lock.txt"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r+"</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_EX</span><span style="color: #007700">)) {  </span><span style="color: #FF8000">// 进行排它型锁定<br />    </span><span style="color: #0000BB">ftruncate</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);      </span><span style="color: #FF8000">// truncate file<br />    </span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"Write something here\n"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">fflush</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);            </span><span style="color: #FF8000">// flush output before releasing the lock<br />    </span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_UN</span><span style="color: #007700">);    </span><span style="color: #FF8000">// 释放锁定<br /></span><span style="color: #007700">} else {<br />    echo </span><span style="color: #DD0000">"Couldn't get the lock!"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -140,11 +141,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-2172">
+   <div class="example" id="example-4350">
     <p><strong>Example #2 <span class="function"><strong>flock()</strong></span> 使用 <strong><code>LOCK_NB</code></strong> 选项</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp/lock.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r+'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Activate&nbsp;the&nbsp;LOCK_NB&nbsp;option&nbsp;on&nbsp;an&nbsp;LOCK_EX&nbsp;operation&nbsp;*/<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">LOCK_EX&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">LOCK_NB</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Unable&nbsp;to&nbsp;obtain&nbsp;lock'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp/lock.txt'</span><span style="color: #007700">, </span><span style="color: #DD0000">'r+'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Activate the LOCK_NB option on an LOCK_EX operation */<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_EX </span><span style="color: #007700">| </span><span style="color: #0000BB">LOCK_NB</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">'Unable to obtain lock'</span><span style="color: #007700">;<br />    exit(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/* ... */<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -251,7 +252,7 @@ pcntl_signal</span><span class="keyword">(</span><span class="default">SIGALRM</
 </span><span class="default">pcntl_alarm</span><span class="keyword">(</span><span class="default">3</span><span class="keyword">);<br />
 try {<br />
 &nbsp;&nbsp;&nbsp; if (!</span><span class="default">flock</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">LOCK_EX</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Timeout"</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">\Exception</span><span class="keyword">(</span><span class="string">"Timeout"</span><span class="keyword">);<br />
 &nbsp;&nbsp;&nbsp; }<br />
 } finally {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">pcntl_alarm</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br />
@@ -311,7 +312,7 @@ Simple Helper for lock files creation<br />
 &nbsp;&nbsp;&nbsp; public static function </span><span class="default">lockFile</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">, </span><span class="default">$wait </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">) {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$loc_file </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">, </span><span class="string">'c'</span><span class="keyword">);<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( !</span><span class="default">$loc_file </span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(</span><span class="string">'Can\'t create lock file!'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">\Exception</span><span class="keyword">(</span><span class="string">'Can\'t create lock file!'</span><span class="keyword">);<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">$wait </span><span class="keyword">) {<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lock </span><span class="keyword">= </span><span class="default">flock</span><span class="keyword">(</span><span class="default">$loc_file</span><span class="keyword">, </span><span class="default">LOCK_EX</span><span class="keyword">);<br />
@@ -323,7 +324,7 @@ Simple Helper for lock files creation<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">fprintf</span><span class="keyword">(</span><span class="default">$loc_file</span><span class="keyword">, </span><span class="string">"%s\n"</span><span class="keyword">, </span><span class="default">getmypid</span><span class="keyword">());<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$loc_file</span><span class="keyword">;<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else if ( </span><span class="default">$wait </span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(</span><span class="string">'Can\'t lock file!'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">\Exception</span><span class="keyword">(</span><span class="string">'Can\'t lock file!'</span><span class="keyword">);<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />

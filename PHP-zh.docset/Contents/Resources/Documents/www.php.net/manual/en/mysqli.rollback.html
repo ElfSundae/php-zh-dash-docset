@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>回退当前事务</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>回滚当前事务</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,8 +20,8 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli.html">MySQLi</a></li>
-    <li>回退当前事务</li>
+    <li><a href="class.mysqli.html">mysqli</a></li>
+    <li>回滚当前事务</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,7 +29,7 @@
  <div class="refnamediv">
   <h1 class="refname">mysqli::rollback</h1>
   <h1 class="refname">mysqli_rollback</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::rollback</span> -- <span class="refname">mysqli_rollback</span> &mdash; <span class="dc-title">回退当前事务</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::rollback</span> -- <span class="refname">mysqli_rollback</span> &mdash; <span class="dc-title">回滚当前事务</span></p>
 
  </div>
 
@@ -36,13 +37,13 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysqli::rollback</strong></span>(): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::rollback</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$name</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_rollback</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$link</code></span>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_rollback</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$mysql</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$name</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   回退当前数据库的事务。
+   回滚数据库的当前事务。
   </p>
  </div>
 
@@ -58,6 +59,30 @@
 <p class="para">仅以过程化样式：由<span class="function"><a href="function.mysqli-connect.html" class="function">mysqli_connect()</a></span> 或 <span class="function"><a href="mysqli.init.html" class="function">mysqli_init()</a></span>
 返回的 <span class="classname"><a href="class.mysqli.html" class="classname">mysqli</a></span> 对象。</p></dd>
 
+    
+     <dt>
+<code class="parameter">flags</code></dt>
+
+     <dd>
+
+      <p class="para">
+       <strong><code>MYSQLI_TRANS_COR_*</code></strong> 常量的位掩码。
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">name</code></dt>
+
+     <dd>
+
+      <p class="para">
+       如果提供，则执行 <code class="literal">ROLLBACK/*name*/</code>。
+      </p>
+     </dd>
+
+    
    </dl>
 
   </p>
@@ -72,34 +97,50 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-mysqli.rollback-changelog">
+  <h3 class="title">更新日志</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        <code class="parameter">name</code> 现在可以为 null。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-mysqli.rollback-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1472">
-   <p><strong>Example #1 <span class="methodname"><strong>mysqli::rollback()</strong></span> example</strong></p>
-   <div class="example-contents"><p>面向对象风格</p></div>
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;check&nbsp;connection&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;disable&nbsp;autocommit&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">autocommit</span><span style="color: #007700">(</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;myCity&nbsp;LIKE&nbsp;City"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"ALTER&nbsp;TABLE&nbsp;myCity&nbsp;Type=InnoDB"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;myCity&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;City&nbsp;LIMIT&nbsp;50"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;commit&nbsp;insert&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;delete&nbsp;all&nbsp;rows&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"DELETE&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;COUNT(*)&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_row</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%d&nbsp;rows&nbsp;in&nbsp;table&nbsp;myCity.\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Free&nbsp;result&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;Rollback&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rollback</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;COUNT(*)&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_row</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%d&nbsp;rows&nbsp;in&nbsp;table&nbsp;myCity&nbsp;(after&nbsp;rollback).\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Free&nbsp;result&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;Drop&nbsp;table&nbsp;myCity&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;myCity"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
+  <p class="para">
+   参阅 <a href="mysqli.begin-transaction.html#mysqli.begin-transaction.example.basic" class="link"><span class="methodname"><a href="mysqli.begin-transaction.html" class="methodname">mysqli::begin_transaction()</a></span> 示例</a>。
+  </p>
+ </div>
 
-   <div class="example-contents"><p>过程化风格</p></div>
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;check&nbsp;connection&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;disable&nbsp;autocommit&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_autocommit</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;myCity&nbsp;LIKE&nbsp;City"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"ALTER&nbsp;TABLE&nbsp;myCity&nbsp;Type=InnoDB"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;myCity&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;City&nbsp;LIMIT&nbsp;50"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;commit&nbsp;insert&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;delete&nbsp;all&nbsp;rows&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DELETE&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;COUNT(*)&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%d&nbsp;rows&nbsp;in&nbsp;table&nbsp;myCity.\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Free&nbsp;result&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;Rollback&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_rollback</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;COUNT(*)&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%d&nbsp;rows&nbsp;in&nbsp;table&nbsp;myCity&nbsp;(after&nbsp;rollback).\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Free&nbsp;result&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;Drop&nbsp;table&nbsp;myCity&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;myCity"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
 
-   <div class="example-contents"><p>以上例程会输出：</p></div>
-   <div class="example-contents screen">
-<div class="cdata"><pre>
-0 rows in table myCity.
-50 rows in table myCity (after rollback).
-</pre></div>
-   </div>
-  </div>
+ <div class="refsect1 notes" id="refsect1-mysqli.rollback-notes">
+  <h3 class="title">注释</h3>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    此函数不支持非事务表类型（如 MyISAM 或 ISAM）。
+   </p>
+  </p></blockquote>
  </div>
 
 
@@ -107,8 +148,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="mysqli.commit.html" class="function" rel="rdfs-seeAlso">mysqli_commit()</a> - 提交一个事务</span></li>
+    <li class="member"><span class="function"><a href="mysqli.begin-transaction.html" class="function" rel="rdfs-seeAlso">mysqli_begin_transaction()</a> - Starts a transaction</span></li>
+    <li class="member"><span class="function"><a href="mysqli.commit.html" class="function" rel="rdfs-seeAlso">mysqli_commit()</a> - 提交当前事务</span></li>
     <li class="member"><span class="function"><a href="mysqli.autocommit.html" class="function" rel="rdfs-seeAlso">mysqli_autocommit()</a> - 打开或关闭本次数据库连接的自动命令提交事务模式</span></li>
+    <li class="member"><span class="function"><a href="mysqli.release-savepoint.html" class="function" rel="rdfs-seeAlso">mysqli_release_savepoint()</a> - 从当前事务的保存点中移除一个命名保存点</span></li>
    </ul>
   </p>
  </div>

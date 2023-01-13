@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Create new MongoDB Manager</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -871,7 +872,8 @@
            <div class="example-contents">
 <div class="javascriptcode"><pre class="javascriptcode">aws: {
     accessKeyId: &lt;string&gt;,
-    secretAccessKey: &lt;string&gt;
+    secretAccessKey: &lt;string&gt;,
+    sessionToken: &lt;optional string&gt;
 }</pre>
 </div>
            </div>
@@ -1317,6 +1319,17 @@
 
      <tbody class="tbody">
       <tr>
+       <td>PECL mongodb 1.16.0</td>
+       <td>
+        <p class="para">
+         The AWS KMS provider for client-side encryption now accepts a
+         <code class="literal">&quot;sessionToken&quot;</code> option, which can be used to
+         authenticate with temporary AWS credentials.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
        <td>PECL mongodb 1.14.0</td>
        <td>
         <p class="para">
@@ -1519,12 +1532,12 @@
 
  <div class="refsect1 examples" id="refsect1-mongodb-driver-manager.construct-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1293">
+  <div class="example" id="example-2590">
    <p><strong>Example #1 <span class="function"><strong>MongoDB\Driver\Manager::__construct()</strong></span> basic examples</strong></p>
    <div class="example-contents"><p>Connecting to standalone MongoDB node:</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$manager&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">\</span><span style="color: #0000BB">Driver</span><span style="color: #007700">\</span><span style="color: #0000BB">Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://example.com:27017"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$manager </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://example.com:27017"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -1536,7 +1549,7 @@
    </p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$manager&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">\</span><span style="color: #0000BB">Driver</span><span style="color: #007700">\</span><span style="color: #0000BB">Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">rawurlencode</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/mongodb-27017.sock"</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$manager </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://" </span><span style="color: #007700">. </span><span style="color: #0000BB">rawurlencode</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/mongodb-27017.sock"</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -1544,7 +1557,7 @@
    <div class="example-contents"><p>Connecting to a replica set:</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$manager&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">\</span><span style="color: #0000BB">Driver</span><span style="color: #007700">\</span><span style="color: #0000BB">Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://rs1.example.com,rs2.example.com/?replicaSet=myReplicaSet"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$manager </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://rs1.example.com,rs2.example.com/?replicaSet=myReplicaSet"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -1552,7 +1565,7 @@
    <div class="example-contents"><p>Connecting to a sharded cluster (i.e. one or more mongos instances):</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$manager&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">\</span><span style="color: #0000BB">Driver</span><span style="color: #007700">\</span><span style="color: #0000BB">Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://mongos1.example.com,mongos2.example.com/"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$manager </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://mongos1.example.com,mongos2.example.com/"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -1560,7 +1573,7 @@
    <div class="example-contents"><p>Connecting to MongoDB with authentication credentials for a particular user and database:</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$manager&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">\</span><span style="color: #0000BB">Driver</span><span style="color: #007700">\</span><span style="color: #0000BB">Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://myusername:mypassword@example.com/?authSource=databaseName"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$manager </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://myusername:mypassword@example.com/?authSource=databaseName"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -1577,7 +1590,7 @@
    </p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$manager&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">\</span><span style="color: #0000BB">Driver</span><span style="color: #007700">\</span><span style="color: #0000BB">Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://myusername:myp%40ss%3Aw%25rd@example.com/?authSource=databaseName"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$manager </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://myusername:myp%40ss%3Aw%25rd@example.com/?authSource=databaseName"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -1586,7 +1599,7 @@
    <div class="example-contents"><p>Connecting to MongoDB with X509 authentication:</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$manager&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">\</span><span style="color: #0000BB">Driver</span><span style="color: #007700">\</span><span style="color: #0000BB">Manager</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"mongodb://example.com/?ssl=true&amp;authMechanism=MONGODB-X509"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;[],<br />&nbsp;&nbsp;&nbsp;&nbsp;[<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"pem_file"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"/path/to/client.pem"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;]<br />);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$manager </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">(<br />    </span><span style="color: #DD0000">"mongodb://example.com/?ssl=true&amp;authMechanism=MONGODB-X509"</span><span style="color: #007700">,<br />    [],<br />    [<br />        </span><span style="color: #DD0000">"pem_file" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"/path/to/client.pem"</span><span style="color: #007700">,<br />    ]<br />);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>

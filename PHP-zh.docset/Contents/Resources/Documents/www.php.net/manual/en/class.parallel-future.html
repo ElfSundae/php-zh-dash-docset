@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>The parallel\Future class</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -36,11 +37,11 @@
     <p class="para">
      A Future represents the return value or uncaught exception from a task, and exposes an API for cancellation.
     </p>
-     <div class="example" id="example-3308">
+     <div class="example" id="">
       <p><strong>Example #1 Example showing Future as return value</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$runtime&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;\</span><span style="color: #0000BB">parallel</span><span style="color: #007700">\</span><span style="color: #0000BB">Runtime</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$future&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$runtime</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">run</span><span style="color: #007700">(function(){<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"World"</span><span style="color: #007700">;<br />});<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Hello&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$future</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$runtime </span><span style="color: #007700">= new </span><span style="color: #0000BB">\parallel\Runtime</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$future  </span><span style="color: #007700">= </span><span style="color: #0000BB">$runtime</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">run</span><span style="color: #007700">(function(){<br />    return </span><span style="color: #DD0000">"World"</span><span style="color: #007700">;<br />});<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Hello %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$future</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
@@ -55,11 +56,11 @@ Hello World
     <p class="para">
      The behaviour of a future also allows it to be used as a simple synchronization point even where the task does not return a value explicitly.
     </p>
-     <div class="example" id="example-3309">
+     <div class="example" id="">
       <p><strong>Example #2 Example showing Future as synchronization point</strong></p>
       <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$runtime&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;\</span><span style="color: #0000BB">parallel</span><span style="color: #007700">\</span><span style="color: #0000BB">Runtime</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$future&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$runtime</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">run</span><span style="color: #007700">(function(){<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"in&nbsp;child&nbsp;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">500</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">%&nbsp;</span><span style="color: #0000BB">10&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"."</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;leaving&nbsp;child"</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$future</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #DD0000">"\nparent&nbsp;continues\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$runtime </span><span style="color: #007700">= new </span><span style="color: #0000BB">\parallel\Runtime</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$future  </span><span style="color: #007700">= </span><span style="color: #0000BB">$runtime</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">run</span><span style="color: #007700">(function(){<br />    echo </span><span style="color: #DD0000">"in child "</span><span style="color: #007700">;<br />    for (</span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">500</span><span style="color: #007700">; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++) {<br />        if (</span><span style="color: #0000BB">$i </span><span style="color: #007700">% </span><span style="color: #0000BB">10 </span><span style="color: #007700">== </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />            echo </span><span style="color: #DD0000">"."</span><span style="color: #007700">;<br />        }<br />    }<br />    echo </span><span style="color: #DD0000">" leaving child"</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$future</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value</span><span style="color: #007700">();<br />echo </span><span style="color: #DD0000">"\nparent continues\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
       </div>
@@ -225,7 +226,7 @@ function </span><span class="default">testConcurrency</span><span class="keyword
 <br />
 &nbsp;&nbsp;&nbsp; </span><span class="comment">// Fill up threads with a single future initialized to 'false' value<br />
 &nbsp;&nbsp;&nbsp; </span><span class="keyword">for (</span><span class="default">$thread_id </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="default">$thread_id </span><span class="keyword">&lt;= </span><span class="default">$concurrency</span><span class="keyword">; </span><span class="default">$thread_id</span><span class="keyword">++) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$threads</span><span class="keyword">[</span><span class="default">$thread_id</span><span class="keyword">] = [</span><span class="string">'runtime' </span><span class="keyword">=&gt; new \</span><span class="default">parallel</span><span class="keyword">\</span><span class="default">Runtime</span><span class="keyword">(), </span><span class="string">'future' </span><span class="keyword">=&gt; </span><span class="default">false</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$threads</span><span class="keyword">[</span><span class="default">$thread_id</span><span class="keyword">] = [</span><span class="string">'runtime' </span><span class="keyword">=&gt; new </span><span class="default">\parallel\Runtime</span><span class="keyword">(), </span><span class="string">'future' </span><span class="keyword">=&gt; </span><span class="default">false</span><span class="keyword">];<br />
 &nbsp;&nbsp;&nbsp; }<br />
 &nbsp;&nbsp;&nbsp; <br />
 &nbsp;&nbsp;&nbsp; </span><span class="comment">// Create infinite loop for the whole processing<br />

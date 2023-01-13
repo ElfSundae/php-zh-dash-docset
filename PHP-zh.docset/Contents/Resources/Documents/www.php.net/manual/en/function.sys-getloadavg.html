@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取系统的负载（load average）</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -58,11 +59,11 @@
  <div class="refsect1 examples" id="refsect1-function.sys-getloadavg-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3457">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>sys_getloadavg()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$load&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sys_getloadavg</span><span style="color: #007700">();<br />if&nbsp;(</span><span style="color: #0000BB">$load</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;&gt;&nbsp;</span><span style="color: #0000BB">80</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'HTTP/1.1&nbsp;503&nbsp;Too&nbsp;busy,&nbsp;try&nbsp;again&nbsp;later'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Server&nbsp;too&nbsp;busy.&nbsp;Please&nbsp;try&nbsp;again&nbsp;later.'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$load </span><span style="color: #007700">= </span><span style="color: #0000BB">sys_getloadavg</span><span style="color: #007700">();<br />if (</span><span style="color: #0000BB">$load</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] &gt; </span><span style="color: #0000BB">80</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'HTTP/1.1 503 Too busy, try again later'</span><span style="color: #007700">);<br />    die(</span><span style="color: #DD0000">'Server too busy. Please try again later.'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -162,60 +163,60 @@ It is important to note that sys_getloadavg() does not return a percentage, and 
 &nbsp;&nbsp;&nbsp; </span><span class="default">$Kernel32</span><span class="keyword">??=</span><span class="default">FFI</span><span class="keyword">::</span><span class="default">cdef</span><span class="keyword">(&lt;&lt;&lt;'IDL'<br />
 </span><span class="string">&nbsp; &nbsp; &nbsp; bool GetSystemTimes(long long *IdleTime, long long *KernelTime, long long *UserTime);<br />
 &nbsp;&nbsp; &nbsp;&nbsp; int GetLastError();<br />
-&nbsp;&nbsp;&nbsp; IDL, 'Kernel32.dll');<br />
+</span><span class="keyword">&nbsp; &nbsp; IDL, </span><span class="string">'Kernel32.dll'</span><span class="keyword">);<br />
 &nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; $IdleTime&nbsp;&nbsp; = FFI::new('long long');<br />
-&nbsp;&nbsp;&nbsp; $KernelTime = FFI::new('long long'); // already has idle time<br />
-&nbsp;&nbsp;&nbsp; $UserTime&nbsp;&nbsp; = FFI::new('long long');<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$IdleTime&nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">FFI</span><span class="keyword">::new(</span><span class="string">'long long'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$KernelTime </span><span class="keyword">= </span><span class="default">FFI</span><span class="keyword">::new(</span><span class="string">'long long'</span><span class="keyword">); </span><span class="comment">// already has idle time<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$UserTime&nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">FFI</span><span class="keyword">::new(</span><span class="string">'long long'</span><span class="keyword">);<br />
 &nbsp; <br />
-&nbsp;&nbsp;&nbsp; if($Kernel32-&gt;GetSystemTimes(FFI::addr($IdleTime), FFI::addr($KernelTime), FFI::addr($UserTime)))<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">$Kernel32</span><span class="keyword">-&gt;</span><span class="default">GetSystemTimes</span><span class="keyword">(</span><span class="default">FFI</span><span class="keyword">::</span><span class="default">addr</span><span class="keyword">(</span><span class="default">$IdleTime</span><span class="keyword">), </span><span class="default">FFI</span><span class="keyword">::</span><span class="default">addr</span><span class="keyword">(</span><span class="default">$KernelTime</span><span class="keyword">), </span><span class="default">FFI</span><span class="keyword">::</span><span class="default">addr</span><span class="keyword">(</span><span class="default">$UserTime</span><span class="keyword">)))<br />
 &nbsp;&nbsp; &nbsp;&nbsp; return [<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'Idle'&nbsp;&nbsp; =&gt;$IdleTime&nbsp;&nbsp; -&gt;cdata,<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'Kernel' =&gt;$KernelTime -&gt;cdata, // already has idle time<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'User'&nbsp;&nbsp; =&gt;$UserTime&nbsp;&nbsp; -&gt;cdata,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Idle'&nbsp;&nbsp; </span><span class="keyword">=&gt;</span><span class="default">$IdleTime&nbsp;&nbsp; </span><span class="keyword">-&gt;</span><span class="default">cdata</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Kernel' </span><span class="keyword">=&gt;</span><span class="default">$KernelTime </span><span class="keyword">-&gt;</span><span class="default">cdata</span><span class="keyword">, </span><span class="comment">// already has idle time<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'User'&nbsp;&nbsp; </span><span class="keyword">=&gt;</span><span class="default">$UserTime&nbsp;&nbsp; </span><span class="keyword">-&gt;</span><span class="default">cdata</span><span class="keyword">,<br />
 &nbsp;&nbsp; &nbsp;&nbsp; ];<br />
 &nbsp;&nbsp;&nbsp; return [];<br />
 &nbsp; }<br />
 &nbsp; <br />
-&nbsp; function GetSystemTimesDelta()<br />
+&nbsp; function </span><span class="default">GetSystemTimesDelta</span><span class="keyword">()<br />
 &nbsp; {<br />
-&nbsp;&nbsp;&nbsp; static $Last=null;<br />
-&nbsp;&nbsp;&nbsp; static $Delta=[0,1];<br />
-&nbsp;&nbsp;&nbsp; $Times=GetSystemTimes();<br />
-&nbsp;&nbsp;&nbsp; $Last??=$Times;<br />
-&nbsp;&nbsp;&nbsp; $Idle =$Times['Idle'&nbsp;&nbsp; ]-$Last['Idle'&nbsp;&nbsp; ];<br />
-&nbsp;&nbsp;&nbsp; $All&nbsp; =$Times['Kernel' ]-$Last['Kernel' ]+&nbsp; // Kernel already has idle time<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $Times['User'&nbsp;&nbsp; ]-$Last['User'&nbsp;&nbsp; ];<br />
-&nbsp;&nbsp;&nbsp; if($All&gt;1_000_000) // 100ms<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; $Delta=[$Idle, $All];<br />
-&nbsp;&nbsp; &nbsp;&nbsp; $Last=$Times;<br />
+&nbsp;&nbsp;&nbsp; static </span><span class="default">$Last</span><span class="keyword">=</span><span class="default">null</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; static </span><span class="default">$Delta</span><span class="keyword">=[</span><span class="default">0</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$Times</span><span class="keyword">=</span><span class="default">GetSystemTimes</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$Last</span><span class="keyword">??=</span><span class="default">$Times</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$Idle </span><span class="keyword">=</span><span class="default">$Times</span><span class="keyword">[</span><span class="string">'Idle'&nbsp;&nbsp; </span><span class="keyword">]-</span><span class="default">$Last</span><span class="keyword">[</span><span class="string">'Idle'&nbsp;&nbsp; </span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$All&nbsp; </span><span class="keyword">=</span><span class="default">$Times</span><span class="keyword">[</span><span class="string">'Kernel' </span><span class="keyword">]-</span><span class="default">$Last</span><span class="keyword">[</span><span class="string">'Kernel' </span><span class="keyword">]+&nbsp; </span><span class="comment">// Kernel already has idle time<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$Times</span><span class="keyword">[</span><span class="string">'User'&nbsp;&nbsp; </span><span class="keyword">]-</span><span class="default">$Last</span><span class="keyword">[</span><span class="string">'User'&nbsp;&nbsp; </span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">$All</span><span class="keyword">&gt;</span><span class="default">1_000_000</span><span class="keyword">) </span><span class="comment">// 100ms<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$Delta</span><span class="keyword">=[</span><span class="default">$Idle</span><span class="keyword">, </span><span class="default">$All</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$Last</span><span class="keyword">=</span><span class="default">$Times</span><span class="keyword">;<br />
 &nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; return $Delta;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$Delta</span><span class="keyword">;<br />
 &nbsp; }<br />
 <br />
-&nbsp; function ProcessorLoad()<br />
+&nbsp; function </span><span class="default">ProcessorLoad</span><span class="keyword">()<br />
 &nbsp; {<br />
-&nbsp;&nbsp;&nbsp; static $Load=0;<br />
-&nbsp;&nbsp;&nbsp; [$Idle, $All]=GetSystemTimesDelta();<br />
-&nbsp;&nbsp;&nbsp; if($All&gt;0.0)<br />
-&nbsp;&nbsp; &nbsp;&nbsp; $Load=1-$Idle/$All;<br />
-&nbsp;&nbsp;&nbsp; return $Load;<br />
+&nbsp;&nbsp;&nbsp; static </span><span class="default">$Load</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="default">$Idle</span><span class="keyword">, </span><span class="default">$All</span><span class="keyword">]=</span><span class="default">GetSystemTimesDelta</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; if(</span><span class="default">$All</span><span class="keyword">&gt;</span><span class="default">0.0</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$Load</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">-</span><span class="default">$Idle</span><span class="keyword">/</span><span class="default">$All</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$Load</span><span class="keyword">;<br />
 &nbsp; }<br />
 &nbsp; <br />
-&nbsp; function KbHit()<br />
+&nbsp; function </span><span class="default">KbHit</span><span class="keyword">()<br />
 &nbsp; {<br />
-&nbsp;&nbsp;&nbsp; Static $Sys;<br />
-&nbsp;&nbsp;&nbsp; $Sys??=FFI::cdef('bool _kbhit();', 'msvcrt.dll');<br />
-&nbsp;&nbsp;&nbsp; return $Sys-&gt;_kbhit();<br />
+&nbsp;&nbsp;&nbsp; Static </span><span class="default">$Sys</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$Sys</span><span class="keyword">??=</span><span class="default">FFI</span><span class="keyword">::</span><span class="default">cdef</span><span class="keyword">(</span><span class="string">'bool _kbhit();'</span><span class="keyword">, </span><span class="string">'msvcrt.dll'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$Sys</span><span class="keyword">-&gt;</span><span class="default">_kbhit</span><span class="keyword">();<br />
 &nbsp; }<br />
 &nbsp; <br />
-&nbsp; while(!KbHit())<br />
+&nbsp; while(!</span><span class="default">KbHit</span><span class="keyword">())<br />
 &nbsp; {<br />
-&nbsp;&nbsp;&nbsp; echo str_pad((string)round(ProcessorLoad()*100), 3, ' ', STR_PAD_LEFT), "%\n";<br />
-&nbsp;&nbsp;&nbsp; sleep(1);<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">str_pad</span><span class="keyword">((string)</span><span class="default">round</span><span class="keyword">(</span><span class="default">ProcessorLoad</span><span class="keyword">()*</span><span class="default">100</span><span class="keyword">), </span><span class="default">3</span><span class="keyword">, </span><span class="string">' '</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">), </span><span class="string">"%\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />
 &nbsp; }<br />
-?&gt;</span>
+</span><span class="default">?&gt;</span>
 </span>
 </code>
     </div>

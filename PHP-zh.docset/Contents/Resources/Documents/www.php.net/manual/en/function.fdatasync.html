@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Synchronizes data (but not meta-data) to the file</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>同步文件数据（不包含元数据）</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,14 +21,14 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.filesystem.html">文件系统函数</a></li>
-    <li>Synchronizes data (but not meta-data) to the file</li>
+    <li>同步文件数据（不包含元数据）</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.fdatasync" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">fdatasync</h1>
-  <p class="verinfo">(PHP 8 &gt;= 8.1.0)</p><p class="refpurpose"><span class="refname">fdatasync</span> &mdash; <span class="dc-title">Synchronizes data (but not meta-data) to the file</span></p>
+  <p class="verinfo">(PHP 8 &gt;= 8.1.0)</p><p class="refpurpose"><span class="refname">fdatasync</span> &mdash; <span class="dc-title">同步文件数据（不包含元数据）</span></p>
 
  </div>
  
@@ -37,10 +38,9 @@
    <span class="methodname"><strong>fdatasync</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stream</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   This function synchronizes <code class="parameter">stream</code> contents to storage media, just like <span class="function"><a href="function.fsync.html" class="function">fsync()</a></span> does,
-   but it does not synchronize file meta-data.
-   Note that this function is only effectively different in POSIX systems.
-   In Windows, this function is aliased to <span class="function"><a href="function.fsync.html" class="function">fsync()</a></span>.
+   此函数同步 <code class="parameter">stream</code> 的内容到存储介质，就像是 <span class="function"><a href="function.fsync.html" class="function">fsync()</a></span> 
+   所做的那样，但不会同步文件元数据。注意，此函数仅在 POSIX 系统中有实际区别。在 Windows 中，是 <span class="function"><a href="function.fsync.html" class="function">fsync()</a></span> 
+   的别名。
   </p>
  </div>
 
@@ -77,11 +77,11 @@
  <div class="refsect1 examples" id="refsect1-function.fdatasync-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2145">
-    <p><strong>Example #1 <span class="function"><strong>fdatasync()</strong></span> example</strong></p>
+   <div class="example" id="example-4296">
+    <p><strong>Example #1 <span class="function"><strong>fdatasync()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'test.txt'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stream&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'w'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'test&nbsp;data'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\r\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'additional&nbsp;data'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">fdatasync</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$file </span><span style="color: #007700">= </span><span style="color: #DD0000">'test.txt'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stream </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">, </span><span style="color: #DD0000">'w'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">, </span><span style="color: #DD0000">'test data'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">, </span><span style="color: #DD0000">"\r\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">, </span><span style="color: #DD0000">'additional data'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">fdatasync</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -96,7 +96,7 @@
   <p class="para">
    <ul class="simplelist">
     <li class="member"><span class="function"><a href="function.fflush.html" class="function" rel="rdfs-seeAlso">fflush()</a> - 将缓冲内容输出到文件</span></li>
-    <li class="member"><span class="function"><a href="function.fsync.html" class="function" rel="rdfs-seeAlso">fsync()</a> - Synchronizes changes to the file (including meta-data)</span></li>
+    <li class="member"><span class="function"><a href="function.fsync.html" class="function" rel="rdfs-seeAlso">fsync()</a> - 同步文件变更（包括元数据）</span></li>
    </ul>
   </p>
  </div>

@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>等待所有cURL批处理中的活动连接</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>在任意 curl_multi 连接上等待活动</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,14 +21,14 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.curl.html">cURL 函数</a></li>
-    <li>等待所有cURL批处理中的活动连接</li>
+    <li>在任意 curl_multi 连接上等待活动</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.curl-multi-select" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">curl_multi_select</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">curl_multi_select</span> &mdash; <span class="dc-title">等待所有cURL批处理中的活动连接</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">curl_multi_select</span> &mdash; <span class="dc-title">在任意 curl_multi 连接上等待活动</span></p>
 
  </div>
  
@@ -37,7 +38,7 @@
    <span class="methodname"><strong>curl_multi_select</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$mh</code></span>, <span class="methodparam"><span class="type">float</span> <code class="parameter">$timeout</code><span class="initializer"> = 1.0</span></span>): <span class="type">int</span></div>
 
   <p class="para rdfs-comment">
-    阻塞直到cURL批处理连接中有活动连接。
+    阻塞到任意 curl_multi连接上有活动。
   </p>
 
  </div>
@@ -75,8 +76,37 @@
  <div class="refsect1 returnvalues" id="refsect1-function.curl-multi-select-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回描述符集合中描述符的数量。失败时，select失败时返回-1，否则返回超时(从底层的select系统调用).
+   成功时返回描述符集合中描述符的数量。如果没有任何活动的描述符，则为
+   0。失败时，此函数将在 select 失败时返回 -1（来自底层 select 系统调用）。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.curl-multi-select-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">multi_handle</code> expects a <span class="classname"><a href="class.curlmultihandle.html" class="classname">CurlMultiHandle</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 

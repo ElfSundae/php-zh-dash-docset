@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>准备要执行的语句，并返回语句对象</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>预处理要执行的语句，并返回语句对象</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,7 +21,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.pdo.html">PDO</a></li>
-    <li>准备要执行的语句，并返回语句对象</li>
+    <li>预处理要执行的语句，并返回语句对象</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,25 +29,25 @@
  <div class="refnamediv">
   <h1 class="refname">PDO::prepare</h1>
   <p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7, PHP 8, PHP 8,PECL pdo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDO::prepare</span> &mdash; <span class="dc-title">
-    准备要执行的语句，并返回语句对象
+    预处理要执行的语句，并返回语句对象
   </span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-pdo.prepare-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>PDO::prepare</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$statement</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$driver_options</code><span class="initializer"> = array()</span></span>): <span class="type"><a href="class.pdostatement.html" class="type PDOStatement">PDOStatement</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDO::prepare</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$query</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code><span class="initializer"> = []</span></span>): <span class="type"><span class="type"><a href="class.pdostatement.html" class="type PDOStatement">PDOStatement</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
 
   <p class="para rdfs-comment">
-   为 <span class="function"><a href="pdostatement.execute.html" class="function">PDOStatement::execute()</a></span> 方法准备待执行的 SQL 语句。
+   为 <span class="methodname"><a href="pdostatement.execute.html" class="methodname">PDOStatement::execute()</a></span> 方法预处理待执行的 SQL 语句。
    语句模板可以包含零个或多个参数占位标记，格式是命名（:name）或问号（?）的形式，当它执行时将用真实数据取代。
    
    在同一个语句模板里，命名形式和问号形式不能同时使用；只能选择其中一种参数形式。
    请用参数形式绑定用户输入的数据，不要直接字符串拼接到查询里。
   </p>
   <p class="para">
-   调用 <span class="function"><a href="pdostatement.execute.html" class="function">PDOStatement::execute()</a></span> 时，每一个值的参数占位标记，名称必须唯一。
+   调用 <span class="methodname"><a href="pdostatement.execute.html" class="methodname">PDOStatement::execute()</a></span> 时，每一个值的参数占位标记，名称必须唯一。
    除非启用模拟（emulation）模式，同一个语句里无法使用重名的参数。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
@@ -56,10 +57,10 @@
    </p>
   </p></blockquote>
   <p class="para">
-    如果用不同参数，通过 <span class="function"><strong>PDO::prepare()</strong></span> 和 <span class="function"><a href="pdostatement.execute.html" class="function">PDOStatement::execute()</a></span>
+    如果用不同参数，通过 <span class="methodname"><strong>PDO::prepare()</strong></span> 和 <span class="methodname"><a href="pdostatement.execute.html" class="methodname">PDOStatement::execute()</a></span>
    多次调用同一个 SQL 语句，将提升应用的性能 &mdash;&mdash; 驱动可以让客户端/服务器缓存查询和元信息。
-   同时，调用 <span class="function"><strong>PDO::prepare()</strong></span> 和
-   <span class="function"><a href="pdostatement.execute.html" class="function">PDOStatement::execute()</a></span> 还能阻止 SQL 注入攻击，不需要给参数手动加引号与转义。
+   同时，调用 <span class="methodname"><strong>PDO::prepare()</strong></span> 和
+   <span class="methodname"><a href="pdostatement.execute.html" class="methodname">PDOStatement::execute()</a></span> 还能阻止 SQL 注入攻击，不需要给参数手动加引号与转义。
   </p>
   <p class="para">
     如果内置驱动不支持参数，PDO 将模拟出参数的功能；如果驱动仅仅支持其中一种风格（命名参数和问号参数两种），也会自动重写到另外一种风格。
@@ -76,6 +77,9 @@
     which is natively supported by the driver.
    </span>
   </p></blockquote>
+  <p class="para">
+    自 PHP 7.4.0 起，可以通过两个问号来转义问号。这意味着 <code class="literal">??</code> 在发送查询到数据库时会转换成 <code class="literal">?</code>。
+  </p>
  </div>
 
  <div class="refsect1 parameters" id="refsect1-pdo.prepare-parameters">
@@ -84,7 +88,7 @@
    <dl>
     
      <dt>
-<code class="parameter">statement</code></dt>
+<code class="parameter">query</code></dt>
 
      <dd>
 
@@ -96,7 +100,7 @@
     
     
      <dt>
-<code class="parameter">driver_options</code></dt>
+<code class="parameter">options</code></dt>
 
      <dd>
 
@@ -117,17 +121,13 @@
  <div class="refsect1 returnvalues" id="refsect1-pdo.prepare-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-    如果数据库服务器完成准备了语句，
-   <span class="function"><strong>PDO::prepare()</strong></span> 返回
-   <span class="classname"><a href="class.pdostatement.html" class="classname">PDOStatement</a></span> 对象。
-   
-   如果数据库服务器无法准备语句，
-   <span class="function"><strong>PDO::prepare()</strong></span> 返回 <strong><code>false</code></strong> 或抛出
-   <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span> (取决于 <a href="pdo.error-handling.html" class="link">错误处理器</a>)。
+   如果数据库服务器已经成功预处理语句，<span class="methodname"><strong>PDO::prepare()</strong></span> 返回 <span class="classname"><a href="class.pdostatement.html" class="classname">PDOStatement</a></span> 对象。
+   如果数据库服务器无法预处理语句，<span class="methodname"><strong>PDO::prepare()</strong></span> 返回 <strong><code>false</code></strong> 或抛出
+   <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span> (取决于 <a href="pdo.error-handling.html" class="link">错误处理</a>)。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-     模拟模式下的 prepare 语句不会和数据库服务器交互，所以 <span class="function"><strong>PDO::prepare()</strong></span> 不会检查语句。
+    模拟模式下的预处理语句不会和数据库服务器交互，所以 <span class="methodname"><strong>PDO::prepare()</strong></span> 不会检查语句。
    </p>
   </p></blockquote>
  </div>
@@ -136,20 +136,30 @@
  <div class="refsect1 examples" id="refsect1-pdo.prepare-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-1045"><p><strong>Example #1 命名参数形式的 SQL 语句模板</strong></p>
+   <div class="example" id="example-2092"><p><strong>Example #1 命名参数形式的 SQL 语句模板</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;传入数组的值，并执行准备好的语句&nbsp;*/<br /></span><span style="color: #0000BB">$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;name,&nbsp;colour,&nbsp;calories<br />&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;fruit<br />&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;calories&nbsp;&lt;&nbsp;:calories&nbsp;AND&nbsp;colour&nbsp;=&nbsp;:colour'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_CURSOR&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">CURSOR_FWDONLY</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #DD0000">':calories'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">150</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">':colour'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'red'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$red&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #DD0000">':calories'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">175</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">':colour'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'yellow'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$yellow&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 传入数组的值，并执行已预处理的语句 */<br /></span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour = :colour'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">, [</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_CURSOR </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">CURSOR_FWDONLY</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">([</span><span style="color: #DD0000">'calories' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">150</span><span style="color: #007700">, </span><span style="color: #DD0000">'colour' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'red'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$red </span><span style="color: #007700">= </span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #FF8000">/* Array keys can be prefixed with colons ":" too (optional) */<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">([</span><span style="color: #DD0000">':calories' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">175</span><span style="color: #007700">, </span><span style="color: #DD0000">':colour' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'yellow'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$yellow </span><span style="color: #007700">= </span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
    </div>
-   <div class="example" id="example-1046">
+   <div class="example" id="example-2094">
     <p><strong>Example #2 问号形式的 SQL 语句模板</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;传入数组的值，并执行准备好的语句&nbsp;*/<br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;name,&nbsp;colour,&nbsp;calories<br />&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;fruit<br />&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;calories&nbsp;&lt;&nbsp;?&nbsp;AND&nbsp;colour&nbsp;=&nbsp;?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #0000BB">150</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'red'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$red&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #0000BB">175</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'yellow'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$yellow&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 传入数组的值，并执行已预处理的语句 */<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">([</span><span style="color: #0000BB">150</span><span style="color: #007700">, </span><span style="color: #DD0000">'red'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$red </span><span style="color: #007700">= </span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">([</span><span style="color: #0000BB">175</span><span style="color: #007700">, </span><span style="color: #DD0000">'yellow'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$yellow </span><span style="color: #007700">= </span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-2096">
+    <p><strong>Example #3 问号转义的 SQL 语句模板</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* note: this is only valid on PostgreSQL databases */<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT * FROM issues WHERE tag::jsonb ?? ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">([</span><span style="color: #DD0000">'feature'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$featureIssues </span><span style="color: #007700">= </span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">([</span><span style="color: #DD0000">'performance'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$performanceIssues </span><span style="color: #007700">= </span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -163,9 +173,9 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="pdo.exec.html" class="function" rel="rdfs-seeAlso">PDO::exec()</a> - 执行一条 SQL 语句，并返回受影响的行数</span></li>
-    <li class="member"><span class="function"><a href="pdo.query.html" class="function" rel="rdfs-seeAlso">PDO::query()</a> - 执行 SQL 语句，以 PDOStatement 对象形式返回结果集</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.execute.html" class="function" rel="rdfs-seeAlso">PDOStatement::execute()</a> - 执行一条预处理语句</span></li>
+    <li class="member"><span class="methodname"><a href="pdo.exec.html" class="methodname" rel="rdfs-seeAlso">PDO::exec()</a> - 执行 SQL 语句，并返回受影响的行数</span></li>
+    <li class="member"><span class="methodname"><a href="pdo.query.html" class="methodname" rel="rdfs-seeAlso">PDO::query()</a> - 预处理并执行没有占位符的 SQL 语句</span></li>
+    <li class="member"><span class="methodname"><a href="pdostatement.execute.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::execute()</a> - 执行一条预处理语句</span></li>
    </ul>
   </p>
  </div>

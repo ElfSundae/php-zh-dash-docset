@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>DateInterval 类</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -339,15 +340,62 @@
 
 
 
-
-
 <h2>Table of Contents</h2><ul class="chunklist chunklist_reference"><li><a href="dateinterval.construct.html">DateInterval::__construct</a> &mdash; Creates a new DateInterval object</li><li><a href="dateinterval.createfromdatestring.html">DateInterval::createFromDateString</a> &mdash; Sets up a DateInterval from the relative parts of the string</li><li><a href="dateinterval.format.html">DateInterval::format</a> &mdash; Formats the interval</li></ul>
 </div>
 <div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124954""></a>
+<div id="allnotes">  <a name="127977""></a>
+  <div class="note">
+   <strong class="user">cb</strong>
+   <a href="#127977" class="date">04-Dec-2022 04:12</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you want to reverse a date interval use array_reverse and iterator_to_array. I've found using invert to be unreliable.<br />
+<br />
+<span class="default">&lt;?php<br />
+$start_date </span><span class="keyword">= </span><span class="default">date_create</span><span class="keyword">(</span><span class="string">"2021-01-01"</span><span class="keyword">);<br />
+</span><span class="default">$end_date&nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">date_create</span><span class="keyword">(</span><span class="string">"2021-01-05"</span><span class="keyword">); </span><span class="comment">// If you want to include this date, add 1 day<br />
+<br />
+</span><span class="default">$interval </span><span class="keyword">= </span><span class="default">DateInterval</span><span class="keyword">::</span><span class="default">createFromDateString</span><span class="keyword">(</span><span class="string">'1 day'</span><span class="keyword">);<br />
+</span><span class="default">$daterange </span><span class="keyword">= new </span><span class="default">DatePeriod</span><span class="keyword">(</span><span class="default">$start_date</span><span class="keyword">, </span><span class="default">$interval </span><span class="keyword">,</span><span class="default">$end_date</span><span class="keyword">);<br />
+<br />
+function </span><span class="default">show_dates </span><span class="keyword">(</span><span class="default">$dr</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; foreach(</span><span class="default">$dr </span><span class="keyword">as </span><span class="default">$date1</span><span class="keyword">){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$date1</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="string">'Y-m-d'</span><span class="keyword">).</span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+&nbsp;<br />
+</span><span class="default">show_dates </span><span class="keyword">(</span><span class="default">$daterange</span><span class="keyword">);<br />
+&nbsp;&nbsp; <br />
+echo </span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// reverse the array<br />
+<br />
+</span><span class="default">$daterange </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">iterator_to_array</span><span class="keyword">(</span><span class="default">$daterange</span><span class="keyword">));<br />
+<br />
+</span><span class="default">show_dates </span><span class="keyword">(</span><span class="default">$daterange</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Gives <br />
+&nbsp;2021-01-01<br />
+&nbsp;2021-01-02<br />
+&nbsp;2021-01-03<br />
+&nbsp;2021-01-04<br />
+<br />
+&nbsp;2021-01-04<br />
+&nbsp;2021-01-03<br />
+&nbsp;2021-01-02<br />
+&nbsp;2021-01-01</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124954""></a>
   <div class="note">
    <strong class="user">nateb at gurutechnologies dot net</strong>
    <a href="#124954" class="date">27-Apr-2020 07:37</a>

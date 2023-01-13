@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>从字符串中去除 HTML 和 PHP 标记</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>从字符串中去除 HTML 和 PHP 标签</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,24 +21,25 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.strings.html">字符串 函数</a></li>
-    <li>从字符串中去除 HTML 和 PHP 标记</li>
+    <li>从字符串中去除 HTML 和 PHP 标签</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.strip-tags" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">strip_tags</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">strip_tags</span> &mdash; <span class="dc-title">从字符串中去除 HTML 和 PHP 标记</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">strip_tags</span> &mdash; <span class="dc-title">从字符串中去除 HTML 和 PHP 标签</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.strip-tags-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>strip_tags</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$allowable_tags</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>strip_tags</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">string</span>|<span class="type">null</span></span> <code class="parameter">$allowed_tags</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   该函数尝试返回给定的字符串 <code class="parameter">str</code> 去除空字符、HTML 和 PHP 标记后的结果。它使用与函数 <span class="function"><a href="function.fgetss.html" class="function">fgetss()</a></span> 一样的机制去除标记。
+   该函数尝试返回给定的字符串 <code class="parameter">string</code> 去除空字符、HTML 和 PHP
+   标签后的结果。它使用与函数 <span class="function"><a href="function.fgetss.html" class="function">fgetss()</a></span> 一样的机制去除标签。
   </p>
  </div>
 
@@ -48,7 +50,7 @@
    <dl>
     
      <dt>
-<code class="parameter">str</code></dt>
+<code class="parameter">string</code></dt>
 
      <dd>
 
@@ -60,30 +62,28 @@
     
     
      <dt>
-<code class="parameter">allowable_tags</code></dt>
+<code class="parameter">allowed_tags</code></dt>
 
      <dd>
 
       <p class="para">
-       使用可选的第二个参数指定不被去除的字符列表。
+       使用可选的第二个参数指定不被去除的标签列表。要么是 <span class="type">string</span>，要么自
+       PHP 7.4.0 起是 <span class="type">array</span>。有关此参数的格式，请参考以下示例：
       </p>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <p class="para">
-        HTML 注释和 PHP 标签也会被去除。这里是硬编码处理的，所以无法通过 <code class="parameter">allowable_tags</code> 参数进行改变。
+        HTML 注释和 PHP 标签也会被去除。这里是硬编码处理的，所以无法通过 <code class="parameter">allowed_tags</code> 参数进行改变。
        </p>
       </p></blockquote>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <p class="para">
-        In PHP 5.3.4 and later, self-closing
-        XHTML tags are ignored and only non-self-closing tags should be used in
-        <code class="parameter">allowable_tags</code>. For example,
-        to allow both <code class="literal">&lt;br&gt;</code> and
-        <code class="literal">&lt;br/&gt;</code>, you should use:
+        将会忽略自闭合 XHTML 标签，<code class="parameter">allowed_tags</code> 仅可用于非自闭合标签。例如，要同时允许
+        <code class="literal">&lt;br&gt;</code> 和 <code class="literal">&lt;br/&gt;</code>，应该使用：
        </p>
        <div class="informalexample">
         <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;br&gt;'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #DD0000">'&lt;br&gt;'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
         </div>
@@ -121,19 +121,17 @@
      </thead>
 
      <tbody class="tbody">
-      <tr>
-       <td>5.3.4</td>
-       <td>
-        <span class="function"><strong>strip_tags()</strong></span> ignores self-closing XHTML
-        tags in
-        <code class="parameter">allowable_tags</code>.
-       </td>
-      </tr>
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">allowed_tags</code> 允许为 null。
+      </td>
+     </tr>
 
       <tr>
-       <td>5.0.0</td>
+       <td>7.4.0</td>
        <td>
-        <span class="function"><strong>strip_tags()</strong></span> 变为二进制安全的。
+        <code class="parameter">allowed_tags</code> 现在可以接受 <span class="type">array</span>。
        </td>
       </tr>
 
@@ -148,11 +146,11 @@
  <div class="refsect1 examples" id="refsect1-function.strip-tags-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4826">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>strip_tags()</strong></span> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'&lt;p&gt;Test&nbsp;paragraph.&lt;/p&gt;&lt;!--&nbsp;Comment&nbsp;--&gt;&nbsp;&lt;a&nbsp;href="#fragment"&gt;Other&nbsp;text&lt;/a&gt;'</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;允许&nbsp;&lt;p&gt;&nbsp;和&nbsp;&lt;a&gt;<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;p&gt;&lt;a&gt;'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$text </span><span style="color: #007700">= </span><span style="color: #DD0000">'&lt;p&gt;Test paragraph.&lt;/p&gt;&lt;!-- Comment --&gt; &lt;a href="#fragment"&gt;Other text&lt;/a&gt;'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 允许 &lt;p&gt; 和 &lt;a&gt;<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">, </span><span style="color: #DD0000">'&lt;p&gt;&lt;a&gt;'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 自 PHP 7.4.0 起，上面的行可以写成：<br />// echo strip_tags($text, ['p', 'a']);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -173,18 +171,23 @@ Test paragraph. Other text
   <h3 class="title">注释</h3>
   <div class="warning"><strong class="warning">Warning</strong>
    <p class="para">
+    此函数不能用于尝试阻拦 XSS 攻击。根据输出的上下文选择更合适的函数（像 <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span>）或者其它方式。
+   </p>
+  </div>  
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">
     由于 <span class="function"><strong>strip_tags()</strong></span> 无法实际验证 HTML，不完整或者破损标签将导致更多的数据被删除。
    </p>
   </div>
   <div class="warning"><strong class="warning">Warning</strong>
    <p class="para">
-    该函数不会修改 <code class="parameter">allowable_tags</code> 参数中指定的允许标记的任何属性，包括 <code class="literal">style</code> 和 <code class="literal">onmouseover</code> 属性，用户可能会在提交的内容中恶意滥用这些属性，从而展示给其他用户。
+    该函数不会修改 <code class="parameter">allowed_tags</code> 参数中指定的允许标记的任何属性，包括 <code class="literal">style</code> 和 <code class="literal">onmouseover</code> 属性，用户可能会在提交的内容中恶意滥用这些属性，从而展示给其他用户。
    </p>
   </div>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
     输入 HTML 标签名字如果大于 1023 字节(bytes)将会被认为是无效的，无论
-    <code class="parameter">allowable_tags</code> 参数是怎样的。
+    <code class="parameter">allowed_tags</code> 参数是怎样的。
    </p>
   </p></blockquote>
  </div>

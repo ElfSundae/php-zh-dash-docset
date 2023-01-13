@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取全部 HTTP 请求头信息</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -90,11 +91,11 @@
  <div class="refsect1 examples" id="refsect1-function.apache-request-headers-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4685">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>apache_request_headers()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$headers&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">apache_request_headers</span><span style="color: #007700">();<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$headers&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$header&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$header</span><span style="color: #DD0000">:&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #DD0000">&nbsp;&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$headers </span><span style="color: #007700">= </span><span style="color: #0000BB">apache_request_headers</span><span style="color: #007700">();<br /><br />foreach (</span><span style="color: #0000BB">$headers </span><span style="color: #007700">as </span><span style="color: #0000BB">$header </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$value</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$header</span><span style="color: #DD0000">: </span><span style="color: #0000BB">$value</span><span style="color: #DD0000"> &lt;br /&gt;\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -119,7 +120,7 @@ Connection: Keep-Alive
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    你也可以试图从环境变量中读取普通<acronym title="Common Gateway Interface">CGI</acronym>变量，PHP以<span class="productname">Apache</span>模块方式运行时有可能无法获得。使用<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>获得可读取的变量列表。
+    你也可以试图从环境变量中读取普通<abbr title="Common Gateway Interface">CGI</abbr>变量，PHP以<span class="productname">Apache</span>模块方式运行时有可能无法获得。使用<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>获得可读取的变量列表。
     <a href="language.variables.predefined.html" class="link">环境变量</a>.
    </p>
   </p></blockquote>
@@ -139,7 +140,94 @@ Connection: Keep-Alive
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124236""></a>
+<div id="allnotes">  <a name="128020""></a>
+  <div class="note">
+   <strong class="user">gilles at sdv dot fr</strong>
+   <a href="#128020" class="date">15-Dec-2022 11:12</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The function apache_request_headers, doesn't exist in FCGI PHP-FPM<br />
+<br />
+Use this patch : https://gist.github.com/rmpel/11583cfddfcc9705578428e3a2ee3dc1<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// Drop-in replacement for apache_request_headers() when it's not available<br />
+<br />
+</span><span class="keyword">if ( ! </span><span class="default">function_exists</span><span class="keyword">( </span><span class="string">'apache_request_headers' </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp;&nbsp; function </span><span class="default">apache_request_headers</span><span class="keyword">() {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; static </span><span class="default">$arrHttpHeaders</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( ! </span><span class="default">$arrHttpHeaders </span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Based on: <a href="http://www.iana.org/assignments/message-headers/message-headers.xml#perm-headers" rel="nofollow" target="_blank">http://www.iana.org/assignments/message-headers/message-headers.xml#perm-headers</a><br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arrCasedHeaders </span><span class="keyword">= array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// HTTP<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Dasl'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'DASL'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Dav'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="string">'DAV'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Etag'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'ETag'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Mime-Version'&nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'MIME-Version'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Slug'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'SLUG'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Te'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'TE'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Www-Authenticate' </span><span class="keyword">=&gt; </span><span class="string">'WWW-Authenticate'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// MIME<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Content-Md5'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Content-MD5'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Content-Id'&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Content-ID'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'Content-Features' </span><span class="keyword">=&gt; </span><span class="string">'Content-features'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arrHttpHeaders&nbsp; </span><span class="keyword">= array();<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach ( </span><span class="default">$_SERVER </span><span class="keyword">as </span><span class="default">$strKey </span><span class="keyword">=&gt; </span><span class="default">$mixValue </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="string">'HTTP_' </span><span class="keyword">!== </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$strKey</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">5 </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$strHeaderKey </span><span class="keyword">= </span><span class="default">strtolower</span><span class="keyword">( </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$strKey</span><span class="keyword">, </span><span class="default">5 </span><span class="keyword">) );<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">0 </span><span class="keyword">&lt; </span><span class="default">substr_count</span><span class="keyword">( </span><span class="default">$strHeaderKey</span><span class="keyword">, </span><span class="string">'_' </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arrHeaderKey </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">( </span><span class="string">'_'</span><span class="keyword">, </span><span class="default">$strHeaderKey </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arrHeaderKey </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">( </span><span class="string">'ucfirst'</span><span class="keyword">, </span><span class="default">$arrHeaderKey </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$strHeaderKey </span><span class="keyword">= </span><span class="default">implode</span><span class="keyword">( </span><span class="string">'-'</span><span class="keyword">, </span><span class="default">$arrHeaderKey </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$strHeaderKey </span><span class="keyword">= </span><span class="default">ucfirst</span><span class="keyword">( </span><span class="default">$strHeaderKey </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">array_key_exists</span><span class="keyword">( </span><span class="default">$strHeaderKey</span><span class="keyword">, </span><span class="default">$arrCasedHeaders </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$strHeaderKey </span><span class="keyword">= </span><span class="default">$arrCasedHeaders</span><span class="keyword">[ </span><span class="default">$strHeaderKey </span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arrHttpHeaders</span><span class="keyword">[ </span><span class="default">$strHeaderKey </span><span class="keyword">] = </span><span class="default">$mixValue</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">/** in case you need authorization and your hosting provider has not fixed this for you:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * VHOST-Config:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * FastCgiExternalServer line needs&nbsp; &nbsp; -pass-header Authorization<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * .htaccess or VHOST-config file needs:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * to add the Authorization header to the environment for further processing<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if ( ! empty( </span><span class="default">$arrHttpHeaders</span><span class="keyword">[</span><span class="string">'Authorization'</span><span class="keyword">] ) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// in case of Authorization, but the values not propagated properly, do so :)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if ( ! isset( </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'PHP_AUTH_USER'</span><span class="keyword">] ) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; list( </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'PHP_AUTH_USER'</span><span class="keyword">], </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'PHP_AUTH_PW'</span><span class="keyword">] ) = </span><span class="default">explode</span><span class="keyword">( </span><span class="string">':'</span><span class="keyword">, </span><span class="default">base64_decode</span><span class="keyword">( </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_AUTHORIZATION'</span><span class="keyword">], </span><span class="default">6 </span><span class="keyword">) ) );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$arrHttpHeaders</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// execute now so other scripts have little chance to taint the information in $_SERVER<br />
+&nbsp;&nbsp;&nbsp; // the data is cached, so multiple retrievals of the headers will not cause further impact on performance.<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">apache_request_headers</span><span class="keyword">();<br />
+}</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124236""></a>
   <div class="note">
    <strong class="user">Tel</strong>
    <a href="#124236" class="date">26-Sep-2019 01:54</a>

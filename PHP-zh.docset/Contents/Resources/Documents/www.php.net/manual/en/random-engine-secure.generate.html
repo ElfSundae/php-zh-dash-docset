@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Generates cryptographically secure randomness</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>Generate cryptographically secure randomness</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,14 +21,14 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.random-engine-secure.html">Random\Engine\Secure</a></li>
-    <li>Generates cryptographically secure randomness</li>
+    <li>Generate cryptographically secure randomness</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="random-engine-secure.generate" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">Random\Engine\Secure::generate</h1>
-  <p class="verinfo">(PHP 8 &gt;= 8.2.0)</p><p class="refpurpose"><span class="refname">Random\Engine\Secure::generate</span> &mdash; <span class="dc-title">Generates cryptographically secure randomness</span></p>
+  <p class="verinfo">(PHP 8 &gt;= 8.2.0)</p><p class="refpurpose"><span class="refname">Random\Engine\Secure::generate</span> &mdash; <span class="dc-title">Generate cryptographically secure randomness</span></p>
 
  </div>
 
@@ -37,10 +38,39 @@
    <span class="modifier">public</span> <span class="methodname"><strong>Random\Engine\Secure::generate</strong></span>(): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-
+   Returns cryptographically secure randomness.
   </p>
 
-  <div class="warning"><strong class="warning">Warning</strong><p class="simpara">本函数还未编写文档，仅有参数列表。</p></div>
+  
+<p class="para">
+ 此函数使用的随机性来源如下：
+</p>
+<ul class="itemizedlist">
+ <li class="listitem">
+  <span class="simpara">
+   在 Windows 上始终使用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx" class="link external" title="Link : https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx">&raquo;&nbsp;<span class="function"><strong>CryptGenRandom()</strong></span></a>。在
+   PHP 7.2.0 起，将始终使用
+   <a href="https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal" class="link external" title="Link : https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal">&raquo;&nbsp;CNG-API</a> 代替。
+  </span>
+ </li>
+ <li class="listitem">
+  <span class="simpara">
+   在 Linux 上，如果有效，将使用
+   <a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom(2)</a>
+   系统调用。
+  </span>
+ </li>
+ <li class="listitem">
+  <span class="simpara">
+   其它平台将使用 <var class="filename">/dev/urandom</var>。
+  </span>
+ </li>
+ <li class="listitem">
+  <span class="simpara">
+   如果上述来源均不可用，然后会抛出 <span class="classname"><a href="class.random-randomexception.html" class="classname">Random\RandomException</a></span>。
+  </span>
+ </li>
+</ul>
 
  </div>
 
@@ -68,11 +98,6 @@
    如果没有找到合适的随机性来源，将会抛出 <span class="classname"><a href="class.random-randomexception.html" class="classname">Random\RandomException</a></span>。
   </span>
  </li>
- <li class="listitem">
-  <span class="simpara">
-    如果指定的参数无效，将会抛出 <span class="classname"><a href="class.typeerror.html" class="classname">TypeError</a></span>。
-  </span>
- </li>
 
   </ul>
  </div>
@@ -80,11 +105,11 @@
 
  <div class="refsect1 examples" id="refsect1-random-engine-secure.generate-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-3501">
+  <div class="example" id="">
    <p><strong>Example #1 <span class="function"><strong>Random\Engine\Secure::generate()</strong></span> example</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* ... */<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>

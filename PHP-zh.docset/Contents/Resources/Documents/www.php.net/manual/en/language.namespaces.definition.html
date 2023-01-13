@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>定义命名空间</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,11 +34,11 @@
   <p class="para">
    命名空间通过关键字 <code class="literal">namespace</code>
    来声明。如果一个文件中包含命名空间，它必须在其它所有代码之前声明命名空间，除了一个以外：<a href="control-structures.declare.html" class="xref">declare</a>关键字。
-   <div class="example" id="example-293">
+   <div class="example" id="example-584">
     <p><strong>Example #1 声明单个命名空间</strong></p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">MyProject</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">CONNECT_OK&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Connection&nbsp;</span><span style="color: #007700">{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;</span><span style="color: #007700">}<br />function&nbsp;</span><span style="color: #0000BB">connect</span><span style="color: #007700">()&nbsp;{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;&nbsp;</span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">MyProject</span><span style="color: #007700">;<br /><br />const </span><span style="color: #0000BB">CONNECT_OK </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class </span><span style="color: #0000BB">Connection </span><span style="color: #007700">{ </span><span style="color: #FF8000">/* ... */ </span><span style="color: #007700">}<br />function </span><span style="color: #0000BB">connect</span><span style="color: #007700">() { </span><span style="color: #FF8000">/* ... */  </span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -52,11 +53,11 @@
    在声明命名空间之前唯一合法的代码是用于定义源文件编码方式的 <code class="literal">declare</code>
    语句。另外，所有非 PHP
    代码包括空白符都不能出现在命名空间的声明之前：
-   <div class="example" id="example-294">
+   <div class="example" id="example-586">
     <p><strong>Example #2 声明单个命名空间</strong></p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-&lt;html&gt;<br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">MyProject</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;致命错误&nbsp;-　命名空间必须是程序脚本的第一条语句<br /></span><span style="color: #0000BB">?&gt;</span>
+&lt;html&gt;<br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">MyProject</span><span style="color: #007700">; </span><span style="color: #FF8000">// 致命错误 -　命名空间必须是程序脚本的第一条语句<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -160,9 +161,9 @@ Expanding on @danbettles note, it is better to always be explicit about which co
 &nbsp;&nbsp;&nbsp; </span><span class="default">define</span><span class="keyword">(</span><span class="string">'foo'</span><span class="keyword">,</span><span class="string">'222'</span><span class="keyword">);<br />
 <br />
 &nbsp;&nbsp;&nbsp; echo </span><span class="default">foo</span><span class="keyword">;&nbsp; </span><span class="comment">// 111.<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo \</span><span class="default">foo</span><span class="keyword">;&nbsp; </span><span class="comment">// 222.<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo \</span><span class="default">NS</span><span class="keyword">\</span><span class="default">foo&nbsp; </span><span class="comment">// 111.<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">NS</span><span class="keyword">\</span><span class="default">foo&nbsp; </span><span class="comment">// fatal error. assumes \NS\NS\foo.<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">\foo</span><span class="keyword">;&nbsp; </span><span class="comment">// 222.<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">\NS\foo&nbsp; </span><span class="comment">// 111.<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">NS\foo&nbsp; </span><span class="comment">// fatal error. assumes \NS\NS\foo.<br />
 </span><span class="default">?&gt;</span>
 </span>
 </code>

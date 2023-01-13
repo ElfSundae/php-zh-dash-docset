@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>通过名称获取特定的外部变量，并且可以通过过滤器处理它</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.filter-input-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>filter_input</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$type</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$variable_name</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$filter</code><span class="initializer"> = FILTER_DEFAULT</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$options</code><span class="initializer"> = ?</span></span><br>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>filter_input</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$type</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$var_name</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$filter</code><span class="initializer"> = <strong><code>FILTER_DEFAULT</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">int</span></span> <code class="parameter">$options</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
 
 
  </div>
@@ -58,7 +59,7 @@
     
     
      <dt>
-<code class="parameter">variable_name</code></dt>
+<code class="parameter">var_name</code></dt>
 
      <dd>
 
@@ -109,8 +110,8 @@
  <div class="refsect1 returnvalues" id="refsect1-function.filter-input-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果成功的话返回所请求的变量。如果过滤失败则返回 <strong><code>false</code></strong> ，如果<code class="parameter">variable_name</code> 不存在的话则返回 <strong><code>null</code></strong> 。
-   如果标示 <strong><code>FILTER_NULL_ON_FAILURE</code></strong> 被使用了，那么当变量不存在时返回 <strong><code>false</code></strong> ，当过滤失败时返回 <strong><code>null</code></strong> 。
+   如果成功的话返回所请求的变量。如果过滤失败则返回 <strong><code>false</code></strong>，如果<code class="parameter">var_name</code> 不存在的话则返回
+   <strong><code>null</code></strong>。如果标示 <strong><code>FILTER_NULL_ON_FAILURE</code></strong> 被使用了，那么当变量不存在时返回 <strong><code>false</code></strong>，当过滤失败时返回 <strong><code>null</code></strong>。
    </p>
  </div>
 
@@ -118,11 +119,11 @@
  <div class="refsect1 examples" id="refsect1-function.filter-input-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5051">
+   <div class="example" id="">
     <p><strong>Example #1 一个 <span class="function"><strong>filter_input()</strong></span> 的例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$search_html&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'search'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_SANITIZE_SPECIAL_CHARS</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$search_url&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'search'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_SANITIZE_ENCODED</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"You&nbsp;have&nbsp;searched&nbsp;for&nbsp;</span><span style="color: #0000BB">$search_html</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"&lt;a&nbsp;href='?search=</span><span style="color: #0000BB">$search_url</span><span style="color: #DD0000">'&gt;Search&nbsp;again.&lt;/a&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$search_html </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">, </span><span style="color: #DD0000">'search'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_SANITIZE_SPECIAL_CHARS</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$search_url </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">, </span><span style="color: #DD0000">'search'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_SANITIZE_ENCODED</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"You have searched for </span><span style="color: #0000BB">$search_html</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"&lt;a href='?search=</span><span style="color: #0000BB">$search_url</span><span style="color: #DD0000">'&gt;Search again.&lt;/a&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

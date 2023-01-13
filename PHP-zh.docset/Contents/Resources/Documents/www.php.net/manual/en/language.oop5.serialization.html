@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>对象序列化</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -41,7 +42,7 @@
   <div class="informalexample">
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;classa.inc:<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">A&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$one&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">show_one</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">one</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;<br /></span><span style="color: #FF8000">//&nbsp;page1.php:<br /><br />&nbsp;&nbsp;</span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$s&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">serialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;把变量$s保存起来以便文件page2.php能够读到<br />&nbsp;&nbsp;</span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'store'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;page2.php:<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;//&nbsp;要正确反序列化，必须包含下面一个文件<br />&nbsp;&nbsp;</span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #0000BB">$s&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'store'</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">unserialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;现在可以使用对象$a里面的函数&nbsp;show_one()<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">show_one</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// classa.inc:<br />  <br />  </span><span style="color: #007700">class </span><span style="color: #0000BB">A </span><span style="color: #007700">{<br />      public </span><span style="color: #0000BB">$one </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />    <br />      public function </span><span style="color: #0000BB">show_one</span><span style="color: #007700">() {<br />          echo </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">one</span><span style="color: #007700">;<br />      }<br />  }<br />  <br /></span><span style="color: #FF8000">// page1.php:<br /><br />  </span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br />  <br />  </span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">A</span><span style="color: #007700">;<br />  </span><span style="color: #0000BB">$s </span><span style="color: #007700">= </span><span style="color: #0000BB">serialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />  </span><span style="color: #FF8000">// 把变量$s保存起来以便文件page2.php能够读到<br />  </span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'store'</span><span style="color: #007700">, </span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// page2.php:<br />  <br />  // 要正确反序列化，必须包含下面一个文件<br />  </span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br /><br />  </span><span style="color: #0000BB">$s </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'store'</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #0000BB">unserialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br />  </span><span style="color: #FF8000">// 现在可以使用对象$a里面的函数 show_one()<br />  </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">show_one</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -68,7 +69,26 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125588""></a>
+<div id="allnotes">  <a name="127942""></a>
+  <div class="note">
+   <strong class="user">Yahia Fouda</strong>
+   <a href="#127942" class="date">16-Nov-2022 05:46</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This trick can be useful when you need to pass object data as strings of text between scripts and applications. Common situations include:<br />
+<br />
+* Passing objects via fields in web forms<br />
+* Passing objects in URL query strings<br />
+* Storing object data in a text file, or in a single database field<br />
+<br />
+and Sometimes it's useful to do some cleaning up before serializing an object. For example, you might want to write unsaved object data to a database and close the database connection. Similarly, after you've unserialized an object, you might want to restore its database connection and perform other setup tasks so that the new object can be used properly.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125588""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#125588" class="date">09-Dec-2020 06:58</a>

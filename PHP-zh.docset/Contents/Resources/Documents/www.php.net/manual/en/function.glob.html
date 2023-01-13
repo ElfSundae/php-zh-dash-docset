@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>寻找与模式匹配的文件路径</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -163,12 +164,12 @@
  <div class="refsect1 examples" id="refsect1-function.glob-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2188">
+   <div class="example" id="example-4382">
     <p><strong>Example #1 怎样用 <span class="function"><strong>glob()</strong></span> 方便地替代
     <span class="function"><a href="function.opendir.html" class="function">opendir()</a></span> 和相关函数</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">foreach&nbsp;(</span><span style="color: #0000BB">glob</span><span style="color: #007700">(</span><span style="color: #DD0000">"*.txt"</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$filename</span><span style="color: #DD0000">&nbsp;size&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">foreach (</span><span style="color: #0000BB">glob</span><span style="color: #007700">(</span><span style="color: #DD0000">"*.txt"</span><span style="color: #007700">) as </span><span style="color: #0000BB">$filename</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$filename</span><span style="color: #DD0000"> size " </span><span style="color: #007700">. </span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -214,7 +215,44 @@ quickref.txt size 137820
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125994""></a>
+<div id="allnotes">  <a name="127967""></a>
+  <div class="note">
+   <strong class="user">David Spector</strong>
+   <a href="#127967" class="date">28-Nov-2022 01:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here is basic PHP code to do a recursive scan of an entire directory tree, allowing you to do processing when reaching each directory and file:<br />
+<br />
+// Do a recursive scan of an entire directory tree,<br />
+// starting with the current working directory<br />
+// using relative filepaths<br />
+// Includes files starting with '.'<br />
+// Minimally tested on Windows and Linux<br />
+<br />
+Scan('.');<br />
+<br />
+function Scan($dir)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp;&nbsp; // Add code for each directory $dir here<br />
+<br />
+&nbsp;&nbsp;&nbsp; $subdirs=glob($dir.'/{.[!.],}*',GLOB_BRACE);<br />
+&nbsp;&nbsp;&nbsp; foreach ($subdirs as $file)<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (is_file($file))<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // Add code for each file $file here<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else if (substr($file,0,1)!='./.')<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Scan($file);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; } // Scan</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125994""></a>
   <div class="note">
    <strong class="user">Philo</strong>
    <a href="#125994" class="date">09-Apr-2021 11:08</a>
@@ -1888,7 +1926,7 @@ to fix this, i did the following:
 <br />
 $files </span><span class="keyword">= </span><span class="default">glob</span><span class="keyword">(</span><span class="string">"*.txt) or array(); // give it an empty array if the directory is empty or glob fails otherwise
 <br />
-&nbsp;&nbsp; echo "</span><span class="default">$filename size </span><span class="string">" . filesize(</span><span class="default">$filename</span><span class="string">) . "</span><span class="keyword">\</span><span class="default">n</span><span class="string">";
+&nbsp;&nbsp; echo "</span><span class="default">$filename size </span><span class="string">" . filesize(</span><span class="default">$filename</span><span class="string">) . "</span><span class="default">\n</span><span class="string">";
 <br />
 }
 <br />

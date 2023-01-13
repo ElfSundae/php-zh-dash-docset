@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置选项</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli.html">MySQLi</a></li>
+    <li><a href="class.mysqli.html">mysqli</a></li>
     <li>设置选项</li>
   </ul>
 </div>
@@ -36,13 +37,13 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysqli::options</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$option</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::options</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$option</code></span>, <span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">int</span></span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_options</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$link</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$option</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_options</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$mysql</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$option</code></span>, <span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">int</span></span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   设置一个连接的扩展选项，这些选项可以改变这个连接的行为。
+   用于设置连接的扩展选项，这些选项可以改变这个连接的行为。
   </p>
   <p class="para">
    如果要对多个选项进行设置，可以多次调用此函数来。
@@ -50,7 +51,7 @@
   <p class="para">
    <span class="function"><strong>mysqli_options()</strong></span> 需要在
    <span class="function"><a href="mysqli.init.html" class="function">mysqli_init()</a></span> 函数之后、
-   <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span> 函数之前被调用。
+   <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span> 函数之前调用。
   </p>
  </div>
 
@@ -73,8 +74,8 @@
      <dd>
 
       <p class="para">
-       要进行设置的选项，可以是下列中的某一项：
-       <table class="doctable table">
+       要进行设置的选项，可以是下列值中的某一项：
+       <table id="mysqli.options.parameters" class="doctable table">
         <caption><strong>有效的选项</strong></caption>
         
          <thead>
@@ -88,23 +89,33 @@
          <tbody class="tbody">
           <tr>
            <td><strong><code>MYSQLI_OPT_CONNECT_TIMEOUT</code></strong></td>
-           <td>连接超时设置，以秒为单位（在 Windows 平台上，PHP 5.3.1 之后才支持此选项）。</td>
+           <td>连接超时设置，以秒为单位</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>MYSQLI_OPT_READ_TIMEOUT</code></strong></td>
+           <td>命令执行超时秒数，自 PHP 7.2.0 起可用。</td>
           </tr>
 
           <tr>
            <td><strong><code>MYSQLI_OPT_LOCAL_INFILE</code></strong></td>
-           <td>启用或禁用 <code class="literal">LOAD LOCAL INFILE</code> 语句</td>
+           <td>启用或禁用 <code class="literal">LOAD LOCAL INFILE</code></td>
           </tr>
 
           <tr>
            <td><strong><code>MYSQLI_INIT_COMMAND</code></strong></td>
-           <td>成功建立 MySQL 连接之后要执行的 SQL 语句</td>
+           <td>连接到 MySQL 服务器后要执行的命令</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>MYSQLI_SET_CHARSET_NAME</code></strong></td>
+           <td>设置的默认字符集</td>
           </tr>
 
           <tr>
            <td><strong><code>MYSQLI_READ_DEFAULT_FILE</code></strong></td>
            <td>
-            从指定的文件中读取选项，而不是使用 <var class="filename">my.cnf</var> 中的选项
+            从指定的文件中读取选项，而不是使用 <var class="filename">my.cnf</var> 中的选项。mysqlnd 不支持。
            </td>
           </tr>
 
@@ -112,7 +123,7 @@
            <td><strong><code>MYSQLI_READ_DEFAULT_GROUP</code></strong></td>
            <td>
             从 <var class="filename">my.cnf</var> 或者 <strong><code>MYSQL_READ_DEFAULT_FILE</code></strong> 指定的文件中
-            读取指定的组中的选项。
+            读取指定的组中的选项。mysqlnd 不支持。
            </td>
           </tr>
 
@@ -150,6 +161,7 @@
           <tr>
            <td><strong><code>MYSQLI_OPT_SSL_VERIFY_SERVER_CERT</code></strong></td>
            <td>
+            是否验证服务器证书。
            </td>
           </tr>
 
@@ -187,47 +199,6 @@
  </div>
 
 
- <div class="refsect1 changelog" id="refsect1-mysqli.options-changelog">
-  <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
-
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>5.5.0</td>
-       <td>
-        新增 <strong><code>MYSQLI_SERVER_PUBLIC_KEY</code></strong> 和
-        <strong><code>MYSQLI_SERVER_PUBLIC_KEY</code></strong> 选项。
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.3.0</td>
-       <td>
-        新增 <strong><code>MYSQLI_OPT_INT_AND_FLOAT_NATIVE</code></strong>，
-        <strong><code>MYSQLI_OPT_NET_CMD_BUFFER_SIZE</code></strong>，
-        <strong><code>MYSQLI_OPT_NET_READ_BUFFER_SIZE</code></strong> 和
-        <strong><code>MYSQLI_OPT_SSL_VERIFY_SERVER_CERT</code></strong> 
-        选项。
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
-  </p>
- </div>
-
-
  <div class="refsect1 examples" id="refsect1-mysqli.options-examples">
   <h3 class="title">范例</h3>
   <p class="para">
@@ -250,7 +221,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="mysqli.init.html" class="function" rel="rdfs-seeAlso">mysqli_init()</a> - 初始化 MySQLi 并返回一个资源类型的值，这个值可以作为 mysqli_real_connect() 函数的传入参数</span></li>
+    <li class="member"><span class="function"><a href="mysqli.init.html" class="function" rel="rdfs-seeAlso">mysqli_init()</a> - 初始化 MySQLi 并返回用于 mysqli_real_connect() 的对象</span></li>
     <li class="member"><span class="function"><a href="mysqli.real-connect.html" class="function" rel="rdfs-seeAlso">mysqli_real_connect()</a> - 建立一个 MySQL 服务器连接</span></li>
    </ul>
   </p>

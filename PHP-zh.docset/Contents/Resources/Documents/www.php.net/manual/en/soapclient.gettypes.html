@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Returns a list of SOAP types</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -60,11 +61,11 @@
  <div class="refsect1 examples" id="refsect1-soapclient.gettypes-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5318">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>SoapClient::__getTypes()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$client&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SoapClient</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://soap.amazon.com/schemas3/AmazonWebServices.wsdl'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">__getTypes</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$client </span><span style="color: #007700">= new </span><span style="color: #0000BB">SoapClient</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://soap.amazon.com/schemas3/AmazonWebServices.wsdl'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">__getTypes</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -125,7 +126,111 @@ array(88) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="115423""></a>
+<div id="allnotes">  <a name="128061""></a>
+  <div class="note">
+   <strong class="user">Serge Liatko</strong>
+   <a href="#128061" class="date">28-Dec-2022 05:40</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here is the fixed version of my previous code (@moderators , please delete my previous note )<br />
+<br />
+Returns a more comprehensive array of SOAP Client types as an array<br />
+<br />
+<span class="default">&lt;?PHP<br />
+</span><span class="comment">/**<br />
+&nbsp;* @param \SoapClient $soap<br />
+&nbsp;*<br />
+&nbsp;* @return array The WSDL types data as an array.<br />
+&nbsp;*/<br />
+</span><span class="keyword">function </span><span class="default">read_wsdl_types</span><span class="keyword">( </span><span class="default">SoapClient $soap </span><span class="keyword">): array {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$wsdl_types </span><span class="keyword">= </span><span class="default">$soap</span><span class="keyword">-&gt;</span><span class="default">__getTypes</span><span class="keyword">();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$lookup&nbsp; &nbsp;&nbsp; </span><span class="keyword">= array();<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$regexes&nbsp; &nbsp; </span><span class="keyword">= array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'atomic' </span><span class="keyword">=&gt; </span><span class="string">'/^([\w_]+)\s([\w_]+)$/mi'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'list'&nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'/^([\w_]+)\s([\w_]+)[ {]+([\w_]+)[ }]+$/mi'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'struct' </span><span class="keyword">=&gt; </span><span class="string">'/([\w_]+)\s([\w_]+)[\s{]?([\w_]+)*[\s;}]?/mi'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; );<br />
+&nbsp;&nbsp;&nbsp; foreach ( </span><span class="default">array_reverse</span><span class="keyword">( </span><span class="default">$wsdl_types </span><span class="keyword">) as </span><span class="default">$wsdl_type </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$matches </span><span class="keyword">= array();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach ( </span><span class="default">$regexes </span><span class="keyword">as </span><span class="default">$type </span><span class="keyword">=&gt; </span><span class="default">$regex </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">preg_match_all</span><span class="keyword">( </span><span class="default">$regex</span><span class="keyword">, </span><span class="default">$wsdl_type</span><span class="keyword">, </span><span class="default">$matches </span><span class="keyword">) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( !empty( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] ) &amp;&amp; !empty( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] ) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; switch ( </span><span class="default">$type </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'atomic'</span><span class="keyword">:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$name&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$data_type&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lookup</span><span class="keyword">[ </span><span class="default">$name </span><span class="keyword">] = array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">$name</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'type'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">$type</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'data_type' </span><span class="keyword">=&gt; </span><span class="default">$data_type</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'items'&nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; array(),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'list'</span><span class="keyword">:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$name&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$type&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$items&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lookup</span><span class="keyword">[ </span><span class="default">$name </span><span class="keyword">] = array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">$name</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'type'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">$type</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'data_type' </span><span class="keyword">=&gt; </span><span class="default">$items</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'items'&nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="string">''</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'data_type' </span><span class="keyword">=&gt; </span><span class="default">$items</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ),<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; case </span><span class="string">'struct'</span><span class="keyword">:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$name&nbsp; </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$type&nbsp; </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$items </span><span class="keyword">= array();<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach ( </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$item_name </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$items</span><span class="keyword">[ </span><span class="default">$key </span><span class="keyword">] = array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">$item_name</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'data_type' </span><span class="keyword">=&gt; </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">][ </span><span class="default">$key </span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$lookup</span><span class="keyword">[ </span><span class="default">$name </span><span class="keyword">] = array(<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">$name</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'type'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">$type</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'data_type' </span><span class="keyword">=&gt; </span><span class="default">$name</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'items'&nbsp; &nbsp;&nbsp; </span><span class="keyword">=&gt; </span><span class="default">$items</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">array_walk</span><span class="keyword">( </span><span class="default">$lookup</span><span class="keyword">, function ( &amp;</span><span class="default">$type</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$data </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( !empty( </span><span class="default">$type</span><span class="keyword">[</span><span class="string">'items'</span><span class="keyword">] ) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">array_walk</span><span class="keyword">( </span><span class="default">$type</span><span class="keyword">[</span><span class="string">'items'</span><span class="keyword">], function ( &amp;</span><span class="default">$item</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$data </span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( !empty( </span><span class="default">$item</span><span class="keyword">[</span><span class="string">'data_type'</span><span class="keyword">] ) ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$old_data_type&nbsp; &nbsp;&nbsp; </span><span class="keyword">= </span><span class="default">$item</span><span class="keyword">[</span><span class="string">'data_type'</span><span class="keyword">];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$item</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">]&nbsp; &nbsp; &nbsp; = </span><span class="default">$data</span><span class="keyword">[ </span><span class="default">$old_data_type </span><span class="keyword">][</span><span class="string">'type'</span><span class="keyword">] ?? </span><span class="string">'atomic'</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$item</span><span class="keyword">[</span><span class="string">'data_type'</span><span class="keyword">] = </span><span class="default">$data</span><span class="keyword">[ </span><span class="default">$old_data_type </span><span class="keyword">][</span><span class="string">'data_type'</span><span class="keyword">] ?? </span><span class="default">$old_data_type</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$item</span><span class="keyword">[</span><span class="string">'from'</span><span class="keyword">]&nbsp; &nbsp; &nbsp; = </span><span class="default">$data</span><span class="keyword">[ </span><span class="default">$old_data_type </span><span class="keyword">][</span><span class="string">'name'</span><span class="keyword">] ?? </span><span class="string">''</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }, </span><span class="default">$data </span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }, </span><span class="default">$lookup </span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">array_reverse</span><span class="keyword">( </span><span class="default">$lookup </span><span class="keyword">);<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="115423""></a>
   <div class="note">
    <strong class="user">felipe dot cwb at hotmail dot com</strong>
    <a href="#115423" class="date">21-Jul-2014 06:50</a>

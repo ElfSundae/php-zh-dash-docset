@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>二进制安全比较字符串（从偏移位置比较指定长度）</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -34,13 +35,13 @@
  <div class="refsect1 description" id="refsect1-function.substr-compare-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>substr_compare</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$main_str</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$length</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$case_insensitivity</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type">int</span></div>
+   <span class="methodname"><strong>substr_compare</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$haystack</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$needle</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$length</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$case_insensitive</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type">int</span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>substr_compare()</strong></span> 从偏移位置
    <code class="parameter">offset</code> 开始比较
-   <code class="parameter">main_str</code> 与
-   <code class="parameter">str</code>，比较长度为
+   <code class="parameter">haystack</code> 与
+   <code class="parameter">needle</code>，比较长度为
    <code class="parameter">length</code> 个字符。
   </p>
  </div>
@@ -52,7 +53,7 @@
    <dl>
     
      <dt>
-<code class="parameter">main_str</code></dt>
+<code class="parameter">haystack</code></dt>
 
      <dd>
 
@@ -64,7 +65,7 @@
     
     
      <dt>
-<code class="parameter">str</code></dt>
+<code class="parameter">needle</code></dt>
 
      <dd>
 
@@ -93,8 +94,8 @@
      <dd>
 
       <p class="para">
-       比较的长度。默认值为 <code class="parameter">str</code> 的长度与
-       <code class="parameter">main_str</code> 的长度减去位置偏移量
+       比较的长度。默认值为 <code class="parameter">needle</code> 的长度与
+       <code class="parameter">haystack</code> 的长度减去位置偏移量
        <code class="parameter">offset</code> 后二者中的较大者。
       </p>
      </dd>
@@ -102,12 +103,12 @@
     
     
      <dt>
-<code class="parameter">case_insensitivity</code></dt>
+<code class="parameter">case_insensitive</code></dt>
 
      <dd>
 
       <p class="para">
-       如果 <code class="parameter">case_insensitivity</code> 为 <strong><code>true</code></strong>，比较将不区分大小写。
+       如果 <code class="parameter">case_insensitive</code> 为 <strong><code>true</code></strong>，比较将不区分大小写。
       </p>
      </dd>
 
@@ -121,14 +122,14 @@
  <div class="refsect1 returnvalues" id="refsect1-function.substr-compare-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果 <code class="parameter">main_str</code> 从偏移位置
+   如果 <code class="parameter">haystack</code> 从偏移位置
    <code class="parameter">offset</code> 起的子字符串小于
-   <code class="parameter">str</code>，则返回小于 0 的数；如果大于
-   <code class="parameter">str</code>，则返回大于 0 的数；如果二者相等，则返回 0。如果
-   <code class="parameter">offset</code> 大于等于
-   <code class="parameter">main_str</code> 的长度或
-   <code class="parameter">length</code> 被设置为小于 1 的值（ PHP 5.5.11 之前的版本），<span class="function"><strong>substr_compare()</strong></span>
-   将打印出一条警告信息并且返回 <strong><code>false</code></strong>。
+   <code class="parameter">needle</code>，则返回 <code class="literal">-1</code>；如果大于
+   <code class="parameter">needle</code>，则返回 <code class="literal">1</code>；如果二者相等，则返回 <code class="literal">0</code>。如果
+   <code class="parameter">offset</code> 等于（在 PHP 7.2.18, 7.3.5 之前）或大于
+   <code class="parameter">haystack</code> 的长度，或设置
+   <code class="parameter">length</code> 小于或等于 0，<span class="function"><strong>substr_compare()</strong></span>
+   将打印出警告信息并且返回 <strong><code>false</code></strong>。
   </p>
  </div>
 
@@ -148,9 +149,24 @@
 
      <tbody class="tbody">
       <tr>
+ <td>8.2.0</td>
+ <td>
+  现在此函数返回 <code class="literal">-1</code> 或者 <code class="literal">1</code>，之前返回负数或正数。
+ </td>
+</tr>
+
+
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        <code class="parameter">length</code> 现在允许为 null。
+       </td>
+      </tr>
+
+      <tr>
        <td>7.2.18, 7.3.5</td>
        <td>
-        <code class="parameter">offset</code> 现在可能等于 <code class="parameter">main_str</code>。
+        <code class="parameter">offset</code> 现在可能等于 <code class="parameter">haystack</code>。
        </td>
       </tr>
 
@@ -165,11 +181,11 @@
  <div class="refsect1 examples" id="refsect1-function.substr-compare-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4856">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>substr_compare()</strong></span> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"bc"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;0<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"de"</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;0<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"bcg"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;0<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"BC"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;0<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"bc"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;1<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"cd"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;-1<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"abc"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;warning<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">, </span><span style="color: #DD0000">"bc"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">); </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">, </span><span style="color: #DD0000">"de"</span><span style="color: #007700">, -</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">); </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">, </span><span style="color: #DD0000">"bcg"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">); </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">, </span><span style="color: #DD0000">"BC"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">); </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">, </span><span style="color: #DD0000">"bc"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">); </span><span style="color: #FF8000">// 1<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">, </span><span style="color: #DD0000">"cd"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">); </span><span style="color: #FF8000">// -1<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_compare</span><span style="color: #007700">(</span><span style="color: #DD0000">"abcde"</span><span style="color: #007700">, </span><span style="color: #DD0000">"abc"</span><span style="color: #007700">, </span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">); </span><span style="color: #FF8000">// warning<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

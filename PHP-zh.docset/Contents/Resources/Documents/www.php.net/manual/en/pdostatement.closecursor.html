@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>关闭游标，使语句能再次被执行。</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -48,7 +49,7 @@
    <span class="function"><strong>PDOStatement::closeCursor()</strong></span> 要么是一个可选驱动的特有方法（效率最高）来实现，要么是在没有驱动特定的功能时作为一般的PDO 备用来实现。一般的备用语义上与下面的 PHP 代码相同：
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">do&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">nextRowset</span><span style="color: #007700">())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />}&nbsp;while&nbsp;(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">do {<br />    while (</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">())<br />        ;<br />    if (!</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">nextRowset</span><span style="color: #007700">())<br />        break;<br />} while (</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -69,14 +70,14 @@
  <div class="refsect1 examples" id="refsect1-pdostatement.closecursor-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-1058">
+   <div class="example" id="example-2120">
     <p><strong>Example #1 一个 <span class="function"><strong>PDOStatement::closeCursor()</strong></span> 的例子</strong></p>
     <div class="example-contents"><p>
     在下面例子中，<var class="varname">$stmt</var> PDOStatement 对象返回多行，但应用程序只取第一行，让  PDOStatement 对象处于一个有未取行的状态。为确保应用程序对所有数据库驱动都能正常运行，在执行 <var class="varname">$otherStmt</var> PDOStatement 对象前，<var class="varname">$stmt</var> 调用一次 PDOStatement::closeCursor() 。
     </p></div>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;创建一个&nbsp;PDOStatement&nbsp;对象&nbsp;*/<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;foo&nbsp;FROM&nbsp;bar'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;创建第二个&nbsp;PDOStatement&nbsp;对象&nbsp;*/<br /></span><span style="color: #0000BB">$otherStmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;foobaz&nbsp;FROM&nbsp;foobar'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;执行第一条语句&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;&nbsp;从结果集中只取出第一行&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;The&nbsp;following&nbsp;call&nbsp;to&nbsp;closeCursor()&nbsp;may&nbsp;be&nbsp;required&nbsp;by&nbsp;some&nbsp;drivers&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">closeCursor</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;&nbsp;现在可以执行第二条语句了&nbsp;*/<br /></span><span style="color: #0000BB">$otherStmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 创建一个 PDOStatement 对象 */<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT foo FROM bar'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 创建第二个 PDOStatement 对象 */<br /></span><span style="color: #0000BB">$otherStmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT foobaz FROM foobar'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 执行第一条语句 */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*  从结果集中只取出第一行 */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* The following call to closeCursor() may be required by some drivers */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">closeCursor</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*  现在可以执行第二条语句了 */<br /></span><span style="color: #0000BB">$otherStmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

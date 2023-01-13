@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>从字符串中的图像流新建一图像</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>从字符串的图像流中新建图像</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,25 +21,24 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.image.html">GD 和图像处理 函数</a></li>
-    <li>从字符串中的图像流新建一图像</li>
+    <li>从字符串的图像流中新建图像</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.imagecreatefromstring" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">imagecreatefromstring</h1>
-  <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">imagecreatefromstring</span> &mdash; <span class="dc-title">从字符串中的图像流新建一图像</span></p>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">imagecreatefromstring</span> &mdash; <span class="dc-title">从字符串的图像流中新建图像</span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-function.imagecreatefromstring-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagecreatefromstring</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$image</code></span>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>imagecreatefromstring</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>): <span class="type"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>imagecreatefromstring()</strong></span>
-   返回一个图像标识符，其表达了从给定字符串得来的图像。图像格式将自动检测，只要
-   PHP 支持：JPEG，PNG，GIF，WBMP 和 GD2。
+   <span class="function"><strong>imagecreatefromstring()</strong></span> 返回图像标识符，代表从指定 <code class="parameter">data</code>
+   获得的图像。图像格式将自动检测，只要编译的 PHP 支持：JPEG、PNG、GIF、BMP、WBMP、GD2 和 WEBP。
   </p>
  </div>
 
@@ -48,12 +48,12 @@
    <dl>
     
      <dt>
-<code class="parameter">image</code></dt>
+<code class="parameter">data</code></dt>
 
      <dd>
 
       <p class="para">
-       A string containing the image data.
+       包含图像数据的字符串。
       </p>
      </dd>
 
@@ -66,20 +66,61 @@
  <div class="refsect1 returnvalues" id="refsect1-function.imagecreatefromstring-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   An image resource will be returned on success. <strong><code>false</code></strong> is returned if
-   the image type is unsupported, the data is not in a recognised format,
-   or the image is corrupt and cannot be loaded.
+   成功时返回图像对象。如果图像类型不支持、数据格式不可识别或者图像已损坏且无法加载，则返回 <strong><code>false</code></strong>。
   </p>
  </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.imagecreatefromstring-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   如果数据格式不可识别，则 <span class="function"><strong>imagecreatefromstring()</strong></span> 引发 E_WARNING 级别错误。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.imagecreatefromstring-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       成功时，此函数现在返回 <span class="classname"><a href="class.gdimage.html" class="classname">GDImage</a></span> 实例；之前返回 <span class="type">resource</span>。
+      </td>
+     </tr>
+
+     <tr>
+      <td>7.3.0</td>
+      <td>
+       现在支持 WEBP（如果使用的是 libgd）。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
 
  <div class="refsect1 examples" id="refsect1-function.imagecreatefromstring-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2653">
-    <p><strong>Example #1 <span class="function"><strong>imagecreatefromstring()</strong></span> example</strong></p>
+   <div class="example" id="example-5326">
+    <p><strong>Example #1 <span class="function"><strong>imagecreatefromstring()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAMAAAB/2U7WAAAABl'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'BMVEUAAAD///+l2Z/dAAAASUlEQVR4XqWQUQoAIAxC2/0vXZDr'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'EX4IJTRkb7lobNUStXsB0jIXIAMSsQnWlsV+wULF4Avk9fLq2r'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'8a5HSE35Q3eO2XP1A1wQkZSgETvDtKdQAAAABJRU5ErkJggg=='</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">base64_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefromstring</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">!==&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type:&nbsp;image/png'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'An&nbsp;error&nbsp;occurred.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$data </span><span style="color: #007700">= </span><span style="color: #DD0000">'iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAMAAAB/2U7WAAAABl'<br />       </span><span style="color: #007700">. </span><span style="color: #DD0000">'BMVEUAAAD///+l2Z/dAAAASUlEQVR4XqWQUQoAIAxC2/0vXZDr'<br />       </span><span style="color: #007700">. </span><span style="color: #DD0000">'EX4IJTRkb7lobNUStXsB0jIXIAMSsQnWlsV+wULF4Avk9fLq2r'<br />       </span><span style="color: #007700">. </span><span style="color: #DD0000">'8a5HSE35Q3eO2XP1A1wQkZSgETvDtKdQAAAABJRU5ErkJggg=='</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= </span><span style="color: #0000BB">base64_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefromstring</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$im </span><span style="color: #007700">!== </span><span style="color: #0000BB">false</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type: image/png'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br />}<br />else {<br />    echo </span><span style="color: #DD0000">'An error occurred.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -88,7 +129,7 @@
     <div class="mediaobject">
      
      <div class="imageobject">
-      <img src="images/21009b70229598c6a80eef8b45bf282b-imagecreatefromstring.png" alt="Output of example : imagecreatefromstring()" width="28" height="18" />
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagecreatefromstring.png" alt="示例输出：imagecreatefromstring()" width="28" height="18" />
      </div>
     </div>
    </div>
@@ -97,14 +138,12 @@
 
  <div class="refsect1 seealso" id="refsect1-function.imagecreatefromstring-seealso">
   <h3 class="title">参见</h3>
-  <p class="para">
-   <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.imagecreatefromjpeg.html" class="function" rel="rdfs-seeAlso">imagecreatefromjpeg()</a> - 由文件或 URL 创建一个新图象。</span></li>
-    <li class="member"><span class="function"><a href="function.imagecreatefrompng.html" class="function" rel="rdfs-seeAlso">imagecreatefrompng()</a> - 由文件或 URL 创建一个新图象。</span></li>
-    <li class="member"><span class="function"><a href="function.imagecreatefromgif.html" class="function" rel="rdfs-seeAlso">imagecreatefromgif()</a> - 由文件或 URL 创建一个新图象。</span></li>
-    <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建一个真彩色图像</span></li>
-   </ul>
-  </p>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imagecreatefromjpeg.html" class="function" rel="rdfs-seeAlso">imagecreatefromjpeg()</a> - 由文件或 URL 创建一个新图象。</span></li>
+   <li class="member"><span class="function"><a href="function.imagecreatefrompng.html" class="function" rel="rdfs-seeAlso">imagecreatefrompng()</a> - 由文件或 URL 创建一个新图象。</span></li>
+   <li class="member"><span class="function"><a href="function.imagecreatefromgif.html" class="function" rel="rdfs-seeAlso">imagecreatefromgif()</a> - 由文件或 URL 创建一个新图象。</span></li>
+   <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建真彩色图像</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

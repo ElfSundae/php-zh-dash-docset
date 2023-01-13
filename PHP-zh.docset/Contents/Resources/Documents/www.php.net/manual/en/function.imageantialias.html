@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>是否使用抗锯齿（antialias）功能</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.imageantialias-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imageantialias</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$enabled</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>imageantialias</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$enable</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
    对线段和多边形启用快速画图抗锯齿方法。不支持 alpha
@@ -61,7 +62,7 @@
 
     
      <dt>
-<code class="parameter">enabled</code></dt>
+<code class="parameter">enable</code></dt>
 
      <dd>
 
@@ -83,14 +84,50 @@
   </p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.imageantialias-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+     <tr>
+      <td>7.2.0</td>
+      <td>
+       <span class="function"><strong>imageantialias()</strong></span> 现在普遍可用。以前只有编译 PHP 时使用捆绑版本的 GD 库才可用。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.imageantialias-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2625">
-    <p><strong>Example #1 A comparison of two lines, one with anti-aliasing switched on</strong></p>
+   <div class="example" id="example-5248">
+    <p><strong>Example #1 比较两条线，一条开启了抗锯齿</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Setup&nbsp;an&nbsp;anti-aliased&nbsp;image&nbsp;and&nbsp;a&nbsp;normal&nbsp;image<br /></span><span style="color: #0000BB">$aa&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">400</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$normal&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">200</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Switch&nbsp;antialiasing&nbsp;on&nbsp;for&nbsp;one&nbsp;image<br /></span><span style="color: #0000BB">imageantialias</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Allocate&nbsp;colors<br /></span><span style="color: #0000BB">$red&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$normal</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$red_aa&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Draw&nbsp;two&nbsp;lines,&nbsp;one&nbsp;with&nbsp;AA&nbsp;enabled<br /></span><span style="color: #0000BB">imageline</span><span style="color: #007700">(</span><span style="color: #0000BB">$normal</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">200</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$red</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imageline</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">200</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$red_aa</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Merge&nbsp;the&nbsp;two&nbsp;images&nbsp;side&nbsp;by&nbsp;side&nbsp;for&nbsp;output&nbsp;(AA:&nbsp;left,&nbsp;Normal:&nbsp;Right)<br /></span><span style="color: #0000BB">imagecopymerge</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$normal</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">200</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">200</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Output&nbsp;image<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type:&nbsp;image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$normal</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Setup an anti-aliased image and a normal image<br /></span><span style="color: #0000BB">$aa </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">400</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$normal </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">200</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Switch antialiasing on for one image<br /></span><span style="color: #0000BB">imageantialias</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Allocate colors<br /></span><span style="color: #0000BB">$red </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$normal</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$red_aa </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Draw two lines, one with AA enabled<br /></span><span style="color: #0000BB">imageline</span><span style="color: #007700">(</span><span style="color: #0000BB">$normal</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">200</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">$red</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imageline</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">200</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">$red_aa</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Merge the two images side by side for output (AA: left, Normal: Right)<br /></span><span style="color: #0000BB">imagecopymerge</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">, </span><span style="color: #0000BB">$normal</span><span style="color: #007700">, </span><span style="color: #0000BB">200</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">200</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Output image<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type: image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$aa</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$normal</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -99,25 +136,19 @@
     <div class="mediaobject">
      
      <div class="imageobject">
-      <img src="images/21009b70229598c6a80eef8b45bf282b-imageantialias.png" alt="Output of example : A comparison of two lines, one with anti-aliasing switched on" width="400" height="100" />
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imageantialias.png" alt="示例输出：比较两条线，一条开启了抗锯齿" width="400" height="100" />
      </div>
     </div>
    </div>
   </p>
  </div>
 
- <div class="refsect1 notes" id="refsect1-function.imageantialias-notes">
-  <h3 class="title">注释</h3>
-  
- </div>
 
  <div class="refsect1 seealso" id="refsect1-function.imageantialias-seealso">
   <h3 class="title">参见</h3>
-  <p class="para">
-   <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建一个真彩色图像</span></li>
-   </ul>
-  </p>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建真彩色图像</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

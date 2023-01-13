@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>应用配置</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>应用程序配置</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,32 +21,30 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="book.yaf.html">Yaf</a></li>
-    <li>应用配置</li>
+    <li>应用程序配置</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="yaf.appconfig" class="chapter">
- <h1>应用配置</h1>
+ <h1>应用程序配置</h1>
 
  <p class="para">
-  你需要传递一个config数组或ini配置文件（参见
-  <span class="classname"><a href="class.yaf-config-ini.html" class="classname">Yaf_Config_Ini</a></span>） 给
-  <span class="methodname"><a href="yaf-application.construct.html" class="methodname">Yaf_Application::__construct()</a></span>. 
+  应该为 <span class="methodname"><a href="yaf-application.construct.html" class="methodname">Yaf_Application::__construct()</a></span> 提供配置数组或者 ini 配置文件（参阅 <span class="classname"><a href="class.yaf-config-ini.html" class="classname">Yaf_Config_Ini</a></span>）路径。
  </p>
  <p class="para">
-  Yaf的配置文件会和用户的配置文件合并。区别在于，Yaf的配置文件是以&quot;yaf.&quot;或&quot;application.&quot;开头，如果两项都存在，则&quot;application.&quot;生效。
-  <div class="example" id="example-3859">
-   <p><strong>Example #1 config为数组的例子</strong></p>
+  Yaf 将会自动合并应用程序配置和用户配置。应用程序配置有前缀"yaf."或"application."。如果"yaf."和"application."同时存在，将会优先接受"application."。
+  <div class="example" id="">
+   <p><strong>Example #1 PHP 数组示例</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$configs&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"application"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"directory"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"dispatcher"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"catchException"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"view"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"ext"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"phtml"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$app&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Yaf_Application</span><span style="color: #007700">(</span><span style="color: #0000BB">$config</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />    $configs </span><span style="color: #007700">= array(<br />            </span><span style="color: #DD0000">"application" </span><span style="color: #007700">=&gt; array(<br />                </span><span style="color: #DD0000">"directory" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">),<br />                </span><span style="color: #DD0000">"dispatcher" </span><span style="color: #007700">=&gt; array(<br />                      </span><span style="color: #DD0000">"catchException" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />                    ),<br />                </span><span style="color: #DD0000">"view" </span><span style="color: #007700">=&gt; array(<br />                       </span><span style="color: #DD0000">"ext" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"phtml"</span><span style="color: #007700">,<br />                    ),<br />                ),<br />           );<br />    </span><span style="color: #0000BB">$app </span><span style="color: #007700">= new </span><span style="color: #0000BB">Yaf_Application</span><span style="color: #007700">(</span><span style="color: #0000BB">$configs</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
 
   </div>
-  <div class="example" id="example-3860">
-   <p><strong>Example #2 config为ini文件的例子</strong></p>
+  <div class="example" id="">
+   <p><strong>Example #2 ini 文件示例</strong></p>
    <div class="example-contents">
 <div class="inicode"><pre class="inicode">[yaf]
 yaf.directory = APPLICATION_PATH &quot;/appliation&quot;
@@ -60,7 +59,7 @@ yaf.dispatcher.catchException = 0
   </p>
   <p class="para">
   <table class="doctable table">
-   <caption><strong>Yaf Application Config</strong></caption>
+   <caption><strong>Yaf 应用程序配置</strong></caption>
    
     <thead>
      <tr>
@@ -187,12 +186,12 @@ yaf.dispatcher.catchException = 0
      <dd>
 
       <p class="para">
-       应用程序的目录，包含&quot;controllers&quot;, &quot;views&quot;, &quot;models&quot;, &quot;plugins&quot;等子目录。
+       应用程序的目录，文件夹包含"controllers"、"views"、"models"、"plugins"。
       </p>
       <p class="para">
        <blockquote class="note"><p><strong class="note">Note</strong>: 
         <p class="para">
-         这是唯一一个没有默认值的配置项，你需要手动指定它。
+         此为唯一没有默认值的配置条目，应该始终手动定义它。
         </p>
        </p></blockquote>
       </p>
@@ -208,8 +207,7 @@ yaf.dispatcher.catchException = 0
      <dd>
 
       <p class="para">
-       PHP脚本的扩展名，类的自动加载需要用到它(
-       <span class="classname"><a href="class.yaf-loader.html" class="classname">Yaf_Loader</a></span>)。
+       PHP 脚本的扩展名，类的自动加载需要（<span class="classname"><a href="class.yaf-loader.html" class="classname">Yaf_Loader</a></span>）。
       </p>
      </dd>
 
@@ -223,7 +221,7 @@ yaf.dispatcher.catchException = 0
      <dd>
 
       <p class="para">
-       视图模板扩展名。
+       视图模板脚本的文件扩展名。
       </p>
      </dd>
 
@@ -254,12 +252,12 @@ yaf.dispatcher.catchException = 0
      <dd>
 
       <p class="para">
-        本地类库的目录，参见<span class="classname"><a href="class.yaf-loader.html" class="classname">Yaf_Loader</a></span> 和
+        本地类库的目录，参见 <span class="classname"><a href="class.yaf-loader.html" class="classname">Yaf_Loader</a></span> 和
        <a href="yaf.configuration.html#ini.yaf.library" class="link">yaf.library</a>。
        </p>
        <blockquote class="note"><p><strong class="note">Note</strong>: 
         <p class="para">
-         Yaf2.1.6以后，该配置项也可以是一个数组，当它是数组的时候，类库的路径将尝试使用<a href="yaf.appconfig.html#configuration.yaf.library.directory" class="link">application.library.directory</a>的值。
+         Yaf 2.1.6 以后，该配置项可以是数组。类库的路径将尝试使用 <a href="yaf.appconfig.html#configuration.yaf.library.directory" class="link">application.library.directory</a> 中设置的条目。
         </p>
        </p></blockquote>
      </dd>
@@ -337,7 +335,7 @@ yaf.dispatcher.catchException = 0
      <dd>
 
       <p class="para">
-       开启此项，Yaf会在发生错误的地方抛出异常。参见
+       如果设置为 On，Yaf 会在发生错误的地方抛出异常。参见
        <span class="methodname"><a href="yaf-dispatcher.throwexception.html" class="methodname">Yaf_Dispatcher::throwException()</a></span>。
       </p>
      </dd>
@@ -352,7 +350,7 @@ yaf.dispatcher.catchException = 0
      <dd>
 
       <p class="para">
-       开启此项，如果有未捕获的异常，Yaf将会把它定向到Error controller, Error Action。参见
+       如果设置为 On，当在存在未处理的异常时，Yaf 将转发到 Error controller/Action。参见
        <span class="methodname"><a href="yaf-dispatcher.catchexception.html" class="methodname">Yaf_Dispatcher::catchException()</a></span>。
       </p>
      </dd>
@@ -367,7 +365,7 @@ yaf.dispatcher.catchException = 0
      <dd>
 
       <p class="para">
-       默认路由，如果未指定，静态路由会被当做是默认路由，参见：
+       默认路由，如果未指定，默认使用静态路由。参见
        <span class="methodname"><a href="yaf-router.addroute.html" class="methodname">Yaf_Router::addRoute()</a></span>。
       </p>
      </dd>

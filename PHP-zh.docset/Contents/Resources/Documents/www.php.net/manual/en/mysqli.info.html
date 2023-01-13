@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回最近执行的 SQL 语句的信息</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli.html">MySQLi</a></li>
+    <li><a href="class.mysqli.html">mysqli</a></li>
     <li>返回最近执行的 SQL 语句的信息</li>
   </ul>
 </div>
@@ -35,11 +36,11 @@
  <div class="refsect1 description" id="refsect1-mysqli.info-description">
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
-  <div class="fieldsynopsis"><span class="type">string</span> <var class="varname"><a href="mysqli.info.html">$mysqli-&gt;info</a></var>;</div>
+  <div class="fieldsynopsis"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <var class="varname"><a href="mysqli.info.html">$mysqli-&gt;info</a></var>;</div>
 
   <p class="para">过程化风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysqli_info</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$link</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>mysqli_info</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$mysql</code></span>): <span class="type"><span class="type">?</span><span class="type">string</span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>mysqli_info()</strong></span> 函数返回一个包含
@@ -47,7 +48,7 @@
    下面有一些参考样例：
   </p>
   <p class="para">
-  <table class="doctable table">
+  <table id="mysqli.info.description" class="doctable table">
    <caption><strong>mysqli_info 可能的返回值</strong></caption>
    
     <thead>
@@ -125,12 +126,12 @@
 
  <div class="refsect1 examples" id="refsect1-mysqli.info-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1462">
-   <p><strong>Example #1 <var class="varname">$mysqli->info</var> 例程</strong></p>
+  <div class="example" id="example-2928">
+   <p><strong>Example #1 <var class="varname">$mysqli->info</var> 示例</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE&nbsp;TEMPORARY&nbsp;TABLE&nbsp;t1&nbsp;LIKE&nbsp;City"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;INSERT&nbsp;INTO&nbsp;..&nbsp;SELECT&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;t1&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;City&nbsp;ORDER&nbsp;BY&nbsp;ID&nbsp;LIMIT&nbsp;150"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">info</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;关闭连接&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 检查连接 */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect failed: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />    exit();<br />}<br /><br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE TEMPORARY TABLE t1 LIKE City"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* INSERT INTO ... SELECT */<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT INTO t1 SELECT * FROM City ORDER BY ID LIMIT 150"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">info</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 关闭连接 */<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -138,7 +139,7 @@
    <div class="example-contents"><p>过程化风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"CREATE&nbsp;TEMPORARY&nbsp;TABLE&nbsp;t1&nbsp;LIKE&nbsp;City"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;INSERT&nbsp;INTO&nbsp;..&nbsp;SELECT&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;t1&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;City&nbsp;ORDER&nbsp;BY&nbsp;ID&nbsp;LIMIT&nbsp;150"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_info</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;关闭连接&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 检查连接 */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect failed: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />    exit();<br />}<br /><br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #DD0000">"CREATE TEMPORARY TABLE t1 LIKE City"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* INSERT INTO ... SELECT */<br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #DD0000">"INSERT INTO t1 SELECT * FROM City ORDER BY ID LIMIT 150"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_info</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/* 关闭连接 */<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>

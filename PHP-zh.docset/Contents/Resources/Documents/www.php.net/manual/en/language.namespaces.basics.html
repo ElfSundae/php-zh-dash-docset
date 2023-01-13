@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用命名空间：基础</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -96,7 +97,7 @@
     <p class="simpara">file1.php</p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">FOO&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()&nbsp;{}<br />class&nbsp;</span><span style="color: #0000BB">foo<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">()&nbsp;{}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">Foo\Bar\subnamespace</span><span style="color: #007700">;<br /><br />const </span><span style="color: #0000BB">FOO </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />function </span><span style="color: #0000BB">foo</span><span style="color: #007700">() {}<br />class </span><span style="color: #0000BB">foo<br /></span><span style="color: #007700">{<br />    static function </span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">() {}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -104,7 +105,7 @@
     <p class="simpara">file2.php</p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">;<br />include&nbsp;</span><span style="color: #DD0000">'file1.php'</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">FOO&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()&nbsp;{}<br />class&nbsp;</span><span style="color: #0000BB">foo<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">()&nbsp;{}<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;非限定名称&nbsp;*/<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为函数&nbsp;Foo\Bar\foo&nbsp;<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为类&nbsp;Foo\Bar\foo&nbsp;的静态方法&nbsp;staticmethod<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">FOO</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为常量&nbsp;Foo\Bar\FOO<br /><br />/*&nbsp;限定名称&nbsp;*/<br /></span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为函数&nbsp;Foo\Bar\subnamespace\foo<br /></span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为类&nbsp;Foo\Bar\subnamespace\foo,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;以及类的方法&nbsp;staticmethod<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">\</span><span style="color: #0000BB">FOO</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为常量&nbsp;Foo\Bar\subnamespace\FOO<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />/*&nbsp;完全限定名称&nbsp;*/<br /></span><span style="color: #007700">\</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为函数&nbsp;Foo\Bar\foo<br /></span><span style="color: #007700">\</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为类&nbsp;Foo\Bar\foo,&nbsp;以及类的方法&nbsp;staticmethod<br /></span><span style="color: #007700">echo&nbsp;\</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">FOO</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;解析为常量&nbsp;Foo\Bar\FOO<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">Foo\Bar</span><span style="color: #007700">;<br />include </span><span style="color: #DD0000">'file1.php'</span><span style="color: #007700">;<br /><br />const </span><span style="color: #0000BB">FOO </span><span style="color: #007700">= </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />function </span><span style="color: #0000BB">foo</span><span style="color: #007700">() {}<br />class </span><span style="color: #0000BB">foo<br /></span><span style="color: #007700">{<br />    static function </span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">() {}<br />}<br /><br /></span><span style="color: #FF8000">/* 非限定名称 */<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 解析为函数 Foo\Bar\foo <br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 解析为类 Foo\Bar\foo 的静态方法 staticmethod<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">FOO</span><span style="color: #007700">; </span><span style="color: #FF8000">// 解析为常量 Foo\Bar\FOO<br /><br />/* 限定名称 */<br /></span><span style="color: #0000BB">subnamespace\foo</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 解析为函数 Foo\Bar\subnamespace\foo<br /></span><span style="color: #0000BB">subnamespace\foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 解析为类 Foo\Bar\subnamespace\foo,<br />                                  // 以及类的方法 staticmethod<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">subnamespace\FOO</span><span style="color: #007700">; </span><span style="color: #FF8000">// 解析为常量 Foo\Bar\subnamespace\FOO<br />                                  <br />/* 完全限定名称 */<br /></span><span style="color: #0000BB">\Foo\Bar\foo</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 解析为函数 Foo\Bar\foo<br /></span><span style="color: #0000BB">\Foo\Bar\foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">(); </span><span style="color: #FF8000">// 解析为类 Foo\Bar\foo, 以及类的方法 staticmethod<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">\Foo\Bar\FOO</span><span style="color: #007700">; </span><span style="color: #FF8000">// 解析为常量 Foo\Bar\FOO<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -116,11 +117,11 @@
    <span class="function"><strong>\strlen()</strong></span> 或 <span class="classname"><strong class="classname">\Exception</strong></span> 或
    <code class="literal">\INI_ALL</code>。
 
-   <div class="example" id="example-300">
+   <div class="example" id="example-598">
     <p><strong>Example #1 在命名空间内部访问全局类、函数和常量</strong></p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br /><br />function&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">()&nbsp;{}<br />const&nbsp;</span><span style="color: #0000BB">INI_ALL&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Exception&nbsp;</span><span style="color: #007700">{}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;\</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #DD0000">'hi'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;调用全局函数strlen<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;\</span><span style="color: #0000BB">INI_ALL</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;访问全局常量&nbsp;INI_ALL<br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;\</span><span style="color: #0000BB">Exception</span><span style="color: #007700">(</span><span style="color: #DD0000">'error'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;实例化全局类&nbsp;Exception<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br /><br />function </span><span style="color: #0000BB">strlen</span><span style="color: #007700">() {}<br />const </span><span style="color: #0000BB">INI_ALL </span><span style="color: #007700">= </span><span style="color: #0000BB">3</span><span style="color: #007700">;<br />class </span><span style="color: #0000BB">Exception </span><span style="color: #007700">{}<br /><br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #0000BB">\strlen</span><span style="color: #007700">(</span><span style="color: #DD0000">'hi'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 调用全局函数strlen<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">\INI_ALL</span><span style="color: #007700">; </span><span style="color: #FF8000">// 访问全局常量 INI_ALL<br /></span><span style="color: #0000BB">$c </span><span style="color: #007700">= new </span><span style="color: #0000BB">\Exception</span><span style="color: #007700">(</span><span style="color: #DD0000">'error'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 实例化全局类 Exception<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -162,7 +163,7 @@ try {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="comment">// something awful here<br />
 &nbsp;&nbsp;&nbsp; // That will throw a new exception from SPL<br />
 </span><span class="keyword">} <br />
-catch (\</span><span class="default">Exception </span><span class="keyword">as </span><span class="default">$ex</span><span class="keyword">) {<br />
+catch (</span><span class="default">\Exception </span><span class="keyword">as </span><span class="default">$ex</span><span class="keyword">) {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="comment">// Now we can get here at last<br />
 </span><span class="keyword">}<br />
 </span><span class="default">?&gt;</span>
@@ -186,8 +187,8 @@ It seems the file system analogy only goes so far. One thing that's missing that
 &nbsp;&nbsp; class </span><span class="default">Person </span><span class="keyword">{}<br />
 }<br />
 <br />
-namespace </span><span class="default">MyProject</span><span class="keyword">\</span><span class="default">People </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; class </span><span class="default">Adult </span><span class="keyword">extends ..\</span><span class="default">Person </span><span class="keyword">{}<br />
+namespace </span><span class="default">MyProject\People </span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; class </span><span class="default">Adult </span><span class="keyword">extends ..</span><span class="default">\Person </span><span class="keyword">{}<br />
 }<br />
 </span><span class="default">?&gt;<br />
 </span><br />
@@ -230,20 +231,20 @@ Working with variables can overwrite equal variables in other namespaces<br />
 &nbsp;&nbsp;&nbsp; </span><span class="keyword">{}<br />
 <br />
 &nbsp;&nbsp;&nbsp; namespace<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">main</span><span class="keyword">\</span><span class="default">sub1<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">main\sub1<br />
 &nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />
 &nbsp;&nbsp;&nbsp; }<br />
 <br />
 &nbsp;&nbsp;&nbsp; namespace<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">main</span><span class="keyword">\</span><span class="default">sub2<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">main\sub2<br />
 &nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$data</span><span class="keyword">;</span><span class="comment">// 1<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">;<br />
 &nbsp;&nbsp;&nbsp; }<br />
 <br />
 &nbsp;&nbsp;&nbsp; namespace<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">main</span><span class="keyword">\</span><span class="default">sub1<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">main\sub1<br />
 &nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$data</span><span class="keyword">;</span><span class="comment">// 2<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />
@@ -280,7 +281,7 @@ Lets call this Object.php:
 <br />
 
 <br />
-</span><span class="keyword">namespace </span><span class="default">com</span><span class="keyword">\</span><span class="default">rsumilang</span><span class="keyword">\</span><span class="default">common</span><span class="keyword">;
+</span><span class="keyword">namespace </span><span class="default">com\rsumilang\common</span><span class="keyword">;
 <br />
 
 <br />
@@ -304,7 +305,7 @@ And now lets create a class called String that extends object in String.php:
 <br />
 
 <br />
-</span><span class="keyword">class </span><span class="default">String </span><span class="keyword">extends </span><span class="default">com</span><span class="keyword">\</span><span class="default">rsumilang</span><span class="keyword">\</span><span class="default">common</span><span class="keyword">\</span><span class="default">Object</span><span class="keyword">{
+</span><span class="keyword">class </span><span class="default">String </span><span class="keyword">extends </span><span class="default">com\rsumilang\common\Object</span><span class="keyword">{
 <br />
 &nbsp;&nbsp; </span><span class="comment">// ... code ...
 <br />
@@ -324,7 +325,7 @@ Now if you class String was defined in the same namespace as Object then you don
 <br />
 
 <br />
-</span><span class="keyword">namespace </span><span class="default">com</span><span class="keyword">\</span><span class="default">rsumilang</span><span class="keyword">\</span><span class="default">common</span><span class="keyword">;
+</span><span class="keyword">namespace </span><span class="default">com\rsumilang\common</span><span class="keyword">;
 <br />
 
 <br />
@@ -350,13 +351,13 @@ Lastly, you can also alias a namespace name to use a shorter name for the class 
 <br />
 
 <br />
-</span><span class="keyword">namespace </span><span class="default">com</span><span class="keyword">\</span><span class="default">rsumilang</span><span class="keyword">\</span><span class="default">util</span><span class="keyword">;
+</span><span class="keyword">namespace </span><span class="default">com\rsumilang\util</span><span class="keyword">;
 <br />
-use </span><span class="default">com</span><span class="keyword">\</span><span class="default">rsumlang</span><span class="keyword">\</span><span class="default">common </span><span class="keyword">as </span><span class="default">Common</span><span class="keyword">;
+use </span><span class="default">com\rsumlang\common </span><span class="keyword">as </span><span class="default">Common</span><span class="keyword">;
 <br />
 
 <br />
-class </span><span class="default">String </span><span class="keyword">extends </span><span class="default">Common</span><span class="keyword">\</span><span class="default">Object
+class </span><span class="default">String </span><span class="keyword">extends </span><span class="default">Common\Object
 <br />
 </span><span class="keyword">{
 <br />

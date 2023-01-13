@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将字符串中每个单词的首字母转换为大写</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -37,11 +38,15 @@
    <span class="methodname"><strong>ucwords</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$separators</code><span class="initializer"> = &quot; \t\r\n\f\v&quot;</span></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   将 <code class="parameter">string</code> 中每个单词的首字符（如果首字符是字母）转换为大写字母，并返回这个字符串。
+   将 <code class="parameter">string</code> 中每个单词的首字符（如果首字符是介于 <code class="literal">&quot;a&quot;</code>（0x61）和
+   <code class="literal">&quot;z&quot;</code>（0x7a）之间的 ASCII 字符）转换为大写字母，并返回这个字符串。
   </p>
   <p class="para">
    对于此函数，单词是未在 <code class="parameter">separators</code>
    参数列出的字符串。默认情况下，它们是：空格、水平制表符、回车、换行符、换页以及垂直制表符。
+  </p>
+  <p class="para">
+   要对多字节进行类似的转换，请使用带 <strong><code>MB_CASE_TITLE</code></strong> 模式的 <span class="function"><a href="function.mb-convert-case.html" class="function">mb_convert_case()</a></span>。
   </p>
  </div>
 
@@ -88,14 +93,43 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.ucwords-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     
+ <tr>
+  <td>8.2.0</td>
+  <td>
+   大小写转换不在依赖于使用 <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> 设置的区域。只会转换 ASCII 字符。
+  </td>
+ </tr>
+
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.ucwords-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4869">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>ucwords()</strong></span> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'hello&nbsp;world!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Hello&nbsp;World!<br /><br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'HELLO&nbsp;WORLD!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;HELLO&nbsp;WORLD!<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;Hello&nbsp;World!<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$foo </span><span style="color: #007700">= </span><span style="color: #DD0000">'hello world!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$foo </span><span style="color: #007700">= </span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);             </span><span style="color: #FF8000">// Hello World!<br /><br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= </span><span style="color: #DD0000">'HELLO WORLD!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= </span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);             </span><span style="color: #FF8000">// HELLO WORLD!<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= </span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">)); </span><span style="color: #FF8000">// Hello World!<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -104,11 +138,11 @@
   </p>
   
   <p class="para">
-   <div class="example" id="example-4870">
+   <div class="example" id="">
     <p><strong>Example #2 <span class="function"><strong>ucwords()</strong></span> 自定义分隔符的例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'hello|world!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Hello|world!<br /><br /></span><span style="color: #0000BB">$baz&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"|"</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Hello|World!<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$foo </span><span style="color: #007700">= </span><span style="color: #DD0000">'hello|world!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= </span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);             </span><span style="color: #FF8000">// Hello|world!<br /><br /></span><span style="color: #0000BB">$baz </span><span style="color: #007700">= </span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">, </span><span style="color: #DD0000">"|"</span><span style="color: #007700">);        </span><span style="color: #FF8000">// Hello|World!<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -117,11 +151,11 @@
   </p>
 
   <p class="para">
-   <div class="example" id="example-4871">
+   <div class="example" id="">
     <p><strong>Example #3 带附加分隔符的 <span class="function"><strong>ucwords()</strong></span> 示例</strong></p>
     <div class="example-contents">
      <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"mike&nbsp;o'hara"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Mike&nbsp;O'hara<br /><br /></span><span style="color: #0000BB">$baz&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"&nbsp;\t\r\n\f\v'"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;Mike&nbsp;O'Hara<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$foo </span><span style="color: #007700">= </span><span style="color: #DD0000">"mike o'hara"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= </span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);                 </span><span style="color: #FF8000">// Mike O'hara<br /><br /></span><span style="color: #0000BB">$baz </span><span style="color: #007700">= </span><span style="color: #0000BB">ucwords</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">, </span><span style="color: #DD0000">" \t\r\n\f\v'"</span><span style="color: #007700">); </span><span style="color: #FF8000">// Mike O'Hara<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -133,9 +167,6 @@
 
  <div class="refsect1 notes" id="refsect1-function.ucwords-notes">
   <h3 class="title">注释</h3>
-  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数是本地识别的，会根据当前设置的 locale 处理输入，只适用于单字节字符集。
-如果您需要使用多字节字符（大多数非西欧语言），请参考
-<a href="book.mbstring.html" class="link">multibyte</a> 或 <a href="book.intl.html" class="link">intl</a> 扩展。</span></p></blockquote>
   <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数可安全用于二进制对象。</span></p></blockquote>
  </div>
 

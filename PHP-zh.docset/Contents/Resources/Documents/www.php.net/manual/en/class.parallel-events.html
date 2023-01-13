@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>The parallel\Events class</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -146,7 +147,7 @@
 <br />
 </span><span class="comment">// example below shows how to stop child thread from main thread<br />
 <br />
-</span><span class="keyword">use </span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Channel</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">\</span><span class="default">Event</span><span class="keyword">\</span><span class="default">Type</span><span class="keyword">, </span><span class="default">Runtime</span><span class="keyword">};<br />
+</span><span class="keyword">use </span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Channel</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">, </span><span class="default">Events\Event\Type</span><span class="keyword">, </span><span class="default">Runtime</span><span class="keyword">};<br />
 <br />
 </span><span class="default">$fnThread </span><span class="keyword">= static function (</span><span class="default">Channel $channel</span><span class="keyword">) {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$events </span><span class="keyword">= new </span><span class="default">Events</span><span class="keyword">();<br />
@@ -202,7 +203,7 @@ echo </span><span class="default">PHP_EOL</span><span class="keyword">;</span>
 <br />
 </span><span class="comment">// this example shows how Events handle Future events<br />
 <br />
-</span><span class="keyword">use </span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Events</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">\</span><span class="default">Event</span><span class="keyword">, </span><span class="default">Runtime</span><span class="keyword">};<br />
+</span><span class="keyword">use </span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Events</span><span class="keyword">, </span><span class="default">Events\Event</span><span class="keyword">, </span><span class="default">Runtime</span><span class="keyword">};<br />
 <br />
 </span><span class="default">$events </span><span class="keyword">= new </span><span class="default">Events</span><span class="keyword">();<br />
 <br />
@@ -220,7 +221,7 @@ echo </span><span class="default">PHP_EOL</span><span class="keyword">;</span>
 </span><span class="comment">//Cancel&nbsp; (type: 4)<br />
 </span><span class="default">$future </span><span class="keyword">= </span><span class="default">$runtime</span><span class="keyword">-&gt;</span><span class="default">run</span><span class="keyword">(<br />
 &nbsp;&nbsp;&nbsp; static function (</span><span class="default">string $name</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Exception#</span><span class="default">$name</span><span class="string">"</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">\Exception</span><span class="keyword">(</span><span class="string">"Exception#</span><span class="default">$name</span><span class="string">"</span><span class="keyword">);<br />
 &nbsp;&nbsp;&nbsp; },<br />
 &nbsp;&nbsp;&nbsp; [</span><span class="string">'Cancel'</span><span class="keyword">]<br />
 );<br />
@@ -275,7 +276,7 @@ Example showing the usage of events.<br />
 <br />
 The documentation still is very thin, so I'm not sure, the example is the best solution. But it works.<br />
 */<br />
-</span><span class="keyword">use </span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Channel</span><span class="keyword">,</span><span class="default">Runtime</span><span class="keyword">,</span><span class="default">Events</span><span class="keyword">,</span><span class="default">Events</span><span class="keyword">\</span><span class="default">Event</span><span class="keyword">};<br />
+</span><span class="keyword">use </span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Channel</span><span class="keyword">,</span><span class="default">Runtime</span><span class="keyword">,</span><span class="default">Events</span><span class="keyword">,</span><span class="default">Events\Event</span><span class="keyword">};<br />
 <br />
 </span><span class="default">$myThread </span><span class="keyword">= function(</span><span class="default">Channel $channel</span><span class="keyword">) {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$events </span><span class="keyword">= new </span><span class="default">Events</span><span class="keyword">();<br />
@@ -303,7 +304,7 @@ The documentation still is very thin, so I'm not sure, the example is the best s
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//It seems, the target gets deleted after returning an event,<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; //so add it again.<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$events</span><span class="keyword">-&gt;</span><span class="default">addChannel</span><span class="keyword">(</span><span class="default">$channel</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$event</span><span class="keyword">-&gt;</span><span class="default">type </span><span class="keyword">== </span><span class="default">Event</span><span class="keyword">\</span><span class="default">Type</span><span class="keyword">::</span><span class="default">Read</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$event</span><span class="keyword">-&gt;</span><span class="default">type </span><span class="keyword">== </span><span class="default">Event\Type</span><span class="keyword">::</span><span class="default">Read</span><span class="keyword">)<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$event</span><span class="keyword">-&gt;</span><span class="default">value</span><span class="keyword">) &amp;&amp; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$event</span><span class="keyword">-&gt;</span><span class="default">value</span><span class="keyword">) &gt; </span><span class="default">0</span><span class="keyword">)<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
@@ -318,12 +319,12 @@ The documentation still is very thin, so I'm not sure, the example is the best s
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else if(</span><span class="default">$event</span><span class="keyword">-&gt;</span><span class="default">type </span><span class="keyword">== </span><span class="default">Event</span><span class="keyword">\</span><span class="default">Type</span><span class="keyword">::</span><span class="default">Close</span><span class="keyword">) return; </span><span class="comment">//Stop<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else if(</span><span class="default">$event</span><span class="keyword">-&gt;</span><span class="default">type </span><span class="keyword">== </span><span class="default">Event\Type</span><span class="keyword">::</span><span class="default">Close</span><span class="keyword">) return; </span><span class="comment">//Stop<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">}<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; while(</span><span class="default">$event</span><span class="keyword">);<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; catch(</span><span class="default">Events</span><span class="keyword">\</span><span class="default">Error</span><span class="keyword">\</span><span class="default">Timeout $ex</span><span class="keyword">)<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; catch(</span><span class="default">Events\Error\Timeout $ex</span><span class="keyword">)<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Timeout<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'Timeout'</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />

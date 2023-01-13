@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>在一个多行集语句句柄中推进到下一个行集</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -55,14 +56,14 @@
  <div class="refsect1 examples" id="refsect1-pdostatement.nextrowset-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-1078">
+   <div class="example" id="example-2160">
     <p><strong>Example #1 获取由一个存储过程返回的多个行集</strong></p>
     <div class="example-contents"><p>
      下面例子展示了怎样调用一个存储过程，返回三个行集的 MULTIPLE_ROWSETS 。用一个  do / while 循环来循环调用 <span class="function"><strong>PDOStatement::nextRowset()</strong></span> 方法， 当不再有行集返回时返回 false 并结束循环。
     </p></div>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'CALL&nbsp;multiple_rowsets()'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />do&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rowset&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">FETCH_NUM</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$rowset</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printResultSet</span><span style="color: #007700">(</span><span style="color: #0000BB">$rowset</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++;<br />}&nbsp;while&nbsp;(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">nextRowset</span><span style="color: #007700">());<br /><br />function&nbsp;</span><span style="color: #0000BB">printResultSet</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$rowset</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"Result&nbsp;set&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #DD0000">:\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$rowset&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$col</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$col&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\t"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">'CALL multiple_rowsets()'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />do {<br />    </span><span style="color: #0000BB">$rowset </span><span style="color: #007700">= </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">FETCH_NUM</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">$rowset</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">printResultSet</span><span style="color: #007700">(</span><span style="color: #0000BB">$rowset</span><span style="color: #007700">, </span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br />    }<br />    </span><span style="color: #0000BB">$i</span><span style="color: #007700">++;<br />} while (</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">nextRowset</span><span style="color: #007700">());<br /><br />function </span><span style="color: #0000BB">printResultSet</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$rowset</span><span style="color: #007700">, </span><span style="color: #0000BB">$i</span><span style="color: #007700">) {<br />    print </span><span style="color: #DD0000">"Result set </span><span style="color: #0000BB">$i</span><span style="color: #DD0000">:\n"</span><span style="color: #007700">;<br />    foreach (</span><span style="color: #0000BB">$rowset </span><span style="color: #007700">as </span><span style="color: #0000BB">$row</span><span style="color: #007700">) {<br />        foreach (</span><span style="color: #0000BB">$row </span><span style="color: #007700">as </span><span style="color: #0000BB">$col</span><span style="color: #007700">) {<br />            print </span><span style="color: #0000BB">$col </span><span style="color: #007700">. </span><span style="color: #DD0000">"\t"</span><span style="color: #007700">;<br />        }<br />        print </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />    print </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -96,7 +97,7 @@ banana   yellow
     <li class="member"><span class="function"><a href="pdostatement.columncount.html" class="function" rel="rdfs-seeAlso">PDOStatement::columnCount()</a> - 返回结果集中的列数</span></li>
     <li class="member"><span class="function"><a href="pdostatement.execute.html" class="function" rel="rdfs-seeAlso">PDOStatement::execute()</a> - 执行一条预处理语句</span></li>
     <li class="member"><span class="function"><a href="pdostatement.getcolumnmeta.html" class="function" rel="rdfs-seeAlso">PDOStatement::getColumnMeta()</a> - 返回结果集中一列的元数据</span></li>
-    <li class="member"><span class="function"><a href="pdo.query.html" class="function" rel="rdfs-seeAlso">PDO::query()</a> - 执行 SQL 语句，以 PDOStatement 对象形式返回结果集</span></li>
+    <li class="member"><span class="function"><a href="pdo.query.html" class="function" rel="rdfs-seeAlso">PDO::query()</a> - 预处理并执行没有占位符的 SQL 语句</span></li>
    </ul>
   </p>
  </div>
@@ -132,7 +133,7 @@ If you know how many count rowset then don't use contruction of do..while. <br /
 <br />
 <span class="default">&lt;?php<br />
 </span><span class="keyword">do {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(\</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(</span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);<br />
 } while (<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">nextRowset</span><span class="keyword">()<br />
 );<br />
@@ -141,9 +142,9 @@ If you know how many count rowset then don't use contruction of do..while. <br /
 <br />
 Uses step-by-step insted do..while is fix for this bug:<br />
 <span class="default">&lt;?php<br />
-$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(\</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);<br />
+$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(</span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);<br />
 </span><span class="default">$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">nextRowset</span><span class="keyword">();<br />
-</span><span class="default">$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(\</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);<br />
+</span><span class="default">$pdoStatement</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(</span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);<br />
 </span><span class="default">?&gt;</span>
 </span>
 </code>

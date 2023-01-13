@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>替换字符串的子串</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -34,10 +35,11 @@
  <div class="refsect1 description" id="refsect1-function.substr-replace-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>substr_replace</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$string</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$replacement</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$start</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$length</code><span class="initializer"> = ?</span></span><br>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>substr_replace</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">string</span></span> <code class="parameter">$string</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">string</span></span> <code class="parameter">$replace</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">int</span></span> <code class="parameter">$offset</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">int</span>|<span class="type">null</span></span> <code class="parameter">$length</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type"><span class="type">string</span>|<span class="type">array</span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>substr_replace()</strong></span> 在字符串 <code class="parameter">string</code> 的副本中将由 <code class="parameter">start</code> 和可选的 <code class="parameter">length</code> 参数限定的子字符串使用 <code class="parameter">replacement</code> 进行替换。
+   <span class="function"><strong>substr_replace()</strong></span> 在字符串 <code class="parameter">string</code> 的副本中将由 <code class="parameter">offset</code>
+   和可选的 <code class="parameter">length</code> 参数限定的子字符串使用 <code class="parameter">replace</code> 进行替换。
   </p>
  </div>
 
@@ -56,20 +58,15 @@
        输入字符串。
       </p>
       <p class="para">
-       An <span class="type">array</span> of <span class="type">string</span>s can be provided, in which
-       case the replacements will occur on each string in turn. In this case,
-       the <code class="parameter">replacement</code>, <code class="parameter">start</code>
-       and <code class="parameter">length</code> parameters may be provided either as
-       scalar values to be applied to each input string in turn, or as
-       <span class="type">array</span>s, in which case the corresponding array element will
-       be used for each input string.
+       可以提供 <span class="type">array</span> 类型的 <span class="type">string</span>，会依次替换出现的字符串。在这种情况下，<code class="parameter">replace</code>、<code class="parameter">offset</code>
+       和 <code class="parameter">length</code> 参数可以作为标量值依次提供给每个输入字符串，或者作为 <span class="type">array</span> 提供，然后数组元素将会相应的用于每个输入字符串。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">replacement</code></dt>
+<code class="parameter">replace</code></dt>
 
      <dd>
 
@@ -81,15 +78,15 @@
     
     
      <dt>
-<code class="parameter">start</code></dt>
+<code class="parameter">offset</code></dt>
 
      <dd>
 
       <p class="para">
-       如果 <code class="parameter">start</code> 为正数，替换将从 <code class="parameter">string</code> 的 <code class="parameter">start</code> 位置开始。
+       如果 <code class="parameter">offset</code> 为非负数，替换将从 <code class="parameter">string</code> 的 <code class="parameter">offset</code> 位置开始。
       </p>
       <p class="para">
-       如果 <code class="parameter">start</code> 为负数，替换将从 <code class="parameter">string</code> 的倒数第 <code class="parameter">start</code> 个位置开始。
+       如果 <code class="parameter">offset</code> 为负数，替换将从 <code class="parameter">string</code> 的倒数第 <code class="parameter">offset</code> 个位置开始。
       </p>
      </dd>
 
@@ -101,7 +98,10 @@
      <dd>
 
       <p class="para">
-       如果设定了这个参数并且为正数，表示 <code class="parameter">string</code> 中被替换的子字符串的长度。如果设定为负数，它表示待替换的子字符串结尾处距离 <code class="parameter">string</code> 末端的字符个数。如果没有提供此参数，那么它默认为 strlen( <code class="parameter">string</code> ) （字符串的长度）。当然，如果 <code class="parameter">length</code> 为 0，那么这个函数的功能为将 <code class="parameter">replacement</code> 插入到 <code class="parameter">string</code> 的 <code class="parameter">start</code> 位置处。
+       如果设定了这个参数并且为正数，表示 <code class="parameter">string</code> 中被替换的子字符串的长度。如果设定为负数，它表示待替换的子字符串结尾处距离
+       <code class="parameter">string</code> 末端的字符个数。如果没有提供此参数，那么它默认为 strlen( <code class="parameter">string</code>
+       )（字符串的长度）。当然，如果 <code class="parameter">length</code> 为 0，那么这个函数的功能为将 <code class="parameter">replace</code> 插入到
+       <code class="parameter">string</code> 的 <code class="parameter">offset</code> 位置处。
       </p>
      </dd>
 
@@ -135,9 +135,9 @@
 
      <tbody class="tbody">
       <tr>
-       <td>4.3.3</td>
+       <td>8.0.0</td>
        <td>
-        All parameters now accept <span class="type">array</span>s.
+        <code class="parameter">length</code> 现在允许为 null。
        </td>
       </tr>
 
@@ -152,11 +152,11 @@
  <div class="refsect1 examples" id="refsect1-function.substr-replace-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4858">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>substr_replace()</strong></span> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'ABCDEFGH:/MNRPQR/'</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"Original:&nbsp;</span><span style="color: #0000BB">$var</span><span style="color: #DD0000">&lt;hr&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;这两个例子使用&nbsp;"bob"&nbsp;替换整个&nbsp;$var。*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bob'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bob'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;将&nbsp;"bob"&nbsp;插入到&nbsp;$var&nbsp;的开头处。*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bob'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;下面两个例子使用&nbsp;"bob"&nbsp;替换&nbsp;$var&nbsp;中的&nbsp;"MNRPQR"。*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bob'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bob'</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">7</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;从&nbsp;$var&nbsp;中删除&nbsp;"MNRPQR"。*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'ABCDEFGH:/MNRPQR/'</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"Original: </span><span style="color: #0000BB">$var</span><span style="color: #DD0000">&lt;hr /&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 这两个例子使用 "bob" 替换整个 $var。*/<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">, </span><span style="color: #DD0000">'bob'</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">) . </span><span style="color: #DD0000">"&lt;br /&gt;\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">, </span><span style="color: #DD0000">'bob'</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">)) . </span><span style="color: #DD0000">"&lt;br /&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 将 "bob" 插入到 $var 的开头处。*/<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">, </span><span style="color: #DD0000">'bob'</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">) . </span><span style="color: #DD0000">"&lt;br /&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 下面两个例子使用 "bob" 替换 $var 中的 "MNRPQR"。*/<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">, </span><span style="color: #DD0000">'bob'</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, -</span><span style="color: #0000BB">1</span><span style="color: #007700">) . </span><span style="color: #DD0000">"&lt;br /&gt;\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">, </span><span style="color: #DD0000">'bob'</span><span style="color: #007700">, -</span><span style="color: #0000BB">7</span><span style="color: #007700">, -</span><span style="color: #0000BB">1</span><span style="color: #007700">) . </span><span style="color: #DD0000">"&lt;br /&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 从 $var 中删除 "MNRPQR"。*/<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">, </span><span style="color: #DD0000">''</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, -</span><span style="color: #0000BB">1</span><span style="color: #007700">) . </span><span style="color: #DD0000">"&lt;br /&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -164,14 +164,13 @@
   </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4859">
+   <div class="example" id="">
     <p><strong>Example #2 
-     Using <span class="function"><strong>substr_replace()</strong></span> to replace multiple strings at
-     once
+     一次性使用 <span class="function"><strong>substr_replace()</strong></span> 替换多个字符串
     </strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$input&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'A:&nbsp;XXX'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'B:&nbsp;XXX'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'C:&nbsp;XXX'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;A&nbsp;simple&nbsp;case:&nbsp;replace&nbsp;XXX&nbsp;in&nbsp;each&nbsp;string&nbsp;with&nbsp;YYY.<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">';&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'YYY'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">)).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;A&nbsp;more&nbsp;complicated&nbsp;case&nbsp;where&nbsp;each&nbsp;replacement&nbsp;is&nbsp;different.<br /></span><span style="color: #0000BB">$replace&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'AAA'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'BBB'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'CCC'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">';&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$replace</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">)).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Replace&nbsp;a&nbsp;different&nbsp;number&nbsp;of&nbsp;characters&nbsp;each&nbsp;time.<br /></span><span style="color: #0000BB">$length&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">';&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$replace</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$length</span><span style="color: #007700">)).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$input </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'A: XXX'</span><span style="color: #007700">, </span><span style="color: #DD0000">'B: XXX'</span><span style="color: #007700">, </span><span style="color: #DD0000">'C: XXX'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 简单用例：将每个字符串使用 YYY 替换为 XXX。<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">'; '</span><span style="color: #007700">, </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #DD0000">'YYY'</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">)).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 更复杂的情况，每种替换都不同。<br /></span><span style="color: #0000BB">$replace </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'AAA'</span><span style="color: #007700">, </span><span style="color: #DD0000">'BBB'</span><span style="color: #007700">, </span><span style="color: #DD0000">'CCC'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">'; '</span><span style="color: #007700">, </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #0000BB">$replace</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">)).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 每次替换的字符数不同。<br /></span><span style="color: #0000BB">$length </span><span style="color: #007700">= array(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">'; '</span><span style="color: #007700">, </span><span style="color: #0000BB">substr_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #0000BB">$replace</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">$length</span><span style="color: #007700">)).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>HTTP Cookies</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -42,11 +43,11 @@
  <div class="refsect1 examples" id="refsect1-reserved.variables.cookies-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="variable.cookie.basic">
+   <div class="example" id="example-728">
     <p><strong>Example #1 <var class="varname">$_COOKIE</var> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Hello&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$_COOKIE</span><span style="color: #007700">[</span><span style="color: #DD0000">"name"</span><span style="color: #007700">])&nbsp;.&nbsp;</span><span style="color: #DD0000">'!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">'Hello ' </span><span style="color: #007700">. </span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$_COOKIE</span><span style="color: #007700">[</span><span style="color: #DD0000">"name"</span><span style="color: #007700">]) . </span><span style="color: #DD0000">'!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -88,7 +89,92 @@ Hello Hannes!
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126226""></a>
+<div id="allnotes">  <a name="128065""></a>
+  <div class="note">
+   <strong class="user">rc at opelgt dot org</strong>
+   <a href="#128065" class="date">29-Dec-2022 07:04</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The values of $_COOKIE in general are not identic with the values in $_SERVER["HTTP_COOKIE"]!<br />
+<br />
+In phpinfo() $_SERVER["HTTP_COOKIE"] shows the actual value stored in the cookie by the browser in 7bit.<br />
+In $_COOKIE is this value after a 7bit to 8bit conversion.<br />
+<br />
+When all characters in $_SERVER["HTTP_COOKIE"] are in ASCII = 7bit, $_COOKIE is displayed in phpinfo(). When one single character is not in ASCII, phpinfo() shows no value!<br />
+<br />
+Although in $_COOKIE is still the 8bit conversion of $_SERVER["HTTP_COOKIE"]!<br />
+The reason: the 8bit conversion alone is not enough to say what characters are meant.<br />
+For that the used character-set is necessary.<br />
+<br />
+phpinfo() does not know the character-set and better says nothing.<br />
+<br />
+When using $_COOKIE in a php-generated web page the environment has the info of used character-set and so the meant characters can be displayed.<br />
+<br />
+Three illustrating examples<br />
+===========================<br />
+A HTML-form is used to get the content which shall be stored in a cookie named "test".<br />
+<br />
+Input string in field "test": door<br />
+$_SERVER["HTTP_COOKIE"]: test=door<br />
+$_COOKIE["test"]<br />
+&nbsp;&nbsp; displayed in phpinfo(): door<br />
+&nbsp;&nbsp; displayed in any html page: door<br />
+<br />
+Input string in field "test" (ISO-8859-1 used in form): Tür<br />
+$_SERVER["HTTP_COOKIE"]: test=T%FCr<br />
+$_COOKIE["test"]<br />
+&nbsp;&nbsp; displayed in phpinfo(): ""<br />
+&nbsp;&nbsp; displayed in a ISO-8859-1-html-page: Tür<br />
+&nbsp;&nbsp; (displayed in a UTF-8-html-page: T?r)<br />
+<br />
+Input string in field "test" (UTF-8 used in form): Tür<br />
+$_SERVER["HTTP_COOKIE"]: test=T%C3%BCr<br />
+$_COOKIE["test"]<br />
+&nbsp;&nbsp; displayed in phpinfo(): ""<br />
+&nbsp;&nbsp; displayed in a UTF-8-html-page: Tür<br />
+&nbsp;&nbsp; (displayed in a ISO-8859-1-html-page: T??r)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127990""></a>
+  <div class="note">
+   <strong class="user">user at NOSPAM dot example dot com</strong>
+   <a href="#127990" class="date">07-Dec-2022 12:26</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+PHP replaces dots (.) with underscores (_). To find all original cookie names (and value) you can use $_SERVER['HTTP_COOKIE'].<br />
+<br />
+For example to retrieve a cookie set with <span class="default">&lt;?php setcookie</span><span class="keyword">(</span><span class="string">'testing.dots'</span><span class="keyword">, </span><span class="string">'value'</span><span class="keyword">); </span><span class="default">?&gt;</span> you may use:<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; $cookies </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'; '</span><span class="keyword">, </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_COOKIE'</span><span class="keyword">]);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$allCookies </span><span class="keyword">= [];<br />
+<br />
+&nbsp;&nbsp;&nbsp; foreach(</span><span class="default">$cookies </span><span class="keyword">as </span><span class="default">$cookie</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$keyAndValue </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'='</span><span class="keyword">, </span><span class="default">$cookie</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$allCookies</span><span class="keyword">[</span><span class="default">$keyAndValue</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]] = </span><span class="default">$keyAndValue</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$allCookies</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">/*<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; array(1) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ["testing.dots"]=&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; string(5) "value"<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; */<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">$allCookies</span><span class="keyword">[</span><span class="string">'testing.dots'</span><span class="keyword">];<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126226""></a>
   <div class="note">
    <strong class="user">axodjakov at gmail dot com</strong>
    <a href="#126226" class="date">07-Jul-2021 11:25</a>

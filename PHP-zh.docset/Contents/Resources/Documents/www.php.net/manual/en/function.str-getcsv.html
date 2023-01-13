@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>解析 CSV 字符串为一个数组</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -36,11 +37,17 @@
  <div class="refsect1 description" id="refsect1-function.str-getcsv-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>str_getcsv</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$input</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$delimiter</code><span class="initializer"> = &quot;,&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$enclosure</code><span class="initializer"> = &#039;&quot;&#039;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$escape</code><span class="initializer"> = &quot;\\&quot;</span></span><br>): <span class="type">array</span></div>
+   <span class="methodname"><strong>str_getcsv</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$separator</code><span class="initializer"> = &quot;,&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$enclosure</code><span class="initializer"> = &quot;\&quot;&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$escape</code><span class="initializer"> = &quot;\\&quot;</span></span><br>): <span class="type">array</span></div>
 
   <p class="para rdfs-comment">
-   以 <acronym title="Comma Separated Value">CSV</acronym> 字段格式解析字符串输入，并返回包含读取字段的数组。
+   以 <abbr title="Comma Separated Value">CSV</abbr> 字段格式解析字符串输入，并返回包含读取字段的数组。
   </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    此函数考虑区域设置。如果 <code class="literal">LC_CTYPE</code> 是类似 <code class="literal">en_US.UTF-8</code>
+    的值，此函数将错误的读取单字节编码的字符串。
+   </p>
+  </p></blockquote>
  </div>
 
 
@@ -50,7 +57,7 @@
    <dl>
     
      <dt>
-<code class="parameter">input</code></dt>
+<code class="parameter">string</code></dt>
 
      <dd>
 
@@ -62,12 +69,12 @@
     
     
      <dt>
-<code class="parameter">delimiter</code></dt>
+<code class="parameter">separator</code></dt>
 
      <dd>
 
       <p class="para">
-       设定字段界定符（仅单个字符）。
+       设定字段界定符（仅一个单字节字符）。
       </p>
      </dd>
 
@@ -79,7 +86,7 @@
      <dd>
 
       <p class="para">
-       设定字段包裹字符（仅单个字符）。
+       设定字段包裹字符（仅一个单字节字符）。
       </p>
      </dd>
 
@@ -91,8 +98,20 @@
      <dd>
 
       <p class="para">
-       设置转义字符（仅单个字符）。默认为反斜线（<code class="literal">\</code>）。
+       设置转义字符（最多一个单字节字符）。默认为反斜线（<code class="literal">\</code>）。空字符串（<code class="literal">&quot;&quot;</code>）禁用专有转义机制。
       </p>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        Usually an <code class="parameter">enclosure</code> character is escaped inside
+        a field by doubling it; however, the <code class="parameter">escape</code>
+        character can be used as an alternative. So for the default parameter
+        values <code class="literal">&quot;&quot;</code> and <code class="literal">\&quot;</code> have the same
+        meaning. Other than allowing to escape the
+        <code class="parameter">enclosure</code> character the
+        <code class="parameter">escape</code> character has no special meaning; it isn&#039;t
+        even meant to escape itself.
+       </span>
+      </p></blockquote>
      </dd>
 
     
@@ -106,6 +125,69 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    返回一个包含读取到的字段的索引数组。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.str-getcsv-changelog">
+  <h3 class="title">更新日志</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>7.4.0</td>
+       <td>
+        <code class="parameter">escape</code> 现在将空字符串视为禁用专有转义机制的信号。以前视为默认参数值。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.str-getcsv-examples">
+  <h3 class="title">范例</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Example #1 <span class="function"><strong>str_getcsv()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'PHP,Java,Python,Kotlin,Swift'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= </span><span style="color: #0000BB">str_getcsv</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(5) {
+  [0]=&gt;
+  string(3) &quot;PHP&quot;
+  [1]=&gt;
+  string(4) &quot;Java&quot;
+  [2]=&gt;
+  string(6) &quot;Python&quot;
+  [3]=&gt;
+  string(6) &quot;Kotlin&quot;
+  [4]=&gt;
+  string(5) &quot;Swift&quot;
+}
+</pre></div>
+    </div>
+   </div>
   </p>
  </div>
 
@@ -198,7 +280,7 @@ This is exactly the function that works like that using str_getcsv(). Just simpl
 &nbsp;&nbsp;&nbsp; }<br />
 &nbsp;&nbsp;&nbsp; else<br />
 &nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new \</span><span class="default">Exception</span><span class="keyword">(</span><span class="string">'Can not open the file.'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; throw new </span><span class="default">\Exception</span><span class="keyword">(</span><span class="string">'Can not open the file.'</span><span class="keyword">);<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$return </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
 &nbsp;&nbsp;&nbsp; }<br />
 &nbsp;&nbsp;&nbsp; <br />

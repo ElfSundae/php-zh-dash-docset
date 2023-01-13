@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>准备执行一个 SQL 语句</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>预处理执行 SQL</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,8 +20,8 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli.html">MySQLi</a></li>
-    <li>准备执行一个 SQL 语句</li>
+    <li><a href="class.mysqli.html">mysqli</a></li>
+    <li>预处理执行 SQL</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,7 +29,7 @@
  <div class="refnamediv">
   <h1 class="refname">mysqli::prepare</h1>
   <h1 class="refname">mysqli_prepare</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::prepare</span> -- <span class="refname">mysqli_prepare</span> &mdash; <span class="dc-title">准备执行一个 SQL 语句</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::prepare</span> -- <span class="refname">mysqli_prepare</span> &mdash; <span class="dc-title">预处理执行 SQL</span></p>
 
  </div>
 
@@ -36,20 +37,17 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysqli::prepare</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$query</code></span>): <span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::prepare</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$query</code></span>): <span class="type"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_prepare</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$link</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$query</code></span>): <span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_prepare</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$mysql</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$query</code></span>): <span class="type"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   做好执行 SQL 语句的准备，返回一个语句句柄，可以对这个句柄进行后续的操作。
-   这里仅仅支持单一的 SQL 语句，不支持多 SQL 语句。
+   预处理 SQL 查询并返回 statement 句柄，用于对语句进行后续操作。查询仅仅支持单条 SQL 语句。
   </p>
   <p class="para">
-   在执行语句之前，需要使用 <span class="function"><a href="mysqli-stmt.bind-param.html" class="function">mysqli_stmt_bind_param()</a></span> 函数
-   对占位符参数进行绑定。
-   同样，在获取结果之前，必须使用
-   <span class="function"><a href="mysqli-stmt.bind-result.html" class="function">mysqli_stmt_bind_result()</a></span> 函数对返回的列值进行绑定。
+   语句模板可以包含零或多个问号（<code class="literal">?</code>）参数标记，也称作占位符。在执行语句之前，必须使用
+   <span class="function"><a href="mysqli-stmt.bind-param.html" class="function">mysqli_stmt_bind_param()</a></span> 将参数标记绑定到应用程序变量。
   </p>
  </div>
 
@@ -72,38 +70,17 @@
      <dd>
 
       <p class="para">
-       SQL 语句。
+       string 格式的语句。必须由单个 SQL 语句组成。
       </p>
-      <blockquote class="note"><p><strong class="note">Note</strong>: 
-       <p class="para">
-        不需要在语句末尾增加分号（;）
-        或者 <code class="literal">\g</code> 结束符。
-       </p>
-      </p></blockquote>
       <p class="para">
-       SQL 语句中可以包含一个或者多个问号（<code class="literal">?</code>）
-       表示语句的参数。
-       
+       SQL 语句可能在适当的位置包含零个或多个由问号（<code class="literal">?</code>）字符表示的参数标记。
       </p>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
+
        <p class="para">
-        SQL 语句中，仅允许在特定的位置出现问号参数占位符。
-        例如，在 <code class="literal">INSERT</code> 语句中的 <code class="literal">VALUES()</code>
-        子句中可以使用参数占位符，来表示对应列的值。
-        也可以在 <code class="literal">WHERE</code> 字句中使用参数来表示
-        要进行比较的值。
-       </p>
-       <p class="para">
-        但是，并不是所有的地方都允许使用参数占位符，
-        例如对于表名、列名这样的 SQL 语句中的标识位置，
-        就不可以使用参数占位。
-        <code class="literal">SELECT</code> 语句中的列名就不可以使用参数。
-        另外，对于 <code class="literal">=</code> 这样的逻辑比较操作也不可以在两侧都使用参数，
-        否则服务器在解析 SQL 的时候就不知道该如何检测参数类型了。
-        也不可以在 <code class="literal">NULL</code> 条件中使用问号，
-        也就是说不可以写成：<code class="literal">? IS NULL</code>。
-        一般而言，参数也只能用在数据操作（DML）语句中，
-        不可以用在数据定义（DDL）语句中。
+        SQL 语句中，仅允许在特定的位置出现问号参数占位符。例如，允许在 <code class="literal">INSERT</code> 语句中的
+        <code class="literal">VALUES()</code> 列表中使用，表示对应列的值，也可以在 <code class="literal">WHERE</code>
+        子句中使用参数来表示要进行比较的值。但不允许用于标识符（例如表名或列名）。
        </p>
       </p></blockquote>
      </dd>
@@ -125,12 +102,12 @@
 
  <div class="refsect1 examples" id="refsect1-mysqli.prepare-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1468">
-   <p><strong>Example #1 <span class="methodname"><strong>mysqli::prepare()</strong></span> 例程</strong></p>
+  <div class="example" id="example-2940">
+   <p><strong>Example #1 <span class="methodname"><strong>mysqli::prepare()</strong></span> 示例</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">$city&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;创建一个预编译&nbsp;SQL&nbsp;语句&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;District&nbsp;FROM&nbsp;City&nbsp;WHERE&nbsp;Name=?"</span><span style="color: #007700">))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;对于参数占位符进行参数值绑定&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_param</span><span style="color: #007700">(</span><span style="color: #DD0000">"s"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;执行查询&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;将查询结果绑定到变量&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;获取查询结果值&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s&nbsp;is&nbsp;in&nbsp;district&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$city</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;关于语句对象&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;关闭连接&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$city </span><span style="color: #007700">= </span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 创建预处理语句 */<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT District FROM City WHERE Name=?"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 为标记绑定参数 */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_param</span><span style="color: #007700">(</span><span style="color: #DD0000">"s"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 执行查询 */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* 绑定结果变量 */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 获取值 */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s is in district %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);</span>
 </span>
 </code></div>
    </div>
@@ -138,7 +115,7 @@
    <div class="example-contents"><p>过程化风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">$city&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;创建一个预编译&nbsp;SQL&nbsp;语句&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;District&nbsp;FROM&nbsp;City&nbsp;WHERE&nbsp;Name=?"</span><span style="color: #007700">))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;对于参数占位符进行参数值绑定&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_stmt_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"s"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;执行查询&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;将查询结果绑定到变量&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_stmt_bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;获取查询结果值&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_stmt_fetch</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s&nbsp;is&nbsp;in&nbsp;district&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$city</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;关闭语句句柄&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_stmt_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;关闭连接&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$city </span><span style="color: #007700">= </span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 创建预处理语句 */<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #DD0000">"SELECT District FROM City WHERE Name=?"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 为标记绑定参数 */<br /></span><span style="color: #0000BB">mysqli_stmt_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #DD0000">"s"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 执行查询 */<br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 绑定结果变量 */<br /></span><span style="color: #0000BB">mysqli_stmt_bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 获取值 */<br /></span><span style="color: #0000BB">mysqli_stmt_fetch</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s is in district %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);</span>
 </span>
 </code></div>
    </div>
@@ -161,6 +138,7 @@ Amersfoort is in district Utrecht
     <li class="member"><span class="function"><a href="mysqli-stmt.fetch.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_fetch()</a> - Fetch results from a prepared statement into the bound variables</span></li>
     <li class="member"><span class="function"><a href="mysqli-stmt.bind-param.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_param()</a> - Binds variables to a prepared statement as parameters</span></li>
     <li class="member"><span class="function"><a href="mysqli-stmt.bind-result.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_result()</a> - Binds variables to a prepared statement for result storage</span></li>
+    <li class="member"><span class="function"><a href="mysqli-stmt.get-result.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_get_result()</a> - Gets a result set from a prepared statement as a mysqli_result object</span></li>
     <li class="member"><span class="function"><a href="mysqli-stmt.close.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_close()</a> - Closes a prepared statement</span></li>
    </ul>
   </p>
@@ -171,7 +149,63 @@ Amersfoort is in district Utrecht
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126071""></a>
+<div id="allnotes">  <a name="127976""></a>
+  <div class="note">
+   <strong class="user">urso at email dot cz</strong>
+   <a href="#127976" class="date">03-Dec-2022 10:31</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Unfortunately, the use "/*&nbsp;bind&nbsp;result&nbsp;variables&nbsp;*/ $stmt-&gt;bind_result($district);" is obsolete and condemned.<br />
+<br />
+<span class="default">&lt;?php<br />
+$mysqli </span><span class="keyword">= new </span><span class="default">mysqli</span><span class="keyword">(</span><span class="string">"localhost"</span><span class="keyword">, </span><span class="string">"test"</span><span class="keyword">, </span><span class="string">"test"</span><span class="keyword">, </span><span class="string">"test"</span><span class="keyword">);<br />
+if (</span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">character_set_name</span><span class="keyword">()!=</span><span class="string">"utf8mb4"</span><span class="keyword">) { </span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">set_charset</span><span class="keyword">(</span><span class="string">"utf8mb4"</span><span class="keyword">); }<br />
+</span><span class="default">$secondname </span><span class="keyword">= </span><span class="string">"Ma%"</span><span class="keyword">;<br />
+</span><span class="default">$types </span><span class="keyword">= </span><span class="string">"s"</span><span class="keyword">;<br />
+</span><span class="default">$parameters </span><span class="keyword">= array(</span><span class="default">$secondname</span><span class="keyword">);<br />
+</span><span class="default">$myquery </span><span class="keyword">= </span><span class="string">"select * from users where secondname like ?"</span><span class="keyword">;<br />
+if (</span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="default">$myquery</span><span class="keyword">)) { <br />
+&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bind_param</span><span class="keyword">(</span><span class="default">$types</span><span class="keyword">, ...</span><span class="default">$parameters</span><span class="keyword">);<br />
+&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />
+&nbsp; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">get_result</span><span class="keyword">();<br />
+&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">close</span><span class="keyword">();<br />
+&nbsp; </span><span class="default">$numrows </span><span class="keyword">= </span><span class="default">$result</span><span class="keyword">-&gt;</span><span class="default">num_rows</span><span class="keyword">;<br />
+&nbsp; while(</span><span class="default">$row </span><span class="keyword">= </span><span class="default">$result</span><span class="keyword">-&gt;</span><span class="default">fetch_assoc</span><span class="keyword">()) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">$row</span><span class="keyword">[</span><span class="string">'firstname'</span><span class="keyword">].</span><span class="string">" "</span><span class="keyword">.</span><span class="default">$row</span><span class="keyword">[</span><span class="string">'secondname'</span><span class="keyword">].</span><span class="string">"&lt;br /&gt;"</span><span class="keyword">;<br />
+&nbsp; }<br />
+}<br />
+</span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">close</span><span class="keyword">();<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Also, instead of '$stmt-&gt;bind_param("s",&nbsp;$city);', use "$stmt-&gt;bind_param($types, ...$parameters);" with array. Here the advantage of using an array ($parameters) is already obvious, instead of 5 variables, one array of 5 elements is used.<br />
+<br />
+<span class="default">&lt;?php<br />
+$mysqli </span><span class="keyword">= new </span><span class="default">mysqli</span><span class="keyword">(</span><span class="string">"localhost"</span><span class="keyword">, </span><span class="string">"test"</span><span class="keyword">, </span><span class="string">"test"</span><span class="keyword">, </span><span class="string">"test"</span><span class="keyword">);<br />
+if (</span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">character_set_name</span><span class="keyword">()!=</span><span class="string">"utf8mb4"</span><span class="keyword">) { </span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">set_charset</span><span class="keyword">(</span><span class="string">"utf8mb4"</span><span class="keyword">); }<br />
+</span><span class="default">$uid </span><span class="keyword">= </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'uid'</span><span class="keyword">]);<br />
+</span><span class="default">$length</span><span class="keyword">=</span><span class="default">15</span><span class="keyword">; </span><span class="default">$account </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'account'</span><span class="keyword">]),</span><span class="default">0</span><span class="keyword">,</span><span class="default">$length</span><span class="keyword">,</span><span class="string">"utf-8"</span><span class="keyword">); </span><span class="default">$account</span><span class="keyword">=</span><span class="default">strip_tags</span><span class="keyword">(</span><span class="default">$account</span><span class="keyword">);<br />
+</span><span class="default">$length</span><span class="keyword">=</span><span class="default">50</span><span class="keyword">; </span><span class="default">$password </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'password'</span><span class="keyword">]),</span><span class="default">0</span><span class="keyword">,</span><span class="default">$length</span><span class="keyword">,</span><span class="string">"utf-8"</span><span class="keyword">); </span><span class="default">$password </span><span class="keyword">= </span><span class="default">password_hash</span><span class="keyword">(</span><span class="default">$password</span><span class="keyword">, </span><span class="default">PASSWORD_DEFAULT</span><span class="keyword">);<br />
+</span><span class="default">$length</span><span class="keyword">=</span><span class="default">25</span><span class="keyword">; </span><span class="default">$prijmeni </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'prijmeni'</span><span class="keyword">]),</span><span class="default">0</span><span class="keyword">,</span><span class="default">$length</span><span class="keyword">,</span><span class="string">"utf-8"</span><span class="keyword">); </span><span class="default">$prijmeni</span><span class="keyword">=</span><span class="default">strip_tags</span><span class="keyword">(</span><span class="default">$prijmeni</span><span class="keyword">);<br />
+</span><span class="default">$length</span><span class="keyword">=</span><span class="default">25</span><span class="keyword">; </span><span class="default">$firstname </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'firstname'</span><span class="keyword">]),</span><span class="default">0</span><span class="keyword">,</span><span class="default">$length</span><span class="keyword">,</span><span class="string">"utf-8"</span><span class="keyword">); </span><span class="default">$firstname</span><span class="keyword">=</span><span class="default">strip_tags</span><span class="keyword">(</span><span class="default">$firstname</span><span class="keyword">); </span><span class="default">$firstname </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">"&gt;"</span><span class="keyword">,</span><span class="string">"&lt;"</span><span class="keyword">,</span><span class="string">'"'</span><span class="keyword">), array(</span><span class="string">""</span><span class="keyword">,</span><span class="string">""</span><span class="keyword">,</span><span class="string">""</span><span class="keyword">), </span><span class="default">$firstname</span><span class="keyword">); <br />
+</span><span class="default">$dotaz </span><span class="keyword">= </span><span class="string">"UPDATE users SET account = ?, password = ?, secname = ?, firstname = ? WHERE uid = ?"</span><span class="keyword">;<br />
+</span><span class="default">$types </span><span class="keyword">= </span><span class="string">"ssssi"</span><span class="keyword">;<br />
+</span><span class="default">$parameters </span><span class="keyword">= array(</span><span class="default">$account</span><span class="keyword">,</span><span class="default">$password</span><span class="keyword">,</span><span class="default">$prijmeni</span><span class="keyword">,</span><span class="default">$firstname</span><span class="keyword">,</span><span class="default">$uid</span><span class="keyword">);<br />
+if (</span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="default">$dotaz</span><span class="keyword">)) {<br />
+&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bind_param</span><span class="keyword">(</span><span class="default">$types</span><span class="keyword">, ...</span><span class="default">$parameters</span><span class="keyword">);<br />
+&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />
+&nbsp; echo </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">affected_rows</span><span class="keyword">;<br />
+&nbsp; </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">close</span><span class="keyword">();<br />
+}<br />
+</span><span class="default">$mysqli</span><span class="keyword">-&gt;</span><span class="default">close</span><span class="keyword">();<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126071""></a>
   <div class="note">
    <strong class="user">wapharshitsingh at gmail dot com</strong>
    <a href="#126071" class="date">12-May-2021 03:41</a>
@@ -267,7 +301,7 @@ I wasn't able to fully test the following since the server I am currently workin
 </span><span class="comment">/**<br />
 &nbsp;* Custom {@link \mysqli} class with additional functions.<br />
 &nbsp;*/<br />
-</span><span class="keyword">class </span><span class="default">CustomMysqli </span><span class="keyword">extends \</span><span class="default">mysqli<br />
+</span><span class="keyword">class </span><span class="default">CustomMysqli </span><span class="keyword">extends </span><span class="default">\mysqli<br />
 </span><span class="keyword">{<br />
 &nbsp;&nbsp;&nbsp; </span><span class="comment">/**<br />
 &nbsp;&nbsp; &nbsp; * Creates a prepared query, binds the given parameters and returns the result of the executed<br />
@@ -310,7 +344,7 @@ I wasn't able to fully test the following since the server I am currently workin
 &nbsp;&nbsp;&nbsp; </span><span class="keyword">]<br />
 );<br />
 <br />
-if (isset(</span><span class="default">$result</span><span class="keyword">) &amp;&amp; </span><span class="default">$result </span><span class="keyword">instanceof \</span><span class="default">mysqli_result</span><span class="keyword">) {<br />
+if (isset(</span><span class="default">$result</span><span class="keyword">) &amp;&amp; </span><span class="default">$result </span><span class="keyword">instanceof </span><span class="default">\mysqli_result</span><span class="keyword">) {<br />
 &nbsp;&nbsp;&nbsp; while (</span><span class="default">null </span><span class="keyword">!== (</span><span class="default">$row </span><span class="keyword">= </span><span class="default">$result</span><span class="keyword">-&gt;</span><span class="default">fetch_assoc</span><span class="keyword">())) {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'&lt;pre&gt;'</span><span class="keyword">.</span><span class="default">var_debug</span><span class="keyword">(</span><span class="default">$row</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">).</span><span class="string">'&lt;/pre&gt;'</span><span class="keyword">;<br />
 &nbsp;&nbsp;&nbsp; }<br />

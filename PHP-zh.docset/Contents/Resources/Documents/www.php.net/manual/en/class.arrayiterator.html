@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>ArrayIterator 类</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -261,20 +262,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
 <h2>Table of Contents</h2><ul class="chunklist chunklist_reference"><li><a href="arrayiterator.append.html">ArrayIterator::append</a> &mdash; Append an element</li><li><a href="arrayiterator.asort.html">ArrayIterator::asort</a> &mdash; Sort entries by values</li><li><a href="arrayiterator.construct.html">ArrayIterator::__construct</a> &mdash; Construct an ArrayIterator</li><li><a href="arrayiterator.count.html">ArrayIterator::count</a> &mdash; Count elements</li><li><a href="arrayiterator.current.html">ArrayIterator::current</a> &mdash; Return current array entry</li><li><a href="arrayiterator.getarraycopy.html">ArrayIterator::getArrayCopy</a> &mdash; Get array copy</li><li><a href="arrayiterator.getflags.html">ArrayIterator::getFlags</a> &mdash; Get behavior flags</li><li><a href="arrayiterator.key.html">ArrayIterator::key</a> &mdash; Return current array key</li><li><a href="arrayiterator.ksort.html">ArrayIterator::ksort</a> &mdash; Sort entries by keys</li><li><a href="arrayiterator.natcasesort.html">ArrayIterator::natcasesort</a> &mdash; Sort entries naturally, case insensitive</li><li><a href="arrayiterator.natsort.html">ArrayIterator::natsort</a> &mdash; Sort entries naturally</li><li><a href="arrayiterator.next.html">ArrayIterator::next</a> &mdash; Move to next entry</li><li><a href="arrayiterator.offsetexists.html">ArrayIterator::offsetExists</a> &mdash; Check if offset exists</li><li><a href="arrayiterator.offsetget.html">ArrayIterator::offsetGet</a> &mdash; Get value for an offset</li><li><a href="arrayiterator.offsetset.html">ArrayIterator::offsetSet</a> &mdash; Set value for an offset</li><li><a href="arrayiterator.offsetunset.html">ArrayIterator::offsetUnset</a> &mdash; Unset value for an offset</li><li><a href="arrayiterator.rewind.html">ArrayIterator::rewind</a> &mdash; Rewind array back to the start</li><li><a href="arrayiterator.seek.html">ArrayIterator::seek</a> &mdash; Seek to position</li><li><a href="arrayiterator.serialize.html">ArrayIterator::serialize</a> &mdash; Serialize</li><li><a href="arrayiterator.setflags.html">ArrayIterator::setFlags</a> &mdash; Set behaviour flags</li><li><a href="arrayiterator.uasort.html">ArrayIterator::uasort</a> &mdash; Sort with a user-defined comparison function and maintain index association</li><li><a href="arrayiterator.uksort.html">ArrayIterator::uksort</a> &mdash; Sort by keys using a user-defined comparison function</li><li><a href="arrayiterator.unserialize.html">ArrayIterator::unserialize</a> &mdash; Unserialize</li><li><a href="arrayiterator.valid.html">ArrayIterator::valid</a> &mdash; Check whether array contains more entries</li></ul>
 </div>
@@ -395,68 +382,6 @@ foreach (</span><span class="default">$iterator3 </span><span class="keyword">as
    </div>
   </div>
  <div class="foot"></div>
-  <a name="125944""></a>
-  <div class="note">
-   <strong class="user">mail at markuszeller dot com</strong>
-   <a href="#125944" class="date">19-Mar-2021 05:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I recommend using ArrayIterator() only in the IteratorAggregate interface on behalf of memory usage.<br />
-When not used in that context, the array will be copied on creating a new ArrayIterator().<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">class </span><span class="default">Data </span><span class="keyword">implements </span><span class="default">IteratorAggregate<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; private array </span><span class="default">$array </span><span class="keyword">= [];<br />
-<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">1e5</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">array</span><span class="keyword">[] = </span><span class="default">true</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">getIterator</span><span class="keyword">(): </span><span class="default">ArrayIterator<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">array</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="default">$data1 </span><span class="keyword">= new </span><span class="default">Data</span><span class="keyword">();<br />
-echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-</span><span class="comment">// 4610240<br />
-<br />
-</span><span class="keyword">foreach(</span><span class="default">$data1 </span><span class="keyword">as </span><span class="default">$data</span><span class="keyword">) {}<br />
-echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-</span><span class="comment">// 4610240<br />
-<br />
-</span><span class="keyword">foreach(</span><span class="default">$data1 </span><span class="keyword">as </span><span class="default">$data</span><span class="keyword">) {}<br />
-echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-</span><span class="comment">// 4610240<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Memory usage still stay the same.<br />
-Now create it without the IteratorAggregate interface.<br />
-<br />
-<span class="default">&lt;?php<br />
-$agg </span><span class="keyword">= [];<br />
-for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">1e5</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) </span><span class="default">$agg</span><span class="keyword">[] = </span><span class="default">true</span><span class="keyword">;<br />
-echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-</span><span class="comment">// 8808720<br />
-<br />
-</span><span class="default">$iterator1 </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$agg</span><span class="keyword">);<br />
-echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-</span><span class="comment">// 13007328<br />
-<br />
-</span><span class="default">$iterator2 </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$agg</span><span class="keyword">);<br />
-echo </span><span class="default">memory_get_usage</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-</span><span class="comment">// 17205936<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="124458""></a>
   <div class="note">
    <strong class="user">shaman_master at list dot ru</strong>
@@ -491,7 +416,7 @@ If you want something like `ArrayCallbackIterator` by Relakuyae https://www.php.
 &nbsp;&nbsp;&nbsp; private function </span><span class="default">arrayIterator</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">, </span><span class="default">$grau</span><span class="keyword">)<br />
 &nbsp;&nbsp;&nbsp; {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$grau</span><span class="keyword">++;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arr </span><span class="keyword">= new \</span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arr </span><span class="keyword">= new </span><span class="default">\ArrayIterator</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">);<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while (</span><span class="default">$arr</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">())<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">()))<br />
@@ -510,7 +435,7 @@ If you want something like `ArrayCallbackIterator` by Relakuyae https://www.php.
 &nbsp;&nbsp;&nbsp; {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">code</span><span class="keyword">))<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arr </span><span class="keyword">= new \</span><span class="default">ArrayIterator</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">code</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$arr </span><span class="keyword">= new </span><span class="default">\ArrayIterator</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">code</span><span class="keyword">);<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">code </span><span class="keyword">= </span><span class="string">'array(' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; while (</span><span class="default">$arr</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">())<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />

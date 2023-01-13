@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>The Volatile class</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -89,11 +90,11 @@
 
   <div class="section" id="volatile.examples">
    <h2 class="title">范例</h2>
-   <div class="example" id="volatile.example.immutable">
+   <div class="example" id="">
     <p><strong>Example #1 New immutability semantics of Threaded</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Task&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">Threaded<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Threaded</span><span style="color: #007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;attempt&nbsp;to&nbsp;overwrite&nbsp;a&nbsp;Threaded&nbsp;property&nbsp;of&nbsp;a&nbsp;Threaded&nbsp;class&nbsp;(invalid)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">StdClass</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">((new&nbsp;</span><span style="color: #0000BB">Task</span><span style="color: #007700">())-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">);</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Task </span><span style="color: #007700">extends </span><span style="color: #0000BB">Threaded<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data </span><span style="color: #007700">= new </span><span style="color: #0000BB">Threaded</span><span style="color: #007700">();<br /><br />        </span><span style="color: #FF8000">// attempt to overwrite a Threaded property of a Threaded class (invalid)<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data </span><span style="color: #007700">= new </span><span style="color: #0000BB">StdClass</span><span style="color: #007700">();<br />    }<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">((new </span><span style="color: #0000BB">Task</span><span style="color: #007700">())-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">);</span>
 </span>
 </code></div>
     </div>
@@ -105,11 +106,11 @@ RuntimeException: Threaded members previously set to Threaded objects are immuta
 </pre></div>
     </div>
    </div>
-   <div class="example" id="volatile.example.basic">
+   <div class="example" id="">
     <p><strong>Example #2 Volatile use-case</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Task&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">Volatile<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Threaded</span><span style="color: #007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;attempt&nbsp;to&nbsp;overwrite&nbsp;a&nbsp;Threaded&nbsp;property&nbsp;of&nbsp;a&nbsp;Volatile&nbsp;class&nbsp;(valid)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">StdClass</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">((new&nbsp;</span><span style="color: #0000BB">Task</span><span style="color: #007700">())-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">);</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Task </span><span style="color: #007700">extends </span><span style="color: #0000BB">Volatile<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data </span><span style="color: #007700">= new </span><span style="color: #0000BB">Threaded</span><span style="color: #007700">();<br /><br />        </span><span style="color: #FF8000">// attempt to overwrite a Threaded property of a Volatile class (valid)<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data </span><span style="color: #007700">= new </span><span style="color: #0000BB">StdClass</span><span style="color: #007700">();<br />    }<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">((new </span><span style="color: #0000BB">Task</span><span style="color: #007700">())-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">);</span>
 </span>
 </code></div>
     </div>

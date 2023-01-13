@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>由文件或 URL 创建一个新图象。</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,16 +34,13 @@
  <div class="refsect1 description" id="refsect1-function.imagecreatefromxpm-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagecreatefromxpm</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>imagecreatefromxpm</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>): <span class="type"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>imagecreatefromxpm()</strong></span>
-   返回一图像标识符，代表了从给定的文件名取得的图像。
+   <span class="function"><strong>imagecreatefromxpm()</strong></span> 返回图像标识符，代表从指定文件名获得的图像。
   </p>
-  
   <div class="tip"><strong class="tip">Tip</strong><p class="simpara">如已启用<a href="filesystem.configuration.html#ini.allow-url-fopen" class="link">fopen 包装器</a>，在此函数中， URL 可作为文件名。关于如何指定文件名详见 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>。各种
 wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协议</a>，注意其用法及其可提供的预定义变量。</p></div>
-  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数未在 Windows 平台下实现。</span></p></blockquote>
  </div>
 
  <div class="refsect1 parameters" id="refsect1-function.imagecreatefromxpm-parameters">
@@ -56,7 +54,7 @@ wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协�
      <dd>
 
       <p class="para">
-       Path to the XPM image.
+       XPM 图像的路径。
       </p>
      </dd>
 
@@ -71,14 +69,42 @@ wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协�
   <p class="para">成功后返回图象对象,失败后返回 <strong><code>false</code></strong>。</p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.imagecreatefromxpm-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       成功时，此函数现在返回 <span class="classname"><a href="class.gdimage.html" class="classname">GDImage</a></span> 实例；之前返回 <span class="type">resource</span>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.imagecreatefromxpm-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2657">
-    <p><strong>Example #1 Creating an image instance using <span class="function"><strong>imagecreatefromxpm()</strong></span></strong></p>
+   <div class="example" id="example-5334">
+    <p><strong>Example #1 使用 <span class="function"><strong>imagecreatefromxpm()</strong></span> 创建图像实例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Check&nbsp;for&nbsp;XPM&nbsp;support<br /></span><span style="color: #007700">if(!(</span><span style="color: #0000BB">imagetypes</span><span style="color: #007700">()&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">IMG_XPM</span><span style="color: #007700">))<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Support&nbsp;for&nbsp;xpm&nbsp;was&nbsp;not&nbsp;found!'</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Create&nbsp;the&nbsp;image&nbsp;instance<br /></span><span style="color: #0000BB">$xpm&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefromxpm</span><span style="color: #007700">(</span><span style="color: #DD0000">'./example.xpm'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Do&nbsp;image&nbsp;operations&nbsp;here<br /><br />//&nbsp;PHP&nbsp;has&nbsp;no&nbsp;support&nbsp;for&nbsp;writing&nbsp;xpm&nbsp;images<br />//&nbsp;so&nbsp;in&nbsp;this&nbsp;case&nbsp;we&nbsp;save&nbsp;the&nbsp;image&nbsp;as&nbsp;a&nbsp;<br />//&nbsp;jpeg&nbsp;file&nbsp;with&nbsp;100%&nbsp;quality<br /></span><span style="color: #0000BB">imagejpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$xpm</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'./example.jpg'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$xpm</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Check for XPM support<br /></span><span style="color: #007700">if(!(</span><span style="color: #0000BB">imagetypes</span><span style="color: #007700">() &amp; </span><span style="color: #0000BB">IMG_XPM</span><span style="color: #007700">))<br />{<br />    die(</span><span style="color: #DD0000">'Support for xpm was not found!'</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">// Create the image instance<br /></span><span style="color: #0000BB">$xpm </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefromxpm</span><span style="color: #007700">(</span><span style="color: #DD0000">'./example.xpm'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Do image operations here<br /><br />// PHP has no support for writing xpm images<br />// so in this case we save the image as a <br />// jpeg file with 100% quality<br /></span><span style="color: #0000BB">imagejpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$xpm</span><span style="color: #007700">, </span><span style="color: #DD0000">'./example.jpg'</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$xpm</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -87,11 +113,6 @@ wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协�
   </p>
  </div>
 
- <div class="refsect1 notes" id="refsect1-function.imagecreatefromxpm-notes">
-  <h3 class="title">返回值</h3>
-  
-  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数未在 Windows 平台下实现。</span></p></blockquote>
- </div>
 
 </div><div id="usernotes">
  <div class="head">

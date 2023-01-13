@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将特殊的 HTML 实体转换回普通字符</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -35,7 +36,7 @@
  <div class="refsect1 description" id="refsect1-function.htmlspecialchars-decode-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>htmlspecialchars_decode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = ENT_COMPAT | ENT_HTML401</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>htmlspecialchars_decode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401</span></span>): <span class="type">string</span></div>
 
 
   <p class="para rdfs-comment">
@@ -73,7 +74,7 @@
      <dd>
 
       <p class="para">
-       用下列标记中的一个或多个作为一个位掩码，来指定如何处理引号和使用哪种文档类型。默认为 <code class="literal">ENT_COMPAT | ENT_HTML401</code>。
+       用下列标记中的一个或多个作为一个位掩码，来指定如何处理引号和使用哪种文档类型。默认为 <code class="literal">ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401</code>。
        <table class="doctable table">
         <caption><strong>有效的 <code class="parameter">flags</code> 常量</strong></caption>
         
@@ -99,6 +100,13 @@
           <tr>
            <td><strong><code>ENT_NOQUOTES</code></strong></td>
            <td>单引号和双引号都不转换。</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>ENT_SUBSTITUTE</code></strong></td>
+           <td>
+            使用 Unicode 替换符 U+FFFD (UTF-8) 或 &amp;#xFFFD 替换无效的码区序列（code unit sequence）。而不是返回空字符串。
+           </td>
           </tr>
 
           <tr>
@@ -153,42 +161,40 @@
 
  <div class="refsect1 changelog" id="refsect1-function.htmlspecialchars-decode-changelog">
   <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
 
-     </thead>
+    </thead>
 
-     <tbody class="tbody">
-      <tr>
-       <td>5.4.0</td>
-       <td>
-        增加了 <strong><code>ENT_HTML401</code></strong>、<strong><code>ENT_XML1</code></strong>、
-        <strong><code>ENT_XHTML</code></strong> 和 <strong><code>ENT_HTML5</code></strong> 等常量。
-       </td>
-      </tr>
+    <tbody class="tbody">
+     <tr>
+      <td>8.1.0</td>
+      <td>
+       <code class="parameter">flags</code> 从 <strong><code>ENT_COMPAT</code></strong> 变更为<strong><code>ENT_QUOTES</code></strong>
+       | <strong><code>ENT_SUBSTITUTE</code></strong> | <strong><code>ENT_HTML401</code></strong>。
+      </td>
+     </tr>
 
-     </tbody>
-    
-   </table>
+    </tbody>
+   
+  </table>
 
-  </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.htmlspecialchars-decode-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4768">
-    <p><strong>Example #1 一个 <span class="function"><strong>htmlspecialchars_decode()</strong></span> 的例子</strong></p>
+   <div class="example" id="">
+    <p><strong>Example #1 <span class="function"><strong>htmlspecialchars_decode()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"&lt;p&gt;this&nbsp;-&amp;gt;&nbsp;&amp;quot;&lt;/p&gt;\n"</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">htmlspecialchars_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;注意，这里的引号不会被转换<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">htmlspecialchars_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ENT_NOQUOTES</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$str </span><span style="color: #007700">= </span><span style="color: #DD0000">"&lt;p&gt;this -&amp;gt; &amp;quot;&lt;/p&gt;\n"</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">htmlspecialchars_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 注意，这里的引号不会被转换<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">htmlspecialchars_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">, </span><span style="color: #0000BB">ENT_NOQUOTES</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

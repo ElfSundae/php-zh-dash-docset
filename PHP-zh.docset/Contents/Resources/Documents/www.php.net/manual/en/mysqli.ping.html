@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>ping 一个连接，或者如果连接处于断开状态，重新连接</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli.html">MySQLi</a></li>
+    <li><a href="class.mysqli.html">mysqli</a></li>
     <li>ping 一个连接，或者如果连接处于断开状态，重新连接</li>
   </ul>
 </div>
@@ -36,28 +37,22 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysqli::ping</strong></span>(): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::ping</strong></span>(): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_ping</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$link</code></span>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_ping</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$mysql</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   检查到服务器的连接是否还正常。
-   在启用 <a href="mysqli.configuration.html#ini.mysqli.reconnect" class="link">mysqli.reconnect</a> 
-   选项的前提下，
-   如果连接已经断开，
-   ping 操作会尝试重新建立连接。
+   检查到服务器的连接是否还正常。在启用 <a href="mysqli.configuration.html#ini.mysqli.reconnect" class="link">mysqli.reconnect</a> 
+   选项的前提下，如果连接已经断开，ping 操作会尝试重新建立连接。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <span class="simpara">
-    mysqlnd 驱动会忽略 <var class="filename">php.ini</var> 中的 mysqli.reconnect 选项，
-    所以它不会自动重连。
+    mysqlnd 驱动会忽略 <var class="filename">php.ini</var> 中的 mysqli.reconnect 选项，所以它不会自动重连。
    </span>
   </p></blockquote>
   <p class="para">
-   客户端建立连接之后，长时间处于闲置状态，
-   可以用此函数来检查服务器是否关闭了这个连接，
-   如有必要，将会自动重新建立到服务器的连接。
+   客户端建立连接之后，长时间处于闲置状态，可以用此函数来检查服务器是否关闭了这个连接，如有必要，将会自动重新建立到服务器的连接。
   </p>
  </div>
 
@@ -89,12 +84,12 @@
 
  <div class="refsect1 examples" id="refsect1-mysqli.ping-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-1466">
-   <p><strong>Example #1 <span class="methodname"><strong>mysqli::ping()</strong></span> 例程</strong></p>
+  <div class="example" id="example-2936">
+   <p><strong>Example #1 <span class="methodname"><strong>mysqli::ping()</strong></span> 示例</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect_errno</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect_error</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接是否还活跃&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ping</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"Our&nbsp;connection&nbsp;is&nbsp;ok!\n"</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"Error:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;关闭连接&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 检查连接 */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect_errno</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect failed: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect_error</span><span style="color: #007700">);<br />    exit();<br />}<br /><br /></span><span style="color: #FF8000">/* 检查连接是否还活跃 */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ping</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf </span><span style="color: #007700">(</span><span style="color: #DD0000">"Our connection is ok!\n"</span><span style="color: #007700">);<br />} else {<br />    </span><span style="color: #0000BB">printf </span><span style="color: #007700">(</span><span style="color: #DD0000">"Error: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/* 关闭连接 */<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -102,7 +97,7 @@
    <div class="example-contents"><p>过程化风格</p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;检查连接是否还活跃&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_ping</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"Our&nbsp;connection&nbsp;is&nbsp;ok!\n"</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"Error:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;关闭连接&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 检查连接 */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect failed: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />    exit();<br />}<br /><br /></span><span style="color: #FF8000">/* 检查连接是否还活跃 */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">mysqli_ping</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">printf </span><span style="color: #007700">(</span><span style="color: #DD0000">"Our connection is ok!\n"</span><span style="color: #007700">);<br />} else {<br />    </span><span style="color: #0000BB">printf </span><span style="color: #007700">(</span><span style="color: #DD0000">"Error: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #FF8000">/* 关闭连接 */<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>

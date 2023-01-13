@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将数字格式化成货币字符串</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -29,6 +30,11 @@
   <h1 class="refname">money_format</h1>
   <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5, PHP 7)</p><p class="refpurpose"><span class="refname">money_format</span> &mdash; <span class="dc-title">将数字格式化成货币字符串</span></p>
 
+ </div>
+ 
+ <div id="function.money-format-refsynopsisdiv">
+   <div class="warning"><strong class="warning">Warning</strong><p class="simpara">本函数已自 PHP 7.4.0
+起<em class="emphasis">弃用</em>，自 PHP 8.0.0 起<em class="emphasis">移除</em>。强烈建议不要依赖本函数。</p></div>
  </div>
  
  <div class="refsect1 description" id="refsect1-function.money-format-description">
@@ -289,6 +295,55 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.money-format-changelog">
+  <h3 class="title">更新日志</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>7.4.0</td>
+       <td>
+        弃用此函数。使用 <span class="methodname"><a href="numberformatter.formatcurrency.html" class="methodname">NumberFormatter::formatCurrency()</a></span> 替代。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.money-format-examples">
+  <h3 class="title">范例</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Example #1 <span class="function"><strong>money_format()</strong></span> 例子</strong></p>
+    <div class="example-contents"><p>
+     使用不同的 locale 和格式字符串，来说明此函数的用法。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$number </span><span style="color: #007700">= </span><span style="color: #0000BB">1234.56</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 让我们打印 en_US locale 的国际化格式<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">, </span><span style="color: #DD0000">'en_US'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%i'</span><span style="color: #007700">, </span><span style="color: #0000BB">$number</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// USD 1,234.56<br /><br />// 意大利国家的格式，带两位浮点小数`<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">, </span><span style="color: #DD0000">'it_IT'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%.2n'</span><span style="color: #007700">, </span><span style="color: #0000BB">$number</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// Eu 1.234,56<br /><br />// 负数的使用<br /></span><span style="color: #0000BB">$number </span><span style="color: #007700">= -</span><span style="color: #0000BB">1234.5672</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 美国国家的格式，使用圆括号 () 标记负数。<br />// 左侧精度使用十位<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">, </span><span style="color: #DD0000">'en_US'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%(#10n'</span><span style="color: #007700">, </span><span style="color: #0000BB">$number</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// ($        1,234.57)<br /><br />// 相似的格式，添加了右侧两位小数点的精度，同时用 * 来填充<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%=*(#10.2n'</span><span style="color: #007700">, </span><span style="color: #0000BB">$number</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// ($********1,234.57)<br /><br />// 让我们左对齐，14位宽，左侧八位，右侧两位，不带分组字符<br />// de_DE 的国际化格式<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">, </span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%=*^-14#8.2i'</span><span style="color: #007700">, </span><span style="color: #0000BB">1234.56</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// Eu 1234,56****<br /><br />// 让我们在格式字符串前后，添加一些简介<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">, </span><span style="color: #DD0000">'en_GB'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$fmt </span><span style="color: #007700">= </span><span style="color: #DD0000">'The final value is %i (after a 10%% discount)'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">, </span><span style="color: #0000BB">1234.56</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// The final value is  GBP 1,234.56 (after a 10% discount)<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
  <div class="refsect1 notes" id="refsect1-function.money-format-notes">
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
@@ -303,26 +358,6 @@
 在使用函数前，首先要用  <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> 来设置合适的区域设置（locale）。
    </p>
   </p></blockquote>   
- </div>
-
-
- <div class="refsect1 examples" id="refsect1-function.money-format-examples">
-  <h3 class="title">范例</h3>
-  <p class="para">
-   <div class="example" id="example-4780">
-    <p><strong>Example #1 <span class="function"><strong>money_format()</strong></span> 例子</strong></p>
-    <div class="example-contents"><p>
-     使用不同的 locale 和格式字符串，来说明此函数的用法。
-    </p></div>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1234.56</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;让我们打印&nbsp;en_US&nbsp;locale&nbsp;的国际化格式<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'en_US'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%i'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;USD&nbsp;1,234.56<br /><br />//&nbsp;意大利国家的格式，带两位浮点小数`<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'it_IT'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%.2n'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;Eu&nbsp;1.234,56<br /><br />//&nbsp;负数的使用<br /></span><span style="color: #0000BB">$number&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">1234.5672</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;美国国家的格式，使用圆括号&nbsp;()&nbsp;标记负数。<br />//&nbsp;左侧精度使用十位<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'en_US'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%(#10n'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;($&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,234.57)<br /><br />//&nbsp;相似的格式，添加了右侧两位小数点的精度，同时用&nbsp;*&nbsp;来填充<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%=*(#10.2n'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;($********1,234.57)<br /><br />//&nbsp;让我们左对齐，14位宽，左侧八位，右侧两位，不带分组字符<br />//&nbsp;de_DE&nbsp;的国际化格式<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%=*^-14#8.2i'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1234.56</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;Eu&nbsp;1234,56****<br /><br />//&nbsp;让我们在格式字符串前后，添加一些简介<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'en_GB'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$fmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'The&nbsp;final&nbsp;value&nbsp;is&nbsp;%i&nbsp;(after&nbsp;a&nbsp;10%%&nbsp;discount)'</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1234.56</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;The&nbsp;final&nbsp;value&nbsp;is&nbsp;&nbsp;GBP&nbsp;1,234.56&nbsp;(after&nbsp;a&nbsp;10%&nbsp;discount)<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
  </div>
 
 
@@ -400,7 +435,7 @@ Maybe this function will help you to avoid these failures:<br />
 &nbsp;*<br />
 &nbsp;* @return string<br />
 &nbsp;*/<br />
-</span><span class="keyword">function </span><span class="default">money_format_rounded</span><span class="keyword">(</span><span class="default">$format</span><span class="keyword">, </span><span class="default">$number</span><span class="keyword">, </span><span class="default">$maxPrecision </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">, </span><span class="default">$roundingType </span><span class="keyword">= \</span><span class="default">PHP_ROUND_HALF_UP</span><span class="keyword">)<br />
+</span><span class="keyword">function </span><span class="default">money_format_rounded</span><span class="keyword">(</span><span class="default">$format</span><span class="keyword">, </span><span class="default">$number</span><span class="keyword">, </span><span class="default">$maxPrecision </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">, </span><span class="default">$roundingType </span><span class="keyword">= </span><span class="default">\PHP_ROUND_HALF_UP</span><span class="keyword">)<br />
 {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$strlen </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">);<br />
 &nbsp;&nbsp;&nbsp; if (</span><span class="default">$strlen </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) {<br />

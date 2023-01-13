@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将真彩色图像转换为调色板图像</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,11 +34,10 @@
  <div class="refsect1 description" id="refsect1-function.imagetruecolortopalette-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagetruecolortopalette</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$dither</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$ncolors</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>imagetruecolortopalette</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$dither</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$num_colors</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>imagetruecolortopalette()</strong></span>
-   将一幅真彩色图像转换为调色板图像。本函数的代码原本是从独立的 JPEG
+   <span class="function"><strong>imagetruecolortopalette()</strong></span>将一幅真彩色图像转换为调色板图像。本函数的代码原本是从独立的 JPEG
    小组库代码中提取出来的，非常出色。此代码被修改以在结果调色板中保留尽可能多的 alpha
    通道信息以及尽可能多的颜色。但并没有达到期望的效果。通常最好生成真彩色图像输出，这样可以保证得到最高的输出质量。
   </p>
@@ -62,14 +62,14 @@
 
       <p class="para">
        指明图像是否被抖动（dithered），如果为
-   <strong><code>true</code></strong> 则图像将被抖动使图像中的斑点更多但是颜色更接近。
+       <strong><code>true</code></strong> 则图像将被抖动使图像中的斑点更多但是颜色更接近。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">ncolors</code></dt>
+<code class="parameter">num_colors</code></dt>
 
      <dd>
 
@@ -91,14 +91,43 @@
   </p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.imagetruecolortopalette-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.imagetruecolortopalette-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-2705">
-    <p><strong>Example #1 Converting a true color image to a palette-based image</strong></p>
+   <div class="example" id="example-5458">
+    <p><strong>Example #1 将真彩色图像转换为基于调色板的图像</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;Create&nbsp;a&nbsp;new&nbsp;true&nbsp;color&nbsp;image<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Convert&nbsp;to&nbsp;palette-based&nbsp;with&nbsp;no&nbsp;dithering&nbsp;and&nbsp;255&nbsp;colors<br /></span><span style="color: #0000BB">imagetruecolortopalette</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Save&nbsp;the&nbsp;image<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'./paletteimage.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Create a new true color image<br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Convert to palette-based with no dithering and 255 colors<br /></span><span style="color: #0000BB">imagetruecolortopalette</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">false</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Save the image<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #DD0000">'./paletteimage.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -107,9 +136,6 @@
   </p>
  </div>
 
- <div class="refsect1 notes" id="refsect1-function.imagetruecolortopalette-notes">
-  <h3 class="title">注释</h3>
- </div>
 
 </div><div id="usernotes">
  <div class="head">

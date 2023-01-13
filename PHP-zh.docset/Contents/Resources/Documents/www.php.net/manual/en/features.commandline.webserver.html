@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>内置Web Server</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -28,7 +29,7 @@
   <h2 class="title">内置Web Server</h2>
 
   <p class="para">
-   <acronym title="Command Line Interpreter/Interface">CLI</acronym> <acronym title="Server Application Programming Interface">SAPI</acronym> 提供了一个内置的Web服务器。
+   <abbr title="Command Line Interpreter/Interface">CLI</abbr> <abbr title="Server Application Programming Interface">SAPI</abbr> 提供了一个内置的Web服务器。
   </p>
 <p class="para">   
    这个内置的Web服务器主要用于本地开发使用，不可用于线上产品环境。
@@ -48,7 +49,7 @@
    当你在命令行启动这个Web Server时，如果指定了一个PHP文件，则这个文件会作为一个"路由"脚本，意味着每次请求都会先执行这个脚本。如果这个脚本返回 <strong><code>false</code></strong> ，那么直接返回请求的文件（例如请求静态文件不作任何处理）。否则会把输出返回到浏览器。
   </p>
 
-  <div class="example" id="example-477">
+  <div class="example" id="example-952">
    <p><strong>Example #1 启动Web服务器</strong></p> 
    <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">$ cd ~/public_html
@@ -86,7 +87,7 @@ Press Ctrl-C to quit.
    </div>
   </div>
 
-  <div class="example" id="example-478">
+  <div class="example" id="openssl_spki_export_challenge.example.basic">
    <p><strong>Example #2 启动时指定根目录</strong></p> 
    <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">$ cd ~/public_html
@@ -107,7 +108,7 @@ Press Ctrl-C to quit
    </div>
   </div>
 
-  <div class="example" id="example-479">
+  <div class="example" id="openssl_spki_export.example.basic">
    <p><strong>Example #3 使用路由（Router）脚本</strong></p> 
 <div class="example-contents"><p>
  
@@ -115,7 +116,7 @@ Press Ctrl-C to quit
 </p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;router.php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">preg_match</span><span style="color: #007700">(</span><span style="color: #DD0000">'/\.(?:png|jpg|jpeg|gif)$/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">"REQUEST_URI"</span><span style="color: #007700">]))<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;直接返回请求的文件<br /></span><span style="color: #007700">else&nbsp;{&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;p&gt;Welcome&nbsp;to&nbsp;PHP&lt;/p&gt;"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// router.php<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">preg_match</span><span style="color: #007700">(</span><span style="color: #DD0000">'/\.(?:png|jpg|jpeg|gif)$/'</span><span style="color: #007700">, </span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">"REQUEST_URI"</span><span style="color: #007700">]))<br />    return </span><span style="color: #0000BB">false</span><span style="color: #007700">;    </span><span style="color: #FF8000">// 直接返回请求的文件<br /></span><span style="color: #007700">else { <br />    echo </span><span style="color: #DD0000">"&lt;p&gt;Welcome to PHP&lt;/p&gt;"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -141,14 +142,14 @@ Press Ctrl-C to quit.
 </pre></div>
    </div>
   </div>
-  <div class="example" id="example-480">
+  <div class="example" id="openssl_spki_new.example.basic">
    <p><strong>Example #4 Checking for CLI Web Server Use</strong></p>
    <div class="example-contents"><p>
     To reuse a framework router script during development with the CLI web server and later also with a production web server:
    </p></div>
    <div class="example-contents">
     <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;router.php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">php_sapi_name</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #DD0000">'cli-server'</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;route&nbsp;static&nbsp;assets&nbsp;and&nbsp;return&nbsp;false&nbsp;*/<br /></span><span style="color: #007700">}<br /></span><span style="color: #FF8000">/*&nbsp;go&nbsp;on&nbsp;with&nbsp;normal&nbsp;index.php&nbsp;operations&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// router.php<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">php_sapi_name</span><span style="color: #007700">() == </span><span style="color: #DD0000">'cli-server'</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">/* route static assets and return false */<br /></span><span style="color: #007700">}<br /></span><span style="color: #FF8000">/* go on with normal index.php operations */<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -160,14 +161,14 @@ Press Ctrl-C to quit.
 
   </div>
 
-  <div class="example" id="example-481">
+  <div class="example" id="openssl_spki_verify.example.keygen">
    <p><strong>Example #5 Handling Unsupported File Types</strong></p>
    <div class="example-contents"><p>
     If you need to serve a static resource whose MIME type is not handled by the CLI web server, use:
    </p></div>
    <div class="example-contents">
     <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;router.php<br /></span><span style="color: #0000BB">$path&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pathinfo</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">"SCRIPT_FILENAME"</span><span style="color: #007700">]);<br />if&nbsp;(</span><span style="color: #0000BB">$path</span><span style="color: #007700">[</span><span style="color: #DD0000">"extension"</span><span style="color: #007700">]&nbsp;==&nbsp;</span><span style="color: #DD0000">"el"</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Content-Type:&nbsp;text/x-script.elisp"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">"SCRIPT_FILENAME"</span><span style="color: #007700">]);<br />}<br />else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// router.php<br /></span><span style="color: #0000BB">$path </span><span style="color: #007700">= </span><span style="color: #0000BB">pathinfo</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">"SCRIPT_FILENAME"</span><span style="color: #007700">]);<br />if (</span><span style="color: #0000BB">$path</span><span style="color: #007700">[</span><span style="color: #DD0000">"extension"</span><span style="color: #007700">] == </span><span style="color: #DD0000">"el"</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Content-Type: text/x-script.elisp"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">"SCRIPT_FILENAME"</span><span style="color: #007700">]);<br />}<br />else {<br />    return </span><span style="color: #0000BB">FALSE</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -179,7 +180,7 @@ Press Ctrl-C to quit.
 
   </div>
 
-  <div class="example" id="example-482">
+  <div class="example" id="example-962">
    <p><strong>Example #6 Accessing the CLI Web Server From Remote Machines</strong></p>
    <div class="example-contents"><p>
     You can make the web server accessible on port 8000 to any interface with:

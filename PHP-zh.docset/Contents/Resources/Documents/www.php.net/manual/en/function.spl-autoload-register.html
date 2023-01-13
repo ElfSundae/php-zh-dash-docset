@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>注册指定的函数作为 __autoload 的实现</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -142,21 +143,21 @@
  <div class="refsect1 examples" id="refsect1-function.spl-autoload-register-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3663">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>spl_autoload_register()</strong></span> 作为 <span class="function"><a href="function.autoload.html" class="function">__autoload()</a></span> 函数的替代</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;function&nbsp;__autoload($class)&nbsp;{<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;'classes/'&nbsp;.&nbsp;$class&nbsp;.&nbsp;'.class.php';<br />//&nbsp;}<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_autoloader</span><span style="color: #007700">(</span><span style="color: #0000BB">$class</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;</span><span style="color: #DD0000">'classes/'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$class&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'.class.php'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">spl_autoload_register</span><span style="color: #007700">(</span><span style="color: #DD0000">'my_autoloader'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;或者可以使用匿名函数<br /></span><span style="color: #0000BB">spl_autoload_register</span><span style="color: #007700">(function&nbsp;(</span><span style="color: #0000BB">$class</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;</span><span style="color: #DD0000">'classes/'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$class&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'.class.php'</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// function __autoload($class) {<br />//     include 'classes/' . $class . '.class.php';<br />// }<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">my_autoloader</span><span style="color: #007700">(</span><span style="color: #0000BB">$class</span><span style="color: #007700">) {<br />    include </span><span style="color: #DD0000">'classes/' </span><span style="color: #007700">. </span><span style="color: #0000BB">$class </span><span style="color: #007700">. </span><span style="color: #DD0000">'.class.php'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">spl_autoload_register</span><span style="color: #007700">(</span><span style="color: #DD0000">'my_autoloader'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 或者可以使用匿名函数<br /></span><span style="color: #0000BB">spl_autoload_register</span><span style="color: #007700">(function (</span><span style="color: #0000BB">$class</span><span style="color: #007700">) {<br />    include </span><span style="color: #DD0000">'classes/' </span><span style="color: #007700">. </span><span style="color: #0000BB">$class </span><span style="color: #007700">. </span><span style="color: #DD0000">'.class.php'</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
    </div>
-   <div class="example" id="example-3664">
+   <div class="example" id="">
     <p><strong>Example #2 类未能加载的 <span class="function"><strong>spl_autoload_register()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foobar</span><span style="color: #007700">;<br /><br />class&nbsp;</span><span style="color: #0000BB">Foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">'[['</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">.</span><span style="color: #DD0000">']]'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">spl_autoload_register</span><span style="color: #007700">(</span><span style="color: #0000BB">__NAMESPACE__&nbsp;</span><span style="color: #007700">.</span><span style="color: #DD0000">'\Foo::test'</span><span style="color: #007700">);<br /><br />new&nbsp;</span><span style="color: #0000BB">InexistentClass</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">Foobar</span><span style="color: #007700">;<br /><br />class </span><span style="color: #0000BB">Foo </span><span style="color: #007700">{<br />    static public function </span><span style="color: #0000BB">test</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">) {<br />        print </span><span style="color: #DD0000">'[['</span><span style="color: #007700">. </span><span style="color: #0000BB">$name </span><span style="color: #007700">.</span><span style="color: #DD0000">']]'</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">spl_autoload_register</span><span style="color: #007700">(</span><span style="color: #0000BB">__NAMESPACE__ </span><span style="color: #007700">.</span><span style="color: #DD0000">'\Foo::test'</span><span style="color: #007700">);<br /><br />new </span><span style="color: #0000BB">InexistentClass</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -252,7 +253,7 @@ For </span><span class="default">some reason</span><span class="keyword">, </spa
 </span><span class="keyword">&lt;?</span><span class="default">php<br />
 spl_autoload_register</span><span class="keyword">();<br />
 </span><span class="comment">//chdir(__DIR__); // Uncomment this to make it work from any directory<br />
-</span><span class="default">MyNamespace</span><span class="keyword">\</span><span class="default">MyClass</span><span class="keyword">::</span><span class="default">foo</span><span class="keyword">();<br />
+</span><span class="default">MyNamespace\MyClass</span><span class="keyword">::</span><span class="default">foo</span><span class="keyword">();<br />
 <br />
 </span><span class="default">src</span><span class="keyword">/</span><span class="default">MyNamespace</span><span class="keyword">/</span><span class="default">MyClass</span><span class="keyword">.</span><span class="default">php<br />
 </span><span class="keyword">&lt;?</span><span class="default">php<br />

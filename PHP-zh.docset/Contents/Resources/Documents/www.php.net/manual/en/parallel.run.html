@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Execution</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -269,7 +270,7 @@
 &nbsp;* Destroy ThreadId: 3<br />
 &nbsp;*/<br />
 <br />
-</span><span class="keyword">use \</span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Runtime</span><span class="keyword">, </span><span class="default">Future</span><span class="keyword">, </span><span class="default">Channel</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">};<br />
+</span><span class="keyword">use </span><span class="default">\parallel</span><span class="keyword">\{</span><span class="default">Runtime</span><span class="keyword">, </span><span class="default">Future</span><span class="keyword">, </span><span class="default">Channel</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">};<br />
 <br />
 </span><span class="comment">// Generate list of items to process with a generator<br />
 </span><span class="keyword">function </span><span class="default">generator</span><span class="keyword">(</span><span class="default">int $item_count</span><span class="keyword">) {<br />
@@ -298,7 +299,7 @@ function </span><span class="default">testConcurrency</span><span class="keyword
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">$thread</span><span class="keyword">[</span><span class="string">'is_active'</span><span class="keyword">] and </span><span class="default">$generator</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">()) {<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Thread is inactive and generator still has values : run something in the thread<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$item_id </span><span class="keyword">= </span><span class="default">$generator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$threads</span><span class="keyword">[</span><span class="default">$thread_id</span><span class="keyword">][</span><span class="string">'run'</span><span class="keyword">] = \</span><span class="default">parallel</span><span class="keyword">\</span><span class="default">run</span><span class="keyword">(</span><span class="default">$producer</span><span class="keyword">, [</span><span class="default">$item_id</span><span class="keyword">]);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$threads</span><span class="keyword">[</span><span class="default">$thread_id</span><span class="keyword">][</span><span class="string">'run'</span><span class="keyword">] = </span><span class="default">\parallel\run</span><span class="keyword">(</span><span class="default">$producer</span><span class="keyword">, [</span><span class="default">$item_id</span><span class="keyword">]);<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"ThreadId: </span><span class="default">$thread_id</span><span class="string"> =&gt; Item: </span><span class="default">$item_id</span><span class="string"> (Start)\n"</span><span class="keyword">;<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$threads</span><span class="keyword">[</span><span class="default">$thread_id</span><span class="keyword">][</span><span class="string">'is_active'</span><span class="keyword">] = </span><span class="default">true</span><span class="keyword">;<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$generator</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />
@@ -349,7 +350,7 @@ function </span><span class="default">testConcurrency</span><span class="keyword
 Although function declaration is not allowed inside thread exec code, include is allowed. So if we want to declare a function, we could write another file that contain the function and include it.<br />
 # main.php<br />
 <span class="default">&lt;?php<br />
-$runtime </span><span class="keyword">= new </span><span class="default">parallel</span><span class="keyword">\</span><span class="default">Runtime </span><span class="keyword">();<br />
+$runtime </span><span class="keyword">= new </span><span class="default">parallel\Runtime </span><span class="keyword">();<br />
 </span><span class="default">$future </span><span class="keyword">= </span><span class="default">$runtime</span><span class="keyword">-&gt;</span><span class="default">run </span><span class="keyword">( function () {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$future </span><span class="keyword">= </span><span class="default">$runtime</span><span class="keyword">-&gt;</span><span class="default">run </span><span class="keyword">( function () {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; include </span><span class="string">"included.php"</span><span class="keyword">;<br />
@@ -411,7 +412,7 @@ Here's a more substantial example of how to use the run functional API.<br />
 &nbsp;*<br />
 &nbsp;*********************************************/<br />
 <br />
-</span><span class="keyword">use \</span><span class="default">parallel</span><span class="keyword">\{</span><span class="default">Runtime</span><span class="keyword">, </span><span class="default">Future</span><span class="keyword">, </span><span class="default">Channel</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">};<br />
+</span><span class="keyword">use </span><span class="default">\parallel</span><span class="keyword">\{</span><span class="default">Runtime</span><span class="keyword">, </span><span class="default">Future</span><span class="keyword">, </span><span class="default">Channel</span><span class="keyword">, </span><span class="default">Events</span><span class="keyword">};<br />
 <br />
 </span><span class="default">$minId </span><span class="keyword">= </span><span class="default">11001</span><span class="keyword">;<br />
 </span><span class="default">$maxId </span><span class="keyword">= </span><span class="default">1382130</span><span class="keyword">;<br />
@@ -470,7 +471,7 @@ print </span><span class="string">"Last Batch: " </span><span class="keyword">. 
 &nbsp;&nbsp;&nbsp; if(</span><span class="default">$i </span><span class="keyword">== (</span><span class="default">$workers </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">)) {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$endId </span><span class="keyword">= </span><span class="default">$maxId</span><span class="keyword">;<br />
 &nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; \</span><span class="default">parallel</span><span class="keyword">\</span><span class="default">run</span><span class="keyword">(</span><span class="default">$producer</span><span class="keyword">, array((</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">), </span><span class="default">$startId</span><span class="keyword">, </span><span class="default">$endId</span><span class="keyword">, </span><span class="default">$rowsToFetch</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">\parallel\run</span><span class="keyword">(</span><span class="default">$producer</span><span class="keyword">, array((</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">), </span><span class="default">$startId</span><span class="keyword">, </span><span class="default">$endId</span><span class="keyword">, </span><span class="default">$rowsToFetch</span><span class="keyword">));<br />
 }<br />
 <br />
 </span><span class="default">?&gt;</span>

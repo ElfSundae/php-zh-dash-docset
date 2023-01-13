@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>运行时配置</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -47,70 +48,70 @@
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.library" class="link">yaf.library</a></td>
       <td class="empty">&nbsp;</td>
-      <td>its PHP_INI_ALL value</td>
+      <td>PHP_INI_ALL</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.action-prefer" class="link">yaf.action_prefer</a></td>
       <td>0</td>
-      <td>its PHP_INI_ALL value</td>
+      <td>PHP_INI_ALL</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.lowcase-path" class="link">yaf.lowcase_path</a></td>
       <td>0</td>
-      <td>its PHP_INI_ALL value</td>
+      <td>PHP_INI_ALL</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.use-spl-autoload" class="link">yaf.use_spl_autoload</a></td>
       <td>0</td>
-      <td>its PHP_INI_ALL value</td>
+      <td>PHP_INI_ALL</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.forward-limit" class="link">yaf.forward_limit</a></td>
       <td>5</td>
-      <td>its PHP_INI_ALL value</td>
+      <td>PHP_INI_ALL</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.name-suffix" class="link">yaf.name_suffix</a></td>
       <td>1</td>
-      <td>its PHP_INI_ALL value</td>
+      <td>PHP_INI_ALL</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.name-separator" class="link">yaf.name_separator</a></td>
       <td class="empty">&nbsp;</td>
-      <td>its PHP_INI_ALL value</td>
+      <td>PHP_INI_ALL</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.cache-config" class="link">yaf.cache_config</a></td>
       <td>0</td>
-      <td>its PHP_INI_SYSTEM value</td>
+      <td>PHP_INI_SYSTEM</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.environ" class="link">yaf.environ</a></td>
       <td>product</td>
-      <td>its PHP_INI_SYSTEM value</td>
+      <td>PHP_INI_SYSTEM</td>
       <td></td>
      </tr>
 
      <tr>
       <td><a href="yaf.configuration.html#ini.yaf.use-namespace" class="link">yaf.use_namespace</a></td>
       <td>0</td>
-      <td>its PHP_INI_SYSTEM value</td>
+      <td>PHP_INI_SYSTEM</td>
       <td></td>
      </tr>
 
@@ -133,8 +134,7 @@
      <dd>
 
       <p class="para">
-        The global library path, Yaf_loader will search global library in this
-        directory.      
+        全局库路径，Yaf_loader 会在此目录下搜索全局库。
       </p>
      </dd>
 
@@ -142,7 +142,7 @@
     
      <dt id="ini.yaf.action-prefer">
       <code class="parameter">yaf.action_prefer</code>
-      <span class="type">integer</span>
+      <span class="type">int</span>
      </dt>
 
      <dd>
@@ -152,7 +152,7 @@
         controller or action.
       </p>
       <p class="para">
-        If this configure On, it will be considered as a Action name.
+        如果此配置为 On，将视为 Action 名。
       </p>
      </dd>
 
@@ -160,7 +160,7 @@
     
      <dt id="ini.yaf.lowcase-path">
       <code class="parameter">yaf.lowcase_path</code>
-      <span class="type">integer</span>
+      <span class="type">int</span>
      </dt>
 
      <dd>
@@ -174,20 +174,33 @@
     
      <dt id="ini.yaf.use-spl-autoload">
       <code class="parameter">yaf.use_spl_autoload</code>
-      <span class="type">integer</span>
+      <span class="type">int</span>
      </dt>
 
      <dd>
 
       <p class="para">
         When this value is On, if <span class="classname"><a href="class.yaf-loader.html" class="classname">Yaf_Loader</a></span> can not
-        find a class, it will return FALSE, then give chance to other auto
+        find a class, it will return <strong><code>false</code></strong>, then give chance to other auto
         load function to be called.      
       </p>
-
+      <p class="para">
+        When this value is Off, if <span class="classname"><a href="class.yaf-loader.html" class="classname">Yaf_Loader</a></span> can not
+        find a class, it will return <strong><code>true</code></strong>, and make the class autoloading
+        failed immediately.
+      </p>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <p class="para">
+        Yaf will register its loader during a instantiation of  
+        <span class="classname"><a href="class.yaf-application.html" class="classname">Yaf_Application</a></span>, so any other auto loaders
+        which is register before the instantiation will be called before
+        <span class="methodname"><a href="yaf-loader.autoload.html" class="methodname">Yaf_Loader::autoload()</a></span>.
+       </p>
+      </p></blockquote>
       <p class="para">
         When this value is Off(default),
-        <span class="methodname"><a href="yaf-loader.autoload.html" class="methodname">Yaf_Loader::autoload()</a></span> will always return TRUE.
+        <span class="methodname"><a href="yaf-loader.autoload.html" class="methodname">Yaf_Loader::autoload()</a></span> will always return
+        <strong><code>true</code></strong>.
       </p>
      </dd>
 
@@ -195,7 +208,7 @@
     
      <dt id="ini.yaf.forward-limit">
       <code class="parameter">yaf.forward_limit</code>
-      <span class="type">integer</span>
+      <span class="type">int</span>
      </dt>
 
      <dd>
@@ -214,7 +227,7 @@
     
      <dt id="ini.yaf.name-suffix">
       <code class="parameter">yaf.name_suffix</code>
-      <span class="type">integer</span>
+      <span class="type">int</span>
      </dt>
 
      <dd>
@@ -251,7 +264,7 @@
     
      <dt id="ini.yaf.cache-config">
       <code class="parameter">yaf.cache_config</code>
-      <span class="type">integer</span>
+      <span class="type">int</span>
      </dt>
 
      <dd>
@@ -288,8 +301,7 @@
      <dd>
 
       <p class="para">
-        This value is &quot;product&quot; by default, used for Yaf to fetch the config
-        section of a ini config file.
+        默认值是"product"，用于 Yaf 获取 ini 配置文件中的配置部分。
        </p>
        <p class="para">
         That is, if this value is &quot;product&quot;, Yaf will use the section named
@@ -304,19 +316,30 @@
     
      <dt id="ini.yaf.use-namespace">
       <code class="parameter">yaf.use_namespace</code>
-      <span class="type">integer</span>
+      <span class="type">int</span>
      </dt>
 
      <dd>
 
       <p class="para">
-       Only works as of PHP 5.3, if this value is On, All class of Yaf will
-       named in namespace style.
+       如果值为 On，Yaf 的所有类都将以命名空间样式命名。
       </p>
       <p class="para">
-       For example, Yaf_Route_Rewrite =&gt; \Yaf\Route\Rewrite,
-       Yaf_Controller_Abstract =&gt; \Yaf\Controller_Abstract (Abstract is the
-       keyword, can not used as a class name)
+       例如：
+       <div class="example-contents screen">
+        <div class="cdata"><pre>
+Yaf_Route_Rewrite =&gt; \Yaf\Route\Rewrite
+Yaf_Request_Http  =&gt; \Yaf\Request\Http
+        </pre></div>
+       </div>
+       有个例外，就是像 <span class="classname"><a href="class.yaf-controller-abstract.html" class="classname">Yaf_Controller_Abstract</a></span> 这样的类。最后部分是 PHP
+       的关键字，不能用作类名，对于这样的类，只能：
+       <div class="example-contents screen">
+        <div class="cdata"><pre>
+Yaf_Controller_Abstract =&gt; \Yaf\Controller_Abstract
+Yaf_Route_Static =&gt; \Yaf\Route_Static
+        </pre></div>
+       </div>
       </p>
      </dd>
 

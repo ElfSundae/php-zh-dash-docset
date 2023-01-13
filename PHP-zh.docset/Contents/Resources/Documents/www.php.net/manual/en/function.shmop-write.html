@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Write data into shared memory block</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -133,11 +134,11 @@
  <div class="refsect1 examples" id="refsect1-function.shmop-write-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3349">
+   <div class="example" id="">
     <p><strong>Example #1 Writing to shared memory block</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$shm_bytes_written&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">shmop_write</span><span style="color: #007700">(</span><span style="color: #0000BB">$shm_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$my_string</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$shm_bytes_written </span><span style="color: #007700">= </span><span style="color: #0000BB">shmop_write</span><span style="color: #007700">(</span><span style="color: #0000BB">$shm_id</span><span style="color: #007700">, </span><span style="color: #0000BB">$my_string</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -164,7 +165,40 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125555""></a>
+<div id="allnotes">  <a name="127988""></a>
+  <div class="note">
+   <strong class="user">mark at manngo dot net</strong>
+   <a href="#127988" class="date">07-Dec-2022 07:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+On thing you might want to do is replace an old string with a shorter one, or to clear out the string altogether.<br />
+<br />
+To replace the string, you can zero-byte pad the string you are writing:<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">//&nbsp; &nbsp; $shmid is from shmop_open()<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$size </span><span class="keyword">= </span><span class="default">128</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$string </span><span class="keyword">= </span><span class="string">'something'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">//&nbsp; &nbsp; write<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$string </span><span class="keyword">= </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">string</span><span class="keyword">, </span><span class="default">$size</span><span class="keyword">, </span><span class="string">"\0"</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">shmop_write</span><span class="keyword">(</span><span class="default">$shmid</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">//&nbsp; &nbsp; read<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">print </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">shmop</span><span class="keyword">(</span><span class="default">$shmid</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">),,</span><span class="string">"\0"</span><span class="keyword">);<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">//&nbsp; &nbsp; clear<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$string </span><span class="keyword">= </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">"\0"</span><span class="keyword">,</span><span class="default">$size</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">shmop_write</span><span class="keyword">(</span><span class="default">$shmid</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125555""></a>
   <div class="note">
    <strong class="user">radupb at yahoo dot com</strong>
    <a href="#125555" class="date">30-Nov-2020 09:13</a>

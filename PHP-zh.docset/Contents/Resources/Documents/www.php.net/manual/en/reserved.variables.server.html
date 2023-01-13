@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>服务器和执行环境信息</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -34,18 +35,27 @@
  <div class="refsect1 description" id="refsect1-reserved.variables.server-description">
   <h3 class="title">说明</h3>
   <p class="para">
-   <var class="varname">$_SERVER</var> 是一个包含了诸如头信息(header)、路径(path)、以及脚本位置(script locations)等等信息的数组。这个数组中的项目由 Web 服务器创建。不能保证每个服务器都提供全部项目；服务器可能会忽略一些，或者提供一些没有在这里列举出来的项目。这也就意味着大量的此类变量都会在<a href="http://www.faqs.org/rfcs/rfc3875" class="link external" title="Link : http://www.faqs.org/rfcs/rfc3875">&raquo;&nbsp;CGI 1.1 规范</a>中说明，所以应该仔细研究一下。
+   <var class="varname">$_SERVER</var> 是一个包含了诸如头信息（header）、路径（path）、以及脚本位置（script locations）等信息的
+   <span class="type">array</span>。这个数组中的条目由 Web 服务器创建，所以不能保证每个 Web
+   服务器都提供全部条目；服务器可能会忽略一些，或者提供此处没有列举出来的其它内容。然而，大部分变量在
+   <a href="http://www.faqs.org/rfcs/rfc3875" class="link external" title="Link : http://www.faqs.org/rfcs/rfc3875">&raquo;&nbsp;CGI 1.1 规范</a>中都有说明，并且很可能会定义。
   </p>
-
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    当在<a href="features.commandline.html" class="link">命令行</a>运行 PHP
+    时，这些条目都将无效或者没有任何意义。
+   </span>
+  </p></blockquote>
+  <p class="para">
+   除了下面列出的元素之外，PHP 还将使用请求报头中的值创建其它元素，这些条目将命名为 <code class="literal">HTTP_</code>
+   后跟报头名称，大写且使用下划线而不是连字符。例如 <code class="literal">Accept-Language</code> 报头将作为
+   <code class="code">$_SERVER[&#039;HTTP_ACCEPT_LANGUAGE&#039;]</code> 提供。
+  </p>
  </div>
 
 
  <div class="refsect1 indices" id="refsect1-reserved.variables.server-indices">
   <h3 class="title">目录</h3>
-
-  <p class="simpara">
-   在 <var class="varname">$_SERVER</var> 中，你也许能够，也许不能够找到下面的这些元素。注意，如果以<a href="features.commandline.html" class="link">命令行</a>方式运行 PHP，下面列出的元素几乎没有有效的(或是没有任何实际意义的)。 
-  </p>
 
   <p class="para">
    <dl>
@@ -98,7 +108,7 @@
      <dd>
 
       <span class="simpara">
-       服务器使用的 CGI 规范的版本；例如，"<code class="literal">CGI/1.1</code>"。
+       服务器使用的 CGI 规范的版本；例如，<code class="literal">&#039;CGI/1.1&#039;</code>。
       </span>
      </dd>
 
@@ -128,10 +138,8 @@
       </span>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <span class="simpara">
-        在 Apache 2 里，必须设置 <code class="literal">UseCanonicalName = On</code>
-        和 <code class="literal">ServerName</code>。
-        否则该值会由客户端提供，就有可能被伪造。
-        上下文有安全性要求的环境里，不应该依赖此值。
+        在 Apache 2 里，必须设置 <code class="literal">UseCanonicalName = On</code> 和
+        <code class="literal">ServerName</code>。否则该值会由客户端提供，就有可能被伪造。上下文有安全性要求的环境里，不应该依赖此值。
        </span>
       </p></blockquote>
      </dd>
@@ -158,7 +166,7 @@
      <dd>
 
       <span class="simpara">
-       请求页面时通信协议的名称和版本。例如，"HTTP/1.0"。
+       请求页面时通信协议的名称和版本。例如，<code class="literal">&#039;HTTP/1.0&#039;</code>。
       </span>
      </dd>
 
@@ -171,7 +179,7 @@
      <dd>
 
       <span class="simpara">
-       访问页面使用的请求方法；例如，"<code class="literal">GET</code>", "<code class="literal">HEAD</code>"，"<code class="literal">POST</code>"，"<code class="literal">PUT</code>"。
+       访问页面使用的请求方法；例如，<code class="literal">&#039;GET&#039;</code>、<code class="literal">&#039;HEAD&#039;</code>、<code class="literal">&#039;POST&#039;</code>、<code class="literal">&#039;PUT&#039;</code>。
       </span>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <p class="para">
@@ -236,111 +244,6 @@
 
     
      <dt>
-&#039;<var class="varname">HTTP_ACCEPT</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       当前请求头中 <code class="literal">Accept:</code> 项的内容，如果存在的话。
-      </span>
-     </dd>
-
-    
-
-    
-     <dt>
-&#039;<var class="varname">HTTP_ACCEPT_CHARSET</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       当前请求头中 <code class="literal">Accept-Charset:</code> 项的内容，如果存在的话。例如："<code class="literal">iso-8859-1,*,utf-8</code>"。
-      </span>
-     </dd>
-
-    
-
-    
-     <dt>
-&#039;<var class="varname">HTTP_ACCEPT_ENCODING</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       当前请求头中 <code class="literal">Accept-Encoding:</code> 项的内容，如果存在的话。例如："<code class="literal">gzip</code>"。
-      </span>
-     </dd>
-
-    
-    
-    
-     <dt>
-&#039;<var class="varname">HTTP_ACCEPT_LANGUAGE</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       当前请求头中 <code class="literal">Accept-Language:</code> 项的内容，如果存在的话。例如："<code class="literal">en</code>"。
-      </span>
-     </dd>
-
-    
-    
-    
-     <dt>
-&#039;<var class="varname">HTTP_CONNECTION</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       当前请求头中 <code class="literal">Connection:</code> 项的内容，如果存在的话。例如："<code class="literal">Keep-Alive</code>"。
-      </span>
-     </dd>
-
-    
-
-    
-     <dt>
-&#039;<var class="varname">HTTP_HOST</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       当前请求头中 <code class="literal">Host:</code> 项的内容，如果存在的话。
-      </span>
-     </dd>
-
-    
-
-    
-     <dt>
-&#039;<var class="varname">HTTP_REFERER</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       引导用户代理到当前页的前一页的地址（如果存在）。由 user agent 设置决定。并不是所有的用户代理都会设置该项，有的还提供了修改 <var class="varname">HTTP_REFERER</var> 的功能。简言之，该值并不可信。
-      </span>
-     </dd>
-
-    
-
-    
-     <dt>
-&#039;<var class="varname">HTTP_USER_AGENT</var>&#039;</dt>
-
-     <dd>
-
-      <span class="simpara">
-       当前请求头中 <code class="literal">User-Agent:</code> 项的内容，如果存在的话。该字符串表明了访问该页面的用户代理的信息。一个典型的例子是：<span class="computeroutput">Mozilla/4.5 [en] (X11; U;
-       Linux 2.2.9 i586)</span>。除此之外，你可以通过 <span class="function"><a href="function.get-browser.html" class="function">get_browser()</a></span> 来使用该值，从而定制页面输出以便适应用户代理的性能。
-      </span>
-     </dd>
-
-    
-
-    
-     <dt>
 &#039;<var class="varname">HTTPS</var>&#039;</dt>
 
      <dd>
@@ -376,7 +279,8 @@
       </span>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <span class="simpara">
-        你的服务器必须被配置以便产生这个变量。例如在 Apache 中，你需要在 <var class="filename">httpd.conf</var> 中设置 <code class="literal">HostnameLookups On</code> 来产生它。参见 <span class="function"><a href="function.gethostbyaddr.html" class="function">gethostbyaddr()</a></span>。
+        必须配置 Web 服务器以创建这个变量。例如在 Apache 中，<code class="literal">HostnameLookups On</code>
+        必须在 <var class="filename">httpd.conf</var> 中设置才能存在。参见 <span class="function"><a href="function.gethostbyaddr.html" class="function">gethostbyaddr()</a></span>。
        </span>
       </p></blockquote>
      </dd>
@@ -458,12 +362,12 @@
      <dd>
 
       <span class="simpara">
-        Web 服务器使用的端口。默认值为 "<code class="literal">80</code>"。如果使用 SSL 安全连接，则这个值为用户设置的 HTTP 端口。
+        Web 服务器使用的端口。默认值为 <code class="literal">&#039;80&#039;</code>。如果使用 SSL 安全连接，则这个值为用户设置的 HTTP 端口。
       </span>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <span class="simpara">
-        在 Apache 2 里，为了获取真实物理端口，必须设置 <code class="literal">UseCanonicalName = On</code> 以及 <code class="literal">UseCanonicalPhysicalPort = On</code>。
-        否则此值可能被伪造，不一定会返回真实端口值。
+        在 Apache 2 里，为了获取真实物理端口，必须设置 <code class="literal">UseCanonicalName = On</code> 以及
+        <code class="literal">UseCanonicalPhysicalPort = On</code>，否则可能伪造此值，不一定会返回真实端口值。
         上下文有安全性要求的环境里，不应该依赖此值。
        </span>
       </p></blockquote>
@@ -587,7 +491,9 @@
      <dd>
 
       <span class="simpara">
-       包含由客户端提供的、跟在真实脚本名称之后并且在查询语句（query string）之前的路径信息，如果存在的话。例如，如果当前脚本是通过 URL <var class="filename">http://www.example.com/php/path_info.php/some/stuff?foo=bar</var> 被访问，那么 <var class="varname">$_SERVER['PATH_INFO']</var> 将包含 <code class="literal">/some/stuff</code>。
+       如果存在的话，包含由客户端提供的、跟在真实脚本名称之后并且在查询字符串之前的路径信息。例如，如果当前脚本是通过
+       URI <var class="filename">http://www.example.com/php/path_info.php/some/stuff?foo=bar</var> 访问，那么
+       <var class="varname">$_SERVER['PATH_INFO']</var> 将包含 <code class="literal">/some/stuff</code>。
       </span>
      </dd>
 
@@ -615,11 +521,11 @@
  <div class="refsect1 examples" id="refsect1-reserved.variables.server-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="variable.server.basic">
+   <div class="example" id="example-720">
     <p><strong>Example #1 <var class="varname">$_SERVER</var> 范例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'SERVER_NAME'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'SERVER_NAME'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

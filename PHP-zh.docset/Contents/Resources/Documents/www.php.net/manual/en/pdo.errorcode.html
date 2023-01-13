@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取跟数据库句柄上一次操作相关的 SQLSTATE</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -35,17 +36,23 @@
  <div class="refsect1 description" id="refsect1-pdo.errorcode-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>PDO::errorCode</strong></span>(): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDO::errorCode</strong></span>(): <span class="type"><span class="type">?</span><span class="type">string</span></span></div>
 
 
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-pdo.errorcode-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">此函数没有参数。</p>
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-pdo.errorcode-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-  返回一个 SQLSTATE，一个由5个字母或数字组成的在 ANSI SQL 标准中定义的标识符。 简要地说，一个 SQLSTATE 由前面两个字符的类值和后面三个字符的子类值组成。
-   class value of 01 indicates a warning and is accompanied by a return code
+   返回一个 SQLSTATE，一个由 5 个字母或数字组成的在 ANSI SQL 标准中定义的标识符。 简要地说，一个 SQLSTATE 由前面两个字符的类值和后面三个字符的子类值组成。
+   A class value of 01 indicates a warning and is accompanied by a return code
    of SQL_SUCCESS_WITH_INFO. Class values other than &#039;01&#039;, except for the
    class &#039;IM&#039;, indicate an error.  The class &#039;IM&#039; is specific to warnings
    and errors that derive from the implementation of PDO (or perhaps ODBC,
@@ -53,13 +60,9 @@
    class indicates that there is no subclass for that SQLSTATE.
   </p>
   <p class="para">
-   <span class="function"><strong>PDO::errorCode()</strong></span> only retrieves error codes for operations
-   performed directly on the database handle. If you create a PDOStatement
-   object through <span class="function"><a href="pdo.prepare.html" class="function">PDO::prepare()</a></span> or
-   <span class="function"><a href="pdo.query.html" class="function">PDO::query()</a></span> and invoke an error on the statement
-   handle, <span class="function"><strong>PDO::errorCode()</strong></span> will not reflect that error.
-   You must call <span class="function"><a href="pdostatement.errorcode.html" class="function">PDOStatement::errorCode()</a></span> to return the error
-   code for an operation performed on a particular statement handle.
+   <span class="methodname"><strong>PDO::errorCode()</strong></span> 仅检索直接在数据库句柄上操作执行的错误代码。如果通过 <span class="methodname"><a href="pdo.prepare.html" class="methodname">PDO::prepare()</a></span>
+   或 <span class="methodname"><a href="pdo.query.html" class="methodname">PDO::query()</a></span> 创建的 PDOStatement 对象并且在 statement 句柄上调用错误，<span class="methodname"><strong>PDO::errorCode()</strong></span>
+   将不会反映该错误。必须在特定 statement 句柄上调用 <span class="methodname"><a href="pdostatement.errorcode.html" class="methodname">PDOStatement::errorCode()</a></span> 返回操作执行的错误代码。
   </p>
   <p class="para">
    如果数据库句柄没有进行操作，则返回 <strong><code>null</code></strong> 。
@@ -70,10 +73,10 @@
  <div class="refsect1 examples" id="refsect1-pdo.errorcode-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-1040"><p><strong>Example #1 取得一个 SQLSTATE 码</strong></p>
+   <div class="example" id="example-2082"><p><strong>Example #1 取得一个 SQLSTATE 码</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;引发一个错误&nbsp;--&nbsp;BONES&nbsp;数据表不存在&nbsp;*/<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;bones(skull)&nbsp;VALUES&nbsp;('lucy')"</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"\nPDO::errorCode():&nbsp;"</span><span style="color: #007700">;<br />print&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errorCode</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 引发一个错误 -- BONES 数据表不存在 */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT INTO bones(skull) VALUES ('lucy')"</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"\nPDO::errorCode(): "</span><span style="color: #007700">, </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errorCode</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -93,9 +96,9 @@ PDO::errorCode(): 42S02
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="pdo.errorinfo.html" class="function" rel="rdfs-seeAlso">PDO::errorInfo()</a> - Fetch extended error information associated with the last operation on the database handle</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.errorcode.html" class="function" rel="rdfs-seeAlso">PDOStatement::errorCode()</a> - 获取跟上一次语句句柄操作相关的 SQLSTATE</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.errorinfo.html" class="function" rel="rdfs-seeAlso">PDOStatement::errorInfo()</a> - 获取跟上一次语句句柄操作相关的扩展错误信息</span></li>
+    <li class="member"><span class="methodname"><a href="pdo.errorinfo.html" class="methodname" rel="rdfs-seeAlso">PDO::errorInfo()</a> - Fetch extended error information associated with the last operation on the database handle</span></li>
+    <li class="member"><span class="methodname"><a href="pdostatement.errorcode.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::errorCode()</a> - 获取跟上一次语句句柄操作相关的 SQLSTATE</span></li>
+    <li class="member"><span class="methodname"><a href="pdostatement.errorinfo.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::errorInfo()</a> - 获取跟上一次语句句柄操作相关的扩展错误信息</span></li>
    </ul>
   </p>
  </div>

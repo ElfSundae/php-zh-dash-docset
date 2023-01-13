@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用反斜线引用字符串</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -34,34 +35,31 @@
   <div class="refsect1 description" id="refsect1-function.addslashes-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>addslashes</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>addslashes</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>): <span class="type">string</span></div>
 
   <p class="para rdfs-comment">
-   返回字符串，该字符串为了数据库查询语句等的需要在某些字符前加上了反斜线。这些字符是单引号（<code class="literal">&#039;</code>）、双引号（<code class="literal">&quot;</code>）、反斜线（<code class="literal">\</code>）与
-   NUL（<strong><code>null</code></strong> 字符）。
+   返回需要在转义字符之前添加反斜线的字符串。这些字符是：
+   <ul class="simplelist">
+    <li class="member">单引号（<code class="literal">&#039;</code>）</li>
+    <li class="member">双引号（<code class="literal">&quot;</code>）</li>
+    <li class="member">反斜线（<code class="literal">\</code>）</li>
+    <li class="member">NUL（NUL 字节）</li>
+   </ul>
   </p>
   <p class="para">
-   一个使用 <span class="function"><strong>addslashes()</strong></span>
-   的例子是当你要往数据库中输入数据时。
-   例如，将名字
-   <code class="literal">O&#039;reilly</code> 插入到数据库中，这就需要对其进行转义。
-   强烈建议使用 DBMS 指定的转义函数
-   （比如 MySQL 是  <span class="function"><a href="mysqli.real-escape-string.html" class="function">mysqli_real_escape_string()</a></span>，PostgreSQL 是 <span class="function"><a href="function.pg-escape-string.html" class="function">pg_escape_string()</a></span>），但是如果你使用的 DBMS 没有一个转义函数，并且使用 <code class="literal">\</code> 来转义特殊字符，你可以使用这个函数。
-   仅仅是为了获取插入数据库的数据，额外的 <code class="literal">\</code> 并不会插入。
-   当 PHP
-   指令 magic_quotes_sybase
-   被设置成 <code class="literal">on</code> 时，意味着插入
-   <code class="literal">&#039;</code> 时将使用
-   <code class="literal">&#039;</code> 进行转义。
+   <span class="function"><strong>addslashes()</strong></span> 的一个用法就是转义由 PHP 执行字符串中的上述字符：
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str </span><span style="color: #007700">= </span><span style="color: #DD0000">"O'Reilly?"</span><span style="color: #007700">;<br />eval(</span><span style="color: #DD0000">"echo '" </span><span style="color: #007700">. </span><span style="color: #0000BB">addslashes</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">) . </span><span style="color: #DD0000">"';"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
   </p>
   <p class="para">
-   PHP 5.4 之前 PHP 指令 <a href="info.configuration.html#ini.magic-quotes-gpc" class="link">
-   magic_quotes_gpc</a> 默认是 <code class="literal">on</code>， 实际上所有的 GET、POST 和 COOKIE 数据都用被 <span class="function"><strong>addslashes()</strong></span> 了。 不要对已经被
-   <a href="info.configuration.html#ini.magic-quotes-gpc" class="link">magic_quotes_gpc</a>
-   转义过的字符串使用
-   <span class="function"><strong>addslashes()</strong></span>，因为这样会导致双层转义。 遇到这种情况时可以使用函数
-   <span class="function"><a href="function.get-magic-quotes-gpc.html" class="function">get_magic_quotes_gpc()</a></span>
-   进行检测。
+   有时会错误的使用 <span class="function"><strong>addslashes()</strong></span> 来防止 <a href="security.database.sql-injection.html" class="link">SQL 注入</a>。相反，应该使用数据库特定函数和/或预处理语句。
   </p>
  </div>
 
@@ -72,7 +70,7 @@
    <dl>
     
      <dt>
-<code class="parameter">str</code></dt>
+<code class="parameter">string</code></dt>
 
      <dd>
 
@@ -100,11 +98,11 @@
  <div class="refsect1 examples" id="refsect1-function.addslashes-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4743">
+   <div class="example" id="">
     <p><strong>Example #1 一个 <span class="function"><strong>addslashes()</strong></span> 例子</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Is&nbsp;your&nbsp;name&nbsp;O'reilly?"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;输出：&nbsp;Is&nbsp;your&nbsp;name&nbsp;O\'reilly?<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">addslashes</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$str </span><span style="color: #007700">= </span><span style="color: #DD0000">"Is your name O'Reilly?"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 输出： Is your name O\'Reilly?<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">addslashes</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -113,7 +111,7 @@
   </p>
  </div>
 
-  
+
  <div class="refsect1 seealso" id="refsect1-function.addslashes-seealso">
   <h3 class="title">参见</h3>
   <p class="para">

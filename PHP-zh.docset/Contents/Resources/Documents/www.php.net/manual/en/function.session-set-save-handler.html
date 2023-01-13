@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置用户自定义会话存储函数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -312,7 +313,7 @@
  <div class="refsect1 examples" id="refsect1-function.session-set-save-handler-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-4702">
+   <div class="example" id="">
     <p><strong>Example #1 
      自定义会话管理器： 完整代码请参见 <span class="classname"><a href="class.sessionhandlerinterface.html" class="classname">SessionHandlerInterface</a></span>。
     </strong></p>
@@ -326,7 +327,7 @@
     </p></div>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MySessionHandler&nbsp;</span><span style="color: #007700">implements&nbsp;</span><span style="color: #0000BB">SessionHandlerInterface<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;在这里实现接口<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">$handler&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MySessionHandler</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">session_set_save_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$handler</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;现在可以使用&nbsp;$_SESSION&nbsp;保存以及获取数据了</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MySessionHandler </span><span style="color: #007700">implements </span><span style="color: #0000BB">SessionHandlerInterface<br /></span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">// 在这里实现接口<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">$handler </span><span style="color: #007700">= new </span><span style="color: #0000BB">MySessionHandler</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">session_set_save_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$handler</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 现在可以使用 $_SESSION 保存以及获取数据了</span>
 </span>
 </code></div>
     </div>
@@ -389,7 +390,44 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126563""></a>
+<div id="allnotes">  <a name="128073""></a>
+  <div class="note">
+   <strong class="user">polygon dot co dot in at gmail dot com</strong>
+   <a href="#128073" class="date">01-Jan-2023 12:41</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Although, session_set_save_handler() has support for saving session data via other modes, This does not support a way for saving session data in COOKIES. This is required for a site with a huge concurrent request the recommended solution by session_set_save_handler() does not fit the load site is handling.<br />
+So, the other way around to do this is as below.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// start.php<br />
+</span><span class="default">ob_start</span><span class="keyword">(); </span><span class="comment">// Turn on output buffering<br />
+&nbsp;<br />
+</span><span class="default">$sessCookieName </span><span class="keyword">= </span><span class="default">session_name</span><span class="keyword">();<br />
+</span><span class="default">$_SESSION </span><span class="keyword">= </span><span class="default">json_decode</span><span class="keyword">(</span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$_COOKIE</span><span class="keyword">[</span><span class="default">$sessCookieName</span><span class="keyword">]), </span><span class="default">true</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// Code<br />
+</span><span class="keyword">function </span><span class="default">echosess</span><span class="keyword">() {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">];<br />
+}<br />
+</span><span class="default">echosess</span><span class="keyword">();<br />
+</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">] = </span><span class="default">1</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// end.php<br />
+</span><span class="default">$op </span><span class="keyword">= </span><span class="default">ob_get_clean</span><span class="keyword">(); </span><span class="comment">// Get current buffer contents and delete current output buffer<br />
+</span><span class="default">$encryptedData </span><span class="keyword">= </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$_SESSION</span><span class="keyword">));<br />
+</span><span class="default">setcookie</span><span class="keyword">(</span><span class="default">$sessCookieName</span><span class="keyword">, </span><span class="default">$encryptedData</span><span class="keyword">, </span><span class="default">time</span><span class="keyword">() + (</span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">"session.gc_maxlifetime"</span><span class="keyword">)), </span><span class="string">'/'</span><span class="keyword">);<br />
+echo </span><span class="default">$op</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+If more security is required about the data of the session in cookie, then key based encryption/decryption can solve the issue.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126563""></a>
   <div class="note">
    <strong class="user">polygon dot co dot in at gmail dot com</strong>
    <a href="#126563" class="date">06-Nov-2021 07:39</a>

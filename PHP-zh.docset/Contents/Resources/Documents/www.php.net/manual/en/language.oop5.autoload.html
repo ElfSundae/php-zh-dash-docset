@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>类的自动加载</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -51,7 +52,7 @@
    </p>
   </p></blockquote>
   <p class="para">
-   <div class="example" id="example-228">
+   <div class="example" id="example-448">
    <p><strong>Example #1 自动加载示例</strong></p>
    <div class="example-contents"><p>
     本例尝试分别从 <var class="filename">MyClass1.php</var>
@@ -61,20 +62,20 @@
    </p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />spl_autoload_register</span><span style="color: #007700">(function&nbsp;(</span><span style="color: #0000BB">$class_name</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;require_once&nbsp;</span><span style="color: #0000BB">$class_name&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'.php'</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$obj&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyClass1</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$obj2&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyClass2</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />spl_autoload_register</span><span style="color: #007700">(function (</span><span style="color: #0000BB">$class_name</span><span style="color: #007700">) {<br />    require_once </span><span style="color: #0000BB">$class_name </span><span style="color: #007700">. </span><span style="color: #DD0000">'.php'</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$obj  </span><span style="color: #007700">= new </span><span style="color: #0000BB">MyClass1</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$obj2 </span><span style="color: #007700">= new </span><span style="color: #0000BB">MyClass2</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
 
   </div>
-  <div class="example" id="example-229">
+  <div class="example" id="example-450">
    <p><strong>Example #2 另一个例子</strong></p>
    <div class="example-contents"><p>
     本例尝试加载接口 <code class="literal">ITest</code>。
    </p></div>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />spl_autoload_register</span><span style="color: #007700">(function&nbsp;(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">);<br />});<br /><br />class&nbsp;</span><span style="color: #0000BB">Foo&nbsp;</span><span style="color: #007700">implements&nbsp;</span><span style="color: #0000BB">ITest&nbsp;</span><span style="color: #007700">{<br />}<br /><br /></span><span style="color: #FF8000">/*<br />string(5)&nbsp;"ITest"<br /><br />Fatal&nbsp;error:&nbsp;Interface&nbsp;'ITest'&nbsp;not&nbsp;found&nbsp;in&nbsp;...<br />*/<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />spl_autoload_register</span><span style="color: #007700">(function (</span><span style="color: #0000BB">$name</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">);<br />});<br /><br />class </span><span style="color: #0000BB">Foo </span><span style="color: #007700">implements </span><span style="color: #0000BB">ITest </span><span style="color: #007700">{<br />}<br /><br /></span><span style="color: #FF8000">/*<br />string(5) "ITest"<br /><br />Fatal error: Interface 'ITest' not found in ...<br />*/<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -141,7 +142,7 @@ The constant could be replaced by any static property or method or by default co
 A code file containing functions.<br />
 /Some/Namespace/Functions.php<br />
 <span class="default">&lt;?php<br />
-</span><span class="keyword">namespace </span><span class="default">Some</span><span class="keyword">\Namespace;<br />
+</span><span class="keyword">namespace </span><span class="default">Some\Namespace</span><span class="keyword">;<br />
 <br />
 class </span><span class="default">Functions </span><span class="keyword">{ const </span><span class="default">load </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; }<br />
 <br />
@@ -155,7 +156,7 @@ function </span><span class="default">b </span><span class="keyword">() {<br />
 Triggering autoloading of the file containing functions.<br />
 main.php<br />
 <span class="default">&lt;?php<br />
-</span><span class="keyword">\</span><span class="default">Some</span><span class="keyword">\Namespace\</span><span class="default">Functions</span><span class="keyword">::</span><span class="default">load</span><span class="keyword">;<br />
+\Some\Namespace\Functions</span><span class="keyword">::</span><span class="default">load</span><span class="keyword">;<br />
 <br />
 </span><span class="default">a </span><span class="keyword">();<br />
 </span><span class="default">b </span><span class="keyword">();<br />

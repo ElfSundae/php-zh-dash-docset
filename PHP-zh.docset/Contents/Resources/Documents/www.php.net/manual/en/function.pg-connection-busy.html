@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>获知连接是否为忙</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>获取连接是否繁忙</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,44 +21,115 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.pgsql.html">PostgreSQL 函数</a></li>
-    <li>获知连接是否为忙</li>
+    <li>获取连接是否繁忙</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.pg-connection-busy" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">pg_connection_busy</h1>
-    <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_connection_busy</span> &mdash; <span class="dc-title">
-     获知连接是否为忙
-    </span></p>
+ <div class="refnamediv">
+  <h1 class="refname">pg_connection_busy</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_connection_busy</span> &mdash; <span class="dc-title">
+   获取连接是否繁忙
+  </span></p>
 
-   </div>
-   <div class="refsect1 unknown-unknown-returnvalueu" id="refsect1-function.pg-connection-busy-unknown-unknown-returnvalueu">
-    <h3 class="title">说明</h3>
-    <div class="methodsynopsis dc-description">
-     <span class="methodname"><strong>pg_connection_busy</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$connection</code></span>): <span class="type">bool</span></div>
+ </div>
 
-    <p class="para rdfs-comment">
-     <span class="function"><strong>pg_connection_busy()</strong></span> 在此连接状态为忙的时候返回 <strong><code>true</code></strong>。如果连接状态为忙，说明前一个查询仍然在执行。如果调用 <span class="function"><a href="function.pg-get-result.html" class="function">pg_get_result()</a></span> 函数的话，则会被锁死。
-    </p>
-    <p class="para">
-     <div class="example" id="example-1888">
-      <p><strong>Example #1 <span class="function"><strong>pg_connection_busy()</strong></span> 例子</strong></p>
-      <div class="example-contents">
+ <div class="refsect1 description" id="refsect1-function.pg-connection-busy-description">
+  <h3 class="title">说明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>pg_connection_busy</strong></span>(<span class="methodparam"><span class="type"><a href="class.pgsql-connection.html" class="type PgSql\Connection">PgSql\Connection</a></span> <code class="parameter">$connection</code></span>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><strong>pg_connection_busy()</strong></span> 确定连接是否繁忙。如果繁忙，则之前的查询仍在执行。如果在连接上使用
+   <span class="function"><a href="function.pg-get-result.html" class="function">pg_get_result()</a></span>，将被阻塞。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-connection-busy-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">connection</code></dt>
+
+     <dd>
+
+      <p class="para">An <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span> instance.</p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-connection-busy-returnvalues">
+  <h3 class="title">返回值</h3>
+   <p class="para">
+    如果连接繁忙返回 <strong><code>true</code></strong>，否则返回 <strong><code>false</code></strong>。
+   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.pg-connection-busy-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">connection</code> 参数接受 <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">资源(resource)</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.pg-connection-busy-examples">
+  <h3 class="title">范例</h3>
+  <p class="para">
+   <div class="example" id="example-3780">
+    <p><strong>Example #1 <span class="function"><strong>pg_connection_busy()</strong></span> 示例</strong></p>
+    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$dbconn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"Could&nbsp;not&nbsp;connect"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$bs&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connection_busy</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$bs</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'connection&nbsp;is&nbsp;busy'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'connection&nbsp;is&nbsp;not&nbsp;busy'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />  $dbconn </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">) or die(</span><span style="color: #DD0000">"Could not connect"</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$bs </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_connection_busy</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">);<br />  if (</span><span style="color: #0000BB">$bs</span><span style="color: #007700">) {<br />      echo </span><span style="color: #DD0000">'connection is busy'</span><span style="color: #007700">;<br />  } else {<br />     echo </span><span style="color: #DD0000">'connection is not busy'</span><span style="color: #007700">;<br />  }<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
-      </div>
+    </div>
 
-     </div>
-    </p>
-    <p class="para">
-     参见 <span class="function"><a href="function.pg-connection-status.html" class="function">pg_connection_status()</a></span> 和 <span class="function"><a href="function.pg-get-result.html" class="function">pg_get_result()</a></span>。
-    </p>
    </div>
+  </p>
+ </div>
 
-  </div><div id="usernotes">
+
+ <div class="refsect1 seealso" id="refsect1-function.pg-connection-busy-seealso">
+  <h3 class="title">参见</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-connection-status.html" class="function" rel="rdfs-seeAlso">pg_connection_status()</a> - 获取连接状态</span></li>
+    <li class="member"><span class="function"><a href="function.pg-get-result.html" class="function" rel="rdfs-seeAlso">pg_get_result()</a> - 取得异步查询结果</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

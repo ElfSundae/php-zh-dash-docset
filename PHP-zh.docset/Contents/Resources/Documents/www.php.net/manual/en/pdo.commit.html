@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>提交一个事务</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -36,11 +37,17 @@
  <div class="refsect1 description" id="refsect1-pdo.commit-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>PDO::commit</strong></span>(): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDO::commit</strong></span>(): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-  提交一个事务，数据库连接返回到自动提交模式直到下次调用 <span class="function"><a href="pdo.begintransaction.html" class="function">PDO::beginTransaction()</a></span> 开始一个新的事务为止。
+  提交一个事务，数据库连接返回到自动提交模式直到下次调用 <span class="methodname"><a href="pdo.begintransaction.html" class="methodname">PDO::beginTransaction()</a></span> 开始一个新的事务为止。
   </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-pdo.commit-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">此函数没有参数。</p>
  </div>
 
 
@@ -52,14 +59,23 @@
  </div>
 
 
+ <div class="refsect1 errors" id="refsect1-pdo.commit-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   如果没有活动中的事务，则抛出 <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span>。
+  </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara"><strong><code>PDO::ATTR_ERRMODE</code></strong> 属性不是 <strong><code>PDO::ERRMODE_EXCEPTION</code></strong> 时会抛出一个异常。</span></p></blockquote>
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-pdo.commit-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-1035">
+   <div class="example" id="example-2072">
     <p><strong>Example #1 提交一个基础事务</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;开始一个事务，关闭自动提交&nbsp;*/<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;在全有或全无的基础上插入多行记录（要么全部插入，要么全部不插入）&nbsp;*/<br /></span><span style="color: #0000BB">$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'INSERT&nbsp;INTO&nbsp;fruit<br />&nbsp;&nbsp;&nbsp;&nbsp;(name,&nbsp;colour,&nbsp;calories)<br />&nbsp;&nbsp;&nbsp;&nbsp;VALUES&nbsp;(?,&nbsp;?,&nbsp;?)'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$fruits&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$fruit</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$fruit</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$fruit</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">colour</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$fruit</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">calories</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;));<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;提交更改&nbsp;*/<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;现在数据库连接返回到自动提交模式&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 开始一个事务，关闭自动提交 */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* 在全有或全无的基础上插入多行记录（要么全部插入，要么全部不插入） */<br /></span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">'INSERT INTO fruit<br />    (name, colour, calories)<br />    VALUES (?, ?, ?)'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /><br />foreach (</span><span style="color: #0000BB">$fruits </span><span style="color: #007700">as </span><span style="color: #0000BB">$fruit</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(<br />        </span><span style="color: #0000BB">$fruit</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">,<br />        </span><span style="color: #0000BB">$fruit</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">colour</span><span style="color: #007700">,<br />        </span><span style="color: #0000BB">$fruit</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">calories</span><span style="color: #007700">,<br />    ));<br />}<br /><br /></span><span style="color: #FF8000">/* 提交更改 */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* 现在数据库连接返回到自动提交模式 */<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -67,11 +83,11 @@
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-1036">
+   <div class="example" id="example-2074">
     <p><strong>Example #2 提交一个DDL事务</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;&nbsp;开始一个事务，关闭自动提交&nbsp;*/<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;Change&nbsp;the&nbsp;database&nbsp;schema&nbsp;*/<br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;fruit"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;更改数据库架构&nbsp;*/<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;现在数据库连接返回到自动提交模式&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  开始一个事务，关闭自动提交 */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* Change the database schema */<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP TABLE fruit"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 更改数据库架构 */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* 现在数据库连接返回到自动提交模式 */<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -90,8 +106,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="pdo.begintransaction.html" class="function" rel="rdfs-seeAlso">PDO::beginTransaction()</a> - 启动一个事务</span></li>
-    <li class="member"><span class="function"><a href="pdo.rollback.html" class="function" rel="rdfs-seeAlso">PDO::rollBack()</a> - 回滚一个事务</span></li>
+    <li class="member"><span class="methodname"><a href="pdo.begintransaction.html" class="methodname" rel="rdfs-seeAlso">PDO::beginTransaction()</a> - 启动一个事务</span></li>
+    <li class="member"><span class="methodname"><a href="pdo.rollback.html" class="methodname" rel="rdfs-seeAlso">PDO::rollBack()</a> - 回滚一个事务</span></li>
     <li class="member"><a href="pdo.transactions.html" class="link">事务和自动提交</a></li>
    </ul>
   </p>

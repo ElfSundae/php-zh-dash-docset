@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>由文件或 URL 创建一个新图象。</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -33,16 +34,21 @@
  <div class="refsect1 description" id="refsect1-function.imagecreatefromgif-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagecreatefromgif</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>imagecreatefromgif</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>): <span class="type"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
-  <p class="para rdfs-comment"> <span class="function"><strong>imagecreatefromgif()</strong></span>
-   返回一图像标识符，代表了从给定的文件名取得的图像。
+  <p class="para rdfs-comment">
+   <span class="function"><strong>imagecreatefromgif()</strong></span> 返回图像标识符，代表从指定文件名获得的图像。
   </p>
-    <div class="tip"><strong class="tip">Tip</strong><p class="simpara">如已启用<a href="filesystem.configuration.html#ini.allow-url-fopen" class="link">fopen 包装器</a>，在此函数中， URL 可作为文件名。关于如何指定文件名详见 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>。各种
+  <div class="caution"><strong class="caution">Caution</strong>
+   <p class="para">
+    当读取 GIF 文件到内存中时，图像对象仅返回第一帧。图像的大小不一定是
+    <span class="function"><a href="function.getimagesize.html" class="function">getimagesize()</a></span> 报告的大小。
+   </p>
+  </div>
+  <div class="tip"><strong class="tip">Tip</strong><p class="simpara">如已启用<a href="filesystem.configuration.html#ini.allow-url-fopen" class="link">fopen 包装器</a>，在此函数中， URL 可作为文件名。关于如何指定文件名详见 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>。各种
 wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协议</a>，注意其用法及其可提供的预定义变量。</p></div>
  </div>
 
- 
  <div class="refsect1 parameters" id="refsect1-function.imagecreatefromgif-parameters">
   <h3 class="title">参数</h3>
   <p class="para">
@@ -69,13 +75,41 @@ wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协�
   <p class="para">成功后返回图象对象,失败后返回 <strong><code>false</code></strong>。</p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.imagecreatefromgif-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       成功时，此函数现在返回 <span class="classname"><a href="class.gdimage.html" class="classname">GDImage</a></span> 实例；之前返回 <span class="type">resource</span>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.imagecreatefromgif-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-2650">
-   <p><strong>Example #1 处理创建过程中的错误</strong></p>
+  <div class="example" id="example-5320">
+   <p><strong>Example #1 在加载 GIF 期间处理错误的示例</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">LoadGif</span><span style="color: #007700">(</span><span style="color: #0000BB">$imgname</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Attempt&nbsp;to&nbsp;open&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;@</span><span style="color: #0000BB">imagecreatefromgif</span><span style="color: #007700">(</span><span style="color: #0000BB">$imgname</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;See&nbsp;if&nbsp;it&nbsp;failed&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if(!</span><span style="color: #0000BB">$im</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Create&nbsp;a&nbsp;blank&nbsp;image&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">150</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">30</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$bgc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$tc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagefilledrectangle&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">150</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">30</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$bgc</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Output&nbsp;an&nbsp;error&nbsp;message&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagestring&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Error&nbsp;loading&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$imgname</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$tc</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$im</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type:&nbsp;image/gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$img&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">LoadGif</span><span style="color: #007700">(</span><span style="color: #DD0000">'bogus.image'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$img</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$img</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">LoadGif</span><span style="color: #007700">(</span><span style="color: #0000BB">$imgname</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">/* Attempt to open */<br />    </span><span style="color: #0000BB">$im </span><span style="color: #007700">= @</span><span style="color: #0000BB">imagecreatefromgif</span><span style="color: #007700">(</span><span style="color: #0000BB">$imgname</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* See if it failed */<br />    </span><span style="color: #007700">if(!</span><span style="color: #0000BB">$im</span><span style="color: #007700">)<br />    {<br />        </span><span style="color: #FF8000">/* Create a blank image */<br />        </span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor </span><span style="color: #007700">(</span><span style="color: #0000BB">150</span><span style="color: #007700">, </span><span style="color: #0000BB">30</span><span style="color: #007700">);<br />        </span><span style="color: #0000BB">$bgc </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorallocate </span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">);<br />        </span><span style="color: #0000BB">$tc </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecolorallocate </span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />        </span><span style="color: #0000BB">imagefilledrectangle </span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">150</span><span style="color: #007700">, </span><span style="color: #0000BB">30</span><span style="color: #007700">, </span><span style="color: #0000BB">$bgc</span><span style="color: #007700">);<br /><br />        </span><span style="color: #FF8000">/* Output an error message */<br />        </span><span style="color: #0000BB">imagestring </span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #DD0000">'Error loading ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$imgname</span><span style="color: #007700">, </span><span style="color: #0000BB">$tc</span><span style="color: #007700">);<br />    }<br /><br />    return </span><span style="color: #0000BB">$im</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type: image/gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$img </span><span style="color: #007700">= </span><span style="color: #0000BB">LoadGif</span><span style="color: #007700">(</span><span style="color: #DD0000">'bogus.image'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$img</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$img</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -84,21 +118,10 @@ wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协�
    <div class="mediaobject">
     
     <div class="imageobject">
-     <img src="images/21009b70229598c6a80eef8b45bf282b-imagecreatefromgif.gif" alt="例子的输出： 处理创建 GIF 过程中的错误" width="150" height="30" />
+     <img src="images/21009b70229598c6a80eef8b45bf282b-imagecreatefromgif.gif" alt="示例输出：在加载 GIF 期间处理错误的示例" width="150" height="30" />
     </div>
    </div>
   </div>
- </div>
-
- <div class="refsect1 notes" id="refsect1-function.imagecreatefromgif-notes">
-  <h3 class="title">注释</h3>
-  <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <p class="para">
-     自 GD 库 1.6 版起所有的 GIF 支持都移除了，又在 GD 库 2.0.28
-     版起又加了回来。如果使用二者之间版本的 GD 库时本函数不可用。
-   </p>
-  </p></blockquote>
-  
  </div>
 
 </div><div id="usernotes">

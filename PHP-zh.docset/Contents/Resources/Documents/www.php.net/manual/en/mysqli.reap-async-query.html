@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取异步查询的结果</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli.html">MySQLi</a></li>
+    <li><a href="class.mysqli.html">mysqli</a></li>
     <li>获取异步查询的结果</li>
   </ul>
 </div>
@@ -36,15 +37,19 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::reap_async_query</strong></span>(): <span class="type"><a href="class.mysqli-result.html" class="type mysqli_result">mysqli_result</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::reap_async_query</strong></span>(): <span class="type"><span class="type"><a href="class.mysqli-result.html" class="type mysqli_result">mysqli_result</a></span>|<span class="type">bool</span></span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_reap_async_query</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$link</code></span>): <span class="type"><a href="class.mysqli-result.html" class="type mysqli_result">mysqli_result</a></span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_reap_async_query</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <code class="parameter">$mysql</code></span>): <span class="type"><span class="type"><a href="class.mysqli-result.html" class="type mysqli_result">mysqli_result</a></span>|<span class="type">bool</span></span></div>
 
   <p class="para rdfs-comment">
    获取异步查询的结果，
-   仅可用于 <a href="book.mysqlnd.html" class="link">mysqlnd</a>。。
   </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    仅可用于 <a href="book.mysqlnd.html" class="link">mysqlnd</a>。
+   </p>
+  </p></blockquote>
  </div>
 
 
@@ -68,7 +73,9 @@
  <div class="refsect1 returnvalues" id="refsect1-mysqli.reap-async-query-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果成功则返回 <span class="classname"><a href="class.mysqli-result.html" class="classname">mysqli_result</a></span>，否则返回 <strong><code>false</code></strong>。
+   失败时返回 <strong><code>false</code></strong>。对于生成结果集的成功查询，比如 <code class="literal">SELECT, SHOW, DESCRIBE</code> 或
+   <code class="literal">EXPLAIN</code>，<span class="function"><strong>mysqli_reap_async_query()</strong></span> 将返回 <span class="classname"><a href="class.mysqli-result.html" class="classname">mysqli_result</a></span>
+   对象。对其它成功查询，<span class="function"><strong>mysqli_reap_async_query()</strong></span> 将返回 <strong><code>true</code></strong>。
   </p>
  </div>
 

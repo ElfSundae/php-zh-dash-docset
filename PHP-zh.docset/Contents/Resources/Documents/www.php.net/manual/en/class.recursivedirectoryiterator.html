@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>The RecursiveDirectoryIterator class</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -161,8 +162,7 @@
 <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="directoryiterator.next.html" class="methodname">DirectoryIterator::next</a></span>(): <span class="type"><span class="type void">void</span></span></div>
 <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="directoryiterator.rewind.html" class="methodname">DirectoryIterator::rewind</a></span>(): <span class="type"><span class="type void">void</span></span></div>
 <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="directoryiterator.seek.html" class="methodname">DirectoryIterator::seek</a></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code></span>): <span class="type"><span class="type void">void</span></span></div>
-<div class="methodsynopsis dc-description"><span class="modifier">public</span>
-   <span class="methodname"><a href="directoryiterator.tostring.html" class="methodname">DirectoryIterator::__toString</a></span>(): <span class="type">string</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="directoryiterator.tostring.html" class="methodname">DirectoryIterator::__toString</a></span>(): <span class="type">string</span></div>
 <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="directoryiterator.valid.html" class="methodname">DirectoryIterator::valid</a></span>(): <span class="type">bool</span></div>
 
     <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="splfileinfo.getatime.html" class="methodname">SplFileInfo::getATime</a></span>(): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
@@ -203,10 +203,6 @@
  </div>
  
  
-
-
-
-
 
 
 
@@ -527,8 +523,8 @@ RecursiveDirectoryIterator recurses without limitations into the full filesystem
 Do NOT do the following, unless you intentionally want to infinitely recurse without limitations:<br />
 <br />
 <span class="default">&lt;?php<br />
-$directory </span><span class="keyword">= new \</span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />
-</span><span class="default">$iterator </span><span class="keyword">= new \</span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">);<br />
+$directory </span><span class="keyword">= new </span><span class="default">\RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />
+</span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">\RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">);<br />
 </span><span class="default">$files </span><span class="keyword">= array();<br />
 foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$info</span><span class="keyword">) {<br />
 &nbsp; if (...</span><span class="default">custom conditions</span><span class="keyword">...) {<br />
@@ -550,15 +546,15 @@ Remember this simple rule of thumb:<br />
 On PHP &lt;5.4, implement the following - your custom conditions move into a proper filter:<br />
 <br />
 <span class="default">&lt;?php<br />
-$directory </span><span class="keyword">= new \</span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, \</span><span class="default">FilesystemIterator</span><span class="keyword">::</span><span class="default">FOLLOW_SYMLINKS</span><span class="keyword">);<br />
+$directory </span><span class="keyword">= new </span><span class="default">\RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">\FilesystemIterator</span><span class="keyword">::</span><span class="default">FOLLOW_SYMLINKS</span><span class="keyword">);<br />
 </span><span class="default">$filter </span><span class="keyword">= new </span><span class="default">MyRecursiveFilterIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">);<br />
-</span><span class="default">$iterator </span><span class="keyword">= new \</span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">);<br />
+</span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">\RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">);<br />
 </span><span class="default">$files </span><span class="keyword">= array();<br />
 foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$info</span><span class="keyword">) {<br />
 &nbsp; </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$info</span><span class="keyword">-&gt;</span><span class="default">getPathname</span><span class="keyword">();<br />
 }<br />
 <br />
-class </span><span class="default">MyRecursiveFilterIterator </span><span class="keyword">extends \</span><span class="default">RecursiveFilterIterator </span><span class="keyword">{<br />
+class </span><span class="default">MyRecursiveFilterIterator </span><span class="keyword">extends </span><span class="default">\RecursiveFilterIterator </span><span class="keyword">{<br />
 <br />
 &nbsp; public function </span><span class="default">accept</span><span class="keyword">() {<br />
 &nbsp;&nbsp;&nbsp; </span><span class="default">$filename </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">()-&gt;</span><span class="default">getFilename</span><span class="keyword">();<br />
@@ -582,8 +578,8 @@ class </span><span class="default">MyRecursiveFilterIterator </span><span class=
 On PHP 5.4+, PHP core addressed the slightly cumbersome issue of having to create an entirely new class and you can leverage the new RecursiveCallbackFilterIterator instead:<br />
 <br />
 <span class="default">&lt;?php<br />
-$directory </span><span class="keyword">= new \</span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, \</span><span class="default">FilesystemIterator</span><span class="keyword">::</span><span class="default">FOLLOW_SYMLINKS</span><span class="keyword">);<br />
-</span><span class="default">$filter </span><span class="keyword">= new \</span><span class="default">RecursiveCallbackFilterIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">, function (</span><span class="default">$current</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$iterator</span><span class="keyword">) {<br />
+$directory </span><span class="keyword">= new </span><span class="default">\RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">\FilesystemIterator</span><span class="keyword">::</span><span class="default">FOLLOW_SYMLINKS</span><span class="keyword">);<br />
+</span><span class="default">$filter </span><span class="keyword">= new </span><span class="default">\RecursiveCallbackFilterIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">, function (</span><span class="default">$current</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$iterator</span><span class="keyword">) {<br />
 &nbsp; </span><span class="comment">// Skip hidden files and directories.<br />
 &nbsp; </span><span class="keyword">if (</span><span class="default">$current</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">()[</span><span class="default">0</span><span class="keyword">] === </span><span class="string">'.'</span><span class="keyword">) {<br />
 &nbsp;&nbsp;&nbsp; return </span><span class="default">FALSE</span><span class="keyword">;<br />
@@ -597,7 +593,7 @@ $directory </span><span class="keyword">= new \</span><span class="default">Recu
 &nbsp;&nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$current</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">(), </span><span class="string">'wanted_filename'</span><span class="keyword">) === </span><span class="default">0</span><span class="keyword">;<br />
 &nbsp; }<br />
 });<br />
-</span><span class="default">$iterator </span><span class="keyword">= new \</span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">);<br />
+</span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">\RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">);<br />
 </span><span class="default">$files </span><span class="keyword">= array();<br />
 foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$info</span><span class="keyword">) {<br />
 &nbsp; </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$info</span><span class="keyword">-&gt;</span><span class="default">getPathname</span><span class="keyword">();<br />

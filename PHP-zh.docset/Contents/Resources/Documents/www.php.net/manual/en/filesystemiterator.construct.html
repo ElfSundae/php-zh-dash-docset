@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Constructs a new filesystem iterator</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -70,12 +71,6 @@
        A list of the flags can found under <a href="class.filesystemiterator.html#filesystemiterator.constants" class="link">FilesystemIterator predefined constants</a>. 
        They can also be set later with <span class="methodname"><a href="filesystemiterator.setflags.html" class="methodname">FilesystemIterator::setFlags()</a></span>
       </p>
-      <blockquote class="note"><p><strong class="note">Note</strong>: 
-       <p class="para">
-        <strong><code>FilesystemIterator::SKIP_DOTS</code></strong> is always set, and cannot
-        be removed.
-       </p>
-      </p></blockquote>
      </dd>
 
     
@@ -113,6 +108,14 @@
 
      <tbody class="tbody">
       <tr>
+       <td>8.2.0</td>
+       <td>
+        Prior to PHP 8.2.0, <strong><code>FilesystemIterator::SKIP_DOTS</code></strong> was
+        always set and could not be removed.
+       </td>
+      </tr>
+
+      <tr>
        <td>8.0.0</td>
        <td>
         Now throws a <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> if
@@ -132,16 +135,26 @@
  <div class="refsect1 examples" id="refsect1-filesystemiterator.construct-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-3613">
+   <div class="example" id="">
     <p><strong>Example #1 <span class="function"><strong>FilesystemIterator::__construct()</strong></span> example</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$it&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">FilesystemIterator</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">));<br />foreach&nbsp;(</span><span style="color: #0000BB">$it&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getFilename</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$it </span><span style="color: #007700">= new </span><span style="color: #0000BB">FilesystemIterator</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">), </span><span style="color: #0000BB">FilesystemIterator</span><span style="color: #007700">::</span><span style="color: #0000BB">CURRENT_AS_FILEINFO</span><span style="color: #007700">);<br />foreach (</span><span style="color: #0000BB">$it </span><span style="color: #007700">as </span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">) {<br />    echo </span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getFilename</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>上述示例在 PHP 8.2 中的输出类似于于：</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+.
+..
+apples.jpg
+banana.jpg
+example.php
+</pre></div>
+    </div>
+    <div class="example-contents"><p>Output of the above example prior to PHP 8.2.0 is similar to:</p></div>
     <div class="example-contents screen">
 <div class="cdata"><pre>
 apples.jpg

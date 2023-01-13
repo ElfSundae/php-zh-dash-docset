@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Character sets</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -12,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="mysqlinfo.concepts.buffering.html">? Buffered and Unbuffered queries</a></li>
-      <li style="float: right;"><a href="book.mysqli.html">Mysqli ?</a></li>
+      <li style="float: right;"><a href="book.mysqli.html">MySQLi ?</a></li>
     </ul>
   </div>
 </div>
@@ -46,11 +47,11 @@
    </p>
   </div>
 
-  <div class="example" id="example-1406">
+  <div class="example" id="example-2816">
    <p><strong>Example #1 Problems with setting the character set with SQL</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Will&nbsp;NOT&nbsp;affect&nbsp;$mysqli-&gt;real_escape_string();<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SET&nbsp;NAMES&nbsp;utf8mb4"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Will&nbsp;NOT&nbsp;affect&nbsp;$mysqli-&gt;real_escape_string();<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SET&nbsp;CHARACTER&nbsp;SET&nbsp;utf8mb4"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;But,&nbsp;this&nbsp;will&nbsp;affect&nbsp;$mysqli-&gt;real_escape_string();<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set_charset</span><span style="color: #007700">(</span><span style="color: #DD0000">'utf8mb4'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;But,&nbsp;this&nbsp;will&nbsp;NOT&nbsp;affect&nbsp;it&nbsp;(UTF-8&nbsp;vs&nbsp;utf8mb4)&nbsp;--&nbsp;don't&nbsp;use&nbsp;dashes&nbsp;here<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set_charset</span><span style="color: #007700">(</span><span style="color: #DD0000">'UTF-8'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br />$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Will NOT affect $mysqli-&gt;real_escape_string();<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SET NAMES utf8mb4"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Will NOT affect $mysqli-&gt;real_escape_string();<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SET CHARACTER SET utf8mb4"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// But, this will affect $mysqli-&gt;real_escape_string();<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set_charset</span><span style="color: #007700">(</span><span style="color: #DD0000">'utf8mb4'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// But, this will NOT affect it (UTF-8 vs utf8mb4) -- don't use dashes here<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set_charset</span><span style="color: #007700">(</span><span style="color: #DD0000">'UTF-8'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -71,22 +72,22 @@
    </p>
   </p></blockquote>
 
-  <div class="example" id="example-1407">
+  <div class="example" id="example-2818">
    <p><strong>Example #2 Setting the character set example: mysqli</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Initial&nbsp;character&nbsp;set:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">character_set_name</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set_charset</span><span style="color: #007700">(</span><span style="color: #DD0000">'utf8mb4'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Error&nbsp;loading&nbsp;character&nbsp;set&nbsp;utf8mb4:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Your&nbsp;current&nbsp;character&nbsp;set&nbsp;is:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">character_set_name</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">'Initial character set: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">character_set_name</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />if (!</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set_charset</span><span style="color: #007700">(</span><span style="color: #DD0000">'utf8mb4'</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Error loading character set utf8mb4: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #007700">);<br />    exit;<br />}<br /><br />echo </span><span style="color: #DD0000">'Your current character set is: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">character_set_name</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-1408">
+  <div class="example" id="example-2820">
    <p><strong>Example #3 Setting the character set example: <a href="ref.pdo-mysql.connection.html" class="link">pdo_mysql</a></strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$pdo&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">"mysql:host=localhost;dbname=world;charset=utf8mb4"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_pass'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />$pdo </span><span style="color: #007700">= new </span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">"mysql:host=localhost;dbname=world;charset=utf8mb4"</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_pass'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
@@ -97,7 +98,24 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121888""></a>
+<div id="allnotes">  <a name="128056""></a>
+  <div class="note">
+   <strong class="user">legrand dot jeremie at gmail dot com</strong>
+   <a href="#128056" class="date">26-Dec-2022 02:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+After setting the charset, you should define the 'collation' too, to give information on how sorting results on requests. By default, it is 'utf8mb4_general_ci', which is a simplified set of sorting rules. For the official rules, edicted by Unicode, it should be 'utf8mb4_unicode_ci'.<br />
+<br />
+For example:<br />
+\mysqli_set_charset($hdl, 'utf8mb4');<br />
+\mysqli_query($hdl, 'SET collation_connection = utf8mb4_unicode_520_ci');</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121888""></a>
   <div class="note">
    <strong class="user">mkroese at eljakim dot nl</strong>
    <a href="#121888" class="date">21-Nov-2017 06:44</a>

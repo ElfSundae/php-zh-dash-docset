@@ -3,8 +3,9 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>执行外部程序并且显示原始输出</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -34,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.passthru-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>passthru</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$command</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter reference">&$result_code</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type"><span class="type">?</span><span class="type">bool</span></span></div>
+   <span class="methodname"><strong>passthru</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$command</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter reference">&$result_code</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type"><span class="type">?</span><span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
     同 <span class="function"><a href="function.exec.html" class="function">exec()</a></span> 函数类似，
@@ -92,6 +93,45 @@
   <p class="para">
    成功时返回 <strong><code>null</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
   </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.passthru-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   如果 <span class="function"><strong>passthru()</strong></span> 无法执行 <code class="parameter">command</code>，会发出 <strong><code>E_WARNING</code></strong>。
+  </p>
+  <p class="para">
+   如果 <code class="parameter">command</code> 为空或者包含 null 字节，则抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.passthru-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       如果 <code class="parameter">command</code> 为空或者包含 null 字节，<span class="function"><strong>passthru()</strong></span> 现在将抛出
+       <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。之前会发出 <strong><code>E_WARNING</code></strong> 并返回 <strong><code>false</code></strong>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 

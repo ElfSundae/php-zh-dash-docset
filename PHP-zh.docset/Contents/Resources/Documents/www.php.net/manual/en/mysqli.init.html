@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>初始化 MySQLi 并返回一个资源类型的值，这个值可以作为 mysqli_real_connect() 函数的传入参数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>初始化 MySQLi 并返回用于 mysqli_real_connect() 的对象</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -19,8 +20,8 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="class.mysqli.html">MySQLi</a></li>
-    <li>初始化 MySQLi 并返回一个资源类型的值，这个值可以作为 mysqli_real_connect() 函数的传入参数</li>
+    <li><a href="class.mysqli.html">mysqli</a></li>
+    <li>初始化 MySQLi 并返回用于 mysqli_real_connect() 的对象</li>
   </ul>
 </div>
 <div id="layout">
@@ -28,7 +29,7 @@
  <div class="refnamediv">
   <h1 class="refname">mysqli::init</h1>
   <h1 class="refname">mysqli_init</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::init</span> -- <span class="refname">mysqli_init</span> &mdash; <span class="dc-title">初始化 MySQLi 并返回一个资源类型的值，这个值可以作为 mysqli_real_connect() 函数的传入参数</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::init</span> -- <span class="refname">mysqli_init</span> &mdash; <span class="dc-title">初始化 MySQLi 并返回用于 mysqli_real_connect() 的对象</span></p>
 
  </div>
 
@@ -36,36 +37,70 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysqli::init</strong></span>(): <span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::init</strong></span>(): <span class="type"><span class="type">?</span><span class="type">bool</span></span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_init</strong></span>(): <span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_init</strong></span>(): <span class="type"><span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   分配，或者初始化一个 MYSQL 对象，可以作为
-   <span class="function"><a href="mysqli.options.html" class="function">mysqli_options()</a></span> 和 <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span> 函数的传入参数使用。
+   分配或者初始化适合 <span class="function"><a href="mysqli.options.html" class="function">mysqli_options()</a></span> 和 <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span> 的 MYSQL 对象。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    在调用 <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span> 函数之前调用其他的 mysqli 函数可能会调用失败。
-    （<span class="function"><a href="mysqli.options.html" class="function">mysqli_options()</a></span> 函数除外）。
+    在调用 <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span> 之前，对其它 mysqli 函数（<span class="function"><a href="mysqli.options.html" class="function">mysqli_options()</a></span>
+    和 <span class="function"><a href="mysqli.ssl-set.html" class="function">mysqli_ssl_set()</a></span> 除外）的后续调用都会失败。
    </p>
   </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mysqli.init-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">此函数没有参数。</p>
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-mysqli.init-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回一个对象。
+   <span class="methodname"><strong>mysqli::init()</strong></span> 成功时返回 <strong><code>null</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。<span class="function"><strong>mysqli_init()</strong></span>
+   成功时返回对象， 或者在失败时返回 <strong><code>false</code></strong>。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-mysqli.init-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.1.0</td>
+      <td>
+       弃用面向对象风格的 <span class="methodname"><strong>mysqli::init()</strong></span> 方法。用 <span class="methodname"><strong>parent::__construct()</strong></span>
+       替换对 <span class="methodname"><strong>parent::init()</strong></span> 的调用。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-mysqli.init-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   参见 <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span>.
+   参阅 <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span>。
   </p>
  </div>
 

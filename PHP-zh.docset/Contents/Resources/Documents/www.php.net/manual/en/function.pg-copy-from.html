@@ -2,9 +2,10 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>根据数组将记录插入表中</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+  <title>将数组中的记录插入到表</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
  </head>
@@ -20,28 +21,29 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.pgsql.html">PostgreSQL 函数</a></li>
-    <li>根据数组将记录插入表中</li>
+    <li>将数组中的记录插入到表</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.pg-copy-from" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">pg_copy_from</h1>
-    <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_copy_from</span> &mdash; <span class="dc-title">
-     根据数组将记录插入表中
-    </span></p>
+ <div class="refnamediv">
+  <h1 class="refname">pg_copy_from</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_copy_from</span> &mdash; <span class="dc-title">
+   将数组中的记录插入到表
+  </span></p>
 
-   </div>
- 
+ </div>
+
  <div class="refsect1 description" id="refsect1-function.pg-copy-from-description">
   <h3 class="title">说明</h3>
-     <div class="methodsynopsis dc-description">
-      <span class="methodname"><strong>pg_copy_from</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$connection</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$table_name</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$rows</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$delimiter</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$null_as</code><span class="initializer"> = ?</span></span><br>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>pg_copy_from</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.pgsql-connection.html" class="type PgSql\Connection">PgSql\Connection</a></span> <code class="parameter">$connection</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$table_name</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$rows</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$separator</code><span class="initializer"> = &quot;\t&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$null_as</code><span class="initializer"> = &quot;\\\\N&quot;</span></span><br>): <span class="type">bool</span></div>
 
-    <p class="para rdfs-comment">
-     <span class="function"><strong>pg_copy_from()</strong></span> 将数组 <code class="parameter">rows</code> 的内容作为记录插入表中。它在内部使用了 <code class="literal">COPY FROM</code> SQL 命令来插入记录。
-    </p>
-   </div>
+  <p class="para rdfs-comment">
+   <span class="function"><strong>pg_copy_from()</strong></span> 将 <code class="parameter">rows</code> 插入记录到表中。在内部发出
+   <code class="literal">COPY FROM</code> 命令以插入记录。
+  </p>
+ </div>
 
 
  <div class="refsect1 parameters" id="refsect1-function.pg-copy-from-parameters">
@@ -54,9 +56,7 @@
 
      <dd>
 
-      <p class="para">
-       PostgreSQL database connection resource.
-      </p>
+      <p class="para">An <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span> instance.</p>
      </dd>
 
     
@@ -67,7 +67,7 @@
      <dd>
 
       <p class="para">
-       Name of the table into which to copy the <code class="parameter">rows</code>.
+       复制 <code class="parameter">rows</code> 到其中的表名。
       </p>
      </dd>
 
@@ -79,23 +79,21 @@
      <dd>
 
       <p class="para">
-       An <span class="type">array</span> of data to be copied into <code class="parameter">table_name</code>.
-       Each value in <code class="parameter">rows</code> becomes a row in <code class="parameter">table_name</code>.
-       Each value in <code class="parameter">rows</code> should be a delimited string of the values
-       to insert into each field.  Values should be linefeed terminated.
+       要复制 <span class="type">array</span> 中的数据到 <code class="parameter">table_name</code>。<code class="parameter">rows</code>
+       中的每个值都成为 <code class="parameter">table_name</code> 中的一行。<code class="parameter">rows</code>
+       中的每个值都应该用字符串分割以插入到每个字段。值应该换行终止。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">delimiter</code></dt>
+<code class="parameter">separator</code></dt>
 
      <dd>
 
       <p class="para">
-       The token that separates values for each field in each element of
-       <code class="parameter">rows</code>.  Default is <code class="literal">TAB</code>.
+       <code class="parameter">rows</code> 的每个元素分割为每个字段的值的标记。默认为 <code class="literal">\t</code>。
       </p>
      </dd>
 
@@ -107,8 +105,7 @@
      <dd>
 
       <p class="para">
-       How SQL <code class="literal">NULL</code> values are represented in the
-       <code class="parameter">rows</code>.  Default is \N (&quot;\N&quot;).
+       SQL <code class="literal">NULL</code> 值在 <code class="parameter">rows</code> 中的表示方式。默认为 <code class="literal">\\N</code>（<code class="literal">&quot;\\\\N&quot;</code>）。
       </p>
      </dd>
 
@@ -127,14 +124,42 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.pg-copy-from-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">connection</code> 参数接受 <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">资源(resource)</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.pg-copy-from-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-1893">
-    <p><strong>Example #1 <span class="function"><strong>pg_copy_from()</strong></span> example</strong></p>
+   <div class="example" id="example-3788">
+    <p><strong>Example #1 <span class="function"><strong>pg_copy_from()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;$db&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"Could&nbsp;not&nbsp;connect"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rows&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_copy_to</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$table_name</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DELETE&nbsp;FROM&nbsp;</span><span style="color: #0000BB">$table_name</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">pg_copy_from</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$table_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$rows</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />   $db </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">) or die(</span><span style="color: #DD0000">"Could not connect"</span><span style="color: #007700">);<br />   <br />   </span><span style="color: #0000BB">$rows </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_copy_to</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">, </span><span style="color: #0000BB">$table_name</span><span style="color: #007700">);<br />   <br />   </span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">, </span><span style="color: #DD0000">"DELETE FROM </span><span style="color: #0000BB">$table_name</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />   <br />   </span><span style="color: #0000BB">pg_copy_from</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">, </span><span style="color: #0000BB">$table_name</span><span style="color: #007700">, </span><span style="color: #0000BB">$rows</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -148,12 +173,12 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.pg-copy-to.html" class="function" rel="rdfs-seeAlso">pg_copy_to()</a> - 将一个表拷贝到数组中</span></li>
+    <li class="member"><span class="function"><a href="function.pg-copy-to.html" class="function" rel="rdfs-seeAlso">pg_copy_to()</a> - 将表复制到数组</span></li>
    </ul>
   </p>
  </div>
 
-  </div><div id="usernotes">
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
