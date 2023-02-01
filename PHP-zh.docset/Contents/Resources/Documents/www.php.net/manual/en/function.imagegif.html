@@ -34,14 +34,11 @@
  <div class="refsect1 description" id="refsect1-function.imagegif-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagegif</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code><span class="initializer"> = ?</span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>imagegif</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type"><span class="type">resource</span>|<span class="type">string</span>|<span class="type">null</span></span> <code class="parameter">$file</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>imagegif()</strong></span> 从 <code class="parameter">image</code>
-   图像以 <code class="parameter">filename</code> 为文件名创建一个
-   <abbr title="Graphic Interchange Format">GIF</abbr> 图像。<code class="parameter">image</code>
-   参数是 <span class="function"><a href="function.imagecreate.html" class="function">imagecreate()</a></span> 或
-   <code class="literal">imagecreatefrom*</code> 函数的返回值。
+   <span class="function"><strong>imagegif()</strong></span> 从图像 <code class="parameter">image</code> 在 <code class="parameter">file</code> 中创建 <abbr title="Graphic Interchange Format">GIF</abbr>
+   图像。<code class="parameter">image</code> 参数是 <span class="function"><a href="function.imagecreate.html" class="function">imagecreate()</a></span> 或 <code class="literal">imagecreatefrom*</code> 函数的返回值。
   </p>
   <p class="para">
    图像格式为 <abbr>GIF87a</abbr>。如果用了
@@ -63,7 +60,7 @@
 
     
      <dt>
-<code class="parameter">filename</code></dt>
+<code class="parameter">file</code></dt>
 
      <dd>
 
@@ -81,23 +78,53 @@
   <p class="para">
    成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
   </p>
+  <div class="caution"><strong class="caution">Caution</strong><p class="simpara">如果 libgd 输出图像失败，函数会返回 <strong><code>true</code></strong>。</p></div>
  </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.imagegif-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
 
  <div class="refsect1 examples" id="refsect1-function.imagegif-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5402">
-    <p><strong>Example #1 使用  <span class="function"><strong>imagegif()</strong></span> 输出一个图像</strong></p>
+   <div class="example" id="example-5404">
+    <p><strong>Example #1 使用  <span class="function"><strong>imagegif()</strong></span> 输出图像</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建新的图像实例<br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 设置背景为白色<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">99</span><span style="color: #007700">, </span><span style="color: #0000BB">99</span><span style="color: #007700">, </span><span style="color: #0000BB">0xFFFFFF</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//在图像上写字<br /></span><span style="color: #0000BB">imagestring</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">40</span><span style="color: #007700">, </span><span style="color: #0000BB">20</span><span style="color: #007700">, </span><span style="color: #DD0000">'GD Library'</span><span style="color: #007700">, </span><span style="color: #0000BB">0xFFBA00</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 输出图像到浏览器<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type: image/gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建新的图像实例<br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 设置背景为白色<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">99</span><span style="color: #007700">, </span><span style="color: #0000BB">99</span><span style="color: #007700">, </span><span style="color: #0000BB">0xFFFFFF</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//在图像上绘制文本字符串<br /></span><span style="color: #0000BB">imagestring</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">40</span><span style="color: #007700">, </span><span style="color: #0000BB">20</span><span style="color: #007700">, </span><span style="color: #DD0000">'GD Library'</span><span style="color: #007700">, </span><span style="color: #0000BB">0xFFBA00</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 输出图像到浏览器<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type: image/gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
 
    </div>
-   <div class="example" id="example-5404">
-    <p><strong>Example #2 使用 <span class="function"><strong>imagegif()</strong></span> 将一个 PNG 转换成 GIF</strong></p>
+   <div class="example" id="example-5406">
+    <p><strong>Example #2 使用 <span class="function"><strong>imagegif()</strong></span> 将 PNG 图像转换成 GIF</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// 载入 PNG<br /></span><span style="color: #0000BB">$png </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'./php.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 以 GIF 保存图像<br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$png</span><span style="color: #007700">, </span><span style="color: #DD0000">'./php.gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 释放内存<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$png</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 完工<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">'Converted PNG image to GIF with success!'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -113,14 +140,8 @@
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    不过从 <abbr title="Graphics Draw">GD</abbr> 库 1.6 起所有的 <abbr title="Graphic Interchange Format">GIF</abbr> 支持都移除了，并在版本 2.0.28 中加了回来。如果使用这些 版本之间的 GD 库时本函数不可用。 更多信息见
-     <a href="http://www.libgd.org/" class="link external" title="Link : http://www.libgd.org/">&raquo;&nbsp;GD Project</a> 站点。
-   </p>      
-   <p class="para">
-    以下代码段通过自动检测 GD 支持的图像类型来写出移植性更好的
-     PHP 程序。用更灵活的代码替代了原来的
-     <code class="literal">header(&quot;Content-type: image/gif&quot;);
-     imagegif($im);</code>：
+    以下代码段通过自动检测 GD 支持的图像类型来写出移植性更好的 PHP 程序。用更灵活的代码替代了原来的 <code class="literal">header(&quot;Content-type:
+    image/gif&quot;); imagegif($im);</code>：
     <div class="informalexample">
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -134,9 +155,8 @@
   </p></blockquote>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    自 PHP 3.0.18 和 4.0.2 起可以用
-     <span class="function"><a href="function.imagetypes.html" class="function">imagetypes()</a></span> 函数代替
-     <span class="function"><a href="function.function-exists.html" class="function">function_exists()</a></span> 来检查是否支持某种图像格式：
+    可以用
+     <span class="function"><a href="function.imagetypes.html" class="function">imagetypes()</a></span> 函数检查是否支持某种图像格式：
     <div class="informalexample">
      <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -152,14 +172,12 @@
 
  <div class="refsect1 seealso" id="refsect1-function.imagegif-seealso">
   <h3 class="title">参见</h3>
-  <p class="para">
-   <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.imagepng.html" class="function" rel="rdfs-seeAlso">imagepng()</a> - 以 PNG 格式将图像输出到浏览器或文件</span></li>
-    <li class="member"><span class="function"><a href="function.imagewbmp.html" class="function" rel="rdfs-seeAlso">imagewbmp()</a> - 输出图象到浏览器或文件。</span></li>
-    <li class="member"><span class="function"><a href="function.imagejpeg.html" class="function" rel="rdfs-seeAlso">imagejpeg()</a> - 输出图象到浏览器或文件。</span></li>
-    <li class="member"><span class="function"><a href="function.imagetypes.html" class="function" rel="rdfs-seeAlso">imagetypes()</a> - 返回 PHP 内置支持的图像类型</span></li>
-   </ul>
-  </p>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imagepng.html" class="function" rel="rdfs-seeAlso">imagepng()</a> - 将 PNG 图像输出到浏览器或文件</span></li>
+   <li class="member"><span class="function"><a href="function.imagewbmp.html" class="function" rel="rdfs-seeAlso">imagewbmp()</a> - 输出图象到浏览器或文件。</span></li>
+   <li class="member"><span class="function"><a href="function.imagejpeg.html" class="function" rel="rdfs-seeAlso">imagejpeg()</a> - 输出图象到浏览器或文件。</span></li>
+   <li class="member"><span class="function"><a href="function.imagetypes.html" class="function" rel="rdfs-seeAlso">imagetypes()</a> - 返回 PHP 内置支持的图像类型</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

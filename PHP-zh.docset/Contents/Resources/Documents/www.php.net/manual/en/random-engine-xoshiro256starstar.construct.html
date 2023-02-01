@@ -133,15 +133,25 @@
    <p><strong>Example #1 <span class="function"><strong>Random\Engine\Xoshiro256StarStar::__construct()</strong></span> example</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* ... */<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Uses a random 256 Bit seed.<br /></span><span style="color: #0000BB">$e </span><span style="color: #007700">= new </span><span style="color: #0000BB">\Random\Engine\Xoshiro256StarStar</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= new </span><span style="color: #0000BB">\Random\Randomizer</span><span style="color: #007700">(</span><span style="color: #0000BB">$e</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+  </div>
+  <div class="example" id="">
+   <p><strong>Example #2 Deriving a seed from a <span class="type">string</span></strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">"My string seed"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Hash the string with SHA-256 using binary output to turn the<br />// $string into a 256 Bit seed. Using the same string will result<br />// in the same sequence of randomness.<br /></span><span style="color: #0000BB">$e </span><span style="color: #007700">= new </span><span style="color: #0000BB">\Random\Engine\Xoshiro256StarStar</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">hash</span><span style="color: #007700">( </span><span style="color: #DD0000">'sha256'</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">, </span><span style="color: #0000BB">binary</span><span style="color: #007700">: </span><span style="color: #0000BB">true </span><span style="color: #007700">)<br />);<br /><br />echo </span><span style="color: #0000BB">bin2hex</span><span style="color: #007700">( </span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">generate</span><span style="color: #007700">() ), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>以上例程会输出：</p></div>
    <div class="example-contents screen">
 <div class="cdata"><pre>
-...
+6e013453678388c2
 </pre></div>
    </div>
   </div>

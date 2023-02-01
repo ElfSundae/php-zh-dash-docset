@@ -39,9 +39,7 @@
 
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>Memcache::delete()</strong></span>函数通过<code class="parameter">key</code>删除一个元素。
-   如果参数<code class="parameter">timeout</code>指定，该元素会在<code class="parameter">timeout</code>秒后失效。
-   同样也可以使用<span class="function"><strong>memcache_delete()</strong></span>函数完成同样功能。
+   <span class="function"><strong>Memcache::delete()</strong></span> 通过 <code class="parameter">key</code> 删除元素。
   </p>
 
  </div>
@@ -70,7 +68,7 @@
      <dd>
 
       <p class="para">
-      删除该元素的执行时间。如果值为0,则该元素立即删除，如果值为30,元素会在30秒内被删除。
+       不支持此弃用参数，并且默认为 <code class="literal">0</code> 秒。不要使用此参数。
       </p>
      </dd>
 
@@ -99,10 +97,8 @@
       <td>Unknown</td>
       <td>
        
-       It&#039;s not recommended to use the <code class="parameter">timeout</code> parameter. The
-       behavior differs between memcached versions, but setting to <code class="literal">0</code>
-       is safe. Other values for this deprecated feature may cause the memcache delete
-       to fail.
+       不建议使用 <code class="parameter">timeout</code> 参数。此行为在多个 memcached 版本之间的行为不同，但设置为 <code class="literal">0</code>
+       是安全的。此弃用功能的其他值可能会导致内存缓存删除失败。
       </td>
      </tr>
 
@@ -125,10 +121,10 @@
   <h3 class="title">范例</h3>
   <p class="para">
    <div class="example" id="">
-    <p><strong>Example #1 <span class="function"><strong>Memcache::delete()</strong></span> example</strong></p>
+    <p><strong>Example #1 <span class="function"><strong>Memcache::delete()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* procedural API */<br /></span><span style="color: #0000BB">$memcache_obj </span><span style="color: #007700">= </span><span style="color: #0000BB">memcache_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 10秒后key_to_delete对应的值会被从服务端删除 */<br /></span><span style="color: #0000BB">memcache_delete</span><span style="color: #007700">(</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">, </span><span style="color: #DD0000">'key_to_delete'</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* OO API */<br /></span><span style="color: #0000BB">$memcache_obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">delete</span><span style="color: #007700">(</span><span style="color: #DD0000">'key_to_delete'</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* procedural API */<br /></span><span style="color: #0000BB">$memcache_obj </span><span style="color: #007700">= </span><span style="color: #0000BB">memcache_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 元素将会通过服务器删除 */<br /></span><span style="color: #0000BB">memcache_delete</span><span style="color: #007700">(</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">, </span><span style="color: #DD0000">'key_to_delete'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* OO API */<br /></span><span style="color: #0000BB">$memcache_obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">delete</span><span style="color: #007700">(</span><span style="color: #DD0000">'key_to_delete'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -142,7 +138,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="memcache.set.html" class="function" rel="rdfs-seeAlso">Memcache::set()</a> - Store data at the server</span></li>
+    <li class="member"><span class="function"><a href="memcache.set.html" class="function" rel="rdfs-seeAlso">Memcache::set()</a> - 存储数据到服务器</span></li>
     <li class="member"><span class="function"><a href="memcache.replace.html" class="function" rel="rdfs-seeAlso">Memcache::replace()</a> - 替换已经存在的元素的值</span></li>
    </ul>
   </p>

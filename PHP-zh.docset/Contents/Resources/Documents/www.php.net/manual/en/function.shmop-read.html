@@ -65,7 +65,8 @@
      <dd>
 
       <p class="para">
-       Offset from which to start reading
+       Offset from which to start reading; must be greater than or equal to zero
+       and less than or equal to the actual size of the shared memory segment.
       </p>
      </dd>
 
@@ -77,7 +78,9 @@
      <dd>
 
       <p class="para">
-       The number of bytes to read.
+       The number of bytes to read; must be greater than or equal to zero,
+       and the sum of <code class="parameter">offset</code> and <code class="parameter">size </code>
+       must be less than or equal to the actual size of the shared memory segment.
        <code class="literal">0</code> reads <code class="code">shmop_size($shmid) - $start</code> bytes.
       </p>
      </dd>
@@ -92,6 +95,15 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    Returns the data 或者在失败时返回 <strong><code>false</code></strong>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.shmop-read-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   If <code class="parameter">offset</code> or <code class="parameter">size</code> are out of range,
+   a <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> is thrown.
   </p>
  </div>
 
@@ -114,6 +126,15 @@
       <td>
        <code class="parameter">shmop</code> expects a <span class="classname"><a href="class.shmop.html" class="classname">Shmop</a></span>
        instance now; previously, a <span class="type">resource</span> was expected.
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       If <code class="parameter">offset</code> or <code class="parameter">size</code> are out of range,
+       a <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> is thrown; previously <strong><code>E_WARNING</code></strong>
+       was emitted, and <strong><code>false</code></strong> was returned,
       </td>
      </tr>
 

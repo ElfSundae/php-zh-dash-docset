@@ -189,7 +189,37 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126838""></a>
+<div id="allnotes">  <a name="128116""></a>
+  <div class="note">
+   <strong class="user">TingSong</strong>
+   <a href="#128116" class="date">15-Jan-2023 10:49</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+To decompress a gzipped stream:<br />
+<br />
+<span class="default">&lt;?php<br />
+$stream </span><span class="keyword">= </span><span class="default">$s3_client</span><span class="keyword">-&gt;</span><span class="default">getReadStream</span><span class="keyword">(</span><span class="string">'somefile.csv.gz'</span><span class="keyword">);<br />
+</span><span class="default">stream_filter_append</span><span class="keyword">(</span><span class="default">$stream</span><span class="keyword">, </span><span class="string">'zlib.inflate'</span><span class="keyword">, </span><span class="default">STREAM_FILTER_READ</span><span class="keyword">, [</span><span class="string">'window' </span><span class="keyword">=&gt; </span><span class="default">15</span><span class="keyword">+</span><span class="default">16</span><span class="keyword">]);<br />
+<br />
+</span><span class="comment">// read the decompressed line directly<br />
+</span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$stream</span><span class="keyword">);<br />
+</span><span class="default">$columns </span><span class="keyword">= </span><span class="default">str_getcsv</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// process the data in columns<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+As the doc of zlib https://www.zlib.net/manual.html#Advanced<br />
+<br />
+The 'window' parameter between 8 and 15 specified the window size from 2? to 21? bytes. It can be added by 16 for wrapping with gzip header and trailer instead of zlib wrapper.<br />
+<br />
+And, window could be -8..-15 for unwrapping RAW deflate data.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126838""></a>
   <div class="note">
    <strong class="user">Sbastien</strong>
    <a href="#126838" class="date">09-Feb-2022 10:10</a>

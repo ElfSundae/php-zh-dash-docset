@@ -34,17 +34,13 @@
  <div class="refsect1 description" id="refsect1-function.imagerotate-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagerotate</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$angle</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$bgd_color</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$ignore_transparent</code><span class="initializer"> = 0</span></span><br>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>imagerotate</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">float</span> <code class="parameter">$angle</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$background_color</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$ignore_transparent</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span>|<span class="type"><span class="type false">false</span></span></span></div>
 
   <p class="para rdfs-comment">
-   将 <code class="parameter">src_im</code> 图像用给定的
-   <code class="parameter">angle</code> 角度旋转。<code class="parameter">bgd_color</code>
-   指定了旋转后没有覆盖到的部分的颜色。
+   将 <code class="parameter">image</code> 图像按指定 <code class="parameter">angle</code> 角度旋转。
   </p>
   <p class="para">
-   旋转的中心是图像的中心，旋转后的图像会按比例缩小以适合目标图像的大小&mdash;&mdash;边缘不会被剪去。
-  </p>
-  <p class="para">
+   旋转的中心是图像的中心，旋转后的图像可能与原始图像具有不同的尺寸。
   </p>
  </div>
 
@@ -66,20 +62,19 @@
      <dd>
 
       <p class="para">
-       Rotation angle, in degrees. The rotation angle is interpreted as the
-       number of degrees to rotate the image anticlockwise.
+       旋转角度，以度为单位。旋转角度是为逆时针旋转图像的度数。
       </p>
      </dd>
 
     
     
      <dt>
-<code class="parameter">bgd_color</code></dt>
+<code class="parameter">background_color</code></dt>
 
      <dd>
 
       <p class="para">
-       Specifies the color of the uncovered zone after the rotation
+       指定旋转后未覆盖区域的颜色
       </p>
      </dd>
 
@@ -91,7 +86,7 @@
      <dd>
 
       <p class="para">
-       如果被设为非零值，则透明色会被忽略（否则会被保留）。
+       参数未使用。
       </p>
      </dd>
 
@@ -104,50 +99,64 @@
  <div class="refsect1 returnvalues" id="refsect1-function.imagerotate-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回旋转后的图像资源，
-    或者在失败时返回 <strong><code>false</code></strong>。
+   返回旋转图像后的图像对象， 或者在失败时返回 <strong><code>false</code></strong>。
   </p>
  </div>
+
 
  <div class="refsect1 changelog" id="refsect1-function.imagerotate-changelog">
   <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
 
-     </thead>
+    </thead>
 
-     <tbody class="tbody">
-      <tr>
-       <td>5.1.0</td>
-       <td>
-        新增： <code class="parameter">ignore_transparent</code> 。
-       </td>
-      </tr>
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       成功时此函数现在返回 <span class="classname"><a href="class.gdimage.html" class="classname">GDImage</a></span> 实例；之前返回 <span class="type">resource</span>。
+      </td>
+     </tr>
 
-     </tbody>
-    
-   </table>
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
 
-  </p>
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       未使用的 <code class="parameter">ignore_transparent</code> 现在接受 <span class="type">bool</span>；之前接受 <span class="type">int</span>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
+
 
  <div class="refsect1 examples" id="refsect1-function.imagerotate-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5434">
-    <p><strong>Example #1 将图像旋转 180 度</strong></p>
+   <div class="example" id="example-5440">
+    <p><strong>Example #1 图像旋转 180 度</strong></p>
     <div class="example-contents"><p>
-     本例将把一幅图像旋转 180 度&mdash;&mdash;上下颠倒。
+     示例把图像旋转 180 度&mdash;&mdash;上下颠倒。
     </p></div>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// File and rotation<br /></span><span style="color: #0000BB">$filename </span><span style="color: #007700">= </span><span style="color: #DD0000">'test.jpg'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$degrees </span><span style="color: #007700">= </span><span style="color: #0000BB">180</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Content type<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type: image/jpeg'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Load<br /></span><span style="color: #0000BB">$source </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefromjpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Rotate<br /></span><span style="color: #0000BB">$rotate </span><span style="color: #007700">= </span><span style="color: #0000BB">imagerotate</span><span style="color: #007700">(</span><span style="color: #0000BB">$source</span><span style="color: #007700">, </span><span style="color: #0000BB">$degrees</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Output<br /></span><span style="color: #0000BB">imagejpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$rotate</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// File and rotation<br /></span><span style="color: #0000BB">$filename </span><span style="color: #007700">= </span><span style="color: #DD0000">'test.jpg'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$degrees </span><span style="color: #007700">= </span><span style="color: #0000BB">180</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Content type<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type: image/jpeg'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Load<br /></span><span style="color: #0000BB">$source </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefromjpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Rotate<br /></span><span style="color: #0000BB">$rotate </span><span style="color: #007700">= </span><span style="color: #0000BB">imagerotate</span><span style="color: #007700">(</span><span style="color: #0000BB">$source</span><span style="color: #007700">, </span><span style="color: #0000BB">$degrees</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Output<br /></span><span style="color: #0000BB">imagejpeg</span><span style="color: #007700">(</span><span style="color: #0000BB">$rotate</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Free the memory<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$source</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$rotate</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -156,7 +165,7 @@
     <div class="mediaobject">
      
      <div class="imageobject">
-      <img src="images/21009b70229598c6a80eef8b45bf282b-imagerotate.jpg" alt="例子的输出：将图像旋转 180 度" width="95" height="51" />
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagerotate.jpg" alt="示例输出：图像旋转 180 度" width="95" height="51" />
      </div>
     </div>
    </div>
@@ -165,7 +174,14 @@
 
  <div class="refsect1 notes" id="refsect1-function.imagerotate-notes">
   <h3 class="title">注释</h3>
-  
+  <blockquote class="note"><p><strong class="note">Note</strong>: <p class="para">此函数受到 <span class="function"><a href="function.imagesetinterpolation.html" class="function">imagesetinterpolation()</a></span> 中设定的插值方法影响。</p></p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imagerotate-seealso">
+  <h3 class="title">参见</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imagesetinterpolation.html" class="function" rel="rdfs-seeAlso">imagesetinterpolation()</a> - Set the interpolation method</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

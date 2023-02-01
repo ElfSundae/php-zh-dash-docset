@@ -65,10 +65,8 @@
    <h4 class="title">标准</h4>
 
    <p class="para">
-    The math functions <span class="function"><a href="function.abs.html" class="function">abs()</a></span>, <span class="function"><a href="function.ceil.html" class="function">ceil()</a></span>,
-    <span class="function"><a href="function.floor.html" class="function">floor()</a></span> and <span class="function"><a href="function.round.html" class="function">round()</a></span> now properly heed
-    <a href="language.types.declarations.html#language.types.declarations.strict" class="link">the <code class="literal">strict_types</code> directive</a>.
-    Previously, they coerced the first argument even in strict type mode.
+    现在 math 函数 <span class="function"><a href="function.abs.html" class="function">abs()</a></span>、<span class="function"><a href="function.ceil.html" class="function">ceil()</a></span>、<span class="function"><a href="function.floor.html" class="function">floor()</a></span> 和 <span class="function"><a href="function.round.html" class="function">round()</a></span>
+    可以正确的遵循 <a href="language.types.declarations.html#language.types.declarations.strict" class="link"><code class="literal">strict_types</code> 指令</a>。以前，即使在严格类型模式下，也会强制转换第一个参数。
    </p>
   </div>
 
@@ -336,6 +334,33 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="128118""></a>
+  <div class="note">
+   <strong class="user">barry dot nelson at amobiledevice dot com</strong>
+   <a href="#128118" class="date">16-Jan-2023 12:18</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If loading the PHP8 apache module on SuSe Linux, the configuration scripts incorrectly try to load it with automatically generated load statement of:<br />
+LoadModule php8_module&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; /usr/lib64/apache2/mod_php8.so<br />
+This does not work, the patch below fixes the conf file generator...<br />
+<br />
+--- /usr/share/apache2/get_module_list&nbsp; &nbsp; 2023-01-14 22:41:49.586825349 -0500<br />
++++ /usr/share/apache2/get_module_list&nbsp; &nbsp; 2023-01-14 22:42:02.171600410 -0500<br />
+@@ -91,4 +91,8 @@<br />
+&nbsp;&nbsp; &nbsp; esac<br />
+&nbsp;<br />
++&nbsp; &nbsp; if [ "$module_id" = "php8_module" ]; then<br />
++&nbsp; &nbsp; &nbsp; &nbsp; module_id="php_module"<br />
++&nbsp; &nbsp; fi<br />
++<br />
+&nbsp;&nbsp; &nbsp; if [[ -f $module_path ]]; then<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; printf "LoadModule %-30s %s\n" $module_id $module_path &gt;&amp;3</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

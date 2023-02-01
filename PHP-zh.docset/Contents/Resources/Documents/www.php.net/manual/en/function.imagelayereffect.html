@@ -2,7 +2,7 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>设定 alpha 混色标志以使用绑定的 libgd 分层效果</title>
+  <title>设定 alpha 混合标志以使用分层效果</title>
 <link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
 <link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
 
@@ -21,24 +21,23 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.image.html">GD 和图像处理 函数</a></li>
-    <li>设定 alpha 混色标志以使用绑定的 libgd 分层效果</li>
+    <li>设定 alpha 混合标志以使用分层效果</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.imagelayereffect" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">imagelayereffect</h1>
-  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">imagelayereffect</span> &mdash; <span class="dc-title">设定 alpha 混色标志以使用绑定的 libgd 分层效果
-  </span></p>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">imagelayereffect</span> &mdash; <span class="dc-title">设定 alpha 混合标志以使用分层效果</span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-function.imagelayereffect-description">
   <h3 class="title">说明</h3>
-    <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imagelayereffect</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$effect</code></span>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>imagelayereffect</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$effect</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
-   设定 alpha 混色标志以使用绑定的 libgd 分层效果。
+   设定 alpha 混色标志以使用分层效果。
   </p>
  </div>
 
@@ -60,7 +59,7 @@
      <dd>
 
       <p class="para">
-       One of the following constants:
+       下列常量之一：
        <dl>
         
          <dt>
@@ -69,8 +68,7 @@
          <dd>
 
           <span class="simpara">
-           Use pixel replacement (equivalent of passing <strong><code>true</code></strong> to
-           <span class="function"><a href="function.imagealphablending.html" class="function">imagealphablending()</a></span>)
+           使用像素替换（等同于将 <strong><code>true</code></strong> 传递给 <span class="function"><a href="function.imagealphablending.html" class="function">imagealphablending()</a></span>）
           </span>
          </dd>
 
@@ -82,8 +80,7 @@
          <dd>
 
           <span class="simpara">
-           Use normal pixel blending (equivalent of passing <strong><code>false</code></strong> to
-           <span class="function"><a href="function.imagealphablending.html" class="function">imagealphablending()</a></span>)
+           使用普通像素混合（等同于将 <strong><code>false</code></strong> 传递给 <span class="function"><a href="function.imagealphablending.html" class="function">imagealphablending()</a></span>）
           </span>
          </dd>
 
@@ -95,7 +92,7 @@
          <dd>
 
           <span class="simpara">
-           Same as <strong><code>IMG_EFFECT_ALPHABLEND</code></strong>.
+           与 <strong><code>IMG_EFFECT_ALPHABLEND</code></strong> 相同。
           </span>
          </dd>
 
@@ -107,9 +104,19 @@
          <dd>
 
           <span class="simpara">
-           Overlay has the effect that black background pixels will remain
-           black, white background pixels will remain white, but grey
-           background pixels will take the colour of the foreground pixel.
+           叠加（overlay）的效果是黑色背景像素将保持黑色，白色背景像素将保持白色，但灰色背景像素将采用前景像素的颜色。
+          </span>
+         </dd>
+
+        
+        
+         <dt>
+<strong><code>IMG_EFFECT_MULTIPLY</code></strong></dt>
+
+         <dd>
+
+          <span class="simpara">
+           Overlays with a multiply effect.
           </span>
          </dd>
 
@@ -132,10 +139,46 @@
   </p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.imagelayereffect-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+     <tr>
+      <td>7.2.0</td>
+      <td>
+       新增 <strong><code>IMG_EFFECT_MULTIPLY</code></strong>（要求系统 libgd &gt;= 2.1.1 或捆绑 libgd）。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.imagelayereffect-examples">
   <h3 class="title">范例</h3>
-  <div class="example" id="example-5420">
-   <p><strong>Example #1 <span class="function"><strong>imagelayereffect()</strong></span> example</strong></p>
+  <div class="example" id="example-5422">
+   <p><strong>Example #1 <span class="function"><strong>imagelayereffect()</strong></span> 示例</strong></p>
    <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Setup an image<br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Set a background<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">220</span><span style="color: #007700">, </span><span style="color: #0000BB">220</span><span style="color: #007700">, </span><span style="color: #0000BB">220</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">// Apply the overlay alpha blending flag<br /></span><span style="color: #0000BB">imagelayereffect</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">IMG_EFFECT_OVERLAY</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Draw two grey ellipses<br /></span><span style="color: #0000BB">imagefilledellipse</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">40</span><span style="color: #007700">, </span><span style="color: #0000BB">40</span><span style="color: #007700">, </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">imagefilledellipse</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">80</span><span style="color: #007700">, </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">imagefilledellipse</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">80</span><span style="color: #007700">, </span><span style="color: #0000BB">50</span><span style="color: #007700">, </span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">255</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">// Output<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type: image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
@@ -147,16 +190,12 @@
     <div class="mediaobject">
      
      <div class="imageobject">
-      <img src="images/21009b70229598c6a80eef8b45bf282b-imagelayereffect.png" alt="Output of example : imagelayereffect()" width="100" height="100" />
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagelayereffect.png" alt="示例输出：imagelayereffect()" width="100" height="100" />
      </div>
     </div>
   </div>
  </div>
 
- <div class="refsect1 notes" id="refsect1-function.imagelayereffect-notes">
-  <h3 class="title">注释</h3>
-  
- </div>
 
 </div><div id="usernotes">
  <div class="head">

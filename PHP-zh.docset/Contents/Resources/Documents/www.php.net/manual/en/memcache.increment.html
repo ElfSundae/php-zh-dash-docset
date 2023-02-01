@@ -35,19 +35,19 @@
  <div class="refsect1 description" id="refsect1-memcache.increment-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>Memcache::increment</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$value</code><span class="initializer"> = 1</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>Memcache::increment</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$value</code><span class="initializer"> = 1</span></span>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
 
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>Memcache::increment()</strong></span>将指定元素的值增加<code class="parameter">value</code>。如果指定的<code class="parameter">key</code>
-   对应的元素不是数值类型并且不能被转换为数值， 会将此值修改为<code class="parameter">value</code>.
-   <span class="function"><strong>Memcache::increment()</strong></span> <em class="emphasis">不会</em>在key对应元素不存在时创建元素。
+   <span class="function"><strong>Memcache::increment()</strong></span> 将指定元素的值增加 <code class="parameter">value</code>。如果指定的 <code class="parameter">key</code>
+   对应的元素不是数值类型并且不能被转换为数值，会将此值修改为 <code class="parameter">value</code>。
+   <span class="function"><strong>Memcache::increment()</strong></span> <em class="emphasis">不会</em>在 key 对应元素不存在时创建元素。
    <blockquote class="note"><p><strong class="note">Note</strong>: 
     <p class="para">
-     不要在经过压缩存储的元素上使用<span class="function"><strong>Memcache::increment()</strong></span>，因为这样作会导致后续对<span class="function"><a href="memcache.get.html" class="function">Memcache::get()</a></span>的调用失败。
+     不要在经过压缩存储的元素上使用 <span class="function"><strong>Memcache::increment()</strong></span>，因为这样作会导致后续对 <span class="function"><a href="memcache.get.html" class="function">Memcache::get()</a></span> 的调用失败。
     </p>
    </p></blockquote>
-   同样你也可以使用函数<span class="function"><strong>memcache_increment()</strong></span>。
+   同样你也可以使用函数 <span class="function"><strong>memcache_increment()</strong></span>。
   </p>
 
  </div>
@@ -64,7 +64,7 @@
      <dd>
 
       <p class="para">
-       将要增加值的元素的key。
+       将要增加值的元素的 key。
       </p>
      </dd>
 
@@ -76,7 +76,7 @@
      <dd>
 
       <p class="para">
-       参数<code class="parameter">value</code>表明要将指定元素值增加多少。
+       参数 <code class="parameter">value</code> 表明要将指定元素值增加多少。
       </p>
      </dd>
 
@@ -99,7 +99,7 @@
   <h3 class="title">范例</h3>
   <p class="para">
    <div class="example" id="">
-    <p><strong>Example #1 <span class="function"><strong>Memcache::increment()</strong></span>示例</strong></p>
+    <p><strong>Example #1 <span class="function"><strong>Memcache::increment()</strong></span> 示例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
 <span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* procedural API */<br /></span><span style="color: #0000BB">$memcache_obj </span><span style="color: #007700">= </span><span style="color: #0000BB">memcache_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/* increment counter by 2 */<br /></span><span style="color: #0000BB">$current_value </span><span style="color: #007700">= </span><span style="color: #0000BB">memcache_increment</span><span style="color: #007700">(</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">, </span><span style="color: #DD0000">'counter'</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* OO API */<br /></span><span style="color: #0000BB">$memcache_obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/* increment counter by 3 */<br /></span><span style="color: #0000BB">$current_value </span><span style="color: #007700">= </span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">increment</span><span style="color: #007700">(</span><span style="color: #DD0000">'counter'</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>

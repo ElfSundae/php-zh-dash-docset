@@ -83,7 +83,7 @@ array(1) {
    attacks. An attacker may try to add statements such as
    <code class="literal">; DROP DATABASE mysql</code> or <code class="literal">; SELECT SLEEP(999)</code>.
    If the attacker succeeds in adding SQL to the statement string but
-   <code class="literal">mysqli::multi_query</code> is not used, the server will not
+   <span class="methodname"><a href="mysqli.multi-query.html" class="methodname">mysqli::multi_query()</a></span> is not used, the server will not
    execute the injected and malicious SQL statement.
   </p>
   <p class="para">
@@ -91,7 +91,7 @@ array(1) {
     <p><strong>Example #2 SQL Injection</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"example.com"</span><span style="color: #007700">, </span><span style="color: #DD0000">"user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"database"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT 1; DROP TABLE mysql.user"</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$result</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Error executing query: (" </span><span style="color: #007700">. </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errno </span><span style="color: #007700">. </span><span style="color: #DD0000">") " </span><span style="color: #007700">. </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"example.com"</span><span style="color: #007700">, </span><span style="color: #DD0000">"user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"database"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT 1; DROP TABLE mysql.user"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -99,9 +99,9 @@ array(1) {
     <div class="example-contents"><p>以上例程会输出：</p></div>
     <div class="example-contents screen">
 <div class="cdata"><pre>
-Error executing query: (1064) You have an error in your SQL syntax;
-check the manual that corresponds to your MySQL server version for the right syntax 
-to use near &#039;DROP TABLE mysql.user&#039; at line 1
+PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; 
+check the manual that corresponds to your MySQL server version for the right syntax to 
+use near &#039;DROP TABLE mysql.user&#039; at line 1
 </pre></div>
     </div>
    </div>

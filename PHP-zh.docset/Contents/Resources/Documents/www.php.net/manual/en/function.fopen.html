@@ -356,7 +356,7 @@
  <div class="refsect1 examples" id="refsect1-function.fopen-examples">
   <h3 class="title">·¶Àý</h3>
   <p class="para">
-   <div class="example" id="example-4354">
+   <div class="example" id="example-4356">
     <p><strong>Example #1 <span class="function"><strong>fopen()</strong></span> Àý×Ó</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
@@ -420,7 +420,36 @@ PHP 4.3.7 ¼°¸ü¸ß°æ±¾¿ÉÒÔÔÚÊ¹ÓÃ <code class="literal">https://</code> °ü×°Æ÷´ò¿ªÁ
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127086""></a>
+<div id="allnotes">  <a name="128111""></a>
+  <div class="note">
+   <strong class="user">Derrick</strong>
+   <a href="#128111" class="date">13-Jan-2023 06:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Opening a file in "r+" mode, and then trying to set the file pointer position with ftruncate before reading the file will result in file data loss, as though you opened the file in "w" mode.<br />
+<br />
+EX:<br />
+<br />
+$File = fopen($FilePath,"r+");&nbsp; // OPEN FILE IN READ-WRITE<br />
+<br />
+ftruncate($File, 0);&nbsp; // SET POINTER POSITION (Will Erase Data)<br />
+<br />
+while(! feof($File)) {&nbsp; // CONTINUE UNTIL END OF FILE IS REACHED<br />
+<br />
+&nbsp;&nbsp;&nbsp; $Line = fgets($File);&nbsp; // GET A LINE FROM THE FILE INTO STRING<br />
+&nbsp;&nbsp;&nbsp; $Line = trim($Line);&nbsp; // TRIM STRING OF NEW LINE<br />
+}<br />
+<br />
+ftruncate($File,0); // (Will Not Erase Data)<br />
+<br />
+fclose($File);</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127086""></a>
   <div class="note">
    <strong class="user">wvss at gmail dot com</strong>
    <a href="#127086" class="date">15-May-2022 07:11</a>

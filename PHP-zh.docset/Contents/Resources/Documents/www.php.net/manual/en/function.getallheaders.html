@@ -122,7 +122,30 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127190""></a>
+<div id="allnotes">  <a name="128123""></a>
+  <div class="note">
+   <strong class="user">divinity76 at gmail dot com</strong>
+   <a href="#128123" class="date">18-Jan-2023 02:21</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+warning, at least on php-fpm 8.2.1 and nginx,&nbsp; getallheaders() will return "Content-Length" and "Content-Type" both containing emptystring, even for requests without any of these 2 headers. you can do something like<br />
+<br />
+<span class="default">&lt;?php<br />
+$request_headers </span><span class="keyword">= </span><span class="default">getallheaders</span><span class="keyword">();<br />
+if((</span><span class="default">$request_headers</span><span class="keyword">[</span><span class="string">"Content-Type"</span><span class="keyword">] ?? </span><span class="default">null</span><span class="keyword">) === </span><span class="string">"" </span><span class="keyword">&amp;&amp; (</span><span class="default">$request_headers</span><span class="keyword">[</span><span class="string">"Content-Length"</span><span class="keyword">] ?? </span><span class="default">null</span><span class="keyword">) === </span><span class="string">""</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// probably a getallheaders() bug, not actual request headers.<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">unset(</span><span class="default">$request_headers</span><span class="keyword">[</span><span class="string">"Content-Type"</span><span class="keyword">], </span><span class="default">$request_headers</span><span class="keyword">[</span><span class="string">"Content-Length"</span><span class="keyword">]);<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+- might be a bug in nginx rather than php-fpm, i don't know. anyway a real request wouldn't leave them at emptystring</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127190""></a>
   <div class="note">
    <strong class="user">Dimitri</strong>
    <a href="#127190" class="date">22-Jun-2022 09:09</a>

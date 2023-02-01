@@ -34,13 +34,13 @@
  <div class="refsect1 description" id="refsect1-function.imageinterlace-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imageinterlace</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$interlace</code><span class="initializer"> = 0</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>imageinterlace</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type">bool</span><span class="type"></span></span> <code class="parameter">$enable</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>imageinterlace()</strong></span> 打开或关闭隔行扫描位（bit）。
   </p>
   <p class="para">
-   如果设置了隔行扫描位（interlace bit），对于 <abbr title="Joint Photographic Experts Group">JPEG</abbr> 图像，会被创建为渐进式 <abbr title="Joint Photographic Experts Group">JPEG</abbr> 图像。
+   如果设置了隔行扫描位（interlace bit）并且图像被用作 <abbr title="Joint Photographic Experts Group">JPEG</abbr>，将会创建为渐进式 <abbr title="Joint Photographic Experts Group">JPEG</abbr> 图像。
   </p>
  </div>
 
@@ -62,7 +62,7 @@
      <dd>
 
       <p class="para">
-       如果为 0 ，则关闭隔行扫描，否则将打开隔行扫描。
+       如果为 <strong><code>true</code></strong>，则图像开启隔行扫描，如果为 <strong><code>false</code></strong>，否则将关闭隔行扫描。传递 <strong><code>null</code></strong> 不会让隔行扫描行为发生改变。
       </p>
      </dd>
 
@@ -75,18 +75,61 @@
  <div class="refsect1 returnvalues" id="refsect1-function.imageinterlace-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果为图像设置了隔行扫描，则返回 1 ，否则返回 0 。
+   如果为图像设置了隔行扫描位，则返回 <strong><code>true</code></strong>，否则返回 <strong><code>false</code></strong>。
   </p>
  </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.imageinterlace-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.5</td>
+      <td>
+       <span class="function"><strong>imageinterlace()</strong></span> 现在返回 <span class="type">bool</span>；之前返回 <span class="type">int</span>（非零为隔行扫描图像，否则为 0）
+      </td>
+     </tr>
+
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">enable</code> 现在接受 <span class="type">bool</span>；之前接受 <span class="type">int</span>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
 
  <div class="refsect1 examples" id="refsect1-function.imageinterlace-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5410">
+   <div class="example" id="example.dotnet">
     <p><strong>Example #1 使用 <span class="function"><strong>imageinterlace()</strong></span> 打开隔行扫描</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建一个图像实例<br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefromgif</span><span style="color: #007700">(</span><span style="color: #DD0000">'php.gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 打开隔行扫描<br /></span><span style="color: #0000BB">imageinterlace</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 保存图像<br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #DD0000">'./php_interlaced.gif'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建图像实例<br /></span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatefromgif</span><span style="color: #007700">(</span><span style="color: #DD0000">'php.gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 打开隔行扫描<br /></span><span style="color: #0000BB">imageinterlace</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 保存隔行扫描图像<br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #DD0000">'./php_interlaced.gif'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>

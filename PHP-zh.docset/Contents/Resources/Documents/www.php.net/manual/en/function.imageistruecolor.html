@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.imageistruecolor-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imageistruecolor</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$image</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>imageistruecolor</strong></span>(<span class="methodparam"><span class="type"><a href="class.gdimage.html" class="type GdImage">GdImage</a></span> <code class="parameter">$image</code></span>): <span class="type">bool</span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>imageistruecolor()</strong></span> 检查
@@ -61,18 +61,47 @@
  <div class="refsect1 returnvalues" id="refsect1-function.imageistruecolor-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果 <code class="parameter">image</code> 是真彩色图像返回 <strong><code>true</code></strong>，否则返回 <strong><code>false</code></strong>。
+   如果 <code class="parameter">image</code> 是真彩色返回 <strong><code>true</code></strong>，否则返回 <strong><code>false</code></strong>。
   </p>
  </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.imageistruecolor-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">image</code> expects a <span class="classname"><a href="class.gdimage.html" class="classname">GdImage</a></span>
+  instance now; previously, a <span class="type">resource</span> was expected.
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
 
  <div class="refsect1 examples" id="refsect1-function.imageistruecolor-examples">
   <h3 class="title">范例</h3>
   <p class="para">
-   <div class="example" id="example-5412">
-    <p><strong>Example #1 Simple detection of true color image instances using <span class="function"><strong>imageistruecolor()</strong></span></strong></p>
+   <div class="example" id="compersisthelper.savetofile.example.basic">
+    <p><strong>Example #1 使用 <span class="function"><strong>imageistruecolor()</strong></span> 简单检测真彩色实例</strong></p>
     <div class="example-contents">
 <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $im is an image instance<br /><br />// Check if image is a true color image or not<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">imageistruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">))<br />{<br />    </span><span style="color: #FF8000">// Create a new true color image instance<br />    </span><span style="color: #0000BB">$tc </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">), </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">));<br /><br />    </span><span style="color: #0000BB">imagecopy</span><span style="color: #007700">(</span><span style="color: #0000BB">$tc</span><span style="color: #007700">, </span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">), </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">));<br />    </span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">$tc</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$tc </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// Continue working with image instance<br /></span><span style="color: #0000BB">?&gt;</span>
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $im is an image instance<br /><br />// Check if image is a true color image or not<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">imageistruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">))<br />{<br />    </span><span style="color: #FF8000">// Create a new true color image instance<br />    </span><span style="color: #0000BB">$tc </span><span style="color: #007700">= </span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">), </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">));<br /><br />    </span><span style="color: #FF8000">// 复制像素<br />    </span><span style="color: #0000BB">imagecopy</span><span style="color: #007700">(</span><span style="color: #0000BB">$tc</span><span style="color: #007700">, </span><span style="color: #0000BB">$im</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">), </span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">));<br />    </span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$im </span><span style="color: #007700">= </span><span style="color: #0000BB">$tc</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$tc </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /><br />    </span><span style="color: #FF8000">// 或者使用 imagepalettetotruecolor()<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">// Continue working with image instance<br /></span><span style="color: #0000BB">?&gt;</span>
 </span>
 </code></div>
     </div>
@@ -81,17 +110,13 @@
   </p>
  </div>
 
- <div class="refsect1 notes" id="refsect1-function.imageistruecolor-notes">
-  <h3 class="title">注释</h3>
- </div>
 
  <div class="refsect1 seealso" id="refsect1-function.imageistruecolor-seealso">
   <h3 class="title">参见</h3>
-  <p class="para">
-   <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建真彩色图像</span></li>
-   </ul>
-  </p>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.imagecreatetruecolor.html" class="function" rel="rdfs-seeAlso">imagecreatetruecolor()</a> - 新建真彩色图像</span></li>
+   <li class="member"><span class="function"><a href="function.imagepalettetotruecolor.html" class="function" rel="rdfs-seeAlso">imagepalettetotruecolor()</a> - Converts a palette based image to true color</span></li>
+  </ul>
  </div>
 
 </div><div id="usernotes">

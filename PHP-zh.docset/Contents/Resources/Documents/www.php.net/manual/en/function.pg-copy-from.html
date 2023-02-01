@@ -182,7 +182,34 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125228""></a>
+<div id="allnotes">  <a name="128100""></a>
+  <div class="note">
+   <strong class="user">Rainer Perske</strong>
+   <a href="#128100" class="date">08-Jan-2023 09:25</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+To solve the problem of how many backslashes to use for the parameters $separator and $null_as: The backslashes are interpreted twice, first by PHP and then by PostgreSQL. So write four backslashes to indicate one backslash in the input data. So both '\\\\N' and as "\\\\N" become NULL AS E'\\N' meaning the same as NULL AS '\N' in the internally used SQL statement.<br />
+<br />
+The loaded input data must be backslash-escaped. According to the PostgreSQL documentation, you can use the following escape sequences:<br />
+<br />
+\\ = Backslash (ASCII 92)<br />
+\b = Backspace (ASCII 8)<br />
+\t = Tab (ASCII 9)<br />
+\n = Newline (ASCII 10)<br />
+\v = Vertical tab (ASCII 11)<br />
+\f = Form feed (ASCII 12)<br />
+\r = Carriage return (ASCII 13)<br />
+\000 (Backslash followed by one to three octal digits) = the byte with that numeric code<br />
+\x00 (Backslash x followed by one or two hex digits) = the byte with that numeric code<br />
+<br />
+With the default setting, a data field containing only \N (one non-escaped backslash and an N) indicates a NULL value. This default value \N has been chosen because it does not collide with properly encoded data.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125228""></a>
   <div class="note">
    <strong class="user">smcbride at msn dot com</strong>
    <a href="#125228" class="date">29-Jul-2020 05:03</a>
