@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Sets the result set pointer to the next row or requested row</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,7 +36,7 @@
  <div class="refsect1 description" id="refsect1-function.db2-fetch-row-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>db2_fetch_row</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stmt</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$row_number</code><span class="initializer"> = ?</span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>db2_fetch_row</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$stmt</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$row_number</code><span class="initializer"> = -1</span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
 
 
@@ -64,48 +64,39 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">stmt</code></dt>
-
+     <dt><code class="parameter">stmt</code></dt>
      <dd>
-
       <p class="para">
        A valid <code class="literal">stmt</code> resource.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">row_number</code></dt>
-
+     <dt><code class="parameter">row_number</code></dt>
      <dd>
-
       <p class="para">
        With scrollable cursors, you can request a specific row number in the
        result set. Row numbering is 1-indexed.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.db2-fetch-row-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns <strong><code>true</code></strong> if the requested row exists in the result set. Returns
-   <strong><code>false</code></strong> if the requested row does not exist in the result set.
+   Returns <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> if the requested row exists in the result set. Returns
+   <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> if the requested row does not exist in the result set.
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.db2-fetch-row-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-2544">
+   <div class="example" id="example-1265">
     <p><strong>Example #1 Iterating through a result set</strong></p>
     <div class="example-contents"><p>
      The following example demonstrates how to iterate through a result set
@@ -113,23 +104,19 @@
      result set with <span class="function"><a href="function.db2-result.html" class="function">db2_result()</a></span>.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT name, breed FROM animals WHERE weight &lt; ?'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, array(</span><span style="color: #0000BB">10</span><span style="color: #007700">));<br />while (</span><span style="color: #0000BB">db2_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$name </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$breed </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />    print </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$name</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$breed</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT name, breed FROM animals WHERE weight &lt; ?'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, array(</span><span style="color: #0000BB">10</span><span style="color: #007700">));<br />while (</span><span style="color: #0000BB">db2_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$name </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$breed </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />    print </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$name</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$breed</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-cat Pook
+<div class="examplescode"><pre class="examplescode">cat Pook
 gold fish Bubbles
 budgerigar Gizmo
-goat Rickety Ride
-</pre></div>
+goat Rickety Ride</pre>
+</div>
     </div>
    </div>
-   <div class="example" id="example-2546">
+   <div class="example" id="example-1266">
     <p><strong>Example #2 i5/OS recommended alternatives to db2_fetch_row/db2_result</strong></p>
     <div class="example-contents"><p>
      On i5/OS it is recommended that you use <span class="function"><a href="function.db2-fetch-both.html" class="function">db2_fetch_both()</a></span>, 
@@ -143,22 +130,18 @@ goat Rickety Ride
      be superior to <span class="function"><strong>db2_fetch_row()</strong></span>/<span class="function"><a href="function.db2-result.html" class="function">db2_result()</a></span>.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />  $conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">""</span><span style="color: #007700">,</span><span style="color: #DD0000">""</span><span style="color: #007700">,</span><span style="color: #DD0000">""</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT SPECIFIC_SCHEMA, SPECIFIC_NAME, ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_TYPE, ROUTINE_CREATED, ROUTINE_BODY, IN_PARMS, OUT_PARMS, INOUT_PARMS, PARAMETER_STYLE, EXTERNAL_NAME, EXTERNAL_LANGUAGE FROM QSYS2.SYSROUTINES FETCH FIRST 2 ROWS ONLY'</span><span style="color: #007700">;<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_both</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    echo </span><span style="color: #DD0000">"&lt;br&gt;db2_fetch_both </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'SPECIFIC_NAME'</span><span style="color: #007700">]}</span><span style="color: #DD0000"> </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'ROUTINE_CREATED'</span><span style="color: #007700">]}</span><span style="color: #DD0000"> </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">]}</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />  }<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    echo </span><span style="color: #DD0000">"&lt;br&gt;db2_fetch_array </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]}</span><span style="color: #DD0000">  </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">]}</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />  }<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    echo </span><span style="color: #DD0000">"&lt;br&gt;db2_fetch_object </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">SPECIFIC_NAME</span><span style="color: #007700">}</span><span style="color: #DD0000"> </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ROUTINE_CREATED</span><span style="color: #007700">}</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />  }<br />  </span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />  $conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">""</span><span style="color: #007700">,</span><span style="color: #DD0000">""</span><span style="color: #007700">,</span><span style="color: #DD0000">""</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT SPECIFIC_SCHEMA, SPECIFIC_NAME, ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_TYPE, ROUTINE_CREATED, ROUTINE_BODY, IN_PARMS, OUT_PARMS, INOUT_PARMS, PARAMETER_STYLE, EXTERNAL_NAME, EXTERNAL_LANGUAGE FROM QSYS2.SYSROUTINES FETCH FIRST 2 ROWS ONLY'</span><span style="color: #007700">;<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_both</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    echo </span><span style="color: #DD0000">"&lt;br&gt;db2_fetch_both </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'SPECIFIC_NAME'</span><span style="color: #007700">]}</span><span style="color: #DD0000"> </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'ROUTINE_CREATED'</span><span style="color: #007700">]}</span><span style="color: #DD0000"> </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">]}</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />  }<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    echo </span><span style="color: #DD0000">"&lt;br&gt;db2_fetch_array </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]}</span><span style="color: #DD0000">  </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">]}</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />  }<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    echo </span><span style="color: #DD0000">"&lt;br&gt;db2_fetch_object </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">SPECIFIC_NAME</span><span style="color: #007700">}</span><span style="color: #DD0000"> </span><span style="color: #007700">{</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ROUTINE_CREATED</span><span style="color: #007700">}</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />  }<br />  </span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-db2_fetch_both MATCH_ANIMAL 2006-08-25-17.10.23.775000 2006-08-25-17.10.23.775000
+<div class="examplescode"><pre class="examplescode">db2_fetch_both MATCH_ANIMAL 2006-08-25-17.10.23.775000 2006-08-25-17.10.23.775000
 db2_fetch_both MULTIRESULTS 2006-10-17-10.11.05.308000 2006-10-17-10.11.05.308000
 db2_fetch_array MATCH_ANIMAL 2006-08-25-17.10.23.775000
 db2_fetch_array MULTIRESULTS 2006-10-17-10.11.05.308000
 db2_fetch_object MATCH_ANIMAL 2006-08-25-17.10.23.775000
-db2_fetch_object MULTIRESULTS 2006-10-17-10.11.05.308000
-</pre></div>
+db2_fetch_object MULTIRESULTS 2006-10-17-10.11.05.308000</pre>
+</div>
     </div>
    </div>
   </p>
@@ -169,11 +152,11 @@ db2_fetch_object MULTIRESULTS 2006-10-17-10.11.05.308000
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.db2-fetch-array.html" class="function" rel="rdfs-seeAlso">db2_fetch_array()</a> - Returns an array, indexed by column position, representing a row in a result set</span></li>
-    <li class="member"><span class="function"><a href="function.db2-fetch-assoc.html" class="function" rel="rdfs-seeAlso">db2_fetch_assoc()</a> - Returns an array, indexed by column name, representing a row in a result set</span></li>
-    <li class="member"><span class="function"><a href="function.db2-fetch-both.html" class="function" rel="rdfs-seeAlso">db2_fetch_both()</a> - Returns an array, indexed by both column name and position, representing a row in a result set</span></li>
-    <li class="member"><span class="function"><a href="function.db2-fetch-object.html" class="function" rel="rdfs-seeAlso">db2_fetch_object()</a> - Returns an object with properties representing columns in the fetched row</span></li>
-    <li class="member"><span class="function"><a href="function.db2-result.html" class="function" rel="rdfs-seeAlso">db2_result()</a> - Returns a single column from a row in the result set</span></li>
+    <li><span class="function"><a href="function.db2-fetch-array.html" class="function" rel="rdfs-seeAlso">db2_fetch_array()</a> - Returns an array, indexed by column position, representing a row in a result set</span></li>
+    <li><span class="function"><a href="function.db2-fetch-assoc.html" class="function" rel="rdfs-seeAlso">db2_fetch_assoc()</a> - Returns an array, indexed by column name, representing a row in a result set</span></li>
+    <li><span class="function"><a href="function.db2-fetch-both.html" class="function" rel="rdfs-seeAlso">db2_fetch_both()</a> - Returns an array, indexed by both column name and position, representing a row in a result set</span></li>
+    <li><span class="function"><a href="function.db2-fetch-object.html" class="function" rel="rdfs-seeAlso">db2_fetch_object()</a> - Returns an object with properties representing columns in the fetched row</span></li>
+    <li><span class="function"><a href="function.db2-result.html" class="function" rel="rdfs-seeAlso">db2_result()</a> - Returns a single column from a row in the result set</span></li>
    </ul>
   </p>
  </div>

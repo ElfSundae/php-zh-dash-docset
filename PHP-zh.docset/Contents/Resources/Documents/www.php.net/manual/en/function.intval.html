@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取变量的整数值</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -20,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="ref.var.html">Variable handling 函数</a></li>
+    <li><a href="ref.var.html">变量处理函数</a></li>
     <li>获取变量的整数值</li>
   </ul>
 </div>
@@ -35,13 +35,13 @@
  <div class="refsect1 description" id="refsect1-function.intval-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>intval</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$base</code><span class="initializer"> = 10</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>intval</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$base</code><span class="initializer"> = 10</span></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
    通过使用指定的进制 <code class="parameter">base</code> 转换（默认是十进制），返回变量 <code class="parameter">value</code>
-   的 <span class="type">int</span> 数值。
+   的 <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> 数值。
    <span class="function"><strong>intval()</strong></span> 不能用于 object，否则会产生
-   <strong><code>E_NOTICE</code></strong> 错误并返回 1。
+   <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 错误并返回 1。
   </p>
  </div>
 
@@ -51,23 +51,16 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">value</code></dt>
-
+     <dt><code class="parameter">value</code></dt>
      <dd>
-
       <p class="para">
        要转换成 integer 的数量值
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">base</code></dt>
-
+     <dt><code class="parameter">base</code></dt>
      <dd>
-
       <p class="para">
        转化所使用的进制
       </p>
@@ -82,7 +75,12 @@
          </li>
          <li class="listitem">
           <span class="simpara">
-           如果字符串以 &quot;0&quot; 开始，使用 8  进制(octal)；否则，
+           如果字符串以 &quot;0b&quot; (或 &quot;0B&quot;) 开头，使用 2 进制 (binary)；否则，
+          </span>
+         </li>
+         <li class="listitem">
+          <span class="simpara">
+           如果字符串以 &quot;0&quot; 开始，使用 8 进制(octal)；否则，
           </span>
          </li>
          <li class="listitem">
@@ -94,10 +92,8 @@
        </p>
       </p></blockquote>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -122,19 +118,43 @@
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.intval-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       对象转换时的错误级别已从 <strong><code><a href="errorfunc.constants.html#constant.e-notice">E_NOTICE</a></code></strong> 更改为 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.intval-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5407">
     <p><strong>Example #1 <span class="function"><strong>intval()</strong></span> 例子</strong></p>
     <div class="example-contents"><p>
-     下面的例子运行于 32 位系统上。
+     下面的例子运行于 64 位系统上。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">42</span><span style="color: #007700">);                      </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">4.2</span><span style="color: #007700">);                     </span><span style="color: #FF8000">// 4<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'42'</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'+42'</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'-42'</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// -42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">042</span><span style="color: #007700">);                     </span><span style="color: #FF8000">// 34<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'042'</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">1e10</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 1410065408<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'1e10'</span><span style="color: #007700">);                  </span><span style="color: #FF8000">// 1<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">0x1A</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 26<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">42000000</span><span style="color: #007700">);                </span><span style="color: #FF8000">// 42000000<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">420000000000000000000</span><span style="color: #007700">);   </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'420000000000000000000'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 2147483647<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">42</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'42'</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">);                 </span><span style="color: #FF8000">// 34<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(array());                 </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'bar'</span><span style="color: #007700">));     </span><span style="color: #FF8000">// 1<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 1<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">42</span><span style="color: #007700">);                      </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">4.2</span><span style="color: #007700">);                     </span><span style="color: #FF8000">// 4<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'42'</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'+42'</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'-42'</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// -42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">042</span><span style="color: #007700">);                     </span><span style="color: #FF8000">// 34<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'042'</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">1e10</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 10000000000<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'1e10'</span><span style="color: #007700">);                  </span><span style="color: #FF8000">// 10000000000<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">0x1A</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 26<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'0x1A'</span><span style="color: #007700">);                  </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'0x1A'</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);               </span><span style="color: #FF8000">// 26<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">42000000</span><span style="color: #007700">);                </span><span style="color: #FF8000">// 42000000<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">420000000000000000000</span><span style="color: #007700">);   </span><span style="color: #FF8000">// -4275113695319687168<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'420000000000000000000'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 9223372036854775807<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">42</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 42<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #DD0000">'42'</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">);                 </span><span style="color: #FF8000">// 34<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(array());                 </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'bar'</span><span style="color: #007700">));     </span><span style="color: #FF8000">// 1<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">);                   </span><span style="color: #FF8000">// 0<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">intval</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);                    </span><span style="color: #FF8000">// 1<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -156,13 +176,13 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.boolval.html" class="function" rel="rdfs-seeAlso">boolval()</a> - 获取变量的布尔值</span></li>
-    <li class="member"><span class="function"><a href="function.floatval.html" class="function" rel="rdfs-seeAlso">floatval()</a> - 获取变量的浮点值</span></li>
-    <li class="member"><span class="function"><a href="function.strval.html" class="function" rel="rdfs-seeAlso">strval()</a> - 获取变量的字符串值</span></li>
-    <li class="member"><span class="function"><a href="function.settype.html" class="function" rel="rdfs-seeAlso">settype()</a> - 设置变量的类型</span></li>
-    <li class="member"><span class="function"><a href="function.is-numeric.html" class="function" rel="rdfs-seeAlso">is_numeric()</a> - 检测变量是否为数字或数字字符串</span></li>
-    <li class="member"><a href="language.types.type-juggling.html" class="link">类型转换的判别</a></li>
-    <li class="member"><a href="ref.bc.html" class="link">BCMath 任意精度数学函数</a></li>
+    <li><span class="function"><a href="function.boolval.html" class="function" rel="rdfs-seeAlso">boolval()</a> - 获取变量的布尔值</span></li>
+    <li><span class="function"><a href="function.floatval.html" class="function" rel="rdfs-seeAlso">floatval()</a> - 获取变量的浮点值</span></li>
+    <li><span class="function"><a href="function.strval.html" class="function" rel="rdfs-seeAlso">strval()</a> - 获取变量的字符串值</span></li>
+    <li><span class="function"><a href="function.settype.html" class="function" rel="rdfs-seeAlso">settype()</a> - 设置变量的类型</span></li>
+    <li><span class="function"><a href="function.is-numeric.html" class="function" rel="rdfs-seeAlso">is_numeric()</a> - 检测变量是否是数字或数字字符串</span></li>
+    <li><a href="language.types.type-juggling.html" class="link">类型转换的判别</a></li>
+    <li><a href="ref.bc.html" class="link">BCMath 任意精度数学函数</a></li>
    </ul>
   </p>
  </div>
@@ -171,7 +191,36 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125013""></a>
+<div id="allnotes">  <a name="129193""></a>
+  <div class="note">
+   <strong class="user">Denes Kellner</strong>
+   <a href="#129193" class="date">24-Jan-2024 09:28</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Warning: intval() parses scientific notation, like "12.3e7".<br />
+<br />
+This comes out of the blue when you use intval() to cut the first integer value from a string; at first glance there's nothing wrong with it, if you have "123.jeff" it will give you 123, but in the rare case of parsing something that has a second segment with a hex number, you can easily run into this. (Let's not start the "why would you parse a string like that" argument.)<br />
+<br />
+So if you're not prepared, these results may surprise you:<br />
+<br />
+&nbsp;&nbsp;&nbsp; intval("123.ee-2") - gives you 123<br />
+&nbsp;&nbsp;&nbsp; intval("123.e2-e") - gives you 12300<br />
+&nbsp;&nbsp;&nbsp; intval("123.a2-e") - gives you 123<br />
+&nbsp;&nbsp;&nbsp; intval("123.e-22") - gives you 0<br />
+&nbsp;&nbsp;&nbsp; intval("123.e-a2") - gives you 123<br />
+&nbsp;&nbsp;&nbsp; intval("123.e-2a") - gives you 1<br />
+&nbsp;&nbsp;&nbsp; intval("123.2e2a") - gives you 12320<br />
+&nbsp;&nbsp;&nbsp; intval("123.22e2") - gives you 12322<br />
+&nbsp;&nbsp;&nbsp; intval("123.22ea") - gives you 123<br />
+<br />
+Again, this is somewhat expected behaviour once you know that scientific notation is interpreted by it. But it looks like a less-than-widely known fact and I only faced this issue after 20+ years of php.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125013""></a>
   <div class="note">
    <strong class="user">Anony Moose</strong>
    <a href="#125013" class="date">15-May-2020 03:46</a>
@@ -227,23 +276,6 @@ $test = intval(150.20*100); //15019<br />
 $test2 = intval(15020); //15020<br />
 $test3 = intval(15020.0); //15020<br />
 $test4 = 150.20*100; //15020.0</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122718""></a>
-  <div class="note">
-   <strong class="user">chinmay235 at gmail dot com</strong>
-   <a href="#122718" class="date">10-May-2018 05:57</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-<span class="default">&lt;?php<br />
-</span><span class="keyword">echo </span><span class="default">intval</span><span class="keyword">(</span><span class="string">"10 days"</span><span class="keyword">);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="comment">//10<br />
-</span><span class="keyword">echo </span><span class="default">intval</span><span class="keyword">(</span><span class="string">"days 10"</span><span class="keyword">);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="comment">//0<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -478,19 +510,6 @@ You can have it automatically deduce the base of the number from the prefix of t
     <div class="phpcode">
 <code><span class="html">
 As addendum, the "if ($int &gt; 0)" check in the encode function is redundant. It doesn't do anything bad to keep it in since it will always be true when reaching that point, but it's a meaningless conditional this way. It's a remnant from when I tried to write the function in terms of bitshifts, which could lead to negative ints when shifting if the 32nd bit was set (instead of always padding with 0's when using &gt;&gt; it pads with 1's leading to negative ints).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="61292""></a>
-  <div class="note">
-   <strong class="user">simon at npkk dot cz</strong>
-   <a href="#61292" class="date">30-Jan-2006 08:03</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Still have on mind, that if you convert big numbers by adding zero, PHP makes automatic "to a float" conversion, so it is same as floatVal(). So if the number is realy big (over 13 digits), you can lose preciosity. Do not use it for such long numbers, if all bits do matter (IPv6 addresses and similar).</span>
 </code>
     </div>
    </div>

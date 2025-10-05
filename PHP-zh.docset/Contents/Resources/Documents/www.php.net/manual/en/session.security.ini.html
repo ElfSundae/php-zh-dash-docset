@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>和会话安全相关的配置项</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -68,9 +68,9 @@
       而且大部分应用也确实是只使用 cookie 来记录会话 ID 的。
      </p>
      <p class="para">
-      如果 <code class="literal">session.use_only_cookies</code>=Off，
+      如果 <a href="session.configuration.html#ini.session.use-only-cookies" class="link">session.use_only_cookies</a>=Off，
       会话模块会在基于 cookie 的会话 ID 初始化之前
-      使用 GET/POST/URL 请求中的会话 ID（如果存在的话）。
+      使用 GET 或 POST 请求中的会话 ID（如果存在的话）。
      </p>
     </li>
 
@@ -79,7 +79,7 @@
       <a href="session.configuration.html#ini.session.use-strict-mode" class="link">session.use_strict_mode</a>=On
      </p>
      <p class="para">
-      虽然启用 <code class="literal">session.use_strict_mode</code> 
+      虽然启用 <a href="session.configuration.html#ini.session.use-strict-mode" class="link">session.use_strict_mode</a>
       是必不可少的，但是默认情况下，这个配置项是未启用的。
      </p>
      <p class="para">
@@ -89,17 +89,15 @@
       而拒绝由用户自己提供的会话 ID。
      </p>
      <p class="para">
-      攻击者可以自行设置 cookie 
-      或者使用 JavaScript 注入的方式
-      来设置会话 ID 进行攻击。
-      启用 <code class="literal">session.use_strict_mode</code> 配置项
+      由于 cookie 规范，攻击者可以通过本地设置 cookie 数据库或 JavaScript 注入放置不可删除的会话 ID cookie。
+      启用 <a href="session.configuration.html#ini.session.use-strict-mode" class="link">session.use_strict_mode</a> 配置项
       可以阻止使用未经会话模块初始化的会话 ID。
      </p>
      <blockquote class="note"><p><strong class="note">Note</strong>: 
       <p class="para">
        攻击者可以使用自己的设备产生会话 ID，也可以使用受害者的会话 ID。
        攻击者也可以通过一些后续操作保证会话活跃。
-       因此，启用 <code class="literal">session.use_strict_mode</code> 配置项
+       因此，启用 <a href="session.configuration.html#ini.session.use-strict-mode" class="link">session.use_strict_mode</a> 配置项
        可以降低这种风险。
       </p>
      </p></blockquote>
@@ -161,9 +159,9 @@
       <a href="session.configuration.html#ini.session.gc-maxlifetime" class="link">session.gc_maxlifetime</a>=[选择一个尽可能小的时间段]
      </p>
      <p class="para">
-      <code class="literal">session.gc_maxlifetime</code>
+      <a href="session.configuration.html#ini.session.gc-maxlifetime" class="link">session.gc_maxlifetime</a>
       来设置删除过期会话数据的时间周期。
-      <em class="emphasis">来</em>的删除，
+      <em>来</em>的删除，
       你需要自己来实现一套基于时间戳的会话数据生命周期管理机制。
      </p>
      <p class="para">
@@ -173,7 +171,7 @@
      </p>
      <p class="para">
       GC 的运行时机并不是精准的，带有一定的或然性，
-      所以这个设置项并<em class="emphasis">不能</em>确保
+      所以这个设置项并<em>不能</em>确保
       旧的会话数据被删除。某些会话存储处理模块不使用此设置项。
       更多的信息请参考会话存储模块的完整文档。
       虽然开发人员不能完全依赖这个设置，但是还是建议将其设置的尽可能的小。
@@ -241,8 +239,8 @@
      <p class="para">
       当启用 <a href="session.configuration.html#ini.session.use-trans-sid" class="link">session.use_trans_sid</a> 配置项的时候，
       这个设置可以降低会话 ID 注入的风险。
-      如果你的站点是 http://example.com/，
-      那么就把此项设置为 http://example.com/。
+      如果你的站点是 <code class="literal">http://example.com/</code>，
+      那么就把此项设置为 <code class="literal">http://example.com/</code>。
       需要注意的是，如果使用了 HTTPS 协议，
       那么浏览器在发起请求的时候不会包含 referrer 请求头。
       建议启用此配置项，虽然它并不是可靠的安全措施。
@@ -258,9 +256,9 @@
       应该仅针对公开内容允许缓存，
       否则将会面临内容泄露的风险。
       即使 HTTP 内容不包含敏感数据，
-      也可以把它设置为"private"。
-      注意，"private"可能会导致客户端缓存私有数据。
-      仅在 HTTP 内容中不包含任何私有数据的时候，可以使用"public"。
+      也可以把它设置为<code class="literal">&quot;private&quot;</code>。
+      注意，<code class="literal">&quot;private&quot;</code>可能会导致客户端缓存私有数据。
+      仅在 HTTP 内容中不包含任何私有数据的时候，可以使用<code class="literal">&quot;public&quot;</code>。
      </p>
     </li>
 
@@ -316,7 +314,22 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123434""></a>
+<div id="allnotes">  <a name="129282""></a>
+  <div class="note">
+   <strong class="user">theking2(at)king.ma</strong>
+   <a href="#129282" class="date">26-Feb-2024 07:07</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It is important to realize that session.cookie_lifetime=0 will delete the cookie when the browser closes but nowadays browers tend to never close even after the last windows or tab was closed. <br />
+<br />
+For startup speed purposes and to retrieve push traffic browser drop to the background hence the cookie stays put.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123434""></a>
   <div class="note">
    <strong class="user">Derek Simkowiak</strong>
    <a href="#123434" class="date">14-Dec-2018 04:04</a>

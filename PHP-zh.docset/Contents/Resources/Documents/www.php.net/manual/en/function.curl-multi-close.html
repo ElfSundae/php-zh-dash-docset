@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>关闭一组 cURL 句柄</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.curl-multi-close-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>curl_multi_close</strong></span>(<span class="methodparam"><span class="type"><a href="class.curlmultihandle.html" class="type CurlMultiHandle">CurlMultiHandle</a></span> <code class="parameter">$multi_handle</code></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>curl_multi_close</strong></span>(<span class="methodparam"><span class="type"><a href="class.curlmultihandle.html" class="type CurlMultiHandle">CurlMultiHandle</a></span> <code class="parameter">$multi_handle</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <blockquote class="note"><p><strong class="note">Note</strong>: 
  <p class="para">
@@ -53,15 +53,10 @@
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
-    <dt>
-<code class="parameter">multi_handle</code>
-</dt>
-<dd>
-<p class="para">由 
+    <dt><code class="parameter">multi_handle</code>
+</dt><dd><p class="para">由 
 <span class="function"><a href="function.curl-multi-init.html" class="function">curl_multi_init()</a></span> 返回的 cURL 多个句柄。</p></dd>
-
    </dl>
-
   </p>
  </div>
 
@@ -91,7 +86,7 @@
  <td>8.0.0</td>
  <td>
   <code class="parameter">multi_handle</code> expects a <span class="classname"><a href="class.curlmultihandle.html" class="classname">CurlMultiHandle</a></span>
-  instance now; previously, a <span class="type">resource</span> was expected.
+  instance now; previously, a <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> was expected.
  </td>
 </tr>
 
@@ -103,18 +98,15 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.curl-multi-close-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4301">
     <p><strong>Example #1 <span class="function"><strong>curl_multi_close()</strong></span> 示例</strong></p>
     <div class="example-contents"><p>
      此示例将创建两个 cURL 句柄，并把它们加到多句柄中，然后对其异步处理。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建一对 cURL 资源<br /></span><span style="color: #0000BB">$ch1 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$ch2 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 设置 URL 和其它相应的选项<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_URL</span><span style="color: #007700">, </span><span style="color: #DD0000">"http://www.example.com/"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_HEADER</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_URL</span><span style="color: #007700">, </span><span style="color: #DD0000">"http://www.php.net/"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_HEADER</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 创建 cURL 多句柄<br /></span><span style="color: #0000BB">$mh </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 新增两个句柄<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">,</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">,</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行多句柄<br /></span><span style="color: #007700">do {<br />    </span><span style="color: #0000BB">$status </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$active</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">$active</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">curl_multi_select</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">);<br />    }<br />} while (</span><span style="color: #0000BB">$active </span><span style="color: #007700">&amp;&amp; </span><span style="color: #0000BB">$status </span><span style="color: #007700">== </span><span style="color: #0000BB">CURLM_OK</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 关闭全部句柄<br /></span><span style="color: #0000BB">curl_multi_remove_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_remove_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建一对 cURL 资源<br /></span><span style="color: #0000BB">$ch1 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$ch2 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 设置 URL 和其它相应的选项<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_URL</span><span style="color: #007700">, </span><span style="color: #DD0000">"http://www.example.com/"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_HEADER</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_URL</span><span style="color: #007700">, </span><span style="color: #DD0000">"http://www.php.net/"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_HEADER</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 创建 cURL 多句柄<br /></span><span style="color: #0000BB">$mh </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 新增两个句柄<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">,</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">,</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行多句柄<br /></span><span style="color: #007700">do {<br />    </span><span style="color: #0000BB">$status </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$active</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">$active</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">curl_multi_select</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">);<br />    }<br />} while (</span><span style="color: #0000BB">$active </span><span style="color: #007700">&amp;&amp; </span><span style="color: #0000BB">$status </span><span style="color: #007700">== </span><span style="color: #0000BB">CURLM_OK</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 关闭全部句柄<br /></span><span style="color: #0000BB">curl_multi_remove_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_remove_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -126,8 +118,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.curl-multi-init.html" class="function" rel="rdfs-seeAlso">curl_multi_init()</a> - 返回一个新cURL批处理句柄</span></li>
-    <li class="member"><span class="function"><a href="function.curl-close.html" class="function" rel="rdfs-seeAlso">curl_close()</a> - 关闭 cURL 会话</span></li>
+    <li><span class="function"><a href="function.curl-multi-init.html" class="function" rel="rdfs-seeAlso">curl_multi_init()</a> - 返回新 cURL 批处理句柄</span></li>
+    <li><span class="function"><a href="function.curl-close.html" class="function" rel="rdfs-seeAlso">curl_close()</a> - 关闭 cURL 会话</span></li>
    </ul>
   </p>
  </div>

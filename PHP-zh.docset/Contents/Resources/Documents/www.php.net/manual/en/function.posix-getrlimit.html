@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Return info about system resource limits</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,10 +35,10 @@
  <div class="refsect1 description" id="refsect1-function.posix-getrlimit-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>posix_getrlimit</strong></span>(): <span class="type"><span class="type">array</span>|<span class="type"><span class="type false">false</span></span></span></div>
+   <span class="methodname"><strong>posix_getrlimit</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$resource</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>posix_getrlimit()</strong></span> returns an <span class="type">array</span>
+   <span class="function"><strong>posix_getrlimit()</strong></span> returns an <span class="type"><a href="language.types.array.html" class="type array">array</a></span>
    of information about the current resource&#039;s soft and hard limits.
   </p>
   
@@ -55,14 +55,26 @@
 
  <div class="refsect1 parameters" id="refsect1-function.posix-getrlimit-parameters">
   <h3 class="title">参数</h3>
-  <p class="para">此函数没有参数。</p>
+  <p class="para">
+   <dl>
+    
+     <dt><code class="parameter">resource</code></dt>
+     <dd>
+      <p class="para">
+       If <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> all resource limits will be fetched.
+       Otherwise, the only limits of the resource type provided will be returned.
+      </p>
+     </dd>
+    
+   </dl>
+  </p>
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-function.posix-getrlimit-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns an associative <span class="type">array</span> of elements for each
+   Returns an associative <span class="type"><a href="language.types.array.html" class="type array">array</a></span> of elements for each
    limit that is defined. Each limit has a soft and a hard limit.
    <table class="doctable table">
     <caption><strong>List of possible limits returned</strong></caption>
@@ -160,27 +172,50 @@
     
    </table>
 
-   The function returns <strong><code>false</code></strong> on failure.
+   The function returns <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> on failure.
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.posix-getrlimit-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.3.0</td>
+      <td>
+       The optional <code class="parameter">resource</code> parameter has been added.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.posix-getrlimit-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3398">
     <p><strong>Example #1 Example use of <span class="function"><strong>posix_getrlimit()</strong></span></strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$limits </span><span style="color: #007700">= </span><span style="color: #0000BB">posix_getrlimit</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$limits</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$limits </span><span style="color: #007700">= </span><span style="color: #0000BB">posix_getrlimit</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$limits</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [soft core] =&gt; 0
     [hard core] =&gt; unlimited
@@ -202,8 +237,8 @@ Array
     [hard filesize] =&gt; unlimited
     [soft openfiles] =&gt; 1024
     [hard openfiles] =&gt; 1024
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
@@ -214,8 +249,8 @@ Array
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member">man page GETRLIMIT(2)</li>
-    <li class="member"><span class="function"><a href="function.posix-setrlimit.html" class="function" rel="rdfs-seeAlso">posix_setrlimit()</a> - Set system resource limits</span></li>
+    <li>man page GETRLIMIT(2)</li>
+    <li><span class="function"><a href="function.posix-setrlimit.html" class="function" rel="rdfs-seeAlso">posix_setrlimit()</a> - Set system resource limits</span></li>
    </ul>
   </p>
  </div>

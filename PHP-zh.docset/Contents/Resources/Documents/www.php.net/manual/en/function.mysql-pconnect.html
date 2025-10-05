@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>打开一个到 MySQL 服务器的持久连接</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -39,8 +39,8 @@
 或 <a href="ref.pdo-mysql.html" class="link">PDO_MySQL</a> 扩展来替换之。参见 <a href="mysqlinfo.api.choosing.html" class="link">MySQL：选择 API</a> 
 指南来获取更多信息。用以替代本函数的有：</p>
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.mysqli-connect.html" class="function">mysqli_connect()</a></span> with <code class="literal">p:</code> host prefix</li>
-    <li class="member"><span class="methodname"><a href="pdo.construct.html" class="methodname">PDO::__construct()</a></span> with <strong><code>PDO::ATTR_PERSISTENT</code></strong> as a driver option</li>
+    <li><span class="function"><a href="function.mysqli-connect.html" class="function">mysqli_connect()</a></span> with <code class="literal">p:</code> host prefix</li>
+    <li><span class="methodname"><a href="pdo.construct.html" class="methodname">PDO::__construct()</a></span> with <strong><code><a href="pdo.constants.html#pdo.constants.attr-persistent">PDO::ATTR_PERSISTENT</a></code></strong> as a driver option</li>
    </ul>
   </div>
  </div>
@@ -48,7 +48,7 @@
  <div class="refsect1 description" id="refsect1-function.mysql-pconnect-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysql_pconnect</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$server</code><span class="initializer"> = ini_get(&quot;mysql.default_host&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$username</code><span class="initializer"> = ini_get(&quot;mysql.default_user&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$password</code><span class="initializer"> = ini_get(&quot;mysql.default_password&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$client_flags</code><span class="initializer"> = 0</span></span><br>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>mysql_pconnect</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$server</code><span class="initializer"> = ini_get(&quot;mysql.default_host&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$username</code><span class="initializer"> = ini_get(&quot;mysql.default_user&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$password</code><span class="initializer"> = ini_get(&quot;mysql.default_password&quot;)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$client_flags</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span></div>
 
   
   <p class="para rdfs-comment">
@@ -77,11 +77,8 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">server</code></dt>
-
+     <dt><code class="parameter">server</code></dt>
      <dd>
-
       <p class="para">
        MySQL 服务器地址，参数也可以包括端口号，例如
        "hostname:port" 或者是本机套接字的的路径，例如 ":/path/to/socket"
@@ -91,51 +88,37 @@
        mysql.default_host</a> 的值未设置（默认情况下），则默认值为 &#039;localhost:3306&#039;
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">username</code></dt>
-
+     <dt><code class="parameter">username</code></dt>
      <dd>
-
       <p class="para">
        数据库连接使用的用户名。默认为当前服务器进程的用户。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">password</code></dt>
-
+     <dt><code class="parameter">password</code></dt>
      <dd>
-
       <p class="para">
        数据库连接使用的密码。默认为空密码。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">client_flags</code></dt>
-
+     <dt><code class="parameter">client_flags</code></dt>
      <dd>
-
       <p class="para">
        参数 <code class="parameter">client_flags</code> 可以为以下常量：
        128 (enable <code class="literal">LOAD DATA LOCAL</code> handling),
-       <strong><code>MYSQL_CLIENT_SSL</code></strong>,
-       <strong><code>MYSQL_CLIENT_COMPRESS</code></strong>,
-       <strong><code>MYSQL_CLIENT_IGNORE_SPACE</code></strong> 或
-       <strong><code>MYSQL_CLIENT_INTERACTIVE</code></strong>。
+       <strong><code><a href="mysql.constants.html#constant.mysql-client-ssl">MYSQL_CLIENT_SSL</a></code></strong>,
+       <strong><code><a href="mysql.constants.html#constant.mysql-client-compress">MYSQL_CLIENT_COMPRESS</a></code></strong>,
+       <strong><code><a href="mysql.constants.html#constant.mysql-client-ignore-space">MYSQL_CLIENT_IGNORE_SPACE</a></code></strong> 或
+       <strong><code><a href="mysql.constants.html#constant.mysql-client-interactive">MYSQL_CLIENT_INTERACTIVE</a></code></strong>。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -143,36 +126,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.mysql-pconnect-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果成功则返回一个正的 MySQL 持久连接标识符，出错则返回 <strong><code>false</code></strong>。
-  </p>
- </div>
-
-
- <div class="refsect1 changelog" id="refsect1-function.mysql-pconnect-changelog">
-  <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table id="function.mysql-pconnect.changelog" class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
-
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>5.5.0</td>
-       <td>
-        函数会抛出一个 <strong><code>E_DEPRECATED</code></strong> 错误。
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
+   如果成功则返回一个正的 MySQL 持久连接标识符，出错则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -198,8 +152,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.mysql-connect.html" class="function" rel="rdfs-seeAlso">mysql_connect()</a> - 打开一个到 MySQL 服务器的连接</span></li>
-    <li class="member"><a href="features.persistent-connections.html" class="link">Persistent
+    <li><span class="function"><a href="function.mysql-connect.html" class="function" rel="rdfs-seeAlso">mysql_connect()</a> - 打开一个到 MySQL 服务器的连接</span></li>
+    <li><a href="features.persistent-connections.html" class="link">Persistent
     Database Connections</a></li>
    </ul>
   </p>

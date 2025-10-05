@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取一个cURL连接资源句柄的信息</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -31,11 +31,11 @@
   <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">curl_getinfo</span> &mdash; <span class="dc-title">获取一个cURL连接资源句柄的信息</span></p>
 
  </div>
- 
+
  <div class="refsect1 description" id="refsect1-function.curl-getinfo-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>curl_getinfo</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$ch</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$opt</code><span class="initializer"> = 0</span></span>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>curl_getinfo</strong></span>(<span class="methodparam"><span class="type"><a href="class.curlhandle.html" class="type CurlHandle">CurlHandle</a></span> <code class="parameter">$handle</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$option</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span></div>
 
   <p class="para rdfs-comment">
    获取最后一次传输的相关信息。
@@ -47,128 +47,628 @@
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
-    <dt>
-<code class="parameter">handle</code>
-</dt>
-<dd>
-<p class="para">由 <span class="function"><a href="function.curl-init.html" class="function">curl_init()</a></span> 返回的 cURL 句柄。</p></dd>
-
+    <dt><code class="parameter">handle</code>
+</dt><dd><p class="para">由 <span class="function"><a href="function.curl-init.html" class="function">curl_init()</a></span> 返回的 cURL 句柄。</p></dd>
     
-     <dt>
-<code class="parameter">opt</code></dt>
-
+     <dt><code class="parameter">option</code></dt>
      <dd>
-
       <p class="para">
        这个参数可能是以下常量之一:
-       <ul class="itemizedlist">
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_EFFECTIVE_URL</code></strong> - 最后一个有效的URL地址
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_HTTP_CODE</code></strong> - 最后一个收到的HTTP代码
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_FILETIME</code></strong> - 远程获取文档的时间，如果无法获取，则返回值为"-1"
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_TOTAL_TIME</code></strong> - 最后一次传输所消耗的时间
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_NAMELOOKUP_TIME</code></strong> - 名称解析所消耗的时间
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_CONNECT_TIME</code></strong> - 建立连接所消耗的时间
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_PRETRANSFER_TIME</code></strong> - 从建立连接到准备传输所使用的时间
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_STARTTRANSFER_TIME</code></strong> - 从建立连接到传输开始所使用的时间
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_REDIRECT_TIME</code></strong> - 在事务传输开始前重定向所使用的时间
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_SIZE_UPLOAD</code></strong> - 以字节为单位返回上传数据量的总值
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_SIZE_DOWNLOAD</code></strong> - 以字节为单位返回下载数据量的总值
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_SPEED_DOWNLOAD</code></strong> - 平均下载速度
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_SPEED_UPLOAD</code></strong> - 平均上传速度
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_HEADER_SIZE</code></strong> - header部分的大小
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_HEADER_OUT</code></strong> - 发送请求的字符串
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-        <strong><code>CURLINFO_REQUEST_SIZE</code></strong> - 在HTTP请求中有问题的请求的大小
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_SSL_VERIFYRESULT</code></strong> - 通过设置<strong><code>CURLOPT_SSL_VERIFYPEER</code></strong>返回的SSL证书验证请求的结果
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_CONTENT_LENGTH_DOWNLOAD</code></strong> - 从<code class="literal">Content-Length:</code> field中读取的下载内容长度
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_CONTENT_LENGTH_UPLOAD</code></strong> - 上传内容大小的说明
-         </span>
-        </li>
-        <li class="listitem">
-         <span class="simpara">
-          <strong><code>CURLINFO_CONTENT_TYPE</code></strong> - 下载内容的<code class="literal">Content-Type:</code>值，NULL表示服务器没有发送有效的<code class="literal">Content-Type:</code> header
-         </span>
-        </li>
-       </ul>
+       <table class="doctable informaltable">
+        
+         <thead>
+          <tr>
+           <th>选项</th>
+           <th>说明</th>
+          </tr>
+
+         </thead>
+
+         <tbody class="tbody">
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-cainfo">CURLINFO_CAINFO</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            默认内置 CA 证书路径
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-capath">CURLINFO_CAPATH</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            默认内置 CA 路径字符串
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-effective-url">CURLINFO_EFFECTIVE_URL</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最后一个有效的 URL
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-http-code">CURLINFO_HTTP_CODE</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最后的响应代码。自 cURL 7.10.8 起，这是 <strong><code><a href="curl.constants.html#constant.curlinfo-response-code">CURLINFO_RESPONSE_CODE</a></code></strong> 的旧别名
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-filetime">CURLINFO_FILETIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            启用了 <strong><code><a href="curl.constants.html#constant.curlopt-filetime">CURLOPT_FILETIME</a></code></strong> 后检索文档的远程时间；如果返回 -1，则文档的时间未知
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-total-time">CURLINFO_TOTAL_TIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最后一次传输的总事务时间（以秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-namelookup-time">CURLINFO_NAMELOOKUP_TIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            到名称解析完成所需的时间（以秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-connect-time">CURLINFO_CONNECT_TIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            建立连接所需的时间（以秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-pretransfer-time">CURLINFO_PRETRANSFER_TIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从启动到文件准备要传输所需的时间（以秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-starttransfer-time">CURLINFO_STARTTRANSFER_TIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从启动到传输第一个字节之前所需的时间（以秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-redirect-count">CURLINFO_REDIRECT_COUNT</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            启用 <strong><code><a href="curl.constants.html#constant.curlopt-followlocation">CURLOPT_FOLLOWLOCATION</a></code></strong> 选项后的重定向次数
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-redirect-time">CURLINFO_REDIRECT_TIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            在启用 <strong><code><a href="curl.constants.html#constant.curlopt-followlocation">CURLOPT_FOLLOWLOCATION</a></code></strong> 选项后，最终事务开始之前所有重定向步骤的时间（以秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-redirect-url">CURLINFO_REDIRECT_URL</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            禁用 <strong><code><a href="curl.constants.html#constant.curlopt-followlocation">CURLOPT_FOLLOWLOCATION</a></code></strong> 选项：重定向 URL 在上次事务中找到，接下来应该手动请求。在启用 <strong><code><a href="curl.constants.html#constant.curlopt-followlocation">CURLOPT_FOLLOWLOCATION</a></code></strong>
+            选项的情况下，此值为空。在这种情况下，重定向的 URL 可以在 <strong><code><a href="curl.constants.html#constant.curlinfo-effective-url">CURLINFO_EFFECTIVE_URL</a></code></strong> 中获取
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-primary-ip">CURLINFO_PRIMARY_IP</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最近连接的 IP 地址
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-primary-port">CURLINFO_PRIMARY_PORT</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最近一次连接的目标端口
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-local-ip">CURLINFO_LOCAL_IP</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最近连接的本地（源）IP 地址
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-local-port">CURLINFO_LOCAL_PORT</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最近连接的本地（源）端口
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-size-upload">CURLINFO_SIZE_UPLOAD</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            上传的总字节数
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-size-download">CURLINFO_SIZE_DOWNLOAD</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            下载的总字节数
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-speed-download">CURLINFO_SPEED_DOWNLOAD</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            平均下载速度
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-speed-upload">CURLINFO_SPEED_UPLOAD</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            平均上传速度
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-header-size">CURLINFO_HEADER_SIZE</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            检索到的所有 header 总大小
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-header-out">CURLINFO_HEADER_OUT</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            发送请求的字符串。为此，通过调用 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span> 将 <strong><code><a href="curl.constants.html#constant.curlinfo-header-out">CURLINFO_HEADER_OUT</a></code></strong> 选项添加到句柄
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-referer">CURLINFO_REFERER</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            referrer header
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-request-size">CURLINFO_REQUEST_SIZE</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            已发出请求的总大小，当前仅针对 HTTP 请求
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-retry-after">CURLINFO_RETRY_AFTER</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            来自 <code class="literal">Retry-After:</code> header 的信息，如果没有有效的 header，则为 0。
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-ssl-verifyresult">CURLINFO_SSL_VERIFYRESULT</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            通过设置 <strong><code><a href="curl.constants.html#constant.curlopt-ssl-verifypeer">CURLOPT_SSL_VERIFYPEER</a></code></strong> 请求的 SSL 认证验证结果
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-content-length-download">CURLINFO_CONTENT_LENGTH_DOWNLOAD</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从 <code class="literal">Content-Length:</code> 字段中读取的下载内容长度
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-content-length-upload">CURLINFO_CONTENT_LENGTH_UPLOAD</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            指定上传大小
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-content-type">CURLINFO_CONTENT_TYPE</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            <code class="literal">Content-Type:</code> 所请求文档的类型。NULL 表示服务器没有发送有效的 <code class="literal">Content-Type:</code> header
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-private">CURLINFO_PRIVATE</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            与此 cURL 句柄关联的私有数据，之前使用 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span> 的 <strong><code><a href="curl.constants.html#constant.curlopt-private">CURLOPT_PRIVATE</a></code></strong> 选项设置
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-proxy-error">CURLINFO_PROXY_ERROR</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            当最近的传输返回 <strong><code><a href="curl.constants.html#constant.curle-proxy">CURLE_PROXY</a></code></strong> 错误时，会返回详细的（SOCKS）代理错误代码。返回的值将恰好是
+            <strong><code>CURLPX_<span class="replaceable">*</span></code></strong> 值之一。如果没有响应代码可用，错误代码将是 <strong><code><a href="curl.constants.html#constant.curlpx-ok">CURLPX_OK</a></code></strong>。
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-response-code">CURLINFO_RESPONSE_CODE</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最后的响应代码
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-http-connectcode">CURLINFO_HTTP_CONNECTCODE</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            CONNECT 响应代码
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-httpauth-avail">CURLINFO_HTTPAUTH_AVAIL</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            位掩码表示根据先前响应可用的身份验证方法
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-proxyauth-avail">CURLINFO_PROXYAUTH_AVAIL</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            位掩码表示根据先前响应可用的代理身份验证方法
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-os-errno">CURLINFO_OS_ERRNO</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            来自连接失败的 Errno。该数字是操作系统和系统特定的。
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-num-connects">CURLINFO_NUM_CONNECTS</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            curl 为实现先前的传输所必须创建的连接数
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-ssl-engines">CURLINFO_SSL_ENGINES</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            支持 OpenSSL 加密引擎
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-cookielist">CURLINFO_COOKIELIST</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            所有已知的 cookie
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-ftp-entry-path">CURLINFO_FTP_ENTRY_PATH</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            FTP 服务器中的入口路径
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-appconnect-time">CURLINFO_APPCONNECT_TIME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从开始到 SSL/SSH 完成与远程主机的连接/握手所花费的时间（以秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-certinfo">CURLINFO_CERTINFO</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            TLS 证书链
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-condition-unmet">CURLINFO_CONDITION_UNMET</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            未满足时间条件的信息
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-rtsp-client-cseq">CURLINFO_RTSP_CLIENT_CSEQ</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            下一个 RTSP 客户端 CSeq
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-rtsp-cseq-recv">CURLINFO_RTSP_CSEQ_RECV</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最近检索到的 CSeq
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-rtsp-server-cseq">CURLINFO_RTSP_SERVER_CSEQ</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            下一个 RTSP 服务器端 CSeq
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-rtsp-session-id">CURLINFO_RTSP_SESSION_ID</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            RTSP 会话 ID
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-content-length-download-t">CURLINFO_CONTENT_LENGTH_DOWNLOAD_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            下载的内容长度。此值从 <code class="literal">Content-Length:</code> 字段读取。如果大小未知则为 -1
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-content-length-upload-t">CURLINFO_CONTENT_LENGTH_UPLOAD_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            上传的指定大小。如果未知则为 -1
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-http-version">CURLINFO_HTTP_VERSION</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            返回最后一次 HTTP 连接中使用的版本。返回值将是定义的 <strong><code>CURL_HTTP_VERSION_*</code></strong> 常量之一，如果无法确定版本，则返回 0。
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-protocol">CURLINFO_PROTOCOL</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            在最后一个 HTTP 连接中使用的协议。返回值将会是 <strong><code>CURLPROTO_*</code></strong> 中的一个值
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-proxy-ssl-verifyresult">CURLINFO_PROXY_SSL_VERIFYRESULT</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            请求的证书验证结果（使用 <strong><code><a href="curl.constants.html#constant.curlopt-proxy-ssl-verifypeer">CURLOPT_PROXY_SSL_VERIFYPEER</a></code></strong> 选项）。仅用于 HTTPS 代理
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-scheme">CURLINFO_SCHEME</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            最近连接使用的 URL 协议
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-size-download-t">CURLINFO_SIZE_DOWNLOAD_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            已下载的总字节数。此数值仅针对最新的传输，并且在每次新的传输时都将会重置
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-size-upload-t">CURLINFO_SIZE_UPLOAD_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            上传的总字节数
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-speed-download-t">CURLINFO_SPEED_DOWNLOAD_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            curl 测量的完整下载速度的平均值，以字节/秒为单位
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-speed-upload-t">CURLINFO_SPEED_UPLOAD_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            curl 测量的完整上传速度的平均值，以字节/秒为单位
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-appconnect-time-t">CURLINFO_APPCONNECT_TIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从开始到与远程主机 SSL/SSH 连接/握手完成所经过的时间，以微秒为单位
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-connect-time-t">CURLINFO_CONNECT_TIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从开始到与远程主机（或代理）建立连接完成所经过的总时间，以微秒为单位
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-filetime-t">CURLINFO_FILETIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            检索的文档的远程时间（Unix 时间戳），是 <strong><code><a href="curl.constants.html#constant.curlinfo-filetime">CURLINFO_FILETIME</a></code></strong> 的替代值，允许具有 32 bit 变量的系统提取超出 32 bit 时间戳范围之外的日期
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-namelookup-time-t">CURLINFO_NAMELOOKUP_TIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从开始到名称解析完成的时间（以微秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-pretransfer-time-t">CURLINFO_PRETRANSFER_TIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从开始到文件传输即将开始的时间，以微秒为单位
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-redirect-time-t">CURLINFO_REDIRECT_TIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            在最终事务开始之前，所有重定向步骤（包括名称查找、连接、预传输和传输）所花费的总时间，以微秒为单位。
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-starttransfer-time-t">CURLINFO_STARTTRANSFER_TIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            从开始到接收到第一个字节所花费的时间（以微秒为单位）
+           </td>
+          </tr>
+
+          <tr>
+           <td style="vertical-align: top;">
+            <strong><code><a href="curl.constants.html#constant.curlinfo-total-time-t">CURLINFO_TOTAL_TIME_T</a></code></strong>
+           </td>
+           <td style="vertical-align: top;">
+            上次传输的总时间（以微秒为单位），包括名称解析、TCP 连接等。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -176,7 +676,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.curl-getinfo-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果 <code class="parameter">opt</code> 被设置，以字符串形式返回它的值。否则，返回返回一个包含下列元素的关联数组(它们分别对应于 <code class="parameter">opt</code>):
+   如果指定 <code class="parameter">option</code>，将返回它的值。否则将返回包含下列元素的关联数组（分别对应 <code class="parameter">option</code>），失败时为 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>：
    <ul class="itemizedlist">
     <li class="listitem">
      <span class="simpara">
@@ -278,7 +778,43 @@
       &quot;redirect_time&quot;
      </span>
     </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;certinfo&quot;
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;primary_ip&quot;
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;primary_port&quot;
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;local_ip&quot;
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;local_port&quot;
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;redirect_url&quot;
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;request_header&quot;（只有在之前调用 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span> 设置 <strong><code><a href="curl.constants.html#constant.curlinfo-header-out">CURLINFO_HEADER_OUT</a></code></strong> 后才会设置）
+     </span>
+    </li>
    </ul>
+   注意，私有数据不包含在关联数组中，必须使用 <strong><code><a href="curl.constants.html#constant.curlinfo-private">CURLINFO_PRIVATE</a></code></strong> 选项单独检索。
   </p>
  </div>
 
@@ -298,9 +834,38 @@
 
      <tbody class="tbody">
       <tr>
-       <td>5.1.3</td>
+       <td>8.3.0</td>
        <td>
-        引入<strong><code>CURLINFO_HEADER_OUT</code></strong>.
+        引入 <strong><code><a href="curl.constants.html#constant.curlinfo-cainfo">CURLINFO_CAINFO</a></code></strong> 和 <strong><code><a href="curl.constants.html#constant.curlinfo-capath">CURLINFO_CAPATH</a></code></strong>。
+       </td>
+      </tr>
+
+      <tr>
+       <td>8.2.0</td>
+       <td>
+        引入 <strong><code><a href="curl.constants.html#constant.curlinfo-proxy-error">CURLINFO_PROXY_ERROR</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-referer">CURLINFO_REFERER</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-retry-after">CURLINFO_RETRY_AFTER</a></code></strong>。
+       </td>
+      </tr>
+
+      <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">handle</code> 现在接受 <span class="classname"><a href="class.curlhandle.html" class="classname">CurlHandle</a></span>
+  实例；之前接受 <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>。
+ </td>
+</tr>
+
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        <code class="parameter">option</code> 现在可为 null；之前默认值是 <code class="literal">0</code>。
+       </td>
+      </tr>
+
+      <tr>
+       <td>7.3.0</td>
+       <td>
+        引入 <strong><code><a href="curl.constants.html#constant.curlinfo-content-length-download-t">CURLINFO_CONTENT_LENGTH_DOWNLOAD_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-content-length-upload-t">CURLINFO_CONTENT_LENGTH_UPLOAD_T</a></code></strong>、 <strong><code><a href="curl.constants.html#constant.curlinfo-http-version">CURLINFO_HTTP_VERSION</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-protocol">CURLINFO_PROTOCOL</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-proxy-ssl-verifyresult">CURLINFO_PROXY_SSL_VERIFYRESULT</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-scheme">CURLINFO_SCHEME</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-size-download-t">CURLINFO_SIZE_DOWNLOAD_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-size-upload-t">CURLINFO_SIZE_UPLOAD_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-speed-download-t">CURLINFO_SPEED_DOWNLOAD_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-speed-upload-t">CURLINFO_SPEED_UPLOAD_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-appconnect-time-t">CURLINFO_APPCONNECT_TIME_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-connect-time-t">CURLINFO_CONNECT_TIME_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-filetime-t">CURLINFO_FILETIME_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-namelookup-time-t">CURLINFO_NAMELOOKUP_TIME_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-pretransfer-time-t">CURLINFO_PRETRANSFER_TIME_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-redirect-time-t">CURLINFO_REDIRECT_TIME_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-starttransfer-time-t">CURLINFO_STARTTRANSFER_TIME_T</a></code></strong>、<strong><code><a href="curl.constants.html#constant.curlinfo-total-time-t">CURLINFO_TOTAL_TIME_T</a></code></strong>。
        </td>
       </tr>
 
@@ -313,15 +878,21 @@
 
  
  <div class="refsect1 examples" id="refsect1-function.curl-getinfo-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #1 <span class="function"><strong>curl_getinfo()</strong></span> example</strong></p>
+   <div class="example" id="example-4297">
+    <p><strong>Example #1 <span class="function"><strong>curl_getinfo()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建一个cURL句柄<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.yahoo.com/'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 检查是否有错误发生<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">curl_errno</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">))<br />{<br /> </span><span style="color: #0000BB">$info </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_getinfo</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /> echo </span><span style="color: #DD0000">'Took ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$info</span><span style="color: #007700">[</span><span style="color: #DD0000">'total_time'</span><span style="color: #007700">] . </span><span style="color: #DD0000">' seconds to send a request to ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$info</span><span style="color: #007700">[</span><span style="color: #DD0000">'url'</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #FF8000">// Close handle<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建 cURL 句柄<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 检查是否有错误发生<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">curl_errno</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">)) {<br />  </span><span style="color: #0000BB">$info </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_getinfo</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br />  echo </span><span style="color: #DD0000">'Took '</span><span style="color: #007700">, </span><span style="color: #0000BB">$info</span><span style="color: #007700">[</span><span style="color: #DD0000">'total_time'</span><span style="color: #007700">], </span><span style="color: #DD0000">' seconds to send a request to '</span><span style="color: #007700">, </span><span style="color: #0000BB">$info</span><span style="color: #007700">[</span><span style="color: #DD0000">'url'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// 关闭句柄<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4298">
+    <p><strong>Example #2 使用 <code class="parameter">option</code> 参数的 <span class="function"><strong>curl_getinfo()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建 cURL 句柄<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 检测 HTTP 状态码<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">curl_errno</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">)) {<br />  switch (</span><span style="color: #0000BB">$http_code </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_getinfo</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLINFO_HTTP_CODE</span><span style="color: #007700">)) {<br />    case </span><span style="color: #0000BB">200</span><span style="color: #007700">:  </span><span style="color: #FF8000"># OK<br />      </span><span style="color: #007700">break;<br />    default:<br />      echo </span><span style="color: #DD0000">'Unexpected HTTP code: '</span><span style="color: #007700">, </span><span style="color: #0000BB">$http_code</span><span style="color: #007700">, </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />  }<br />}<br /><br /></span><span style="color: #FF8000">// 关闭句柄<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -333,9 +904,7 @@
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    Information gathered by this function is kept if the handle is re-used. This means 
-    that unless a statistic is overridden internally by this function, the previous info 
-    is returned.
+    如果重新使用句柄，则保留此函数收集的信息。这意味着除非此函数在内部覆盖统计信息，否则将返回以前的信息。
    </p>
   </p></blockquote>
  </div>
@@ -345,7 +914,165 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="118328""></a>
+<div id="allnotes">  <a name="129690""></a>
+  <div class="note">
+   <strong class="user">mrdnjdkzxei at sportpitslv dot ru</strong>
+   <a href="#129690" class="date">07-Aug-2024 03:54</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Анонимное выведение из запоя в домашних условиях в Самаре <br />
+вывод из запоя цена &lt;a href=https://vyvodim-iz-zapoya-samara.ru&gt;https://vyvodim-iz-zapoya-samara.ru&lt;/a&gt; .</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="129680""></a>
+  <div class="note">
+   <strong class="user">xggrquplbSa at seo-laboratory dot ru</strong>
+   <a href="#129680" class="date">31-Jul-2024 06:48</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Как научиться петь и выступать на сцене: Уроки вокала <br />
+учитель по вокалу &lt;a href=https://uroki-vocala-msk.ru/&gt;https://uroki-vocala-msk.ru/&lt;/a&gt; .</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="129309""></a>
+  <div class="note">
+   <strong class="user">pluk77 at gmail dot com</strong>
+   <a href="#129309" class="date">04-Mar-2024 12:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You can still get the SSL verification result using CURLINFO_SSL_VERIFYRESULT when setting CURLOPT_SSL_VERIFYPEER to FALSE.<br />
+<br />
+Full list of result codes:<br />
+<br />
+0: ok<br />
+1: unspecified certificate verification error<br />
+2: unable to get issuer certificate<br />
+3: unable to get certificate CRL<br />
+4: unable to decrypt certificate's signature<br />
+5: unable to decrypt CRL's signature<br />
+6: unable to decode issuer public key<br />
+7: certificate signature failure<br />
+8: CRL signature failure<br />
+9: certificate is not yet valid<br />
+10: certificate has expired<br />
+11: CRL is not yet valid<br />
+12: CRL has expired<br />
+13: format error in certificate's notBefore field<br />
+14: format error in certificate's notAfter field<br />
+15: format error in CRL's lastUpdate field<br />
+16: format error in CRL's nextUpdate field<br />
+17: out of memory<br />
+18: self-signed certificate<br />
+19: self-signed certificate in certificate chain<br />
+20: unable to get local issuer certificate<br />
+21: unable to verify the first certificate<br />
+22: certificate chain too long<br />
+23: certificate revoked<br />
+24: issuer certificate doesn't have a public key<br />
+25: path length constraint exceeded<br />
+26: unsuitable certificate purpose<br />
+27: certificate not trusted<br />
+28: certificate rejected<br />
+29: subject issuer mismatch<br />
+30: authority and subject key identifier mismatch<br />
+31: authority and issuer serial number mismatch<br />
+32: key usage does not include certificate signing<br />
+33: unable to get CRL issuer certificate<br />
+34: unhandled critical extension<br />
+35: key usage does not include CRL signing<br />
+36: unhandled critical CRL extension<br />
+37: invalid non-CA certificate (has CA markings)<br />
+38: proxy path length constraint exceeded<br />
+39: key usage does not include digital signature<br />
+40: proxy certificates not allowed, please set the appropriate flag<br />
+41: invalid or inconsistent certificate extension<br />
+42: invalid or inconsistent certificate policy extension<br />
+43: no explicit policy<br />
+44: different CRL scope<br />
+45: unsupported extension feature<br />
+46: RFC 3779 resource not subset of parent's resources<br />
+47: permitted subtree violation<br />
+48: excluded subtree violation<br />
+49: name constraints minimum and maximum not supported<br />
+50: application verification failure<br />
+51: unsupported name constraint type<br />
+52: unsupported or invalid name constraint syntax<br />
+53: unsupported or invalid name syntax<br />
+54: CRL path validation error<br />
+55: path loop<br />
+56: Suite B: certificate version invalid<br />
+57: Suite B: invalid public key algorithm<br />
+58: Suite B: invalid ECC curve<br />
+59: Suite B: invalid signature algorithm<br />
+60: Suite B: curve not allowed for this LOS<br />
+61: Suite B: cannot sign P-384 with P-256<br />
+62: hostname mismatch<br />
+63: email address mismatch<br />
+64: IP address mismatch<br />
+65: no matching DANE TLSA records<br />
+66: EE certificate key too weak<br />
+67: CA certificate key too weak<br />
+68: CA signature digest algorithm too weak<br />
+69: invalid certificate verification context<br />
+70: issuer certificate lookup error<br />
+71: Certificate Transparency required, but no valid SCTs found<br />
+72: proxy subject name violation<br />
+73: OCSP verification needed<br />
+74: OCSP verification failed<br />
+75: OCSP unknown cert<br />
+76: Cannot find certificate signature algorithm<br />
+77: subject signature algorithm and issuer public key algorithm mismatch<br />
+78: cert info signature and signature algorithm mismatch<br />
+79: invalid CA certificate<br />
+80: Path length invalid for non-CA cert<br />
+81: Path length given without key usage keyCertSign<br />
+82: Key usage keyCertSign invalid for non-CA cert<br />
+83: Issuer name empty<br />
+84: Subject name empty<br />
+85: Missing Authority Key Identifier<br />
+86: Missing Subject Key Identifier<br />
+87: Empty Subject Alternative Name extension<br />
+89: Basic Constraints of CA cert not marked critical<br />
+88: Subject empty and Subject Alt Name extension not critical<br />
+90: Authority Key Identifier marked critical<br />
+91: Subject Key Identifier marked critical<br />
+92: CA cert does not include key usage extension<br />
+93: Using cert extension requires at least X509v3<br />
+94: Certificate public key has explicit ECC parameters<br />
+95: Raw public key untrusted, no trusted keys configured<br />
+<br />
+source: https://github.com/openssl/openssl/blob/master/include/openssl/x509_vfy.h.in<br />
+https://github.com/openssl/openssl/blob/master/crypto/x509/x509_txt.c</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128622""></a>
+  <div class="note">
+   <strong class="user">c dot ball1729 at gmail dot com</strong>
+   <a href="#128622" class="date">19-Jun-2023 12:46</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A note about $curl_info['header_size'] (in response to the example above). <br />
+<br />
+Note that the total includes the size of any received headers suppressed by CURLOPT_SUPPRESS_CONNECT_HEADERS (see: https://curl.se/libcurl/c/CURLINFO_HEADER_SIZE.html) so if you are using a proxy which adds additional headers along with this option, $curl_info['header_size'] will give you the wrong string index based on the headers available in PHP. i.e., it will eat in to the start of the response instead of being the index of the beginning of the response.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="118328""></a>
   <div class="note">
    <strong class="user">public-mail at alekciy dot ru</strong>
    <a href="#118328" class="date">18-Nov-2015 09:35</a>

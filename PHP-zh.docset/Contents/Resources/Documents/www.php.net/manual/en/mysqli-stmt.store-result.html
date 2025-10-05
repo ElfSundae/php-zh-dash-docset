@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Stores a result set in an internal buffer</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -37,10 +37,10 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>mysqli_stmt::store_result</strong></span>(): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli_stmt::store_result</strong></span>(): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_stmt_store_result</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span> <code class="parameter">$statement</code></span>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_stmt_store_result</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span> <code class="parameter">$statement</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    This function should be called for queries that successfully 
@@ -53,7 +53,7 @@
     It is unnecessary to call <span class="function"><strong>mysqli_stmt_store_result()</strong></span> for other queries,
     but if you do, it will not harm or cause any notable performance loss in all cases.
     You can detect whether the query produced a result set by checking if
-    <span class="function"><a href="mysqli-stmt.result-metadata.html" class="function">mysqli_stmt_result_metadata()</a></span> returns <strong><code>false</code></strong>.
+    <span class="function"><a href="mysqli-stmt.result-metadata.html" class="function">mysqli_stmt_result_metadata()</a></span> returns <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
    </p>
   </p></blockquote>
  </div>
@@ -64,14 +64,9 @@
   <p class="para">
    <dl>
     <dt>
-
-<code class="parameter">statement</code></dt>
-<dd>
-<p class="para">仅以过程化样式：由
+<code class="parameter">statement</code></dt><dd><p class="para">仅以过程化样式：由
 <span class="function"><a href="mysqli.stmt-init.html" class="function">mysqli_stmt_init()</a></span> 返回的 <span class="classname"><a href="class.mysqli-stmt.html" class="classname">mysqli_stmt</a></span> 对象。</p></dd>
-
    </dl>
-
   </p>
  </div>
 
@@ -79,37 +74,39 @@
  <div class="refsect1 returnvalues" id="refsect1-mysqli-stmt.store-result-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
+ <div class="refsect1 errors" id="refsect1-mysqli-stmt.store-result-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+If mysqli error reporting is enabled (<strong><code><a href="mysqli.constants.html#constant.mysqli-report-error">MYSQLI_REPORT_ERROR</a></code></strong>) and the requested operation fails,
+a warning is generated. If, in addition, the mode is set to <strong><code><a href="mysqli.constants.html#constant.mysqli-report-strict">MYSQLI_REPORT_STRICT</a></code></strong>,
+a <span class="classname"><a href="class.mysqli-sql-exception.html" class="classname">mysqli_sql_exception</a></span> is thrown instead.</p>
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-mysqli-stmt.store-result-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-3024">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1511">
    <p><strong>Example #1 面向对象风格</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name LIMIT 20"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* store the result in an internal buffer */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">store_result</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Number of rows: %d.\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">num_rows</span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name LIMIT 20"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* store the result in an internal buffer */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">store_result</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Number of rows: %d.\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">num_rows</span><span style="color: #007700">);</span></span></code></div>
    </div>
 
   </div>
-  <div class="example" id="example-3026">
+  <div class="example" id="example-1512">
    <p><strong>Example #2 过程化风格</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name LIMIT 20"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* store the result in an internal buffer */<br /></span><span style="color: #0000BB">mysqli_stmt_store_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Number of rows: %d.\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_stmt_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">));</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name LIMIT 20"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* store the result in an internal buffer */<br /></span><span style="color: #0000BB">mysqli_stmt_store_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Number of rows: %d.\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_stmt_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">));</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程会输出：</p></div>
+   <div class="example-contents"><p>以上示例会输出：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-Number of rows: 20.
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Number of rows: 20.</pre>
+</div>
    </div>
   </div>
  </div>
@@ -119,9 +116,9 @@ Number of rows: 20.
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="mysqli.prepare.html" class="function" rel="rdfs-seeAlso">mysqli_prepare()</a> - 预处理执行 SQL</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.result-metadata.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_result_metadata()</a> - Returns result set metadata from a prepared statement</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.fetch.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_fetch()</a> - Fetch results from a prepared statement into the bound variables</span></li>
+    <li><span class="function"><a href="mysqli.prepare.html" class="function" rel="rdfs-seeAlso">mysqli_prepare()</a> - 预处理执行 SQL</span></li>
+    <li><span class="function"><a href="mysqli-stmt.result-metadata.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_result_metadata()</a> - Returns result set metadata from a prepared statement</span></li>
+    <li><span class="function"><a href="mysqli-stmt.fetch.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_fetch()</a> - Fetch results from a prepared statement into the bound variables</span></li>
    </ul>
   </p>
  </div>

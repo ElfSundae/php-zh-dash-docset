@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>提交一个任务到特定的 Worker 以执行</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-pool.submitTo-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Pool::submitTo</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$worker</code></span>, <span class="methodparam"><span class="type"><a href="class.threaded.html" class="type Threaded">Threaded</a></span> <code class="parameter">$task</code></span>): <span class="type">int</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Pool::submitTo</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$worker</code></span>, <span class="methodparam"><span class="type"><a href="class.threaded.html" class="type Threaded">Threaded</a></span> <code class="parameter">$task</code></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
    将对象提交到 Pool 中某个特定的 Worker 对象来执行。Worker 的下标从 0 开始，
@@ -49,31 +49,22 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">worker</code></dt>
-
+    <dt><code class="parameter">worker</code></dt>
     <dd>
-
      <p class="para">
       用来执行任务的 Worker 对象，下标从 <code class="literal">0</code> 开始。
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">task</code></dt>
-
+    <dt><code class="parameter">task</code></dt>
     <dd>
-
      <p class="para">
   要执行的任务
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
@@ -86,29 +77,25 @@
 
 
  <div class="refsect1 examples" id="refsect1-pool.submitTo-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3450">
     <p><strong>Example #1 提交任务到特定的 Worker</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Task </span><span style="color: #007700">extends </span><span style="color: #0000BB">Threaded </span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">run</span><span style="color: #007700">() {<br />        </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Thread</span><span style="color: #007700">::</span><span style="color: #0000BB">getCurrentThreadID</span><span style="color: #007700">());<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$pool </span><span style="color: #007700">= new </span><span style="color: #0000BB">Pool</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">submit</span><span style="color: #007700">(new </span><span style="color: #0000BB">Task</span><span style="color: #007700">());<br /><br />for (</span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">5</span><span style="color: #007700">; ++</span><span style="color: #0000BB">$i</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">submitTo</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, new </span><span style="color: #0000BB">Task</span><span style="color: #007700">()); </span><span style="color: #FF8000">// 将所有的任务都入栈到下标为 0 的 Worker<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">submitTo</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, new </span><span style="color: #0000BB">Task</span><span style="color: #007700">()); </span><span style="color: #FF8000">// 由于第二个 Worker 尚未存在，所以不可以将任务入栈到第二个 Worker<br /><br /></span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">shutdown</span><span style="color: #007700">();</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Task </span><span style="color: #007700">extends </span><span style="color: #0000BB">Threaded </span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">run</span><span style="color: #007700">() {<br />        </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Thread</span><span style="color: #007700">::</span><span style="color: #0000BB">getCurrentThreadID</span><span style="color: #007700">());<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$pool </span><span style="color: #007700">= new </span><span style="color: #0000BB">Pool</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">submit</span><span style="color: #007700">(new </span><span style="color: #0000BB">Task</span><span style="color: #007700">());<br /><br />for (</span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">5</span><span style="color: #007700">; ++</span><span style="color: #0000BB">$i</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">submitTo</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, new </span><span style="color: #0000BB">Task</span><span style="color: #007700">()); </span><span style="color: #FF8000">// 将所有的任务都入栈到下标为 0 的 Worker<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">submitTo</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, new </span><span style="color: #0000BB">Task</span><span style="color: #007700">()); </span><span style="color: #FF8000">// 由于第二个 Worker 尚未存在，所以不可以将任务入栈到第二个 Worker<br /><br /></span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">shutdown</span><span style="color: #007700">();</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-int(4475011072)
+<div class="examplescode"><pre class="examplescode">int(4475011072)
 int(4475011072)
 int(4475011072)
 int(4475011072)
 int(4475011072)
 int(4475011072)
 
-Fatal error: Uncaught Exception: The selected worker (1) does not exist in %s:%d
-</pre></div>
+Fatal error: Uncaught Exception: The selected worker (1) does not exist in %s:%d</pre>
+</div>
     </div>
    </div>
   </p>

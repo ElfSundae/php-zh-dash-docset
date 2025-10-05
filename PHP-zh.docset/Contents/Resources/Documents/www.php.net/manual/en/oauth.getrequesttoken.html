@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取一个请求令牌</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-oauth.getrequesttoken-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>OAuth::getRequestToken</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$request_token_url</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$callback_url</code><span class="initializer"> = ?</span></span>): <span class="type">array</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>OAuth::getRequestToken</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$request_token_url</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$callback_url</code><span class="initializer"> = ?</span></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$http_method</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
   <p class="para rdfs-comment">
    从服务提供者那里获取一个请求令牌、secret 、以及一些附带的响应参数。
@@ -48,31 +48,30 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">request_token_url</code></dt>
-
+     <dt><code class="parameter">request_token_url</code></dt>
      <dd>
-
       <p class="para">
        请求令牌 API 的 URL。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">callback_url</code></dt>
-
+     <dt><code class="parameter">callback_url</code></dt>
      <dd>
-
       <p class="para">
        OAuth 回调 URL。 如果传递了 <code class="parameter">callback_url</code> 且为空值，则将其设置为"oob"即到 OAuth 2009.1 咨询的地址。
       </p>
      </dd>
-
+    
+    
+     <dt><code class="parameter">http_method</code></dt>
+     <dd>
+      <p class="para">
+       要使用的 HTTP 方法，例如 <code class="literal">GET</code> 或 <code class="literal">POST</code>。
+      </p>
+     </dd>
     
    </dl>
-
   </p>
  </div>
 
@@ -80,7 +79,7 @@
  <div class="refsect1 returnvalues" id="refsect1-oauth.getrequesttoken-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功则返回一个包含解析过了的 OAuth 响应的数组，失败则返回 <strong><code>false</code></strong> 。
+   成功则返回一个包含解析过了的 OAuth 响应的数组，失败则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 。
   </p>
  </div>
 
@@ -100,14 +99,14 @@
 
      <tbody class="tbody">
       <tr>
-       <td>1.0.0</td>
+       <td>PECL oauth 1.0.0</td>
        <td>
-        以前失败时返回 <strong><code>null</code></strong>，而不是 <strong><code>false</code></strong>。
+        以前失败时返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，而不是 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
        </td>
       </tr>
 
       <tr>
-       <td>0.99.9</td>
+       <td>PECL oauth 0.99.9</td>
        <td>
        增加 <code class="parameter">callback_url</code> 参数。
        </td>
@@ -122,26 +121,22 @@
 
 
  <div class="refsect1 examples" id="refsect1-oauth.getrequesttoken-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5442">
     <p><strong>Example #1 <span class="function"><strong>OAuth::getRequestToken()</strong></span> 例子</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$oauth </span><span style="color: #007700">= new </span><span style="color: #0000BB">OAuth</span><span style="color: #007700">(</span><span style="color: #0000BB">OAUTH_CONSUMER_KEY</span><span style="color: #007700">,</span><span style="color: #0000BB">OAUTH_CONSUMER_SECRET</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$request_token_info </span><span style="color: #007700">= </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRequestToken</span><span style="color: #007700">(</span><span style="color: #DD0000">"https://example.com/oauth/request_token"</span><span style="color: #007700">);<br />    if(!empty(</span><span style="color: #0000BB">$request_token_info</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$request_token_info</span><span style="color: #007700">);<br />    } else {<br />        print </span><span style="color: #DD0000">"Failed fetching request token, response was: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getLastResponse</span><span style="color: #007700">();<br />    }<br />} catch(</span><span style="color: #0000BB">OAuthException $E</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Response: "</span><span style="color: #007700">. </span><span style="color: #0000BB">$E</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastResponse </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$oauth </span><span style="color: #007700">= new </span><span style="color: #0000BB">OAuth</span><span style="color: #007700">(</span><span style="color: #0000BB">OAUTH_CONSUMER_KEY</span><span style="color: #007700">,</span><span style="color: #0000BB">OAUTH_CONSUMER_SECRET</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$request_token_info </span><span style="color: #007700">= </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRequestToken</span><span style="color: #007700">(</span><span style="color: #DD0000">"https://example.com/oauth/request_token"</span><span style="color: #007700">);<br />    if(!empty(</span><span style="color: #0000BB">$request_token_info</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$request_token_info</span><span style="color: #007700">);<br />    } else {<br />        print </span><span style="color: #DD0000">"Failed fetching request token, response was: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getLastResponse</span><span style="color: #007700">();<br />    }<br />} catch(</span><span style="color: #0000BB">OAuthException $E</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Response: "</span><span style="color: #007700">. </span><span style="color: #0000BB">$E</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastResponse </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [oauth_token] =&gt; some_token
     [oauth_token_secret] =&gt; some_token_secret
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
@@ -152,8 +147,8 @@ Array
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="oauth.getlastresponse.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponse()</a> - 获取最后一次的响应</span></li>
-    <li class="member"><span class="methodname"><a href="oauth.getlastresponseinfo.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponseInfo()</a> - 获取关于最后一次响应的 HTTP 信息</span></li>
+    <li><span class="methodname"><a href="oauth.getlastresponse.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponse()</a> - 获取最后一次的响应</span></li>
+    <li><span class="methodname"><a href="oauth.getlastresponseinfo.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponseInfo()</a> - 获取关于最后一次响应的 HTTP 信息</span></li>
    </ul>
   </p>
  </div>

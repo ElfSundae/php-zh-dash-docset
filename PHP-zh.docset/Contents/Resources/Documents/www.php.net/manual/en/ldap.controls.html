@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>LDAP controls</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="ldap.using.html">? Using the PHP LDAP calls</a></li>
-      <li style="float: right;"><a href="ldap.examples.html">范例 ?</a></li>
+      <li style="float: right;"><a href="ldap.examples.html">示例 ?</a></li>
     </ul>
   </div>
 </div>
@@ -26,7 +26,7 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="ldap.controls" class="chapter">
- <h1>LDAP controls</h1>
+ <h1 class="title">LDAP controls</h1>
 
  <p class="para">
    Controls are special objects which may be sent alongside an
@@ -40,13 +40,10 @@
     are supported by a server, you need to query the root DSE by reading an
     empty dn with the filter (objectClass=*).
    </p>
-   <div class="example" id="">
+   <div class="example" id="example-4423">
     <p><strong>Example #1 Testing support for paged result control</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// $ds is a valid link identifier for a directory server<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_read</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #DD0000">''</span><span style="color: #007700">, </span><span style="color: #DD0000">'(objectClass=*)'</span><span style="color: #007700">, [</span><span style="color: #DD0000">'supportedControl'</span><span style="color: #007700">]);<br />if (!</span><span style="color: #0000BB">in_array</span><span style="color: #007700">(</span><span style="color: #0000BB">LDAP_CONTROL_PAGEDRESULTS</span><span style="color: #007700">, </span><span style="color: #0000BB">ldap_get_entries</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$result</span><span style="color: #007700">)[</span><span style="color: #0000BB">0</span><span style="color: #007700">][</span><span style="color: #DD0000">'supportedcontrol'</span><span style="color: #007700">])) {<br />  die(</span><span style="color: #DD0000">"This server does not support paged result control"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// $ds is a valid link identifier for a directory server<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_read</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #DD0000">''</span><span style="color: #007700">, </span><span style="color: #DD0000">'(objectClass=*)'</span><span style="color: #007700">, [</span><span style="color: #DD0000">'supportedControl'</span><span style="color: #007700">]);<br />if (!</span><span style="color: #0000BB">in_array</span><span style="color: #007700">(</span><span style="color: #0000BB">LDAP_CONTROL_PAGEDRESULTS</span><span style="color: #007700">, </span><span style="color: #0000BB">ldap_get_entries</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$result</span><span style="color: #007700">)[</span><span style="color: #0000BB">0</span><span style="color: #007700">][</span><span style="color: #DD0000">'supportedcontrol'</span><span style="color: #007700">])) {<br />  die(</span><span style="color: #DD0000">"This server does not support paged result control"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -55,67 +52,54 @@
 
  <p class="para">
    As of PHP 7.3, you can send controls with your request in all
-   request functions using the serverctrls parameter. When a ext
+   request functions using the <code class="parameter">controls</code> parameter. When a ext
    version of a function exists, you should use it if you want to
    get access to the full response object and be able to parse
    response controls from it using <span class="function"><a href="function.ldap-parse-result.html" class="function">ldap_parse_result()</a></span>.
  </p>
 
  <p class="para">
-   serverctrls must be an array containing an array for each control to send,
+   <code class="parameter">controls</code> must be an array containing an array for each control to send,
    containing the following keys:
    <dl>
     
      <dt>
-
       oid
-      (<span class="type">string</span>)
+      (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
      </dt>
-
      <dd>
-
       <span class="simpara">
        The OID of the control. You should use constants starting with
        LDAP_CONTROL_ for this. See <a href="ldap.constants.html" class="link">LDAP Constants</a>.
       </span>
      </dd>
-
     
     
      <dt>
-
       iscritical
-      (<span class="type">bool</span>)
+      (<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>)
      </dt>
-
      <dd>
-
       <span class="simpara">
        If a control is noted as critical, the request will fail if the
        control is not supported by the server, or if it fails to be
        applied. Note that some controls should always be marked as critical
-       as noted in the RFC introducing them. Defaults to <strong><code>false</code></strong>.
+       as noted in the RFC introducing them. Defaults to <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
       </span>
      </dd>
-
     
     
      <dt>
-
       value
-      (<span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span>)
+      (<span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span>)
      </dt>
-
      <dd>
-
       <span class="simpara">
        If applicable, the value of the control. Read below for more information.
       </span>
      </dd>
-
     
    </dl>
-
 
  </p>
 
@@ -128,43 +112,43 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_PAGEDRESULTS</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-pagedresults">LDAP_CONTROL_PAGEDRESULTS</a></code></strong>
      Expected keys are [size] and [cookie]
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_ASSERT</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-assert">LDAP_CONTROL_ASSERT</a></code></strong>
      Expected key is filter
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_VALUESRETURNFILTER</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-valuesreturnfilter">LDAP_CONTROL_VALUESRETURNFILTER</a></code></strong>
      Expected key is filter
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_PRE_READ</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-pre-read">LDAP_CONTROL_PRE_READ</a></code></strong>
      Expected key is attrs
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_POST_READ</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-post-read">LDAP_CONTROL_POST_READ</a></code></strong>
      Expected key is attrs
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_SORTREQUEST</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-sortrequest">LDAP_CONTROL_SORTREQUEST</a></code></strong>
      Expects an array of arrays with keys attr, [oid], [reverse].
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_VLVREQUEST</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a></code></strong>
      Expected keys are before, after, attrvalue|(offset, count), [context]
     </p>
    </li>
@@ -176,24 +160,24 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_PASSWORDPOLICYREQUEST</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-passwordpolicyrequest">LDAP_CONTROL_PASSWORDPOLICYREQUEST</a></code></strong>
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_MANAGEDSAIT</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-managedsait">LDAP_CONTROL_MANAGEDSAIT</a></code></strong>
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_DONTUSECOPY</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-dontusecopy">LDAP_CONTROL_DONTUSECOPY</a></code></strong>
     </p>
    </li>
   </ul>
  </p>
 
  <p class="para">
-   The control <strong><code>LDAP_CONTROL_PROXY_AUTHZ</code></strong> is a special case
+   The control <strong><code><a href="ldap.constants.html#constant.ldap-control-proxy-authz">LDAP_CONTROL_PROXY_AUTHZ</a></code></strong> is a special case
    as its value is not expected to be BER-encoded, so you can directly
    use a string for its value.
  </p>
@@ -205,37 +189,37 @@
   <ul class="itemizedlist">
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_PASSWORDPOLICYRESPONSE</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-passwordpolicyresponse">LDAP_CONTROL_PASSWORDPOLICYRESPONSE</a></code></strong>
      Keys are expire, grace, [error]
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_PAGEDRESULTS</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-pagedresults">LDAP_CONTROL_PAGEDRESULTS</a></code></strong>
      Keys are size, cookie
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_PRE_READ</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-pre-read">LDAP_CONTROL_PRE_READ</a></code></strong>
      Keys are dn and LDAP attributes names
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_POST_READ</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-post-read">LDAP_CONTROL_POST_READ</a></code></strong>
      Keys are dn and LDAP attributes names
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_SORTRESPONSE</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-sortresponse">LDAP_CONTROL_SORTRESPONSE</a></code></strong>
      Keys are errcode, [attribute]
     </p>
    </li>
    <li class="listitem">
     <p class="para">
-     <strong><code>LDAP_CONTROL_VLVRESPONSE</code></strong>
+     <strong><code><a href="ldap.constants.html#constant.ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a></code></strong>
      Keys are target, count, errcode, context
     </p>
    </li>

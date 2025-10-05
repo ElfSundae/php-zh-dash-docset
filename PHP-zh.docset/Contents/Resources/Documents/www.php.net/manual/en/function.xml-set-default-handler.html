@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>建立默认处理程序</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.xml-set-default-handler-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>xml_set_default_handler</strong></span>(<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>, <span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$handler</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>xml_set_default_handler</strong></span>(<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>, <span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$handler</code></span>): <span class="type"><a href="language.types.value.html" class="type true">true</a></span></div>
 
   <p class="para rdfs-comment">
    为 <code class="parameter">parser</code> 指定的 XML 处理程序建立默认处理函数。
@@ -48,72 +48,55 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">parser</code></dt>
-
-     <dd>
-
-      <p class="para">
-       XML 解析器的引用，用于建立默认处理函数。
-      </p>
-     </dd>
+ <dt><code class="parameter">parser</code></dt>
+ <dd>
+  <p class="para">
+   XML 解析器。
+  </p>
+ </dd>
 
     
-    
-     <dt>
-<code class="parameter">handler</code></dt>
-
+     <dt><code class="parameter">handler</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">handler</code> 为表示一个函数名称的字符串，该函数必须在为 <code class="parameter">parser</code> 指定的解析器调用 <span class="function"><a href="function.xml-parse.html" class="function">xml_parse()</a></span> 函数时已存在。
-      </p>
+ 如果传递 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 或空字符串，处理程序将重置为其默认状态。
+</p>
+<p class="para">
+ 如果 <code class="parameter">handler</code> 是 <span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span>，设置的 callable 将作为处理程序。
+</p>
+<p class="para">
+ 如果 <code class="parameter">handler</code> 是 <span class="type"><a href="language.types.string.html" class="type string">string</a></span>，它可以是 <span class="function"><a href="function.xml-set-object.html" class="function">xml_set_object()</a></span>
+ 设置的对象的方法名称。
+</p>
       <p class="para">
-       由 <code class="parameter">handler</code> 参数命名的函数名必须接受两个参数：
+       处理程序的签名必须是：
        <div class="methodsynopsis dc-description">
-        <span class="methodname"><span class="replaceable">handler</span></span>(<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>)</div>
+        <span class="methodname"><span class="replaceable">handler</span></span>(<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$data</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
        <dl>
         
-         <dt>
-
-          <code class="parameter">parser</code>
-         </dt>
- 
-         <dd>
-
-          <span class="simpara">
-           第一个参数 <span class="replaceable">parser</span> 为指向要调用处理程序的 XML 解析器的指针。
-          </span>
-         </dd>
+ <dt><code class="parameter">parser</code></dt>
+ <dd>
+  <span class="simpara">
+   XML 解析器调用的处理程序。
+  </span>
+ </dd>
 
         
-        
          <dt>
-
           <code class="parameter">data</code>
          </dt>
-
          <dd>
-
           <span class="simpara">
-           第二个参数 <code class="parameter">data</code> 为包含有字符数据的字符串。其内容可以是 XML 声明、文档类型声明、实体名或者其它没有已存在处理程序的地数据。
+           <code class="parameter">data</code> 包含字符数据。可以是 XML 声明、文档类型声明、实体名或者其它没有已存在处理程序的数据。
           </span>
          </dd>
-
         
        </dl>
-
       </p>
-      <p class="para">
-       如果处理程序名被设置为空字符串或者 <strong><code>false</code></strong>，则该有问题的处理程序将被屏蔽。
-      </p>
-      <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">除了函数名，含有对象引用的数组和方法名也可以作为参数。</span></p></blockquote>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -121,7 +104,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.xml-set-default-handler-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   总是返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。
   </p>
  </div>
 
@@ -142,7 +125,7 @@
       <tr>
  <td>8.0.0</td>
  <td>
-  <code class="parameter">parser</code> 现在接受 <span class="classname"><a href="class.xmlparser.html" class="classname">XMLParser</a></span> 实例；之前接受 <span class="type">resource</span>。
+  <code class="parameter">parser</code> 现在接受 <span class="classname"><a href="class.xmlparser.html" class="classname">XMLParser</a></span> 实例；之前接受有效的 <code class="literal">xml</code> <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>。
  </td>
 </tr>
 
@@ -157,7 +140,25 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="68110""></a>
+<div id="allnotes">  <a name="129424""></a>
+  <div class="note">
+   <strong class="user">jp dot amarok at email dot cz</strong>
+   <a href="#129424" class="date">22-Apr-2024 04:00</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For anyone who was also wondering what kind of events this function actually handles:<br />
+<br />
+it's used in cases when an XML comment is found or an additional declaration like an xml-stylesheet. In such cases the data argument contains the whole string as it is, for example:<br />
+<br />
+&lt;!-- this is a comment --&gt;<br />
+&lt;?xml-stylesheet title="mystyle" type="text/xsl" href="style.xsl" ?&gt;</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="68110""></a>
   <div class="note">
    <strong class="user">anoril at anoril dot com</strong>
    <a href="#68110" class="date">13-Jul-2006 07:54</a>

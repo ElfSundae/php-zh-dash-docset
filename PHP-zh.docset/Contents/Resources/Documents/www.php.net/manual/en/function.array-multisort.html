@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>对多个数组或多维数组进行排序</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.array-merge.html">? array_merge</a></li>
+      <li style="float: left;"><a href="function.array-merge-recursive.html">? array_merge_recursive</a></li>
       <li style="float: right;"><a href="function.array-pad.html">array_pad ?</a></li>
     </ul>
   </div>
@@ -34,14 +34,14 @@
  <div class="refsect1 description" id="refsect1-function.array-multisort-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_multisort</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$array1</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$array1_sort_order</code><span class="initializer"> = SORT_ASC</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$array1_sort_flags</code><span class="initializer"> = SORT_REGULAR</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">...$rest</code></span><br>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>array_multisort</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter reference">&$array1</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$array1_sort_order</code><span class="initializer"> = SORT_ASC</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$array1_sort_flags</code><span class="initializer"> = SORT_REGULAR</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">...$rest</code></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>array_multisort()</strong></span>
    可以用来一次对多个数组进行排序，或者根据某一维或多维对多维数组进行排序。
   </p>
   <p class="para">
-   关联（<span class="type">string</span>）键名保持不变，但数字键名会被重新索引。
+   关联（<span class="type"><a href="language.types.string.html" class="type string">string</a></span>）键名保持不变，但数字键名会被重新索引。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
  <p class="para">
@@ -64,99 +64,82 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">array1</code></dt>
-
+     <dt><code class="parameter">array1</code></dt>
      <dd>
-
       <p class="para">
-       要排序的 <span class="type">array</span>。
+       要排序的 <span class="type"><a href="language.types.array.html" class="type array">array</a></span>。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">array1_sort_order</code></dt>
-
+     <dt><code class="parameter">array1_sort_order</code></dt>
      <dd>
-
       <p class="para">
-       之前 <span class="type">array</span>  参数要排列的顺序。
-       <strong><code>SORT_ASC</code></strong> 按照上升顺序排序， <strong><code>SORT_DESC</code></strong> 按照下降顺序排序。
+       之前 <span class="type"><a href="language.types.array.html" class="type array">array</a></span>  参数要排列的顺序。
+       <strong><code><a href="array.constants.html#constant.sort-asc">SORT_ASC</a></code></strong> 按照上升顺序排序， <strong><code><a href="array.constants.html#constant.sort-desc">SORT_DESC</a></code></strong> 按照下降顺序排序。
       </p>
       <p class="para">
-       此参数可以和 <code class="parameter">array1_sort_flags</code> 互换，也可以完全删除，默认是 <strong><code>SORT_ASC</code></strong> 。
+       此参数可以和 <code class="parameter">array1_sort_flags</code> 互换，也可以完全删除，默认是 <strong><code><a href="array.constants.html#constant.sort-asc">SORT_ASC</a></code></strong> 。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">array1_sort_flags</code></dt>
-
+     <dt><code class="parameter">array1_sort_flags</code></dt>
      <dd>
-
       <p class="para">
-       为 <span class="type">array</span> 参数设定选项：
+       为 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 参数设定选项：
       </p>
       <p class="para">
        排序类型标志：
        <ul class="itemizedlist">
         <li class="listitem">
-         <span class="simpara"><strong><code>SORT_REGULAR</code></strong> - 
+         <span class="simpara"><strong><code><a href="array.constants.html#constant.sort-regular">SORT_REGULAR</a></code></strong> - 
           将项目按照通常方法比较（不修改类型）
          </span>
         </li>
         <li class="listitem">
-         <span class="simpara"><strong><code>SORT_NUMERIC</code></strong> - 按照数字大小比较</span>
+         <span class="simpara"><strong><code><a href="array.constants.html#constant.sort-numeric">SORT_NUMERIC</a></code></strong> - 按照数字大小比较</span>
         </li>
         <li class="listitem">
-         <span class="simpara"><strong><code>SORT_STRING</code></strong> -  按照字符串比较</span>
+         <span class="simpara"><strong><code><a href="array.constants.html#constant.sort-string">SORT_STRING</a></code></strong> -  按照字符串比较</span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>SORT_LOCALE_STRING</code></strong> -  根据当前的本地化设置，按照字符串比较。 
+          <strong><code><a href="array.constants.html#constant.sort-locale-string">SORT_LOCALE_STRING</a></code></strong> -  根据当前的本地化设置，按照字符串比较。 
           它会使用 locale 信息，可以通过 <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> 修改此信息。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>SORT_NATURAL</code></strong> - 以字符串的&quot;自然排序&quot;，类似 <span class="function"><a href="function.natsort.html" class="function">natsort()</a></span>
+          <strong><code><a href="array.constants.html#constant.sort-natural">SORT_NATURAL</a></code></strong> - 以字符串的&quot;自然排序&quot;，类似 <span class="function"><a href="function.natsort.html" class="function">natsort()</a></span>
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>SORT_FLAG_CASE</code></strong> - 可以组合
+          <strong><code><a href="array.constants.html#constant.sort-flag-case">SORT_FLAG_CASE</a></code></strong> - 可以组合
           (按位或 OR) 
-          <strong><code>SORT_STRING</code></strong> 或者
-          <strong><code>SORT_NATURAL</code></strong> 大小写不敏感的方式排序字符串。
+          <strong><code><a href="array.constants.html#constant.sort-string">SORT_STRING</a></code></strong> 或者
+          <strong><code><a href="array.constants.html#constant.sort-natural">SORT_NATURAL</a></code></strong> 大小写不敏感的方式排序字符串。
          </span>
         </li>
        </ul>
       </p>
       <p class="para">
-       参数可以和 <code class="parameter">array1_sort_order</code> 交换或者省略，默认情况下是 <strong><code>SORT_REGULAR</code></strong>。
+       参数可以和 <code class="parameter">array1_sort_order</code> 交换或者省略，默认情况下是 <strong><code><a href="array.constants.html#constant.sort-regular">SORT_REGULAR</a></code></strong>。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">rest</code></dt>
-
+     <dt><code class="parameter">rest</code></dt>
      <dd>
-
       <p class="para">
        可选的选项，可提供更多数组，跟随在 sort order 和 sort flag 之后。
        提供的数组和之前的数组要有相同数量的元素。
        换言之，排序是按字典顺序排列的。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -164,21 +147,18 @@
  <div class="refsect1 returnvalues" id="refsect1-function.array-multisort-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
  
  <div class="refsect1 examples" id="refsect1-function.array-multisort-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5050">
     <p><strong>Example #1 多个数组排序</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$ar1 </span><span style="color: #007700">= array(</span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$ar2 </span><span style="color: #007700">= array(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar1</span><span style="color: #007700">, </span><span style="color: #0000BB">$ar2</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$ar1 </span><span style="color: #007700">= array(</span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$ar2 </span><span style="color: #007700">= array(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar1</span><span style="color: #007700">, </span><span style="color: #0000BB">$ar2</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
@@ -188,8 +168,7 @@
      第二个数组里的项目对应第一个数组后也进行了排序（100 和 100）。
     </p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-array(4) {
+<div class="examplescode"><pre class="examplescode">array(4) {
   [0]=&gt; int(0)
   [1]=&gt; int(10)
   [2]=&gt; int(100)
@@ -200,19 +179,16 @@ array(4) {
   [1]=&gt; int(1)
   [2]=&gt; int(2)
   [3]=&gt; int(3)
-}
-</pre></div>
+}</pre>
+</div>
     </div>
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5051">
     <p><strong>Example #2 排序多维数组</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$ar </span><span style="color: #007700">= array(<br />       array(</span><span style="color: #DD0000">"10"</span><span style="color: #007700">, </span><span style="color: #0000BB">11</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #DD0000">"a"</span><span style="color: #007700">),<br />       array(   </span><span style="color: #0000BB">1</span><span style="color: #007700">,  </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">"2"</span><span style="color: #007700">,   </span><span style="color: #0000BB">3</span><span style="color: #007700">,   </span><span style="color: #0000BB">1</span><span style="color: #007700">)<br />      );<br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">], </span><span style="color: #0000BB">SORT_ASC</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_STRING</span><span style="color: #007700">,<br />                </span><span style="color: #0000BB">$ar</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">], </span><span style="color: #0000BB">SORT_NUMERIC</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_DESC</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$ar </span><span style="color: #007700">= array(<br />       array(</span><span style="color: #DD0000">"10"</span><span style="color: #007700">, </span><span style="color: #0000BB">11</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #DD0000">"a"</span><span style="color: #007700">),<br />       array(   </span><span style="color: #0000BB">1</span><span style="color: #007700">,  </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">"2"</span><span style="color: #007700">,   </span><span style="color: #0000BB">3</span><span style="color: #007700">,   </span><span style="color: #0000BB">1</span><span style="color: #007700">)<br />      );<br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">], </span><span style="color: #0000BB">SORT_ASC</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_STRING</span><span style="color: #007700">,<br />                </span><span style="color: #0000BB">$ar</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">], </span><span style="color: #0000BB">SORT_NUMERIC</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_DESC</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$ar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
@@ -221,8 +197,7 @@ array(4) {
      1, 3, &quot;2&quot;, 2, 1（被当作数字以降序排列）。
     </p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-array(2) {
+<div class="examplescode"><pre class="examplescode">array(2) {
   [0]=&gt; array(5) {
     [0]=&gt; string(2) &quot;10&quot;
     [1]=&gt; int(100)
@@ -237,13 +212,13 @@ array(2) {
     [3]=&gt; int(2)
     [4]=&gt; int(1)
   }
-}
-</pre></div>
+}</pre>
+</div>
     </div>
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5052">
     <p><strong>Example #3 对数据库结果进行排序</strong></p>
     <div class="example-contents"><p>
      本例中 <var class="varname">data</var>
@@ -253,16 +228,15 @@ array(2) {
      例子中的数据如下：
     </p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-volume | edition
+<div class="examplescode"><pre class="examplescode">volume | edition
 -------+--------
     67 |       2
     86 |       1
     85 |       6
     98 |       2
     86 |       6
-    67 |       7
-</pre></div>
+    67 |       7</pre>
+</div>
     </div>
     <div class="example-contents"><p>
      数据全都存放在名为 <var class="varname">data</var>
@@ -270,10 +244,7 @@ volume | edition
      <span class="function"><a href="function.mysql-fetch-assoc.html" class="function">mysql_fetch_assoc()</a></span>。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">67</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">86</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">85</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">6</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">98</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">86</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">6</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">67</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">7</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">67</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">86</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">85</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">6</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">98</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">86</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">6</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$data</span><span style="color: #007700">[] = array(</span><span style="color: #DD0000">'volume' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">67</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">7</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
@@ -285,58 +256,50 @@ volume | edition
      需要一个包含列的数组，因此用以下代码来取得列，然后排序。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 取得列的列表<br /></span><span style="color: #007700">foreach (</span><span style="color: #0000BB">$data </span><span style="color: #007700">as </span><span style="color: #0000BB">$key </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$row</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$volume</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">]  = </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'volume'</span><span style="color: #007700">];<br />    </span><span style="color: #0000BB">$edition</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">] = </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'edition'</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #FF8000">// 你可以使用 array_column() 代替上面的代码<br /></span><span style="color: #0000BB">$volume  </span><span style="color: #007700">= </span><span style="color: #0000BB">array_column</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #DD0000">'volume'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$edition </span><span style="color: #007700">= </span><span style="color: #0000BB">array_column</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 将数据根据 volume 降序排列，根据 edition 升序排列<br />// 把 $data 作为最后一个参数，以通用键排序<br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$volume</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_DESC</span><span style="color: #007700">, </span><span style="color: #0000BB">$edition</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_ASC</span><span style="color: #007700">, </span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 取得列的列表<br /></span><span style="color: #007700">foreach (</span><span style="color: #0000BB">$data </span><span style="color: #007700">as </span><span style="color: #0000BB">$key </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$row</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$volume</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">]  = </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'volume'</span><span style="color: #007700">];<br />    </span><span style="color: #0000BB">$edition</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">] = </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'edition'</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #FF8000">// 你可以使用 array_column() 代替上面的代码<br /></span><span style="color: #0000BB">$volume  </span><span style="color: #007700">= </span><span style="color: #0000BB">array_column</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #DD0000">'volume'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$edition </span><span style="color: #007700">= </span><span style="color: #0000BB">array_column</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #DD0000">'edition'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 将数据根据 volume 降序排列，根据 edition 升序排列<br />// 把 $data 作为最后一个参数，以通用键排序<br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$volume</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_DESC</span><span style="color: #007700">, </span><span style="color: #0000BB">$edition</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_ASC</span><span style="color: #007700">, </span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
      数据集合现在排好序了，结果如下：
     </p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-volume | edition
+<div class="examplescode"><pre class="examplescode">volume | edition
 -------+--------
     98 |       2
     86 |       1
     86 |       6
     85 |       6
     67 |       2
-    67 |       7
-</pre></div>
+    67 |       7</pre>
+</div>
     </div>
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5053">
     <p><strong>Example #4 不区分大小写字母排序</strong></p>
     <div class="example-contents"><p>
-     <strong><code>SORT_STRING</code></strong> 和
-     <strong><code>SORT_REGULAR</code></strong>
+     <strong><code><a href="array.constants.html#constant.sort-string">SORT_STRING</a></code></strong> 和
+     <strong><code><a href="array.constants.html#constant.sort-regular">SORT_REGULAR</a></code></strong>
      都是区分大小写字母的，大写字母会排在小写字母之前。
     </p></div>
     <div class="example-contents"><p>
      要进行不区分大小写的排序，就要按照原数组的小写字母拷贝来排序。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$array </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'Alpha'</span><span style="color: #007700">, </span><span style="color: #DD0000">'atomic'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Beta'</span><span style="color: #007700">, </span><span style="color: #DD0000">'bank'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$array_lowercase </span><span style="color: #007700">= </span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #DD0000">'strtolower'</span><span style="color: #007700">, </span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$array_lowercase</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_ASC</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_STRING</span><span style="color: #007700">, </span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$array </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'Alpha'</span><span style="color: #007700">, </span><span style="color: #DD0000">'atomic'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Beta'</span><span style="color: #007700">, </span><span style="color: #DD0000">'bank'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$array_lowercase </span><span style="color: #007700">= </span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #DD0000">'strtolower'</span><span style="color: #007700">, </span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">array_multisort</span><span style="color: #007700">(</span><span style="color: #0000BB">$array_lowercase</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_ASC</span><span style="color: #007700">, </span><span style="color: #0000BB">SORT_STRING</span><span style="color: #007700">, </span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [0] =&gt; Alpha
     [1] =&gt; atomic
     [2] =&gt; bank
     [3] =&gt; Beta
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
@@ -347,8 +310,8 @@ Array
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.usort.html" class="function" rel="rdfs-seeAlso">usort()</a> - 使用用户自定义的比较函数对数组中的值进行排序</span></li>
-    <li class="member"><a href="array.sorting.html" class="link">数组排序函数对比</a></li>
+    <li><span class="function"><a href="function.usort.html" class="function" rel="rdfs-seeAlso">usort()</a> - 使用用户自定义的比较函数对数组中的值进行排序</span></li>
+    <li><a href="array.sorting.html" class="link">数组排序函数对比</a></li>
    </ul>
   </p>
  </div>
@@ -358,7 +321,91 @@ Array
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126491""></a>
+<div id="allnotes">  <a name="129677""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#129677" class="date">30-Jul-2024 04:49</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Arrays in PHP are "ordered maps".&nbsp; The "order" is internal, and has nothing to do with the numerical values of the keys.<br />
+Array_multisort() seems to sort based on this internal order.&nbsp; It DOES NOT maintain numeric key association, and then renumber based on this association.&nbsp; It maintains internal order association, and numeric keys are renumbered based on this association.&nbsp; String-keys do not maintain key association or internal order association, at least when mixed with numeric keys.<br />
+In other words, your 2 arrays must be built similarly or perhaps unexpected results will be obtained.<br />
+<br />
+<span class="default">&lt;?php<br />
+$foo</span><span class="keyword">=array(</span><span class="string">"foo"</span><span class="keyword">=&gt;</span><span class="string">"fazz"</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">,</span><span class="string">"sing"</span><span class="keyword">=&gt;</span><span class="string">"soft"</span><span class="keyword">, </span><span class="default">9</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">,</span><span class="string">"fing"</span><span class="keyword">=&gt;</span><span class="string">"fong"</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br />
+</span><span class="default">$bar</span><span class="keyword">=array(</span><span class="string">"bar"</span><span class="keyword">=&gt;</span><span class="string">"bazz"</span><span class="keyword">,</span><span class="default">17</span><span class="keyword">,</span><span class="default">45</span><span class="keyword">,</span><span class="string">"sing"</span><span class="keyword">=&gt;</span><span class="string">"loud"</span><span class="keyword">,</span><span class="default">29</span><span class="keyword">,</span><span class="default">72</span><span class="keyword">,</span><span class="default">90</span><span class="keyword">,</span><span class="string">"bing"</span><span class="keyword">=&gt;</span><span class="string">"bong"</span><span class="keyword">,</span><span class="default">38</span><span class="keyword">,</span><span class="default">81</span><span class="keyword">,</span><span class="default">54</span><span class="keyword">);<br />
+</span><span class="default">array_multisort</span><span class="keyword">(</span><span class="default">$foo</span><span class="keyword">, </span><span class="default">$bar</span><span class="keyword">);<br />
+echo </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$foo</span><span class="keyword">),</span><span class="string">"&lt;br&gt;&lt;br&gt;"</span><span class="keyword">,</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$bar</span><span class="keyword">),</span><span class="string">"&lt;br&gt;&lt;br&gt;"</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span>array(11) { [0]=&gt; int(0) [1]=&gt; int(1) [2]=&gt; int(2) [3]=&gt; int(4) [4]=&gt; int(5) [5]=&gt; int(7) [6]=&gt; int(8) [7]=&gt; int(9) ["foo"]=&gt; string(4) "fazz" ["fing"]=&gt; string(4) "fong" ["sing"]=&gt; string(4) "soft" }<br />
+<br />
+array(11) { [0]=&gt; int(90) [1]=&gt; int(81) [2]=&gt; int(72) [3]=&gt; int(54) [4]=&gt; int(45) [5]=&gt; int(17) [6]=&gt; int(38) [7]=&gt; int(29) ["bar"]=&gt; string(4) "bazz" ["bing"]=&gt; string(4) "bong" ["sing"]=&gt; string(4) "loud" }<br />
+<br />
+<span class="default">&lt;?php<br />
+$foo</span><span class="keyword">=array(</span><span class="string">"foo"</span><span class="keyword">=&gt;</span><span class="string">"fazz"</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">,</span><span class="string">"sing"</span><span class="keyword">=&gt;</span><span class="string">"soft"</span><span class="keyword">, </span><span class="default">9</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">,</span><span class="string">"fing"</span><span class="keyword">=&gt;</span><span class="string">"fong"</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br />
+</span><span class="default">$bar</span><span class="keyword">=array(</span><span class="default">17</span><span class="keyword">,</span><span class="default">45</span><span class="keyword">,</span><span class="default">29</span><span class="keyword">,</span><span class="default">72</span><span class="keyword">,</span><span class="default">90</span><span class="keyword">,</span><span class="string">"sing"</span><span class="keyword">=&gt;</span><span class="string">"loud"</span><span class="keyword">,</span><span class="default">38</span><span class="keyword">,</span><span class="default">81</span><span class="keyword">,</span><span class="default">54</span><span class="keyword">,</span><span class="string">"bing"</span><span class="keyword">=&gt;</span><span class="string">"bong"</span><span class="keyword">,</span><span class="string">"bar"</span><span class="keyword">=&gt;</span><span class="string">"bazz"</span><span class="keyword">);<br />
+</span><span class="default">array_multisort</span><span class="keyword">(</span><span class="default">$foo</span><span class="keyword">, </span><span class="default">$bar</span><span class="keyword">);<br />
+echo </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$foo</span><span class="keyword">),</span><span class="string">"&lt;br&gt;&lt;br&gt;"</span><span class="keyword">,</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$bar</span><span class="keyword">),</span><span class="string">"&lt;br&gt;&lt;br&gt;"</span><span class="keyword">;<br />
+</span><span class="default">?&gt;<br />
+</span>array(11) { [0]=&gt; int(0) [1]=&gt; int(1) [2]=&gt; int(2) [3]=&gt; int(4) [4]=&gt; int(5) [5]=&gt; int(7) [6]=&gt; int(8) [7]=&gt; int(9) ["foo"]=&gt; string(4) "fazz" ["fing"]=&gt; string(4) "fong" ["sing"]=&gt; string(4) "soft" }<br />
+<br />
+array(11) { [0]=&gt; int(38) ["bar"]=&gt; string(4) "bazz" ["sing"]=&gt; string(4) "loud" ["bing"]=&gt; string(4) "bong" [1]=&gt; int(29) [2]=&gt; int(45) [3]=&gt; int(54) [4]=&gt; int(90) [5]=&gt; int(17) [6]=&gt; int(81) [7]=&gt; int(72) }<br />
+<br />
+My Arrays in my project were built using the <span class="default">&lt;?php $foo</span><span class="keyword">[]=</span><span class="default">$filename ?&gt;</span> syntax in a loop, with a string-keyed property added in at a random position within the loop to store directory names if they were found, while a matching array was built with the complete file-paths, but no directory info.&nbsp; Can't use Array_multisort to sort both arrays by the filenames, even after adding a "fake" matching string-keyed property to the array of filepaths after-the-fact.<br />
+I had to build my array of filepaths in a separate variable, sort, then add it to the filenames array as a string-keyed property after the fact.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128210""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#128210" class="date">11-Feb-2023 09:33</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The shuttle operator can be a smart alternative to array_multisort() for multidimensional and/or custom sorting.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$data </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'John Smith'</span><span class="keyword">, </span><span class="string">'status' </span><span class="keyword">=&gt; </span><span class="string">'Offline'</span><span class="keyword">],<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'Anne Onyme'</span><span class="keyword">, </span><span class="string">'status' </span><span class="keyword">=&gt; </span><span class="string">'Online'</span><span class="keyword">],<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'Alan Smithee'</span><span class="keyword">, </span><span class="string">'status' </span><span class="keyword">=&gt; </span><span class="string">'Online'</span><span class="keyword">],<br />
+];<br />
+<br />
+</span><span class="comment">// Online first, then alphabetic name order<br />
+</span><span class="default">usort</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">, fn (</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">) =&gt; [<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="string">'Online' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'Offline' </span><span class="keyword">=&gt; </span><span class="default">2</span><span class="keyword">][</span><span class="default">$a</span><span class="keyword">[</span><span class="string">'status'</span><span class="keyword">]],<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$a</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">],<br />
+] &lt;=&gt; [<br />
+&nbsp;&nbsp;&nbsp; [</span><span class="string">'Online' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'Offline' </span><span class="keyword">=&gt; </span><span class="default">2</span><span class="keyword">][</span><span class="default">$b</span><span class="keyword">[</span><span class="string">'status'</span><span class="keyword">]],<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$b</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">],<br />
+]);<br />
+<br />
+</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">/*<br />
+Array<br />
+&nbsp;&nbsp;&nbsp; [0] =&gt; Array<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [name] =&gt; Alan Smithee<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [status] =&gt; Online<br />
+&nbsp;&nbsp;&nbsp; [1] =&gt; Array <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [name] =&gt; Anne Onyme<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [status] =&gt; Online<br />
+&nbsp;&nbsp;&nbsp; [2] =&gt; Array <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [name] =&gt; John Smith<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; [status] =&gt; Offline<br />
+*/</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126491""></a>
   <div class="note">
    <strong class="user">498936940 at qq dot com</strong>
    <a href="#126491" class="date">09-Oct-2021 03:00</a>

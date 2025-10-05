@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>从数组中随机取出一个或多个随机键</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,14 +34,14 @@
  <div class="refsect1 description" id="refsect1-function.array-rand-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_rand</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$num</code><span class="initializer"> = 1</span></span>): <span class="type"><span class="type">int</span>|<span class="type">string</span>|<span class="type">array</span></span></div>
+   <span class="methodname"><strong>array_rand</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$num</code><span class="initializer"> = 1</span></span>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span></span></div>
 
   <p class="para rdfs-comment">
    从数组中取出一个或多个随机的单元，并返回随机条目对应的键（一个或多个）。
   </p>
   <div class="caution"><strong class="caution">Caution</strong>
  <p class="para">
-  本函数并不会生成安全加密的值，并且<em class="emphasis">不可</em>用于加密或者要求返回值不可猜测的目的。
+  本函数并不会生成安全加密的值，并且<em>不可</em>用于加密或者要求返回值不可猜测的目的。
  </p>
  <p class="para">
   如果需要加密安全随机，则可以将 <span class="classname"><a href="class.random-engine-secure.html" class="classname">Random\Engine\Secure</a></span> 引擎用于
@@ -56,31 +56,24 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">array</code></dt>
-
+     <dt><code class="parameter">array</code></dt>
      <dd>
-
       <p class="para">
        输入的数组。
+       不能为空。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">num</code></dt>
-
+     <dt><code class="parameter">num</code></dt>
      <dd>
-
       <p class="para">
        指定要取出的单元数量。
+       必须大于零，且小于或等于 <code class="parameter">array</code> 的长度。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -92,9 +85,18 @@
    否则就返回包含随机键名的数组。
    完成后，就可以根据随机的键获取数组的随机值。
    如果返回的是包含随机键名的数组，数组单元的顺序按照键名在原数组中的顺序排列。
-   取出数量如果超过 array 的长度，就会导致 <strong><code>E_WARNING</code></strong> 错误，并返回 NULL。
   </p>
  </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.array-rand-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   如果 <code class="parameter">array</code> 为空，或者 <code class="parameter">num</code> 超出范围，
+   就会抛出一个 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。
+  </p>
+ </div>
+
 
  <div class="refsect1 changelog" id="refsect1-function.array-rand-changelog">
   <h3 class="title">更新日志</h3>
@@ -111,6 +113,24 @@
 
      <tbody class="tbody">
       <tr>
+       <td>8.0.0</td>
+       <td>
+        如果 <code class="parameter">num</code> 超出范围，<span class="function"><strong>array_rand()</strong></span>
+        现在会抛出一个 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>；
+        之前会抛出一个 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>，并返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。
+       </td>
+      </tr>
+
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        如果 <code class="parameter">array</code> 为空，<span class="function"><strong>array_rand()</strong></span>
+        现在会抛出一个 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>；
+        之前会抛出一个 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>，并返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。
+       </td>
+      </tr>
+
+      <tr>
        <td>7.1.0</td>
        <td>
         内部随机化算法已从 libc rand 函数<a href="migration71.incompatible.html#migration71.incompatible.rand-srand-aliases" class="link">更改为</a>使用
@@ -126,15 +146,12 @@
  </div>
 
  <div class="refsect1 examples" id="refsect1-function.array-rand-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5058">
     <p><strong>Example #1 <span class="function"><strong>array_rand()</strong></span> 例子</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$input </span><span style="color: #007700">= array(</span><span style="color: #DD0000">"Neo"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Morpheus"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Trinity"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Cypher"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Tank"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$rand_keys </span><span style="color: #007700">= </span><span style="color: #0000BB">array_rand</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">$rand_keys</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]] . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">$rand_keys</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]] . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$input </span><span style="color: #007700">= array(</span><span style="color: #DD0000">"Neo"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Morpheus"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Trinity"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Cypher"</span><span style="color: #007700">, </span><span style="color: #DD0000">"Tank"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$rand_keys </span><span style="color: #007700">= </span><span style="color: #0000BB">array_rand</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">$rand_keys</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]] . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">$rand_keys</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]] . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -145,8 +162,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="random-randomizer.pickarraykeys.html" class="function" rel="rdfs-seeAlso">Random\Randomizer::pickArrayKeys()</a> - Select random array keys</span></li>
-    <li class="member"><span class="function"><a href="random-randomizer.shufflearray.html" class="function" rel="rdfs-seeAlso">Random\Randomizer::shuffleArray()</a> - Get a permutation of an array</span></li>
+    <li><span class="function"><a href="random-randomizer.pickarraykeys.html" class="function" rel="rdfs-seeAlso">Random\Randomizer::pickArrayKeys()</a> - Select random array keys</span></li>
+    <li><span class="function"><a href="random-randomizer.shufflearray.html" class="function" rel="rdfs-seeAlso">Random\Randomizer::shuffleArray()</a> - Get a permutation of an array</span></li>
    </ul>
   </p>
  </div>

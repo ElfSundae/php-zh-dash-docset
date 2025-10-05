@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Get the status of a background job</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -37,7 +37,7 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格 (method):</p>
    <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>GearmanClient::jobStatus</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$job_handle</code></span>): <span class="type">array</span></div>
+    <span class="modifier">public</span> <span class="methodname"><strong>GearmanClient::jobStatus</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$job_handle</code></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
    <p class="para rdfs-comment">
     Gets the status for a background job given a job handle.  The status information will
@@ -52,19 +52,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">job_handle</code></dt>
-
+     <dt><code class="parameter">job_handle</code></dt>
      <dd>
-
       <p class="para">
        由 Gearman 服务器指派的工作句柄。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -82,27 +77,23 @@
 
 
  <div class="refsect1 examples" id="refsect1-gearmanclient.jobstatus-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4415">
     <p><strong>Example #1 Monitor the status of a long running background job</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* create our object */<br /></span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">= new </span><span style="color: #0000BB">GearmanClient</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* add the default server */<br /></span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* run reverse client */<br /></span><span style="color: #0000BB">$job_handle </span><span style="color: #007700">= </span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">doBackground</span><span style="color: #007700">(</span><span style="color: #DD0000">"reverse"</span><span style="color: #007700">, </span><span style="color: #DD0000">"this is a test"</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">returnCode</span><span style="color: #007700">() != </span><span style="color: #0000BB">GEARMAN_SUCCESS</span><span style="color: #007700">)<br />{<br />  echo </span><span style="color: #DD0000">"bad return code\n"</span><span style="color: #007700">;<br />  exit;<br />}<br /><br /></span><span style="color: #0000BB">$done </span><span style="color: #007700">= </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />do<br />{<br />   </span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">$stat </span><span style="color: #007700">= </span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">jobStatus</span><span style="color: #007700">(</span><span style="color: #0000BB">$job_handle</span><span style="color: #007700">);<br />   if (!</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]) </span><span style="color: #FF8000">// the job is known so it is not done<br />      </span><span style="color: #0000BB">$done </span><span style="color: #007700">= </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />   echo </span><span style="color: #DD0000">"Running: " </span><span style="color: #007700">. (</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] ? </span><span style="color: #DD0000">"true" </span><span style="color: #007700">: </span><span style="color: #DD0000">"false"</span><span style="color: #007700">) . </span><span style="color: #DD0000">", numerator: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] . </span><span style="color: #DD0000">", denomintor: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">] . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br />while(!</span><span style="color: #0000BB">$done</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"done!\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* create our object */<br /></span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">= new </span><span style="color: #0000BB">GearmanClient</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* add the default server */<br /></span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* run reverse client */<br /></span><span style="color: #0000BB">$job_handle </span><span style="color: #007700">= </span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">doBackground</span><span style="color: #007700">(</span><span style="color: #DD0000">"reverse"</span><span style="color: #007700">, </span><span style="color: #DD0000">"this is a test"</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">returnCode</span><span style="color: #007700">() != </span><span style="color: #0000BB">GEARMAN_SUCCESS</span><span style="color: #007700">)<br />{<br />  echo </span><span style="color: #DD0000">"bad return code\n"</span><span style="color: #007700">;<br />  exit;<br />}<br /><br /></span><span style="color: #0000BB">$done </span><span style="color: #007700">= </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />do<br />{<br />   </span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">$stat </span><span style="color: #007700">= </span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">jobStatus</span><span style="color: #007700">(</span><span style="color: #0000BB">$job_handle</span><span style="color: #007700">);<br />   if (!</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]) </span><span style="color: #FF8000">// the job is known so it is not done<br />      </span><span style="color: #0000BB">$done </span><span style="color: #007700">= </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />   echo </span><span style="color: #DD0000">"Running: " </span><span style="color: #007700">. (</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] ? </span><span style="color: #DD0000">"true" </span><span style="color: #007700">: </span><span style="color: #DD0000">"false"</span><span style="color: #007700">) . </span><span style="color: #DD0000">", numerator: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] . </span><span style="color: #DD0000">", denomintor: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">] . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br />while(!</span><span style="color: #0000BB">$done</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"done!\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
-     <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+     <div class="example-contents"><p>以上示例的输出类似于：</p></div>
      <div class="example-contents screen">
-<div class="cdata"><pre>
-Running: true, numerator: 3, denomintor: 14
+<div class="examplescode"><pre class="examplescode">Running: true, numerator: 3, denomintor: 14
 Running: true, numerator: 6, denomintor: 14
 Running: true, numerator: 9, denomintor: 14
 Running: true, numerator: 12, denomintor: 14
 Running: false, numerator: 0, denomintor: 0
-done!
-</pre></div>
+done!</pre>
+</div>
     </div>
    </div>
   </p>
@@ -113,7 +104,7 @@ done!
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="gearmanclient.dostatus.html" class="methodname" rel="rdfs-seeAlso">GearmanClient::doStatus()</a> - Get the status for the running task</span></li>
+    <li><span class="methodname"><a href="gearmanclient.dostatus.html" class="methodname" rel="rdfs-seeAlso">GearmanClient::doStatus()</a> - Get the status for the running task</span></li>
    </ul>
   </p>
  </div>

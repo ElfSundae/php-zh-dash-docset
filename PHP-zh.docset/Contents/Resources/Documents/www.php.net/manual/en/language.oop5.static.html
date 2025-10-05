@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>静态（static）关键字</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -31,7 +31,9 @@
   <div class="tip"><strong class="tip">Tip</strong>
    <p class="simpara">
     本页说明了用 <code class="literal">static</code> 关键字来定义静态方法和属性。<code class="literal">static</code>
-    也可用于<a href="language.variables.scope.html#language.variables.scope.static" class="link">定义静态变量</a>以及<a href="language.oop5.late-static-bindings.html" class="link">后期静态绑定</a>。参见上述页面了解
+    也可用于<a href="language.variables.scope.html#language.variables.scope.static" class="link">定义静态变量</a>，
+    <a href="functions.anonymous.html#functions.anonymous-functions.static" class="link">静态匿名函数</a>
+    以及<a href="language.oop5.late-static-bindings.html" class="link">后期静态绑定</a>。参见上述页面了解
     <code class="literal">static</code> 在其中的用法。
    </p>
   </div>
@@ -53,17 +55,14 @@
     </p>
     <p class="para">
      在 PHP 8.0.0 之前，通过静态方式调用一个非静态方法这种用法已经被废弃，并且会导致一个
-     <strong><code>E_DEPRECATED</code></strong> 级别的警告。
+     <strong><code><a href="errorfunc.constants.html#constant.e-deprecated">E_DEPRECATED</a></code></strong> 级别的警告。
     </p>
    </div>
 
-  <div class="example" id="example-488">
+  <div class="example" id="example-237">
    <p><strong>Example #1 静态方法示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo </span><span style="color: #007700">{<br />    public static function </span><span style="color: #0000BB">aStaticMethod</span><span style="color: #007700">() {<br />        </span><span style="color: #FF8000">// ...<br />    </span><span style="color: #007700">}<br />}<br /><br /></span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">aStaticMethod</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'Foo'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">aStaticMethod</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo </span><span style="color: #007700">{<br />    public static function </span><span style="color: #0000BB">aStaticMethod</span><span style="color: #007700">() {<br />        </span><span style="color: #FF8000">// ...<br />    </span><span style="color: #007700">}<br />}<br /><br /></span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">aStaticMethod</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'Foo'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">aStaticMethod</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
    </div>
@@ -83,16 +82,13 @@
     <code class="literal">static</code>）
    </p>
 
-   <div class="example" id="example-490">
+   <div class="example" id="example-238">
     <p><strong>Example #2 静态属性示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public static </span><span style="color: #0000BB">$my_static </span><span style="color: #007700">= </span><span style="color: #DD0000">'foo'</span><span style="color: #007700">;<br /><br />    public function </span><span style="color: #0000BB">staticValue</span><span style="color: #007700">() {<br />        return </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static</span><span style="color: #007700">;<br />    }<br />}<br /><br />class </span><span style="color: #0000BB">Bar </span><span style="color: #007700">extends </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">fooStatic</span><span style="color: #007700">() {<br />        return </span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static</span><span style="color: #007700">;<br />    }<br />}<br /><br /><br />print </span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$foo </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">();<br />print </span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">staticValue</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />print </span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;      </span><span style="color: #FF8000">// 未定义的 "属性" my_static<br /><br /></span><span style="color: #007700">print </span><span style="color: #0000BB">$foo</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'Foo'</span><span style="color: #007700">;<br />print </span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />print </span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= new </span><span style="color: #0000BB">Bar</span><span style="color: #007700">();<br />print </span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fooStatic</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public static </span><span style="color: #0000BB">$my_static </span><span style="color: #007700">= </span><span style="color: #DD0000">'foo'</span><span style="color: #007700">;<br /><br />    public function </span><span style="color: #0000BB">staticValue</span><span style="color: #007700">() {<br />        return </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static</span><span style="color: #007700">;<br />    }<br />}<br /><br />class </span><span style="color: #0000BB">Bar </span><span style="color: #007700">extends </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">fooStatic</span><span style="color: #007700">() {<br />        return </span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static</span><span style="color: #007700">;<br />    }<br />}<br /><br /><br />print </span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$foo </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">();<br />print </span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">staticValue</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />print </span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;      </span><span style="color: #FF8000">// 未定义的 "属性" my_static<br /><br /></span><span style="color: #007700">print </span><span style="color: #0000BB">$foo</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'Foo'</span><span style="color: #007700">;<br />print </span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />print </span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= new </span><span style="color: #0000BB">Bar</span><span style="color: #007700">();<br />print </span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fooStatic</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程在 PHP 8 中的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例在 PHP 8 中的输出类似于：</p></div>
     <div class="example-contents screen">
 <div class="cdata"><pre>
 foo

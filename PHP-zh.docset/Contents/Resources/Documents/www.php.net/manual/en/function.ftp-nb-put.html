@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>存储一个文件至 FTP 服务器（non-blocking）</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.ftp-nb-put-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ftp_nb_put</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">resource</span> <code class="parameter">$ftp_stream</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$remote_file</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$local_file</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = <strong><code>FTP_BINARY</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$startpos</code><span class="initializer"> = 0</span></span><br>): <span class="type">int</span></div>
+   <span class="methodname"><strong>ftp_nb_put</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.ftp-connection.html" class="type FTP\Connection">FTP\Connection</a></span> <code class="parameter">$ftp</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$remote_filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$local_filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$mode</code><span class="initializer"> = <strong><code><a href="ftp.constants.html#constant.ftp-binary">FTP_BINARY</a></code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$offset</code><span class="initializer"> = 0</span></span><br>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>ftp_nb_put()</strong></span> 函数用来把本地文件 <code class="parameter">local_file</code>
@@ -51,74 +51,51 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">ftp_stream</code></dt>
-
+     <dt><code class="parameter">ftp</code></dt>
      <dd>
-
-      <p class="para">
-       FTP 连接的链接标识符。
-      </p>
+       <p class="para"><span class="classname"><a href="class.ftp-connection.html" class="classname">FTP\Connection</a></span> 实例。</p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">remote_file</code></dt>
-
+     <dt><code class="parameter">remote_filename</code></dt>
      <dd>
-
       <p class="para">
        远程文件路径。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">local_file</code></dt>
-
+     <dt><code class="parameter">local_filename</code></dt>
      <dd>
-
       <p class="para">
        本地文件路径。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">mode</code></dt>
-
+     <dt><code class="parameter">mode</code></dt>
      <dd>
-
       <p class="para">
-       传输模式选择，可选参数为 <strong><code>FTP_ASCII</code></strong>（文本模式）或
-       <strong><code>FTP_BINARY</code></strong>（二进制模式）。
+       传输模式选择，可选参数为 <strong><code><a href="ftp.constants.html#constant.ftp-ascii">FTP_ASCII</a></code></strong>（文本模式）或
+       <strong><code><a href="ftp.constants.html#constant.ftp-binary">FTP_BINARY</a></code></strong>（二进制模式）。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">startpos</code></dt>
-
+     <dt><code class="parameter">offset</code></dt>
      <dd>
-
       <p class="para">指定传输开始的位置，用来续传支持。</p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.ftp-nb-put-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回 <strong><code>FTP_FAILED</code></strong> 或 <strong><code>FTP_FINISHED</code></strong>
-   或 <strong><code>FTP_MOREDATA</code></strong>。
+   返回 <strong><code><a href="ftp.constants.html#constant.ftp-failed">FTP_FAILED</a></code></strong> 或 <strong><code><a href="ftp.constants.html#constant.ftp-finished">FTP_FINISHED</a></code></strong>
+   或 <strong><code><a href="ftp.constants.html#constant.ftp-moredata">FTP_MOREDATA</a></code></strong>，打开本地文件失败时为 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -137,6 +114,14 @@
 
     <tbody class="tbody">
      <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">ftp</code> 参数接受 <span class="classname"><a href="class.ftp-connection.html" class="classname">FTP\Connection</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">resource</a>。
+ </td>
+</tr>
+
+     <tr>
       <td>7.3.0</td>
       <td>
        <code class="parameter">mode</code> 参数为可选，之前版本中为必填。
@@ -151,25 +136,19 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.ftp-nb-put-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4383">
     <p><strong>Example #1 <span class="function"><strong>ftp_nb_put()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// 初始化<br /></span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_put</span><span style="color: #007700">(</span><span style="color: #0000BB">$my_connection</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.remote"</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.local"</span><span style="color: #007700">, </span><span style="color: #0000BB">FTP_BINARY</span><span style="color: #007700">);<br />while (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">== </span><span style="color: #0000BB">FTP_MOREDATA</span><span style="color: #007700">) {<br />   <br />   </span><span style="color: #FF8000">// 可以同时干其它事<br />   </span><span style="color: #007700">echo </span><span style="color: #DD0000">"."</span><span style="color: #007700">;<br /><br />   </span><span style="color: #FF8000">// 继续上传...<br />   </span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_continue</span><span style="color: #007700">(</span><span style="color: #0000BB">$my_connection</span><span style="color: #007700">);<br />}<br />if (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">!= </span><span style="color: #0000BB">FTP_FINISHED</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"上传过程中发生错误..."</span><span style="color: #007700">;<br />   exit(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// 初始化<br /></span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_put</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.remote"</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.local"</span><span style="color: #007700">, </span><span style="color: #0000BB">FTP_BINARY</span><span style="color: #007700">);<br />while (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">== </span><span style="color: #0000BB">FTP_MOREDATA</span><span style="color: #007700">) {<br />   <br />   </span><span style="color: #FF8000">// 可以同时干其它事<br />   </span><span style="color: #007700">echo </span><span style="color: #DD0000">"."</span><span style="color: #007700">;<br /><br />   </span><span style="color: #FF8000">// 继续上传...<br />   </span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_continue</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp</span><span style="color: #007700">);<br />}<br />if (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">!= </span><span style="color: #0000BB">FTP_FINISHED</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"上传过程中发生错误..."</span><span style="color: #007700">;<br />   exit(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
-   <div class="example" id="">
+   <div class="example" id="example-4384">
     <p><strong>Example #2 使用 <span class="function"><strong>ftp_nb_put()</strong></span> 来续传文件</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// 初始化<br /></span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_put</span><span style="color: #007700">(</span><span style="color: #0000BB">$my_connection</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.remote"</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.local"</span><span style="color: #007700">, <br />                      </span><span style="color: #0000BB">FTP_BINARY</span><span style="color: #007700">, </span><span style="color: #0000BB">ftp_size</span><span style="color: #007700">(</span><span style="color: #DD0000">"test.remote"</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// 另一种写法: $ret = ftp_nb_put($my_connection, "test.remote", "test.local", <br />//                           FTP_BINARY, FTP_AUTORESUME);<br /><br /></span><span style="color: #007700">while (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">== </span><span style="color: #0000BB">FTP_MOREDATA</span><span style="color: #007700">) {<br />   <br />   </span><span style="color: #FF8000">// 可以同时干其它事情<br />   </span><span style="color: #007700">echo </span><span style="color: #DD0000">"."</span><span style="color: #007700">;<br /><br />   </span><span style="color: #FF8000">// 继续上传...<br />   </span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_continue</span><span style="color: #007700">(</span><span style="color: #0000BB">$my_connection</span><span style="color: #007700">);<br />}<br />if (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">!= </span><span style="color: #0000BB">FTP_FINISHED</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"上传过程中发生错误..."</span><span style="color: #007700">;<br />   exit(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// 初始化<br /></span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_put</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.remote"</span><span style="color: #007700">, </span><span style="color: #DD0000">"test.local"</span><span style="color: #007700">, <br />                      </span><span style="color: #0000BB">FTP_BINARY</span><span style="color: #007700">, </span><span style="color: #0000BB">ftp_size</span><span style="color: #007700">(</span><span style="color: #DD0000">"test.remote"</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// 另一种写法: $ret = ftp_nb_put($ftp, "test.remote", "test.local", <br />//                           FTP_BINARY, FTP_AUTORESUME);<br /><br /></span><span style="color: #007700">while (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">== </span><span style="color: #0000BB">FTP_MOREDATA</span><span style="color: #007700">) {<br />   <br />   </span><span style="color: #FF8000">// 可以同时干其它事情<br />   </span><span style="color: #007700">echo </span><span style="color: #DD0000">"."</span><span style="color: #007700">;<br /><br />   </span><span style="color: #FF8000">// 继续上传...<br />   </span><span style="color: #0000BB">$ret </span><span style="color: #007700">= </span><span style="color: #0000BB">ftp_nb_continue</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp</span><span style="color: #007700">);<br />}<br />if (</span><span style="color: #0000BB">$ret </span><span style="color: #007700">!= </span><span style="color: #0000BB">FTP_FINISHED</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"上传过程中发生错误..."</span><span style="color: #007700">;<br />   exit(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -180,10 +159,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.ftp-nb-fput.html" class="function" rel="rdfs-seeAlso">ftp_nb_fput()</a> - 将文件存储到 FTP 服务器 （非阻塞）</span></li>
-    <li class="member"><span class="function"><a href="function.ftp-nb-continue.html" class="function" rel="rdfs-seeAlso">ftp_nb_continue()</a> - 连续获取／发送文件（以不分块的方式 non-blocking）</span></li>
-    <li class="member"><span class="function"><a href="function.ftp-put.html" class="function" rel="rdfs-seeAlso">ftp_put()</a> - 上传文件到 FTP 服务器</span></li>
-    <li class="member"><span class="function"><a href="function.ftp-fput.html" class="function" rel="rdfs-seeAlso">ftp_fput()</a> - 上传一个已经打开的文件到 FTP 服务器</span></li>
+    <li><span class="function"><a href="function.ftp-nb-fput.html" class="function" rel="rdfs-seeAlso">ftp_nb_fput()</a> - 将文件存储到 FTP 服务器 （非阻塞）</span></li>
+    <li><span class="function"><a href="function.ftp-nb-continue.html" class="function" rel="rdfs-seeAlso">ftp_nb_continue()</a> - 连续获取／发送文件（以不分块的方式 non-blocking）</span></li>
+    <li><span class="function"><a href="function.ftp-put.html" class="function" rel="rdfs-seeAlso">ftp_put()</a> - 上传文件到 FTP 服务器</span></li>
+    <li><span class="function"><a href="function.ftp-fput.html" class="function" rel="rdfs-seeAlso">ftp_fput()</a> - 上传已打开的文件到 FTP 服务器</span></li>
    </ul>
   </p>
  </div>

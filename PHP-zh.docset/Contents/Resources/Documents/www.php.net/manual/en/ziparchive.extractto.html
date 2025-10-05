@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>解压缩文件</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,11 +34,20 @@
  <div class="refsect1 description" id="refsect1-ziparchive.extractto-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ZipArchive::extractTo</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$destination</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$entries</code><span class="initializer"> = ?</span></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>ZipArchive::extractTo</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$pathto</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.null.html" class="type null">null</a></span></span> <code class="parameter">$files</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   将压缩文件解压缩到指定的目录
+   将完整归档或指定文件提取到指定的目录。
   </p>
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">
+    提取的文件和目录的默认权限提供尽可能广泛的访问权限。这可以通过设置当前 umask 来限制，可以使用 <span class="function"><a href="function.umask.html" class="function">umask()</a></span> 更改。
+   </p>
+   <p class="para">
+    出于安全原因，不会恢复原始权限。有关如何还原的示例，请参阅 <span class="methodname"><a href="ziparchive.getexternalattributesindex.html" class="methodname">ZipArchive::getExternalAttributesIndex()</a></span>
+    页面上的<a href="ziparchive.getexternalattributesindex.html#ziparchive.getexternalattributesindex.examples.perms" class="link">代码示例</a>。
+   </p>
+  </div>
  </div>
 
  <div class="refsect1 parameters" id="refsect1-ziparchive.extractto-parameters">
@@ -46,64 +55,58 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">destination</code></dt>
-
+     <dt><code class="parameter">pathto</code></dt>
      <dd>
-
       <p class="para">
        解压缩的本地目标路径
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">entries</code></dt>
-
+     <dt><code class="parameter">files</code></dt>
      <dd>
-
       <p class="para">
-       解压缩的文件。它接受一个单独的文件名或一个文件名数组。
+       要提取的条目。接受单个条目名称或名称数组。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-ziparchive.extractto-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
  <div class="refsect1 examples" id="refsect1-ziparchive.extractto-examples">
-  <h3 class="title">范例</h3>
-    <div class="example" id="example-1674">
-     <p><strong>Example #1 Extract all entries</strong></p>
+  <h3 class="title">示例</h3>
+    <div class="example" id="example-825">
+     <p><strong>Example #1 提取所有条目</strong></p>
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$zip </span><span style="color: #007700">= new </span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">) === </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">extractTo</span><span style="color: #007700">(</span><span style="color: #DD0000">'/my/destination/dir/'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />    echo </span><span style="color: #DD0000">'ok'</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">'failed'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$zip </span><span style="color: #007700">= new </span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">) === </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">extractTo</span><span style="color: #007700">(</span><span style="color: #DD0000">'/my/destination/dir/'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />    echo </span><span style="color: #DD0000">'ok'</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">'failed'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
-    <div class="example" id="example-1676">
-     <p><strong>Example #2 Extract two entries</strong></p>
+    <div class="example" id="example-826">
+     <p><strong>Example #2 提取两个条目</strong></p>
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$zip </span><span style="color: #007700">= new </span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test_im.zip'</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$res </span><span style="color: #007700">=== </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">extractTo</span><span style="color: #007700">(</span><span style="color: #DD0000">'/my/destination/dir/'</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'pear_item.gif'</span><span style="color: #007700">, </span><span style="color: #DD0000">'testfromfile.php'</span><span style="color: #007700">));<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />    echo </span><span style="color: #DD0000">'ok'</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">'failed'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$zip </span><span style="color: #007700">= new </span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test_im.zip'</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$res </span><span style="color: #007700">=== </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">extractTo</span><span style="color: #007700">(</span><span style="color: #DD0000">'/my/destination/dir/'</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'pear_item.gif'</span><span style="color: #007700">, </span><span style="color: #DD0000">'testfromfile.php'</span><span style="color: #007700">));<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />    echo </span><span style="color: #DD0000">'ok'</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">'failed'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
    </div>
+
+
+ <div class="refsect1 notes" id="refsect1-ziparchive.extractto-notes">
+  <h3 class="title">注释</h3>
+  <blockquote class="note"><p><strong class="note">Note</strong>: <p class="para">Windows NTFS file systems
+do not support some characters in filenames, namely <code class="literal">&lt;|&gt;*?&quot;:</code>. Filenames with a trailing dot
+are not supported either. Contrary to some extraction tools, this method does not replace these characters with
+an underscore, but instead fails to extract such files.</p></p></blockquote>
+ </div>
 
 </div><div id="usernotes">
  <div class="head">

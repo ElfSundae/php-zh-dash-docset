@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将 PKCS#12 证书存储区解析到数组中</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.openssl-pkcs12-export.html">? openssl_pkcs12_export</a></li>
+      <li style="float: left;"><a href="function.openssl-pkcs12-export-to-file.html">? openssl_pkcs12_export_to_file</a></li>
       <li style="float: right;"><a href="function.openssl-pkcs7-decrypt.html">openssl_pkcs7_decrypt ?</a></li>
     </ul>
   </div>
@@ -28,17 +28,17 @@
   <div id="layout-content"><div id="function.openssl-pkcs12-read" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">openssl_pkcs12_read</h1>
-  <p class="verinfo">(PHP 5 &gt;= 5.2.2, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">openssl_pkcs12_read</span> &mdash; <span class="dc-title">将 PKCS#12 证书存储区解析到数组中</span></p>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.2, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">openssl_pkcs12_read</span> &mdash; <span class="dc-title">将 <abbr title="Public Key Cryptography Standards">PKCS</abbr>#12 证书存储区解析到数组中</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.openssl-pkcs12-read-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>openssl_pkcs12_read</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$pkcs12</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$certs</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$pass</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>openssl_pkcs12_read</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$pkcs12</code></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter reference">&$certificates</code></span>, <span class="methodparam"><span class="attribute"><a href="class.sensitiveparameter.html">#[\SensitiveParameter]</a> </span><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$passphrase</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>openssl_pkcs12_read()</strong></span> 将<code class="parameter">pkcs12</code>提供的PKCS#12证书存储区解析到以<code class="parameter">certs</code>命名的变量中。
+   <span class="function"><strong>openssl_pkcs12_read()</strong></span> 将 <code class="parameter">pkcs12</code> 提供的 <abbr title="Public Key Cryptography Standards">PKCS</abbr>#12 证书存储区解析到以 <code class="parameter">certificates</code> 命名的变量中。
   </p>
  </div>
 
@@ -48,43 +48,30 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">pkcs12</code></dt>
-
+     <dt><code class="parameter">pkcs12</code></dt>
      <dd>
-
       <p class="para">
        证书存储内容，而不是它的文件名。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">certs</code></dt>
-
+     <dt><code class="parameter">certificates</code></dt>
      <dd>
-
       <p class="para">
        成功，将保存证书存储数据
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">pass</code></dt>
-
+     <dt><code class="parameter">passphrase</code></dt>
      <dd>
-
       <p class="para">
-      用来解锁 PKCS#12 文件的解密密码
+      用来解锁 <abbr title="Public Key Cryptography Standards">PKCS</abbr>#12 文件的解密密码
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -92,20 +79,17 @@
  <div class="refsect1 returnvalues" id="refsect1-function.openssl-pkcs12-read-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.openssl-pkcs12-read-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-1886">
-   <p><strong>Example #1 <span class="function"><strong>openssl_pkcs12_read()</strong></span> 范例</strong></p>
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-935">
+   <p><strong>Example #1 <span class="function"><strong>openssl_pkcs12_read()</strong></span> 示例</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">$cert_store </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"/certs/file.p12"</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Error: Unable to read the cert file\n"</span><span style="color: #007700">;<br />    exit;<br />}<br /><br />if (</span><span style="color: #0000BB">openssl_pkcs12_read</span><span style="color: #007700">(</span><span style="color: #0000BB">$cert_store</span><span style="color: #007700">, </span><span style="color: #0000BB">$cert_info</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_secret_pass"</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Certificate Information\n"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$cert_info</span><span style="color: #007700">);<br />} else {<br />    echo </span><span style="color: #DD0000">"Error: Unable to read the cert store.\n"</span><span style="color: #007700">;<br />    exit;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">$cert_store </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"/certs/file.p12"</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Error: Unable to read the cert file\n"</span><span style="color: #007700">;<br />    exit;<br />}<br /><br />if (</span><span style="color: #0000BB">openssl_pkcs12_read</span><span style="color: #007700">(</span><span style="color: #0000BB">$cert_store</span><span style="color: #007700">, </span><span style="color: #0000BB">$cert_info</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_secret_pass"</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Certificate Information\n"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$cert_info</span><span style="color: #007700">);<br />} else {<br />    echo </span><span style="color: #DD0000">"Error: Unable to read the cert store.\n"</span><span style="color: #007700">;<br />    exit;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -116,6 +100,141 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="129002""></a>
+  <div class="note">
+   <strong class="user">at jornane.no</strong>
+   <a href="#129002" class="date">06-Nov-2023 09:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In response to Rovinson (https://www.php.net/manual/en/function.openssl-pkcs12-read.php#128854):<br />
+<br />
+&gt; In PHP versions 8.2.6 and 8.2.7, OpenSSL 1.1.1 is still utilized.<br />
+&gt; However, starting from PHP version 8.2.8 onwards, OpenSSL 3.0.9 is employed.<br />
+<br />
+This is not correct; Debian 12 currently uses PHP 8.2.7, yet it does use OpenSSL 3.0.11. So for a version check, I would rather target PHP 8.2+.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128992""></a>
+  <div class="note">
+   <strong class="user">rrequalwt</strong>
+   <a href="#128992" class="date">01-Nov-2023 08:47</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Instead of enabling legacy providers for your private key container to work with openssl3 one can simply repack the container using recent openssl<br />
+<br />
+openssl pkcs12 -legacy -in key.p12 -nodes -out key_decrypted.tmp<br />
+<br />
+openssl pkcs12 -in key_decrypted.tmp -export -out key_new.p12</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128941""></a>
+  <div class="note">
+   <strong class="user">fran at fran dot cr</strong>
+   <a href="#128941" class="date">11-Oct-2023 12:10</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Since OpenSSL 3, this function will fail with .p12 files that use legacy ciphers. Unfortunately, .p12 files generated today from a lot of Windows based CAs are using them by default.<br />
+<br />
+OpenSSL 3 uses a provider mechanism where there is a legacy provider that supports these legacy ciphers, but it is disabled by default.<br />
+<br />
+While PHP SSL module lacks a mechanism to enable the legacy provider, you need to modify the openssl.conf used by PHP by hand, it is usually the same used by the system openssl command, so the OPENSSLDIR path value returned by the "openssl version -d" command contains the openssl.conf file to modify. The llines that need to be added, modified or uncommented are the following to look like this:<br />
+<br />
+openssl_conf = openssl_init<br />
+<br />
+[openss_init]<br />
+providers = provider_sect<br />
+<br />
+[provider_sect]<br />
+default = default_sect<br />
+legacy = legacy_sect<br />
+<br />
+[default_sect]<br />
+activate = 1<br />
+<br />
+[legacy_sect]<br />
+activate = 1<br />
+<br />
+This may require restarting the involved php service (php-fpm usually) to load the OpenSSL configuration changes.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128921""></a>
+  <div class="note">
+   <strong class="user">InvisibleSmiley</strong>
+   <a href="#128921" class="date">28-Sep-2023 09:14</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It really seems to depend on the OpenSSL version only. I checked:<br />
+<br />
+OpenSSL 1:<br />
+- Linux Sury PHP 8.1 and 8.2<br />
+- Windows (according to what Anonymous reported here)<br />
+<br />
+OpenSSL 3:<br />
+- Linux Ubuntu jammy (22.04 LTS) PHP 8.1<br />
+- Mac OS Homebrew PHP 8.1 and 8.2</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128854""></a>
+  <div class="note">
+   <strong class="user">Rovinson</strong>
+   <a href="#128854" class="date">04-Sep-2023 02:21</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In response to Anonymous' note:(https://www.php.net/manual/es/function.openssl-pkcs12-read.php#128819)<br />
+<br />
+In PHP versions 8.2.6 and 8.2.7, OpenSSL 1.1.1 is still utilized. However, starting from PHP version 8.2.8 onwards, OpenSSL 3.0.9 is employed.<br />
+<br />
+I have conducted tests, and the function works correctly with all PHP versions using OpenSSL 1, but it fails with OpenSSL 3 versions.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128819""></a>
+  <div class="note">
+   <strong class="user">Also Anonymous</strong>
+   <a href="#128819" class="date">22-Aug-2023 01:52</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In response to Anonymous' note:(https://www.php.net/manual/en/function.openssl-pkcs12-read.php#128790)<br />
+<br />
+I'm using 8.2.6 on Windows and this function is working without issue.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128790""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#128790" class="date">11-Aug-2023 11:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The openssl_pkcs12_read method does not work in PHP 8.2 due to the change in the OpenSSL library from version ^1 to ^3.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>关闭 MySQL 连接</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -39,8 +39,8 @@
 或 <a href="ref.pdo-mysql.html" class="link">PDO_MySQL</a> 扩展来替换之。参见 <a href="mysqlinfo.api.choosing.html" class="link">MySQL：选择 API</a> 
 指南来获取更多信息。用以替代本函数的有：</p>
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="mysqli.close.html" class="function">mysqli_close()</a></span></li>
-    <li class="member">PDO: 为 PDO 对象设置一个 <strong><code>null</code></strong> 值 </li>
+    <li><span class="function"><a href="mysqli.close.html" class="function">mysqli_close()</a></span></li>
+    <li>PDO: 为 PDO 对象设置一个 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 值 </li>
    </ul>
   </div>
  </div>
@@ -48,7 +48,7 @@
  <div class="refsect1 description" id="refsect1-function.mysql-close-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mysql_close</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$link_identifier</code><span class="initializer"> = NULL</span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>mysql_close</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$link_identifier</code><span class="initializer"> = NULL</span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>mysql_close()</strong></span> 关闭指定的连接标识所关联的到
@@ -56,9 +56,9 @@
    <code class="parameter">link_identifier</code>，则关闭上一个打开的连接。
   </p>
   <p class="para">
-   通常不需要使用
-   <span class="function"><strong>mysql_close()</strong></span>，因为已打开的非持久连接会在脚本执行完毕后自动关闭。参见<a href="language.types.resource.html#language.types.resource.self-destruct" class="link">释放资源</a>。
-  </p>
+建立非持久性的 MySQL 连接，会在 PHP
+执行完毕后自动销毁，所以手动关闭连接，并释放资源是可选的。但是还是推荐你在代码中显性的执行该操作，这对提高代码性能有帮助。参考文档
+<a href="language.types.resource.html#language.types.resource.self-destruct" class="link">资源释放</a></p>
  </div>
 
 
@@ -66,15 +66,10 @@
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
-    <dt>
-<code class="parameter">
-link_identifier</code></dt>
-<dd>
-<p class="para"> MySQL 连接. 如果该连接标识符未给出, 将使用最近一次<span class="function"><a href="function.mysql-connect.html" class="function">mysql_connect()</a></span>建立的连接. 
-如果没有找到可使用的连接, 将产生一个 <strong><code>E_WARNING</code></strong> 错误.</p></dd>
-
+    <dt><code class="parameter">
+link_identifier</code></dt><dd><p class="para"> MySQL 连接. 如果该连接标识符未给出, 将使用最近一次<span class="function"><a href="function.mysql-connect.html" class="function">mysql_connect()</a></span>建立的连接. 
+如果没有找到可使用的连接, 将产生一个 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 错误.</p></dd>
    </dl>
-
   </p>
  </div>
 
@@ -82,28 +77,24 @@ link_identifier</code></dt>
  <div class="refsect1 returnvalues" id="refsect1-function.mysql-close-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.mysql-close-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-3478">
-    <p><strong>Example #1 <span class="function"><strong>mysql_close()</strong></span> 例子</strong></p>
+   <div class="example" id="example-1738">
+    <p><strong>Example #1 <span class="function"><strong>mysql_close()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_password'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$link</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Could not connect: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br />echo </span><span style="color: #DD0000">'Connected successfully'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">mysql_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_password'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$link</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Could not connect: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br />echo </span><span style="color: #DD0000">'Connected successfully'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">mysql_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Connected successfully
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Connected successfully</pre>
+</div>
     </div>
    </div>
   </p>
@@ -116,6 +107,7 @@ Connected successfully
    <p class="para">
     <span class="function"><strong>mysql_close()</strong></span> 不会关闭由
     <span class="function"><a href="function.mysql-pconnect.html" class="function">mysql_pconnect()</a></span> 建立的持久连接。
+    有关其他详细信息，请参阅有关<a href="features.persistent-connections.html" class="link">持久连接</a>的手册页。
    </p>
   </p></blockquote>
  </div>
@@ -125,8 +117,8 @@ Connected successfully
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.mysql-connect.html" class="function" rel="rdfs-seeAlso">mysql_connect()</a> - 打开一个到 MySQL 服务器的连接</span></li>
-    <li class="member"><span class="function"><a href="function.mysql-free-result.html" class="function" rel="rdfs-seeAlso">mysql_free_result()</a> - 释放结果内存</span></li>
+    <li><span class="function"><a href="function.mysql-connect.html" class="function" rel="rdfs-seeAlso">mysql_connect()</a> - 打开一个到 MySQL 服务器的连接</span></li>
+    <li><span class="function"><a href="function.mysql-free-result.html" class="function" rel="rdfs-seeAlso">mysql_free_result()</a> - 释放结果内存</span></li>
    </ul>
   </p>
  </div>
@@ -260,83 +252,6 @@ I work on a site that pulls content primarily from one db but uses a db on a for
 </span>
 <br />
 Turns out this last query, since it cant find an active connection, will try to connect with mysql_connect() with no paramaters.&nbsp; But if instead you do it as mysql_query($query, $res1), or alternatively, run the mysql_connect for this host again then it works fine.&nbsp; Thus, it doesnt seem to be possible to have code with an overarching "global" db connection interspersed with temporary connections to another host/db....</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="52383""></a>
-  <div class="note">
-   <strong class="user">levi at alliancesoftware dot com dot au</strong>
-   <a href="#52383" class="date">29-Apr-2005 12:03</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-As at 5.0.x and 4.3.x: This function should never be used with shared links; instead you should set your link variables to null.
-<br />
-(This explains red's and beer's () problems in previous comments)
-<br />
-
-<br />
-&nbsp; Here is how shared links work:
-<br />
-&nbsp; - Each link is a resource. mysql_connect() by default looks for a resource with the same paramaters. If one exists, it will return the existing resource. 
-<br />
-&nbsp; - Every assignment of that resource to a variable increases the resource's reference count.
-<br />
-&nbsp; - When the reference is decremented to zero, the underlying TCP/socket connection is closed.
-<br />
-&nbsp;&nbsp;&nbsp; - Every assignment of a variable away from that resource decrements the reference count. (This includes a function level variable going out of scope)
-<br />
-&nbsp;&nbsp;&nbsp; - mysql_close() also decrements the reference count.
-<br />
-
-<br />
-Note the last two points: mysql_close() _and_ reassignment of a variable decrement the link's reference count.
-<br />
-
-<br />
-A common mistake is a function like:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">function </span><span class="default">dothings</span><span class="keyword">() {
-<br />
-&nbsp; </span><span class="default">$link </span><span class="keyword">= </span><span class="default">mysql_open</span><span class="keyword">(...);
-<br />
-&nbsp; </span><span class="comment">// .. do some queries ..
-<br />
-&nbsp; </span><span class="default">mysql_close</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">)
-<br />
-&nbsp; </span><span class="default">$link </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;
-<br />
-}
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-this will decrement the counter twice, possibly closing the underlying connection and causing errors in other parts of the program.
-<br />
-
-<br />
-<a href="http://bugs.php.net/bug.php?id=30525 " rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=30525 </a>"this is not a bug but just how it works"</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="47865""></a>
-  <div class="note">
-   <strong class="user">beer_nomaed _AT_ hotmail _DOT_ com</strong>
-   <a href="#47865" class="date">03-Dec-2004 01:26</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be careful when using multiple links to connect to same database (with same username). Unless you specify explicitly in mysql_connect() to create a new link, it will return an already open link. If that would be closed by mysql_close(), it will also (obviously) close the other connection, since the link is the same.<br />
-Had lot of trouble figuring it out, since in &lt;=4.3.6 there was a bug which didn't close the connection, but after the patch to &gt;=4.3.7, all my application broke down because of a single script that did this.</span>
 </code>
     </div>
    </div>

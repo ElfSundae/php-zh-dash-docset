@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>预定义常量</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -89,80 +89,6 @@ __FILE__ === 'c:\test.php';<br />
 __FILE__ === '\\computerName\c$\test.php';<br />
 <br />
 NOTE: realpath('.') always seems to return an actual filesystem path regardless of the execution context.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114403""></a>
-  <div class="note">
-   <strong class="user">meindertjan at gmail dot spamspamspam dot com</strong>
-   <a href="#114403" class="date">16-Feb-2014 12:54</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-A lot of notes here concern defining the __DIR__ magic constant for PHP versions not supporting the feature. Of course you can define this magic constant for PHP versions not yet having this constant, but it will defeat its purpose as soon as you are using the constant in an included file, which may be in a different directory then the file defining the __DIR__ constant. As such, the constant has lost its *magic*, and would be rather useless unless you assure yourself to have all of your includes in the same directory.<br />
-<br />
-Concluding: eye catchup at gmail dot com's note regarding whether you can or cannot define magic constants is valid, but stating that defining __DIR__ is not useless, is not!</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="107614""></a>
-  <div class="note">
-   <strong class="user">david at thegallagher dot net</strong>
-   <a href="#107614" class="date">22-Feb-2012 01:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-You cannot check if a magic constant is defined. This means there is no point in checking if __DIR__ is defined then defining it. `defined('__DIR__')` always returns false. Defining __DIR__ will silently fail in PHP 5.3+. This could cause compatibility issues if your script includes other scripts.
-<br />
-
-<br />
-Here is proof:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">echo (</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'__DIR__'</span><span class="keyword">) ? </span><span class="string">'__DIR__ is defined' </span><span class="keyword">: </span><span class="string">'__DIR__ is NOT defined' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">);
-<br />
-echo (</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'__FILE__'</span><span class="keyword">) ? </span><span class="string">'__FILE__ is defined' </span><span class="keyword">: </span><span class="string">'__FILE__ is NOT defined' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">);
-<br />
-echo (</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'PHP_VERSION'</span><span class="keyword">) ? </span><span class="string">'PHP_VERSION is defined' </span><span class="keyword">: </span><span class="string">'PHP_VERSION is NOT defined'</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;
-<br />
-echo </span><span class="string">'PHP Version: ' </span><span class="keyword">. </span><span class="default">PHP_VERSION </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-Output:
-<br />
-__DIR__ is NOT defined
-<br />
-__FILE__ is NOT defined
-<br />
-PHP_VERSION is defined
-<br />
-PHP Version: 5.3.6</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="103556""></a>
-  <div class="note">
-   <strong class="user">chris dot kistner at gmail dot com</strong>
-   <a href="#103556" class="date">20-Apr-2011 05:16</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-There is no way to implement a backwards compatible __DIR__ in versions prior to 5.3.0.<br />
-<br />
-The only thing that you can do is to perform a recursive search and replace to dirname(__FILE__):<br />
-find . -type f -print0 | xargs -0 sed -i 's/__DIR__/dirname(__FILE__)/'</span>
 </code>
     </div>
    </div>

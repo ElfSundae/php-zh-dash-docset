@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>打开密封的数据</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,13 +35,12 @@
  <div class="refsect1 description" id="refsect1-function.openssl-open-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>openssl_open</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$sealed_data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter reference">&$open_data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$env_key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$priv_key_id</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$method</code><span class="initializer"> = &quot;RC4&quot;</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter reference">&$iv</code><span class="initializer"> = ?</span></span><br>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>openssl_open</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="attribute"><a href="class.sensitiveparameter.html">#[\SensitiveParameter]</a> </span><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter reference">&$output</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$encrypted_key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="attribute"><a href="class.sensitiveparameter.html">#[\SensitiveParameter]</a> </span><span class="type"><span class="type"><a href="class.opensslasymmetrickey.html" class="type OpenSSLAsymmetricKey">OpenSSLAsymmetricKey</a></span>|<span class="type"><a href="class.opensslcertificate.html" class="type OpenSSLCertificate">OpenSSLCertificate</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$private_key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$cipher_algo</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$iv</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>openssl_open()</strong></span> 使用与密钥标识符<code class="parameter">priv_key_id</code>和信封密钥<code class="parameter">env_key</code>相关联的私钥打开 (解密)
-   <code class="parameter">sealed_data</code> 数据, 使用解密后的数据填充<code class="parameter">open_data</code>。
-   当数据被密封时，就生成了信封密钥且只能由一个特定的私钥使用。更多信息参见
-   <span class="function"><a href="function.openssl-seal.html" class="function">openssl_seal()</a></span> 。
+   <span class="function"><strong>openssl_open()</strong></span> 使用与密钥标识符 <code class="parameter">private_key</code> 和信封密钥
+   <code class="parameter">encrypted_key</code> 相关联的私钥打开（解密）<code class="parameter">data</code> 数据, 使用解密后的数据填充
+   <code class="parameter">output</code>。当数据被密封时，就生成了信封密钥且只能由一个特定的私钥使用。更多信息参见<span class="function"><a href="function.openssl-seal.html" class="function">openssl_seal()</a></span>。
   </p>
  </div>
 
@@ -51,76 +50,56 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">sealed_data</code></dt>
-
+     <dt><code class="parameter">data</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">open_data</code></dt>
-
+     <dt><code class="parameter">output</code></dt>
      <dd>
-
       <p class="para">
        如果调用成功，则在这个参数中返回打开的数据。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">env_key</code></dt>
-
+     <dt><code class="parameter">encrypted_key</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">priv_key_id</code></dt>
-
+     <dt><code class="parameter">private_key</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">method</code></dt>
-
+     <dt><code class="parameter">cipher_algo</code></dt>
      <dd>
-
       <p class="para">
        加解密算法。
+       <div class="caution"><strong class="caution">Caution</strong>
+        <p class="simpara">
+         默认值（<code class="literal">&#039;RC4&#039;</code>）认为不安全。强烈建议明确指定安全密码方法。
+        </p>
+       </div>
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">iv</code></dt>
-
+     <dt><code class="parameter">iv</code></dt>
      <dd>
-
       <p class="para">
        初始化向量。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -128,7 +107,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.openssl-open-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -147,16 +126,18 @@
 
     <tbody class="tbody">
      <tr>
-      <td>7.0.0</td>
+      <td>8.0.0</td>
       <td>
-       添加了 <code class="parameter">iv</code> 参数
+       <code class="parameter">private_key</code> 现在接受 <span class="classname"><a href="class.opensslasymmetrickey.html" class="classname">OpenSSLAsymmetricKey</a></span>
+       或 <span class="classname"><a href="class.opensslcertificate.html" class="classname">OpenSSLCertificate</a></span> 实例；之前接受类型 <code class="literal">OpenSSL key</code>
+       或 <code class="literal">OpenSSL X.509 CSR</code> 的 <a href="language.types.resource.html" class="link">resource</a>。
       </td>
      </tr>
 
      <tr>
-      <td>5.3.0</td>
+      <td>8.0.0</td>
       <td>
-       添加了 <code class="parameter">method</code> 参数
+       <code class="parameter">cipher_algo</code> 不再是可选参数。
       </td>
      </tr>
 
@@ -168,15 +149,12 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.openssl-open-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1882">
-    <p><strong>Example #1 <span class="function"><strong>openssl_open()</strong></span> 范例</strong></p>
+   <div class="example" id="example-933">
+    <p><strong>Example #1 <span class="function"><strong>openssl_open()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $sealed and $env_key are assumed to contain the sealed data<br />// and our envelope key, both given to us by the sealer.<br /><br />// fetch private key from file and ready it<br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/src/openssl-0.9.6/demos/sign/key.pem"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$priv_key </span><span style="color: #007700">= </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">8192</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pkeyid </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_get_privatekey</span><span style="color: #007700">(</span><span style="color: #0000BB">$priv_key</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// decrypt the data and store it in $open<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">openssl_open</span><span style="color: #007700">(</span><span style="color: #0000BB">$sealed</span><span style="color: #007700">, </span><span style="color: #0000BB">$open</span><span style="color: #007700">, </span><span style="color: #0000BB">$env_key</span><span style="color: #007700">, </span><span style="color: #0000BB">$pkeyid</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"here is the opened data: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$open</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"failed to open data"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// free the private key from memory<br /></span><span style="color: #0000BB">openssl_free_key</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkeyid</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $sealed and $env_key are assumed to contain the sealed data<br />// and our envelope key, both given to us by the sealer.<br /><br />// fetch private key from file and ready it<br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/src/openssl-0.9.6/demos/sign/key.pem"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$priv_key </span><span style="color: #007700">= </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">8192</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pkeyid </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_get_privatekey</span><span style="color: #007700">(</span><span style="color: #0000BB">$priv_key</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// decrypt the data and store it in $open<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">openssl_open</span><span style="color: #007700">(</span><span style="color: #0000BB">$sealed</span><span style="color: #007700">, </span><span style="color: #0000BB">$open</span><span style="color: #007700">, </span><span style="color: #0000BB">$env_key</span><span style="color: #007700">, </span><span style="color: #0000BB">$pkeyid</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"here is the opened data: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$open</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"failed to open data"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// free the private key from memory<br /></span><span style="color: #0000BB">openssl_free_key</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkeyid</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -188,7 +166,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.openssl-seal.html" class="function" rel="rdfs-seeAlso">openssl_seal()</a> - 密封 (加密) 数据</span></li>
+    <li><span class="function"><a href="function.openssl-seal.html" class="function" rel="rdfs-seeAlso">openssl_seal()</a> - 密封 (加密) 数据</span></li>
    </ul>
   </p>
  </div>

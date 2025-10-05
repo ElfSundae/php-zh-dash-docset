@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>对象继承</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -46,7 +46,8 @@
  <p class="para">
   方法，属性和常量的 <a href="language.oop5.visibility.html" class="link">可见性</a>
   可以放宽，例如 <code class="literal">protected</code> 方法可以标记为 <code class="literal">public</code>，
-  但不能增加限制，例如标记 <code class="literal">public</code> 属性为 <code class="literal">private</code>。
+  但不能增加限制，例如标记 <code class="literal">public</code> 属性为 <code class="literal">private</code>。有个例外是构造方法，可以限制其可见性，例如
+  <code class="literal">public</code> 构造方法可以在子类中标记为 <code class="literal">private</code>。
  </p>
 
  <blockquote class="note"><p><strong class="note">Note</strong>: 
@@ -56,82 +57,59 @@
  </p></blockquote>
  <blockquote class="note"><p><strong class="note">Note</strong>: 
   <p class="para">
-   It is not allowed to override a read-write property with a <a href="language.oop5.properties.html#language.oop5.properties.readonly-properties" class="link">readonly property</a> or vice versa.
-   <div class="example" id="example-472">
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">A </span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">int $prop</span><span style="color: #007700">;<br />}<br />class </span><span style="color: #0000BB">B </span><span style="color: #007700">extends </span><span style="color: #0000BB">A </span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">// Illegal: read-write -&gt; readonly<br />    </span><span style="color: #007700">public readonly </span><span style="color: #0000BB">int $prop</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+   不允许使用<a href="language.oop5.properties.html#language.oop5.properties.readonly-properties" class="link">只读属性</a>覆盖可读写属性，反之亦然。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">A </span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">int $prop</span><span style="color: #007700">;<br />}<br />class </span><span style="color: #0000BB">B </span><span style="color: #007700">extends </span><span style="color: #0000BB">A </span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">// Illegal: read-write -&gt; readonly<br />    </span><span style="color: #007700">public readonly </span><span style="color: #0000BB">int $prop</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
     </div>
+   </p>
+  </p></blockquote>
 
-   </div>
-  </p>
- </p></blockquote>
-
- <div class="sect2" id="language.oop5.inheritance.examples">
-  <div class="example" id="example-474">
-   <p><strong>Example #1 继承示例</strong></p>
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">'Foo: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$string </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />    }<br />    <br />    public function </span><span style="color: #0000BB">printPHP</span><span style="color: #007700">()<br />    {<br />        echo </span><span style="color: #DD0000">'PHP is great.' </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />    }<br />}<br /><br />class </span><span style="color: #0000BB">Bar </span><span style="color: #007700">extends </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">'Bar: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$string </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$foo </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= new </span><span style="color: #0000BB">Bar</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 输出: 'Foo: baz'<br /></span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printPHP</span><span style="color: #007700">();       </span><span style="color: #FF8000">// 输出: 'PHP is great' <br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 输出: 'Bar: baz'<br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printPHP</span><span style="color: #007700">();       </span><span style="color: #FF8000">// 输出: 'PHP is great'<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
+ <div class="example" id="example-230">
+  <p><strong>Example #1 继承示例</strong></p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">'Foo: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$string </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />    }<br />    <br />    public function </span><span style="color: #0000BB">printPHP</span><span style="color: #007700">()<br />    {<br />        echo </span><span style="color: #DD0000">'PHP is great.' </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />    }<br />}<br /><br />class </span><span style="color: #0000BB">Bar </span><span style="color: #007700">extends </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">'Bar: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$string </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$foo </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= new </span><span style="color: #0000BB">Bar</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 输出: 'Foo: baz'<br /></span><span style="color: #0000BB">$foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printPHP</span><span style="color: #007700">();       </span><span style="color: #FF8000">// 输出: 'PHP is great' <br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printItem</span><span style="color: #007700">(</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">); </span><span style="color: #FF8000">// 输出: 'Bar: baz'<br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printPHP</span><span style="color: #007700">();       </span><span style="color: #FF8000">// 输出: 'PHP is great'<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
+
  </div>
 
  <div class="sect2" id="language.oop5.inheritance.internal-classes">
-  <h3 class="title">Return Type Compatibility with Internal Classes</h3>
+  <h3 class="title">返回类型与内部类兼容</h3>
 
   <p class="para">
-   Prior to PHP 8.1, most internal classes or methods didn&#039;t declare their return types,
-   and any return type was allowed when extending them.
+   PHP 8.1 之前，大多数内部类或方法没有声明其返回类型，并且在继承它们时允许返回任何类型。
   </p>
 
   <p class="para">
-   As of PHP 8.1.0, most internal methods started to &quot;tentatively&quot; declare their return type,
-   in that case the return type of methods should be compatible with the parent being extended;
-   otherwise, a deprecation notice is emitted.
-   Note that lack of an explicit return declaration is also considered a signature mismatch,
-   and thus results in the deprecation notice.
+   自 PHP 8.1.0 起，大多数内部方法开始"暂时"声明其返回类型，在这种情况下，方法的返回类型应该与继承的父级方法兼容；否则，将发出弃用通知。注意，没有指定返回声明也会视为签名不匹配，从而导致弃用通知。
   </p>
 
   <p class="para">
-   If the return type cannot be declared for an overriding method due to PHP cross-version compatibility concerns,
-   a <span class="classname"><a href="class.returntypewillchange.html" class="classname">ReturnTypeWillChange</a></span> attribute can be added to silence the deprecation notice.
+   如果由于 PHP 跨版本兼容性问题而无法为重写方法声明返回类型，则可以添加 <span class="classname"><a href="class.returntypewillchange.html" class="classname">ReturnTypeWillChange</a></span> 注解来消除弃用通知。
   </p>
 
-  <div class="example" id="example-476">
+  <div class="example" id="example-231">
    <p><strong>Example #2 The overriding method does not declare any return type</strong></p>
    <div class="example-contents">
-    <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyDateTime </span><span style="color: #007700">extends </span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string $modifier</span><span style="color: #007700">) { return </span><span style="color: #0000BB">false</span><span style="color: #007700">; }<br />}<br /><br /></span><span style="color: #FF8000">// "Deprecated: Return type of MyDateTime::modify(string $modifier) should either be compatible with DateTime::modify(string $modifier): DateTime|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice" as of PHP 8.1.0<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+    <div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyDateTime </span><span style="color: #007700">extends </span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string $modifier</span><span style="color: #007700">) { return </span><span style="color: #0000BB">false</span><span style="color: #007700">; }<br />}<br /><br /></span><span style="color: #FF8000">// "Deprecated: Return type of MyDateTime::modify(string $modifier) should either be compatible with DateTime::modify(string $modifier): DateTime|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice" as of PHP 8.1.0<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-478">
+  <div class="example" id="example-232">
    <p><strong>Example #3 The overriding method declares a wrong return type</strong></p>
    <div class="example-contents">
-    <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyDateTime </span><span style="color: #007700">extends </span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string $modifier</span><span style="color: #007700">): ?</span><span style="color: #0000BB">DateTime </span><span style="color: #007700">{ return </span><span style="color: #0000BB">null</span><span style="color: #007700">; }<br />}<br /><br /></span><span style="color: #FF8000">// "Deprecated: Return type of MyDateTime::modify(string $modifier): ?DateTime should either be compatible with DateTime::modify(string $modifier): DateTime|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice" as of PHP 8.1.0<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+    <div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyDateTime </span><span style="color: #007700">extends </span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string $modifier</span><span style="color: #007700">): ?</span><span style="color: #0000BB">DateTime </span><span style="color: #007700">{ return </span><span style="color: #0000BB">null</span><span style="color: #007700">; }<br />}<br /><br /></span><span style="color: #FF8000">// "Deprecated: Return type of MyDateTime::modify(string $modifier): ?DateTime should either be compatible with DateTime::modify(string $modifier): DateTime|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice" as of PHP 8.1.0<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-480">
+  <div class="example" id="example-233">
    <p><strong>Example #4 The overriding method declares a wrong return type without a deprecation notice</strong></p>
    <div class="example-contents">
-    <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyDateTime </span><span style="color: #007700">extends </span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">/**<br />     * @return DateTime|false<br />     */<br />    </span><span style="color: #007700">#[</span><span style="color: #0000BB">\ReturnTypeWillChange</span><span style="color: #007700">]<br />    public function </span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string $modifier</span><span style="color: #007700">) { return </span><span style="color: #0000BB">false</span><span style="color: #007700">; }<br />}<br /><br /></span><span style="color: #FF8000">// No notice is triggered<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+    <div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyDateTime </span><span style="color: #007700">extends </span><span style="color: #0000BB">DateTime<br /></span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">/**<br />     * @return DateTime|false<br />     */<br />    </span><span style="color: #007700">#[</span><span style="color: #0000BB">\ReturnTypeWillChange</span><span style="color: #007700">]<br />    public function </span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #0000BB">string $modifier</span><span style="color: #007700">) { return </span><span style="color: #0000BB">false</span><span style="color: #007700">; }<br />}<br /><br /></span><span style="color: #FF8000">// No notice is triggered<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>

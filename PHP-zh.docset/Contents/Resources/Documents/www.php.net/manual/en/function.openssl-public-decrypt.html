@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用公钥解密数据</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,10 +35,10 @@
  <div class="refsect1 description" id="refsect1-function.openssl-public-decrypt-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>openssl_public_decrypt</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter reference">&$decrypted</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$padding</code><span class="initializer"> = OPENSSL_PKCS1_PADDING</span></span><br>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>openssl_public_decrypt</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="attribute"><a href="class.sensitiveparameter.html">#[\SensitiveParameter]</a> </span><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter reference">&$decrypted_data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="class.opensslasymmetrickey.html" class="type OpenSSLAsymmetricKey">OpenSSLAsymmetricKey</a></span>|<span class="type"><a href="class.opensslcertificate.html" class="type OpenSSLCertificate">OpenSSLCertificate</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$public_key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$padding</code><span class="initializer"> = <strong><code><a href="openssl.padding.html#constant.openssl-pkcs1-padding">OPENSSL_PKCS1_PADDING</a></code></strong></span></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>openssl_public_decrypt()</strong></span> 解密先前由 <span class="function"><a href="function.openssl-private-encrypt.html" class="function">openssl_private_encrypt()</a></span> 加密的数据 <code class="parameter">data</code> 并且将结果保存至变量 <code class="parameter">decrypted</code>中。  
+   <span class="function"><strong>openssl_public_decrypt()</strong></span> 解密先前由 <span class="function"><a href="function.openssl-private-encrypt.html" class="function">openssl_private_encrypt()</a></span> 加密的数据 <code class="parameter">data</code> 并且将结果保存至变量 <code class="parameter">decrypted_data</code>中。  
   </p>
   <p class="para">
    你可以用该函数来校验消息是否是私钥拥有者写的。
@@ -51,55 +51,38 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">data</code></dt>
-
+     <dt><code class="parameter">data</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">decrypted</code></dt>
-
+     <dt><code class="parameter">decrypted_data</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">key</code></dt>
-
+     <dt><code class="parameter">public_key</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">key</code> 必须是和用来加密数据的私钥配对的公钥。
+       <code class="parameter">public_key</code> 必须是和用来加密数据的私钥配对的公钥。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">padding</code></dt>
-
+     <dt><code class="parameter">padding</code></dt>
      <dd>
-
       <p class="para">
        <code class="parameter">padding</code> 可以是如下至
-       <strong><code>OPENSSL_PKCS1_PADDING</code></strong>,
-       <strong><code>OPENSSL_NO_PADDING</code></strong>.
+       <strong><code><a href="openssl.padding.html#constant.openssl-pkcs1-padding">OPENSSL_PKCS1_PADDING</a></code></strong>,
+       <strong><code><a href="openssl.padding.html#constant.openssl-no-padding">OPENSSL_NO_PADDING</a></code></strong>.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -107,8 +90,36 @@
  <div class="refsect1 returnvalues" id="refsect1-function.openssl-public-decrypt-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.openssl-public-decrypt-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">public_key</code> 现在接受 <span class="classname"><a href="class.opensslasymmetrickey.html" class="classname">OpenSSLAsymmetricKey</a></span> 或 <span class="classname"><a href="class.opensslcertificate.html" class="classname">OpenSSLCertificate</a></span>
+       实例。之前接受类型 <code class="literal">OpenSSL key</code> 或 <code class="literal">OpenSSL X.509</code> 的 <a href="language.types.resource.html" class="link">resource</a>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 
@@ -116,8 +127,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.openssl-private-encrypt.html" class="function" rel="rdfs-seeAlso">openssl_private_encrypt()</a> - 使用私钥加密数据</span></li>
-    <li class="member"><span class="function"><a href="function.openssl-private-decrypt.html" class="function" rel="rdfs-seeAlso">openssl_private_decrypt()</a> - 使用私钥解密数据</span></li>
+    <li><span class="function"><a href="function.openssl-private-encrypt.html" class="function" rel="rdfs-seeAlso">openssl_private_encrypt()</a> - 使用私钥加密数据</span></li>
+    <li><span class="function"><a href="function.openssl-private-decrypt.html" class="function" rel="rdfs-seeAlso">openssl_private_decrypt()</a> - 使用私钥解密数据</span></li>
    </ul>
   </p>
  </div>

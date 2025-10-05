@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>验证签名</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,10 +35,11 @@
  <div class="refsect1 description" id="refsect1-function.openssl-verify-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>openssl_verify</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$signature</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$pub_key_id</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$signature_alg</code><span class="initializer"> = OPENSSL_ALGO_SHA1</span></span><br>): <span class="type">int</span></div>
+   <span class="methodname"><strong>openssl_verify</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$signature</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="class.opensslasymmetrickey.html" class="type OpenSSLAsymmetricKey">OpenSSLAsymmetricKey</a></span>|<span class="type"><a href="class.opensslcertificate.html" class="type OpenSSLCertificate">OpenSSLCertificate</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$public_key</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$algorithm</code><span class="initializer"> = <strong><code><a href="openssl.signature-algos.html#constant.openssl-algo-sha1">OPENSSL_ALGO_SHA1</a></code></strong></span></span><br>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>openssl_verify()</strong></span> 使用与<code class="parameter">pub_key_id</code>关联的公钥验证指定数据<code class="parameter">data</code>的签名<code class="parameter">signature</code>是否正确。这必须是与用于签名的私钥相对应的公钥。
+   <span class="function"><strong>openssl_verify()</strong></span> 使用与 <code class="parameter">public_key</code> 关联的公钥验证指定数据 <code class="parameter">data</code>
+   的签名 <code class="parameter">signature</code> 是否正确。这必须是与用于签名的私钥相对应的公钥。
   </p>
  </div>
 
@@ -48,62 +49,45 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">data</code></dt>
-
+     <dt><code class="parameter">data</code></dt>
      <dd>
-
       <p class="para">
        以前用来生成签名的数据字符串。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">signature</code></dt>
-
+     <dt><code class="parameter">signature</code></dt>
      <dd>
-
       <p class="para">
-       原始二进制字符串，通过<span class="function"><a href="function.openssl-sign.html" class="function">openssl_sign()</a></span>或类似的函数生成。
+       原始二进制字符串，通过 <span class="function"><a href="function.openssl-sign.html" class="function">openssl_sign()</a></span> 或类似的函数生成。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">pub_key_id</code></dt>
-
+     <dt><code class="parameter">public_key</code></dt>
      <dd>
-
       <p class="para">
-       <span class="type">resource</span> - 一个密钥, 通过 <span class="function"><a href="function.openssl-get-publickey.html" class="function">openssl_get_publickey()</a></span> 函数返回。
+       <span class="classname"><a href="class.opensslasymmetrickey.html" class="classname">OpenSSLAsymmetricKey</a></span> - 一个密钥, 通过 <span class="function"><a href="function.openssl-get-publickey.html" class="function">openssl_get_publickey()</a></span> 函数返回。
       </p>
       <p class="para">
-       <span class="type">string</span> - 一个 PEM 格式的密钥, 比如, &quot;-----BEGIN PUBLIC KEY-----
-MIIBCgK...&quot;
+       <span class="type"><a href="language.types.string.html" class="type string">string</a></span> - 一个 <abbr title="Privacy-Enhanced Mail">PEM</abbr> 格式的密钥（比如 <code class="literal">-----BEGIN PUBLIC KEY-----
+MIIBCgK...</code>）
       </p>     
      </dd>
-
     
     
-     <dt>
-<code class="parameter">signature_alg</code></dt>
-
+     <dt><code class="parameter">algorithm</code></dt>
      <dd>
-
       <p class="para">
-       <span class="type">int</span> - 以下签名算法之一<a href="openssl.signature-algos.html" class="link">Signature Algorithms</a>.
+       <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> - 以下签名算法之一 <a href="openssl.signature-algos.html" class="link">Signature Algorithms</a>.
       </p>
       <p class="para">
-       <span class="type">string</span> - 由<span class="function"><a href="function.openssl-get-md-methods.html" class="function">openssl_get_md_methods()</a></span>函数返回的可用字符串，比如， &quot;sha1WithRSAEncryption&quot; 或者 &quot;sha512&quot;.
+       <span class="type"><a href="language.types.string.html" class="type string">string</a></span> - 由 <span class="function"><a href="function.openssl-get-md-methods.html" class="function">openssl_get_md_methods()</a></span> 函数返回的可用字符串，比如，&quot;sha1WithRSAEncryption&quot; 或者 &quot;sha512&quot;.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -111,60 +95,54 @@ MIIBCgK...&quot;
  <div class="refsect1 returnvalues" id="refsect1-function.openssl-verify-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果签名正确返回 1, 签名错误返回 0, 内部发生错误则返回-1.
+   如果签名正确返回 1，签名错误返回 0，错误时返回 -1 或 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 changelog" id="refsect1-function.openssl-verify-changelog">
   <h3 class="title">更新日志</h3>
-  <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
 
-     </thead>
+    </thead>
 
-     <tbody class="tbody">
-      <tr>
-       <td>5.2.0</td>
-       <td>
-        添加了 <code class="parameter">signature_alg</code> 参数。
-       </td>
-      </tr>
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">public_key</code> 现在接受 <span class="classname"><a href="class.opensslasymmetrickey.html" class="classname">OpenSSLAsymmetricKey</a></span>
+       或 <span class="classname"><a href="class.opensslcertificate.html" class="classname">OpenSSLCertificate</a></span> 实例；之前接受类型 <code class="literal">OpenSSL key</code> 或
+       <code class="literal">OpenSSL X.509</code> 的 <a href="language.types.resource.html" class="link">resource</a>。
+      </td>
+     </tr>
 
-     </tbody>
-    
-   </table>
+    </tbody>
+   
+  </table>
 
-  </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.openssl-verify-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1922">
-    <p><strong>Example #1 <span class="function"><strong>openssl_verify()</strong></span> 范例：</strong></p>
+   <div class="example" id="example-953">
+    <p><strong>Example #1 <span class="function"><strong>openssl_verify()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $data and $signature are assumed to contain the data and the signature<br /><br />// fetch public key from certificate and ready it<br /></span><span style="color: #0000BB">$pubkeyid </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_get_public</span><span style="color: #007700">(</span><span style="color: #DD0000">"file://src/openssl-0.9.6/demos/sign/cert.pem"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// state whether signature is okay or not<br /></span><span style="color: #0000BB">$ok </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_verify</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">$signature</span><span style="color: #007700">, </span><span style="color: #0000BB">$pubkeyid</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">1</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"good"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"bad"</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"ugly, error checking signature"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #FF8000">// free the key from memory<br /></span><span style="color: #0000BB">openssl_free_key</span><span style="color: #007700">(</span><span style="color: #0000BB">$pubkeyid</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $data and $signature are assumed to contain the data and the signature<br /><br />// fetch public key from certificate and ready it<br /></span><span style="color: #0000BB">$pubkeyid </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_get_public</span><span style="color: #007700">(</span><span style="color: #DD0000">"file://src/openssl-0.9.6/demos/sign/cert.pem"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// state whether signature is okay or not<br /></span><span style="color: #0000BB">$ok </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_verify</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">$signature</span><span style="color: #007700">, </span><span style="color: #0000BB">$pubkeyid</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">1</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"good"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"bad"</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"ugly, error checking signature"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #FF8000">// free the key from memory<br /></span><span style="color: #0000BB">openssl_free_key</span><span style="color: #007700">(</span><span style="color: #0000BB">$pubkeyid</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
-   <div class="example" id="example-1924">
-    <p><strong>Example #2 <span class="function"><strong>openssl_verify()</strong></span> 范例：</strong></p>
+   <div class="example" id="example-954">
+    <p><strong>Example #2 <span class="function"><strong>openssl_verify()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//data you want to sign<br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= </span><span style="color: #DD0000">'my data'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//create new private and public key<br /></span><span style="color: #0000BB">$private_key_res </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_new</span><span style="color: #007700">(array(<br />    </span><span style="color: #DD0000">"private_key_bits" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2048</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">"private_key_type" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">OPENSSL_KEYTYPE_RSA</span><span style="color: #007700">,<br />));<br /></span><span style="color: #0000BB">$details </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_get_details</span><span style="color: #007700">(</span><span style="color: #0000BB">$private_key_res</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$public_key_res </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_get_public</span><span style="color: #007700">(</span><span style="color: #0000BB">$details</span><span style="color: #007700">[</span><span style="color: #DD0000">'key'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #FF8000">//create signature<br /></span><span style="color: #0000BB">openssl_sign</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">$signature</span><span style="color: #007700">, </span><span style="color: #0000BB">$private_key_res</span><span style="color: #007700">, </span><span style="color: #DD0000">"sha1WithRSAEncryption"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//verify signature<br /></span><span style="color: #0000BB">$ok </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_verify</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">$signature</span><span style="color: #007700">, </span><span style="color: #0000BB">$public_key_res</span><span style="color: #007700">, </span><span style="color: #0000BB">OPENSSL_ALGO_SHA1</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">1</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"valid"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"invalid"</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"error: "</span><span style="color: #007700">.</span><span style="color: #0000BB">openssl_error_string</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//data you want to sign<br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= </span><span style="color: #DD0000">'my data'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//create new private and public key<br /></span><span style="color: #0000BB">$private_key_res </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_new</span><span style="color: #007700">(array(<br />    </span><span style="color: #DD0000">"private_key_bits" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2048</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">"private_key_type" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">OPENSSL_KEYTYPE_RSA</span><span style="color: #007700">,<br />));<br /></span><span style="color: #0000BB">$details </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_get_details</span><span style="color: #007700">(</span><span style="color: #0000BB">$private_key_res</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$public_key_res </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_get_public</span><span style="color: #007700">(</span><span style="color: #0000BB">$details</span><span style="color: #007700">[</span><span style="color: #DD0000">'key'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #FF8000">//create signature<br /></span><span style="color: #0000BB">openssl_sign</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">$signature</span><span style="color: #007700">, </span><span style="color: #0000BB">$private_key_res</span><span style="color: #007700">, </span><span style="color: #DD0000">"sha256WithRSAEncryption"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//verify signature<br /></span><span style="color: #0000BB">$ok </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_verify</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">$signature</span><span style="color: #007700">, </span><span style="color: #0000BB">$public_key_res</span><span style="color: #007700">, </span><span style="color: #0000BB">OPENSSL_ALGO_SHA256</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">1</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"valid"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">$ok </span><span style="color: #007700">== </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"invalid"</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"error: "</span><span style="color: #007700">.</span><span style="color: #0000BB">openssl_error_string</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -176,7 +154,7 @@ MIIBCgK...&quot;
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.openssl-sign.html" class="function" rel="rdfs-seeAlso">openssl_sign()</a> - Generate signature</span></li>
+    <li><span class="function"><a href="function.openssl-sign.html" class="function" rel="rdfs-seeAlso">openssl_sign()</a> - Generate signature</span></li>
    </ul>
   </p>
  </div>

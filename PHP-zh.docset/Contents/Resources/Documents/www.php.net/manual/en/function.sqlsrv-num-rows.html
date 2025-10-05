@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Retrieves the number of rows in a result set</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.sqlsrv-num-rows-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>sqlsrv_num_rows</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stmt</code></span>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>sqlsrv_num_rows</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$stmt</code></span>): <span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span></div>
 
   <p class="para rdfs-comment">
    Retrieves the number of rows in a result set. This function requires that the 
@@ -51,11 +51,8 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">stmt</code></dt>
-
+     <dt><code class="parameter">stmt</code></dt>
      <dd>
-
       <p class="para">
        The statement for which the row count is returned. The statement resource 
        must be created with a static or keyset cursor. For more information, see 
@@ -64,10 +61,8 @@
        in the Microsoft SQLSRV documentation.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -75,22 +70,19 @@
  <div class="refsect1 returnvalues" id="refsect1-function.sqlsrv-num-rows-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns the number of rows retrieved on success and <strong><code>false</code></strong> if an error occurred. 
-   If a forward cursor (the default) or dynamic cursor is used, <strong><code>false</code></strong> is returned.
+   Returns the number of rows retrieved on success and <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> if an error occurred. 
+   If a forward cursor (the default) or dynamic cursor is used, <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> is returned.
   </p>
  </div>
 
  
  <div class="refsect1 examples" id="refsect1-function.sqlsrv-num-rows-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-3958">
+   <div class="example" id="example-2028">
     <p><strong>Example #1 <span class="function"><strong>sqlsrv_num_rows()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$server </span><span style="color: #007700">= </span><span style="color: #DD0000">"serverName\sqlexpress"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$connectionInfo </span><span style="color: #007700">= array( </span><span style="color: #DD0000">"Database"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"dbName"</span><span style="color: #007700">, </span><span style="color: #DD0000">"UID"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">, </span><span style="color: #DD0000">"PWD"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"password" </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_connect</span><span style="color: #007700">( </span><span style="color: #0000BB">$server</span><span style="color: #007700">, </span><span style="color: #0000BB">$connectionInfo </span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT * FROM Table_1"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$params </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$options </span><span style="color: #007700">=  array( </span><span style="color: #DD0000">"Scrollable" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">SQLSRV_CURSOR_KEYSET </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_query</span><span style="color: #007700">( </span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql </span><span style="color: #007700">, </span><span style="color: #0000BB">$params</span><span style="color: #007700">, </span><span style="color: #0000BB">$options </span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$row_count </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_num_rows</span><span style="color: #007700">( </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">);<br />   <br />if (</span><span style="color: #0000BB">$row_count </span><span style="color: #007700">=== </span><span style="color: #0000BB">false</span><span style="color: #007700">)<br />   echo </span><span style="color: #DD0000">"Error in retrieveing row count."</span><span style="color: #007700">;<br />else<br />   echo </span><span style="color: #0000BB">$row_count</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$server </span><span style="color: #007700">= </span><span style="color: #DD0000">"serverName\sqlexpress"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$connectionInfo </span><span style="color: #007700">= array( </span><span style="color: #DD0000">"Database"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"dbName"</span><span style="color: #007700">, </span><span style="color: #DD0000">"UID"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">, </span><span style="color: #DD0000">"PWD"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"password" </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_connect</span><span style="color: #007700">( </span><span style="color: #0000BB">$server</span><span style="color: #007700">, </span><span style="color: #0000BB">$connectionInfo </span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT * FROM Table_1"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$params </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$options </span><span style="color: #007700">=  array( </span><span style="color: #DD0000">"Scrollable" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">SQLSRV_CURSOR_KEYSET </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_query</span><span style="color: #007700">( </span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql </span><span style="color: #007700">, </span><span style="color: #0000BB">$params</span><span style="color: #007700">, </span><span style="color: #0000BB">$options </span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$row_count </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_num_rows</span><span style="color: #007700">( </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">);<br />   <br />if (</span><span style="color: #0000BB">$row_count </span><span style="color: #007700">=== </span><span style="color: #0000BB">false</span><span style="color: #007700">)<br />   echo </span><span style="color: #DD0000">"Error in retrieveing row count."</span><span style="color: #007700">;<br />else<br />   echo </span><span style="color: #0000BB">$row_count</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -102,8 +94,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.sqlsrv-has-rows.html" class="function" rel="rdfs-seeAlso">sqlsrv_has_rows()</a> - Indicates whether the specified statement has rows</span></li>
-    <li class="member"><span class="function"><a href="function.sqlsrv-rows-affected.html" class="function" rel="rdfs-seeAlso">sqlsrv_rows_affected()</a> - Returns the number of rows modified by the last INSERT, UPDATE, or 
+    <li><span class="function"><a href="function.sqlsrv-has-rows.html" class="function" rel="rdfs-seeAlso">sqlsrv_has_rows()</a> - Indicates whether the specified statement has rows</span></li>
+    <li><span class="function"><a href="function.sqlsrv-rows-affected.html" class="function" rel="rdfs-seeAlso">sqlsrv_rows_affected()</a> - Returns the number of rows modified by the last INSERT, UPDATE, or 
   DELETE query executed</span></li>
    </ul>
   </p>

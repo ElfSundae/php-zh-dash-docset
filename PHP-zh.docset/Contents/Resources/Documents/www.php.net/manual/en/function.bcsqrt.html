@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>任意精度数字的二次方根</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.bcsqrt-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>bcsqrt</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$num</code></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$scale</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>bcsqrt</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$num</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$scale</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.string.html" class="type string">string</a></span></div>
 
   <p class="para rdfs-comment">
    返回 <code class="parameter">num</code> 的二次方根。
@@ -48,27 +48,18 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">num</code></dt>
-
+     <dt><code class="parameter">num</code></dt>
      <dd>
-
       <p class="para">
-       字符串类型的操作数。
+       操作数，格式良好的 BCMath 数字字符串。
       </p>
      </dd>
-
     
     <dt>
-
-<code class="parameter">scale</code></dt>
-<dd>
-<p class="para">此可选参数用于设置结果中小数点后的小数位数。也可通过使用
+<code class="parameter">scale</code></dt><dd><p class="para">此可选参数用于设置结果中小数点后的小数位数。也可通过使用
 <span class="function"><a href="function.bcscale.html" class="function">bcscale()</a></span> 来设置全局默认的小数位数，用于所有函数。如果未设置，则默认为 <code class="literal">0</code>。
 </p></dd>
-
    </dl>
-
   </p>
  </div>
 
@@ -76,7 +67,20 @@
  <div class="refsect1 returnvalues" id="refsect1-function.bcsqrt-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   以 string 类型返回二次方根的结果，如果 <code class="parameter">num</code> 是负数则返回 <strong><code>null</code></strong>。
+   返回平方根，作为格式良好的 BCMath 数字字符串。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 errors" id="refsect1-function.bcsqrt-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   此函数在以下情况下引发 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> 错误：
+   <ul class="simplelist">
+    <li><code class="parameter">num</code> 不是格式良好的 BCMath 数字字符串</li>
+    <li><code class="parameter">num</code> 小于 <code class="literal">0</code></li>
+    <li><code class="parameter">scale</code> 超出有效范围</li>
+   </ul>
   </p>
  </div>
 
@@ -97,6 +101,21 @@
      <tr>
       <td>8.0.0</td>
       <td>
+       如果 <code class="parameter">num</code> 不是格式良好的 BCMath 数字字符串，或小于 <code class="literal">0</code>，则会引发
+       <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> 错误。之前，会引发 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 错误。
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       现在，<code class="parameter">scale</code> 的取值范围必须在 <code class="literal">0</code> 到 <code class="literal">2147483647</code> 之间；之前，负数的 scale 值会被静默处理为 <code class="literal">0</code>。
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
        现在 <code class="parameter">scale</code> 可以为 null。
       </td>
      </tr>
@@ -109,14 +128,11 @@
 
  
  <div class="refsect1 examples" id="refsect1-function.bcsqrt-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-3129">
    <p><strong>Example #1 <span class="function"><strong>bcsqrt()</strong></span> 示例</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">bcsqrt</span><span style="color: #007700">(</span><span style="color: #DD0000">'2'</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">); </span><span style="color: #FF8000">// 1.414<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">bcsqrt</span><span style="color: #007700">(</span><span style="color: #DD0000">'2'</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">); </span><span style="color: #FF8000">// 1.414<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -127,7 +143,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.bcpow.html" class="function" rel="rdfs-seeAlso">bcpow()</a> - 任意精度数字的乘方</span></li>
+    <li><span class="function"><a href="function.bcpow.html" class="function" rel="rdfs-seeAlso">bcpow()</a> - 任意精度数字的乘方</span></li>
    </ul>
   </p>
  </div>

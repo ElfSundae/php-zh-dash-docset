@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Execute SHARED LOCK</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-mysql-xdevapi-tableselect.lockshared-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>mysql_xdevapi\TableSelect::lockShared</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$lock_waiting_option</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="class.mysql-xdevapi-tableselect.html" class="type mysql_xdevapi\TableSelect">mysql_xdevapi\TableSelect</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysql_xdevapi\TableSelect::lockShared</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$lock_waiting_option</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="class.mysql-xdevapi-tableselect.html" class="type mysql_xdevapi\TableSelect">mysql_xdevapi\TableSelect</a></span></div>
 
   <p class="para rdfs-comment">
    Execute a read operation with SHARED LOCK. Only one lock can be active at a time.
@@ -48,25 +48,20 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">lock_waiting_option</code></dt>
-
+    <dt><code class="parameter">lock_waiting_option</code></dt>
     <dd>
-
      <p class="para">
-      The optional waiting option that defaults to <strong><code>MYSQLX_LOCK_DEFAULT</code></strong>. 
+      The optional waiting option that defaults to <strong><code><a href="mysql-xdevapi.constants.html#constant.mysqlx-lock-default">MYSQLX_LOCK_DEFAULT</a></code></strong>. 
       Valid values are:
      </p>
      <ul class="itemizedlist">
-      <li class="listitem"><p class="para"><strong><code>MYSQLX_LOCK_DEFAULT</code></strong></p></li>
-      <li class="listitem"><p class="para"><strong><code>MYSQLX_LOCK_NOWAIT</code></strong></p></li>
-      <li class="listitem"><p class="para"><strong><code>MYSQLX_LOCK_SKIP_LOCKED</code></strong></p></li>
+      <li class="listitem"><p class="para"><strong><code><a href="mysql-xdevapi.constants.html#constant.mysqlx-lock-default">MYSQLX_LOCK_DEFAULT</a></code></strong></p></li>
+      <li class="listitem"><p class="para"><strong><code><a href="mysql-xdevapi.constants.html#constant.mysqlx-lock-nowait">MYSQLX_LOCK_NOWAIT</a></code></strong></p></li>
+      <li class="listitem"><p class="para"><strong><code><a href="mysql-xdevapi.constants.html#constant.mysqlx-lock-skip-locked">MYSQLX_LOCK_SKIP_LOCKED</a></code></strong></p></li>
      </ul>
     </dd>
-
    
   </dl>
-
  </div>
 
 
@@ -79,20 +74,16 @@
 
 
  <div class="refsect1 examples" id="refsect1-mysql-xdevapi-tableselect.lockshared-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-3446">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1722">
    <p><strong>Example #1 <span class="function"><strong>mysql_xdevapi\TableSelect::lockShared()</strong></span> example</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$session </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_xdevapi\getSession</span><span style="color: #007700">(</span><span style="color: #DD0000">"mysqlx://user:password@localhost"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$schema </span><span style="color: #007700">= </span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSchema</span><span style="color: #007700">(</span><span style="color: #DD0000">"addressbook"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$table  </span><span style="color: #007700">= </span><span style="color: #0000BB">$schema</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTable</span><span style="color: #007700">(</span><span style="color: #DD0000">"names"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">startTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$table</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">select</span><span style="color: #007700">(</span><span style="color: #DD0000">'name'</span><span style="color: #007700">, </span><span style="color: #DD0000">'age'</span><span style="color: #007700">)<br />  -&gt;</span><span style="color: #0000BB">lockShared</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLX_LOCK_NOWAIT</span><span style="color: #007700">)<br />  -&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$session </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_xdevapi\getSession</span><span style="color: #007700">(</span><span style="color: #DD0000">"mysqlx://user:password@localhost"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$schema </span><span style="color: #007700">= </span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSchema</span><span style="color: #007700">(</span><span style="color: #DD0000">"addressbook"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$table  </span><span style="color: #007700">= </span><span style="color: #0000BB">$schema</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTable</span><span style="color: #007700">(</span><span style="color: #DD0000">"names"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">startTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$table</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">select</span><span style="color: #007700">(</span><span style="color: #DD0000">'name'</span><span style="color: #007700">, </span><span style="color: #DD0000">'age'</span><span style="color: #007700">)<br />  -&gt;</span><span style="color: #0000BB">lockShared</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLX_LOCK_NOWAIT</span><span style="color: #007700">)<br />  -&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+   <div class="example-contents"><p>以上示例的输出类似于：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [0] =&gt; Array
         (
@@ -104,8 +95,8 @@ Array
             [name] =&gt; Sam
             [age] =&gt; 42
         )
-)
-</pre></div>
+)</pre>
+</div>
    </div>
   </div>
  </div>

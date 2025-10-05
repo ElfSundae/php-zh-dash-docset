@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>PHP 7.4.x 废弃的功能</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -38,21 +38,16 @@
     嵌套的三元操作中，必须明确使用显式括号来决定操作的顺序。以前，如果不使用括号，在大多数情况下，左关联性不会导致预期的行为。
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />1 </span><span style="color: #007700">? </span><span style="color: #0000BB">2 </span><span style="color: #007700">: </span><span style="color: #0000BB">3 </span><span style="color: #007700">? </span><span style="color: #0000BB">4 </span><span style="color: #007700">: </span><span style="color: #0000BB">5</span><span style="color: #007700">;   </span><span style="color: #FF8000">// 弃用<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">1 </span><span style="color: #007700">? </span><span style="color: #0000BB">2 </span><span style="color: #007700">: </span><span style="color: #0000BB">3</span><span style="color: #007700">) ? </span><span style="color: #0000BB">4 </span><span style="color: #007700">: </span><span style="color: #0000BB">5</span><span style="color: #007700">; </span><span style="color: #FF8000">// ok<br /></span><span style="color: #0000BB">1 </span><span style="color: #007700">? </span><span style="color: #0000BB">2 </span><span style="color: #007700">: (</span><span style="color: #0000BB">3 </span><span style="color: #007700">? </span><span style="color: #0000BB">4 </span><span style="color: #007700">: </span><span style="color: #0000BB">5</span><span style="color: #007700">); </span><span style="color: #FF8000">// ok<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />1 </span><span style="color: #007700">? </span><span style="color: #0000BB">2 </span><span style="color: #007700">: </span><span style="color: #0000BB">3 </span><span style="color: #007700">? </span><span style="color: #0000BB">4 </span><span style="color: #007700">: </span><span style="color: #0000BB">5</span><span style="color: #007700">;   </span><span style="color: #FF8000">// 弃用<br /></span><span style="color: #007700">(</span><span style="color: #0000BB">1 </span><span style="color: #007700">? </span><span style="color: #0000BB">2 </span><span style="color: #007700">: </span><span style="color: #0000BB">3</span><span style="color: #007700">) ? </span><span style="color: #0000BB">4 </span><span style="color: #007700">: </span><span style="color: #0000BB">5</span><span style="color: #007700">; </span><span style="color: #FF8000">// ok<br /></span><span style="color: #0000BB">1 </span><span style="color: #007700">? </span><span style="color: #0000BB">2 </span><span style="color: #007700">: (</span><span style="color: #0000BB">3 </span><span style="color: #007700">? </span><span style="color: #0000BB">4 </span><span style="color: #007700">: </span><span style="color: #0000BB">5</span><span style="color: #007700">); </span><span style="color: #FF8000">// ok<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
    </p>
    <p class="para">
-    当运算对象嵌套到中间时，<em class="emphasis">不</em>需要括号，因为没有歧义且不受关联顺序的影响：
+    当运算对象嵌套到中间时，<em>不</em>需要括号，因为没有歧义且不受关联顺序的影响：
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-1 ? 2 ? 3 : 4 : 5 // ok</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000">1 ? 2 ? 3 : 4 : 5 // ok</span></code></div>
      </div>
 
     </div>
@@ -86,8 +81,7 @@
    <h4 class="title">Unbinding <code class="literal">$this</code> when <code class="literal">$this</code> is used</h4>
 
    <p class="para">
-    Unbinding <code class="literal">$this</code> of a non-static closure
-    that uses <code class="literal">$this</code> is deprecated.
+    弃用在未捆绑 <code class="literal">$this</code> 的非静态 closure 中使用 <code class="literal">$this</code>。
    </p>
   </div>
 
@@ -136,7 +130,7 @@
 
    <p class="para">
     魔术引号函数 <span class="function"><a href="function.get-magic-quotes-gpc.html" class="function">get_magic_quotes_gpc()</a></span> 和 <span class="function"><a href="function.get-magic-quotes-runtime.html" class="function">get_magic_quotes_runtime()</a></span>
-    已被废弃。它们将永远返回 <strong><code>false</code></strong>。
+    已被废弃。它们将永远返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
    </p>
   </div>
 
@@ -206,8 +200,8 @@
   <h3 class="title">Filter</h3>
 
   <p class="para">
-   <strong><code>FILTER_SANITIZE_MAGIC_QUOTES</code></strong>
-   已被废弃，使用 <strong><code>FILTER_SANITIZE_ADD_SLASHES</code></strong> 来替代。
+   <strong><code><a href="filter.constants.html#constant.filter-sanitize-magic-quotes">FILTER_SANITIZE_MAGIC_QUOTES</a></code></strong>
+   已被废弃，使用 <strong><code><a href="filter.constants.html#constant.filter-sanitize-add-slashes">FILTER_SANITIZE_ADD_SLASHES</a></code></strong> 来替代。
   </p>
  </div>
 
@@ -248,10 +242,7 @@
    <span class="classname"><a href="class.reflection.html" class="classname">Reflection</a></span> 对象并转换为字符串：
    <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// ReflectionClass::export(Foo::class, false) 是：<br /></span><span style="color: #007700">echo new </span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// $str = ReflectionClass::export(Foo::class, true) 是：<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= (string) new </span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// ReflectionClass::export(Foo::class, false) 是：<br /></span><span style="color: #007700">echo new </span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// $str = ReflectionClass::export(Foo::class, true) 是：<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= (string) new </span><span style="color: #0000BB">ReflectionClass</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::class);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>

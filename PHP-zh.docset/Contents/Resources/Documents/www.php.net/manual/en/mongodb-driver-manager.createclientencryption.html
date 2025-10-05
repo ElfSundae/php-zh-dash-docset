@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Create a new ClientEncryption object</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,10 +35,10 @@
  <div class="refsect1 description" id="refsect1-mongodb-driver-manager.createclientencryption-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">final</span> <span class="modifier">public</span> <span class="methodname"><strong>MongoDB\Driver\Manager::createClientEncryption</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code></span>): <span class="type"><span class="type MongoDB\Driver\ClientEncryption">MongoDB\Driver\ClientEncryption</span></span></div>
+   <span class="modifier">final</span> <span class="modifier">public</span> <span class="methodname"><strong>MongoDB\Driver\Manager::createClientEncryption</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$options</code></span>): <span class="type"><a href="class.mongodb-driver-clientencryption.html" class="type MongoDB\Driver\ClientEncryption">MongoDB\Driver\ClientEncryption</a></span></div>
 
   <p class="para rdfs-comment">
-   Constructs a new <span class="classname"><strong class="classname">MongoDB\Driver\ClientEncryption</strong></span> object with the specified options.
+   Constructs a new <span class="classname"><a href="class.mongodb-driver-clientencryption.html" class="classname">MongoDB\Driver\ClientEncryption</a></span> object with the specified options.
   </p>
  </div>
 
@@ -47,11 +47,8 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">options</code></dt>
-
+    <dt><code class="parameter">options</code></dt>
     <dd>
-
      <p class="para">
       <table class="doctable table">
        <caption><strong>options</strong></caption>
@@ -77,18 +74,24 @@
          
          <tr>
           <td>keyVaultNamespace</td>
-          <td><span class="type">string</span></td>
-          <td>A fully qualified namespace (e.g. <code class="literal">&quot;databaseName.collectionName&quot;</code>) denoting the collection that contains all data keys used for encryption and decryption.</td>
+          <td><span class="type"><a href="language.types.string.html" class="type string">string</a></span></td>
+          <td>A fully qualified namespace (e.g. <code class="literal">&quot;databaseName.collectionName&quot;</code>) denoting the collection that contains all data keys used for encryption and decryption. This option is required.</td>
          </tr>
 
 
          
          <tr>
           <td>kmsProviders</td>
-          <td><span class="type">array</span></td>
+          <td><span class="type"><a href="language.types.array.html" class="type array">array</a></span></td>
           <td>
            <p class="para">
             A document containing the configuration for one or more KMS providers, which are used to encrypt data keys. Supported providers include <code class="literal">&quot;aws&quot;</code>, <code class="literal">&quot;azure&quot;</code>, <code class="literal">&quot;gcp&quot;</code>, <code class="literal">&quot;kmip&quot;</code>, and <code class="literal">&quot;local&quot;</code> and at least one must be specified.
+           </p>
+           <p class="para">
+            If an empty document is specified for <code class="literal">&quot;aws&quot;</code>,
+            <code class="literal">&quot;azure&quot;</code>, or <code class="literal">&quot;gcp&quot;</code>, the driver
+            will attempt to configure the provider using
+            <a href="https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#automatic-credentials" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#automatic-credentials">&raquo;&nbsp;Automatic Credentials</a>.
            </p>
            <p class="para">
             The format for <code class="literal">&quot;aws&quot;</code> is as follows:
@@ -155,7 +158,7 @@
          
          <tr>
           <td>tlsOptions</td>
-          <td><span class="type">array</span></td>
+          <td><span class="type"><a href="language.types.array.html" class="type array">array</a></span></td>
           <td>
            <p class="para">
             A document containing the TLS configuration for one or more KMS providers. Supported providers include <code class="literal">&quot;aws&quot;</code>, <code class="literal">&quot;azure&quot;</code>, <code class="literal">&quot;gcp&quot;</code>, and <code class="literal">&quot;kmip&quot;</code>. All providers support the following options:
@@ -164,7 +167,8 @@
 <div class="javascriptcode"><pre class="javascriptcode">&lt;provider&gt;: {
     tlsCaFile: &lt;optional string&gt;,
     tlsCertificateKeyFile: &lt;optional string&gt;,
-    tlsCertificateKeyFilePassword: &lt;optional string&gt;
+    tlsCertificateKeyFilePassword: &lt;optional string&gt;,
+    tlsDisableOCSPEndpointCheck: &lt;optional bool&gt;
 }</pre>
 </div>
            </div>
@@ -179,17 +183,15 @@
 
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-mongodb-driver-manager.createclientencryption-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns a new <span class="classname"><strong class="classname">MongoDB\Driver\ClientEncryption</strong></span> instance.
+   Returns a new <span class="classname"><a href="class.mongodb-driver-clientencryption.html" class="classname">MongoDB\Driver\ClientEncryption</a></span> instance.
   </p>
  </div>
 
@@ -197,8 +199,8 @@
  <div class="refsect1 errors" id="refsect1-mongodb-driver-manager.createclientencryption-errors">
   <h3 class="title">错误／异常</h3>
   <ul class="simplelist">
-   <li class="member">Throws <span class="classname"><a href="class.mongodb-driver-exception-invalidargumentexception.html" class="classname">MongoDB\Driver\Exception\InvalidArgumentException</a></span> on argument parsing errors.</li>
-   <li class="member">Throws <span class="classname"><a href="class.mongodb-driver-exception-runtimeexception.html" class="classname">MongoDB\Driver\Exception\RuntimeException</a></span> if the extension was compiled without libmongocrypt support</li>
+   <li>Throws <span class="classname"><a href="class.mongodb-driver-exception-invalidargumentexception.html" class="classname">MongoDB\Driver\Exception\InvalidArgumentException</a></span> on argument parsing errors.</li>
+   <li>Throws <span class="classname"><a href="class.mongodb-driver-exception-runtimeexception.html" class="classname">MongoDB\Driver\Exception\RuntimeException</a></span> if the extension was compiled without libmongocrypt support</li>
   </ul>
  </div>
 
@@ -224,6 +226,27 @@
          The AWS KMS provider for client-side encryption now accepts a
          <code class="literal">&quot;sessionToken&quot;</code> option, which can be used to
          authenticate with temporary AWS credentials.
+        </p>
+        <p class="para">
+         Added <code class="literal">&quot;tlsDisableOCSPEndpointCheck&quot;</code> to the
+         <code class="literal">&quot;tlsOptions&quot;</code> option.
+        </p>
+        <p class="para">
+         If an empty document is specified for the <code class="literal">&quot;azure&quot;</code> or
+         <code class="literal">&quot;gcp&quot;</code> KMS provider, the driver will attempt to
+         configure the provider using
+         <a href="https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#automatic-credentials" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#automatic-credentials">&raquo;&nbsp;Automatic Credentials</a>.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
+       <td>PECL mongodb 1.15.0</td>
+       <td>
+        <p class="para">
+         If an empty document is specified for the <code class="literal">&quot;aws&quot;</code> KMS
+         provider, the driver will attempt to configure the provider using
+         <a href="https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#automatic-credentials" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/client-side-encryption/client-side-encryption.rst#automatic-credentials">&raquo;&nbsp;Automatic Credentials</a>.
         </p>
        </td>
       </tr>
@@ -263,8 +286,8 @@
  <div class="refsect1 seealso" id="refsect1-mongodb-driver-manager.createclientencryption-seealso">
   <h3 class="title">参见</h3>
   <ul class="simplelist">
-   <li class="member"><span class="function"><strong>MongoDB\Driver\ClientEncryption::__construct()</strong></span></li>
-   <li class="member"><a href="https://www.mongodb.com/docs/manual/core/security-explicit-client-side-encryption/" class="link external" title="Link : https://www.mongodb.com/docs/manual/core/security-explicit-client-side-encryption/">&raquo;&nbsp;Explicit (Manual) Client-Side Field Level Encryption</a> in the MongoDB manual</li>
+   <li><span class="function"><a href="mongodb-driver-clientencryption.construct.html" class="function" rel="rdfs-seeAlso">MongoDB\Driver\ClientEncryption::__construct()</a> - Create a new ClientEncryption object</span></li>
+   <li><a href="https://www.mongodb.com/docs/manual/core/security-explicit-client-side-encryption/" class="link external" title="Link : https://www.mongodb.com/docs/manual/core/security-explicit-client-side-encryption/">&raquo;&nbsp;Explicit (Manual) Client-Side Field Level Encryption</a> in the MongoDB manual</li>
   </ul>
  </div>
 

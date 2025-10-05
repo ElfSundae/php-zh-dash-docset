@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回单元顺序相反的数组</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.array-replace.html">? array_replace</a></li>
+      <li style="float: left;"><a href="function.array-replace-recursive.html">? array_replace_recursive</a></li>
       <li style="float: right;"><a href="function.array-search.html">array_search ?</a></li>
     </ul>
   </div>
@@ -36,7 +36,7 @@
  <div class="refsect1 description" id="refsect1-function.array-reverse-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_reverse</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$preserve_keys</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>array_reverse</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> <code class="parameter">$preserve_keys</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong></span></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
     <p class="para rdfs-comment">
      <span class="function"><strong>array_reverse()</strong></span> 接受数组
@@ -49,32 +49,23 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">array</code></dt>
-
+     <dt><code class="parameter">array</code></dt>
      <dd>
-
       <p class="para">
        输入的数组。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">preserve_keys</code></dt>
-
+     <dt><code class="parameter">preserve_keys</code></dt>
      <dd>
-
       <p class="para">
-       如果设置为 <strong><code>true</code></strong> 会保留数字的键。
+       如果设置为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> 会保留数字的键。
        非数字的键则不受这个设置的影响，总是会被保留。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -86,21 +77,17 @@
  </div>
   
   <div class="refsect1 examples" id="refsect1-function.array-reverse-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5063">
     <p><strong>Example #1 <span class="function"><strong>array_reverse()</strong></span> 例子</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$input  </span><span style="color: #007700">= array(</span><span style="color: #DD0000">"php"</span><span style="color: #007700">, </span><span style="color: #0000BB">4.0</span><span style="color: #007700">, array(</span><span style="color: #DD0000">"green"</span><span style="color: #007700">, </span><span style="color: #DD0000">"red"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$reversed </span><span style="color: #007700">= </span><span style="color: #0000BB">array_reverse</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$preserved </span><span style="color: #007700">= </span><span style="color: #0000BB">array_reverse</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$reversed</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$preserved</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$input  </span><span style="color: #007700">= array(</span><span style="color: #DD0000">"php"</span><span style="color: #007700">, </span><span style="color: #0000BB">4.0</span><span style="color: #007700">, array(</span><span style="color: #DD0000">"green"</span><span style="color: #007700">, </span><span style="color: #DD0000">"red"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$reversed </span><span style="color: #007700">= </span><span style="color: #0000BB">array_reverse</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$preserved </span><span style="color: #007700">= </span><span style="color: #0000BB">array_reverse</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">, </span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$reversed</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$preserved</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [0] =&gt; php
     [1] =&gt; 4
@@ -132,8 +119,8 @@ Array
 
     [1] =&gt; 4
     [0] =&gt; php
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
@@ -143,7 +130,7 @@ Array
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.array-flip.html" class="function" rel="rdfs-seeAlso">array_flip()</a> - 交换数组中的键和值</span></li>
+    <li><span class="function"><a href="function.array-flip.html" class="function" rel="rdfs-seeAlso">array_flip()</a> - 交换数组中的键和值</span></li>
    </ul>
   </p>
  </div>

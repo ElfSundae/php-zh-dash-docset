@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>变量范围</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -31,14 +31,12 @@
    <p class="simpara">
     变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的
     PHP 变量只有一个单独的范围。这个单独的范围跨度同样包含了
-    include 和 require 引入的文件。例如：
+    <span class="function"><a href="function.include.html" class="function">include</a></span> 和 <span class="function"><a href="function.require.html" class="function">require</a></span>
+    引入的文件。例如：
    </p>
    <div class="informalexample">
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />include </span><span style="color: #DD0000">'b.inc'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />include </span><span style="color: #DD0000">'b.inc'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -49,17 +47,14 @@
 
    <div class="informalexample">
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">; </span><span style="color: #FF8000">/* global scope */<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">Test</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">/* reference to local scope variable */<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">Test</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">; </span><span style="color: #FF8000">/* global scope */<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">Test</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">/* reference to local scope variable */<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">Test</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
 
    <p class="simpara">
-    这个脚本不会有任何输出，因为 echo 语句引用了一个局部版本的变量
-    <var class="varname">$a</var>，而且在这个范围内，它并没有被赋值。你可能注意到
+    这个脚本会生成未定义变量 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>（PHP 8.0.0 之前是 <strong><code><a href="errorfunc.constants.html#constant.e-notice">E_NOTICE</a></code></strong>）诊断提示。然而，如果 <a href="errorfunc.configuration.html#ini.display-errors" class="link">display_errors</a> INI 设置为隐藏这类诊断提示，然后在任何情况下都不会有输出。这是因为
+    echo 语句引用了一个局部版本的变量 <var class="varname">$a</var>，而且在这个范围内，它并没有被赋值。你可能注意到
     PHP 的全局变量和 C 语言有一点点不同，在 C
     语言中，全局变量在函数中自动生效，除非被局部变量覆盖。这可能引起一些问题，有些人可能不小心就改变了一个全局变量。PHP
     中全局变量在函数中使用时必须声明为 global。
@@ -71,13 +66,10 @@
      首先，一个使用 <code class="literal">global</code> 的例子：
     </p>
     <p class="para">
-     <div class="example" id="example-176">
+     <div class="example" id="example-88">
       <p><strong>Example #1 使用 global</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />function </span><span style="color: #0000BB">Sum</span><span style="color: #007700">()<br />{<br />    global </span><span style="color: #0000BB">$a</span><span style="color: #007700">, </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">$a </span><span style="color: #007700">+ </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">Sum</span><span style="color: #007700">();<br />echo </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />function </span><span style="color: #0000BB">Sum</span><span style="color: #007700">()<br />{<br />    global </span><span style="color: #0000BB">$a</span><span style="color: #007700">, </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">$a </span><span style="color: #007700">+ </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">Sum</span><span style="color: #007700">();<br />echo </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -95,13 +87,10 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-178">
+     <div class="example" id="example-89">
       <p><strong>Example #2 使用 <var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var> 替代 global</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />function </span><span style="color: #0000BB">Sum</span><span style="color: #007700">()<br />{<br />    </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">] = </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'a'</span><span style="color: #007700">] + </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #0000BB">Sum</span><span style="color: #007700">();<br />echo </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />function </span><span style="color: #0000BB">Sum</span><span style="color: #007700">()<br />{<br />    </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">] = </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'a'</span><span style="color: #007700">] + </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #0000BB">Sum</span><span style="color: #007700">();<br />echo </span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -114,13 +103,10 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-180">
+     <div class="example" id="example-90">
       <p><strong>Example #3 演示超全局变量和作用域的例子</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test_superglobal</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test_superglobal</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -131,18 +117,15 @@
     <h3 class="title">使用静态变量</h3>
 
     <p class="simpara">
-     变量范围的另一个重要特性是<em class="emphasis">静态变量</em>（static
+     变量范围的另一个重要特性是<em>静态变量</em>（static
      variable）。静态变量仅在局部函数域中存在，但当程序执行离开此作用域时，其值并不丢失。看看下面的例子：
     </p>
 
     <p class="para">
-     <div class="example" id="example-182">
+     <div class="example" id="example-91">
       <p><strong>Example #4 演示需要静态变量的例子</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">Test</span><span style="color: #007700">()<br />{<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">Test</span><span style="color: #007700">()<br />{<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -158,13 +141,10 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-184">
+     <div class="example" id="example-92">
       <p><strong>Example #5 使用静态变量的例子</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{<br />    static </span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{<br />    static </span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -181,13 +161,10 @@
     </p>
 
     <p class="para">
-     <div class="example" id="example-186">
+     <div class="example" id="example-93">
       <p><strong>Example #6 静态变量与递归函数</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{<br />    static </span><span style="color: #0000BB">$count </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">$count</span><span style="color: #007700">++;<br />    echo </span><span style="color: #0000BB">$count</span><span style="color: #007700">;<br />    if (</span><span style="color: #0000BB">$count </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">10</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">test</span><span style="color: #007700">();<br />    }<br />    </span><span style="color: #0000BB">$count</span><span style="color: #007700">--;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{<br />    static </span><span style="color: #0000BB">$count </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">$count</span><span style="color: #007700">++;<br />    echo </span><span style="color: #0000BB">$count</span><span style="color: #007700">;<br />    if (</span><span style="color: #0000BB">$count </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">10</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">test</span><span style="color: #007700">();<br />    }<br />    </span><span style="color: #0000BB">$count</span><span style="color: #007700">--;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -198,13 +175,10 @@
      </p>
 
      <p class="para">
-      <div class="example" id="example-188">
+      <div class="example" id="example-94">
        <p><strong>Example #7 声明静态变量</strong></p>
        <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">foo</span><span style="color: #007700">(){<br />    static </span><span style="color: #0000BB">$int </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;          </span><span style="color: #FF8000">// 正确<br />    </span><span style="color: #007700">static </span><span style="color: #0000BB">$int </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;        </span><span style="color: #FF8000">// 正确<br />    </span><span style="color: #007700">static </span><span style="color: #0000BB">$int </span><span style="color: #007700">= </span><span style="color: #0000BB">sqrt</span><span style="color: #007700">(</span><span style="color: #0000BB">121</span><span style="color: #007700">);  </span><span style="color: #FF8000">// 错误（因为它是函数）<br /><br />    </span><span style="color: #0000BB">$int</span><span style="color: #007700">++;<br />    echo </span><span style="color: #0000BB">$int</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">foo</span><span style="color: #007700">(){<br />    static </span><span style="color: #0000BB">$int </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;          </span><span style="color: #FF8000">// 正确<br />    </span><span style="color: #007700">static </span><span style="color: #0000BB">$int </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;        </span><span style="color: #FF8000">// 正确<br />    </span><span style="color: #007700">static </span><span style="color: #0000BB">$int </span><span style="color: #007700">= </span><span style="color: #0000BB">sqrt</span><span style="color: #007700">(</span><span style="color: #0000BB">121</span><span style="color: #007700">);  </span><span style="color: #FF8000">// 错误（因为它是函数）<br /><br />    </span><span style="color: #0000BB">$int</span><span style="color: #007700">++;<br />    echo </span><span style="color: #0000BB">$int</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
        </div>
 
       </div>
@@ -215,13 +189,10 @@
     开始，当继承（不是覆盖）使用有静态变量的方法时，继承的方法将会跟父级方法共享静态变量。这意味着方法中的静态变量现在跟静态属性有相同的行为。
    </p>
 
-   <div class="example" id="example-190">
+   <div class="example" id="example-95">
     <p><strong>Example #8 在继承方法中使用静态变量</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo </span><span style="color: #007700">{<br />    public static function </span><span style="color: #0000BB">counter</span><span style="color: #007700">() {<br />        static </span><span style="color: #0000BB">$counter </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />        </span><span style="color: #0000BB">$counter</span><span style="color: #007700">++;<br />        return </span><span style="color: #0000BB">$counter</span><span style="color: #007700">;<br />    }<br />}<br />class </span><span style="color: #0000BB">Bar </span><span style="color: #007700">extends </span><span style="color: #0000BB">Foo </span><span style="color: #007700">{}<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(1)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(2)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(3)，PHP 8.1.0 之前 int(1)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(4)，PHP 8.1.0 之前 int(2)<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo </span><span style="color: #007700">{<br />    public static function </span><span style="color: #0000BB">counter</span><span style="color: #007700">() {<br />        static </span><span style="color: #0000BB">$counter </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />        </span><span style="color: #0000BB">$counter</span><span style="color: #007700">++;<br />        return </span><span style="color: #0000BB">$counter</span><span style="color: #007700">;<br />    }<br />}<br />class </span><span style="color: #0000BB">Bar </span><span style="color: #007700">extends </span><span style="color: #0000BB">Foo </span><span style="color: #007700">{}<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(1)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Foo</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(2)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(3)，PHP 8.1.0 之前 int(1)<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Bar</span><span style="color: #007700">::</span><span style="color: #0000BB">counter</span><span style="color: #007700">()); </span><span style="color: #FF8000">// int(4)，PHP 8.1.0 之前 int(2)<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -246,15 +217,12 @@
 
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test_global_ref</span><span style="color: #007700">() {<br />    global </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= &amp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />}<br /><br />function </span><span style="color: #0000BB">test_global_noref</span><span style="color: #007700">() {<br />    global </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= </span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">test_global_ref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">test_global_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test_global_ref</span><span style="color: #007700">() {<br />    global </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= &amp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />}<br /><br />function </span><span style="color: #0000BB">test_global_noref</span><span style="color: #007700">() {<br />    global </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= </span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">test_global_ref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">test_global_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
 
     <div class="example-contents screen">
 <div class="cdata"><pre>
@@ -271,15 +239,12 @@ object(stdClass)#1 (0) {
 
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function &amp;</span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">() {<br />    static </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /><br />    echo </span><span style="color: #DD0000">'Static object: '</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />        </span><span style="color: #FF8000">// 将一个引用赋值给静态变量<br />        </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= &amp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />    }<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />    } else {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">++;<br />    }<br />    return </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />}<br /><br />function &amp;</span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">() {<br />    static </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /><br />    echo </span><span style="color: #DD0000">'Static object: '</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />        </span><span style="color: #FF8000">// 将一个对象赋值给静态变量<br />        </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= </span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />    }<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />    } else {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">++;<br />    }<br />    return </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$obj1 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$still_obj1 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">();<br />echo </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj2 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$still_obj2 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function &amp;</span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">() {<br />    static </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /><br />    echo </span><span style="color: #DD0000">'Static object: '</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />        </span><span style="color: #FF8000">// 将一个引用赋值给静态变量<br />        </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= &amp;</span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />    }<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />    } else {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">++;<br />    }<br />    return </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />}<br /><br />function &amp;</span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">() {<br />    static </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /><br />    echo </span><span style="color: #DD0000">'Static object: '</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$new </span><span style="color: #007700">= new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />        </span><span style="color: #FF8000">// 将一个对象赋值给静态变量<br />        </span><span style="color: #0000BB">$obj </span><span style="color: #007700">= </span><span style="color: #0000BB">$new</span><span style="color: #007700">;<br />    }<br />    if (!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />    } else {<br />        </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">++;<br />    }<br />    return </span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$obj1 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$still_obj1 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">();<br />echo </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj2 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$still_obj2 </span><span style="color: #007700">= </span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
 
     <div class="example-contents screen">
 <div class="cdata"><pre>
@@ -296,66 +261,48 @@ Static object: object(stdClass)#3 (1) {
 
     <p class="simpara">
      上例演示了当把一个引用赋值给一个静态变量时，第二次调用
-     <code class="literal">&amp;get_instance_ref()</code> 函数时其值并没有被<em class="emphasis">记住</em>。
+     <code class="literal">&amp;get_instance_ref()</code> 函数时其值并没有被<em>记住</em>。
     </p>
    </div>
   </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123497""></a>
+<div id="allnotes">  <a name="129208""></a>
   <div class="note">
-   <strong class="user">jake dot tunaley at berkeleyit dot com</strong>
-   <a href="#123497" class="date">07-Jan-2019 05:02</a>
+   <strong class="user">randallfstewart at gmail dot com</strong>
+   <a href="#129208" class="date">30-Jan-2024 08:25</a>
    <div class="text">
     <div class="phpcode">
 <code><span class="html">
-Beware of using $this in anonymous functions assigned to a static variable.<br />
+Note that the global keyword inside a function does (at least) 2 different things: <br />
+<br />
+1) As stated in the manual, it allows the function to use *the global version* of the variable: "...all references to either variable will refer to *the global version*."&nbsp; [emphasis mine]<br />
+<br />
+2) As not stated in the manual, if the variable does not already exist in the global scope, it is created in the global scope.<br />
+<br />
+For example, in the code below, the variable $A is available in the global scope (after functionA is called), even though it was never declared in the global scope:<br />
 <br />
 <span class="default">&lt;?php<br />
-</span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">bar</span><span class="keyword">() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; static </span><span class="default">$anonymous </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$anonymous </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Expression is not allowed as static initializer workaround<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$anonymous </span><span class="keyword">= function () {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$this</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; };<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$anonymous</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
 <br />
-</span><span class="default">$a </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
-</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
-</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">() === </span><span class="default">$a</span><span class="keyword">); </span><span class="comment">// True<br />
-</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">() === </span><span class="default">$a</span><span class="keyword">); </span><span class="comment">// Also true<br />
+</span><span class="keyword">echo </span><span class="string">"&lt;p&gt;This is A before functionA is called: </span><span class="keyword">{</span><span class="default">$A</span><span class="keyword">}</span><span class="string">.&lt;/p&gt;"</span><span class="keyword">;<br />
+<br />
+</span><span class="default">functionA</span><span class="keyword">();<br />
+<br />
+function </span><span class="default">functionA</span><span class="keyword">(){<br />
+global </span><span class="default">$A</span><span class="keyword">;<br />
+</span><span class="default">$A </span><span class="keyword">= </span><span class="string">"Declared as global inside functionA"</span><span class="keyword">;<br />
+}&nbsp; </span><span class="comment">// end fcn callGlobal<br />
+<br />
+</span><span class="keyword">echo </span><span class="string">"&lt;p&gt;This is A after functionA is called: </span><span class="keyword">{</span><span class="default">$A</span><span class="keyword">}</span><span class="string">&lt;/p&gt;"</span><span class="keyword">;<br />
 </span><span class="default">?&gt;<br />
 </span><br />
-In a static anonymous function, $this will be the value of whatever object instance that method was called on first.<br />
+Results:<br />
+Notice: Undefined variable: A in /home/essma/public_html/global_test.php on line 3<br />
 <br />
-To get the behaviour you're probably expecting, you need to pass the $this context into the function.<br />
+This is A before functionA is called: .<br />
 <br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">bar</span><span class="keyword">() {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; static </span><span class="default">$anonymous </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$anonymous </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Expression is not allowed as static initializer workaround<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$anonymous </span><span class="keyword">= function (</span><span class="default">self $thisObj</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$thisObj</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; };<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$anonymous</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="default">$a </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
-</span><span class="default">$b </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />
-</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">() === </span><span class="default">$a</span><span class="keyword">); </span><span class="comment">// True<br />
-</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">() === </span><span class="default">$a</span><span class="keyword">); </span><span class="comment">// False<br />
-</span><span class="default">?&gt;</span>
-</span>
+This is A after functionA is called: Declared as global inside functionA</span>
 </code>
     </div>
    </div>
@@ -409,60 +356,6 @@ class </span><span class="default">Derived </span><span class="keyword">extends 
 <br />
 # $base1 and $base2 share one copy of static variable $v<br />
 # derived1 and $derived2 share another copy of static variable $v</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="120112""></a>
-  <div class="note">
-   <strong class="user">simon dot barotte at gmail dot com</strong>
-   <a href="#120112" class="date">03-Nov-2016 10:46</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-To be vigilant, unlike Java or C++, variables declared inside blocks such as loops (for, while,...) or if's, will also be recognized and accessible outside of the block, the only valid block is the BLOCK function so:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">for(</span><span class="default">$j</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$j</span><span class="keyword">&lt;</span><span class="default">5</span><span class="keyword">; </span><span class="default">$j</span><span class="keyword">++)<br />
-{<br />
-&nbsp;&nbsp; &nbsp; if(</span><span class="default">$j </span><span class="keyword">== </span><span class="default">1</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$a </span><span class="keyword">= </span><span class="default">6</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; }<br />
-}<br />
-<br />
-echo </span><span class="default">$a</span><span class="keyword">;<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Would print 6.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="119913""></a>
-  <div class="note">
-   <strong class="user">pogregoire##live.fr</strong>
-   <a href="#119913" class="date">19-Sep-2016 03:36</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-writing : global $var; is exactely the samething that writing : $var =&amp; $GLOBALS['var'];<br />
-It creates a reference on $GLOBALS['var'];<br />
-<br />
-<span class="default">&lt;?php<br />
-$var </span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;<br />
-function </span><span class="default">teste_global</span><span class="keyword">(){<br />
-&nbsp;&nbsp;&nbsp; global </span><span class="default">$var</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; for (</span><span class="default">$var</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$var</span><span class="keyword">&lt;</span><span class="default">5</span><span class="keyword">; </span><span class="default">$var</span><span class="keyword">++){<br />
-<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="default">teste_global</span><span class="keyword">();<br />
-</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">);</span><span class="comment">// return : int(5).<br />
-</span><span class="default">?&gt;</span>
 </span>
 </code>
     </div>
@@ -533,116 +426,6 @@ echo </span><span class="default">$a</span><span class="keyword">;<br />
 </span><span class="default">?&gt;<br />
 </span><br />
 Would print 4.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="98577""></a>
-  <div class="note">
-   <strong class="user">jakub dot lopuszanski at nasza-klasa dot pl</strong>
-   <a href="#98577" class="date">24-Jun-2010 02:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you use __autoload function to load classes' definitons, beware that "static local variables are resolved at compile time" (whatever it really means) and the order in which autoloads occur may impact the semantic.<br />
-<br />
-For example if you have:<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">class </span><span class="default">Singleton</span><span class="keyword">{<br />
-&nbsp; static public function </span><span class="default">get_instance</span><span class="keyword">(){<br />
-&nbsp;&nbsp; &nbsp; static </span><span class="default">$instance </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; if(</span><span class="default">$instance </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$instance </span><span class="keyword">= new static();<br />
-&nbsp;&nbsp; &nbsp; }<br />
-&nbsp;&nbsp; &nbsp; return </span><span class="default">$instance</span><span class="keyword">;<br />
-&nbsp; }<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-and two separate files A.php and B.php:<br />
-class A extends Singleton{}<br />
-class B extends A{}<br />
-<br />
-then depending on the order in which you access those two classes, and consequently, the order in which __autoload includes them, you can get strange results of calling B::get_instance() and A::get_instance().<br />
-<br />
-It seems that static local variables are alocated in as many copies as there are classes that inherit a method at the time of inclusion of parsing Singleton.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="94259""></a>
-  <div class="note">
-   <strong class="user">moraesdno at gmail dot com</strong>
-   <a href="#94259" class="date">25-Oct-2009 05:17</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Use the superglobal array $GLOBALS is faster than the global keyword. See:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="comment">//Using the keyword global
-<br />
-</span><span class="default">$a</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;
-<br />
-</span><span class="default">$b</span><span class="keyword">=</span><span class="default">2</span><span class="keyword">;
-<br />
-function </span><span class="default">sum</span><span class="keyword">() {
-<br />
-&nbsp;&nbsp;&nbsp; global </span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">;
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$a </span><span class="keyword">+= </span><span class="default">$b</span><span class="keyword">;
-<br />
-}
-<br />
-
-<br />
-&nbsp;</span><span class="default">$t </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);
-<br />
-&nbsp;for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">1000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {
-<br />
-&nbsp;&nbsp; &nbsp; </span><span class="default">sum</span><span class="keyword">();
-<br />
-&nbsp;}
-<br />
-&nbsp;echo </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">)-</span><span class="default">$t</span><span class="keyword">;
-<br />
-&nbsp;echo </span><span class="string">" -- "</span><span class="keyword">.</span><span class="default">$a</span><span class="keyword">.</span><span class="string">"&lt;br&gt;"</span><span class="keyword">;
-<br />
-
-<br />
-</span><span class="comment">//Using the superglobal array
-<br />
-</span><span class="default">$a</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;
-<br />
-</span><span class="default">$b</span><span class="keyword">=</span><span class="default">2</span><span class="keyword">;
-<br />
-function </span><span class="default">sum2</span><span class="keyword">() {
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'a'</span><span class="keyword">] += </span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'b'</span><span class="keyword">];
-<br />
-}
-<br />
-
-<br />
-&nbsp; </span><span class="default">$t </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);
-<br />
-&nbsp;for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">1000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {
-<br />
-&nbsp;&nbsp; &nbsp; </span><span class="default">sum2</span><span class="keyword">();
-<br />
-&nbsp;}
-<br />
-&nbsp;echo </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">)-</span><span class="default">$t</span><span class="keyword">;
-<br />
-&nbsp;echo </span><span class="string">" -- "</span><span class="keyword">.</span><span class="default">$a</span><span class="keyword">.</span><span class="string">"&lt;br&gt;"</span><span class="keyword">;
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>

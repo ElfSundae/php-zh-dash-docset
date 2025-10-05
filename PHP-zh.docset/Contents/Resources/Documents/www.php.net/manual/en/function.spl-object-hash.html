@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回指定对象的 hash id</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,7 +36,7 @@
  <div class="refsect1 description" id="refsect1-function.spl-object-hash-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>spl_object_hash</strong></span>(<span class="methodparam"><span class="type">object</span> <code class="parameter">$object</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>spl_object_hash</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.object.html" class="type object">object</a></span> <code class="parameter">$object</code></span>): <span class="type"><a href="language.types.string.html" class="type string">string</a></span></div>
 
   <p class="para rdfs-comment">
    本函数为对象返回唯一标识符。只要对象没有销毁，这个 id
@@ -51,19 +51,14 @@
    <p class="para">
     <dl>
      
-      <dt>
-<code class="parameter">object</code></dt>
-
+      <dt><code class="parameter">object</code></dt>
       <dd>
-
        <p class="para">
         任何对象。 
        </p>
       </dd>
-
      
     </dl>
-
    </p>
  </div>
 
@@ -77,15 +72,12 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.spl-object-hash-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3765">
     <p><strong>Example #1 A <span class="function"><strong>spl_object_hash()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$id </span><span style="color: #007700">= </span><span style="color: #0000BB">spl_object_hash</span><span style="color: #007700">(</span><span style="color: #0000BB">$object</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$storage</span><span style="color: #007700">[</span><span style="color: #0000BB">$id</span><span style="color: #007700">] = </span><span style="color: #0000BB">$object</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$id </span><span style="color: #007700">= </span><span style="color: #0000BB">spl_object_hash</span><span style="color: #007700">(</span><span style="color: #0000BB">$object</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$storage</span><span style="color: #007700">[</span><span style="color: #0000BB">$id</span><span style="color: #007700">] = </span><span style="color: #0000BB">$object</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -100,13 +92,18 @@
     当对象销毁后，它的散列值可能会被其它对象重用。
    </p>
   </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    对象散列应该使用 <code class="code">===</code> 和 <code class="code">!==</code> 标识符比较，因为返回的散列可能是<a href="language.types.numeric-strings.html" class="link">数字字符串</a>。例如：<code class="literal">0000000000000e600000000000000000</code>。
+   </p>
+  </p></blockquote>
  </div>
- 
+
  <div class="refsect1 seealso" id="refsect1-function.spl-object-hash-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.spl-object-id.html" class="function" rel="rdfs-seeAlso">spl_object_id()</a> - Return the integer object handle for given object</span></li>
+    <li><span class="function"><a href="function.spl-object-id.html" class="function" rel="rdfs-seeAlso">spl_object_id()</a> - Return the integer object handle for given object</span></li>
    </ul>
   </p>
  </div>
@@ -115,7 +112,118 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122852""></a>
+<div id="allnotes">  <a name="129141""></a>
+  <div class="note">
+   <strong class="user">Numety</strong>
+   <a href="#129141" class="date">04-Jan-2024 10:36</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+As others have noted, this function now returns the ID, padded with zeroes.<br />
+It does not produce a cryptographic hash (which is not what the name hints at, either), nor does it hide it which order the objects were created.<br />
+<br />
+If you wish to give your objects unique identifiers while hiding in which order they were created, you can achieve this by hashing their ID together with other predictable values:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">function </span><span class="default">objectHash</span><span class="keyword">(</span><span class="default">object $object</span><span class="keyword">): </span><span class="default">string<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">hash</span><span class="keyword">(</span><span class="string">'sha512'</span><span class="keyword">, </span><span class="default">$object</span><span class="keyword">::class . </span><span class="default">spl_object_id</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">));<br />
+}<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Here's an example usage:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">class </span><span class="default">Person<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; function </span><span class="default">__construct</span><span class="keyword">(public </span><span class="default">string $name</span><span class="keyword">) {}<br />
+}<br />
+<br />
+</span><span class="default">$anna </span><span class="keyword">= new </span><span class="default">Person</span><span class="keyword">(</span><span class="string">'Anna'</span><span class="keyword">);<br />
+</span><span class="default">$bob </span><span class="keyword">= new </span><span class="default">Person</span><span class="keyword">(</span><span class="string">'Bob'</span><span class="keyword">);<br />
+<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">objectHash</span><span class="keyword">(</span><span class="default">$anna</span><span class="keyword">));&nbsp;&nbsp; </span><span class="comment">// '077d33c1 etc.<br />
+</span><span class="keyword">echo </span><span class="string">"\n"</span><span class="keyword">;<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">objectHash</span><span class="keyword">(</span><span class="default">$bob</span><span class="keyword">));&nbsp; &nbsp; </span><span class="comment">// 'ea3c1319 etc.<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Feel free to choose another hash, or hash other values along with their ID, for it to better suit your environment.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="129125""></a>
+  <div class="note">
+   <strong class="user">jasonlester at nope dot com</strong>
+   <a href="#129125" class="date">24-Dec-2023 05:24</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+obj-&gt;handle is an unsigned long that starts a 0 and is incremented by 1 every time an object is created, it is not a true pointer such as if created by mallaoc() or similar.<br />
+<br />
+/* {{{ Returns the integer object handle for the given object */<br />
+PHP_FUNCTION(spl_object_id)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; zend_object *obj;<br />
+<br />
+&nbsp;&nbsp;&nbsp; ZEND_PARSE_PARAMETERS_START(1, 1)<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; Z_PARAM_OBJ(obj)<br />
+&nbsp;&nbsp;&nbsp; ZEND_PARSE_PARAMETERS_END();<br />
+<br />
+&nbsp;&nbsp;&nbsp; RETURN_LONG((zend_long)obj-&gt;handle);<br />
+}<br />
+/* }}} */<br />
+<br />
+PHPAPI zend_string *php_spl_object_hash(zend_object *obj) /* {{{*/<br />
+{<br />
+&nbsp;&nbsp;&nbsp; return strpprintf(32, "%016zx0000000000000000", (intptr_t)obj-&gt;handle);<br />
+}<br />
+/* }}} */</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128395""></a>
+  <div class="note">
+   <strong class="user">Hayley Watson</strong>
+   <a href="#128395" class="date">14-Apr-2023 12:17</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This function is slightly older than spl_object_id. Its output is more complex but doesn't actually provide any more information than the newer function. It used to be a lot more complex (without being any more informative) but now it's merely the object's ID number written in hex with a lot of padding to maintain the old format. spl_object_id just gives the ID number as a plain integer.<br />
+<br />
+You're probably better off using spl_object_id, and thinking about migrating if you're already using spl_object_hash; there is a chance this function will be deprecated and subsequently removed in the future.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128374""></a>
+  <div class="note">
+   <strong class="user">A simple developer</strong>
+   <a href="#128374" class="date">06-Apr-2023 08:10</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Attention when comparing object hashes in PHP &gt;= 8.1<br />
+<br />
+In PHP 8.1 (I think) the output of spl_object_hash() changed (see pull request https://github.com/php/php-src/pull/7010).<br />
+This lead to a strange misbehaviour of our application, as we stored object hashes in an array to check, if we processed object already. A simple in_array() check returned true, even though the current object hash was NOT actually in array.<br />
+<br />
+Actual problem: New hashes are much more simple and can be something like "0000000000000e600000000000000000" or "0000000000000e490000000000000000", which PHP will interpret as numeric (exponent).<br />
+in_array() will compare non type-safe by default and will interpret named hashes as "0".</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="122852""></a>
   <div class="note">
    <strong class="user">DimeCadmium</strong>
    <a href="#122852" class="date">18-Jun-2018 03:45</a>

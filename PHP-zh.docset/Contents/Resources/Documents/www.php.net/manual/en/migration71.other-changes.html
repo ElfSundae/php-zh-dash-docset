@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>其它改动</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>其它变更</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,38 +21,29 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="migration71.html">从 PHP 7.0.x 移植到 PHP 7.1.x</a></li>
-    <li>其它改动</li>
+    <li>其它变更</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="migration71.other-changes" class="sect1">
- <h2 class="title">其它改动</h2>
+ <h2 class="title">其它变更</h2>
 
  <div class="sect2" id="migration71.other-changes.apprise-on-arithmetic-with-invalid-strings">
   <h3 class="title">无效字符串计算的通知和警告</h3>
 
   <p class="para">
-   New <strong><code>E_WARNING</code></strong> and <strong><code>E_NOTICE</code></strong> errors
-   have been introduced when invalid strings are coerced using operators
-   expecting numbers (<code class="literal">+</code> <code class="literal">-</code>
-   <code class="literal">*</code> <code class="literal">/</code> <code class="literal">**</code>
-   <code class="literal">%</code> <code class="literal">&lt;&lt;</code> <code class="literal">&gt;&gt;</code>
-   <code class="literal">|</code> <code class="literal">&amp;</code> <code class="literal">^</code>) or their
-   assignment equivalents. An <strong><code>E_NOTICE</code></strong> is emitted when the
-   string begins with a numeric value but contains trailing non-numeric
-   characters, and an <strong><code>E_WARNING</code></strong> is emitted when the string
-   does not contain a numeric value.
+   当对无效字符串使用期望数字的操作符（<code class="literal">+</code> <code class="literal">-</code> <code class="literal">*</code> <code class="literal">/</code> <code class="literal">**</code>
+   <code class="literal">%</code> <code class="literal">&lt;&lt;</code> <code class="literal">&gt;&gt;</code> <code class="literal">|</code> <code class="literal">&amp;</code>
+   <code class="literal">^</code>）或者其赋值等效项（assignment equivalents）进行强制转换时，已引入新的 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 和 <strong><code><a href="errorfunc.constants.html#constant.e-notice">E_NOTICE</a></code></strong>
+   错误。当字符串以数字开头但后跟非数字字符时，会发出 <strong><code><a href="errorfunc.constants.html#constant.e-notice">E_NOTICE</a></code></strong>；当字符串不包含数字值时，会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
   </p>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #DD0000">'1b' </span><span style="color: #007700">+ </span><span style="color: #DD0000">'something'</span><span style="color: #007700">;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #DD0000">'1b' </span><span style="color: #007700">+ </span><span style="color: #DD0000">'something'</span><span style="color: #007700">;</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 Notice: A non well formed numeric value encountered in %s on line %d
@@ -66,20 +57,15 @@ Warning: A non-numeric value encountered in %s on line %d
   <h3 class="title">八进制转义序列溢出时发出警告</h3>
 
   <p class="para">
-   Previously, 3-octet octal string escape sequences would overflow silently.
-   Now, they will still overflow, but <strong><code>E_WARNING</code></strong> will be
-   emitted.
+   以前，3 字节的八进制字符串转义序列会默默溢出。现在，仍然会溢出，但会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 警告。
   </p>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #DD0000">"\500"</span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #DD0000">"\500"</span><span style="color: #007700">);</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 Warning: Octal escape sequence overflow \500 is greater than \377 in %s on line %d
@@ -93,11 +79,8 @@ string(1) &quot;@&quot;
   <h3 class="title"><code class="literal">$this</code> 不一致的修正</h3>
 
   <p class="para">
-   Whilst <code class="literal">$this</code> is considered a special variable in PHP, it
-   lacked proper checks to ensure it wasn&#039;t used as a variable name or
-   reassigned. This has now been rectified to ensure that
-   <code class="literal">$this</code> cannot be a user-defined variable, reassigned to a
-   different value, or be globalised.
+   虽然在 PHP 中将 <code class="literal">$this</code> 视为特殊变量，但它缺乏适当的检查来确保不会用作变量名或重新分配。现在已对此进行纠正，以确保
+   <code class="literal">$this</code> 不能是用户定义的变量、重新分配给不同的值或全局化。
   </p>
  </div>
 
@@ -155,77 +138,53 @@ string(1) &quot;@&quot;
   <h3 class="title">INI 文件处理的变化</h3>
   <dl>
    
-    <dt>
-<code class="parameter">precision</code></dt>
-
+    <dt><code class="parameter">precision</code></dt>
     <dd>
-
      <p class="para">
-       If the value is set to -1, then the dtoa mode 0 is used. The default
-       value is still 14.
+       如果该值设置为 -1，则使用 dtoa mode 0。默认值仍然是 14。
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">serialize_precision</code></dt>
-
+    <dt><code class="parameter">serialize_precision</code></dt>
     <dd>
-
      <p class="para">
-       If the value is set to -1, then the dtoa mode 0 is used. The value -1 is
-       now used by default.
+       如果该值设置为 -1，则使用 dtoa mode 0。现在默认值使用 -1。
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">gd.jpeg_ignore_warning</code></dt>
-
+    <dt><code class="parameter">gd.jpeg_ignore_warning</code></dt>
     <dd>
-
      <p class="para">
-       The default of this <var class="filename">php.ini</var> setting has been changed to 1, so by
-       default libjpeg warnings are ignored.
+       此 <var class="filename">php.ini</var> 设置的默认值已更改为 1，因此默认情况下将忽略 libjpeg 警告。
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">opcache.enable_cli</code></dt>
-
+    <dt><code class="parameter">opcache.enable_cli</code></dt>
     <dd>
-
      <p class="para">
-       The default of this <var class="filename">php.ini</var> setting has been changed to 1
-       (enabled) in PHP 7.1.2, and back to 0 (disabled) in PHP 7.1.7.
+       此 <var class="filename">php.ini</var> 设置的默认值已在 PHP 7.1.2 中更改为 1（启用），并在 PHP 7.1.7 中更改回 0（禁用）。
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
  <div class="sect2" id="migration71.other-changes.session-id-csprng-gen">
-  <h3 class="title">Session ID generation with a CSPRNG only</h3>
+  <h3 class="title">仅使用 CSPRNG 生成会话 ID</h3>
 
   <p class="para">
-   Session IDs will now only be generated with a CSPRNG.
+   现在只能使用 CSPRNG 生成会话 ID。
   </p>
  </div>
 
  <div class="sect2" id="migration71.other-changes.typeerror-error-messages">
-  <h3 class="title">More informative <span class="classname"><a href="class.typeerror.html" class="classname">TypeError</a></span> messages when <strong><code>null</code></strong> is allowed</h3>
+  <h3 class="title">当允许 null 时提供更多信息的 <span class="classname"><a href="class.typeerror.html" class="classname">TypeError</a></span> 消息</h3>
   <p class="para">
-   <span class="classname"><a href="class.typeerror.html" class="classname">TypeError</a></span> exceptions for arg_info type checks will
-   now provide more informative error messages. If the parameter type or return
-   type accepts <strong><code>null</code></strong> (by either having a default value of <strong><code>null</code></strong> or being a
-   nullable type), then the error message will now mention this with a message
-   of &quot;must be ... or null&quot; or &quot;must ... or be null.&quot;
+   arg_info 类型检查的 <span class="classname"><a href="class.typeerror.html" class="classname">TypeError</a></span> 异常现在将提供更多有用的错误消息。如果参数类型或返回类型接受
+   <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>（通过具有默认值 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 或可为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 的类型），则错误消息现在将通过消息"must be ... or null"或"must ... or be null."提及这一点。
   </p>
  </div>
 </div><div id="usernotes">

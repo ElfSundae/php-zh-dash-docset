@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Mount an external path or file to a virtual location within the phar archive</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-phar.mount-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">final</span> <span class="modifier">public</span> <span class="modifier">static</span> <span class="methodname"><strong>Phar::mount</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$pharPath</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$externalPath</code></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="modifier">final</span> <span class="modifier">public</span> <span class="modifier">static</span> <span class="methodname"><strong>Phar::mount</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$pharPath</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$externalPath</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">
    Much like the unix file system concept of mounting external devices to paths within the
@@ -52,32 +52,23 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">pharPath</code></dt>
-
+     <dt><code class="parameter">pharPath</code></dt>
      <dd>
-
       <p class="para">
        The internal path within the phar archive to use as the mounted path location.
        This must be a relative path within the phar archive, and must not already exist.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">externalPath</code></dt>
-
+     <dt><code class="parameter">externalPath</code></dt>
      <dd>
-
       <p class="para">
        A path or URL to an external file or directory to mount within the phar archive
       </p>
      </dd>
-
     
    </dl>
-
   </p>
 
  </div>
@@ -99,9 +90,9 @@
 
 
  <div class="refsect1 examples" id="refsect1-phar.mount-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1488">
+   <div class="example" id="example-732">
     <p><strong>Example #1 A <span class="function"><strong>Phar::mount()</strong></span> example</strong></p>
     <div class="example-contents"><p>
      The following example shows accessing an external configuration file as if it were
@@ -111,20 +102,14 @@
      First, the code inside of a phar archive:
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$configuration </span><span style="color: #007700">= </span><span style="color: #0000BB">simplexml_load_string</span><span style="color: #007700">(</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">running</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">) . </span><span style="color: #DD0000">'/config.xml'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$configuration </span><span style="color: #007700">= </span><span style="color: #0000BB">simplexml_load_string</span><span style="color: #007700">(</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">running</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">) . </span><span style="color: #DD0000">'/config.xml'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
      Next the external code used to mount the configuration file:
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// first set up the association between the abstract config.xml<br />// and the actual one on disk<br /></span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://config.xml'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/home/example/config.xml'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// now run the application<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'/path/to/archive.phar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// first set up the association between the abstract config.xml<br />// and the actual one on disk<br /></span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://config.xml'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/home/example/config.xml'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// now run the application<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'/path/to/archive.phar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
@@ -133,20 +118,14 @@
      configuration file if no user configuration is specified:
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// first set up the association between the abstract config.xml<br />// and the actual one on disk<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">defined</span><span style="color: #007700">(</span><span style="color: #DD0000">'EXTERNAL_CONFIG'</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'config.xml'</span><span style="color: #007700">, </span><span style="color: #0000BB">EXTERNAL_CONFIG</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">file_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">__DIR__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/extra_config.xml'</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'extra.xml'</span><span style="color: #007700">, </span><span style="color: #0000BB">__DIR__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/extra_config.xml'</span><span style="color: #007700">);<br />    }<br />} else {<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'config.xml'</span><span style="color: #007700">, </span><span style="color: #DD0000">'phar://' </span><span style="color: #007700">. </span><span style="color: #0000BB">__FILE__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/default_config.xml'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'extra.xml'</span><span style="color: #007700">, </span><span style="color: #DD0000">'phar://' </span><span style="color: #007700">. </span><span style="color: #0000BB">__FILE__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/default_extra.xml'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #FF8000">// now run the application<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'phar://' </span><span style="color: #007700">. </span><span style="color: #0000BB">__FILE__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/index.php'</span><span style="color: #007700">;<br />__HALT_COMPILER();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// first set up the association between the abstract config.xml<br />// and the actual one on disk<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">defined</span><span style="color: #007700">(</span><span style="color: #DD0000">'EXTERNAL_CONFIG'</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'config.xml'</span><span style="color: #007700">, </span><span style="color: #0000BB">EXTERNAL_CONFIG</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">file_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">__DIR__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/extra_config.xml'</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'extra.xml'</span><span style="color: #007700">, </span><span style="color: #0000BB">__DIR__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/extra_config.xml'</span><span style="color: #007700">);<br />    }<br />} else {<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'config.xml'</span><span style="color: #007700">, </span><span style="color: #DD0000">'phar://' </span><span style="color: #007700">. </span><span style="color: #0000BB">__FILE__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/default_config.xml'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'extra.xml'</span><span style="color: #007700">, </span><span style="color: #DD0000">'phar://' </span><span style="color: #007700">. </span><span style="color: #0000BB">__FILE__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/default_extra.xml'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #FF8000">// now run the application<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'phar://' </span><span style="color: #007700">. </span><span style="color: #0000BB">__FILE__ </span><span style="color: #007700">. </span><span style="color: #DD0000">'/index.php'</span><span style="color: #007700">;<br />__HALT_COMPILER();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
      ...and the code externally to load this phar archive:
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />define</span><span style="color: #007700">(</span><span style="color: #DD0000">'EXTERNAL_CONFIG'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/home/example/config.xml'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// now run the application<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'/path/to/archive.phar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />define</span><span style="color: #007700">(</span><span style="color: #DD0000">'EXTERNAL_CONFIG'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/home/example/config.xml'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// now run the application<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'/path/to/archive.phar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>引用定位</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -40,10 +40,7 @@
      也就是说和这样做是相同的：
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$var </span><span style="color: #007700">=&amp; </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">"var"</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$var </span><span style="color: #007700">=&amp; </span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">"var"</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
@@ -63,29 +60,51 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="114047""></a>
+<div id="allnotes">  <a name="129380""></a>
   <div class="note">
-   <strong class="user">lutondatta at gmail dot com</strong>
-   <a href="#114047" class="date">06-Jan-2014 03:12</a>
+   <strong class="user">biziclop</strong>
+   <a href="#129380" class="date">07-Apr-2024 05:54</a>
    <div class="text">
     <div class="phpcode">
 <code><span class="html">
-This is very useful in passing large arrays. If you do not pass the array by reference, you are creating another copy of the array in memory. <br />
+Here is another function for checking if two variables refer to each other.<br />
+The function by BenBE works properly, but it's very long and maybe slow.<br />
+This is a shorter, faster and hopefully bug-free alternative.<br />
+Works at least from PHP 4.3.0 to 8.3.4: https://3v4l.org/5JNSl<br />
+<br />
 <span class="default">&lt;?php<br />
-</span><span class="comment">//Part 1<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$x </span><span class="keyword">= </span><span class="default">40</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$y </span><span class="keyword">= </span><span class="default">$x</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$z </span><span class="keyword">=&amp; </span><span class="default">$x</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'$x is ' </span><span class="keyword">. </span><span class="default">$x </span><span class="keyword">. </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">; </span><span class="comment">//Show 40<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$y is ' </span><span class="keyword">. </span><span class="default">$y </span><span class="keyword">. </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">; </span><span class="comment">//Show 40<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$z is ' </span><span class="keyword">. </span><span class="default">$z </span><span class="keyword">. </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">; </span><span class="comment">//Show 40<br />
-//Part 2<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$x </span><span class="keyword">= </span><span class="default">50</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'$x is ' </span><span class="keyword">. </span><span class="default">$x </span><span class="keyword">. </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">; </span><span class="comment">//Show 50<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$y is ' </span><span class="keyword">. </span><span class="default">$y </span><span class="keyword">. </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">; </span><span class="comment">//Show 40<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'$z is ' </span><span class="keyword">. </span><span class="default">$z </span><span class="keyword">. </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">; </span><span class="comment">//Show 50<br />
-</span><span class="default">?&gt;<br />
-</span>In part 2 value of $z will changes according to $x.</span>
+<br />
+</span><span class="keyword">function </span><span class="default">is_same_ref</span><span class="keyword">( &amp; </span><span class="default">$a</span><span class="keyword">, &amp; </span><span class="default">$b </span><span class="keyword">){<br />
+&nbsp; </span><span class="comment">// Save original values<br />
+&nbsp; </span><span class="default">$ori_a </span><span class="keyword">= </span><span class="default">$a</span><span class="keyword">;<br />
+&nbsp; </span><span class="default">$ori_b </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">;<br />
+&nbsp; </span><span class="comment">// Give them different values<br />
+&nbsp; </span><span class="default">$a </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />
+&nbsp; </span><span class="default">$b </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">;<br />
+&nbsp; </span><span class="comment">// Compare them, if they're equal, they are references to each other<br />
+&nbsp; </span><span class="default">$eq </span><span class="keyword">= </span><span class="default">$a </span><span class="keyword">=== </span><span class="default">$b</span><span class="keyword">;<br />
+&nbsp; </span><span class="comment">// Restore original values<br />
+&nbsp; </span><span class="default">$a </span><span class="keyword">= </span><span class="default">$ori_a</span><span class="keyword">;<br />
+&nbsp; </span><span class="default">$b </span><span class="keyword">= </span><span class="default">$ori_b</span><span class="keyword">;<br />
+&nbsp; return </span><span class="default">$eq</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">$a </span><span class="keyword">= array(</span><span class="default">1</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">);<br />
+</span><span class="default">$b </span><span class="keyword">=&amp; </span><span class="default">$a</span><span class="keyword">;<br />
+</span><span class="default">$c </span><span class="keyword">=&amp; </span><span class="default">$a</span><span class="keyword">;&nbsp; </span><span class="comment">// to check for side effects<br />
+</span><span class="default">var_dump</span><span class="keyword">( </span><span class="default">is_same_ref</span><span class="keyword">( </span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b </span><span class="keyword">));<br />
+</span><span class="comment">// bool(true)<br />
+<br />
+</span><span class="default">$a</span><span class="keyword">[] = </span><span class="default">3</span><span class="keyword">;<br />
+</span><span class="default">$b</span><span class="keyword">[] = </span><span class="default">4</span><span class="keyword">;<br />
+</span><span class="comment">// After juggling our array in various ways inside is_same_ref(),<br />
+// all three variables still refer to the very same array:<br />
+</span><span class="default">var_dump</span><span class="keyword">( </span><span class="default">implode</span><span class="keyword">( </span><span class="default">$a </span><span class="keyword">), </span><span class="default">implode</span><span class="keyword">( </span><span class="default">$b </span><span class="keyword">), </span><span class="default">implode</span><span class="keyword">( </span><span class="default">$c </span><span class="keyword">));<br />
+</span><span class="comment">// string(4) "3456"<br />
+// string(4) "3456"<br />
+// string(4) "3456"<br />
+</span><span class="default">?&gt;</span>
+</span>
 </code>
     </div>
    </div>

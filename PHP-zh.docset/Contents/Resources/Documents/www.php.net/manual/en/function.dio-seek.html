@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>在 fd 指定 pos 位置</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.dio-seek-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>dio_seek</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$fd</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$pos</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$whence</code><span class="initializer"> = SEEK_SET</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>dio_seek</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$fd</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$pos</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$whence</code><span class="initializer"> = SEEK_SET</span></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
    函数 <span class="function"><strong>dio_seek()</strong></span> 用于更改给定文件描述符的文件当前读/写位置。
@@ -46,52 +46,41 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">fd</code></dt>
-
+     <dt><code class="parameter">fd</code></dt>
      <dd>
-
       <p class="para">
        由 <span class="function"><a href="function.dio-open.html" class="function">dio_open()</a></span> 返回的文件描述符。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">pos</code></dt>
-
+     <dt><code class="parameter">pos</code></dt>
      <dd>
-
       <p class="para">
        新位置。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">whence</code></dt>
-
+     <dt><code class="parameter">whence</code></dt>
      <dd>
-
       <p class="para">
        指定如何解释 <code class="parameter">pos</code> 的位置：
        <ul class="itemizedlist">
         <li class="listitem">
          <p class="para">
-          <strong><code>SEEK_SET</code></strong> （默认）- 从文件开头指定 <code class="parameter">pos</code>。
+          <strong><code><a href="filesystem.constants.html#constant.seek-set">SEEK_SET</a></code></strong> （默认）- 从文件开头指定 <code class="parameter">pos</code>。
          </p>
         </li>
         <li class="listitem">
          <p class="para">
-          <strong><code>SEEK_CUR</code></strong> - 指定 <code class="parameter">pos</code> 
+          <strong><code><a href="filesystem.constants.html#constant.seek-cur">SEEK_CUR</a></code></strong> - 指定 <code class="parameter">pos</code> 
           是从文件当前位置计算的字符数。数量可以是正数或负数。
          </p>
         </li>
         <li class="listitem">
          <p class="para">
-          <strong><code>SEEK_END</code></strong> - 指定 <code class="parameter">pos</code> 
+          <strong><code><a href="filesystem.constants.html#constant.seek-end">SEEK_END</a></code></strong> - 指定 <code class="parameter">pos</code> 
           是从文件结尾计算的字符数。负数指定文件当前范围内的位置；正数指定超过当前末端的位置。
           如果将位置设置为超过当前末尾并写入数据，将用零将文件扩展到该位置。
          </p>
@@ -99,10 +88,8 @@
        </ul>
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -113,15 +100,12 @@
  </div>
 
  <div class="refsect1 examples" id="refsect1-function.dio-seek-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4248">
+   <div class="example" id="example-2175">
     <p><strong>Example #1 在文件中定位</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$fd </span><span style="color: #007700">= </span><span style="color: #0000BB">dio_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'/dev/ttyS0'</span><span style="color: #007700">, </span><span style="color: #0000BB">O_RDWR</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_SET</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 10 characters from the start of the file<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, -</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_CUR</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 8 characters from the start of the file<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, -</span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_END</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 5 characters from the end of the file<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_END</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 10 characters past the end of the file. <br />// The 10 characters between the end of the file and the current<br />// position are filled with zeros.<br /><br /></span><span style="color: #0000BB">dio_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$fd </span><span style="color: #007700">= </span><span style="color: #0000BB">dio_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'/dev/ttyS0'</span><span style="color: #007700">, </span><span style="color: #0000BB">O_RDWR</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_SET</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 10 characters from the start of the file<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, -</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_CUR</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 8 characters from the start of the file<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, -</span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_END</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 5 characters from the end of the file<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">SEEK_END</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// position is now at 10 characters past the end of the file. <br />// The 10 characters between the end of the file and the current<br />// position are filled with zeros.<br /><br /></span><span style="color: #0000BB">dio_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>     

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回一个常量的值</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.constant-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>constant</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>constant</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$name</code></span>): <span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span></div>
 
   <p class="simpara">
    返回 <code class="parameter">name</code> 对应的常量的值。
@@ -44,7 +44,7 @@
    当你不知道常量名，却需要获取常量的值时，<span class="function"><strong>constant()</strong></span> 就很有用了。也就是说，常量名储存在一个变量里，或者由函数返回时。
   </p>
   <p class="simpara">
-   该函数也适用 <a href="language.oop5.constants.html" class="link">类常量</a>。
+   该函数也适用<a href="language.oop5.constants.html" class="link">类常量</a>和 <a href="language.types.enumerations.html" class="link">enum cases</a>。
   </p>
  </div>
 
@@ -54,19 +54,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">name</code></dt>
-
+     <dt><code class="parameter">name</code></dt>
      <dd>
-
       <p class="para">
           常量名。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -83,7 +78,7 @@
   <h3 class="title">错误／异常</h3>
   <p class="para">
    如果常量未定义，会抛出 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常。
-   在 PHP 8.0.0 之前，会产生 <strong><code>E_WARNING</code></strong> 级别的错误。
+   在 PHP 8.0.0 之前，会产生 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 级别的错误。
   </p>
  </div>
 
@@ -106,7 +101,7 @@
       <td>
        如果常量未定义，<span class="function"><strong>constant()</strong></span> 现在会抛出
        <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常。以前会产生一个
-       <strong><code>E_WARNING</code></strong> 级别的错误并返回 <strong><code>null</code></strong>。
+       <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 级别的错误并返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。
       </td>
      </tr>
 
@@ -118,15 +113,19 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.constant-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #1 <span class="function"><strong>constant()</strong></span> 的例子</strong></p>
+   <div class="example" id="example-3547">
+    <p><strong>Example #1 <span class="function"><strong>constant()</strong></span> 与常量一起使用</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />define</span><span style="color: #007700">(</span><span style="color: #DD0000">"MAXSIZE"</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">MAXSIZE</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">"MAXSIZE"</span><span style="color: #007700">); </span><span style="color: #FF8000">// 和上行一样<br /><br /><br /></span><span style="color: #007700">interface </span><span style="color: #0000BB">bar </span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">test </span><span style="color: #007700">= </span><span style="color: #DD0000">'foobar!'</span><span style="color: #007700">;<br />}<br /><br />class </span><span style="color: #0000BB">foo </span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">test </span><span style="color: #007700">= </span><span style="color: #DD0000">'foobar!'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$const </span><span style="color: #007700">= </span><span style="color: #DD0000">'test'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'bar::'</span><span style="color: #007700">. </span><span style="color: #0000BB">$const</span><span style="color: #007700">)); </span><span style="color: #FF8000">// string(7) "foobar!"<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo::'</span><span style="color: #007700">. </span><span style="color: #0000BB">$const</span><span style="color: #007700">)); </span><span style="color: #FF8000">// string(7) "foobar!"<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />define</span><span style="color: #007700">(</span><span style="color: #DD0000">"MAXSIZE"</span><span style="color: #007700">, </span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">MAXSIZE</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">"MAXSIZE"</span><span style="color: #007700">); </span><span style="color: #FF8000">// 和上行一样<br /><br /><br /></span><span style="color: #007700">interface </span><span style="color: #0000BB">bar </span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">test </span><span style="color: #007700">= </span><span style="color: #DD0000">'foobar!'</span><span style="color: #007700">;<br />}<br /><br />class </span><span style="color: #0000BB">foo </span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">test </span><span style="color: #007700">= </span><span style="color: #DD0000">'foobar!'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$const </span><span style="color: #007700">= </span><span style="color: #DD0000">'test'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'bar::'</span><span style="color: #007700">. </span><span style="color: #0000BB">$const</span><span style="color: #007700">)); </span><span style="color: #FF8000">// string(7) "foobar!"<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo::'</span><span style="color: #007700">. </span><span style="color: #0000BB">$const</span><span style="color: #007700">)); </span><span style="color: #FF8000">// string(7) "foobar!"<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-3548">
+    <p><strong>Example #2 <span class="function"><strong>constant()</strong></span> 和 Enum Cases 一起使用（自 PHP 8.1.0 起）</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">enum </span><span style="color: #0000BB">Suit<br /></span><span style="color: #007700">{<br />    case </span><span style="color: #0000BB">Hearts</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Diamonds</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Clubs</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Spades</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$case </span><span style="color: #007700">= </span><span style="color: #DD0000">'Hearts'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'Suit::'</span><span style="color: #007700">. </span><span style="color: #0000BB">$case</span><span style="color: #007700">)); </span><span style="color: #FF8000">// enum(Suit::Hearts)<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -138,10 +137,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.define.html" class="function" rel="rdfs-seeAlso">define()</a> - 定义一个常量</span></li>
-    <li class="member"><span class="function"><a href="function.defined.html" class="function" rel="rdfs-seeAlso">defined()</a> - 检查某个名称的常量是否存在</span></li>
-    <li class="member"><span class="function"><a href="function.get-defined-constants.html" class="function" rel="rdfs-seeAlso">get_defined_constants()</a> - 返回所有常量的关联数组，键是常量名，值是常量值</span></li>
-    <li class="member">关于 <a href="language.constants.html" class="link">常量</a> 的章节</li>
+    <li><span class="function"><a href="function.define.html" class="function" rel="rdfs-seeAlso">define()</a> - 定义一个常量</span></li>
+    <li><span class="function"><a href="function.defined.html" class="function" rel="rdfs-seeAlso">defined()</a> - 检查给定名称的常量是否存在</span></li>
+    <li><span class="function"><a href="function.get-defined-constants.html" class="function" rel="rdfs-seeAlso">get_defined_constants()</a> - 返回所有常量的关联数组，键是常量名，值是常量值</span></li>
+    <li>关于 <a href="language.constants.html" class="link">常量</a> 的章节</li>
    </ul>
   </p>
  </div>

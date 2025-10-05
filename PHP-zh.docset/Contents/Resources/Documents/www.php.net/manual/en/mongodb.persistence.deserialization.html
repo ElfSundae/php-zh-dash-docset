@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Deserialization from BSON</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -46,9 +46,9 @@
     convenient to work with, this behavior was problematic because different
     BSON types could deserialize to the same PHP value (e.g.
     <code class="literal">{&quot;0&quot;: &quot;foo&quot;}</code> and <code class="literal">[&quot;foo&quot;]</code>) and make it
-    impossible to infer the original BSON type. By default, the current driver
-    addresses this concern by ensuring that BSON arrays and documents are
-    converted to PHP arrays and objects, respectively.
+    impossible to infer the original BSON type. By default, the
+    <code class="code">mongodb</code> extension addresses this concern by ensuring that BSON
+    arrays and documents are converted to PHP arrays and objects, respectively.
    </p>
    <p class="para">
     For compound types, there are three data types:
@@ -57,43 +57,30 @@
    <p class="para">
     <dl>
      
-      <dt>
-root</dt>
-
+      <dt>root</dt>
       <dd>
-
        <p class="para">
-        refers to the top-level BSON document <em class="emphasis">only</em>
+        refers to the top-level BSON document <em>only</em>
        </p>
       </dd>
-
      
      
-      <dt>
-document</dt>
-
+      <dt>document</dt>
       <dd>
-
        <p class="para">
-        refers to embedded BSON documents <em class="emphasis">only</em>
+        refers to embedded BSON documents <em>only</em>
        </p>
       </dd>
-
      
      
-      <dt>
-array</dt>
-
+      <dt>array</dt>
       <dd>
-
        <p class="para">
         refers to a BSON array
        </p>
       </dd>
-
      
     </dl>
-
    </p>
 
    <p class="para">
@@ -101,7 +88,7 @@ array</dt>
     specific fields in your document to map to the data types mentioned below.
     As an example, the following type map allows you to
     map each embedded document within an <code class="literal">&quot;addresses&quot;</code> array to
-    an <span class="classname"><strong class="classname">Address</strong></span> class <em class="emphasis">and</em> each
+    an <span class="classname"><strong class="classname">Address</strong></span> class <em>and</em> each
     <code class="literal">&quot;city&quot;</code> field within those embedded address documents to
     a <span class="classname"><strong class="classname">City</strong></span> class:
 
@@ -126,16 +113,13 @@ array</dt>
    <p class="para">
     <dl>
      
-      <dt>
-<em class="emphasis">not set</em> or <span class="type">NULL</span> (default)</dt>
-
+      <dt><em>not set</em> or <span class="type"><a href="language.types.null.html" class="type NULL">NULL</a></span> (default)</dt>
       <dd>
-
        <p class="para">
         <ul class="itemizedlist">
          <li class="listitem">
           <p class="para">
-           A BSON array will be deserialized as a PHP <span class="type">array</span>.
+           A BSON array will be deserialized as a PHP <span class="type"><a href="language.types.array.html" class="type array">array</a></span>.
           </p>
          </li>
          <li class="listitem">
@@ -185,15 +169,11 @@ array</dt>
         </ul>
        </p>
       </dd>
-
      
 
      
-      <dt>
-<code class="literal">&quot;array&quot;</code></dt>
-
+      <dt><code class="literal">&quot;array&quot;</code></dt>
       <dd>
-
        <p class="para">
         Turns a BSON array or BSON document into a PHP array. There will be no
         special treatment of a <span class="property">__pclass</span> property <a href="#fnidmongodb.pclass"><sup>[1]</sup></a>,
@@ -201,15 +181,11 @@ array</dt>
         present in the BSON document.
        </p>
       </dd>
-
      
 
      
-      <dt>
-<code class="literal">&quot;object&quot;</code> or <code class="literal">&quot;stdClass&quot;</code></dt>
-
+      <dt><code class="literal">&quot;object&quot;</code> or <code class="literal">&quot;stdClass&quot;</code></dt>
       <dd>
-
        <p class="para">
         Turns a BSON array or BSON document into a
         <span class="classname"><a href="class.stdclass.html" class="classname">stdClass</a></span> object. There will be no special
@@ -218,15 +194,29 @@ array</dt>
         in the BSON document.
        </p>
       </dd>
-
      
 
      
-      <dt>
-any other string</dt>
-
+      <dt><code class="literal">&quot;bson&quot;</code></dt>
       <dd>
+       <p class="para">
+        Turns a BSON array into a <span class="classname"><a href="class.mongodb-bson-packedarray.html" class="classname">MongoDB\BSON\PackedArray</a></span>
+        and a BSON document into a <span class="classname"><a href="class.mongodb-bson-document.html" class="classname">MongoDB\BSON\Document</a></span>,
+        regardless of whether the BSON document has a <span class="property">__pclass</span>
+        property <a href="#fnidmongodb.pclass"><sup>[1]</sup></a>.
+       </p>
+       <blockquote class="note"><p><strong class="note">Note</strong>: 
+        <span class="simpara">
+         The <code class="literal">bson</code> value is only available for the three root
+         types, not in the field specific mappings.
+        </span>
+       </p></blockquote>
+      </dd>
+     
 
+     
+      <dt>any other string</dt>
+      <dd>
        <p class="para">
         Defines the class name that the BSON array or BSON object should be
         deserialized as. For BSON objects that include
@@ -250,17 +240,15 @@ any other string</dt>
        </p>
 
        <p class="para">
-        The properties of the BSON document, <em class="emphasis">including</em>
+        The properties of the BSON document, <em>including</em>
         the <span class="property">__pclass</span> property if it exists, will be sent
         as an associative array to the
         <span class="methodname"><a href="mongodb-bson-unserializable.bsonunserialize.html" class="methodname">MongoDB\BSON\Unserializable::bsonUnserialize()</a></span>
         function to initialise the object&#039;s properties.
        </p>
       </dd>
-
      
     </dl>
-
    </p>
 
    <div class="section" id="mongodb.persistence.typemaps">
@@ -271,15 +259,17 @@ any other string</dt>
       <span class="methodname"><a href="mongodb-driver-cursor.settypemap.html" class="methodname">MongoDB\Driver\Cursor::setTypeMap()</a></span> method on a
       <span class="classname"><a href="class.mongodb-driver-cursor.html" class="classname">MongoDB\Driver\Cursor</a></span> object, or the
       <code class="literal">$typeMap</code> argument of
-      <span class="function"><a href="function.mongodb.bson-tophp.html" class="function">MongoDB\BSON\toPHP()</a></span>. Each of the three
-      classes (<em class="emphasis">root</em>, <em class="emphasis">document</em>, and
-      <em class="emphasis">array</em>) can be individually set, in addition to the
+      <span class="function"><a href="function.mongodb.bson-tophp.html" class="function">MongoDB\BSON\toPHP()</a></span>,
+      <span class="methodname"><a href="mongodb-bson-document.tophp.html" class="methodname">MongoDB\BSON\Document::toPHP()</a></span>, and
+      <span class="methodname"><a href="mongodb-bson-packedarray.tophp.html" class="methodname">MongoDB\BSON\PackedArray::toPHP()</a></span>. Each of the three
+      classes (<em>root</em>, <em>document</em>, and
+      <em>array</em>) can be individually set, in addition to the
       field specific types.
      </p>
 
      <p class="para">
-      If the value in the map is <span class="type">NULL</span>, it means the same as the
-      <em class="emphasis">default</em> value for that item.
+      If the value in the map is <span class="type"><a href="language.types.null.html" class="type NULL">NULL</a></span>, it means the same as the
+      <em>default</em> value for that item.
      </p>
     </div>
 
@@ -293,70 +283,50 @@ any other string</dt>
      <p class="para">
       <dl>
        
-        <dt>
-MyClass</dt>
-
+        <dt>MyClass</dt>
         <dd>
-
          <p class="para">
-          which does <em class="emphasis">not</em> implement any interface
+          which does <em>not</em> implement any interface
          </p>
         </dd>
-
        
        
-        <dt>
-YourClass</dt>
-
+        <dt>YourClass</dt>
         <dd>
-
          <p class="para">
           which implements
           <span class="interfacename"><a href="class.mongodb-bson-unserializable.html" class="interfacename">MongoDB\BSON\Unserializable</a></span>
          </p>
         </dd>
-
        
        
-        <dt>
-OurClass</dt>
-
+        <dt>OurClass</dt>
         <dd>
-
          <p class="para">
           which implements
           <span class="interfacename"><a href="class.mongodb-bson-persistable.html" class="interfacename">MongoDB\BSON\Persistable</a></span>
          </p>
         </dd>
-
        
        
-        <dt>
-TheirClass</dt>
-
+        <dt>TheirClass</dt>
         <dd>
-
          <p class="para">
           which extends OurClass
          </p>
         </dd>
-
        
       </dl>
-
      </p>
 
      <p class="para">
       The <span class="methodname"><a href="mongodb-bson-unserializable.bsonunserialize.html" class="methodname">MongoDB\BSON\Unserializable::bsonUnserialize()</a></span>
       method of YourClass, OurClass, TheirClass iterate over the array and set
-      the properties without modifications. It <em class="emphasis">also</em> sets
-      the <code class="literal">$unserialized</code> property to <code class="literal">true</code>:
+      the properties without modifications. It <em>also</em> sets
+      the <code class="literal">$unserialized</code> property to <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>:
 
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">bsonUnserialize</span><span style="color: #007700">( array </span><span style="color: #0000BB">$map </span><span style="color: #007700">)<br />{<br />    foreach ( </span><span style="color: #0000BB">$map </span><span style="color: #007700">as </span><span style="color: #0000BB">$k </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$value </span><span style="color: #007700">)<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">$k </span><span style="color: #007700">= </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />    }<br />    </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unserialized </span><span style="color: #007700">= </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">bsonUnserialize</span><span style="color: #007700">( array </span><span style="color: #0000BB">$map </span><span style="color: #007700">)<br />{<br />    foreach ( </span><span style="color: #0000BB">$map </span><span style="color: #007700">as </span><span style="color: #0000BB">$k </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$value </span><span style="color: #007700">)<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">$k </span><span style="color: #007700">= </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />    }<br />    </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unserialized </span><span style="color: #007700">= </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}</span></span></code></div>
       </div>
 
      </p>

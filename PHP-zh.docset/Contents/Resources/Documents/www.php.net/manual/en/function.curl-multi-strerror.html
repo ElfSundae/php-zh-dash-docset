@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回字符串描述的错误代码</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.curl-multi-strerror-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>curl_multi_strerror</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$errornum</code></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>curl_multi_strerror</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$error_code</code></span>): <span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span></div>
 
   <p class="para rdfs-comment">
    返回一个用以描述所给 CURLM 错误代码所对应的错误信息。
@@ -48,40 +48,32 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">errornum</code></dt>
-
+    <dt><code class="parameter">error_code</code></dt>
     <dd>
-
      <p class="para">
       <a href="http://curl.haxx.se/libcurl/c/libcurl-errors.html" class="link external" title="Link : http://curl.haxx.se/libcurl/c/libcurl-errors.html">&raquo;&nbsp;CURLM 错误代码</a>中的常量之一。
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-function.curl-multi-strerror-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回可用错误代码所对应的错误信息，否则返回 <strong><code>null</code></strong> 。
+   返回可用错误代码所对应的错误信息，否则返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.curl-multi-strerror-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4305">
     <p><strong>Example #1 <span class="function"><strong>curl_multi_strerror()</strong></span> 函数的范例：</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Create cURL handles<br /></span><span style="color: #0000BB">$ch1 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://example.com"</span><span style="color: #007700">/);<br /></span><span style="color: #0000BB">$ch2 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://php.net/"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Create a cURL multi handle<br /></span><span style="color: #0000BB">$mh </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// Add the handles to the multi handle<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Execute the multi handle<br /></span><span style="color: #007700">do {<br />    </span><span style="color: #0000BB">$status </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$active</span><span style="color: #007700">);<br />    </span><span style="color: #FF8000">// Check for errors<br />    </span><span style="color: #007700">if(</span><span style="color: #0000BB">$status </span><span style="color: #007700">&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />        </span><span style="color: #FF8000">// Display error message<br />        </span><span style="color: #007700">echo </span><span style="color: #DD0000">"ERROR!\n " </span><span style="color: #007700">. </span><span style="color: #0000BB">curl_multi_strerror</span><span style="color: #007700">(</span><span style="color: #0000BB">$status</span><span style="color: #007700">);<br />    }<br />} while (</span><span style="color: #0000BB">$status </span><span style="color: #007700">=== </span><span style="color: #0000BB">CURLM_CALL_MULTI_PERFORM </span><span style="color: #007700">|| </span><span style="color: #0000BB">$active</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建 cURL 句柄<br /></span><span style="color: #0000BB">$ch1 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://example.com/"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$ch2 </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://php.net/"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 创建 cURL 多句柄<br /></span><span style="color: #0000BB">$mh </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 添加句柄到多句柄<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_multi_add_handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$ch2</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行多句柄<br /></span><span style="color: #007700">do {<br />    </span><span style="color: #0000BB">$status </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_multi_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">, </span><span style="color: #0000BB">$active</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">$active</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">curl_multi_select</span><span style="color: #007700">(</span><span style="color: #0000BB">$mh</span><span style="color: #007700">);<br />    }<br />} while (</span><span style="color: #0000BB">$active </span><span style="color: #007700">&amp;&amp; </span><span style="color: #0000BB">$status </span><span style="color: #007700">=== </span><span style="color: #0000BB">CURLM_OK</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 检测错误<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$status </span><span style="color: #007700">!= </span><span style="color: #0000BB">CURLM_OK</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">// Display error message<br />    </span><span style="color: #007700">echo </span><span style="color: #DD0000">"ERROR!\n " </span><span style="color: #007700">. </span><span style="color: #0000BB">curl_multi_strerror</span><span style="color: #007700">(</span><span style="color: #0000BB">$status</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -93,8 +85,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.curl-strerror.html" class="function" rel="rdfs-seeAlso">curl_strerror()</a> - 返回错误代码的字符串描述</span></li>
-    <li class="member"><a href="http://curl.haxx.se/libcurl/c/libcurl-errors.html" class="link external" title="Link : http://curl.haxx.se/libcurl/c/libcurl-errors.html">&raquo;&nbsp;cURL error codes</a></li>
+    <li><span class="function"><a href="function.curl-strerror.html" class="function" rel="rdfs-seeAlso">curl_strerror()</a> - 返回错误代码的字符串描述</span></li>
+    <li><a href="http://curl.haxx.se/libcurl/c/libcurl-errors.html" class="link external" title="Link : http://curl.haxx.se/libcurl/c/libcurl-errors.html">&raquo;&nbsp;cURL error codes</a></li>
    </ul>
   </p>
  </div>

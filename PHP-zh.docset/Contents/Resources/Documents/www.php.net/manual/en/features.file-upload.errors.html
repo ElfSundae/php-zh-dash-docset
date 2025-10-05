@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>错误信息说明</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,113 +36,118 @@
   <p class="para">
    <dl>
     
-     <dt>
-<strong><code>UPLOAD_ERR_OK</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_OK</code></strong></dt>
      <dd>
-
       <p class="para">
        其值为 0，没有错误发生，文件上传成功。
       </p>
      </dd>
-
     
     
-     <dt>
-<strong><code>UPLOAD_ERR_INI_SIZE</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_INI_SIZE</code></strong></dt>
      <dd>
-
       <p class="para">
        其值为 1，上传的文件超过了 <var class="filename">php.ini</var> 中
        <a href="ini.core.html#ini.upload-max-filesize" class="link">upload_max_filesize</a> 选项限制的值。
       </p>
      </dd>
-
     
     
-     <dt>
-<strong><code>UPLOAD_ERR_FORM_SIZE</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_FORM_SIZE</code></strong></dt>
      <dd>
-
       <p class="para">
        其值为 2，上传文件的大小超过了 HTML 表单中
-       <em class="emphasis">MAX_FILE_SIZE</em> 选项指定的值。
+       <em>MAX_FILE_SIZE</em> 选项指定的值。
       </p>
      </dd>
-
     
     
-     <dt>
-<strong><code>UPLOAD_ERR_PARTIAL</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_PARTIAL</code></strong></dt>
      <dd>
-
       <p class="para">
        其值为 3，文件只有部分被上传。
       </p>
      </dd>
-
     
     
-     <dt>
-<strong><code>UPLOAD_ERR_NO_FILE</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_NO_FILE</code></strong></dt>
      <dd>
-
       <p class="para">
        其值为 4，没有文件被上传。
       </p>
      </dd>
-
     
     
-     <dt>
-<strong><code>UPLOAD_ERR_NO_TMP_DIR</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_NO_TMP_DIR</code></strong></dt>
      <dd>
-
       <p class="para">
        其值为 6，找不到临时文件夹。
       </p>
      </dd>
-
     
     
-     <dt>
-<strong><code>UPLOAD_ERR_CANT_WRITE</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_CANT_WRITE</code></strong></dt>
      <dd>
-
       <p class="para">
        其值为 7，文件写入失败。
       </p>
      </dd>
-
     
     
-     <dt>
-<strong><code>UPLOAD_ERR_EXTENSION</code></strong></dt>
-
+     <dt><strong><code>UPLOAD_ERR_EXTENSION</code></strong></dt>
      <dd>
-
       <p class="para">
        Value: 8; A PHP extension stopped the file upload. PHP does not
        provide a way to ascertain which extension caused the file upload to
        stop; examining the list of loaded extensions with <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> may help.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124697""></a>
+<div id="allnotes">  <a name="128619""></a>
+  <div class="note">
+   <strong class="user">Sohaib Essam</strong>
+   <a href="#128619" class="date">16-Jun-2023 08:35</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+switch ($_FILES["image"]["error"]) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case UPLOAD_ERR_PARTIAL:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('File only partially uploaded');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case UPLOAD_ERR_NO_FILE:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('No file was uploaded');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case UPLOAD_ERR_EXTENSION:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('File upload stopped by a PHP extension');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case UPLOAD_ERR_FORM_SIZE:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('File exceeds MAX_FILE_SIZE in the HTML form');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case UPLOAD_ERR_INI_SIZE:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('File exceeds upload_max_filesize in php.ini');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case UPLOAD_ERR_NO_TMP_DIR:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('Temporary folder not found');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; case UPLOAD_ERR_CANT_WRITE:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('Failed to write file');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; default:<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit('Unknown upload error');<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp;&nbsp; }</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124697""></a>
   <div class="note">
    <strong class="user">jalcort at att dot net</strong>
    <a href="#124697" class="date">07-Feb-2020 03:57</a>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>带参数执行</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-reflectionmethod.invokeargs-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>ReflectionMethod::invokeArgs</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">object</span><span class="type"></span></span> <code class="parameter">$object</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$args</code></span>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>ReflectionMethod::invokeArgs</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.object.html" class="type object">object</a></span></span> <code class="parameter">$object</code></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$args</code></span>): <span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span></div>
 
   <p class="para rdfs-comment">
    使用数组给方法传送参数，并执行他。
@@ -49,31 +49,22 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">object</code></dt>
-
+     <dt><code class="parameter">object</code></dt>
      <dd>
-
       <p class="para">
-       调用方法的对象，如果是静态对象，设置为 <span class="type">null</span>
+       调用方法的对象，如果是静态对象，设置为 <span class="type"><a href="language.types.null.html" class="type null">null</a></span>
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">args</code></dt>
-
+     <dt><code class="parameter">args</code></dt>
      <dd>
-
       <p class="para">
-       使用 <span class="type">array</span> 传送的方法参数。
+       使用 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 传送的方法参数。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -98,23 +89,48 @@
  </div>
 
 
- <div class="refsect1 examples" id="refsect1-reflectionmethod.invokeargs-examples">
-  <h3 class="title">范例</h3>
+ <div class="refsect1 changelog" id="refsect1-reflectionmethod.invokeargs-changelog">
+  <h3 class="title">更新日志</h3>
   <p class="para">
-   <div class="example" id="">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        <code class="parameter">args</code> 的键现在将解释为参数的名称，而不是默默忽略。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-reflectionmethod.invokeargs-examples">
+  <h3 class="title">示例</h3>
+  <p class="para">
+   <div class="example" id="example-5347">
     <p><strong>Example #1 <span class="methodname"><strong>ReflectionMethod::invokeArgs()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">HelloWorld </span><span style="color: #007700">{<br /><br />    public function </span><span style="color: #0000BB">sayHelloTo</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">) {<br />        return </span><span style="color: #DD0000">'Hello ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$name</span><span style="color: #007700">;<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">$reflectionMethod </span><span style="color: #007700">= new </span><span style="color: #0000BB">ReflectionMethod</span><span style="color: #007700">(</span><span style="color: #DD0000">'HelloWorld'</span><span style="color: #007700">, </span><span style="color: #DD0000">'sayHelloTo'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$reflectionMethod</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">invokeArgs</span><span style="color: #007700">(new </span><span style="color: #0000BB">HelloWorld</span><span style="color: #007700">(), array(</span><span style="color: #DD0000">'Mike'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">HelloWorld </span><span style="color: #007700">{<br /><br />    public function </span><span style="color: #0000BB">sayHelloTo</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">) {<br />        return </span><span style="color: #DD0000">'Hello ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$name</span><span style="color: #007700">;<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">$reflectionMethod </span><span style="color: #007700">= new </span><span style="color: #0000BB">ReflectionMethod</span><span style="color: #007700">(</span><span style="color: #DD0000">'HelloWorld'</span><span style="color: #007700">, </span><span style="color: #DD0000">'sayHelloTo'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$reflectionMethod</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">invokeArgs</span><span style="color: #007700">(new </span><span style="color: #0000BB">HelloWorld</span><span style="color: #007700">(), array(</span><span style="color: #DD0000">'Mike'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Hello Mike
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Hello Mike</pre>
+</div>
     </div>
    </div>
   </p>
@@ -135,9 +151,9 @@ Hello Mike
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="reflectionmethod.invoke.html" class="methodname" rel="rdfs-seeAlso">ReflectionMethod::invoke()</a> - Invoke</span></li>
-    <li class="member"><a href="language.oop5.magic.html#object.invoke" class="link">__invoke()</a></li>
-    <li class="member"><span class="function"><a href="function.call-user-func-array.html" class="function" rel="rdfs-seeAlso">call_user_func_array()</a> - 调用回调函数，并把一个数组参数作为回调函数的参数</span></li>
+    <li><span class="methodname"><a href="reflectionmethod.invoke.html" class="methodname" rel="rdfs-seeAlso">ReflectionMethod::invoke()</a> - Invoke</span></li>
+    <li><a href="language.oop5.magic.html#object.invoke" class="link">__invoke()</a></li>
+    <li><span class="function"><a href="function.call-user-func-array.html" class="function" rel="rdfs-seeAlso">call_user_func_array()</a> - 调用回调函数，并把一个数组参数作为回调函数的参数</span></li>
    </ul>
   </p>
  </div>

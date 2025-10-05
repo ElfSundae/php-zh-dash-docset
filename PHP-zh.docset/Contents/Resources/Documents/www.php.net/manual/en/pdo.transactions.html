@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>事务与自动提交</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -26,7 +26,7 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="pdo.transactions" class="chapter">
- <h1>事务与自动提交</h1>
+ <h1 class="title">事务与自动提交</h1>
 
  <p class="para">
   现在通过 PDO 连接上了，在开始进行查询前，必须先理解 PDO 是如何管理事务的。事务支持四大特性（ACID）：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）以及持久性（Durability）。通俗地讲，在一个事务中执行的任何操作，即使是分阶段执行的，也能保证安全地应用于数据库，并在提交时不会受到来自其他连接的干扰。事务操作也可以根据请求自动撤销（假设还没有提交），这使得在脚本中处理错误更加容易。
@@ -43,7 +43,7 @@
  </p>
  <div class="warning"><strong class="warning">Warning</strong>
   <p class="para">
-   PDO 仅在驱动层检查是否具有事务处理能力。如果某些运行时条件意味着事务不可用，且数据库服务接受请求去启动一个事务，<span class="methodname"><a href="pdo.begintransaction.html" class="methodname">PDO::beginTransaction()</a></span> 将仍然返回 <strong><code>true</code></strong> 而且没有错误。
+   PDO 仅在驱动层检查是否具有事务处理能力。如果某些运行时条件意味着事务不可用，且数据库服务接受请求去启动一个事务，<span class="methodname"><a href="pdo.begintransaction.html" class="methodname">PDO::beginTransaction()</a></span> 将仍然返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> 而且没有错误。
   </p>
   <p class="para">
    试着在 MySQL 数据库的  MyISAM 数据表中使用事务就是一个很好的例子。
@@ -59,7 +59,7 @@
   </p>
  </div>
  <p class="para">
-  <div class="example" id="example-2046"><p><strong>Example #1 在事务中执行批处理</strong></p>
+  <div class="example" id="example-1015"><p><strong>Example #1 在事务中执行批处理</strong></p>
    <div class="example-contents"><p>
     在下面例子中，假设为新员工创建一组条目，分配一个为 23 的
     ID。除了登记此人的基本数据之外，还需要记录他的工资。两个更新分别完成起来很简单，但通过封闭在
@@ -67,10 +67,7 @@
     调用中，可以保证在更改完成之前，其他人无法看到这些更改。如果发生了错误，catch 块回滚自事务启动以来发生的所有更改，并输出一条错误信息。
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />  </span><span style="color: #0000BB">$dbh </span><span style="color: #007700">= new </span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'odbc:SAMPLE'</span><span style="color: #007700">, </span><span style="color: #DD0000">'db2inst1'</span><span style="color: #007700">, </span><span style="color: #DD0000">'ibmdb2'</span><span style="color: #007700">, <br />      array(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_PERSISTENT </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">true</span><span style="color: #007700">));<br />  echo </span><span style="color: #DD0000">"Connected\n"</span><span style="color: #007700">;<br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />  die(</span><span style="color: #DD0000">"Unable to connect: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">());<br />}<br /><br />try {  <br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_ERRMODE</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ERRMODE_EXCEPTION</span><span style="color: #007700">);<br /><br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"insert into staff (id, first, last) values (23, 'Joe', 'Bloggs')"</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"insert into salarychange (id, amount, changedate) <br />      values (23, 50000, NOW())"</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br />  <br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rollBack</span><span style="color: #007700">();<br />  echo </span><span style="color: #DD0000">"Failed: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />  </span><span style="color: #0000BB">$dbh </span><span style="color: #007700">= new </span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'odbc:SAMPLE'</span><span style="color: #007700">, </span><span style="color: #DD0000">'db2inst1'</span><span style="color: #007700">, </span><span style="color: #DD0000">'ibmdb2'</span><span style="color: #007700">, <br />      array(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_PERSISTENT </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">true</span><span style="color: #007700">));<br />  echo </span><span style="color: #DD0000">"Connected\n"</span><span style="color: #007700">;<br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />  die(</span><span style="color: #DD0000">"Unable to connect: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">());<br />}<br /><br />try {  <br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_ERRMODE</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ERRMODE_EXCEPTION</span><span style="color: #007700">);<br /><br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"insert into staff (id, first, last) values (23, 'Joe', 'Bloggs')"</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"insert into salarychange (id, amount, changedate) <br />      values (23, 50000, NOW())"</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">commit</span><span style="color: #007700">();<br />  <br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />  </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rollBack</span><span style="color: #007700">();<br />  echo </span><span style="color: #DD0000">"Failed: " </span><span style="color: #007700">. </span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>

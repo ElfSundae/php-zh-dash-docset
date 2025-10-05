@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Constructs the EvEmbed object</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,17 +36,17 @@
   <div class="constructorsynopsis dc-description">
    <span class="modifier">public</span>
    <span class="methodname"><strong>EvEmbed::__construct</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type">object</span>
-     <code class="parameter">$other</code>
+    
+    <span class="type"><a href="language.types.object.html" class="type object">object</a></span> <code class="parameter">$other</code>
    </span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span>
-     <code class="parameter">$callback</code>
+    
+    <span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code>
    <span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span>
-     <code class="parameter">$data</code>
+    
+    <span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$data</code>
    <span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type">int</span>
-     <code class="parameter">$priority</code>
+    
+    <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$priority</code>
    <span class="initializer"> = ?</span></span><br>)</div>
 
   <p class="para rdfs-comment">
@@ -63,7 +63,7 @@
   </p>
   <p class="para">
    This watcher is most useful on
-   <em class="emphasis">BSD</em>
+   <em>BSD</em>
    systems without working
    <code class="literal">kqueue</code>
    to still be able to handle a large number of sockets. See example below.
@@ -75,12 +75,9 @@
   <dl>
    
     <dt>
-
      <code class="parameter">other</code>
     </dt>
-
     <dd>
-
      <p class="para">
       Instance of
       <span class="classname"><a href="class.evloop.html" class="classname">EvLoop</a></span>
@@ -89,66 +86,49 @@
       ).
      </p>
     </dd>
-
    
    
     <dt>
-
      <code class="parameter">callback</code>
     </dt>
-
     <dd>
-
      <p class="para">
       See
       <a href="ev.watcher-callbacks.html" class="link">Watcher callbacks</a>
       .
      </p>
     </dd>
-
    
    
     <dt>
-
      <code class="parameter">data</code>
     </dt>
-
     <dd>
-
      <p class="para">
       Custom data associated with the watcher.
      </p>
     </dd>
-
    
    
     <dt>
-
      <code class="parameter">priority</code>
     </dt>
-
     <dd>
-
      <p class="para">
       <a href="class.ev.html#ev.constants.watcher-pri" class="link">Watcher priority</a>
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-evembed.construct-examples">
-  <h3 class="title">范例</h3>
- <div class="example" id="">
+  <h3 class="title">示例</h3>
+ <div class="example" id="example-3358">
    <p><strong>Example #1 Embedding loop created with kqueue backend into the default loop</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*<br /> * Check if kqueue is available but not recommended and create a kqueue backend<br /> * for use with sockets (which usually work with any kqueue implementation).<br /> * Store the kqueue/socket-only event loop in loop_socket. (One might optionally<br /> * use EVFLAG_NOENV, too)<br /> *<br /> * Example borrowed from<br /> * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#Examples_CONTENT-9<br /> */<br /></span><span style="color: #0000BB">$loop        </span><span style="color: #007700">= </span><span style="color: #0000BB">EvLoop</span><span style="color: #007700">::</span><span style="color: #0000BB">defaultLoop</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$socket_loop </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$embed       </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /><br />if (</span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">supportedBackends</span><span style="color: #007700">() &amp; ~</span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">recommendedBackends</span><span style="color: #007700">() &amp; </span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">BACKEND_KQUEUE</span><span style="color: #007700">) {<br />    if ((</span><span style="color: #0000BB">$socket_loop </span><span style="color: #007700">= new </span><span style="color: #0000BB">EvLoop</span><span style="color: #007700">(</span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">BACKEND_KQUEUE</span><span style="color: #007700">))) {<br />        </span><span style="color: #0000BB">$embed </span><span style="color: #007700">= new </span><span style="color: #0000BB">EvEmbed</span><span style="color: #007700">(</span><span style="color: #0000BB">$loop</span><span style="color: #007700">);<br />    }<br />}<br /><br />if (!</span><span style="color: #0000BB">$socket_loop</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$socket_loop </span><span style="color: #007700">= </span><span style="color: #0000BB">$loop</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// Now use $socket_loop for all sockets, and $loop for anything else<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*<br /> * Check if kqueue is available but not recommended and create a kqueue backend<br /> * for use with sockets (which usually work with any kqueue implementation).<br /> * Store the kqueue/socket-only event loop in loop_socket. (One might optionally<br /> * use EVFLAG_NOENV, too)<br /> *<br /> * Example borrowed from<br /> * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#Examples_CONTENT-9<br /> */<br /></span><span style="color: #0000BB">$loop        </span><span style="color: #007700">= </span><span style="color: #0000BB">EvLoop</span><span style="color: #007700">::</span><span style="color: #0000BB">defaultLoop</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$socket_loop </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$embed       </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /><br />if (</span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">supportedBackends</span><span style="color: #007700">() &amp; ~</span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">recommendedBackends</span><span style="color: #007700">() &amp; </span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">BACKEND_KQUEUE</span><span style="color: #007700">) {<br />    if ((</span><span style="color: #0000BB">$socket_loop </span><span style="color: #007700">= new </span><span style="color: #0000BB">EvLoop</span><span style="color: #007700">(</span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">BACKEND_KQUEUE</span><span style="color: #007700">))) {<br />        </span><span style="color: #0000BB">$embed </span><span style="color: #007700">= new </span><span style="color: #0000BB">EvEmbed</span><span style="color: #007700">(</span><span style="color: #0000BB">$loop</span><span style="color: #007700">);<br />    }<br />}<br /><br />if (!</span><span style="color: #0000BB">$socket_loop</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$socket_loop </span><span style="color: #007700">= </span><span style="color: #0000BB">$loop</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// Now use $socket_loop for all sockets, and $loop for anything else<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -157,7 +137,7 @@
  <div class="refsect1 seealso" id="refsect1-evembed.construct-seealso">
   <h3 class="title">参见</h3>
   <ul class="simplelist">
-   <li class="member">
+   <li>
     <span class="methodname"><a href="ev.embeddablebackends.html" class="methodname" rel="rdfs-seeAlso">Ev::embeddableBackends()</a> - Returns the set of backends that are embeddable in other event loops</span>
    </li>
   </ul>

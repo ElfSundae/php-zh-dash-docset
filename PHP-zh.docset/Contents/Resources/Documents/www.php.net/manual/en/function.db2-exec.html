@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Executes an SQL statement directly</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,7 +36,7 @@
  <div class="refsect1 description" id="refsect1-function.db2-exec-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>db2_exec</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$connection</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$statement</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code><span class="initializer"> = ?</span></span>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>db2_exec</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$connection</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$statement</code></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$options</code><span class="initializer"> = []</span></span>): <span class="type"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
 
 
@@ -64,36 +64,25 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">connection</code></dt>
-
+     <dt><code class="parameter">connection</code></dt>
      <dd>
-
       <p class="para">
        A valid database connection resource variable as returned from
        <span class="function"><a href="function.db2-connect.html" class="function">db2_connect()</a></span> or <span class="function"><a href="function.db2-pconnect.html" class="function">db2_pconnect()</a></span>.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">statement</code></dt>
-
+     <dt><code class="parameter">statement</code></dt>
      <dd>
-
       <p class="para">
        An SQL statement. The statement cannot contain any parameter markers.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">options</code></dt>
-
+     <dt><code class="parameter">options</code></dt>
      <dd>
-
       <p class="para">
        An associative array containing statement options. You can use this
        parameter to request a scrollable cursor on database servers that
@@ -104,10 +93,8 @@
        <span class="function"><a href="function.db2-set-option.html" class="function">db2_set_option()</a></span>.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -115,60 +102,52 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    Returns a statement resource if the SQL statement was issued successfully,
-   or <strong><code>false</code></strong> if the database failed to execute the SQL statement.
+   or <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> if the database failed to execute the SQL statement.
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.db2-exec-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-2510">
+   <div class="example" id="example-1248">
     <p><strong>Example #1 Creating a table with <span class="function"><strong>db2_exec()</strong></span></strong></p>
     <div class="example-contents"><p>
      The following example uses <span class="function"><strong>db2_exec()</strong></span> to issue a set
      of DDL statements in the process of creating a table.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Create the test table<br /></span><span style="color: #0000BB">$create </span><span style="color: #007700">= </span><span style="color: #DD0000">'CREATE TABLE animals (id INTEGER, breed VARCHAR(32),<br />    name CHAR(16), weight DECIMAL(7,2))'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$create</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$result</span><span style="color: #007700">) {<br />    print </span><span style="color: #DD0000">"Successfully created the table.\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// Populate the test table<br /></span><span style="color: #0000BB">$animals </span><span style="color: #007700">= array(<br />    array(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #DD0000">'cat'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Pook'</span><span style="color: #007700">, </span><span style="color: #0000BB">3.2</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'dog'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Peaches'</span><span style="color: #007700">, </span><span style="color: #0000BB">12.3</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'horse'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Smarty'</span><span style="color: #007700">, </span><span style="color: #0000BB">350.0</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'gold fish'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Bubbles'</span><span style="color: #007700">, </span><span style="color: #0000BB">0.1</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">4</span><span style="color: #007700">, </span><span style="color: #DD0000">'budgerigar'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Gizmo'</span><span style="color: #007700">, </span><span style="color: #0000BB">0.2</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #DD0000">'goat'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Rickety Ride'</span><span style="color: #007700">, </span><span style="color: #0000BB">9.7</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">6</span><span style="color: #007700">, </span><span style="color: #DD0000">'llama'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Sweater'</span><span style="color: #007700">, </span><span style="color: #0000BB">150</span><span style="color: #007700">)<br />);<br /><br />foreach (</span><span style="color: #0000BB">$animals </span><span style="color: #007700">as </span><span style="color: #0000BB">$animal</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$rc </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"INSERT INTO animals (id, breed, name, weight)<br />      VALUES (</span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]}</span><span style="color: #DD0000">, '</span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]}</span><span style="color: #DD0000">', '</span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]}</span><span style="color: #DD0000">', </span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">]}</span><span style="color: #DD0000">)"</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">$rc</span><span style="color: #007700">) {<br />        print </span><span style="color: #DD0000">"Insert... "</span><span style="color: #007700">;<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Create the test table<br /></span><span style="color: #0000BB">$create </span><span style="color: #007700">= </span><span style="color: #DD0000">'CREATE TABLE animals (id INTEGER, breed VARCHAR(32),<br />    name CHAR(16), weight DECIMAL(7,2))'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$create</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">$result</span><span style="color: #007700">) {<br />    print </span><span style="color: #DD0000">"Successfully created the table.\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// Populate the test table<br /></span><span style="color: #0000BB">$animals </span><span style="color: #007700">= array(<br />    array(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #DD0000">'cat'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Pook'</span><span style="color: #007700">, </span><span style="color: #0000BB">3.2</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'dog'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Peaches'</span><span style="color: #007700">, </span><span style="color: #0000BB">12.3</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'horse'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Smarty'</span><span style="color: #007700">, </span><span style="color: #0000BB">350.0</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'gold fish'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Bubbles'</span><span style="color: #007700">, </span><span style="color: #0000BB">0.1</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">4</span><span style="color: #007700">, </span><span style="color: #DD0000">'budgerigar'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Gizmo'</span><span style="color: #007700">, </span><span style="color: #0000BB">0.2</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #DD0000">'goat'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Rickety Ride'</span><span style="color: #007700">, </span><span style="color: #0000BB">9.7</span><span style="color: #007700">),<br />    array(</span><span style="color: #0000BB">6</span><span style="color: #007700">, </span><span style="color: #DD0000">'llama'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Sweater'</span><span style="color: #007700">, </span><span style="color: #0000BB">150</span><span style="color: #007700">)<br />);<br /><br />foreach (</span><span style="color: #0000BB">$animals </span><span style="color: #007700">as </span><span style="color: #0000BB">$animal</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$rc </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"INSERT INTO animals (id, breed, name, weight)<br />      VALUES (</span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]}</span><span style="color: #DD0000">, '</span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]}</span><span style="color: #DD0000">', '</span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]}</span><span style="color: #DD0000">', </span><span style="color: #007700">{</span><span style="color: #0000BB">$animal</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">]}</span><span style="color: #DD0000">)"</span><span style="color: #007700">);<br />    if (</span><span style="color: #0000BB">$rc</span><span style="color: #007700">) {<br />        print </span><span style="color: #DD0000">"Insert... "</span><span style="color: #007700">;<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Successfully created the table.
-Insert... Insert... Insert... Insert... Insert... Insert... Insert... 
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Successfully created the table.
+Insert... Insert... Insert... Insert... Insert... Insert... Insert...</pre>
+</div>
     </div>
    </div>
 
-   <div class="example" id="example-2512">
+   <div class="example" id="example-1249">
     <p><strong>Example #2 Executing a SELECT statement with a scrollable cursor</strong></p>
     <div class="example-contents"><p>
      The following example demonstrates how to request a scrollable cursor for
      an SQL statement issued by <span class="function"><strong>db2_exec()</strong></span>.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT name FROM animals<br />    WHERE weight &lt; 10.0<br />    ORDER BY name"</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />    require_once(</span><span style="color: #DD0000">'prepare.inc'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />    while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)) {<br />        print </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />    }<br />} <br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT name FROM animals<br />    WHERE weight &lt; 10.0<br />    ORDER BY name"</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />    require_once </span><span style="color: #DD0000">'prepare.inc'</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql</span><span style="color: #007700">, array(</span><span style="color: #DD0000">'cursor' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">DB2_SCROLLABLE</span><span style="color: #007700">));<br />    while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)) {<br />        print </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />    }<br />} <br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Bubbles
+<div class="examplescode"><pre class="examplescode">Bubbles
 Gizmo
 Pook
-Rickety Ride
-</pre></div>
+Rickety Ride</pre>
+</div>
     </div>
    </div>
-   <div class="example" id="example-2514">
+   <div class="example" id="example-1250">
     <p><strong>Example #3 Returning XML data as an SQL ResultSet</strong></p>
     <div class="example-contents"><p>
      The following example demonstrates how to work with documents stored 
@@ -177,21 +156,17 @@ Rickety Ride
      an SQL ResultSet format that most users are familiar with.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">, </span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT * FROM XMLTABLE(<br />    XMLNAMESPACES (DEFAULT \'http://posample.org\'),<br />    \'db2-fn:xmlcolumn("CUSTOMER.INFO")/customerinfo\'<br />    COLUMNS<br />    "CID" VARCHAR (50) PATH \'@Cid\',<br />    "NAME" VARCHAR (50) PATH \'name\',<br />    "PHONE" VARCHAR (50) PATH \'phone [ @type = "work"]\'<br />    ) AS T<br />    WHERE NAME = \'Kathy Smith\'<br />    '</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br />while(</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">CID</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">NAME</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PHONE</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">, </span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT * FROM XMLTABLE(<br />    XMLNAMESPACES (DEFAULT \'http://posample.org\'),<br />    \'db2-fn:xmlcolumn("CUSTOMER.INFO")/customerinfo\'<br />    COLUMNS<br />    "CID" VARCHAR (50) PATH \'@Cid\',<br />    "NAME" VARCHAR (50) PATH \'name\',<br />    "PHONE" VARCHAR (50) PATH \'phone [ @type = "work"]\'<br />    ) AS T<br />    WHERE NAME = \'Kathy Smith\'<br />    '</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br />while(</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">CID</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">NAME</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PHONE</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-1000     Kathy Smith     416-555-1358
-1001     Kathy Smith     905-555-7258
-</pre></div>
+<div class="examplescode"><pre class="examplescode">1000     Kathy Smith     416-555-1358
+1001     Kathy Smith     905-555-7258</pre>
+</div>
     </div>
    </div>
-   <div class="example" id="example-2516">
+   <div class="example" id="example-1251">
     <p><strong>Example #4 Performing a &quot;JOIN&quot; with XML data</strong></p>
     <div class="example-contents"><p>
      The following example works with documents stored in 2 different 
@@ -201,20 +176,16 @@ Rickety Ride
      status for the customer.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">, </span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">'<br />    SELECT A.CID, A.NAME, A.PHONE, C.PONUM, C.STATUS<br />    FROM<br />    XMLTABLE(<br />    XMLNAMESPACES (DEFAULT \'http://posample.org\'),<br />    \'db2-fn:xmlcolumn("CUSTOMER.INFO")/customerinfo\'<br />    COLUMNS<br />    "CID" BIGINT PATH \'@Cid\',<br />    "NAME" VARCHAR (50) PATH \'name\',<br />    "PHONE" VARCHAR (50) PATH \'phone [ @type = "work"]\'<br />    ) as A,<br />    PURCHASEORDER AS B,<br />    XMLTABLE (<br />    XMLNAMESPACES (DEFAULT \'http://posample.org\'),<br />    \'db2-fn:xmlcolumn("PURCHASEORDER.PORDER")/PurchaseOrder\'<br />    COLUMNS<br />    "PONUM"  BIGINT PATH \'@PoNum\',<br />    "STATUS" VARCHAR (50) PATH \'@Status\'<br />    ) as C<br />    WHERE A.CID = B.CUSTID AND<br />    B.POID = C.PONUM AND<br />    A.NAME = \'Kathy Smith\'<br />'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br />while(</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">CID</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">NAME</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PHONE</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PONUM</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">STATUS</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">, </span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">'<br />    SELECT A.CID, A.NAME, A.PHONE, C.PONUM, C.STATUS<br />    FROM<br />    XMLTABLE(<br />    XMLNAMESPACES (DEFAULT \'http://posample.org\'),<br />    \'db2-fn:xmlcolumn("CUSTOMER.INFO")/customerinfo\'<br />    COLUMNS<br />    "CID" BIGINT PATH \'@Cid\',<br />    "NAME" VARCHAR (50) PATH \'name\',<br />    "PHONE" VARCHAR (50) PATH \'phone [ @type = "work"]\'<br />    ) as A,<br />    PURCHASEORDER AS B,<br />    XMLTABLE (<br />    XMLNAMESPACES (DEFAULT \'http://posample.org\'),<br />    \'db2-fn:xmlcolumn("PURCHASEORDER.PORDER")/PurchaseOrder\'<br />    COLUMNS<br />    "PONUM"  BIGINT PATH \'@PoNum\',<br />    "STATUS" VARCHAR (50) PATH \'@Status\'<br />    ) as C<br />    WHERE A.CID = B.CUSTID AND<br />    B.POID = C.PONUM AND<br />    A.NAME = \'Kathy Smith\'<br />'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br />while(</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">CID</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">NAME</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PHONE</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PONUM</span><span style="color: #DD0000">     </span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">STATUS</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-1001     Kathy Smith     905-555-7258     5002     Shipped
-</pre></div>
+<div class="examplescode"><pre class="examplescode">1001     Kathy Smith     905-555-7258     5002     Shipped</pre>
+</div>
     </div>
    </div>
-   <div class="example" id="example-2518">
+   <div class="example" id="example-1252">
     <p><strong>Example #5 Returning SQL data as part of a larger XML document</strong></p>
     <div class="example-contents"><p>
      The following example works with a portion of the PRODUCT.DESCRIPTION 
@@ -222,16 +193,12 @@ Rickety Ride
      product description (XML data) and pricing info (SQL data).
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">, </span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">'<br />SELECT<br />XMLSERIALIZE(<br />XMLQUERY(\'<br />    declare boundary-space strip;<br />    declare default element namespace "http://posample.org";<br />    &lt;promoList&gt; {<br />    for $prod in $doc/product<br />    where $prod/description/price &lt; 10.00<br />    order by $prod/description/price ascending<br />    return(<br />        &lt;promoitem&gt; {<br />        $prod,<br />        &lt;startdate&gt; {$start} &lt;/startdate&gt;,<br />        &lt;enddate&gt; {$end} &lt;/enddate&gt;,<br />        &lt;promoprice&gt; {$promo} &lt;/promoprice&gt;<br />        } &lt;/promoitem&gt;<br />    )<br />    } &lt;/promoList&gt;<br />\' passing by ref DESCRIPTION AS "doc",<br />PROMOSTART as "start",<br />PROMOEND as "end",<br />PROMOPRICE as "promo"<br />RETURNING SEQUENCE)<br />AS CLOB (32000))<br />AS NEW_PRODUCT_INFO<br />FROM PRODUCT<br />WHERE PID = \'100-100-01\'<br />'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br />while(</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">, </span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">'<br />SELECT<br />XMLSERIALIZE(<br />XMLQUERY(\'<br />    declare boundary-space strip;<br />    declare default element namespace "http://posample.org";<br />    &lt;promoList&gt; {<br />    for $prod in $doc/product<br />    where $prod/description/price &lt; 10.00<br />    order by $prod/description/price ascending<br />    return(<br />        &lt;promoitem&gt; {<br />        $prod,<br />        &lt;startdate&gt; {$start} &lt;/startdate&gt;,<br />        &lt;enddate&gt; {$end} &lt;/enddate&gt;,<br />        &lt;promoprice&gt; {$promo} &lt;/promoprice&gt;<br />        } &lt;/promoitem&gt;<br />    )<br />    } &lt;/promoList&gt;<br />\' passing by ref DESCRIPTION AS "doc",<br />PROMOSTART as "start",<br />PROMOEND as "end",<br />PROMOPRICE as "promo"<br />RETURNING SEQUENCE)<br />AS CLOB (32000))<br />AS NEW_PRODUCT_INFO<br />FROM PRODUCT<br />WHERE PID = \'100-100-01\'<br />'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br />while(</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-&lt;promoList xmlns=&quot;http://posample.org&quot;&gt;
+<div class="examplescode"><pre class="examplescode">&lt;promoList xmlns=&quot;http://posample.org&quot;&gt;
     &lt;promoitem&gt;
     &lt;product pid=&quot;100-100-01&quot;&gt;
         &lt;description&gt;
@@ -245,8 +212,8 @@ Rickety Ride
     &lt;enddate&gt;2004-12-19&lt;/enddate&gt;
     &lt;promoprice&gt;7.25&lt;/promoprice&gt;
     &lt;/promoitem&gt;
-&lt;/promoList&gt;
-</pre></div>
+&lt;/promoList&gt;</pre>
+</div>
     </div>
    </div>
   </p>
@@ -258,8 +225,8 @@ Rickety Ride
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.db2-execute.html" class="function" rel="rdfs-seeAlso">db2_execute()</a> - Executes a prepared SQL statement</span></li>
-    <li class="member"><span class="function"><a href="function.db2-prepare.html" class="function" rel="rdfs-seeAlso">db2_prepare()</a> - Prepares an SQL statement to be executed</span></li>
+    <li><span class="function"><a href="function.db2-execute.html" class="function" rel="rdfs-seeAlso">db2_execute()</a> - Executes a prepared SQL statement</span></li>
+    <li><span class="function"><a href="function.db2-prepare.html" class="function" rel="rdfs-seeAlso">db2_prepare()</a> - Prepares an SQL statement to be executed</span></li>
    </ul>
   </p>
  </div>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Script Injection Attacks</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -26,7 +26,7 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="mongodb.security.script_injection" class="article">
-  <h1>Script Injection Attacks</h1>
+  <h1 class="title">Script Injection Attacks</h1>
 
   <p class="para">
    If you are using JavaScript, make sure that any variables that cross the PHP-
@@ -41,20 +41,14 @@
    logs.  We could do:
   </p>
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Don't do this!!!<br /></span><span style="color: #0000BB">$username </span><span style="color: #007700">= </span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">]; <br /><br /></span><span style="color: #0000BB">$cmd </span><span style="color: #007700">= new </span><span style="color: #0000BB">\MongoDB\Driver\Command</span><span style="color: #007700">( [<br />    </span><span style="color: #DD0000">'eval' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"print('Hello, </span><span style="color: #0000BB">$username</span><span style="color: #DD0000">!');"<br /></span><span style="color: #007700">] );<br /><br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeCommand</span><span style="color: #007700">( </span><span style="color: #DD0000">'dramio'</span><span style="color: #007700">, </span><span style="color: #0000BB">$cmd </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Don't do this!!!<br /></span><span style="color: #0000BB">$username </span><span style="color: #007700">= </span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">]; <br /><br /></span><span style="color: #0000BB">$cmd </span><span style="color: #007700">= new </span><span style="color: #0000BB">\MongoDB\Driver\Command</span><span style="color: #007700">( [<br />    </span><span style="color: #DD0000">'eval' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"print('Hello, </span><span style="color: #0000BB">$username</span><span style="color: #DD0000">!');"<br /></span><span style="color: #007700">] );<br /><br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeCommand</span><span style="color: #007700">( </span><span style="color: #DD0000">'dramio'</span><span style="color: #007700">, </span><span style="color: #0000BB">$cmd </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
   <p class="para">
    However, what if a malicious user passes in some JavaScript?
   </p>
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Don't do this!!!<br /></span><span style="color: #0000BB">$username </span><span style="color: #007700">= </span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">]; <br /></span><span style="color: #FF8000">// $username is set to "'); db.users.drop(); print('"<br /><br /></span><span style="color: #0000BB">$cmd </span><span style="color: #007700">= new </span><span style="color: #0000BB">\MongoDB\Driver\Command</span><span style="color: #007700">( [<br />    </span><span style="color: #DD0000">'eval' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"print('Hello, </span><span style="color: #0000BB">$username</span><span style="color: #DD0000">!');"<br /></span><span style="color: #007700">] );<br /><br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeCommand</span><span style="color: #007700">( </span><span style="color: #DD0000">'dramio'</span><span style="color: #007700">, </span><span style="color: #0000BB">$cmd </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Don't do this!!!<br /></span><span style="color: #0000BB">$username </span><span style="color: #007700">= </span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">]; <br /></span><span style="color: #FF8000">// $username is set to "'); db.users.drop(); print('"<br /><br /></span><span style="color: #0000BB">$cmd </span><span style="color: #007700">= new </span><span style="color: #0000BB">\MongoDB\Driver\Command</span><span style="color: #007700">( [<br />    </span><span style="color: #DD0000">'eval' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"print('Hello, </span><span style="color: #0000BB">$username</span><span style="color: #DD0000">!');"<br /></span><span style="color: #007700">] );<br /><br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeCommand</span><span style="color: #007700">( </span><span style="color: #DD0000">'dramio'</span><span style="color: #007700">, </span><span style="color: #0000BB">$cmd </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
   <p class="para">
@@ -64,10 +58,7 @@
    variables from PHP to JavaScript:
   </p>
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">] = </span><span style="color: #DD0000">'derick'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$args </span><span style="color: #007700">= [ </span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">] ];<br /><br /></span><span style="color: #0000BB">$cmd </span><span style="color: #007700">= new </span><span style="color: #0000BB">\MongoDB\Driver\Command</span><span style="color: #007700">( [<br />    </span><span style="color: #DD0000">'eval' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"function greet(username) { print('Hello, ' + username + '!'); }"</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'args' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$args</span><span style="color: #007700">,<br />] );<br /><br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeCommand</span><span style="color: #007700">( </span><span style="color: #DD0000">'dramio'</span><span style="color: #007700">, </span><span style="color: #0000BB">$cmd </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Driver\Manager</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">] = </span><span style="color: #DD0000">'derick'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$args </span><span style="color: #007700">= [ </span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'field'</span><span style="color: #007700">] ];<br /><br /></span><span style="color: #0000BB">$cmd </span><span style="color: #007700">= new </span><span style="color: #0000BB">\MongoDB\Driver\Command</span><span style="color: #007700">( [<br />    </span><span style="color: #DD0000">'eval' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"function greet(username) { print('Hello, ' + username + '!'); }"</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'args' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$args</span><span style="color: #007700">,<br />] );<br /><br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeCommand</span><span style="color: #007700">( </span><span style="color: #DD0000">'dramio'</span><span style="color: #007700">, </span><span style="color: #0000BB">$cmd </span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
   <p class="para">
@@ -81,7 +72,7 @@
    Using arguments helps to prevent malicious input from being executed by the
    database.  However, you must make sure that your code does not turn around
    and execute the input anyway! It is best to avoid executing
-   <em class="emphasis">any</em> JavaScript on the server in the first place.
+   <em>any</em> JavaScript on the server in the first place.
   </p>
 
   <p class="para">

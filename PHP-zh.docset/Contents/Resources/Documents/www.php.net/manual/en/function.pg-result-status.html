@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获得查询结果的状态</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -26,27 +26,117 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.pg-result-status" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">pg_result_status</h1>
-    <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_result_status</span> &mdash; <span class="dc-title">
-     获得查询结果的状态
-    </span></p>
+ <div class="refnamediv">
+  <h1 class="refname">pg_result_status</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_result_status</span> &mdash; <span class="dc-title">
+   获得查询结果的状态
+  </span></p>
 
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-result-status-description">
+  <h3 class="title">说明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>pg_result_status</strong></span>(<span class="methodparam"><span class="type"><a href="class.pgsql-result.html" class="type PgSql\Result">PgSql\Result</a></span> <code class="parameter">$result</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$mode</code><span class="initializer"> = <strong><code><a href="pgsql.constants.html#constant.pgsql-status-long">PGSQL_STATUS_LONG</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span></div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><strong>pg_result_status()</strong></span> 返回 <span class="classname"><a href="class.pgsql-result.html" class="classname">PgSql\Result</a></span> 实例的状态，或者与 result 相关的 PostgreSQL 命令完成标记。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-result-status-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">
+   <dl>
+    
+     <dt><code class="parameter">result</code></dt>
+     <dd>
+      <p class="para"><span class="classname"><a href="class.pgsql-result.html" class="classname">PgSql\Result</a></span> 实例，由
+<span class="function"><a href="function.pg-query.html" class="function">pg_query()</a></span>、<span class="function"><a href="function.pg-query-params.html" class="function">pg_query_params()</a></span> 或者 <span class="function"><a href="function.pg-execute.html" class="function">pg_execute()</a></span>（等）返回。</p>
+     </dd>
+    
+    
+     <dt><code class="parameter">mode</code></dt>
+     <dd>
+      <p class="para">
+       要么指定 <strong><code><a href="pgsql.constants.html#constant.pgsql-status-long">PGSQL_STATUS_LONG</a></code></strong> 返回 <code class="parameter">result</code> 的数字状态，要么指定 <strong><code><a href="pgsql.constants.html#constant.pgsql-status-string">PGSQL_STATUS_STRING</a></code></strong> 
+       返回 <code class="parameter">result</code> 的命令标记。如果未指定，默认是 <strong><code><a href="pgsql.constants.html#constant.pgsql-status-long">PGSQL_STATUS_LONG</a></code></strong>。
+      </p>
+     </dd>
+    
+   </dl>
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-result-status-returnvalues">
+  <h3 class="title">返回值</h3>
+  <p class="para">
+   如果指定 <strong><code><a href="pgsql.constants.html#constant.pgsql-status-long">PGSQL_STATUS_LONG</a></code></strong>，可能返回的值是
+   <strong><code><a href="pgsql.constants.html#constant.pgsql-empty-query">PGSQL_EMPTY_QUERY</a></code></strong>、<strong><code><a href="pgsql.constants.html#constant.pgsql-command-ok">PGSQL_COMMAND_OK</a></code></strong>、<strong><code><a href="pgsql.constants.html#constant.pgsql-tuples-ok">PGSQL_TUPLES_OK</a></code></strong>、<strong><code><a href="pgsql.constants.html#constant.pgsql-copy-out">PGSQL_COPY_OUT</a></code></strong>、<strong><code><a href="pgsql.constants.html#constant.pgsql-copy-in">PGSQL_COPY_IN</a></code></strong>、<strong><code><a href="pgsql.constants.html#constant.pgsql-bad-response">PGSQL_BAD_RESPONSE</a></code></strong>、<strong><code><a href="pgsql.constants.html#constant.pgsql-nonfatal-error">PGSQL_NONFATAL_ERROR</a></code></strong>
+   和 <strong><code><a href="pgsql.constants.html#constant.pgsql-fatal-error">PGSQL_FATAL_ERROR</a></code></strong>。否则，返回包含 PostgreSQL 命令标记的 <span class="type"><a href="language.types.string.html" class="type string">string</a></span>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.pg-result-status-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">result</code> 参数接受 <span class="classname"><a href="class.pgsql-result.html" class="classname">PgSql\Result</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">resource</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pg-result-status-examples">
+  <h3 class="title">示例</h3>
+  <p class="para">
+   <div class="example" id="example-1971">
+    <p><strong>Example #1 <span class="function"><strong>pg_result_status()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// Connect to the database<br /></span><span style="color: #0000BB">$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_pconnect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Execute a COPY<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"COPY authors FROM STDIN;"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Get the result status<br /></span><span style="color: #0000BB">$status </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_result_status</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Determine status<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$status </span><span style="color: #007700">== </span><span style="color: #0000BB">PGSQL_COPY_IN</span><span style="color: #007700">)<br />   echo </span><span style="color: #DD0000">"Copy began."</span><span style="color: #007700">;<br />else<br />   echo </span><span style="color: #DD0000">"Copy failed."</span><span style="color: #007700">;<br /> <br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    <div class="example-contents"><p>以上示例会输出：</p></div>
+    <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">Copy began.</pre>
+</div>
+    </div>
    </div>
-   <div class="refsect1 unknown-unknown-unknown-unknown-unknown-unknown-seealsu" id="refsect1-function.pg-result-status-unknown-unknown-unknown-unknown-unknown-unknown-seealsu">
-    <h3 class="title">说明</h3>
-     <div class="methodsynopsis dc-description">
-      <span class="methodname"><strong>pg_result_status</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$result</code></span>): <span class="type">int</span></div>
+  </p>
+ </div>
 
-    <p class="para rdfs-comment">
-     <span class="function"><strong>pg_result_status()</strong></span> 返回该查询结果资源的状态。可能的返回值有 PGSQL_EMPTY_QUERY，PGSQL_COMMAND_OK，PGSQL_TUPLES_OK，PGSQL_COPY_TO，PGSQL_COPY_FROM，PGSQL_BAD_RESPONSE，PGSQL_NONFATAL_ERROR 和 PGSQL_FATAL_ERROR。
-    </p>
-    <p class="para">
-     参见 <span class="function"><a href="function.pg-connection-status.html" class="function">pg_connection_status()</a></span>。
-    </p>
-   </div>
+ 
+ <div class="refsect1 seealso" id="refsect1-function.pg-result-status-seealso">
+  <h3 class="title">参见</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li><span class="function"><a href="function.pg-connection-status.html" class="function" rel="rdfs-seeAlso">pg_connection_status()</a> - 获取连接状态</span></li>
+   </ul>
+  </p>
+ </div>
 
-  </div><div id="usernotes">
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

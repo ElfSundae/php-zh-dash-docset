@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Prepares an SQL statement for execution</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -37,10 +37,10 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>mysqli_stmt::prepare</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$query</code></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli_stmt::prepare</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$query</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_stmt_prepare</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span> <code class="parameter">$statement</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$query</code></span>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_stmt_prepare</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span> <code class="parameter">$statement</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$query</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Prepares a statement for execution.
@@ -92,18 +92,11 @@
   <p class="para">
    <dl>
     <dt>
-
-<code class="parameter">statement</code></dt>
-<dd>
-<p class="para">仅以过程化样式：由
+<code class="parameter">statement</code></dt><dd><p class="para">仅以过程化样式：由
 <span class="function"><a href="mysqli.stmt-init.html" class="function">mysqli_stmt_init()</a></span> 返回的 <span class="classname"><a href="class.mysqli-stmt.html" class="classname">mysqli_stmt</a></span> 对象。</p></dd>
-
     
-     <dt>
-<code class="parameter">query</code></dt>
-
+     <dt><code class="parameter">query</code></dt>
      <dd>
-
       <p class="para">
        The query, as a string. It must consist of a single SQL statement.
       </p>
@@ -125,10 +118,8 @@
        </p>
       </p></blockquote>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -136,36 +127,38 @@
  <div class="refsect1 returnvalues" id="refsect1-mysqli-stmt.prepare-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
+ <div class="refsect1 errors" id="refsect1-mysqli-stmt.prepare-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+If mysqli error reporting is enabled (<strong><code><a href="mysqli.constants.html#constant.mysqli-report-error">MYSQLI_REPORT_ERROR</a></code></strong>) and the requested operation fails,
+a warning is generated. If, in addition, the mode is set to <strong><code><a href="mysqli.constants.html#constant.mysqli-report-strict">MYSQLI_REPORT_STRICT</a></code></strong>,
+a <span class="classname"><a href="class.mysqli-sql-exception.html" class="classname">mysqli_sql_exception</a></span> is thrown instead.</p>
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-mysqli-stmt.prepare-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-3012">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1505">
    <p><strong>Example #1 <span class="methodname"><strong>mysqli_stmt::prepare()</strong></span> example</strong></p>
    <div class="example-contents"><p>面向对象风格</p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$city </span><span style="color: #007700">= </span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* create a prepared statement */<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">stmt_init</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT District FROM City WHERE Name=?"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* bind parameters for markers */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_param</span><span style="color: #007700">(</span><span style="color: #DD0000">"s"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* execute query */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* bind result variables */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* fetch value */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s is in district %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$city </span><span style="color: #007700">= </span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* create a prepared statement */<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">stmt_init</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT District FROM City WHERE Name=?"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* bind parameters for markers */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_param</span><span style="color: #007700">(</span><span style="color: #DD0000">"s"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* execute query */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* bind result variables */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* fetch value */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s is in district %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);</span></span></code></div>
    </div>
 
    <div class="example-contents"><p>过程化风格</p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$city </span><span style="color: #007700">= </span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* create a prepared statement */<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_stmt_init</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">mysqli_stmt_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #DD0000">"SELECT District FROM City WHERE Name=?"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* bind parameters for markers */<br /></span><span style="color: #0000BB">mysqli_stmt_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #DD0000">"s"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* execute query */<br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* bind result variables */<br /></span><span style="color: #0000BB">mysqli_stmt_bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* fetch value */<br /></span><span style="color: #0000BB">mysqli_stmt_fetch</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s is in district %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$city </span><span style="color: #007700">= </span><span style="color: #DD0000">"Amersfoort"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* create a prepared statement */<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_stmt_init</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">mysqli_stmt_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #DD0000">"SELECT District FROM City WHERE Name=?"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* bind parameters for markers */<br /></span><span style="color: #0000BB">mysqli_stmt_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #DD0000">"s"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* execute query */<br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* bind result variables */<br /></span><span style="color: #0000BB">mysqli_stmt_bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* fetch value */<br /></span><span style="color: #0000BB">mysqli_stmt_fetch</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s is in district %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$city</span><span style="color: #007700">, </span><span style="color: #0000BB">$district</span><span style="color: #007700">);</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程会输出：</p></div>
+   <div class="example-contents"><p>以上示例会输出：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-Amersfoort is in district Utrecht
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Amersfoort is in district Utrecht</pre>
+</div>
    </div>
   </div>
  </div>
@@ -175,13 +168,13 @@ Amersfoort is in district Utrecht
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="mysqli.stmt-init.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_init()</a> - 初始化语句并返回用于 mysqli_stmt_prepare（调用）的对象</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.execute.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_execute()</a> - Executes a prepared statement</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.fetch.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_fetch()</a> - Fetch results from a prepared statement into the bound variables</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.bind-param.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_param()</a> - Binds variables to a prepared statement as parameters</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.bind-result.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_result()</a> - Binds variables to a prepared statement for result storage</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.get-result.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_get_result()</a> - Gets a result set from a prepared statement as a mysqli_result object</span></li>
-    <li class="member"><span class="function"><a href="mysqli-stmt.close.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_close()</a> - Closes a prepared statement</span></li>
+    <li><span class="function"><a href="mysqli.stmt-init.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_init()</a> - 初始化语句并返回用于 mysqli_stmt_prepare（调用）的对象</span></li>
+    <li><span class="function"><a href="mysqli-stmt.execute.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_execute()</a> - Executes a prepared statement</span></li>
+    <li><span class="function"><a href="mysqli-stmt.fetch.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_fetch()</a> - Fetch results from a prepared statement into the bound variables</span></li>
+    <li><span class="function"><a href="mysqli-stmt.bind-param.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_param()</a> - Binds variables to a prepared statement as parameters</span></li>
+    <li><span class="function"><a href="mysqli-stmt.bind-result.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_result()</a> - Binds variables to a prepared statement for result storage</span></li>
+    <li><span class="function"><a href="mysqli-stmt.get-result.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_get_result()</a> - Gets a result set from a prepared statement as a mysqli_result object</span></li>
+    <li><span class="function"><a href="mysqli-stmt.close.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_close()</a> - Closes a prepared statement</span></li>
    </ul>
   </p>
  </div>

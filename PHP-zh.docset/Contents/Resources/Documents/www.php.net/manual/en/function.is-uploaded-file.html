@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>判断文件是否是通过 HTTP POST 上传的</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,18 +35,18 @@
  <div class="refsect1 description" id="refsect1-function.is-uploaded-file-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>is_uploaded_file</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>is_uploaded_file</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$filename</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
     如果 <code class="parameter">filename</code> 所给出的文件是通过
-   HTTP POST 上传的则返回 <strong><code>true</code></strong>。这可以用来确保恶意的用户无法欺骗脚本去访问本不能访问的文件，例如
+   HTTP POST 上传的则返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。这可以用来确保恶意的用户无法欺骗脚本去访问本不能访问的文件，例如
    <var class="filename">/etc/passwd</var>。
   </p>
   <p class="para">
    这种检查显得格外重要，如果上传的文件有可能会造成对用户或本系统的其他用户显示其内容的话。
   </p>
   <p class="para">
-   为了能使 <span class="function"><strong>is_uploaded_file()</strong></span> 函数正常工作，必段指定类似于
+   为了能使 <span class="function"><strong>is_uploaded_file()</strong></span> 函数正常工作，必须指定类似于
    <var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES['userfile']['tmp_name']</a></var> 的变量，而在从客户端上传的文件名
    <var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES['userfile']['name']</a></var> 不能正常运作。
   </p>
@@ -58,19 +58,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">filename</code></dt>
-
+     <dt><code class="parameter">filename</code></dt>
      <dd>
-
       <p class="para">
        要检查的文件名。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -78,21 +73,18 @@
  <div class="refsect1 returnvalues" id="refsect1-function.is-uploaded-file-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.is-uploaded-file-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4396">
+   <div class="example" id="example-2249">
     <p><strong>Example #1 <span class="function"><strong>is_uploaded_file()</strong></span> 例子</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">is_uploaded_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'tmp_name'</span><span style="color: #007700">])) {<br />   echo </span><span style="color: #DD0000">"File "</span><span style="color: #007700">. </span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'name'</span><span style="color: #007700">] .</span><span style="color: #DD0000">" uploaded successfully.\n"</span><span style="color: #007700">;<br />   echo </span><span style="color: #DD0000">"Displaying contents\n"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'tmp_name'</span><span style="color: #007700">]);<br />} else {<br />   echo </span><span style="color: #DD0000">"Possible file upload attack: "</span><span style="color: #007700">;<br />   echo </span><span style="color: #DD0000">"filename '"</span><span style="color: #007700">. </span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'tmp_name'</span><span style="color: #007700">] . </span><span style="color: #DD0000">"'."</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">is_uploaded_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'tmp_name'</span><span style="color: #007700">])) {<br />   echo </span><span style="color: #DD0000">"File "</span><span style="color: #007700">. </span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'name'</span><span style="color: #007700">] .</span><span style="color: #DD0000">" uploaded successfully.\n"</span><span style="color: #007700">;<br />   echo </span><span style="color: #DD0000">"Displaying contents\n"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'tmp_name'</span><span style="color: #007700">]);<br />} else {<br />   echo </span><span style="color: #DD0000">"Possible file upload attack: "</span><span style="color: #007700">;<br />   echo </span><span style="color: #DD0000">"filename '"</span><span style="color: #007700">. </span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">'userfile'</span><span style="color: #007700">][</span><span style="color: #DD0000">'tmp_name'</span><span style="color: #007700">] . </span><span style="color: #DD0000">"'."</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -104,9 +96,9 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.move-uploaded-file.html" class="function" rel="rdfs-seeAlso">move_uploaded_file()</a> - 将上传的文件移动到新位置</span></li>
-    <li class="member"><var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES</a></var></li>
-    <li class="member">关于用法的简单例子 
+    <li><span class="function"><a href="function.move-uploaded-file.html" class="function" rel="rdfs-seeAlso">move_uploaded_file()</a> - 将上传的文件移动到新位置</span></li>
+    <li><var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES</a></var></li>
+    <li>关于用法的简单例子 
      <a href="features.file-upload.html" class="link">文件上传处理</a></li>
    </ul>
   </p>

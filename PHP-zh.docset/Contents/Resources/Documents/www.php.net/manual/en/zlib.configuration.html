@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>运行时配置</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -51,21 +51,21 @@
      <tr>
       <td><a href="zlib.configuration.html#ini.zlib.output-compression" class="link">zlib.output_compression</a></td>
       <td>&quot;0&quot;</td>
-      <td>PHP_INI_ALL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
       <td class="empty">&nbsp;</td>
      </tr>
 
      <tr>
       <td><a href="zlib.configuration.html#ini.zlib.output-compression-level" class="link">zlib.output_compression_level</a></td>
       <td>&quot;-1&quot;</td>
-      <td>PHP_INI_ALL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
       <td class="empty">&nbsp;</td>
      </tr>
 
      <tr>
       <td><a href="zlib.configuration.html#ini.zlib.output-handler" class="link">zlib.output_handler</a></td>
       <td>&quot;&quot;</td>
-      <td>PHP_INI_ALL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
       <td class="empty">&nbsp;</td>
      </tr>
 
@@ -73,7 +73,7 @@
    
   </table>
 
-   有关 PHP_INI_* 样式的更多详情与定义，见 <a href="configuration.changes.modes.html" class="xref">配置可被设定范围</a>。
+   有关 INI_* 样式的更多详情与定义，见 <a href="configuration.changes.modes.html" class="xref">配置可被设定范围</a>。
 </p>
  
  <p class="para">这是配置指令的简短说明。</p>
@@ -83,11 +83,9 @@
   
    <dt id="ini.zlib.output-compression">
     <code class="parameter">zlib.output_compression</code>
-    <span class="type">bool</span>/<span class="type">int</span>
+    <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>/<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
    </dt>
-
    <dd>
-
     <p class="para">
      Whether to transparently compress pages. If this option is set
      to &quot;On&quot; in <var class="filename">php.ini</var> or the Apache configuration, pages are
@@ -109,139 +107,42 @@
      </p>
     </p></blockquote>
    </dd>
-
   
 
   
    <dt id="ini.zlib.output-compression-level">
     <code class="parameter">zlib.output_compression_level</code>
-    <span class="type">int</span>
+    <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
    </dt>
-
    <dd>
-
     <p class="para">
      Compression level used for transparent output compression. Specify a
      value between 0 (no compression) to 9 (most compression). The default
      value, -1, lets the server decide which level to use.
     </p>
    </dd>
-
   
 
   
    <dt id="ini.zlib.output-handler">
     <code class="parameter">zlib.output_handler</code>
-    <span class="type">string</span>
+    <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
    </dt>
-
    <dd>
-
     <p class="para">
      You cannot specify additional output handlers if zlib.output_compression
      is activated here. This setting does the same as <a href="outcontrol.configuration.html#ini.output-handler" class="link">
      output_handler</a> but in a different order.
     </p>
    </dd>
-
   
 
  </dl>
-
  </p>
 </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124123""></a>
-  <div class="note">
-   <strong class="user">Anon</strong>
-   <a href="#124123" class="date">17-Aug-2019 04:01</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Because of possible BREACH attacks when using output compression cross-site scripting should be disallowed. This can be achieved with the same-site cookie attribute:<br />
-<br />
-https://www.sjoerdlangkemper.nl/2016/04/14/preventing-csrf-with-samesite-cookie-attribute/<br />
-<br />
-https://caniuse.com/#feat=same-site-cookie-attribute</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="121716""></a>
-  <div class="note">
-   <strong class="user">pacerier+php dot net at gmail dot com</strong>
-   <a href="#121716" class="date">03-Oct-2017 10:47</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-@finlanderid, Exactly. As output_handler and zlib.output_handler cant be both set (as per ""&lt;output_handler must be empty if this is set 'On'&gt;""), "different order" refers to?</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="117495""></a>
-  <div class="note">
-   <strong class="user">galaxy</strong>
-   <a href="#117495" class="date">18-Jun-2015 10:49</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-finlanderid at gmail dot com,<br />
-<br />
-you are mixing two separate things and consider them to be the same thing, hence the confusion.<br />
-<br />
-There are two output_handlers:<br />
-<br />
-1. <a href="http://php.net/manual/en/outcontrol.configuration.php#ini.output-handler" rel="nofollow" target="_blank">http://php.net/manual/en/outcontrol.configuration.php#ini.output-handler</a><br />
-<br />
-2. <a href="http://php.net/manual/en/zlib.configuration.php#ini.zlib.output-handler" rel="nofollow" target="_blank">http://php.net/manual/en/zlib.configuration.php#ini.zlib.output-handler</a><br />
-<br />
-Now, if you re-read your quotes again with this information it won't be confusing anymore :)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116918""></a>
-  <div class="note">
-   <strong class="user">finlanderid at gmail dot com</strong>
-   <a href="#116918" class="date">21-Mar-2015 06:42</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Does anyone find these two statements contradictory? Am I not understanding something, or are these statements actually contradicting each other? <br />
-<br />
-Statement ONE from output_handler:<br />
-"output_handler must be empty if this [zlib.output_compression] is set 'On' ! Instead you must use zlib.output_handler."<br />
-<br />
-Statement TWO from zlib.output_handler:<br />
-"You cannot specify additional output handlers if zlib.output_compression is activated ..."<br />
-<br />
-Statement ONE says you have to use zlib.output_handler, if zlib.output_compression is turned ON. Statement TWO says that, if zlib.output_compression is turned ON, you cannot use zlib.output_handler. <br />
-<br />
-what the heck?</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="107729""></a>
-  <div class="note">
-   <strong class="user">scott at pawprint dot net</strong>
-   <a href="#107729" class="date">29-Feb-2012 06:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In the hopes this will help others - a hard to spot gotcha when implementing zlib.output_compression. if you use flush() anywhere in your script (even right at the end) the compression won't work - you need to let that happen automatically or it ends up being sent uncompressed.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

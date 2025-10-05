@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>全局空间</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,33 +12,31 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="language.namespaces.importing.html">? 使用命名空间：别名/导入</a></li>
-      <li style="float: right;"><a href="language.namespaces.fallback.html">使用命名空间：后备全局函数/常量 ?</a></li>
+      <li style="float: left;"><a href="language.namespaces.importing.html">? 别名和导入</a></li>
+      <li style="float: right;"><a href="language.namespaces.fallback.html">回退到全局空间 ?</a></li>
     </ul>
   </div>
 </div>
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="language.namespaces.html">命名空间</a></li>
+    <li><a href="language.namespaces.html">概述</a></li>
     <li>全局空间</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="language.namespaces.global" class="sect1">
   <h2 class="title">全局空间</h2>
+  
   <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p>
   <p class="para">
-   如果没有定义任何命名空间，所有的类与函数的定义都是在全局空间，与 
+   如果没有定义任何命名空间，所有的类与函数的定义都是在全局空间，与
    PHP 引入命名空间概念前一样。在名称前加上前缀 <code class="literal">\</code>
    表示该名称是全局空间中的名称，即使该名称位于其它的命名空间中时也是如此。
-   <div class="example" id="example-624">
+   <div class="example" id="example-305">
     <p><strong>Example #1 使用全局空间说明</strong></p>
     <div class="example-contents">
-     <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">A\B\C</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 这个函数是 A\B\C\fopen */<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">fopen</span><span style="color: #007700">() { <br />     </span><span style="color: #FF8000">/* ... */<br />     </span><span style="color: #0000BB">$f </span><span style="color: #007700">= </span><span style="color: #0000BB">\fopen</span><span style="color: #007700">(...); </span><span style="color: #FF8000">// 调用全局的fopen函数<br />     </span><span style="color: #007700">return </span><span style="color: #0000BB">$f</span><span style="color: #007700">;<br />} <br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+     <div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">A\B\C</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/* 这个函数是 A\B\C\fopen */<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">fopen</span><span style="color: #007700">() { <br />     </span><span style="color: #FF8000">/* ... */<br />     </span><span style="color: #0000BB">$f </span><span style="color: #007700">= </span><span style="color: #0000BB">\fopen</span><span style="color: #007700">(...); </span><span style="color: #FF8000">// 调用全局的fopen函数<br />     </span><span style="color: #007700">return </span><span style="color: #0000BB">$f</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -47,7 +45,58 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127527""></a>
+<div id="allnotes">  <a name="129174""></a>
+  <div class="note">
+   <strong class="user">dmc60 at cam dot ac dot uk</strong>
+   <a href="#129174" class="date">18-Jan-2024 03:24</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+To define an associative array (hash) so that it is part of the namespace, instead of going into the global namespace, just declare it as const, istead of as a variable.<br />
+<br />
+This is handy for lookup tables, config settings, etc.<br />
+<br />
+// Example.&nbsp; Instead of writing:<br />
+<br />
+$my_datatypes = [<br />
+&nbsp;&nbsp;&nbsp; "sterility" =&gt;&nbsp; [<br />
+&nbsp;&nbsp; &nbsp;&nbsp; "xlsx" =&gt; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Sample Type",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Run Pass/Fail",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Result"<br />
+&nbsp;&nbsp; &nbsp; &nbsp; ],<br />
+&nbsp;&nbsp; &nbsp;&nbsp; "db" =&gt; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "SampleType",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "RunPassFail",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Result"<br />
+&nbsp;&nbsp; &nbsp; &nbsp; ]<br />
+&nbsp;&nbsp;&nbsp; ]<br />
+];<br />
+<br />
+// ...declare the lookup table like this:<br />
+<br />
+const MY_DATATYPES = [<br />
+&nbsp;&nbsp;&nbsp; "sterility" =&gt;&nbsp; [<br />
+&nbsp;&nbsp; &nbsp;&nbsp; "xlsx" =&gt; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Sample Type",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Run Pass/Fail",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Result"<br />
+&nbsp;&nbsp; &nbsp; &nbsp; ],<br />
+&nbsp;&nbsp; &nbsp;&nbsp; "db" =&gt; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "SampleType",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "RunPassFail",<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; "Result"<br />
+&nbsp;&nbsp; &nbsp; &nbsp; ]<br />
+&nbsp;&nbsp;&nbsp; ]<br />
+];<br />
+<br />
+// ...and it will be declared within the current namespace.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127527""></a>
   <div class="note">
    <strong class="user">PhoneixSegovia at gmail dot com</strong>
    <a href="#127527" class="date">24-Aug-2022 12:18</a>

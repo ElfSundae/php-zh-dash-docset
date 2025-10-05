@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置各种 FTP 运行时选项</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,10 +34,10 @@
  <div class="refsect1 description" id="refsect1-function.ftp-set-option-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ftp_set_option</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$ftp_stream</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$option</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>ftp_set_option</strong></span>(<span class="methodparam"><span class="type"><a href="class.ftp-connection.html" class="type FTP\Connection">FTP\Connection</a></span> <code class="parameter">$ftp</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$option</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span> <code class="parameter">$value</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   本函数控制指定 FTP 流的各种运行时选项。
+   本函数控制指定 FTP 连接的各种运行时选项。
   </p>
  </div>
 
@@ -46,23 +46,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">ftp_stream</code></dt>
-
+     <dt><code class="parameter">ftp</code></dt>
      <dd>
-
-      <p class="para">
-       FTP 连接的标识符。
-      </p>
+       <p class="para"><span class="classname"><a href="class.ftp-connection.html" class="classname">FTP\Connection</a></span> 实例。</p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">option</code></dt>
-
+     <dt><code class="parameter">option</code></dt>
      <dd>
-
       <p class="para">
        目前支持以下选项：
        <table class="doctable table">
@@ -70,7 +61,7 @@
         
          <tbody class="tbody">
           <tr>
-           <td><strong><code>FTP_TIMEOUT_SEC</code></strong></td>
+           <td><strong><code><a href="ftp.constants.html#constant.ftp-timeout-sec">FTP_TIMEOUT_SEC</a></code></strong></td>
            <td>
             改变网络传输的超时时间。参数
             <code class="parameter">value</code> 必须为整数且大于 0。默认的超时时间为 90 秒。
@@ -78,7 +69,7 @@
           </tr>
 
           <tr>
-           <td><strong><code>FTP_AUTOSEEK</code></strong></td>
+           <td><strong><code><a href="ftp.constants.html#constant.ftp-autoseek">FTP_AUTOSEEK</a></code></strong></td>
            <td>
             当此选项打开时，带 <code class="parameter">resumepos</code>
             或 <code class="parameter">startpos</code> 参数的GET 或 PUT 请求
@@ -87,7 +78,7 @@
           </tr>
 
           <tr>
-           <td><strong><code>FTP_USEPASVADDRESS</code></strong></td>
+           <td><strong><code><a href="ftp.constants.html#constant.ftp-usepasvaddress">FTP_USEPASVADDRESS</a></code></strong></td>
            <td>
             当此选项禁用时，PHP 会忽略掉 FTP 服务器通过 PASV 命令返回的 IP 地址，直接使用在 ftp_connect()
             中指定的地址。<code class="parameter">value</code> 参数必须是布尔型。
@@ -100,44 +91,64 @@
 
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">value</code></dt>
-
+     <dt><code class="parameter">value</code></dt>
      <dd>
-
       <p class="para">
        本参数取决于要修改哪个 <code class="parameter">option</code>。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.ftp-set-option-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果选项能够被设置，返回 <strong><code>true</code></strong>，否则返回 <strong><code>false</code></strong>。如果参数 <code class="parameter">option</code>
+   如果选项能够被设置，返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，否则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。如果参数 <code class="parameter">option</code>
    不被支持或者给定的参数 <code class="parameter">value</code> 的值与参数
    <code class="parameter">option</code> 不匹配，则会同时返回一条警告信息。
   </p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.ftp-set-option-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">ftp</code> 参数接受 <span class="classname"><a href="class.ftp-connection.html" class="classname">FTP\Connection</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">resource</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+ 
  <div class="refsect1 examples" id="refsect1-function.ftp-set-option-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #1 <span class="function"><strong>ftp_set_option()</strong></span> 例子</strong></p>
+   <div class="example" id="example-4393">
+    <p><strong>Example #1 <span class="function"><strong>ftp_set_option()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 设置网络传输超时时间为 10 秒<br /></span><span style="color: #0000BB">ftp_set_option</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">, </span><span style="color: #0000BB">FTP_TIMEOUT_SEC</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 设置网络传输超时时间为 10 秒<br /></span><span style="color: #0000BB">ftp_set_option</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp</span><span style="color: #007700">, </span><span style="color: #0000BB">FTP_TIMEOUT_SEC</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -148,7 +159,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.ftp-get-option.html" class="function" rel="rdfs-seeAlso">ftp_get_option()</a> - 返回当前 FTP 连接的各种不同的选项设置</span></li>
+    <li><span class="function"><a href="function.ftp-get-option.html" class="function" rel="rdfs-seeAlso">ftp_get_option()</a> - 返回当前 FTP 连接的各种不同的选项设置</span></li>
    </ul>
   </p>
  </div>

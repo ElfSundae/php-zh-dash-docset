@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Enable throwing exceptions</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -37,7 +37,7 @@
  <div class="refsect1 description" id="refsect1-sqlite3.enableexceptions-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>SQLite3::enableExceptions</strong></span>(<span class="methodparam"><span class="type">bool</span> <code class="parameter">$enable</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>SQLite3::enableExceptions</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> <code class="parameter">$enable</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong></span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Controls whether the <span class="classname"><a href="class.sqlite3.html" class="classname">SQLite3</a></span> instance will
@@ -50,18 +50,15 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">enable</code></dt>
-
+    <dt><code class="parameter">enable</code></dt>
     <dd>
-
      <p class="para">
-      When <strong><code>true</code></strong>, the <span class="classname"><a href="class.sqlite3.html" class="classname">SQLite3</a></span> instance, and 
+      When <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>, the <span class="classname"><a href="class.sqlite3.html" class="classname">SQLite3</a></span> instance, and 
       <span class="classname"><a href="class.sqlite3stmt.html" class="classname">SQLite3Stmt</a></span> and <span class="classname"><a href="class.sqlite3result.html" class="classname">SQLite3Result</a></span>
       instances derived from it, will throw exceptions on error.
      </p>
      <p class="para">
-      When <strong><code>false</code></strong>, the <span class="classname"><a href="class.sqlite3.html" class="classname">SQLite3</a></span> instance, and
+      When <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>, the <span class="classname"><a href="class.sqlite3.html" class="classname">SQLite3</a></span> instance, and
       <span class="classname"><a href="class.sqlite3stmt.html" class="classname">SQLite3Stmt</a></span> and <span class="classname"><a href="class.sqlite3result.html" class="classname">SQLite3Result</a></span>
       instances derived from it, will raise warnings on error.
      </p>
@@ -71,38 +68,60 @@
       <span class="methodname"><a href="sqlite3.lasterrormsg.html" class="methodname">SQLite3::lastErrorMsg()</a></span> respectively.
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-sqlite3.enableexceptions-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns the old value; <strong><code>true</code></strong> if exceptions were enabled, <strong><code>false</code></strong> otherwise.
+   Returns the old value; <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> if exceptions were enabled, <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> otherwise.
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-sqlite3.enableexceptions-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.3.0</td>
+      <td>
+       Calling <span class="methodname"><strong>SQLite3::enableExceptions()</strong></span> with <code class="parameter">enable</code>
+       as <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> will trigger a <strong><code><a href="errorfunc.constants.html#constant.e-deprecated">E_DEPRECATED</a></code></strong> warning.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-sqlite3.enableexceptions-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-3890">
+  <h3 class="title">示例</h3>
+  <div class="example" id="sqlite3.enableexceptions.example.basic">
    <p><strong>Example #1 <span class="methodname"><strong>SQLite3::enableExceptions()</strong></span> example</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$sqlite </span><span style="color: #007700">= new </span><span style="color: #0000BB">SQLite3</span><span style="color: #007700">(</span><span style="color: #DD0000">':memory:'</span><span style="color: #007700">);<br />try {<br />    </span><span style="color: #0000BB">$sqlite</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">'create table foo'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$sqlite</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">enableExceptions</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$sqlite</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">'create table bar'</span><span style="color: #007700">);<br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'Caught exception: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$sqlite </span><span style="color: #007700">= new </span><span style="color: #0000BB">SQLite3</span><span style="color: #007700">(</span><span style="color: #DD0000">':memory:'</span><span style="color: #007700">);<br />try {<br />    </span><span style="color: #0000BB">$sqlite</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">'create table foo'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$sqlite</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">enableExceptions</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$sqlite</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">'create table bar'</span><span style="color: #007700">);<br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'Caught exception: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+   <div class="example-contents"><p>以上示例的输出类似于：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-Warning: SQLite3::exec(): near &quot;foo&quot;: syntax error in example.php on line 4
-Caught exception: near &quot;bar&quot;: syntax error
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Warning: SQLite3::exec(): near &quot;foo&quot;: syntax error in example.php on line 4
+Caught exception: near &quot;bar&quot;: syntax error</pre>
+</div>
    </div>
   </div>
  </div>

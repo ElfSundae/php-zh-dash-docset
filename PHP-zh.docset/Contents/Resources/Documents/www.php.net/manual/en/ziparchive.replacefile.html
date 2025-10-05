@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Replace file in ZIP archive with a given path</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-ziparchive.replacefile-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>ZipArchive::replaceFile</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$filepath</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$index</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$start</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$length</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span><br>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>ZipArchive::replaceFile</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$filepath</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$index</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$start</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$length</code><span class="initializer"> = ZipArchive::LENGTH_TO_END</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Replace file in ZIP archive with a given path.
@@ -47,72 +47,55 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">filepath</code></dt>
-
+     <dt><code class="parameter">filepath</code></dt>
      <dd>
-
       <p class="para">
        The path to the file to add.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">index</code></dt>
-
+     <dt><code class="parameter">index</code></dt>
      <dd>
-
       <p class="para">
        The index of the file to be replaced, its name is unchanged.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">start</code></dt>
-
+     <dt><code class="parameter">start</code></dt>
      <dd>
-
       <p class="para">
        For partial copy, start position.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">length</code></dt>
-
+     <dt><code class="parameter">length</code></dt>
      <dd>
-
       <p class="para">
-       For partial copy, length to be copied, if 0 or -1 the whole file (starting from <code class="parameter">start</code>) is used.
+       For partial copy, length to be copied,
+       if <strong><code><a href="zip.constants.html#ziparchive.constants.length-to-end">ZipArchive::LENGTH_TO_END</a></code></strong> (0) the file size is used,
+       if <strong><code><a href="zip.constants.html#ziparchive.constants.length-unchecked">ZipArchive::LENGTH_UNCHECKED</a></code></strong> the whole file is used
+       (starting from <code class="parameter">start</code>).
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">flags</code></dt>
-
+     <dt><code class="parameter">flags</code></dt>
      <dd>
-
       <p class="para">
        Bitmask consisting of
-       <strong><code>ZipArchive::FL_ENC_GUESS</code></strong>,
-       <strong><code>ZipArchive::FL_ENC_UTF_8</code></strong>,
-       <strong><code>ZipArchive::FL_ENC_CP437</code></strong>.
+       <strong><code><a href="zip.constants.html#ziparchive.constants.fl-enc-guess">ZipArchive::FL_ENC_GUESS</a></code></strong>,
+       <strong><code><a href="zip.constants.html#ziparchive.constants.fl-enc-utf-8">ZipArchive::FL_ENC_UTF_8</a></code></strong>,
+       <strong><code><a href="zip.constants.html#ziparchive.constants.fl-enc-cp437">ZipArchive::FL_ENC_CP437</a></code></strong>,
+       <strong><code><a href="zip.constants.html#ziparchive.constants.fl-open-file-now">ZipArchive::FL_OPEN_FILE_NOW</a></code></strong>.
        The behaviour of these constants is described on the
        <a href="zip.constants.html" class="link">ZIP constants</a> page.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -120,25 +103,58 @@
  <div class="refsect1 returnvalues" id="refsect1-ziparchive.replacefile-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-ziparchive.replacefile-changelog">
+  <h3 class="title">更新日志</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>8.3.0 / 1.22.1</td>
+       <td>
+        <strong><code><a href="zip.constants.html#ziparchive.constants.fl-open-file-now">ZipArchive::FL_OPEN_FILE_NOW</a></code></strong> was added.
+       </td>
+      </tr>
+
+      <tr>
+       <td>8.3.0 / 1.22.2</td>
+       <td>
+        <strong><code><a href="zip.constants.html#ziparchive.constants.length-to-end">ZipArchive::LENGTH_TO_END</a></code></strong> and <strong><code><a href="zip.constants.html#ziparchive.constants.length-unchecked">ZipArchive::LENGTH_UNCHECKED</a></code></strong> were added.
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-ziparchive.replacefile-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
     <p class="para">
      This example opens a ZIP file archive
      <var class="filename">test.zip</var> and replaces index 1 entry
      with <var class="filename">/path/to/index.txt</var>.
     </p>
-    <div class="example" id="example-1720">
+    <div class="example" id="example-849">
      <p><strong>Example #1 Open and replace</strong></p>
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$zip </span><span style="color: #007700">= new </span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">) === </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">replaceFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/index.txt'</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />    echo </span><span style="color: #DD0000">'ok'</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">'failed'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$zip </span><span style="color: #007700">= new </span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">) === </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">replaceFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/index.txt'</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />    echo </span><span style="color: #DD0000">'ok'</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">'failed'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
@@ -149,7 +165,7 @@
     <h3 class="title">参见</h3>
     <p class="para">
      <ul class="simplelist">
-      <li class="member"><span class="methodname"><a href="ziparchive.addfile.html" class="methodname" rel="rdfs-seeAlso">ZipArchive::addFile()</a> - Adds a file to a ZIP archive from the given path</span></li>
+      <li><span class="methodname"><a href="ziparchive.addfile.html" class="methodname" rel="rdfs-seeAlso">ZipArchive::addFile()</a> - Adds a file to a ZIP archive from the given path</span></li>
      </ul>
     </p>
    </div>

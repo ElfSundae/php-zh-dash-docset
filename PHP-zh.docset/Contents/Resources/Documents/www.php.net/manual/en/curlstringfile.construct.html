@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>创建 CURLStringFile 对象</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,10 +35,10 @@
  <div class="refsect1 description" id="refsect1-curlstringfile.construct-description">
   <h3 class="title">说明</h3>
   <div class="constructorsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>CURLStringFile::__construct</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$postname</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$mime</code><span class="initializer"> = &quot;application/octet-stream&quot;</span></span>)</div>
+   <span class="modifier">public</span> <span class="methodname"><strong>CURLStringFile::__construct</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$data</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$postname</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$mime</code><span class="initializer"> = &quot;application/octet-stream&quot;</span></span>)</div>
 
   <p class="para rdfs-comment">
-   创建 <span class="classname"><a href="class.curlstringfile.html" class="classname">CURLStringFile</a></span> 对象，使用 <strong><code>CURLOPT_POSTFIELDS</code></strong> 选项上传文件。
+   创建 <span class="classname"><a href="class.curlstringfile.html" class="classname">CURLStringFile</a></span> 对象，使用 <strong><code><a href="curl.constants.html#constant.curlopt-postfields">CURLOPT_POSTFIELDS</a></code></strong> 选项上传文件。
   </p>
  </div>
 
@@ -47,61 +47,44 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">data</code></dt>
-
+    <dt><code class="parameter">data</code></dt>
     <dd>
-
      <p class="para">
       待上传的内容。
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">postname</code></dt>
-
+    <dt><code class="parameter">postname</code></dt>
     <dd>
-
      <p class="para">
       上传数据中的文件名称。
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">mime</code></dt>
-
+    <dt><code class="parameter">mime</code></dt>
     <dd>
-
      <p class="para">
       文件的 MIME 类型（默认为 <code class="literal">application/octet-stream</code>）。
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-curlstringfile.construct-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-4318">
    <p><strong>Example #1 <span class="function"><strong>CURLStringFile::__construct()</strong></span> 示例</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* http://example.com/upload.php:<br />&lt;?php<br />var_dump($_FILES);<br />var_dump(file_get_contents($_FILES['test_string']['tmp_name']));<br />?&gt;<br />*/<br /><br />// 创建一个 cURL 句柄<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://example.com/upload.php'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 创建一个 CURLStringFile 对象<br /></span><span style="color: #0000BB">$cstringfile </span><span style="color: #007700">= new </span><span style="color: #0000BB">CURLStringFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'test upload contents'</span><span style="color: #007700">,</span><span style="color: #DD0000">'test.txt'</span><span style="color: #007700">,</span><span style="color: #DD0000">'text/plain'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 指定 POST 内容<br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'test_string' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$cstringfile</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_POST</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_POSTFIELDS</span><span style="color: #007700">, </span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行句柄<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* http://example.com/upload.php:<br />&lt;?php<br />var_dump($_FILES);<br />var_dump(file_get_contents($_FILES['test_string']['tmp_name']));<br />?&gt;<br />*/<br /><br />// 创建一个 cURL 句柄<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://example.com/upload.php'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 创建一个 CURLStringFile 对象<br /></span><span style="color: #0000BB">$cstringfile </span><span style="color: #007700">= new </span><span style="color: #0000BB">CURLStringFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'test upload contents'</span><span style="color: #007700">,</span><span style="color: #DD0000">'test.txt'</span><span style="color: #007700">,</span><span style="color: #DD0000">'text/plain'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 指定 POST 内容<br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'test_string' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$cstringfile</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_POST</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_POSTFIELDS</span><span style="color: #007700">, </span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 执行句柄<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程会输出：</p></div>
+   <div class="example-contents"><p>以上示例会输出：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-array(1) {
+<div class="examplescode"><pre class="examplescode">array(1) {
   [&quot;test_string&quot;]=&gt;
   array(5) {
     [&quot;name&quot;]=&gt;
@@ -116,8 +99,8 @@ array(1) {
     int(20)
   }
 }
-string(20) &quot;test upload contents&quot;
-</pre></div>
+string(20) &quot;test upload contents&quot;</pre>
+</div>
    </div>
   </div>
  </div>
@@ -127,7 +110,7 @@ string(20) &quot;test upload contents&quot;
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.curl-setopt.html" class="function" rel="rdfs-seeAlso">curl_setopt()</a> - 设置 cURL 传输选项</span></li>
+    <li><span class="function"><a href="function.curl-setopt.html" class="function" rel="rdfs-seeAlso">curl_setopt()</a> - 设置 cURL 传输选项</span></li>
    </ul>
   </p>
  </div>
@@ -137,6 +120,19 @@ string(20) &quot;test upload contents&quot;
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="128442""></a>
+  <div class="note">
+   <strong class="user">inmarket</strong>
+   <a href="#128442" class="date">02-May-2023 06:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note that the $postname and $mimetype parameters are in the reverse order to the CURLFile::__construct function.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

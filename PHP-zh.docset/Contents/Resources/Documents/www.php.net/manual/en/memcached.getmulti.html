@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>检索多个元素</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-memcached.getmulti-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::getMulti</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$keys</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::getMulti</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$keys</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$get_flags</code><span class="initializer"> = 0</span></span>): <span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>Memcached::getMulti()</strong></span> 与 <span class="methodname"><a href="memcached.get.html" class="methodname">Memcached::get()</a></span> 类似，但是这个方法用来检索
@@ -45,14 +45,14 @@
      在 v3.0 之前，使用的第二个参数是 <code class="parameter reference">&cas_tokens</code>。
      它会填充进元素的 CAS token 值。
      在本扩展里，<code class="parameter reference">&cas_tokens</code> 参数在 v3.0 中已经移除。
-     它被新的附加选项（flag） <strong><code>Memcached::GET_EXTENDED</code></strong> 代替，需要在 <code class="parameter">flags</code> 值里使用。
+     它被新的附加选项（flag） <strong><code><a href="memcached.constants.html#memcached.constants.get-extended">Memcached::GET_EXTENDED</a></code></strong> 代替，需要在 <code class="parameter">get_flags</code> 值里使用。
     </p>
    </p></blockquote>
   </p>
   <p class="para">
-   <code class="parameter">flags</code>参数可以用做指定<span class="function"><strong>Memcached::getMulti()</strong></span>的附加选项。
-   当前，仅可以指定为<strong><code>Memcached::GET_PRESERVE_ORDER</code></strong>以保证返回的key的顺序和请求时一致。
-   <strong><code>Memcached::GET_EXTENDED</code></strong> 可以确保同时返回了 CAS token 信息。
+   <code class="parameter">get_flags</code>参数可以用做指定<span class="function"><strong>Memcached::getMulti()</strong></span>的附加选项。
+   当前，仅可以指定为<strong><code><a href="memcached.constants.html#memcached.constants.get-preserve-order">Memcached::GET_PRESERVE_ORDER</a></code></strong>以保证返回的key的顺序和请求时一致。
+   <strong><code><a href="memcached.constants.html#memcached.constants.get-extended">Memcached::GET_EXTENDED</a></code></strong> 可以确保同时返回了 CAS token 信息。
   </p>
  </div>
 
@@ -62,31 +62,22 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">keys</code></dt>
-
+     <dt><code class="parameter">keys</code></dt>
      <dd>
-
       <p class="para">
        要检索的key的数组。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">flags</code></dt>
-
+     <dt><code class="parameter">get_flags</code></dt>
      <dd>
-
       <p class="para">
        Get 操作的附加选项。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -94,7 +85,7 @@
  <div class="refsect1 returnvalues" id="refsect1-memcached.getmulti-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回检索到的元素的数组 或者在失败时返回 <strong><code>false</code></strong>。
+   返回检索到的元素的数组 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
    如需要则使用 <span class="methodname"><a href="memcached.getresultcode.html" class="methodname">Memcached::getResultCode()</a></span>。
   </p>
  </div>
@@ -117,7 +108,7 @@
       <td>PECL memcached 3.0.0</td>
       <td>
        移除 <code class="parameter reference">&cas_tokens</code> 参数。
-       新增 <strong><code>Memcached::GET_EXTENDED</code></strong>，当作为 flag 传递时，确保获取到 CAS token。
+       新增 <strong><code><a href="memcached.constants.html#memcached.constants.get-extended">Memcached::GET_EXTENDED</a></code></strong>，当作为 flag 传递时，确保获取到 CAS token。
       </td>
      </tr>
 
@@ -129,45 +120,37 @@
 
 
  <div class="refsect1 examples" id="refsect1-memcached.getmulti-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4493">
     <p><strong>Example #1 <span class="function"><strong>Memcached::getMulti()</strong></span> 的 Memcached v3 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 扩展版本 v3 有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$items </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'key1' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value1'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key2' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value2'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key3' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value3'<br /></span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$items</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'key1'</span><span style="color: #007700">, </span><span style="color: #DD0000">'key3'</span><span style="color: #007700">, </span><span style="color: #DD0000">'badkey'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 扩展版本 v3 有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$items </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'key1' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value1'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key2' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value2'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key3' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value3'<br /></span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$items</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'key1'</span><span style="color: #007700">, </span><span style="color: #DD0000">'key3'</span><span style="color: #007700">, </span><span style="color: #DD0000">'badkey'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-array(2) {
+<div class="examplescode"><pre class="examplescode">array(2) {
   [&quot;key1&quot;]=&gt;
   string(6) &quot;value1&quot;
   [&quot;key3&quot;]=&gt;
   string(6) &quot;value3&quot;
-}
-</pre></div>
+}</pre>
+</div>
     </div>
    </div>
   </p>
   
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4494">
     <p><strong>Example #2 <span class="function"><strong>Memcached::getMulti()</strong></span> 的 Memcached v1 和 v2 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 仅在扩展版本 v1 和 v2 中有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$items </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'key1' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value1'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key2' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value2'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key3' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value3'<br /></span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$items</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'key1'</span><span style="color: #007700">, </span><span style="color: #DD0000">'key3'</span><span style="color: #007700">, </span><span style="color: #DD0000">'badkey'</span><span style="color: #007700">), </span><span style="color: #0000BB">$cas</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">, </span><span style="color: #0000BB">$cas</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 仅在扩展版本 v1 和 v2 中有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$items </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'key1' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value1'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key2' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value2'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'key3' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'value3'<br /></span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$items</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'key1'</span><span style="color: #007700">, </span><span style="color: #DD0000">'key3'</span><span style="color: #007700">, </span><span style="color: #DD0000">'badkey'</span><span style="color: #007700">), </span><span style="color: #0000BB">$cas</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">, </span><span style="color: #0000BB">$cas</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-array(2) {
+<div class="examplescode"><pre class="examplescode">array(2) {
   [&quot;key1&quot;]=&gt;
   string(6) &quot;value1&quot;
   [&quot;key3&quot;]=&gt;
@@ -178,8 +161,8 @@ array(2) {
   float(2360)
   [&quot;key3&quot;]=&gt;
   float(2362)
-}
-</pre></div>
+}</pre>
+</div>
     </div>
    </div>
   </p>
@@ -187,49 +170,41 @@ array(2) {
 
  
   <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #3 <strong><code>Memcached::GET_PRESERVE_ORDER</code></strong> 的 Memcached v3 示例</strong></p>
+   <div class="example" id="example-4495">
+    <p><strong>Example #3 <strong><code><a href="memcached.constants.html#memcached.constants.get-preserve-order">Memcached::GET_PRESERVE_ORDER</a></code></strong> 的 Memcached v3 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//  v3 扩展有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'foo' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'bar' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'bar-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'baz' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'baz-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'lol' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'lol-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'kek' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'kek-data'</span><span style="color: #007700">,<br />);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">3600</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$keys </span><span style="color: #007700">= </span><span style="color: #0000BB">array_keys</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$keys</span><span style="color: #007700">[] = </span><span style="color: #DD0000">'zoo'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$got </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$keys</span><span style="color: #007700">, </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">GET_PRESERVE_ORDER</span><span style="color: #007700">);<br /><br />foreach (</span><span style="color: #0000BB">$got </span><span style="color: #007700">as </span><span style="color: #0000BB">$k </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$v</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$k</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$v</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//  v3 扩展有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'foo' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'bar' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'bar-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'baz' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'baz-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'lol' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'lol-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'kek' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'kek-data'</span><span style="color: #007700">,<br />);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">3600</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$keys </span><span style="color: #007700">= </span><span style="color: #0000BB">array_keys</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$keys</span><span style="color: #007700">[] = </span><span style="color: #DD0000">'zoo'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$got </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$keys</span><span style="color: #007700">, </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">GET_PRESERVE_ORDER</span><span style="color: #007700">);<br /><br />foreach (</span><span style="color: #0000BB">$got </span><span style="color: #007700">as </span><span style="color: #0000BB">$k </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$v</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$k</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$v</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-foo foo-data
+<div class="examplescode"><pre class="examplescode">foo foo-data
 bar bar-data
 baz baz-data
 lol lol-data
 kek kek-data
-zoo 
-</pre></div>
+zoo</pre>
+</div>
     </div>
    </div>
   </p>
 
   <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #4 <strong><code>Memcached::GET_PRESERVE_ORDER</code></strong> 的 Memcached v1 和 v2 示例</strong></p>
+   <div class="example" id="example-4496">
+    <p><strong>Example #4 <strong><code><a href="memcached.constants.html#memcached.constants.get-preserve-order">Memcached::GET_PRESERVE_ORDER</a></code></strong> 的 Memcached v1 和 v2 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 在扩展版本 v1 和 v2  中有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'foo' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'bar' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'bar-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'baz' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'baz-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'lol' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'lol-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'kek' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'kek-data'</span><span style="color: #007700">,<br />);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">3600</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$null </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$keys </span><span style="color: #007700">= </span><span style="color: #0000BB">array_keys</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$keys</span><span style="color: #007700">[] = </span><span style="color: #DD0000">'zoo'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$got </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$keys</span><span style="color: #007700">, </span><span style="color: #0000BB">$null</span><span style="color: #007700">, </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">GET_PRESERVE_ORDER</span><span style="color: #007700">);<br /><br />foreach (</span><span style="color: #0000BB">$got </span><span style="color: #007700">as </span><span style="color: #0000BB">$k </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$v</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$k</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$v</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 在扩展版本 v1 和 v2  中有效<br /><br /></span><span style="color: #0000BB">$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$data </span><span style="color: #007700">= array(<br />    </span><span style="color: #DD0000">'foo' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'bar' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'bar-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'baz' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'baz-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'lol' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'lol-data'</span><span style="color: #007700">,<br />    </span><span style="color: #DD0000">'kek' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'kek-data'</span><span style="color: #007700">,<br />);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">, </span><span style="color: #0000BB">3600</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$null </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$keys </span><span style="color: #007700">= </span><span style="color: #0000BB">array_keys</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$keys</span><span style="color: #007700">[] = </span><span style="color: #DD0000">'zoo'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$got </span><span style="color: #007700">= </span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$keys</span><span style="color: #007700">, </span><span style="color: #0000BB">$null</span><span style="color: #007700">, </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">GET_PRESERVE_ORDER</span><span style="color: #007700">);<br /><br />foreach (</span><span style="color: #0000BB">$got </span><span style="color: #007700">as </span><span style="color: #0000BB">$k </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$v</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$k</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$v</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-foo foo-data
+<div class="examplescode"><pre class="examplescode">foo foo-data
 bar bar-data
 baz baz-data
 lol lol-data
 kek kek-data
-zoo 
-</pre></div>
+zoo</pre>
+</div>
     </div>
    </div>
   </p>
@@ -240,9 +215,9 @@ zoo
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="memcached.getmultibykey.html" class="methodname" rel="rdfs-seeAlso">Memcached::getMultiByKey()</a> - 从特定服务器检索多个元素</span></li>
-    <li class="member"><span class="methodname"><a href="memcached.get.html" class="methodname" rel="rdfs-seeAlso">Memcached::get()</a> - 检索元素</span></li>
-    <li class="member"><span class="methodname"><a href="memcached.getdelayed.html" class="methodname" rel="rdfs-seeAlso">Memcached::getDelayed()</a> - 请求多个元素</span></li>
+    <li><span class="methodname"><a href="memcached.getmultibykey.html" class="methodname" rel="rdfs-seeAlso">Memcached::getMultiByKey()</a> - 从特定服务器检索多个元素</span></li>
+    <li><span class="methodname"><a href="memcached.get.html" class="methodname" rel="rdfs-seeAlso">Memcached::get()</a> - 检索元素</span></li>
+    <li><span class="methodname"><a href="memcached.getdelayed.html" class="methodname" rel="rdfs-seeAlso">Memcached::getDelayed()</a> - 请求多个元素</span></li>
    </ul>
   </p>
  </div>

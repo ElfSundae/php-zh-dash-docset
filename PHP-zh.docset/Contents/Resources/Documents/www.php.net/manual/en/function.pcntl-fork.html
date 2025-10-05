@@ -2,11 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>在当前进程当前位置产生分支（子进程）。译注：fork是创建了一个子进程，父进程和子进程
-  都从fork的位置开始向下继续执行，不同的是父进程执行过程中，得到的fork返回值为子进程
-  号，而子进程得到的是0。</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>在当前进程当前位置产生分叉（fork）</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -23,55 +21,51 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.pcntl.html">PCNTL 函数</a></li>
-    <li>在当前进程当前位置产生分支（子进程）。译注：fork是创建了一个子进程，父进程和子进程
-  都从fork的位置开始向下继续执行，不同的是父进程执行过程中，得到的fork返回值为子进程
-  号，而子进程得到的是0。</li>
+    <li>在当前进程当前位置产生分叉（fork）</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.pcntl-fork" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">pcntl_fork</h1>
-  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pcntl_fork</span> &mdash; <span class="dc-title">
-  在当前进程当前位置产生分支（子进程）。译注：fork是创建了一个子进程，父进程和子进程
-  都从fork的位置开始向下继续执行，不同的是父进程执行过程中，得到的fork返回值为子进程
-  号，而子进程得到的是0。
-  </span></p>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pcntl_fork</span> &mdash; <span class="dc-title">在当前进程当前位置产生分叉（fork）</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.pcntl-fork-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>pcntl_fork</strong></span>(): <span class="type">int</span></div>
+   <span class="methodname"><strong>pcntl_fork</strong></span>(): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
-  <span class="function"><strong>pcntl_fork()</strong></span>函数创建一个子进程，这个子进程仅PID（进程号）
-  和PPID（父进程号）与其父进程不同。fork怎样在您的系统工作的详细信息请查阅您的系统
-  的fork（2）手册。
+  <span class="function"><strong>pcntl_fork()</strong></span> 函数创建子进程，这个子进程仅 PID（进程号）
+  和 PPID（父进程号）与其父进程不同。有关分叉在系统上工作的具体细节，请参阅系统的 fork(2) 手册页。
   </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pcntl-fork-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">此函数没有参数。</p>
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-function.pcntl-fork-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-  成功时，在父进程执行线程内返回产生的子进程的PID，在子进程执行线程内返回0。失败时，在
-  父进程上下文返回-1，不会创建子进程，并且会引发一个PHP错误。
+  成功时，在父进程执行线程内返回产生的子进程的 PID，在子进程执行线程内返回 0。失败时，在
+  父进程上下文返回 -1，不会创建子进程，并且会引发 PHP 错误。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.pcntl-fork-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3373">
     <p><strong>Example #1 <span class="function"><strong>pcntl_fork()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$pid </span><span style="color: #007700">= </span><span style="color: #0000BB">pcntl_fork</span><span style="color: #007700">();<br /></span><span style="color: #FF8000">//父进程和子进程都会执行下面代码<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$pid </span><span style="color: #007700">== -</span><span style="color: #0000BB">1</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">//错误处理：创建子进程失败时返回-1.<br />     </span><span style="color: #007700">die(</span><span style="color: #DD0000">'could not fork'</span><span style="color: #007700">);<br />} else if (</span><span style="color: #0000BB">$pid</span><span style="color: #007700">) {<br />     </span><span style="color: #FF8000">//父进程会得到子进程号，所以这里是父进程执行的逻辑<br />     </span><span style="color: #0000BB">pcntl_wait</span><span style="color: #007700">(</span><span style="color: #0000BB">$status</span><span style="color: #007700">); </span><span style="color: #FF8000">//等待子进程中断，防止子进程成为僵尸进程。<br /></span><span style="color: #007700">} else {<br />     </span><span style="color: #FF8000">//子进程得到的$pid为0, 所以这里是子进程执行的逻辑。<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$pid </span><span style="color: #007700">= </span><span style="color: #0000BB">pcntl_fork</span><span style="color: #007700">();<br />if (</span><span style="color: #0000BB">$pid </span><span style="color: #007700">== -</span><span style="color: #0000BB">1</span><span style="color: #007700">) {<br />     die(</span><span style="color: #DD0000">'could not fork'</span><span style="color: #007700">);<br />} else if (</span><span style="color: #0000BB">$pid</span><span style="color: #007700">) {<br />     </span><span style="color: #FF8000">// 父进程<br />     </span><span style="color: #0000BB">pcntl_wait</span><span style="color: #007700">(</span><span style="color: #0000BB">$status</span><span style="color: #007700">); </span><span style="color: #FF8000">// 防止僵尸子进程<br /></span><span style="color: #007700">} else {<br />     </span><span style="color: #FF8000">// 子进程<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -83,8 +77,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.pcntl-waitpid.html" class="function" rel="rdfs-seeAlso">pcntl_waitpid()</a> - 等待或返回fork的子进程状态</span></li>
-    <li class="member"><span class="function"><a href="function.pcntl-signal.html" class="function" rel="rdfs-seeAlso">pcntl_signal()</a> - 安装一个信号处理器</span></li>
+    <li><span class="function"><a href="function.pcntl-rfork.html" class="function" rel="rdfs-seeAlso">pcntl_rfork()</a> - Manipulates process resources</span></li>
+    <li><span class="function"><a href="function.pcntl-waitpid.html" class="function" rel="rdfs-seeAlso">pcntl_waitpid()</a> - 等待或返回 fork 的子进程状态</span></li>
+    <li><span class="function"><a href="function.pcntl-signal.html" class="function" rel="rdfs-seeAlso">pcntl_signal()</a> - 安装信号处理程序</span></li>
+    <li><span class="function"><a href="function.cli-set-process-title.html" class="function" rel="rdfs-seeAlso">cli_set_process_title()</a> - Sets the process title</span></li>
    </ul>
   </p>
  </div>
@@ -94,7 +90,67 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127790""></a>
+<div id="allnotes">  <a name="128227""></a>
+  <div class="note">
+   <strong class="user">cyrus at hirvi dot com</strong>
+   <a href="#128227" class="date">18-Feb-2023 02:46</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Here is an APCu alternative (instead of shared memory) function of fork_process by `kenneth at fellowrock dot com` https://www.php.net/manual/en/function.pcntl-fork.php#115855<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">// usage<br />
+</span><span class="default">$namespace </span><span class="keyword">= </span><span class="string">'some_namespace'</span><span class="keyword">;<br />
+</span><span class="default">$processes </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; function () {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">'Hello'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; },<br />
+&nbsp;&nbsp;&nbsp; function () {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">' world!'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; },<br />
+];<br />
+</span><span class="default">$callback </span><span class="keyword">= function (</span><span class="default">$result</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="default">$result</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] . </span><span class="default">$result</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />
+};<br />
+</span><span class="default">threadize</span><span class="keyword">(</span><span class="default">$namespace</span><span class="keyword">, </span><span class="default">$processes</span><span class="keyword">, </span><span class="default">$callback</span><span class="keyword">);<br />
+<br />
+function </span><span class="default">threadize</span><span class="keyword">(</span><span class="default">string $namespace</span><span class="keyword">, </span><span class="default">$processes</span><span class="keyword">, callable </span><span class="default">$callback</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">apcu_store</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">. </span><span class="string">'_monitor'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">86400 </span><span class="keyword">* </span><span class="default">3</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$processes</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">$pid</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$i </span><span class="keyword">== </span><span class="default">1</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">usleep</span><span class="keyword">(</span><span class="default">100000</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">apcu_store</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">. </span><span class="string">'_process_result_' </span><span class="keyword">. </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$processes</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">](), </span><span class="default">86400 </span><span class="keyword">* </span><span class="default">3</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">apcu_inc</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">. </span><span class="string">'_monitor'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit(</span><span class="default">0</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; while (</span><span class="default">pcntl_waitpid</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$status</span><span class="keyword">) != -</span><span class="default">1</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">apcu_fetch</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">. </span><span class="string">'_monitor'</span><span class="keyword">) === </span><span class="default">count</span><span class="keyword">(</span><span class="default">$processes</span><span class="keyword">)) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$result </span><span class="keyword">= [];<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$processes</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$result</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">apcu_fetch</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">. </span><span class="string">'_process_result_' </span><span class="keyword">. </span><span class="default">$i</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">apcu_delete</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">. </span><span class="string">'_process_result_' </span><span class="keyword">. </span><span class="default">$i</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$callback</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">apcu_delete</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">. </span><span class="string">'_monitor'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127790""></a>
   <div class="note">
    <strong class="user">qu4qu426com123 at gmail dot com</strong>
    <a href="#127790" class="date">21-Oct-2022 06:40</a>

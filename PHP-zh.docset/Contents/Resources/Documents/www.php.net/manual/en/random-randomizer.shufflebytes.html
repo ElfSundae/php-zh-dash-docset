@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Get a byte-wise permutation of a string</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-random-randomizer.shufflebytes-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Random\Randomizer::shuffleBytes</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$bytes</code></span>): <span class="type">string</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Random\Randomizer::shuffleBytes</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$bytes</code></span>): <span class="type"><a href="language.types.string.html" class="type string">string</a></span></div>
 
   <p class="para rdfs-comment">
    Returns a uniformly selected permutation of the input <code class="parameter">bytes</code>.
@@ -51,22 +51,17 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">bytes</code></dt>
-
+    <dt><code class="parameter">bytes</code></dt>
     <dd>
-
      <p class="para">
-      The <span class="type">string</span> whose bytes are shuffled.
+      The <span class="type"><a href="language.types.string.html" class="type string">string</a></span> whose bytes are shuffled.
      </p>
      <p class="para">
-      The input <span class="type">string</span> will not be modified.
+      The input <span class="type"><a href="language.types.string.html" class="type string">string</a></span> will not be modified.
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
@@ -94,21 +89,31 @@
 
 
  <div class="refsect1 examples" id="refsect1-random-randomizer.shufflebytes-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-3597">
    <p><strong>Example #1 <span class="function"><strong>Random\Randomizer::shuffleBytes()</strong></span> example</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$r </span><span style="color: #007700">= new </span><span style="color: #0000BB">\Random\Randomizer</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// Shuffle bytes in a string:<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">'?'</span><span style="color: #007700">, </span><span style="color: #0000BB">$r</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">shuffleBytes</span><span style="color: #007700">( </span><span style="color: #DD0000">"PHP is great!" </span><span style="color: #007700">), </span><span style="color: #DD0000">"?\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$r </span><span style="color: #007700">= new </span><span style="color: #0000BB">\Random\Randomizer</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// Shuffle bytes in a string:<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"?"</span><span style="color: #007700">, </span><span style="color: #0000BB">$r</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">shuffleBytes</span><span style="color: #007700">(</span><span style="color: #DD0000">"PHP is great!"</span><span style="color: #007700">), </span><span style="color: #DD0000">"?\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+   <div class="example-contents"><p>以上示例的输出类似于：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-? ga rHs!PPiet?
-</pre></div>
+<div class="examplescode"><pre class="examplescode">? ga rHs!PPiet?</pre>
+</div>
+   </div>
+  </div>
+  <div class="example" id="example-3598">
+   <p><strong>Example #2 Byte-wise shuffling breaks Unicode characters</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$r </span><span style="color: #007700">= new </span><span style="color: #0000BB">\Random\Randomizer</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$unicode </span><span style="color: #007700">= </span><span style="color: #DD0000">"??, ??, ??, ??, ??"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$shuffled </span><span style="color: #007700">= </span><span style="color: #0000BB">$r</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">shuffleBytes</span><span style="color: #007700">( </span><span style="color: #0000BB">$unicode </span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Byte-wise shuffling of non-ASCII characters destroys them,<br />// resulting in invalid sequences (indicated by the Unicode<br />// replacement character) or even entirely different characters<br />// appearing in the output.<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"Original: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$unicode</span><span style="color: #007700">, </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"Shuffled: ?"</span><span style="color: #007700">, </span><span style="color: #0000BB">$shuffled</span><span style="color: #007700">, </span><span style="color: #DD0000">"?\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"Shuffled Bytes: "</span><span style="color: #007700">, </span><span style="color: #0000BB">bin2hex</span><span style="color: #007700">(</span><span style="color: #0000BB">$shuffled</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   <div class="example-contents"><p>以上示例的输出类似于：</p></div>
+   <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">Original: ??, ??, ??, ??, ??
+Shuffled: ?? ??,???????,? ?? ?, ?,???
+Shuffled Bytes: 87208e912c8d9fa5f0f0f09f8d9f2cf09f208c9d20f02c209f2c8d8d</pre>
+</div>
    </div>
   </div>
  </div>
@@ -119,6 +124,24 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="129082""></a>
+  <div class="note">
+   <strong class="user">okerem@github</strong>
+   <a href="#129082" class="date">02-Dec-2023 03:35</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For a unicode-safe shuffling;<br />
+<br />
+<span class="default">&lt;?php<br />
+$r </span><span class="keyword">= new </span><span class="default">\Random\Randomizer</span><span class="keyword">();<br />
+</span><span class="default">$s </span><span class="keyword">= </span><span class="default">join</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">-&gt;</span><span class="default">shuffleArray</span><span class="keyword">(</span><span class="default">mb_str_split</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">)));</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

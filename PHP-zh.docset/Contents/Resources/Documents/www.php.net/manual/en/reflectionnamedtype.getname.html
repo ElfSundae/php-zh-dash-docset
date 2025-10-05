@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>以字符串形式获取类型的名称</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-reflectionnamedtype.getname-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>ReflectionNamedType::getName</strong></span>(): <span class="type">string</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>ReflectionNamedType::getName</strong></span>(): <span class="type"><a href="language.types.string.html" class="type string">string</a></span></div>
 
  </div>
 
@@ -58,7 +58,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="reflectiontype.tostring.html" class="methodname" rel="rdfs-seeAlso">ReflectionType::__toString()</a> - To string</span></li>
+    <li><span class="methodname"><a href="reflectiontype.tostring.html" class="methodname" rel="rdfs-seeAlso">ReflectionType::__toString()</a> - To string</span></li>
    </ul>
   </p>
  </div>
@@ -68,106 +68,18 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="122909""></a>
+<div id="allnotes">  <a name="128874""></a>
   <div class="note">
-   <strong class="user">e3jeremy at gmail dot com</strong>
-   <a href="#122909" class="date">04-Jul-2018 07:28</a>
+   <strong class="user">baptiste at pillot dot fr</strong>
+   <a href="#128874" class="date">08-Sep-2023 12:40</a>
    <div class="text">
     <div class="phpcode">
 <code><span class="html">
-Method "getName" is available when you access getType from getParameters from class reports information of a method(ReflectionMethod).<br />
-No need to instantiate the ReflectionNamedType.<br />
+Possible values for type names are:<br />
 <br />
-Below is my custom method on resolving method dependencies, getName is a big help.<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">class </span><span class="default">A<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">my</span><span class="keyword">()<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">' My '</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-class </span><span class="default">B<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">A $a</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">a </span><span class="keyword">= </span><span class="default">$a</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">hello</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="string">'Hello' </span><span class="keyword">. </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">a</span><span class="keyword">-&gt;</span><span class="default">my</span><span class="keyword">() . </span><span class="default">$string </span><span class="keyword">. </span><span class="string">'.'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-class </span><span class="default">C<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; public function print(</span><span class="default">$instance</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$params </span><span class="keyword">= [</span><span class="string">'World'</span><span class="keyword">];<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">call_user_func_array</span><span class="keyword">(array(</span><span class="default">$instance</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">), </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">resolveMethodDependencies</span><span class="keyword">(</span><span class="default">$instance</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">), </span><span class="default">$params</span><span class="keyword">));<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">instantiate</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">method_exists</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">, </span><span class="string">'__construct'</span><span class="keyword">)) </span><span class="default">$instance </span><span class="keyword">= new </span><span class="default">$class</span><span class="keyword">(...</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">resolveMethodDependencies</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">, </span><span class="string">'__construct'</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else </span><span class="default">$instance </span><span class="keyword">= new </span><span class="default">$class</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$instance</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; protected function </span><span class="default">resolveMethodDependencies</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$params </span><span class="keyword">= [];<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$reflection </span><span class="keyword">= new </span><span class="default">\ReflectionMethod</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach (</span><span class="default">$reflection</span><span class="keyword">-&gt;</span><span class="default">getParameters</span><span class="keyword">() as </span><span class="default">$param</span><span class="keyword">) {<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$type </span><span class="keyword">= </span><span class="default">$param</span><span class="keyword">-&gt;</span><span class="default">getType</span><span class="keyword">()) {<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!</span><span class="default">$type </span><span class="keyword">|| !</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">instatiatable </span><span class="keyword">(</span><span class="default">$type</span><span class="keyword">)) continue;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// This is the right way to get the class name in string.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$className </span><span class="keyword">= </span><span class="default">$type</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">();<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// This will throw error.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // $className = $param-&gt;getType();<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // Alos this one will do the trick.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // $className = (string) $param-&gt;getType();<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">method_exists</span><span class="keyword">(</span><span class="default">$className</span><span class="keyword">, </span><span class="string">'__construct'</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$params</span><span class="keyword">[] = new </span><span class="default">$className</span><span class="keyword">(...</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">resolveMethodDependencies</span><span class="keyword">(</span><span class="default">$className</span><span class="keyword">, </span><span class="string">'__construct'</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; continue;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$params</span><span class="keyword">[] = new </span><span class="default">$className</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$params</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; protected function </span><span class="default">instatiatable </span><span class="keyword">(</span><span class="default">$type</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// Add conditon if something is leftout.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // This is to ensure that the type is existing class.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">return </span><span class="default">$type </span><span class="keyword">!= </span><span class="string">'Closure' </span><span class="keyword">&amp;&amp; !</span><span class="default">is_callable</span><span class="keyword">(</span><span class="default">$type</span><span class="keyword">) &amp;&amp; </span><span class="default">class_exists</span><span class="keyword">(</span><span class="default">$type</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="default">$class </span><span class="keyword">= new </span><span class="default">C</span><span class="keyword">;<br />
-<br />
-</span><span class="default">$class</span><span class="keyword">-&gt;</span><span class="default">print</span><span class="keyword">(<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$class</span><span class="keyword">-&gt;</span><span class="default">instantiate</span><span class="keyword">(</span><span class="string">'B'</span><span class="keyword">), </span><span class="string">'hello'<br />
-</span><span class="keyword">);<br />
-<br />
-</span><span class="default">Output</span><span class="keyword">:<br />
-</span><span class="default">Hello My World</span><span class="keyword">.</span>
-</span>
+- The name of a class, interface, or trait,<br />
+- The name of any built-in type (php 8.2): array, bool, callable, float, int, null, object, string, false, iterable, mixed, never, true, void,<br />
+- The name of any relative class type: parent, self, static.</span>
 </code>
     </div>
    </div>

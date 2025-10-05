@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>访问各个输入/输出流（I/O streams）</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -39,15 +39,15 @@
    内存中、磁盘备份的临时文件流以及可以操作其他读取写入文件资源的过滤器。
   </p>
 
-  <div class="refsect2 unknown-unknown-descriptiop" id="wrappers.php.std">
+  <div class="refsect2 unknown-2" id="wrappers.php.std">
    <h4 class="title">php://stdin, php://stdout 和 php://stderr</h4>
    <p class="simpara">
     <var class="filename">php://stdin</var>、<var class="filename">php://stdout</var> 和
     <var class="filename">php://stderr</var> 允许直接访问 PHP 进程相应的输入或者输出流。
     数据流引用了复制的文件描述符，所以如果你打开 <var class="filename">php://stdin</var> 并在之后关了它，
-    仅是关闭了复制品，真正被引用的  <strong><code>STDIN</code></strong> 并不受影响。
-    推荐你简单使用常量 <strong><code>STDIN</code></strong>、
-    <strong><code>STDOUT</code></strong> 和 <strong><code>STDERR</code></strong> 来代替手工打开这些封装器。
+    仅是关闭了复制品，真正被引用的  <strong><code><a href="reserved.constants.html#constant.stdin">STDIN</a></code></strong> 并不受影响。
+    推荐你简单使用常量 <strong><code><a href="reserved.constants.html#constant.stdin">STDIN</a></code></strong>、
+    <strong><code><a href="reserved.constants.html#constant.stdout">STDOUT</a></code></strong> 和 <strong><code><a href="reserved.constants.html#constant.stderr">STDERR</a></code></strong> 来代替手工打开这些封装器。
    </p>
    <p class="simpara">
     <var class="filename">php://stdin</var> 是只读的，
@@ -56,22 +56,18 @@
   </div>
 
 
-  
-  
-  
-  
-  
-  <div class="refsect2 unknown-unknown-unknown-unknown-descriptior" id="wrappers.php.input">
+  <div class="refsect2 unknown-4" id="wrappers.php.input">
    <h4 class="title">php://input</h4>
    <p class="simpara">
     <var class="filename">php://input</var> 是个可以访问请求的原始数据的只读流。
-    <code class="literal">enctype=&quot;multipart/form-data&quot;</code> 的时候
-    <var class="filename">php://input</var> 是无效的。
+    如果启用了 <a href="ini.core.html#ini.enable-post-data-reading" class="link">enable_post_data_reading</a> 选项，
+    <var class="filename">php://input</var> 在使用 <code class="literal">enctype=&quot;multipart/form-data&quot;</code>
+    的 POST 请求中不可用。
    </p>
   </div>
 
 
-  <div class="refsect2 unknown-unknown-unknown-unknown-unknown-unknown-descriptiot" id="wrappers.php.output">
+  <div class="refsect2 unknown-6" id="wrappers.php.output">
    <h4 class="title">php://output</h4>
    <p class="para">
     <var class="filename">php://output</var> 是一个只写的数据流，
@@ -81,10 +77,7 @@
   </div>
 
 
-  
-  
-  
-  <div class="refsect2 unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-descriptiov" id="wrappers.php.fd">
+  <div class="refsect2 unknown-8" id="wrappers.php.fd">
    <h4 class="title">php://fd</h4>
    <p class="simpara">
     <var class="filename">php://fd</var> 允许直接访问指定的文件描述符。
@@ -93,13 +86,13 @@
   </div>
 
 
-  <div class="refsect2 unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-descriptiox" id="wrappers.php.memory">
+  <div class="refsect2 unknown-10" id="wrappers.php.memory">
    <h4 class="title">php://memory 和 php://temp</h4>
    <p class="simpara">
     <var class="filename">php://memory</var> 和 <var class="filename">php://temp</var> 是一个类似文件
     包装器的数据流，允许读写临时数据。
      
-    两者的唯一区别是 <var class="filename">php://memory</var> 总是把数据储存在内存中，
+    两者的一个区别是 <var class="filename">php://memory</var> 总是把数据储存在内存中，
     而 <var class="filename">php://temp</var> 会在内存量达到预定义的限制后（默认是 2MB）存入临时文件中。
     临时文件位置的决定和 <span class="function"><a href="function.sys-get-temp-dir.html" class="function">sys_get_temp_dir()</a></span> 的方式一致。
    </p>
@@ -107,10 +100,17 @@
     <var class="filename">php://temp</var> 的内存限制可通过添加 <code class="literal">/maxmemory:NN</code> 
     来控制，<code class="literal">NN</code> 是以字节为单位、保留在内存的最大数据量，超过则使用临时文件。
    </p>
+   <div class="caution"><strong class="caution">Caution</strong>
+    <p class="simpara">
+     某些 PHP 扩展可能需要标准 IO 流，并且可能尝试将指定流转换为标准 IO
+     流。对于内存流，此转换可能会失败，因为需要 C <span class="function"><strong>fopencookie()</strong></span>
+     函数可以调用。此 C 函数在 Windows 上<em>无效</em>。
+    </p>
+   </div>
   </div>
 
 
-  <div class="refsect2 unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-descriptioz" id="wrappers.php.filter">
+  <div class="refsect2 unknown-12" id="wrappers.php.filter">
    <h4 class="title">php://filter</h4>
    <p class="simpara">
     <var class="filename">php://filter</var> 是一种元封装器，
@@ -307,69 +307,55 @@
  
 
  <div class="refsect1 examples" id="refsect1-wrappers.php-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-832">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-408">
    <p><strong>Example #1 php://temp/maxmemory</strong></p>
    <div class="example-contents"><p>
     这个可选选项允许设置 <var class="filename">php://temp</var> 开始使用临时文件前的最大内存限制。
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 限制内存为 5 MB。<br /></span><span style="color: #0000BB">$fiveMBs </span><span style="color: #007700">= </span><span style="color: #0000BB">5 </span><span style="color: #007700">* </span><span style="color: #0000BB">1024 </span><span style="color: #007700">* </span><span style="color: #0000BB">1024</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://temp/maxmemory:</span><span style="color: #0000BB">$fiveMBs</span><span style="color: #DD0000">"</span><span style="color: #007700">, </span><span style="color: #DD0000">'r+'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">fputs</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"hello\n"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 读取刚才写入的内容。<br /></span><span style="color: #0000BB">rewind</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 限制内存为 5 MB。<br /></span><span style="color: #0000BB">$fiveMBs </span><span style="color: #007700">= </span><span style="color: #0000BB">5 </span><span style="color: #007700">* </span><span style="color: #0000BB">1024 </span><span style="color: #007700">* </span><span style="color: #0000BB">1024</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://temp/maxmemory:</span><span style="color: #0000BB">$fiveMBs</span><span style="color: #DD0000">"</span><span style="color: #007700">, </span><span style="color: #DD0000">'r+'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">fputs</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"hello\n"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 读取刚才写入的内容。<br /></span><span style="color: #0000BB">rewind</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
-  <div class="example" id="ziparchive.addpattern.example.basic">
+  <div class="example" id="example-409">
    <p><strong>Example #2 php://filter/resource=&lt;待过滤的数据流&gt;</strong></p>
    <div class="example-contents"><p>
     这个参数必须位于 <var class="filename">php://filter</var> 的末尾，并且指向需要过滤筛选的数据流。
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 这简单等同于：<br />  readfile("http://www.example.com");<br />  实际上没有指定过滤器 */<br /><br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/resource=http://www.example.com"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 这简单等同于：<br />  readfile("http://www.example.com");<br />  实际上没有指定过滤器 */<br /><br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/resource=http://www.example.com"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
-  <div class="example" id="example-836">
+  <div class="example" id="example-410">
    <p><strong>Example #3 php://filter/read=&lt;读链需要应用的过滤器列表&gt;</strong></p>
    <div class="example-contents"><p>
     这个参数采用一个或以管道符 <code class="literal">|</code> 分隔的多个过滤器名称。
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 这会以大写字母输出 www.example.com 的全部内容 */<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/read=string.toupper/resource=http://www.example.com"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 这会和以上所做的一样，但还会用 ROT13 加密。 */<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/read=string.toupper|string.rot13/resource=http://www.example.com"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 这会以大写字母输出 www.example.com 的全部内容 */<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/read=string.toupper/resource=http://www.example.com"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 这会和以上所做的一样，但还会用 ROT13 加密。 */<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/read=string.toupper|string.rot13/resource=http://www.example.com"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
-  <div class="example" id="example-838">
+  <div class="example" id="example-411">
    <p><strong>Example #4 php://filter/write=&lt;写链需要应用的过滤器列表&gt;</strong></p>
    <div class="example-contents"><p>
     这个参数采用一个或以管道符 <code class="literal">|</code> 分隔的多个过滤器名称。
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 这会通过 rot13 过滤器筛选出字符 "Hello World"<br />  然后写入当前目录下的 example.txt */<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/write=string.rot13/resource=example.txt"</span><span style="color: #007700">,</span><span style="color: #DD0000">"Hello World"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 这会通过 rot13 过滤器筛选出字符 "Hello World"<br />  然后写入当前目录下的 example.txt */<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/write=string.rot13/resource=example.txt"</span><span style="color: #007700">,</span><span style="color: #DD0000">"Hello World"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
-  <div class="example" id="example-840">
+  <div class="example" id="example-412">
    <p><strong>Example #5 php://memory 和 php://temp 是一次性的</strong></p>
    <div class="example-contents"><p>
     <var class="filename">php://memory</var> 和 <var class="filename">php://temp</var>
     是一次性的，比如：stream 流关闭后，就无法再次得到以前的内容了。
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-file_put_contents('php://memory', 'PHP');<br />echo file_get_contents('php://memory'); // 啥也没有</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000">file_put_contents('php://memory', 'PHP');<br />echo file_get_contents('php://memory'); // 啥也没有</span></code></div>
    </div>
 
   </div>

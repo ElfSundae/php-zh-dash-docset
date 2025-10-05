@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Seeks to an arbitrary row in statement result set</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>Adjusts the result pointer to an arbitrary row in the buffered result</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,7 +21,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.mysqli-stmt.html">mysqli_stmt</a></li>
-    <li>Seeks to an arbitrary row in statement result set</li>
+    <li>Adjusts the result pointer to an arbitrary row in the buffered result</li>
   </ul>
 </div>
 <div id="layout">
@@ -29,7 +29,7 @@
  <div class="refnamediv">
   <h1 class="refname">mysqli_stmt::data_seek</h1>
   <h1 class="refname">mysqli_stmt_data_seek</h1>
-  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli_stmt::data_seek</span> -- <span class="refname">mysqli_stmt_data_seek</span> &mdash; <span class="dc-title">Seeks to an arbitrary row in statement result set</span></p>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli_stmt::data_seek</span> -- <span class="refname">mysqli_stmt_data_seek</span> &mdash; <span class="dc-title">Adjusts the result pointer to an arbitrary row in the buffered result</span></p>
 
  </div>
 
@@ -37,15 +37,17 @@
   <h3 class="title">说明</h3>
   <p class="para">面向对象风格</p>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>mysqli_stmt::data_seek</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli_stmt::data_seek</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$offset</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">过程化风格</p>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_stmt_data_seek</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span> <code class="parameter">$statement</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code></span>): <span class="type"><span class="type void">void</span></span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_stmt_data_seek</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli-stmt.html" class="type mysqli_stmt">mysqli_stmt</a></span> <code class="parameter">$statement</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$offset</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">
-   Seeks to an arbitrary result pointer in the statement result set.
+   This function moves the result set pointer of the buffered result set to
+   an arbitrary row specified by the <code class="parameter">offset</code> parameter.
   </p>
   <p class="para">
+   This function works only on the buffered internal result set.
    <span class="function"><a href="mysqli-stmt.store-result.html" class="function">mysqli_stmt_store_result()</a></span> must be called prior to
    <span class="function"><strong>mysqli_stmt_data_seek()</strong></span>.
   </p>
@@ -57,27 +59,18 @@
   <p class="para">
    <dl>
     <dt>
-
-<code class="parameter">statement</code></dt>
-<dd>
-<p class="para">仅以过程化样式：由
+<code class="parameter">statement</code></dt><dd><p class="para">仅以过程化样式：由
 <span class="function"><a href="mysqli.stmt-init.html" class="function">mysqli_stmt_init()</a></span> 返回的 <span class="classname"><a href="class.mysqli-stmt.html" class="classname">mysqli_stmt</a></span> 对象。</p></dd>
-
     
-     <dt>
-<code class="parameter">offset</code></dt>
-
+     <dt><code class="parameter">offset</code></dt>
      <dd>
-
       <p class="para">
        Must be between zero and the total number of rows minus one (0..
        <span class="function"><a href="mysqli-stmt.num-rows.html" class="function">mysqli_stmt_num_rows()</a></span> - 1).
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -91,31 +84,24 @@
 
 
  <div class="refsect1 examples" id="refsect1-mysqli-stmt.data-seek-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-2972">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1485">
    <p><strong>Example #1 面向对象风格</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* Open a connection */<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* check connection */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect failed: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />    exit();<br />}<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name"</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">)) {<br /><br />    </span><span style="color: #FF8000">/* execute query */<br />    </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br />    </span><span style="color: #FF8000">/* bind result variables */<br />    </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* store result */<br />    </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">store_result</span><span style="color: #007700">();<br /><br />    </span><span style="color: #FF8000">/* seek to row no. 400 */<br />    </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">399</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* fetch values */<br />    </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br />    </span><span style="color: #0000BB">printf </span><span style="color: #007700">(</span><span style="color: #DD0000">"City: %s  Countrycode: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* close statement */<br />    </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #FF8000">/* close connection */<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">store_result</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* seek to row no. 400 */<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">399</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"City: %s  Countrycode: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);</span></span></code></div>
    </div>
 
   </div>
-  <div class="example" id="example-2974">
+  <div class="example" id="example-1486">
    <p><strong>Example #2 过程化风格</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* Open a connection */<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* check connection */<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect failed: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />    exit();<br />}<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name"</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">)) {<br /><br />    </span><span style="color: #FF8000">/* execute query */<br />    </span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* bind result variables */<br />    </span><span style="color: #0000BB">mysqli_stmt_bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* store result */<br />    </span><span style="color: #0000BB">mysqli_stmt_store_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* seek to row no. 400 */<br />    </span><span style="color: #0000BB">mysqli_stmt_data_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">399</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* fetch values */<br />    </span><span style="color: #0000BB">mysqli_stmt_fetch</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">printf </span><span style="color: #007700">(</span><span style="color: #DD0000">"City: %s  Countrycode: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">/* close statement */<br />    </span><span style="color: #0000BB">mysqli_stmt_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/* close connection */<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY Name"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">mysqli_stmt_bind_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">mysqli_stmt_store_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* seek to row no. 400 */<br /></span><span style="color: #0000BB">mysqli_stmt_data_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">399</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">mysqli_stmt_fetch</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"City: %s  Countrycode: %s\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$code</span><span style="color: #007700">);</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程会输出：</p></div>
+   <div class="example-contents"><p>以上示例会输出：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-City: Benin City  Countrycode: NGA
-</pre></div>
+<div class="examplescode"><pre class="examplescode">City: Benin City  Countrycode: NGA</pre>
+</div>
    </div>
   </div>
  </div>
@@ -125,7 +111,10 @@ City: Benin City  Countrycode: NGA
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="mysqli.prepare.html" class="function" rel="rdfs-seeAlso">mysqli_prepare()</a> - 预处理执行 SQL</span></li>
+    <li><span class="function"><a href="mysqli.prepare.html" class="function" rel="rdfs-seeAlso">mysqli_prepare()</a> - 预处理执行 SQL</span></li>
+    <li><span class="function"><a href="mysqli-stmt.store-result.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_store_result()</a> - Stores a result set in an internal buffer</span></li>
+    <li><span class="function"><a href="mysqli-stmt.num-rows.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_num_rows()</a> - Returns the number of rows fetched from the server</span></li>
+    <li><span class="function"><a href="mysqli-result.data-seek.html" class="function" rel="rdfs-seeAlso">mysqli_data_seek()</a> - Adjusts the result pointer to an arbitrary row in the result</span></li>
    </ul>
   </p>
  </div>

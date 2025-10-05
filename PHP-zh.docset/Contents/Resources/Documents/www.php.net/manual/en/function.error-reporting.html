@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置应该报告何种 PHP 错误</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.error-reporting-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>error_reporting</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$error_level</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>error_reporting</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$error_level</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>error_reporting()</strong></span> 函数能够在运行时设置 <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> 指令。
@@ -51,11 +51,8 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">error_level</code></dt>
-
+     <dt><code class="parameter">error_level</code></dt>
      <dd>
-
       <p class="para">
        新的 <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> 级别。
        可以是一个位掩码也可以是一个已命名的常量。
@@ -68,10 +65,8 @@
        <a href="errorfunc.constants.html" class="link">predefined constants</a> 中。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -79,8 +74,13 @@
  <div class="refsect1 returnvalues" id="refsect1-function.error-reporting-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回旧的 <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> 级别，或者在 <code class="parameter">error_level</code> 参数未给出时返回当前的级别。
+   在更改为 <code class="parameter">error_level</code> <em>之前</em>返回 <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> 级别。
   </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    <a href="language.operators.errorcontrol.html" class="link">错误控制</a> <code class="literal">@</code> 运算符在错误处理期间会更改错误级别。
+   </span>
+  </p></blockquote>
  </div>
 
 
@@ -112,15 +112,12 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.error-reporting-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1034">
+   <div class="example" id="example-507">
     <p><strong>Example #1 <span class="function"><strong>error_reporting()</strong></span> 范例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// 关闭所有PHP错误报告<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Report simple running errors<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">E_WARNING </span><span style="color: #007700">| </span><span style="color: #0000BB">E_PARSE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 报告 E_NOTICE也挺好 (报告未初始化的变量<br />// 或者捕获变量名的错误拼写)<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">E_WARNING </span><span style="color: #007700">| </span><span style="color: #0000BB">E_PARSE </span><span style="color: #007700">| </span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 除了 E_NOTICE，报告其他所有错误<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL </span><span style="color: #007700">^ </span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 报告所有 PHP 错误<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 报告所有 PHP 错误<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 和 error_reporting(E_ALL); 一样<br /></span><span style="color: #0000BB">ini_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'error_reporting'</span><span style="color: #007700">, </span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// 关闭所有PHP错误报告<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Report simple running errors<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">E_WARNING </span><span style="color: #007700">| </span><span style="color: #0000BB">E_PARSE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 报告 E_NOTICE也挺好 (报告未初始化的变量<br />// 或者捕获变量名的错误拼写)<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">E_WARNING </span><span style="color: #007700">| </span><span style="color: #0000BB">E_PARSE </span><span style="color: #007700">| </span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 除了 E_NOTICE，报告其他所有错误<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL </span><span style="color: #007700">^ </span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 报告所有 PHP 错误<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 报告所有 PHP 错误<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 和 error_reporting(E_ALL); 一样<br /></span><span style="color: #0000BB">ini_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'error_reporting'</span><span style="color: #007700">, </span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -132,9 +129,8 @@
   <h3 class="title">注释</h3>
   <div class="tip"><strong class="tip">Tip</strong>
    <p class="simpara">
-    传入 <code class="literal">-1</code> 的值将尽可能显示所有错误，
-    甚至包括将来 PHP 可能加入的新的错误级别和常量。
-    常量 <strong><code>E_ALL</code></strong> 有同样的行为。
+    传入 <code class="literal">-1</code> 的值将尽可能显示所有错误，甚至包括将来 PHP
+    可能加入的新的错误级别和常量。常量 <strong><code><a href="errorfunc.constants.html#constant.e-all">E_ALL</a></code></strong> 有同样的行为。
    </p>
   </div>
  </div>
@@ -144,10 +140,11 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><a href="errorfunc.configuration.html#ini.display-errors" class="link">display_errors</a> 指令</li>
-    <li class="member"><a href="errorfunc.configuration.html#ini.html-errors" class="link">html_errors</a> 指令</li>
-    <li class="member"><a href="errorfunc.configuration.html#ini.xmlrpc-errors" class="link">xmlrpc_errors</a> 指令</li>
-    <li class="member"><span class="function"><a href="function.ini-set.html" class="function" rel="rdfs-seeAlso">ini_set()</a> - 为一个配置选项设置值</span></li>
+    <li><a href="errorfunc.configuration.html#ini.display-errors" class="link">display_errors</a> 指令</li>
+    <li><a href="errorfunc.configuration.html#ini.html-errors" class="link">html_errors</a> 指令</li>
+    <li><a href="errorfunc.configuration.html#ini.xmlrpc-errors" class="link">xmlrpc_errors</a> 指令</li>
+    <li><a href="language.operators.errorcontrol.html" class="link">错误控制</a>运算符</li>
+    <li><span class="function"><a href="function.ini-set.html" class="function" rel="rdfs-seeAlso">ini_set()</a> - 为一个配置选项设置值</span></li>
    </ul>
   </p>
  </div>

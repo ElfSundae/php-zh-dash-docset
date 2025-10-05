@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>生成加密安全的伪随机整数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>获取生成加密安全、均匀分布的整数</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,52 +21,87 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.random.html">Random 函数</a></li>
-    <li>生成加密安全的伪随机整数</li>
+    <li>获取生成加密安全、均匀分布的整数</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.random-int" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">random_int</h1>
-  <p class="verinfo">(PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">random_int</span> &mdash; <span class="dc-title">生成加密安全的伪随机整数</span></p>
+  <p class="verinfo">(PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">random_int</span> &mdash; <span class="dc-title">获取生成加密安全、均匀分布的整数</span></p>
 
  </div>
 
  <div class="refsect1 description" id="refsect1-function.random-int-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>random_int</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$min</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$max</code></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>random_int</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$min</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$max</code></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
-   生成加密随机整数，适用于对结果公平至关重要的时候，比如扑克游戏洗牌时。
+   生成在指定最小值和最大值之间均匀分布的整数。
+  </p>
+  <p class="para">
+   该函数生成的随机性适用于所有应用，包括生成长期秘密，如加密密钥。
   </p>
   
 <p class="para">
- 此函数使用的随机性来源如下：
+ 此函数使用的随机性来源先后顺序如下：
 </p>
 <ul class="itemizedlist">
  <li class="listitem">
+  <p class="para">
+   Linux：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   FreeBSD &gt;= 12（PHP &gt;= 7.3）：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   Windows（PHP &gt;= 7.2）：<a href="https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal" class="link external" title="Link : https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal">&raquo;&nbsp;CNG-API</a>
+  </p>
+  <p class="para">
+   Windows：<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx" class="link external" title="Link : https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx">&raquo;&nbsp;CryptGenRandom</a>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   macOS（PHP &gt;= 8.2；&gt;= 8.1.9；&gt;= 8.0.22 如果 CCRandomGenerateBytes 在编译时可用）：CCRandomGenerateBytes()
+  </p>
+  <p class="para">
+   macOS（PHP &gt;= 8.1；&gt;= 8.0.2）：arc4random_buf()、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   NetBSD &gt;= 7（PHP &gt;= 7.1；&gt;= 7.0.1）：arc4random_buf()、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   OpenBSD &gt;= 5.5（PHP &gt;= 7.1；&gt;= 7.0.1）：arc4random_buf()、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   DragonflyBSD（PHP &gt;= 8.1）：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   Solaris（PHP &gt;= 8.1）：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
   <span class="simpara">
-   在 Windows 上始终使用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx" class="link external" title="Link : https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx">&raquo;&nbsp;<span class="function"><strong>CryptGenRandom()</strong></span></a>。在
-   PHP 7.2.0 起，将始终使用
-   <a href="https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal" class="link external" title="Link : https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal">&raquo;&nbsp;CNG-API</a> 代替。
+   未提及的 PHP 版本和操作系统的组合：<var class="filename">/dev/urandom</var>
   </span>
  </li>
  <li class="listitem">
   <span class="simpara">
-   在 Linux 上，如果有效，将使用
-   <a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom(2)</a>
-   系统调用。
-  </span>
- </li>
- <li class="listitem">
-  <span class="simpara">
-   其它平台将使用 <var class="filename">/dev/urandom</var>。
-  </span>
- </li>
- <li class="listitem">
-  <span class="simpara">
-   如果上述来源均不可用，然后会抛出 <span class="classname"><a href="class.random-randomexception.html" class="classname">Random\RandomException</a></span>。
+   如果没有可用的来源或它们都无法生成随机性，则将抛出 <span class="classname"><a href="class.random-randomexception.html" class="classname">Random\RandomException</a></span>。
   </span>
  </li>
 </ul>
@@ -86,31 +121,22 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">min</code></dt>
-
+    <dt><code class="parameter">min</code></dt>
     <dd>
-
      <p class="para">
-      要返回的最小值；必须大于等于 <strong><code>PHP_INT_MIN</code></strong>。
+      要返回的最小值。
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">max</code></dt>
-
+    <dt><code class="parameter">max</code></dt>
     <dd>
-
      <p class="para">
-      要返回的最大值；必须小于等于 <strong><code>PHP_INT_MAX</code></strong>。
+      要返回的最大值。
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
@@ -118,7 +144,7 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    从闭合区间 [<code class="parameter">min</code>, <code class="parameter">max</code>]
-   返回加密安全、均匀选择的整数。<code class="parameter">min</code> 和 <code class="parameter">max</code>
+   返回加密安全、均匀分布的整数。<code class="parameter">min</code> 和 <code class="parameter">max</code>
    都有可能返回。
   </p>
  </div>
@@ -172,22 +198,18 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.random-int-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="">
+  <h3 class="title">示例</h3>
+  <div class="example" id="random-int.example.basic">
    <p><strong>Example #1 <span class="function"><strong>random_int()</strong></span> 示例</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">random_int</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">999</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">random_int</span><span style="color: #007700">(-</span><span style="color: #0000BB">1000</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">random_int</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">, </span><span style="color: #0000BB">999</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">random_int</span><span style="color: #007700">(-</span><span style="color: #0000BB">1000</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+   <div class="example-contents"><p>以上示例的输出类似于：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-int(248)
-int(-898)
-</pre></div>
+<div class="examplescode"><pre class="examplescode">int(248)
+int(-898)</pre>
+</div>
    </div>
   </div>
  </div>
@@ -196,7 +218,8 @@ int(-898)
  <div class="refsect1 seealso" id="refsect1-function.random-int-seealso">
   <h3 class="title">参见</h3>
   <ul class="simplelist">
-   <li class="member"><span class="function"><a href="function.random-bytes.html" class="function" rel="rdfs-seeAlso">random_bytes()</a> - Get cryptographically secure random bytes</span></li>
+   <li><span class="methodname"><a href="random-randomizer.getint.html" class="methodname" rel="rdfs-seeAlso">Random\Randomizer::getInt()</a> - Get a uniformly selected integer</span></li>
+   <li><span class="function"><a href="function.random-bytes.html" class="function" rel="rdfs-seeAlso">random_bytes()</a> - Get cryptographically secure random bytes</span></li>
   </ul>
  </div>
 
@@ -205,7 +228,33 @@ int(-898)
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125333""></a>
+<div id="allnotes">  <a name="128851""></a>
+  <div class="note">
+   <strong class="user">Hayley Watson</strong>
+   <a href="#128851" class="date">02-Sep-2023 12:51</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A small function for generating version 4 GUIDs.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">v4uuid</span><span class="keyword">()<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$a </span><span class="keyword">= </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">dechex</span><span class="keyword">(</span><span class="default">random_int</span><span class="keyword">(</span><span class="default">0x0000_0000</span><span class="keyword">, </span><span class="default">0xffff_ffff</span><span class="keyword">)), </span><span class="string">'0'</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$b </span><span class="keyword">= </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">dechex</span><span class="keyword">(</span><span class="default">random_int</span><span class="keyword">(</span><span class="default">0x0000</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">)), </span><span class="string">'0'</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$c </span><span class="keyword">= </span><span class="default">dechex</span><span class="keyword">(</span><span class="default">random_int</span><span class="keyword">(</span><span class="default">0x4000</span><span class="keyword">, </span><span class="default">0x4fff</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$d </span><span class="keyword">= </span><span class="default">dechex</span><span class="keyword">(</span><span class="default">random_int</span><span class="keyword">(</span><span class="default">0x8000</span><span class="keyword">, </span><span class="default">0xbfff</span><span class="keyword">));<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$e </span><span class="keyword">= </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">dechex</span><span class="keyword">(</span><span class="default">random_int</span><span class="keyword">(</span><span class="default">0x0000_0000_0000</span><span class="keyword">, </span><span class="default">0xffff_ffff_ffff</span><span class="keyword">)), </span><span class="string">'0'</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="string">"</span><span class="default">$a</span><span class="string">-</span><span class="default">$b</span><span class="string">-</span><span class="default">$c</span><span class="string">-</span><span class="default">$d</span><span class="string">-</span><span class="default">$e</span><span class="string">"</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125333""></a>
   <div class="note">
    <strong class="user">bens at effortlessis dot com</strong>
    <a href="#125333" class="date">05-Sep-2020 04:21</a>

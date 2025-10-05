@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>发送原生 HTTP 头</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.header-remove.html">? header_remove</a></li>
-      <li style="float: right;"><a href="function.headers-list.html">headers_list ?</a></li>
+      <li style="float: left;"><a href="function.getservbyport.html">? getservbyport</a></li>
+      <li style="float: right;"><a href="function.header-register-callback.html">header_register_callback ?</a></li>
     </ul>
   </div>
 </div>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.header-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>header</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$replace</code><span class="initializer"> = true</span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$response_code</code><span class="initializer"> = ?</span></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>header</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> <code class="parameter">$replace</code><span class="initializer"> = true</span></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$response_code</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>header()</strong></span> 用于发送原生的 <abbr title="Hypertext Transfer Protocol">HTTP</abbr>
@@ -46,10 +46,7 @@
    同样的问题也存在于单独的 PHP/HTML 文件中。
    <div class="informalexample">
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-&lt;html&gt;<br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* This will give an error. Note the output<br /> * above, which is before the header() call */<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Location: http://www.example.com/'</span><span style="color: #007700">);<br />exit;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000">&lt;html&gt;<br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* This will give an error. Note the output<br /> * above, which is before the header() call */<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Location: http://www.example.com/'</span><span style="color: #007700">);<br />exit;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -62,11 +59,8 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">string</code></dt>
-
+     <dt><code class="parameter">string</code></dt>
      <dd>
-
       <p class="para">
        头字符串。
       </p>
@@ -78,10 +72,7 @@
       <p class="para">
        <div class="informalexample">
         <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 本示例演示了 "HTTP/" 的特殊例子，典型用法的最佳实践，包括：<br />// 1. header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");<br />//    （覆盖 http 状态消息，兼容还在使用 HTTP/1.0 的客户端）<br />// 2. http_response_code(404); （使用默认消息）<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"HTTP/1.1 404 Not Found"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 本示例演示了 "HTTP/" 的特殊例子，典型用法的最佳实践，包括：<br />// 1. header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");<br />//    （覆盖 http 状态消息，兼容还在使用 HTTP/1.0 的客户端）<br />// 2. http_response_code(404); （使用默认消息）<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"HTTP/1.1 404 Not Found"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
         </div>
 
        </div>
@@ -92,56 +83,40 @@
       <p class="para">
        <div class="informalexample">
         <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Location: http://www.example.com/"</span><span style="color: #007700">); </span><span style="color: #FF8000">/* Redirect browser */<br /><br />/* Make sure that code below does not get executed when we redirect. */<br /></span><span style="color: #007700">exit;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Location: http://www.example.com/"</span><span style="color: #007700">); </span><span style="color: #FF8000">/* Redirect browser */<br /><br />/* Make sure that code below does not get executed when we redirect. */<br /></span><span style="color: #007700">exit;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
         </div>
 
        </div>
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">replace</code></dt>
-
+     <dt><code class="parameter">replace</code></dt>
      <dd>
-
       <p class="para">
        可选参数 <code class="parameter">replace</code> 表明是否用后面的头替换前面相同类型的头。
        
-       默认情况下会替换。如果传入 <strong><code>false</code></strong>，就可以强制使相同的头信息并存。例如：
+       默认情况下会替换。如果传入 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>，就可以强制使相同的头信息并存。例如：
       </p>
       <p class="para">
        <div class="informalexample">
         <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">'WWW-Authenticate: Negotiate'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'WWW-Authenticate: NTLM'</span><span style="color: #007700">, </span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">'WWW-Authenticate: Negotiate'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'WWW-Authenticate: NTLM'</span><span style="color: #007700">, </span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
         </div>
 
        </div>
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">response_code</code></dt>
-
+     <dt><code class="parameter">response_code</code></dt>
      <dd>
-
       <p class="para">
        强制指定 HTTP 响应的值。注意，这个参数只有在报文字符串（<code class="parameter">header</code>）不为空的情况下才有效。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -157,40 +132,34 @@
  <div class="refsect1 errors" id="refsect1-function.header-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
-   当 header 发送失败时，<span class="function"><strong>header()</strong></span> 会抛出 <strong><code>E_WARNING</code></strong> 级别的错误
+   当 header 发送失败时，<span class="function"><strong>header()</strong></span> 会抛出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 级别的错误
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.header-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4534">
     <p><strong>Example #1 下载对话框</strong></p>
     <div class="example-contents"><p>
      如果你想提醒用户去保存你发送的数据，例如保存一个生成的PDF文件。你可以使用<a href="http://www.faqs.org/rfcs/rfc2183" class="link external" title="Link : http://www.faqs.org/rfcs/rfc2183">&raquo;&nbsp;Content-Disposition</a>的报文信息来提供一个推荐的文件名，并且强制浏览器显示一个文件下载的对话框。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 输出 PDF 文件<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type: application/pdf'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 名称为 downloaded.pdf<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Disposition: attachment; filename="downloaded.pdf"'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 该 PDF 来源于 original.pdf<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">'original.pdf'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 输出 PDF 文件<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type: application/pdf'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 名称为 downloaded.pdf<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Disposition: attachment; filename="downloaded.pdf"'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 该 PDF 来源于 original.pdf<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">'original.pdf'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4535">
     <p><strong>Example #2 缓存指令</strong></p>
     <div class="example-contents"><p>
      PHP 脚本经常生成一些动态内容，它不该被客户端、服务器与浏览器之间的代理缓存。
      许多代理与客户端都支持这样强制禁用缓存：
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Cache-Control: no-cache, must-revalidate"</span><span style="color: #007700">); </span><span style="color: #FF8000">// HTTP/1.1<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Expires: Sat, 26 Jul 1997 05:00:00 GMT"</span><span style="color: #007700">); </span><span style="color: #FF8000">// 过去的日期<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Cache-Control: no-cache, must-revalidate"</span><span style="color: #007700">); </span><span style="color: #FF8000">// HTTP/1.1<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Expires: Sat, 26 Jul 1997 05:00:00 GMT"</span><span style="color: #007700">); </span><span style="color: #FF8000">// 过去的日期<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
     <div class="example-contents"><p>
@@ -203,6 +172,22 @@
       </p>
      </p></blockquote>
     </p></div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4536">
+    <p><strong>Example #3 设置一个 Cookie</strong></p>
+    <div class="example-contents"><p>
+     <span class="function"><a href="function.setcookie.html" class="function">setcookie()</a></span> 提供了一个方便的方式来设置 Cookie。
+     要设置一个包含 <span class="function"><a href="function.setcookie.html" class="function">setcookie()</a></span> 函数不支持的属性的 Cookie，可以使用 <span class="function"><strong>header()</strong></span>。
+    </p></div>
+    <div class="example-contents"><p>
+     例如，以下代码设置了一个包含 <code class="literal">Partitioned</code> 属性的 Cookie。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Set-Cookie: name=value; Secure; Path=/; SameSite=None; Partitioned;'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
    </div>
   </p>
  </div>
@@ -234,10 +219,7 @@
     <span class="function"><a href="function.dirname.html" class="function">dirname()</a></span> 将相对地址组合成绝对 URI：
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 根据当前请求所在的目录，重定向到不同的页面 */<br /></span><span style="color: #0000BB">$host  </span><span style="color: #007700">= </span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'HTTP_HOST'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$uri   </span><span style="color: #007700">= </span><span style="color: #0000BB">rtrim</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'PHP_SELF'</span><span style="color: #007700">]), </span><span style="color: #DD0000">'/\\'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$extra </span><span style="color: #007700">= </span><span style="color: #DD0000">'mypage.php'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Location: http://</span><span style="color: #0000BB">$host$uri</span><span style="color: #DD0000">/</span><span style="color: #0000BB">$extra</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />exit;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 根据当前请求所在的目录，重定向到不同的页面 */<br /></span><span style="color: #0000BB">$host  </span><span style="color: #007700">= </span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'HTTP_HOST'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$uri   </span><span style="color: #007700">= </span><span style="color: #0000BB">rtrim</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'PHP_SELF'</span><span style="color: #007700">]), </span><span style="color: #DD0000">'/\\'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$extra </span><span style="color: #007700">= </span><span style="color: #DD0000">'mypage.php'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Location: http://</span><span style="color: #0000BB">$host$uri</span><span style="color: #DD0000">/</span><span style="color: #0000BB">$extra</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />exit;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
@@ -245,7 +227,7 @@
   </p></blockquote>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    在执行Location header跳转的时候，Session ID无法通传递的，即使<a href="session.configuration.html#ini.session.use-trans-sid" class="link">session.use_trans_sid</a>是激活状态的。只能通过手动传递using <strong><code>SID</code></strong>的值来实现。
+    在执行Location header跳转的时候，Session ID无法通传递的，即使<a href="session.configuration.html#ini.session.use-trans-sid" class="link">session.use_trans_sid</a>是激活状态的。只能通过手动传递using <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong>的值来实现。
    </p>
   </p></blockquote>
  </div>
@@ -255,12 +237,12 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.headers-sent.html" class="function" rel="rdfs-seeAlso">headers_sent()</a> - 检测消息头是否已经发送</span></li>
-    <li class="member"><span class="function"><a href="function.setcookie.html" class="function" rel="rdfs-seeAlso">setcookie()</a> - 发送 Cookie</span></li>
-    <li class="member"><span class="function"><a href="function.http-response-code.html" class="function" rel="rdfs-seeAlso">http_response_code()</a> - 获取/设置响应的 HTTP 状态码</span></li>
-    <li class="member"><span class="function"><a href="function.header-remove.html" class="function" rel="rdfs-seeAlso">header_remove()</a> - 删除之前设置的 HTTP 头</span></li>
-    <li class="member"><span class="function"><strong>header_list()</strong></span></li>
-    <li class="member">
+    <li><span class="function"><a href="function.headers-sent.html" class="function" rel="rdfs-seeAlso">headers_sent()</a> - 检测消息头是否已经发送</span></li>
+    <li><span class="function"><a href="function.setcookie.html" class="function" rel="rdfs-seeAlso">setcookie()</a> - 发送 Cookie</span></li>
+    <li><span class="function"><a href="function.http-response-code.html" class="function" rel="rdfs-seeAlso">http_response_code()</a> - 获取/设置响应的 HTTP 状态码</span></li>
+    <li><span class="function"><a href="function.header-remove.html" class="function" rel="rdfs-seeAlso">header_remove()</a> - 删除之前设置的 HTTP 头</span></li>
+    <li><span class="function"><a href="function.headers-list.html" class="function" rel="rdfs-seeAlso">headers_list()</a> - 返回已发送的 HTTP 响应头（或准备发送的）</span></li>
+    <li>
      The section on <a href="features.http-auth.html" class="link">HTTP
      authentication</a>
     </li>
@@ -273,7 +255,43 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126235""></a>
+<div id="allnotes">  <a name="128626""></a>
+  <div class="note">
+   <strong class="user">Emmanuel Chazard</strong>
+   <a href="#128626" class="date">20-Jun-2023 01:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you use header() to allow the user to download a file, it's very important to check the encoding of the script itself. Your script should be encoded in UTF-8, but definitely not in UTF-8-BOM! The presence of BOM will alter the file received by the user. Let the following script: <br />
+<br />
+<span class="default">&lt;?php <br />
+<br />
+$content </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">'test_download.png'</span><span class="keyword">) ;<br />
+</span><span class="default">$name </span><span class="keyword">= </span><span class="string">'test.png' </span><span class="keyword">;<br />
+</span><span class="default">$size </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">) ;<br />
+&nbsp;&nbsp;&nbsp; <br />
+</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Description: File Transfer'</span><span class="keyword">);<br />
+</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Type: application/octet-stream'</span><span class="keyword">);<br />
+</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Cache-Control: no-cache, must-revalidate'</span><span class="keyword">);<br />
+</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Expires: 0'</span><span class="keyword">);<br />
+</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Disposition: attachment; filename="'</span><span class="keyword">.</span><span class="default">$name</span><span class="keyword">.</span><span class="string">'"'</span><span class="keyword">);<br />
+</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Length: ' </span><span class="keyword">. </span><span class="default">$size</span><span class="keyword">);<br />
+</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Pragma: public'</span><span class="keyword">);<br />
+<br />
+echo </span><span class="default">$content </span><span class="keyword">;<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Irrespectively from the encoding of test_download.png, when this PHP script is encoded in UTF-8-BOM, the content received by the user is different: <br />
+- a ZWNBSP byte (U+FEFF) is added to the beginning of the file<br />
+- the file content is truncated!!!<br />
+If it's a binary file (e.g. image, proprietary format), the file will become unreadable.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126235""></a>
   <div class="note">
    <strong class="user">David Spector</strong>
    <a href="#126235" class="date">12-Jul-2021 12:07</a>

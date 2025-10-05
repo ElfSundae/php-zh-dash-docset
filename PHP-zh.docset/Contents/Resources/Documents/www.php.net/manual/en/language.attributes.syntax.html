@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>注解语法</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,7 +36,7 @@
     注解的名称按 <a href="language.namespaces.basics.html" class="link">使用命名空间：基础</a> 
     章节中描述，可以是非限定、限定、完全限定的名称。
     注解的参数是可以选的，以常见的括号<code class="literal">()</code>包围。
-    注解的参数可以是字面值或者常量表达式。
+    注解的参数只能是字面值或者常量表达式。
     它同时接受位置参数和命名参数两种语法。
    </p>
 
@@ -45,14 +45,11 @@
     因此每个注解都需要引入一个类。
    </p>
 
-   <div class="example" id="example-698">
+   <div class="example" id="example-342">
     <p><strong>Example #1 注解语法</strong></p>
 
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// a.php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">MyExample</span><span style="color: #007700">;<br /><br />use </span><span style="color: #0000BB">Attribute</span><span style="color: #007700">;<br /><br />#[</span><span style="color: #0000BB">Attribute</span><span style="color: #007700">]<br />class </span><span style="color: #0000BB">MyAttribute<br /></span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">VALUE </span><span style="color: #007700">= </span><span style="color: #DD0000">'value'</span><span style="color: #007700">;<br /><br />    private </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br /><br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">)<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value </span><span style="color: #007700">= </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #FF8000">// b.php<br /><br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">Another</span><span style="color: #007700">;<br /><br />use </span><span style="color: #0000BB">MyExample\MyAttribute</span><span style="color: #007700">;<br /><br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">]<br />#[</span><span style="color: #0000BB">\MyExample\MyAttribute</span><span style="color: #007700">]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">1234</span><span style="color: #007700">)]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">value</span><span style="color: #007700">: </span><span style="color: #0000BB">1234</span><span style="color: #007700">)]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">::</span><span style="color: #0000BB">VALUE</span><span style="color: #007700">)]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"key" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"value"</span><span style="color: #007700">))]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">100 </span><span style="color: #007700">+ </span><span style="color: #0000BB">200</span><span style="color: #007700">)]<br />class </span><span style="color: #0000BB">Thing<br /></span><span style="color: #007700">{<br />}<br /><br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">1234</span><span style="color: #007700">), </span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">5678</span><span style="color: #007700">)]<br />class </span><span style="color: #0000BB">AnotherThing<br /></span><span style="color: #007700">{<br />}</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// a.php<br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">MyExample</span><span style="color: #007700">;<br /><br />use </span><span style="color: #0000BB">Attribute</span><span style="color: #007700">;<br /><br />#[</span><span style="color: #0000BB">Attribute</span><span style="color: #007700">]<br />class </span><span style="color: #0000BB">MyAttribute<br /></span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">VALUE </span><span style="color: #007700">= </span><span style="color: #DD0000">'value'</span><span style="color: #007700">;<br /><br />    private </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br /><br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">)<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value </span><span style="color: #007700">= </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #FF8000">// b.php<br /><br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">Another</span><span style="color: #007700">;<br /><br />use </span><span style="color: #0000BB">MyExample\MyAttribute</span><span style="color: #007700">;<br /><br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">]<br />#[</span><span style="color: #0000BB">\MyExample\MyAttribute</span><span style="color: #007700">]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">1234</span><span style="color: #007700">)]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">value</span><span style="color: #007700">: </span><span style="color: #0000BB">1234</span><span style="color: #007700">)]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">::</span><span style="color: #0000BB">VALUE</span><span style="color: #007700">)]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"key" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"value"</span><span style="color: #007700">))]<br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">100 </span><span style="color: #007700">+ </span><span style="color: #0000BB">200</span><span style="color: #007700">)]<br />class </span><span style="color: #0000BB">Thing<br /></span><span style="color: #007700">{<br />}<br /><br />#[</span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">1234</span><span style="color: #007700">), </span><span style="color: #0000BB">MyAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">5678</span><span style="color: #007700">)]<br />class </span><span style="color: #0000BB">AnotherThing<br /></span><span style="color: #007700">{<br />}</span></span></code></div>
     </div>
 
    </div>
@@ -60,6 +57,78 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="129122""></a>
+  <div class="note">
+   <strong class="user">yarns dot purport0n at icloud dot com</strong>
+   <a href="#129122" class="date">23-Dec-2023 12:38</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It wasn't obvious to me for a while but you can subclass attributes<br />
+<br />
+https://3v4l.org/TrMTe<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="keyword">#[</span><span class="default">Attribute</span><span class="keyword">(</span><span class="default">Attribute</span><span class="keyword">::</span><span class="default">TARGET_PROPERTY</span><span class="keyword">)]<br />
+class </span><span class="default">PropertyAttributes<br />
+&nbsp;</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">string $name </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">string $label </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ) {}<br />
+&nbsp;}<br />
+<br />
+#[</span><span class="default">Attribute</span><span class="keyword">(</span><span class="default">Attribute</span><span class="keyword">::</span><span class="default">TARGET_PROPERTY</span><span class="keyword">)]<br />
+class </span><span class="default">IntegerPropertyAttributes </span><span class="keyword">extends </span><span class="default">PropertyAttributes<br />
+&nbsp;</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ?</span><span class="default">string $name </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ?</span><span class="default">string $label </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">int $default </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">int $min </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">int $max </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">int $step </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$label</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;}<br />
+<br />
+#[</span><span class="default">Attribute</span><span class="keyword">(</span><span class="default">Attribute</span><span class="keyword">::</span><span class="default">TARGET_PROPERTY</span><span class="keyword">)]<br />
+class </span><span class="default">FloatPropertyAttributes </span><span class="keyword">extends </span><span class="default">PropertyAttributes<br />
+&nbsp;</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ?</span><span class="default">string $name </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ?</span><span class="default">string $label </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">float $default </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">float $min </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public readonly ?</span><span class="default">float $max </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$label</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;}<br />
+<br />
+class </span><span class="default">MyClass<br />
+&nbsp;</span><span class="keyword">{<br />
+&nbsp;&nbsp; &nbsp; #[</span><span class="default">IntegerPropertyAttributes</span><span class="keyword">(</span><span class="string">'prop'</span><span class="keyword">, </span><span class="string">'property: '</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">)]<br />
+&nbsp;&nbsp; &nbsp; public </span><span class="default">int $prop</span><span class="keyword">;<br />
+&nbsp;}<br />
+<br />
+</span><span class="default">$refl </span><span class="keyword">= new </span><span class="default">ReflectionProperty</span><span class="keyword">(</span><span class="string">'MyClass'</span><span class="keyword">, </span><span class="string">'prop'</span><span class="keyword">);<br />
+</span><span class="default">$attributes </span><span class="keyword">= </span><span class="default">$refl</span><span class="keyword">-&gt;</span><span class="default">getAttributes</span><span class="keyword">();<br />
+<br />
+&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">$attributes </span><span class="keyword">as </span><span class="default">$attribute</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$attribute</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">());<br />
+&nbsp;&nbsp; &nbsp; &nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$attribute</span><span class="keyword">-&gt;</span><span class="default">getArguments</span><span class="keyword">());<br />
+&nbsp;&nbsp; &nbsp; &nbsp; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$attribute</span><span class="keyword">-&gt;</span><span class="default">newInstance</span><span class="keyword">());<br />
+&nbsp;&nbsp;&nbsp; }<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

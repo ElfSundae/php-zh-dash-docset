@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>PHP 8.1.x 废弃的功能</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -43,17 +43,14 @@
   </div>
 
   <div class="sect3" id="migration81.deprecated.core.null-not-nullable-internal">
-   <h4 class="title">将 <strong><code>null</code></strong> 传递给内置函数的非 null 值参数</h4>
+   <h4 class="title">将 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 传递给内置函数的非 null 值参数</h4>
 
    <p class="para">
-    为了与用户定义的函数行为保持一致，标量类型需要被明确标记为允许为 null，内置函数的标量类型默认情况下允许为 null 的行为已被废弃。
+    内置函数的标量类型默认可为 null。废弃为了与用户定义的函数行为保持一致，标量类型需要明确标记为可为 null 的行为。
 
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">str_contains</span><span style="color: #007700">(</span><span style="color: #DD0000">"foobar"</span><span style="color: #007700">, </span><span style="color: #0000BB">null</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// Deprecated: Passing null to parameter #2 ($needle) of type string<br />//             is deprecated<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">str_contains</span><span style="color: #007700">(</span><span style="color: #DD0000">"foobar"</span><span style="color: #007700">, </span><span style="color: #0000BB">null</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// Deprecated: Passing null to parameter #2 ($needle) of type string<br />//             is deprecated<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
@@ -61,18 +58,15 @@
   </div>
 
   <div class="sect3" id="migration81.deprecated.core.implicit-float-conversion">
-   <h4 class="title">不兼容从 <span class="type">float</span> 到 <span class="type">int</span> 的隐式转换</h4>
+   <h4 class="title">不兼容从 <span class="type"><a href="language.types.float.html" class="type float">float</a></span> 到 <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> 的隐式转换</h4>
 
    <p class="para">
-    从 <span class="type">float</span> 隐式转换为 <span class="type">int</span> 将会导致精度的丢失，目前这种行为已被废弃。
-    这将影响到 <span class="type">array</span> 中的键、严格模式下 <span class="type">int</span> 类型的声明以及对 <span class="type">int</span> 的操作。
+    从 <span class="type"><a href="language.types.float.html" class="type float">float</a></span> 隐式转换为 <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> 将会导致精度的丢失，目前这种行为已被废弃。
+    这将影响到 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 中的键、严格模式下 <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> 类型的声明以及对 <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> 的操作。
 
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= [];<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">15.5</span><span style="color: #007700">]; </span><span style="color: #FF8000">// 废弃，作为键值将会丢失 0.5<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">15.0</span><span style="color: #007700">]; </span><span style="color: #FF8000">// OK，因为 15.0 == 15<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$a </span><span style="color: #007700">= [];<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">15.5</span><span style="color: #007700">]; </span><span style="color: #FF8000">// 废弃，作为键值将会丢失 0.5<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">15.0</span><span style="color: #007700">]; </span><span style="color: #FF8000">// OK，因为 15.0 == 15<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
@@ -90,10 +84,10 @@
   </div>
 
   <div class="sect3" id="migration81.deprecated.core.magic-sleep">
-   <h4 class="title">在 <span class="function"><strong>__sleep()</strong></span> 中返回非 <span class="type">array</span> 类型值</h4>
+   <h4 class="title">在 <span class="function"><strong>__sleep()</strong></span> 中返回非 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 类型值</h4>
 
    <p class="para">
-    在 <a href="language.oop5.magic.html#object.sleep" class="link">__sleep()</a> 中返回一个非 <span class="type">array</span> 类型的值现在将会产生一个诊断。
+    在 <a href="language.oop5.magic.html#object.sleep" class="link">__sleep()</a> 中返回一个非 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 类型的值现在将会产生一个诊断。
    </p>
   </div>
 
@@ -103,43 +97,34 @@
    <p class="para">
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function &amp;</span><span style="color: #0000BB">test</span><span style="color: #007700">(): </span><span style="color: #0000BB">void </span><span style="color: #007700">{}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function &amp;</span><span style="color: #0000BB">test</span><span style="color: #007700">(): </span><span style="color: #0000BB">void </span><span style="color: #007700">{}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
-    这种函数是相互矛盾的，在调用时已经发出了 <strong><code>E_NOTICE</code></strong>
+    这种函数是相互矛盾的，在调用时已经发出了 <strong><code><a href="errorfunc.constants.html#constant.e-notice">E_NOTICE</a></code></strong>
     提示：<code class="literal">Only variable references should be returned by reference</code>。
    </p>
   </div>
 
   <div class="sect3" id="migration81.deprecated.core.autovivification-false">
-   <h4 class="title">对 <strong><code>false</code></strong> 进行自动代入（Autovivification）</h4>
+   <h4 class="title">对 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 进行自动代入（Autovivification）</h4>
 
    <p class="para">
-    自动代入指的是追加一个值时创建出新 <span class="type">array</span> 的过程。对于标量值而言，自动代入是不被允许的；然而 false 是一个例外。现在这将会被废弃。
+    自动代入指的是追加一个值时创建出新 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 的过程。对于标量值而言，自动代入是不被允许的；然而 false 是一个例外。现在这将会被废弃。
 
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$arr </span><span style="color: #007700">= </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[] = </span><span style="color: #0000BB">2</span><span style="color: #007700">;   </span><span style="color: #FF8000">// 废弃<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$arr </span><span style="color: #007700">= </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[] = </span><span style="color: #0000BB">2</span><span style="color: #007700">;   </span><span style="color: #FF8000">// 废弃<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
    </p>
    <blockquote class="note"><p><strong class="note">Note</strong>: 
     <p class="para">
-     对 <strong><code>null</code></strong> 或者未定义的值进行自动代入仍然是被允许的：
+     对 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 或者未定义的值进行自动代入仍然是被允许的：
      <div class="informalexample">
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 从未定义的值<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[] = </span><span style="color: #DD0000">'some value'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #DD0000">'doesNotExist'</span><span style="color: #007700">][] = </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// 从 null<br /></span><span style="color: #0000BB">$arr </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[] = </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 从未定义的值<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[] = </span><span style="color: #DD0000">'some value'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #DD0000">'doesNotExist'</span><span style="color: #007700">][] = </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// 从 null<br /></span><span style="color: #0000BB">$arr </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[] = </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -156,7 +141,7 @@
    <h4 class="title">校验非字符串类型的参数</h4>
 
    <p class="para">
-    传递一个非字符串类型参数的行为已被废弃。在将来，参数将被解释为一个字符串而不是 ASCII 编码。根据可预期的行为，参数需要被转化为 <span class="type">string</span> 或者对
+    传递一个非字符串类型参数的行为已被废弃。在将来，参数将被解释为一个字符串而不是 ASCII 编码。根据可预期的行为，参数需要被转化为 <span class="type"><a href="language.types.string.html" class="type string">string</a></span> 或者对
     <span class="function"><a href="function.chr.html" class="function">chr()</a></span> 进行一次显式调用。这会影响所有的 <code class="literal">ctype_*()</code>
     函数。
    </p>
@@ -190,8 +175,8 @@
   <h3 class="title">Filter</h3>
 
   <p class="para">
-   <strong><code>FILTER_SANITIZE_STRING</code></strong> 和
-   <strong><code>FILTER_SANITIZE_STRIPPED</code></strong> 过滤器已被废弃。
+   <strong><code><a href="filter.constants.html#constant.filter-sanitize-string">FILTER_SANITIZE_STRING</a></code></strong> 和
+   <strong><code><a href="filter.constants.html#constant.filter-sanitize-stripped">FILTER_SANITIZE_STRIPPED</a></code></strong> 过滤器已被废弃。
   </p>
   <p class="para">
    INI 设置项 <a href="filter.configuration.html#ini.filter.default" class="link">filter.default</a>
@@ -227,7 +212,7 @@
   <h3 class="title">IMAP</h3>
 
   <p class="para">
-   <strong><code>NIL</code></strong> 常量已被废弃。请使用 <code class="literal">0</code> 代替。
+   <strong><code><a href="imap.constants.html#constant.nil">NIL</a></code></strong> 常量已被废弃。请使用 <code class="literal">0</code> 代替。
   </p>
  </div>
 
@@ -235,9 +220,9 @@
   <h3 class="title">Intl</h3>
 
   <p class="para">
-   使用 <span class="type">bool</span> 参数调用 <span class="methodname"><a href="intlcalendar.roll.html" class="methodname">IntlCalendar::roll()</a></span>
+   使用 <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> 参数调用 <span class="methodname"><a href="intlcalendar.roll.html" class="methodname">IntlCalendar::roll()</a></span>
    已被废弃。请分别使用 <code class="literal">1</code> 和
-   <code class="literal">-1</code> 来代替 <strong><code>true</code></strong> and <strong><code>false</code></strong>。
+   <code class="literal">-1</code> 来代替 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> and <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -254,7 +239,7 @@
 
   <p class="para">
    <span class="property">mysqli_driver::$driver_version</span> 属性已被废弃。它是无意义且过时的，使用
-   <strong><code>PHP_VERSION_ID</code></strong> 来代替。
+   <strong><code><a href="reserved.constants.html#constant.php-version-id">PHP_VERSION_ID</a></code></strong> 来代替。
   </p>
 
   <p class="para">
@@ -293,7 +278,7 @@
   <h3 class="title">PDO</h3>
 
   <p class="para">
-   <strong><code>PDO::FETCH_SERIALIZE</code></strong> 获取模式已被废弃。
+   <strong><code><a href="pdo.constants.html#pdo.constants.fetch-serialize">PDO::FETCH_SERIALIZE</a></code></strong> 获取模式已被废弃。
   </p>
  </div>
 
@@ -320,11 +305,12 @@
   <h3 class="title">常规</h3>
 
   <p class="para">
-   对一个对象调用 <span class="function"><a href="function.key.html" class="function">key()</a></span>、<span class="function"><a href="function.current.html" class="function">current()</a></span>、
+   在对象上调用 <span class="function"><a href="function.key.html" class="function">key()</a></span>、<span class="function"><a href="function.current.html" class="function">current()</a></span>、
    <span class="function"><a href="function.next.html" class="function">next()</a></span>、<span class="function"><a href="function.prev.html" class="function">prev()</a></span>、
-   <span class="function"><a href="function.reset.html" class="function">reset()</a></span>、<span class="function"><a href="function.end.html" class="function">end()</a></span>
-   已被废弃。对一个对象应优先使用 <span class="function"><a href="function.get-mangled-object-vars.html" class="function">get_mangled_object_vars()</a></span>，或使用
-   <span class="classname"><a href="class.arrayiterator.html" class="classname">ArrayIterator</a></span>。
+   <span class="function"><a href="function.reset.html" class="function">reset()</a></span> 或 <span class="function"><a href="function.end.html" class="function">end()</a></span> 的方式已被废弃。
+   可以使用 <span class="function"><a href="function.get-mangled-object-vars.html" class="function">get_mangled_object_vars()</a></span> 将对象转换为数组，
+   或使用实现 <span class="interfacename"><a href="class.iterator.html" class="interfacename">Iterator</a></span> 的类所提供的方法，
+   例如 <span class="classname"><a href="class.arrayiterator.html" class="classname">ArrayIterator</a></span> 来代替。
   </p>
 
   <p class="para">
@@ -334,7 +320,7 @@
   </p>
 
   <p class="para">
-   <strong><code>FILE_BINARY</code></strong> 和 <strong><code>FILE_TEXT</code></strong>
+   <strong><code><a href="filesystem.constants.html#constant.file-binary">FILE_BINARY</a></code></strong> 和 <strong><code><a href="filesystem.constants.html#constant.file-text">FILE_TEXT</a></code></strong>
    常量已被废弃。它们从未产生过任何作用。
   </p>
  </div>

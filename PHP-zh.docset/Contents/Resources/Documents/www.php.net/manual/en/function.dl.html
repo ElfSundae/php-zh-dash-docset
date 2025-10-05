@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>运行时载入一个 PHP 扩展</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.dl-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>dl</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$extension_filename</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>dl</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$extension_filename</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    载入指定参数 <code class="parameter">extension_filename</code> 的 PHP 扩展。
@@ -58,13 +58,10 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">extension_filename</code></dt>
-
+     <dt><code class="parameter">extension_filename</code></dt>
      <dd>
-
       <p class="para">
-       此参数<em class="emphasis">仅仅</em>是要加载的扩展的文件名，依赖于你的平台。
+       此参数<em>仅仅</em>是要加载的扩展的文件名，依赖于你的平台。
        比如，<a href="ref.sockets.html" class="link">sockets</a>（作为共享模块编译，而不是默认的！）在 Unix 平台上称为 <var class="filename">sockets.so</var> 而 在 Windows 平台上是 <var class="filename">php_sockets.dll</var>。
       </p>
       <p class="para">
@@ -98,10 +95,8 @@
        <var class="filename">/usr/local/php/lib/php/extensions/no-debug-zts-20010901</var>。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -109,22 +104,19 @@
  <div class="refsect1 returnvalues" id="refsect1-function.dl-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。 如果加载模块的功能是无效或者禁用的（可以关闭 <a href="info.configuration.html#ini.enable-dl" class="link">enable_dl</a> 设置）将导致一个 <strong><code>E_ERROR</code></strong> 并中断执行。
-   如果因为指定的库无法加载而导致 <span class="function"><strong>dl()</strong></span> 失败，除了返回 <strong><code>false</code></strong>，还会产生一个 <strong><code>E_WARNING</code></strong> 的消息。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。 如果加载模块的功能是无效或者禁用的（可以关闭 <a href="info.configuration.html#ini.enable-dl" class="link">enable_dl</a> 设置）将导致一个 <strong><code><a href="errorfunc.constants.html#constant.e-error">E_ERROR</a></code></strong> 并中断执行。
+   如果因为指定的库无法加载而导致 <span class="function"><strong>dl()</strong></span> 失败，除了返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>，还会产生一个 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 的消息。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.dl-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1104">
-    <p><strong>Example #1 <span class="function"><strong>dl()</strong></span> 例子</strong></p>
+   <div class="example" id="example-541">
+    <p><strong>Example #1 <span class="function"><strong>dl()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 加载一个扩展的例子，基于操作系统<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">extension_loaded</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite'</span><span style="color: #007700">)) {<br />    if (</span><span style="color: #0000BB">strtoupper</span><span style="color: #007700">(</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_OS</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">)) === </span><span style="color: #DD0000">'WIN'</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">dl</span><span style="color: #007700">(</span><span style="color: #DD0000">'php_sqlite.dll'</span><span style="color: #007700">);<br />    } else {<br />        </span><span style="color: #0000BB">dl</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite.so'</span><span style="color: #007700">);<br />    }<br />}<br /><br /></span><span style="color: #FF8000">// 或者，使用常量 PHP_SHLIB_SUFFIX <br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">extension_loaded</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite'</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$prefix </span><span style="color: #007700">= (</span><span style="color: #0000BB">PHP_SHLIB_SUFFIX </span><span style="color: #007700">=== </span><span style="color: #DD0000">'dll'</span><span style="color: #007700">) ? </span><span style="color: #DD0000">'php_' </span><span style="color: #007700">: </span><span style="color: #DD0000">''</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">dl</span><span style="color: #007700">(</span><span style="color: #0000BB">$prefix </span><span style="color: #007700">. </span><span style="color: #DD0000">'sqlite.' </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_SHLIB_SUFFIX</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 加载一个扩展的示例，基于操作系统<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">extension_loaded</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite'</span><span style="color: #007700">)) {<br />    if (</span><span style="color: #0000BB">strtoupper</span><span style="color: #007700">(</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_OS</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">)) === </span><span style="color: #DD0000">'WIN'</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">dl</span><span style="color: #007700">(</span><span style="color: #DD0000">'php_sqlite.dll'</span><span style="color: #007700">);<br />    } else {<br />        </span><span style="color: #0000BB">dl</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite.so'</span><span style="color: #007700">);<br />    }<br />}<br /><br /></span><span style="color: #FF8000">// 或者，使用常量 PHP_SHLIB_SUFFIX <br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">extension_loaded</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite'</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$prefix </span><span style="color: #007700">= (</span><span style="color: #0000BB">PHP_SHLIB_SUFFIX </span><span style="color: #007700">=== </span><span style="color: #DD0000">'dll'</span><span style="color: #007700">) ? </span><span style="color: #DD0000">'php_' </span><span style="color: #007700">: </span><span style="color: #DD0000">''</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">dl</span><span style="color: #007700">(</span><span style="color: #0000BB">$prefix </span><span style="color: #007700">. </span><span style="color: #DD0000">'sqlite.' </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_SHLIB_SUFFIX</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -146,8 +138,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><a href="ini.core.html#ini.extension" class="link">扩展加载指令</a></li>
-    <li class="member"><span class="function"><a href="function.extension-loaded.html" class="function" rel="rdfs-seeAlso">extension_loaded()</a> - 检查一个扩展是否已经加载</span></li>
+    <li><a href="ini.core.html#ini.extension" class="link">扩展加载指令</a></li>
+    <li><span class="function"><a href="function.extension-loaded.html" class="function" rel="rdfs-seeAlso">extension_loaded()</a> - 检查一个扩展是否已经加载</span></li>
    </ul>
   </p>
  </div>

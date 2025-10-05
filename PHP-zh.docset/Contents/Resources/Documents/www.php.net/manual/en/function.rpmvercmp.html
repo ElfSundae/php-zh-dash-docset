@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>RPM version comparison</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.rpmvercmp-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>rpmvercmp</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$evr1</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$evr2</code></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>rpmvercmp</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$evr1</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$evr2</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$operator</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span></div>
 
   <p class="para rdfs-comment">
    Compare 2 RPM versions.
@@ -47,41 +47,80 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">evr1</code></dt>
-
+    <dt><code class="parameter">evr1</code></dt>
     <dd>
-
      <p class="para">
       First epoch:version-release string
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">evr2</code></dt>
-
+    <dt><code class="parameter">evr2</code></dt>
     <dd>
-
      <p class="para">
       Second epoch:version-release string
      </p>
     </dd>
-
+   
+   
+    <dt><code class="parameter">operator</code></dt>
+    <dd>
+     <p class="para">
+      An optional operator. The possible operators
+      are: <code class="literal">&lt;</code>, <code class="literal">lt</code>,
+      <code class="literal">&lt;=</code>, <code class="literal">le</code>, <code class="literal">&gt;</code>,
+      <code class="literal">gt</code>, <code class="literal">&gt;=</code>, <code class="literal">ge</code>,
+      <code class="literal">==</code>, <code class="literal">=</code>, <code class="literal">eq</code>,
+      <code class="literal">!=</code>, <code class="literal">&lt;&gt;</code>, <code class="literal">ne</code>
+      respectively.
+     </p>
+     <p class="para">
+      This parameter is case-sensitive, values should be lowercase.
+     </p>
+    </dd>
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-function.rpmvercmp-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-  Returns &lt; 0 if evr1 is less than evr2, &gt; 0 if evr1 is greater than evr2, and 0 if they are equal. 
+   Returns &lt; 0 if evr1 is less than evr2, &gt; 0 if evr1 is greater than evr2, and 0 if they are equal.
+  </p>
+  <p class="para">
+   When using the optional <code class="parameter">operator</code> argument, the
+   function will return <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> if the relationship is the one specified
+   by the operator, <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> otherwise.
   </p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.rpmvercmp-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>0.7.0</td>
+      <td>
+       Optional <code class="parameter">operator</code> was added.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
 
 
 </div><div id="usernotes">

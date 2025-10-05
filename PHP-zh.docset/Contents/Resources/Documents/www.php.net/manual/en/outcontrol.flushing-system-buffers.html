@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
+  <title>冲刷系统缓冲区</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
+ </head>
+ <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <ul class="nav" style="width: 100%">
+      <li style="float: left;"><a href="outcontrol.output-buffering.html">? 输出缓冲</a></li>
+      <li style="float: right;"><a href="outcontrol.user-level-output-buffers.html">用户级别输出缓冲区 ?</a></li>
+    </ul>
+  </div>
+</div>
+<div id="breadcrumbs" class="clearfix">
+  <ul class="breadcrumbs-container">
+    <li><a href="index.html">PHP Manual</a></li>
+    <li><a href="book.outcontrol.html">输出控制</a></li>
+    <li>冲刷系统缓冲区</li>
+  </ul>
+</div>
+<div id="layout">
+  <div id="layout-content"><div id="outcontrol.flushing-system-buffers" class="chapter">
+ <h1 class="title">冲刷系统缓冲区</h1>
+
+ <p class="para">
+  PHP 提供了两种相关的方式来冲刷系统缓冲区（发送并丢弃内容）：通过调用 <span class="function"><a href="function.flush.html" class="function">flush()</a></span>
+  以及通过 <span class="function"><a href="function.ob-implicit-flush.html" class="function">ob_implicit_flush()</a></span> 或 <var class="filename">php.ini</var> 文件中的 <a href="outcontrol.configuration.html#ini.implicit-flush" class="link">implicit_flush</a> 设置来启用自动冲刷。
+ </p>
+
+ <div class="section">
+  <h2 class="title">输出冲刷行为</h2>
+  <p class="para">
+   如果禁用了自动冲刷，PHP 仅在调用 <span class="function"><a href="function.flush.html" class="function">flush()</a></span> 或脚本结束时才会冲刷输出。
+  </p>
+  <p class="para">
+   如果启用了自动冲刷，PHP 将尝试在每段代码块产生输出之后进行冲刷。在此上下文中，输出是指非零长度的数据，即：
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      <code class="literal">&lt;?php ?&gt;</code> 标签之外的内容
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      由语言结构和函数打印，其明确目的是打印用户提供的变量或字符串，例如
+      <span class="function"><a href="function.echo.html" class="function">echo</a></span>、<span class="function"><a href="function.print.html" class="function">print</a></span>、<span class="function"><a href="function.printf.html" class="function">printf()</a></span>、<span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span>、<span class="function"><a href="function.var-export.html" class="function">var_export()</a></span>、<span class="function"><a href="function.vprintf.html" class="function">vprintf()</a></span>
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      由函数打印，其明确目的是收集和输出有关正在运行的脚本或者 PHP 的数据/信息，例如
+      <span class="function"><a href="function.debug-print-backtrace.html" class="function">debug_print_backtrace()</a></span>、<span class="function"><a href="function.phpcredits.html" class="function">phpcredits()</a></span>、<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      当 PHP 出现未捕获的异常或未处理的错误时（取决于 <a href="errorfunc.configuration.html#ini.display-errors" class="link">display_errors</a> 和
+      <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> 的设置），会打印出相关信息。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      任何写入到 <code class="literal">php://output</code> 的内容
+     </span>
+    </li>
+   </ul>
+  </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    打印空字符串或发送头部信息不会视为输出，因此不会导致冲刷操作。
+   </span>
+  </p></blockquote>
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="simpara">
+    如果启用了自动冲刷，控制字符（如 <code class="literal">&quot;\n&quot;</code>、<code class="literal">&quot;\r&quot;</code>、<code class="literal">&quot;\0&quot;</code>）也将触发冲刷操作。
+   </p>
+  </div>
+ </div>
+
+ <div class="section">
+  <h2 class="title">限制</h2>
+  <p class="para">
+   此功能无法冲刷用户级输出缓冲区。要一起使用的话，必须在冲刷系统缓冲区之前冲刷用户级输出缓冲区，以便 PHP 生成任何输出。
+  </p>
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="simpara">
+    调用 <span class="function"><a href="function.flush.html" class="function">flush()</a></span> 或启用绝对刷新可能会干扰用户级输出缓冲区的输出处理程序，这些输出处理程序在 Web
+    上下文中设置和发送 header（例如 <span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span>），因为在这些处理程序能够发送 header
+    之前，<span class="function"><a href="function.flush.html" class="function">flush()</a></span> 或绝对刷新就已经发送了 header 信息。
+   </p>
+  </div>
+  <p class="para">
+   PHP 不能完整覆盖由底层软件/硬件实现的缓冲，在使用 PHP 的缓冲控制函数时应考虑到这一点。检查 Web
+   服务器/浏览器/控制台缓冲设置并进行相应的处理可以缓解可能的问题。在 Web 环境中工作时，可以调整 Web
+   服务器的缓冲设置或脚本的缓冲以协同工作，而调整 PHP 脚本中的缓冲设置可以解决各种浏览器的缓冲策略。在实现行缓冲的控制台上，可以在刷新输出之前将换行符插入到适当的位置。
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title"><abbr title="Server Application Programming Interface">SAPI</abbr> 在冲刷方面的不同</h2>
+  <p class="para">
+   尽管每个 <abbr title="Server Application Programming Interface">SAPI</abbr> 实现冲刷的方式略有不同，但这些实现都属于以下两类中的一个：
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      Web 上下文中使用的 <abbr title="Server Application Programming Interface">SAPI</abbr> 将首先冲刷 header，然后冲刷输出。<code class="literal">Apache2Handler</code>、<code class="literal">CGI</code>、<code class="literal">FastCGI</code>
+      和 <code class="literal">FPM</code> 都是此类 <abbr title="Server Application Programming Interface">SAPI</abbr>
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      其它 <abbr title="Server Application Programming Interface">SAPI</abbr>（比如 <code class="literal">CLI</code> 和 <code class="literal">embed</code>）仅冲刷输出
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+</div>
+<div id="usernotes">
+ <div class="head">
+  <h3 class="title">User Contributed Notes</h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div>
+</div>
+</div></div></body></html>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置或检索阻塞信号</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.pcntl-signal.html">? pcntl_signal</a></li>
+      <li style="float: left;"><a href="function.pcntl-signal-get-handler.html">? pcntl_signal_get_handler</a></li>
       <li style="float: right;"><a href="function.pcntl-sigtimedwait.html">pcntl_sigtimedwait ?</a></li>
     </ul>
   </div>
@@ -35,11 +35,10 @@
  <div class="refsect1 description" id="refsect1-function.pcntl-sigprocmask-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>pcntl_sigprocmask</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$how</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$set</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$oldset</code><span class="initializer"> = ?</span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>pcntl_sigprocmask</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$mode</code></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$signals</code></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter reference">&$old_signals</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   函数<span class="function"><strong>pcntl_sigprocmask()</strong></span>用来增加，删除或设置阻塞信号，具体行为
-   依赖于参数<code class="parameter">how</code>。 
+   <span class="function"><strong>pcntl_sigprocmask()</strong></span> 函数用来增加，删除或设置阻塞信号，具体行为依赖于参数 <code class="parameter">mode</code>。 
   </p>
  </div>
 
@@ -49,48 +48,35 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">how</code></dt>
-
+     <dt><code class="parameter">mode</code></dt>
      <dd>
-
       <p class="para">
-       设置<span class="function"><strong>pcntl_sigprocmask()</strong></span>函数的行为。 可选值: 
+       设置 <span class="function"><strong>pcntl_sigprocmask()</strong></span> 函数的行为。可选值: 
        <ul class="simplelist">
-        <li class="member"><strong><code>SIG_BLOCK</code></strong>: 把信号加入到当前阻塞信号中。</li>
-        <li class="member"><strong><code>SIG_UNBLOCK</code></strong>: 从当前阻塞信号中移出信号。</li>
-        <li class="member"><strong><code>SIG_SETMASK</code></strong>: 用给定的信号列表替换当前阻塞信号列表。</li>
+        <li><strong><code><a href="pcntl.constants.html#constant.sig-block">SIG_BLOCK</a></code></strong>: 把信号加入到当前阻塞信号中。</li>
+        <li><strong><code><a href="pcntl.constants.html#constant.sig-unblock">SIG_UNBLOCK</a></code></strong>: 从当前阻塞信号中移出信号。</li>
+        <li><strong><code><a href="pcntl.constants.html#constant.sig-setmask">SIG_SETMASK</a></code></strong>: 用给定的信号列表替换当前阻塞信号列表。</li>
        </ul>
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">set</code></dt>
-
+     <dt><code class="parameter">signals</code></dt>
      <dd>
-
       <p class="para">
        信号列表。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">oldset</code></dt>
-
+     <dt><code class="parameter">old_signals</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">oldset</code>是一个输出参数，用来返回之前的阻塞信号列表数组。
+       <code class="parameter">old_signals</code> 参数设置为数组，包含先前阻塞的信号列表。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -98,21 +84,18 @@
  <div class="refsect1 returnvalues" id="refsect1-function.pcntl-sigprocmask-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.pcntl-sigprocmask-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3378">
     <p><strong>Example #1 <span class="function"><strong>pcntl_sigprocmask()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//将SIGHUP信号加入到阻塞信号中<br /></span><span style="color: #0000BB">pcntl_sigprocmask</span><span style="color: #007700">(</span><span style="color: #0000BB">SIG_BLOCK</span><span style="color: #007700">, array(</span><span style="color: #0000BB">SIGHUP</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$oldset </span><span style="color: #007700">= array();<br /></span><span style="color: #FF8000">//将SIGHUP从阻塞信号列表中移除并返回之前的阻塞信号列表。<br /></span><span style="color: #0000BB">pcntl_sigprocmask</span><span style="color: #007700">(</span><span style="color: #0000BB">SIG_UNBLOCK</span><span style="color: #007700">, array(</span><span style="color: #0000BB">SIGHUP</span><span style="color: #007700">), </span><span style="color: #0000BB">$oldset</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />pcntl_sigprocmask</span><span style="color: #007700">(</span><span style="color: #0000BB">SIG_BLOCK</span><span style="color: #007700">, array(</span><span style="color: #0000BB">SIGHUP</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$oldset </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">pcntl_sigprocmask</span><span style="color: #007700">(</span><span style="color: #0000BB">SIG_UNBLOCK</span><span style="color: #007700">, array(</span><span style="color: #0000BB">SIGHUP</span><span style="color: #007700">), </span><span style="color: #0000BB">$oldset</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -124,8 +107,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.pcntl-sigwaitinfo.html" class="function" rel="rdfs-seeAlso">pcntl_sigwaitinfo()</a> - 等待信号</span></li>
-    <li class="member"><span class="function"><a href="function.pcntl-sigtimedwait.html" class="function" rel="rdfs-seeAlso">pcntl_sigtimedwait()</a> - 带超时机制的信号等待</span></li>
+    <li><span class="function"><a href="function.pcntl-sigwaitinfo.html" class="function" rel="rdfs-seeAlso">pcntl_sigwaitinfo()</a> - 等待信号</span></li>
+    <li><span class="function"><a href="function.pcntl-sigtimedwait.html" class="function" rel="rdfs-seeAlso">pcntl_sigtimedwait()</a> - 带超时机制的信号等待</span></li>
    </ul>
   </p>
  </div>

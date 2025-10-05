@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Requests the next result set from a stored procedure</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,7 +36,7 @@
  <div class="refsect1 description" id="refsect1-function.db2-next-result-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>db2_next_result</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stmt</code></span>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>db2_next_result</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$stmt</code></span>): <span class="type"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
 
 
@@ -56,20 +56,15 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">stmt</code></dt>
-
+     <dt><code class="parameter">stmt</code></dt>
      <dd>
-
       <p class="para">
        A prepared statement returned from <span class="function"><a href="function.db2-exec.html" class="function">db2_exec()</a></span> or
        <span class="function"><a href="function.db2-execute.html" class="function">db2_execute()</a></span>.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -77,16 +72,16 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    Returns a new statement resource containing the next result set if the
-   stored procedure returned another result set. Returns <strong><code>false</code></strong> if the stored
+   stored procedure returned another result set. Returns <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> if the stored
    procedure did not return another result set.
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.db2-next-result-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-2554">
+   <div class="example" id="example-1270">
     <p><strong>Example #1 Calling a stored procedure that returns multiple result sets</strong></p>
     <div class="example-contents"><p>
      In the following example, we call a stored procedure that returns three
@@ -97,16 +92,12 @@
      function.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">'CALL multiResults()'</span><span style="color: #007700">);<br /><br />  print </span><span style="color: #DD0000">"Fetching first result set\n"</span><span style="color: #007700">;<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />  }<br /><br />  print </span><span style="color: #DD0000">"\nFetching second result set\n"</span><span style="color: #007700">;<br />  </span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />  if (</span><span style="color: #0000BB">$res</span><span style="color: #007700">) {<br />    while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">)) {<br />      </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />    }<br />  }<br /><br />  print </span><span style="color: #DD0000">"\nFetching third result set\n"</span><span style="color: #007700">;<br />  </span><span style="color: #0000BB">$res2 </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />  if (</span><span style="color: #0000BB">$res2</span><span style="color: #007700">) {<br />    while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$res2</span><span style="color: #007700">)) {<br />      </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />    }<br />  }<br /><br />  </span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />  </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">'CALL multiResults()'</span><span style="color: #007700">);<br /><br />  print </span><span style="color: #DD0000">"Fetching first result set\n"</span><span style="color: #007700">;<br />  while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />  }<br /><br />  print </span><span style="color: #DD0000">"\nFetching second result set\n"</span><span style="color: #007700">;<br />  </span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />  if (</span><span style="color: #0000BB">$res</span><span style="color: #007700">) {<br />    while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">)) {<br />      </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />    }<br />  }<br /><br />  print </span><span style="color: #DD0000">"\nFetching third result set\n"</span><span style="color: #007700">;<br />  </span><span style="color: #0000BB">$res2 </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />  if (</span><span style="color: #0000BB">$res2</span><span style="color: #007700">) {<br />    while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$res2</span><span style="color: #007700">)) {<br />      </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />    }<br />  }<br /><br />  </span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Fetching first result set
+<div class="examplescode"><pre class="examplescode">Fetching first result set
 array(2) {
   [0]=&gt;
   string(16) &quot;Bubbles         &quot;
@@ -150,8 +141,8 @@ array(1) {
 array(1) {
   [0]=&gt;
   string(16) &quot;Gizmo           &quot;
-}
-</pre></div>
+}</pre>
+</div>
     </div>
    </div>
   </p>

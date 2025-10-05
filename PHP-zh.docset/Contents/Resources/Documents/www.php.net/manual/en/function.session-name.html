@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>读取/设置会话名称</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,13 +35,13 @@
  <div class="refsect1 description" id="refsect1-function.session-name-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>session_name</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>session_name</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$name</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>session_name()</strong></span> 函数返回当前会话名称。
    如果指定 <code class="parameter">name</code> 参数，
    <span class="function"><strong>session_name()</strong></span> 函数会更新会话名称，
-   并返回 <em class="emphasis">原来的</em> 会话名称。
+   并返回 <em>原来的</em> 会话名称。
   </p>
   <p class="para">
    如果使用 <code class="parameter">name</code> 指定了新字符串作为会话 cookie 的名字，
@@ -67,17 +67,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">name</code></dt>
-
+     <dt><code class="parameter">name</code></dt>
      <dd>
-
       <p class="para">
        用在 cookie 或者 URL 中的会话名称，
        例如：<code class="literal">PHPSESSID</code>。
        只能使用字母和数字作为会话名称，建议尽可能的短一些，
        并且是望文知意的名字（对于启用了 cookie 警告的用户来说，方便其判断是否要允许此 cookie）。
-       如果指定了 <code class="parameter">name</code> 参数，
+       如果指定了 <code class="parameter">name</code> 且不为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，
        那么当前会话也会使用指定值作为名称。
       </p>
       <p class="para">
@@ -89,10 +86,8 @@
        </div>
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -101,28 +96,11 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    返回当前会话名称。如果指定 <code class="parameter">name</code> 参数，那么此函数会更新会话名称，并且
-   返回 <em class="emphasis">原来的</em> 会话名称。
+   返回 <em>原来的</em> 会话名称， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
- <div class="refsect1 examples" id="refsect1-function.session-name-examples">
-  <h3 class="title">范例</h3>
-  <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #1 <span class="function"><strong>session_name()</strong></span> 示例</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* 设置会话名称为 WebsiteID */<br /><br /></span><span style="color: #0000BB">$previous_name </span><span style="color: #007700">= </span><span style="color: #0000BB">session_name</span><span style="color: #007700">(</span><span style="color: #DD0000">"WebsiteID"</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"The previous session name was </span><span style="color: #0000BB">$previous_name</span><span style="color: #DD0000">&lt;br /&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
- </div>
-
- 
  <div class="refsect1 changelog" id="refsect1-function.session-name-changelog">
   <h3 class="title">更新日志</h3>
   <p class="para">
@@ -137,6 +115,13 @@
      </thead>
 
      <tbody class="tbody">
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        <code class="parameter">name</code> 现在可以为 null。
+       </td>
+      </tr>
+
       <tr>
        <td>7.2.0</td>
        <td>
@@ -156,11 +141,25 @@
  </div>
 
 
+ <div class="refsect1 examples" id="refsect1-function.session-name-examples">
+  <h3 class="title">示例</h3>
+  <p class="para">
+   <div class="example" id="example-4813">
+    <p><strong>Example #1 <span class="function"><strong>session_name()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* set the session name to WebsiteID */<br /><br /></span><span style="color: #0000BB">$previous_name </span><span style="color: #007700">= </span><span style="color: #0000BB">session_name</span><span style="color: #007700">(</span><span style="color: #DD0000">"WebsiteID"</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"The previous session name was </span><span style="color: #0000BB">$previous_name</span><span style="color: #DD0000">&lt;br /&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
  <div class="refsect1 seealso" id="refsect1-function.session-name-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.name" class="link">session.name</a> 
      配置指示
     </li>
@@ -173,7 +172,22 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125829""></a>
+<div id="allnotes">  <a name="128545""></a>
+  <div class="note">
+   <strong class="user">descartavel1+php at gmail dot com</strong>
+   <a href="#128545" class="date">16-May-2023 09:13</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Always try to set the prefix for your session name attribute to either `__Host-` or `__Secure-` to benefit from Browsers improved security. See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#attributes<br />
+<br />
+Also, if you have auto_session enabled, you must set this name in session.name in your config (php.ini, htaccess, etc)</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125829""></a>
   <div class="note">
    <strong class="user">mmulej at gmail dot com</strong>
    <a href="#125829" class="date">16-Feb-2021 09:29</a>

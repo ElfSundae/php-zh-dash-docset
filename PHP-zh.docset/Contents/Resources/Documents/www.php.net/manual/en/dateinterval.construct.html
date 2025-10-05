@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Creates a new DateInterval object</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-dateinterval.construct-description">
   <h3 class="title">说明</h3>
   <div class="constructorsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>DateInterval::__construct</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$duration</code></span>)</div>
+   <span class="modifier">public</span> <span class="methodname"><strong>DateInterval::__construct</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$duration</code></span>)</div>
 
   <p class="para rdfs-comment">
    Creates a new DateInterval object.
@@ -48,11 +48,8 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">duration</code></dt>
-
+     <dt><code class="parameter">duration</code></dt>
      <dd>
-
       <p class="para">
        An interval specification.
       </p>
@@ -152,10 +149,8 @@
        specification</a>.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -163,8 +158,9 @@
  <div class="refsect1 errors" id="refsect1-dateinterval.construct-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
-   Throws an <span class="classname"><a href="class.exception.html" class="classname">Exception</a></span> when the <code class="parameter">duration</code>
-   cannot be parsed as an interval.
+   Throws an <span class="classname"><a href="class.datemalformedintervalstringexception.html" class="classname">DateMalformedIntervalStringException</a></span> when
+   the <code class="parameter">duration</code> cannot be parsed as an interval. Prior
+   to PHP 8.3, this was <span class="exceptionname"><a href="class.exception.html" class="exceptionname">Exception</a></span>.
   </p>
  </div>
 
@@ -182,6 +178,15 @@
     </thead>
 
     <tbody class="tbody">
+     <tr>
+      <td>8.3.0</td>
+      <td>
+       Now throws
+       <span class="exceptionname"><a href="class.datemalformedintervalstringexception.html" class="exceptionname">DateMalformedIntervalStringException</a></span>
+       instead of <span class="exceptionname"><a href="class.exception.html" class="exceptionname">Exception</a></span>.
+      </td>
+     </tr>
+
      <tr>
       <td>8.2.0</td>
       <td>
@@ -206,18 +211,15 @@
 
 
  <div class="refsect1 examples" id="refsect1-dateinterval.construct-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4108">
+   <div class="example" id="example-2107">
     <p><strong>Example #1 Constructing and using <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> objects</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Create a specific date<br /></span><span style="color: #0000BB">$someDate </span><span style="color: #007700">= </span><span style="color: #0000BB">\DateTime</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromFormat</span><span style="color: #007700">(</span><span style="color: #DD0000">"Y-m-d H:i"</span><span style="color: #007700">, </span><span style="color: #DD0000">"2022-08-25 14:18"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Create interval<br /></span><span style="color: #0000BB">$interval </span><span style="color: #007700">= new </span><span style="color: #0000BB">\DateInterval</span><span style="color: #007700">(</span><span style="color: #DD0000">"P7D"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Add interval<br /></span><span style="color: #0000BB">$someDate</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add</span><span style="color: #007700">(</span><span style="color: #0000BB">$interval</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Convert interval to string<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">$interval</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">"%d"</span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Create a specific date<br /></span><span style="color: #0000BB">$someDate </span><span style="color: #007700">= </span><span style="color: #0000BB">\DateTime</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromFormat</span><span style="color: #007700">(</span><span style="color: #DD0000">"Y-m-d H:i"</span><span style="color: #007700">, </span><span style="color: #DD0000">"2022-08-25 14:18"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Create interval<br /></span><span style="color: #0000BB">$interval </span><span style="color: #007700">= new </span><span style="color: #0000BB">\DateInterval</span><span style="color: #007700">(</span><span style="color: #DD0000">"P7D"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Add interval<br /></span><span style="color: #0000BB">$someDate</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add</span><span style="color: #007700">(</span><span style="color: #0000BB">$interval</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Convert interval to string<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">$interval</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">"%d"</span><span style="color: #007700">);</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen"><br />
 7<br />
     </div>
@@ -225,19 +227,15 @@
   </p>
 
   <p class="para">
-   <div class="example" id="example-4110">
+   <div class="example" id="example-2108">
     <p><strong>Example #2 <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$interval </span><span style="color: #007700">= new </span><span style="color: #0000BB">DateInterval</span><span style="color: #007700">(</span><span style="color: #DD0000">'P1W2D'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$interval</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$interval </span><span style="color: #007700">= new </span><span style="color: #0000BB">DateInterval</span><span style="color: #007700">(</span><span style="color: #DD0000">'P1W2D'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$interval</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程在 PHP 8.2 中的输出：</p></div>
+    <div class="example-contents"><p>以上示例在 PHP 8.2 中的输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-object(DateInterval)#1 (10) {
+<div class="examplescode"><pre class="examplescode">object(DateInterval)#1 (10) {
   [&quot;y&quot;]=&gt;
   int(0)
   [&quot;m&quot;]=&gt;
@@ -258,13 +256,12 @@ object(DateInterval)#1 (10) {
   bool(false)
   [&quot;from_string&quot;]=&gt;
   bool(false)
-}
-</pre></div>
+}</pre>
+</div>
     </div>
-    <div class="example-contents"><p>以上例程在 PHP 8 中的输出：</p></div>
+    <div class="example-contents"><p>以上示例在 PHP 8 中的输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-object(DateInterval)#1 (16) {
+<div class="examplescode"><pre class="examplescode">object(DateInterval)#1 (16) {
   [&quot;y&quot;]=&gt;
   int(0)
   [&quot;m&quot;]=&gt;
@@ -297,13 +294,12 @@ object(DateInterval)#1 (16) {
   int(0)
   [&quot;have_special_relative&quot;]=&gt;
   int(0)
-}
-</pre></div>
+}</pre>
+</div>
     </div>
-    <div class="example-contents"><p>以上例程在 PHP 7 中的输出：</p></div>
+    <div class="example-contents"><p>以上示例在 PHP 7 中的输出：</p></div>
     <div class="example-contents screen">
-     <div class="cdata"><pre>
-object(DateInterval)#1 (16) {
+     <div class="examplescode"><pre class="examplescode">object(DateInterval)#1 (16) {
   [&quot;y&quot;]=&gt;
   int(0)
   [&quot;m&quot;]=&gt;
@@ -336,8 +332,8 @@ object(DateInterval)#1 (16) {
   int(0)
   [&quot;have_special_relative&quot;]=&gt;
   int(0)
-}
-</pre></div>
+}</pre>
+</div>
     </div>
    </div>
   </p>
@@ -348,10 +344,10 @@ object(DateInterval)#1 (16) {
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="dateinterval.format.html" class="function" rel="rdfs-seeAlso">DateInterval::format()</a> - Formats the interval</span></li>
-    <li class="member"><span class="function"><a href="datetime.add.html" class="function" rel="rdfs-seeAlso">DateTime::add()</a> - 修改 DateTime 对象，增加天、月、年、小时、分钟以及秒的数量。</span></li>
-    <li class="member"><span class="function"><a href="datetime.sub.html" class="function" rel="rdfs-seeAlso">DateTime::sub()</a> - 对 DateTime 对象减去一定量的日、月、年、小时、分钟和秒。</span></li>
-    <li class="member"><span class="function"><a href="datetime.diff.html" class="function" rel="rdfs-seeAlso">DateTime::diff()</a> - 返回两个 DateTime 之间的差值</span></li>
+    <li><span class="function"><a href="dateinterval.format.html" class="function" rel="rdfs-seeAlso">DateInterval::format()</a> - Formats the interval</span></li>
+    <li><span class="function"><a href="datetime.add.html" class="function" rel="rdfs-seeAlso">DateTime::add()</a> - 修改 DateTime 对象，增加天、月、年、小时、分钟以及秒的数量。</span></li>
+    <li><span class="function"><a href="datetime.sub.html" class="function" rel="rdfs-seeAlso">DateTime::sub()</a> - 对 DateTime 对象减去一定量的日、月、年、小时、分钟和秒。</span></li>
+    <li><span class="function"><a href="datetime.diff.html" class="function" rel="rdfs-seeAlso">DateTime::diff()</a> - 返回两个 DateTime 之间的差值</span></li>
    </ul>
   </p>
  </div>

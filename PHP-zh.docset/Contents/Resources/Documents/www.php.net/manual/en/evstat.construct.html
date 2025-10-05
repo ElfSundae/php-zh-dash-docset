@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Constructs EvStat watcher object</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,21 +36,21 @@
   <div class="constructorsynopsis dc-description">
    <span class="modifier">public</span>
    <span class="methodname"><strong>EvStat::__construct</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type">string</span>
-     <code class="parameter">$path</code>
+    
+    <span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$path</code>
    </span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type">float</span>
-     <code class="parameter">$interval</code>
+    
+    <span class="type"><a href="language.types.float.html" class="type float">float</a></span> <code class="parameter">$interval</code>
    </span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span>
-     <code class="parameter">$callback</code>
+    
+    <span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code>
    </span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span>
-     <code class="parameter">$data</code>
-    <span class="initializer"> = <strong><code>null</code></strong></span>
+    
+    <span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$data</code>
+    <span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span>
    </span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam">
-    <span class="type">int</span>
-     <code class="parameter">$priority</code>
+    
+    <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$priority</code>
     <span class="initializer"> = 0</span>
    </span><br>)</div>
 
@@ -64,96 +64,72 @@
   <dl>
    
     <dt>
-
      <code class="parameter">path</code>
     </dt>
-
     <dd>
-
      <p class="para">
       The path to wait for status changes on.
      </p>
     </dd>
-
    
    
     <dt>
-
      <code class="parameter">interval</code>
     </dt>
-
     <dd>
-
      <p class="para">
       Hint on how quickly a change is expected to be detected and should
       normally be specified as
-      <strong><code>0.0</code></strong>
+      <code class="literal">0.0</code>
       to let
-      <em class="emphasis">libev</em>
+      <em>libev</em>
       choose a suitable value.
      </p>
     </dd>
-
    
    
     <dt>
-
      <code class="parameter">callback</code>
     </dt>
-
     <dd>
-
      <p class="para">
       See
       <a href="ev.watcher-callbacks.html" class="link">Watcher callbacks</a>
       .
      </p>
     </dd>
-
    
    
     <dt>
-
      <code class="parameter">data</code>
     </dt>
-
     <dd>
-
      <p class="para">
       Custom data associated with the watcher.
      </p>
     </dd>
-
    
    
     <dt>
-
      <code class="parameter">priority</code>
     </dt>
-
     <dd>
-
      <p class="para">
       <a href="class.ev.html#ev.constants.watcher-pri" class="link">Watcher priority</a>
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-evstat.construct-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
 
- <div class="example" id="">
+ <div class="example" id="example-3364">
    <p><strong>Example #1 Monitor changes of /var/log/messages</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Use 10 second update interval.<br /></span><span style="color: #0000BB">$w </span><span style="color: #007700">= new </span><span style="color: #0000BB">EvStat</span><span style="color: #007700">(</span><span style="color: #DD0000">"/var/log/messages"</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">, function (</span><span style="color: #0000BB">$w</span><span style="color: #007700">) {<br /> echo </span><span style="color: #DD0000">"/var/log/messages changed\n"</span><span style="color: #007700">;<br /><br /> </span><span style="color: #0000BB">$attr </span><span style="color: #007700">= </span><span style="color: #0000BB">$w</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">attr</span><span style="color: #007700">();<br /><br /> if (</span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'nlink'</span><span style="color: #007700">]) {<br />  </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Current size: %ld\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'size'</span><span style="color: #007700">]);<br />  </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Current atime: %ld\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'atime'</span><span style="color: #007700">]);<br />  </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Current mtime: %ld\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'mtime'</span><span style="color: #007700">]);<br /> } else {<br />  </span><span style="color: #0000BB">fprintf</span><span style="color: #007700">(</span><span style="color: #0000BB">STDERR</span><span style="color: #007700">, </span><span style="color: #DD0000">"`messages` file is not there!"</span><span style="color: #007700">);<br />  </span><span style="color: #0000BB">$w</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">stop</span><span style="color: #007700">();<br /> }<br />});<br /><br /></span><span style="color: #0000BB">Ev</span><span style="color: #007700">::</span><span style="color: #0000BB">run</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// Use 10 second update interval.<br /></span><span style="color: #0000BB">$w </span><span style="color: #007700">= new </span><span style="color: #0000BB">EvStat</span><span style="color: #007700">(</span><span style="color: #DD0000">"/var/log/messages"</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, function (</span><span style="color: #0000BB">$w</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"/var/log/messages changed\n"</span><span style="color: #007700">;<br /><br />    </span><span style="color: #0000BB">$attr </span><span style="color: #007700">= </span><span style="color: #0000BB">$w</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">attr</span><span style="color: #007700">();<br /><br />    if (</span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'nlink'</span><span style="color: #007700">]) {<br />        </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Current size: %ld\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'size'</span><span style="color: #007700">]);<br />        </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Current atime: %ld\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'atime'</span><span style="color: #007700">]);<br />        </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Current mtime: %ld\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$attr</span><span style="color: #007700">[</span><span style="color: #DD0000">'mtime'</span><span style="color: #007700">]);<br />    } else {<br />        </span><span style="color: #0000BB">fprintf</span><span style="color: #007700">(</span><span style="color: #0000BB">STDERR</span><span style="color: #007700">, </span><span style="color: #DD0000">"`messages` file is not there!"</span><span style="color: #007700">);<br />        </span><span style="color: #0000BB">$w</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">stop</span><span style="color: #007700">();<br />    }<br />});<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>

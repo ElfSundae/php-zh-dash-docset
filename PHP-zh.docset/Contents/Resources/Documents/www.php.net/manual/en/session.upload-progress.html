@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Session 上传进度</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="session.customhandler.html">? 自定义会话管理器</a></li>
+      <li style="float: left;"><a href="session.customhandler.html">? 自定义会话处理程序</a></li>
       <li style="float: right;"><a href="session.security.html">会话和安全 ?</a></li>
     </ul>
   </div>
@@ -26,14 +26,8 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="session.upload-progress" class="chapter">
- <h1>Session 上传进度</h1>
+ <h1 class="title">Session 上传进度</h1>
 
-
- <blockquote class="note"><p><strong class="note">Note</strong>: 
-  <span class="simpara">
-   此特性自 PHP 5.4.0 后可用。
-  </span>
- </p></blockquote>
 
  <p class="para">
   当
@@ -50,16 +44,13 @@
   通常这些键值可以通过读取INI设置来获得，例如
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$key </span><span style="color: #007700">= </span><span style="color: #0000BB">ini_get</span><span style="color: #007700">(</span><span style="color: #DD0000">"session.upload_progress.prefix"</span><span style="color: #007700">) . </span><span style="color: #0000BB">ini_get</span><span style="color: #007700">(</span><span style="color: #DD0000">"session.upload_progress.name"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$key </span><span style="color: #007700">= </span><span style="color: #0000BB">ini_get</span><span style="color: #007700">(</span><span style="color: #DD0000">"session.upload_progress.prefix"</span><span style="color: #007700">) . </span><span style="color: #0000BB">ini_get</span><span style="color: #007700">(</span><span style="color: #DD0000">"session.upload_progress.name"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
  </p>
  <p class="para">
-  通过将<code class="literal">$_SESSION[$key][&quot;cancel_upload&quot;]</code>设置为<strong><code>true</code></strong>，还可以<em class="emphasis">取消</em>一个正在处理中的文件上传。
+  通过将<code class="literal">$_SESSION[$key][&quot;cancel_upload&quot;]</code>设置为<strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，还可以<em>取消</em>一个正在处理中的文件上传。
   当在同一个请求中上传多个文件，它仅会取消当前正在处理的文件上传和未处理的文件上传，但是不会移除那些已经完成的上传。
   当一个上传请求被这么取消时，<var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES</a></var>中的<code class="literal">error</code>将会被设置为
   <strong><code>UPLOAD_ERR_EXTENSION</code></strong>。
@@ -72,7 +63,7 @@
   通过合理设置这两个选项的值，这个功能的开销几乎可以忽略不计。
  </p>
  <p class="para">
-  <div class="example" id="">
+  <div class="example" id="example-4806">
    <p><strong>Example #1 样例信息</strong></p>
    <div class="example-contents"><p>
     一个上传进度数组的结构的例子
@@ -91,10 +82,7 @@
     在session中存放的数据看上去是这样子的：
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">"upload_progress_123"</span><span style="color: #007700">] = array(<br /> </span><span style="color: #DD0000">"start_time" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1234567890</span><span style="color: #007700">,   </span><span style="color: #FF8000">// The request time<br /> </span><span style="color: #DD0000">"content_length" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">57343257</span><span style="color: #007700">, </span><span style="color: #FF8000">// POST content length<br /> </span><span style="color: #DD0000">"bytes_processed" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">453489</span><span style="color: #007700">,  </span><span style="color: #FF8000">// Amount of bytes received and processed<br /> </span><span style="color: #DD0000">"done" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false</span><span style="color: #007700">,              </span><span style="color: #FF8000">// true when the POST handler has finished, successfully or not<br /> </span><span style="color: #DD0000">"files" </span><span style="color: #007700">=&gt; array(<br />  </span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; array(<br />   </span><span style="color: #DD0000">"field_name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"file1"</span><span style="color: #007700">,       </span><span style="color: #FF8000">// Name of the &lt;input/&gt; field<br />   // The following 3 elements equals those in $_FILES<br />   </span><span style="color: #DD0000">"name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"foo.avi"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"tmp_name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"/tmp/phpxxxxxx"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"error" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"done" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">true</span><span style="color: #007700">,                </span><span style="color: #FF8000">// True when the POST handler has finished handling this file<br />   </span><span style="color: #DD0000">"start_time" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1234567890</span><span style="color: #007700">,    </span><span style="color: #FF8000">// When this file has started to be processed<br />   </span><span style="color: #DD0000">"bytes_processed" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">57343250</span><span style="color: #007700">, </span><span style="color: #FF8000">// Amount of bytes received and processed for this file<br />  </span><span style="color: #007700">),<br />  </span><span style="color: #FF8000">// An other file, not finished uploading, in the same request<br />  </span><span style="color: #0000BB">1 </span><span style="color: #007700">=&gt; array(<br />   </span><span style="color: #DD0000">"field_name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"file2"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"bar.avi"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"tmp_name" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">NULL</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"error" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"done" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"start_time" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1234567899</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"bytes_processed" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">54554</span><span style="color: #007700">,<br />  ),<br /> )<br />);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">"upload_progress_123"</span><span style="color: #007700">] = array(<br /> </span><span style="color: #DD0000">"start_time" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1234567890</span><span style="color: #007700">,   </span><span style="color: #FF8000">// The request time<br /> </span><span style="color: #DD0000">"content_length" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">57343257</span><span style="color: #007700">, </span><span style="color: #FF8000">// POST content length<br /> </span><span style="color: #DD0000">"bytes_processed" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">453489</span><span style="color: #007700">,  </span><span style="color: #FF8000">// Amount of bytes received and processed<br /> </span><span style="color: #DD0000">"done" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false</span><span style="color: #007700">,              </span><span style="color: #FF8000">// true when the POST handler has finished, successfully or not<br /> </span><span style="color: #DD0000">"files" </span><span style="color: #007700">=&gt; array(<br />  </span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; array(<br />   </span><span style="color: #DD0000">"field_name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"file1"</span><span style="color: #007700">,       </span><span style="color: #FF8000">// Name of the &lt;input/&gt; field<br />   // The following 3 elements equals those in $_FILES<br />   </span><span style="color: #DD0000">"name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"foo.avi"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"tmp_name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"/tmp/phpxxxxxx"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"error" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"done" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">true</span><span style="color: #007700">,                </span><span style="color: #FF8000">// True when the POST handler has finished handling this file<br />   </span><span style="color: #DD0000">"start_time" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1234567890</span><span style="color: #007700">,    </span><span style="color: #FF8000">// When this file has started to be processed<br />   </span><span style="color: #DD0000">"bytes_processed" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">57343250</span><span style="color: #007700">, </span><span style="color: #FF8000">// Amount of bytes received and processed for this file<br />  </span><span style="color: #007700">),<br />  </span><span style="color: #FF8000">// An other file, not finished uploading, in the same request<br />  </span><span style="color: #0000BB">1 </span><span style="color: #007700">=&gt; array(<br />   </span><span style="color: #DD0000">"field_name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"file2"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"name" </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">"bar.avi"</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"tmp_name" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">NULL</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"error" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"done" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"start_time" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1234567899</span><span style="color: #007700">,<br />   </span><span style="color: #DD0000">"bytes_processed" </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">54554</span><span style="color: #007700">,<br />  ),<br /> )<br />);</span></span></code></div>
    </div>
 
   </div>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>编译问题</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -26,7 +26,7 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="faq.build" class="chapter">
- <h1>编译问题</h1>
+ <h1 class="title">编译问题</h1>
 
  
  <p class="para">本节汇集了大多数编译时出现的常见错误。</p>
@@ -111,7 +111,7 @@
    <dd class="answer">
     <p class="para">你需要告诉 configure/setup 脚本你的 Apache 源程序最上层的目录位置。这意味着你需要这样指定 
      <strong class="option configure">--with-apache=/path/to/apache</strong>而
-     <em class="emphasis">不是</em>这样 
+     <em>不是</em>这样 
      <strong class="option configure">--with-apache=/path/to/apache/src</strong>。</p>
    </dd>
   </dl>
@@ -337,7 +337,7 @@ $ gcc -E test.c &gt;/dev/null
      
       当带 MySQL 编译 PHP 时，可以正确地运行 configure，但是在
       <code class="literal">make</code> 的过程中出现了类似以下的错误信息： 
-      <em class="emphasis">ext/mysql/libmysqlclient/my_tempnam.o(.text+0x46): In function 
+      <em>ext/mysql/libmysqlclient/my_tempnam.o(.text+0x46): In function 
       my_tempnam&#039;: /php4/ext/mysql/libmysqlclient/my_tempnam.c:103: the 
       use of tempnam&#039; is dangerous, better use mkstemp&#039;</em>，这是怎么回事？
      
@@ -370,10 +370,7 @@ $ gcc -E test.c &gt;/dev/null
     <dd class="answer">
      <p class="para">要么在你用来编译当前的 PHP 的源码树中查看 config.nice 文件，如果没有，只要运行此脚本： 
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php phpinfo</span><span style="color: #007700">(); </span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php phpinfo</span><span style="color: #007700">(); </span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
       在输出的顶端显示了用来配置此 PHP 的 
@@ -408,81 +405,6 @@ $ gcc -E test.c &gt;/dev/null
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="107623""></a>
-  <div class="note">
-   <strong class="user">Fabio</strong>
-   <a href="#107623" class="date">22-Feb-2012 01:47</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-When building PHP 5.3.x for Apache 2.4.x you may get an error in the apxs query for the MPM_NAME.<br />
-This is because the apxs included in Apache 2.4.x doesn't recognize that query anymore.<br />
-<br />
-To resolve this issue one should modify the PHP configure file to use the right MPM module used by Apache.<br />
-<br />
-To know the used MPM you can execute this command: apachectl -t -D DUMP_MODULES | grep mpm<br />
-<br />
-Then, edit the PHP configure file, search for the APXS_MPM variable and force its value to prefork, event or worker according to the value returned by the previous command.<br />
-<br />
-Hope it helps.<br />
--<br />
-Fabio</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="93634""></a>
-  <div class="note">
-   <strong class="user">terry at mackintoshweb dot com</strong>
-   <a href="#93634" class="date">19-Sep-2009 08:43</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The configure script of PHP 5.3.0 has some test lines that use expr with the option --, my expr (version 2.0) does not except --.&nbsp; This causes a run of error messages from the shell like:<br />
-<br />
-./configure: line 2xxx: test: =: unary operator expected<br />
-expr: syntax error<br />
-<br />
-I used buildconf --force to see if it would fix this.<br />
-While it resulted in a quit different file, it still had the lines of code with expr -- in it.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="74942""></a>
-  <div class="note">
-   
-   <a href="#74942" class="date">05-May-2007 06:48</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-@ anca-phpdoc at anca dot tv: <br />
-<br />
-You can use ./configure --with-libxml-dir=/path_to_xml2-config</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="59524""></a>
-  <div class="note">
-   <strong class="user">anca-phpdoc at anca dot tv</strong>
-   <a href="#59524" class="date">08-Dec-2005 07:48</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-For the configure newbies among us:<br />
-<br />
-If you update or reinstall any of the libraries used to compile in a different directory than they started out, you will need to make sure that you update the config.cache file (or re-generate it) so that configure will not look in the wrong place for the information. <br />
-<br />
-On Mac OS X, for example, I updated my libxml using Fink.&nbsp; Fink placed the files in the /sw directory.&nbsp; However, php was still looking for important libxml files (such as xml2-config) in the old directory (/usr/bin/xml2-config).&nbsp;&nbsp; After updating config.cache with the new value of the xml2-config path, I was able to compile correctly.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

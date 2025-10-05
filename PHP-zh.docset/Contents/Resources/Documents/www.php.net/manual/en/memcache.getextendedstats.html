@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>缓存服务器池中所有服务器统计信息</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-memcache.getextendedstats-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>Memcache::getExtendedStats</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$type</code><span class="initializer"> = ?</span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$slabid</code><span class="initializer"> = ?</span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$limit</code><span class="initializer"> = 100</span></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>Memcache::getExtendedStats</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$type</code><span class="initializer"> = ?</span></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$slabid</code><span class="initializer"> = ?</span></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$limit</code><span class="initializer"> = 100</span></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
 
   <p class="para rdfs-comment">
@@ -64,45 +64,32 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">type</code></dt>
-
+     <dt><code class="parameter">type</code></dt>
      <dd>
-
       <p class="para">
       期望抓取的统计信息类型，可以使用的值有 {reset, malloc, maps, cachedump, slabs, items, sizes}。
       通过 memcached 协议指定这些附加参数是为了方便 memcache 开发者（检查其中的变动）。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">slabid</code></dt>
-
+     <dt><code class="parameter">slabid</code></dt>
      <dd>
-
       <p class="para">
       用于与参数 <code class="parameter">type</code> 联合从指定 slab 分块拷贝数据，cachedump 命令会完全占用服务器通常用于
       比较严格的调试。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">limit</code></dt>
-
+     <dt><code class="parameter">limit</code></dt>
      <dd>
-
       <p class="para">
       用于和参数<code class="parameter">type</code>联合来设置 cachedump 时从服务端获取的实体条数。
       </p>
      </dd>
-
     
    </dl>
-
    <div class="warning"><strong class="warning">Warning</strong>
     <p class="simpara">
      出于安全原因，cachedump stat 类型已经从 memcached 守护程序中移除。
@@ -116,27 +103,23 @@
  <div class="refsect1 returnvalues" id="refsect1-memcache.getextendedstats-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-  返回一个二维关联数组的服务器统计信息或者在失败时返回 <strong><code>false</code></strong>。
+  返回一个二维关联数组的服务器统计信息或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-memcache.getextendedstats-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4468">
     <p><strong>Example #1 <span class="function"><strong>Memcache::getExtendedStats()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />    $memcache_obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'failed_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />    <br />    </span><span style="color: #0000BB">$stats </span><span style="color: #007700">= </span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getExtendedStats</span><span style="color: #007700">();<br />    </span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$stats</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />    $memcache_obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'failed_host'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />    <br />    </span><span style="color: #0000BB">$stats </span><span style="color: #007700">= </span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getExtendedStats</span><span style="color: #007700">();<br />    </span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$stats</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [memcache_host:11211] =&gt; Array
         (
@@ -162,8 +145,8 @@ Array
         )
 
     [failed_host:11211] =&gt; false
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
@@ -174,8 +157,8 @@ Array
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="memcache.getversion.html" class="function" rel="rdfs-seeAlso">Memcache::getVersion()</a> - 返回服务器版本信息</span></li>
-    <li class="member"><span class="function"><a href="memcache.getstats.html" class="function" rel="rdfs-seeAlso">Memcache::getStats()</a> - 获取服务器统计信息</span></li>
+    <li><span class="function"><a href="memcache.getversion.html" class="function" rel="rdfs-seeAlso">Memcache::getVersion()</a> - 返回服务器版本信息</span></li>
+    <li><span class="function"><a href="memcache.getstats.html" class="function" rel="rdfs-seeAlso">Memcache::getStats()</a> - 获取服务器统计信息</span></li>
    </ul>
   </p>
  </div>

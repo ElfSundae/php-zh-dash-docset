@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Sort LDAP result entries on the client side</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,14 +34,14 @@
 
  <div id="function.ldap-sort-refsynopsisdiv">
   <div class="warning"><strong class="warning">Warning</strong><p class="simpara">此函数自 PHP 7.0.0 
-起<em class="emphasis">弃用</em>且 PHP 8.0.0 
-起<em class="emphasis">删除</em>。强烈建议不要应用此特性。</p></div>
+起<em>弃用</em>且 PHP 8.0.0 
+起<em>删除</em>。强烈建议不要应用此特性。</p></div>
  </div>
 
  <div class="refsect1 description" id="refsect1-function.ldap-sort-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ldap_sort</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$link</code></span>, <span class="methodparam"><span class="type">resource</span> <code class="parameter">$result</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$sortfilter</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>ldap_sort</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$link</code></span>, <span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$result</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$sortfilter</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Sort the result of a LDAP search, returned by
@@ -60,44 +60,31 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">link</code></dt>
-
+     <dt><code class="parameter">link</code></dt>
      <dd>
-
       <p class="para">
        An LDAP resource, returned by <span class="function"><a href="function.ldap-connect.html" class="function">ldap_connect()</a></span>.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">result</code></dt>
-
+     <dt><code class="parameter">result</code></dt>
      <dd>
-
       <p class="para">
        An search result identifier, returned by
        <span class="function"><a href="function.ldap-search.html" class="function">ldap_search()</a></span>.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">sortfilter</code></dt>
-
+     <dt><code class="parameter">sortfilter</code></dt>
      <dd>
-
       <p class="para">
        The attribute to use as a key in the sort.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -140,16 +127,13 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.ldap-sort-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
    Sorting the result of a search.
-   <div class="example" id="">
+   <div class="example" id="example-4457">
     <p><strong>Example #1 LDAP sort</strong></p>
     <div class="example-contents">
-     <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />     </span><span style="color: #FF8000">// $ds is a valid link identifier (see ldap_connect)<br /><br />     </span><span style="color: #0000BB">$dn        </span><span style="color: #007700">= </span><span style="color: #DD0000">'ou=example,dc=org'</span><span style="color: #007700">;<br />     </span><span style="color: #0000BB">$filter    </span><span style="color: #007700">= </span><span style="color: #DD0000">'(|(sn=Doe*)(givenname=John*))'</span><span style="color: #007700">;<br />     </span><span style="color: #0000BB">$justthese </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'ou'</span><span style="color: #007700">, </span><span style="color: #DD0000">'sn'</span><span style="color: #007700">, </span><span style="color: #DD0000">'givenname'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mail'</span><span style="color: #007700">);<br /><br />     </span><span style="color: #0000BB">$sr </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_search</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$dn</span><span style="color: #007700">, </span><span style="color: #0000BB">$filter</span><span style="color: #007700">, </span><span style="color: #0000BB">$justthese</span><span style="color: #007700">);<br /><br />     </span><span style="color: #FF8000">// Sort<br />     </span><span style="color: #0000BB">ldap_sort</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$sr</span><span style="color: #007700">, </span><span style="color: #DD0000">'sn'</span><span style="color: #007700">);<br /><br />     </span><span style="color: #FF8000">// Retrieving the data<br />     </span><span style="color: #0000BB">$info </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_get_entries</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$sr</span><span style="color: #007700">);</span>
-</span>
-</code></div>
+     <div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />     </span><span style="color: #FF8000">// $ds is a valid link identifier (see ldap_connect)<br /><br />     </span><span style="color: #0000BB">$dn        </span><span style="color: #007700">= </span><span style="color: #DD0000">'ou=example,dc=org'</span><span style="color: #007700">;<br />     </span><span style="color: #0000BB">$filter    </span><span style="color: #007700">= </span><span style="color: #DD0000">'(|(sn=Doe*)(givenname=John*))'</span><span style="color: #007700">;<br />     </span><span style="color: #0000BB">$justthese </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'ou'</span><span style="color: #007700">, </span><span style="color: #DD0000">'sn'</span><span style="color: #007700">, </span><span style="color: #DD0000">'givenname'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mail'</span><span style="color: #007700">);<br /><br />     </span><span style="color: #0000BB">$sr </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_search</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$dn</span><span style="color: #007700">, </span><span style="color: #0000BB">$filter</span><span style="color: #007700">, </span><span style="color: #0000BB">$justthese</span><span style="color: #007700">);<br /><br />     </span><span style="color: #FF8000">// Sort<br />     </span><span style="color: #0000BB">ldap_sort</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$sr</span><span style="color: #007700">, </span><span style="color: #DD0000">'sn'</span><span style="color: #007700">);<br /><br />     </span><span style="color: #FF8000">// Retrieving the data<br />     </span><span style="color: #0000BB">$info </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_get_entries</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$sr</span><span style="color: #007700">);</span></span></code></div>
     </div>
 
    </div>

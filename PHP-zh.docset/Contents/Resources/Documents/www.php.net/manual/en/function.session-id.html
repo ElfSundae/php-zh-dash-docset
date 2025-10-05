@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取/设置当前会话 ID</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.session-id-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>session_id</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$id</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>session_id</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$id</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>session_id()</strong></span> 可以用来获取/设置
@@ -42,7 +42,7 @@
   </p>
   <p class="para">
    为了能够将会话 ID 很方便的附加到 URL 之后，
-   你可以使用常量 <strong><code>SID</code></strong>
+   你可以使用常量 <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong>
    获取以字符串格式表达的会话名称和 ID。
    请参考 <a href="ref.session.html" class="link">会话处理</a>。
   </p>
@@ -54,18 +54,15 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">id</code></dt>
-
+     <dt><code class="parameter">id</code></dt>
       <dd>
-
        <p class="para">
-        如果指定了 <code class="parameter">id</code> 参数的值，
+        如果指定了 <code class="parameter">id</code> 且不为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，
         则使用指定值作为会话 ID。
         必须在调用 <span class="function"><a href="function.session-start.html" class="function">session_start()</a></span> 函数之前调用 
         <span class="function"><strong>session_id()</strong></span> 函数。
-        不同的会话管理器对于会话 ID 中可以使用的字符有不同的限制。
-        例如文件会话管理器仅允许会话 ID 中使用以下字符：<code class="literal">a-z A-Z 0-9 , （逗号）和 - （减号）</code>
+        不同的会话处理程序对于会话 ID 中可以使用的字符有不同的限制。
+        例如文件会话处理程序仅允许会话 ID 中使用以下字符：<code class="literal">a-z A-Z 0-9 , （逗号）和 - （减号）</code>
        </p>
        <blockquote class="note"><p><strong class="note">Note</strong>: 
         <span class="simpara">
@@ -76,10 +73,8 @@
         </span>
        </p></blockquote>
       </dd>
-
      
    </dl>
-
   </p>
  </div>
 
@@ -88,19 +83,46 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    <span class="function"><strong>session_id()</strong></span> 返回当前会话ID。
-   如果当前没有会话，则返回空字符串（<code class="literal">&quot;&quot;</code>）。
+   如果当前没有会话，则返回空字符串（<code class="literal">&quot;&quot;</code>）。失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
-<div class="refsect1 seealso" id="refsect1-function.session-id-seealso">
+ <div class="refsect1 changelog" id="refsect1-function.session-id-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">id</code> 现在可以为 null。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.session-id-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.session-regenerate-id.html" class="function" rel="rdfs-seeAlso">session_regenerate_id()</a> - 使用新生成的会话 ID 更新现有会话 ID</span></li>
-    <li class="member"><span class="function"><a href="function.session-start.html" class="function" rel="rdfs-seeAlso">session_start()</a> - 启动新会话或者重用现有会话</span></li>
-    <li class="member"><span class="function"><a href="function.session-set-save-handler.html" class="function" rel="rdfs-seeAlso">session_set_save_handler()</a> - 设置用户自定义会话存储函数</span></li>
-    <li class="member">
+    <li><span class="function"><a href="function.session-regenerate-id.html" class="function" rel="rdfs-seeAlso">session_regenerate_id()</a> - 使用新生成的会话 ID 更新现有会话 ID</span></li>
+    <li><span class="function"><a href="function.session-start.html" class="function" rel="rdfs-seeAlso">session_start()</a> - 启动新会话或者重用现有会话</span></li>
+    <li><span class="function"><a href="function.session-set-save-handler.html" class="function" rel="rdfs-seeAlso">session_set_save_handler()</a> - 设置用户自定义会话存储函数</span></li>
+    <li>
      <a href="session.configuration.html#ini.session.save-handler" class="link">session.save_handler</a>
     </li>
    </ul>

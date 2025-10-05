@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Frees all resources for the specified statement</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.sqlsrv-free-stmt-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>sqlsrv_free_stmt</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stmt</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>sqlsrv_free_stmt</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$stmt</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Frees all resources for the specified statement. The statement cannot be used 
@@ -51,21 +51,16 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">stmt</code></dt>
-
+     <dt><code class="parameter">stmt</code></dt>
      <dd>
-
       <p class="para">
        The statement for which resources are freed. 
-       Note that <strong><code>null</code></strong> is a valid parameter value. This allows the function to be 
+       Note that <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> is a valid parameter value. This allows the function to be 
        called multiple times in a script. 
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -73,21 +68,18 @@
  <div class="refsect1 returnvalues" id="refsect1-function.sqlsrv-free-stmt-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
  
  <div class="refsect1 examples" id="refsect1-function.sqlsrv-free-stmt-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-3948">
+   <div class="example" id="example-2023">
     <p><strong>Example #1 <span class="function"><strong>sqlsrv_free_stmt()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$serverName </span><span style="color: #007700">= </span><span style="color: #DD0000">"serverName\sqlexpress"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$connectionInfo </span><span style="color: #007700">= array( </span><span style="color: #DD0000">"Database"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"dbName"</span><span style="color: #007700">, </span><span style="color: #DD0000">"UID"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">, </span><span style="color: #DD0000">"PWD"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_connect</span><span style="color: #007700">( </span><span style="color: #0000BB">$serverName</span><span style="color: #007700">, </span><span style="color: #0000BB">$connectionInfo</span><span style="color: #007700">);<br />if( </span><span style="color: #0000BB">$conn </span><span style="color: #007700">=== </span><span style="color: #0000BB">false </span><span style="color: #007700">) {<br />     die( </span><span style="color: #0000BB">print_r</span><span style="color: #007700">( </span><span style="color: #0000BB">sqlsrv_errors</span><span style="color: #007700">(), </span><span style="color: #0000BB">true</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_query</span><span style="color: #007700">( </span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"SELECT * FROM Table_1"</span><span style="color: #007700">);<br />if( </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">=== </span><span style="color: #0000BB">false </span><span style="color: #007700">) {<br />     die( </span><span style="color: #0000BB">print_r</span><span style="color: #007700">( </span><span style="color: #0000BB">sqlsrv_errors</span><span style="color: #007700">(), </span><span style="color: #0000BB">true</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #FF8000">/*-------------------------------<br />     Process query results here.<br />-------------------------------*/<br /><br />/* Free the statement resources. */<br /></span><span style="color: #0000BB">sqlsrv_free_stmt</span><span style="color: #007700">( </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$serverName </span><span style="color: #007700">= </span><span style="color: #DD0000">"serverName\sqlexpress"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$connectionInfo </span><span style="color: #007700">= array( </span><span style="color: #DD0000">"Database"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"dbName"</span><span style="color: #007700">, </span><span style="color: #DD0000">"UID"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">, </span><span style="color: #DD0000">"PWD"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_connect</span><span style="color: #007700">( </span><span style="color: #0000BB">$serverName</span><span style="color: #007700">, </span><span style="color: #0000BB">$connectionInfo</span><span style="color: #007700">);<br />if( </span><span style="color: #0000BB">$conn </span><span style="color: #007700">=== </span><span style="color: #0000BB">false </span><span style="color: #007700">) {<br />     die( </span><span style="color: #0000BB">print_r</span><span style="color: #007700">( </span><span style="color: #0000BB">sqlsrv_errors</span><span style="color: #007700">(), </span><span style="color: #0000BB">true</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">sqlsrv_query</span><span style="color: #007700">( </span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"SELECT * FROM Table_1"</span><span style="color: #007700">);<br />if( </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">=== </span><span style="color: #0000BB">false </span><span style="color: #007700">) {<br />     die( </span><span style="color: #0000BB">print_r</span><span style="color: #007700">( </span><span style="color: #0000BB">sqlsrv_errors</span><span style="color: #007700">(), </span><span style="color: #0000BB">true</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #FF8000">/*-------------------------------<br />     Process query results here.<br />-------------------------------*/<br /><br />/* Free the statement resources. */<br /></span><span style="color: #0000BB">sqlsrv_free_stmt</span><span style="color: #007700">( </span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -110,7 +102,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.sqlsrv-cancel.html" class="function" rel="rdfs-seeAlso">sqlsrv_cancel()</a> - Cancels a statement</span></li>
+    <li><span class="function"><a href="function.sqlsrv-cancel.html" class="function" rel="rdfs-seeAlso">sqlsrv_cancel()</a> - Cancels a statement</span></li>
    </ul>
   </p>
  </div>

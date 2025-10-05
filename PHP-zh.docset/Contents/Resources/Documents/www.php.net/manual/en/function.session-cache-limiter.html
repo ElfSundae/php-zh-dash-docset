@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>读取/设置缓存限制器</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.session-cache-limiter-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>session_cache_limiter</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$cache_limiter</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>session_value</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$value</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>session_cache_limiter()</strong></span> 返回当前缓存限制器的名称。
@@ -75,13 +75,10 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">cache_limiter</code></dt>
-
+     <dt><code class="parameter">value</code></dt>
      <dd>
-
       <p class="para">
-       如果指定了 <code class="parameter">cache_limiter</code> 参数，
+       如果指定 <code class="parameter">value</code> 且不为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，
        将使用指定值作为缓存限制器的值。
       </p>
       <table class="doctable table">
@@ -113,7 +110,7 @@ Last-Modified：（会话最后保存时间）</pre>
           <td><code class="literal">private_no_expire</code></td>
           <td>
            <div class="example-contents">
-<div class="headercode"><pre class="headercode">Cache-Control: private, max-age=（根据 session.cache_expire 的设定计算得出）, pre-check=（根据 session.cache_expire 的设定计算得出）
+<div class="headercode"><pre class="headercode">Cache-Control: private, max-age=（根据 session.cache_expire 的设定计算得出）
 Last-Modified: （会话最后保存时间）</pre>
 </div>
            </div>
@@ -126,7 +123,7 @@ Last-Modified: （会话最后保存时间）</pre>
           <td>
            <div class="example-contents">
 <div class="headercode"><pre class="headercode">Expires: Thu, 19 Nov 1981 08:52:00 GMT
-Cache-Control: private, max-age=（根据 session.cache_expire 的设定计算得出）, pre-check=（根据 session.cache_expire 的设定计算得出）
+Cache-Control: private, max-age=（根据 session.cache_expire 的设定计算得出）
 Last-Modified: （会话最后保存时间）</pre>
 </div>
            </div>
@@ -139,7 +136,7 @@ Last-Modified: （会话最后保存时间）</pre>
           <td>
            <div class="example-contents">
 <div class="headercode"><pre class="headercode">Expires: Thu, 19 Nov 1981 08:52:00 GMT
-Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Cache-Control: no-store, no-cache, must-revalidate
 Pragma: no-cache</pre>
 </div>
            </div>
@@ -152,10 +149,8 @@ Pragma: no-cache</pre>
       </table>
 
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -163,21 +158,45 @@ Pragma: no-cache</pre>
  <div class="refsect1 returnvalues" id="refsect1-function.session-cache-limiter-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回当前所用的缓存限制器名称。
+   返回当前所用的缓存限制器名称。如果更改值失败，则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.session-cache-limiter-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">value</code> 现在可为 null。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.session-cache-limiter-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4808">
     <p><strong>Example #1 <span class="function"><strong>session_cache_limiter()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* 设置缓存限制器为 'private' */<br /><br /></span><span style="color: #0000BB">session_cache_limiter</span><span style="color: #007700">(</span><span style="color: #DD0000">'private'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$cache_limiter </span><span style="color: #007700">= </span><span style="color: #0000BB">session_cache_limiter</span><span style="color: #007700">();<br /><br />echo </span><span style="color: #DD0000">"The cache limiter is now set to </span><span style="color: #0000BB">$cache_limiter</span><span style="color: #DD0000">&lt;br /&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* 设置缓存限制器为 'private' */<br /><br /></span><span style="color: #0000BB">session_cache_limiter</span><span style="color: #007700">(</span><span style="color: #DD0000">'private'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$cache_limiter </span><span style="color: #007700">= </span><span style="color: #0000BB">session_cache_limiter</span><span style="color: #007700">();<br /><br />echo </span><span style="color: #DD0000">"The cache limiter is now set to </span><span style="color: #0000BB">$cache_limiter</span><span style="color: #DD0000">&lt;br /&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -189,7 +208,7 @@ Pragma: no-cache</pre>
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><a href="session.configuration.html#ini.session.cache-limiter" class="link">session.cache_limiter</a></li>
+    <li><a href="session.configuration.html#ini.session.cache-limiter" class="link">session.cache_limiter</a></li>
    </ul>
   </p>
  </div>

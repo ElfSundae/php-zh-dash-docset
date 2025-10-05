@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>组合线性同余发生器</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.lcg-value-description">
   <h3 class="title">说明</h3>
    <div class="methodsynopsis dc-description">
-    <span class="methodname"><strong>lcg_value</strong></span>(): <span class="type">float</span></div>
+    <span class="methodname"><strong>lcg_value</strong></span>(): <span class="type"><a href="language.types.float.html" class="type float">float</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>lcg_value()</strong></span> 返回范围为
@@ -43,7 +43,7 @@
   </p>
   <div class="caution"><strong class="caution">Caution</strong>
  <p class="para">
-  本函数并不会生成安全加密的值，并且<em class="emphasis">不可</em>用于加密或者要求返回值不可猜测的目的。
+  本函数并不会生成安全加密的值，并且<em>不可</em>用于加密或者要求返回值不可猜测的目的。
  </p>
  <p class="para">
   如果需要加密安全随机，则可以将 <span class="classname"><a href="class.random-engine-secure.html" class="classname">Random\Engine\Secure</a></span> 引擎用于
@@ -51,6 +51,20 @@
   和 <span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span> 函数提供了操作系统的 <abbr title="Cryptographically Secure PseudoRandom Number Generator">CSPRNG</abbr> 支持的方便且安全的 <abbr title="Application Programming Interface">API</abbr>。
  </p>
 </div>
+  <div class="caution"><strong class="caution">Caution</strong>
+   <p class="para">
+    Scaling the return value to a different interval using multiplication
+    or addition (a so-called affine transformation) might result in a bias
+    in the resulting value as floats are not equally dense across the number
+    line. As not all values can be exactly represented by a float, the
+    result of the affine transformation might also result in values outside
+    of the requested interval.
+   </p>
+   <p class="para">
+    使用 <span class="methodname"><a href="random-randomizer.getfloat.html" class="methodname">Random\Randomizer::getFloat()</a></span> 在任意间隔内生成随机浮点数。使用
+    <span class="methodname"><a href="random-randomizer.getint.html" class="methodname">Random\Randomizer::getInt()</a></span> 在任意间隔内生成随机整数。
+   </p>
+  </div>
  </div>
 
 
@@ -71,8 +85,9 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.rand.html" class="function" rel="rdfs-seeAlso">rand()</a> - 产生一个随机整数</span></li>
-    <li class="member"><span class="function"><a href="function.mt-rand.html" class="function" rel="rdfs-seeAlso">mt_rand()</a> - 通过梅森旋转（Mersenne Twister）随机数生成器生成随机值</span></li>
+    <li><span class="methodname"><a href="random-randomizer.getfloat.html" class="methodname" rel="rdfs-seeAlso">Random\Randomizer::getFloat()</a> - Get a uniformly selected float</span></li>
+    <li><span class="methodname"><a href="random-randomizer.getint.html" class="methodname" rel="rdfs-seeAlso">Random\Randomizer::getInt()</a> - Get a uniformly selected integer</span></li>
+    <li><span class="function"><a href="function.random-int.html" class="function" rel="rdfs-seeAlso">random_int()</a> - 获取生成加密安全、均匀分布的整数</span></li>
    </ul>
   </p>
  </div>

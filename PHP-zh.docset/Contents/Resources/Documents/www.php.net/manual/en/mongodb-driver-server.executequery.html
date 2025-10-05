@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Execute a database query on this server</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,11 +35,18 @@
  <div class="refsect1 description" id="refsect1-mongodb-driver-server.executequery-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">final</span> <span class="modifier">public</span> <span class="methodname"><strong>MongoDB\Driver\Server::executeQuery</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$namespace</code></span>, <span class="methodparam"><span class="type"><a href="class.mongodb-driver-query.html" class="type MongoDB\Driver\Query">MongoDB\Driver\Query</a></span> <code class="parameter">$query</code></span>, <span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type"><a href="class.mongodb-driver-readpreference.html" class="type MongoDB\Driver\ReadPreference">MongoDB\Driver\ReadPreference</a></span>|<span class="type">null</span></span> <code class="parameter">$options</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type"><a href="class.mongodb-driver-cursor.html" class="type MongoDB\Driver\Cursor">MongoDB\Driver\Cursor</a></span></div>
+   <span class="modifier">final</span> <span class="modifier">public</span> <span class="methodname"><strong>MongoDB\Driver\Server::executeQuery</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$namespace</code></span>, <span class="methodparam"><span class="type"><a href="class.mongodb-driver-query.html" class="type MongoDB\Driver\Query">MongoDB\Driver\Query</a></span> <code class="parameter">$query</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="class.mongodb-driver-readpreference.html" class="type MongoDB\Driver\ReadPreference">MongoDB\Driver\ReadPreference</a></span>|<span class="type"><a href="language.types.null.html" class="type null">null</a></span></span> <code class="parameter">$options</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="class.mongodb-driver-cursor.html" class="type MongoDB\Driver\Cursor">MongoDB\Driver\Cursor</a></span></div>
 
   <p class="para rdfs-comment">
    Executes the query on this server.
   </p>
+  <p class="para">
+   Default values for the <code class="literal">&quot;readPreference&quot;</code> option and Query&#039;s
+   <code class="literal">&quot;readConcern&quot;</code> option will be inferred from an active
+   transaction (indicated by the <code class="literal">&quot;session&quot;</code> option), followed
+   by the <a href="mongodb-driver-manager.construct.html#mongodb-driver-manager.construct-uri" class="link">connection URI</a>.
+  </p>
+  
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <span class="simpara">
     The <code class="literal">&quot;readPreference&quot;</code> option does not control the server
@@ -50,6 +57,7 @@
     preference to the operation, respectively.
    </span>
   </p></blockquote>
+
  </div>
 
 
@@ -58,38 +66,27 @@
   <dl>
    
    
-    <dt>
-<code class="parameter">namespace</code> (<span class="type">string</span>)</dt>
-
+    <dt><code class="parameter">namespace</code> (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</dt>
     <dd>
-
      <p class="para">
       A fully qualified namespace (e.g. <code class="literal">&quot;databaseName.collectionName&quot;</code>).
      </p>
     </dd>
-
    
 
    
    
-    <dt>
-<code class="parameter">query</code> (<span class="classname"><a href="class.mongodb-driver-query.html" class="classname">MongoDB\Driver\Query</a></span>)</dt>
-
+    <dt><code class="parameter">query</code> (<span class="classname"><a href="class.mongodb-driver-query.html" class="classname">MongoDB\Driver\Query</a></span>)</dt>
     <dd>
-
      <p class="para">
       The query to execute.
      </p>
     </dd>
-
    
 
    
-    <dt>
-<code class="parameter">options</code></dt>
-
+    <dt><code class="parameter">options</code></dt>
     <dd>
-
      <p class="para">
       <table class="doctable table">
        <caption><strong>options</strong></caption>
@@ -119,7 +116,7 @@
          
          <tr>
           <td>session</td>
-          <td><span class="classname"><strong class="classname">MongoDB\Driver\Session</strong></span></td>
+          <td><span class="classname"><a href="class.mongodb-driver-session.html" class="classname">MongoDB\Driver\Session</a></span></td>
           <td>
            <p class="para">
             A session to associate with the operation.
@@ -134,10 +131,8 @@
 
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
@@ -150,8 +145,8 @@
  <div class="refsect1 errors" id="refsect1-mongodb-driver-server.executequery-errors">
   <h3 class="title">错误／异常</h3>
   <ul class="simplelist">
-   <li class="member">Throws <span class="classname"><a href="class.mongodb-driver-exception-invalidargumentexception.html" class="classname">MongoDB\Driver\Exception\InvalidArgumentException</a></span> on argument parsing errors.</li><li class="member">Throws <span class="classname"><a href="class.mongodb-driver-exception-connectionexception.html" class="classname">MongoDB\Driver\Exception\ConnectionException</a></span> if connection to the server fails (for reasons other than authentication).</li><li class="member">Throws <span class="classname"><a href="class.mongodb-driver-exception-authenticationexception.html" class="classname">MongoDB\Driver\Exception\AuthenticationException</a></span> if authentication is needed and fails.</li>
-   <li class="member">Throws <span class="classname"><a href="class.mongodb-driver-exception-runtimeexception.html" class="classname">MongoDB\Driver\Exception\RuntimeException</a></span> on other errors (e.g. invalid query operators).</li>
+   <li>Throws <span class="classname"><a href="class.mongodb-driver-exception-invalidargumentexception.html" class="classname">MongoDB\Driver\Exception\InvalidArgumentException</a></span> on argument parsing errors.</li><li>Throws <span class="classname"><a href="class.mongodb-driver-exception-connectionexception.html" class="classname">MongoDB\Driver\Exception\ConnectionException</a></span> if connection to the server fails (for reasons other than authentication).</li><li>Throws <span class="classname"><a href="class.mongodb-driver-exception-authenticationexception.html" class="classname">MongoDB\Driver\Exception\AuthenticationException</a></span> if authentication is needed and fails.</li>
+   <li>Throws <span class="classname"><a href="class.mongodb-driver-exception-runtimeexception.html" class="classname">MongoDB\Driver\Exception\RuntimeException</a></span> on other errors (e.g. invalid query operators).</li>
   </ul>
  </div>
 
@@ -190,10 +185,10 @@
  <div class="refsect1 seealso" id="refsect1-mongodb-driver-server.executequery-seealso">
   <h3 class="title">参见</h3>
   <ul class="simplelist">
-   <li class="member"><span class="classname"><a href="class.mongodb-driver-cursor.html" class="classname">MongoDB\Driver\Cursor</a></span></li>
-   <li class="member"><span class="classname"><a href="class.mongodb-driver-query.html" class="classname">MongoDB\Driver\Query</a></span></li>
-   <li class="member"><span class="classname"><a href="class.mongodb-driver-readpreference.html" class="classname">MongoDB\Driver\ReadPreference</a></span></li>
-   <li class="member"><span class="function"><a href="mongodb-driver-manager.executequery.html" class="function" rel="rdfs-seeAlso">MongoDB\Driver\Manager::executeQuery()</a> - Execute a database query</span></li>
+   <li><span class="classname"><a href="class.mongodb-driver-cursor.html" class="classname">MongoDB\Driver\Cursor</a></span></li>
+   <li><span class="classname"><a href="class.mongodb-driver-query.html" class="classname">MongoDB\Driver\Query</a></span></li>
+   <li><span class="classname"><a href="class.mongodb-driver-readpreference.html" class="classname">MongoDB\Driver\ReadPreference</a></span></li>
+   <li><span class="function"><a href="mongodb-driver-manager.executequery.html" class="function" rel="rdfs-seeAlso">MongoDB\Driver\Manager::executeQuery()</a> - Execute a database query</span></li>
   </ul>
  </div>
 

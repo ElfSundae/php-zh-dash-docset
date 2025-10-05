@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Replaces the node with new nodes</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,11 +35,10 @@
  <div class="refsect1 description" id="refsect1-domchildnode.replacewith-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>DOMChildNode::replaceWith</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="class.domnode.html" class="type DOMNode">DOMNode</a></span>|<span class="type">string</span></span> <code class="parameter">...$nodes</code></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>DOMChildNode::replaceWith</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="class.domnode.html" class="type DOMNode">DOMNode</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">...$nodes</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">
    Replaces the node with new <code class="parameter">nodes</code>.
-   A combination of <span class="methodname"><a href="domchildnode.remove.html" class="methodname">DOMChildNode::remove()</a></span> and <span class="methodname"><strong>DOMChildNode::append()</strong></span>.
   </p>
  </div>
 
@@ -49,19 +48,15 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">nodes</code></dt>
-
+     <dt><code class="parameter">nodes</code></dt>
      <dd>
-
       <p class="para">
        The replacement nodes.
+       Strings are automatically converted to text nodes.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -74,14 +69,70 @@
  </div>
 
 
+ <div class="refsect1 errors" id="refsect1-domchildnode.replacewith-errors">
+  <h3 class="title">错误／异常</h3>
+  <dl>
+   
+ <dt><strong><code><a href="dom.constants.html#constant.dom-hierarchy-request-err">DOM_HIERARCHY_REQUEST_ERR</a></code></strong></dt>
+  <dd>
+  <p class="para">
+    Raised if the parent is of a type that does not allow children of the
+    type of one of the passed <code class="parameter">nodes</code>, or if the node to
+    put in is one of this node&#039;s ancestors or this node itself.
+  </p>
+ </dd>
+
+   
+ <dt><strong><code><a href="dom.constants.html#constant.dom-wrong-document-err">DOM_WRONG_DOCUMENT_ERR</a></code></strong></dt>
+  <dd>
+  <p class="para">
+    Raised if one of the passed <code class="parameter">nodes</code> was created from a different
+    document than the one that created this node.
+  </p>
+ </dd>
+
+  </dl>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-domchildnode.replacewith-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.3.0</td>
+      <td>
+       Calling this method on a node without a parent is now a no-op to align the behaviour with the DOM specification.
+       Previously this threw a
+ <span class="classname"><a href="class.domexception.html" class="classname">DOMException</a></span> with code
+ <strong><code><a href="dom.constants.html#constant.dom-hierarchy-request-err">DOM_HIERARCHY_REQUEST_ERR</a></code></strong>.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 seealso" id="refsect1-domchildnode.replacewith-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="domchildnode.after.html" class="methodname" rel="rdfs-seeAlso">DOMChildNode::after()</a> - Adds nodes after the node</span></li>
-    <li class="member"><span class="methodname"><a href="domchildnode.before.html" class="methodname" rel="rdfs-seeAlso">DOMChildNode::before()</a> - Adds nodes before the node</span></li>
-    <li class="member"><span class="methodname"><a href="domchildnode.remove.html" class="methodname" rel="rdfs-seeAlso">DOMChildNode::remove()</a> - Removes the node</span></li>
-    <li class="member"><span class="methodname"><a href="domnode.replacechild.html" class="methodname" rel="rdfs-seeAlso">DOMNode::replaceChild()</a> - Replaces a child</span></li>
+    <li><span class="methodname"><a href="domchildnode.after.html" class="methodname" rel="rdfs-seeAlso">DOMChildNode::after()</a> - Adds nodes after the node</span></li>
+    <li><span class="methodname"><a href="domchildnode.before.html" class="methodname" rel="rdfs-seeAlso">DOMChildNode::before()</a> - Adds nodes before the node</span></li>
+    <li><span class="methodname"><a href="domchildnode.remove.html" class="methodname" rel="rdfs-seeAlso">DOMChildNode::remove()</a> - Removes the node</span></li>
+    <li><span class="methodname"><a href="domnode.replacechild.html" class="methodname" rel="rdfs-seeAlso">DOMNode::replaceChild()</a> - Replaces a child</span></li>
    </ul>
   </p>
  </div>

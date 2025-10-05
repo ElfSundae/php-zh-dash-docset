@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>安装常见问题</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="faq.databases.html">? Database issues</a></li>
+      <li style="float: left;"><a href="faq.databases.html">? 数据库问题</a></li>
       <li style="float: right;"><a href="faq.build.html">编译问题 ?</a></li>
     </ul>
   </div>
@@ -26,7 +26,7 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="faq.installation" class="chapter">
-  <h1>安装常见问题</h1>
+  <h1 class="title">安装常见问题</h1>
 
   
   <p class="para">本章包括了安装 PHP 的常见问题。PHP 可以用于几乎任何操作系统（可能除了 OS X 之前的 MacOS 之外），以及几乎任何 web 服务器。</p>
@@ -385,112 +385,7 @@ Deny from all
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="96710""></a>
-  <div class="note">
-   <strong class="user">ssaxena at nriol dot com</strong>
-   <a href="#96710" class="date">12-Mar-2010 02:28</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Here are my struggle to get PHP 5.2.12 working on Windows XP SP3, IIS 5.1 (Please note Win XP SP3 has issue of FastCGI)<br />
-<br />
-1. Dowloaded installer and installed in C:\Program Files\PHP as ISAPI module<br />
-<br />
-----&gt;Did not work<br />
-<br />
-Added php5isapi.dll in ISAPI Filter and added the extension .php in Home Dir-&gt;Configuration<br />
-(For every setting change restarted IIS on cmd-&gt;iisreset)<br />
-<br />
-----&gt;Did not work<br />
-<br />
-(And the Google was pointing to the Fast CGI issue; Don't know why microsoft has MS-FAST ! )<br />
-Uninstalled the PHP and cleaned up the folders, PATH environment variable &amp; PHPRC, the IIS settings and registry entries and shut down(restart is different from shut down) the system to make it very clean<br />
-<br />
-2. Reinstalled the PHP in C:\PHP as ISAPI and did the same as above in IIS<br />
-(For every setting change restarted IIS on cmd-&gt;iisreset)<br />
-<br />
-----&gt;Did not work<br />
-<br />
-Uninstalled and cleaned up same as above and took a breath to make sure what I am doing wrong.<br />
-Shutdown the system.<br />
-<br />
-3. Unzipped the php-5.2.12-Win32.zip and did the same as above (this time manually PATH variable and security permission for the PHP folder and following settings)<br />
-<br />
-short_open_tag = On<br />
-error_reporting = E_ALL &amp; ~E_NOTICE<br />
-display_errors = On<br />
-doc_root = "C:\Inetpub\wwwroot"<br />
-extension_dir = "C:\PHP\ext"<br />
-cgi.force_redirect = 0 <br />
-<br />
-----&gt;Did not work<br />
-<br />
-Uninstalled and cleaned up same as above<br />
-Shutdown the system.<br />
-<br />
-4. Downloaded Microsoft Web Platform Installer 2.0 and select the PHP+Fast CGI+Windows Cache for PHP extension and Web Deployment Tools<br />
-restarted the system to take effect the settings<br />
-<br />
-----&gt;Did not work<br />
-<br />
-Uninstalled and cleaned up same as above<br />
-Shutdown the system<br />
-<br />
-5. Took the prev version of PHP php-5.2.4-Win32.zip unzip the folder and did the following changes:<br />
-<br />
-short_open_tag = On<br />
-error_reporting = E_ALL &amp; ~E_NOTICE<br />
-display_errors = On<br />
-doc_root = "C:\Inetpub\wwwroot"<br />
-extension_dir = "C:\PHP\ext"<br />
-cgi.force_redirect = 0<br />
-<br />
-set the security permission as IIS_machinename with full access to the C:\PHP folder<br />
-<br />
--------&gt;IT GOT WOKRING<br />
-<br />
-Hope people would be aware of php-5.2.12 and would love the php-5.2.4</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="82967""></a>
-  <div class="note">
-   <strong class="user">john dot calder at manukau dot ac dot nz</strong>
-   <a href="#82967" class="date">03-May-2008 10:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-WINDOWS 2003 and IIS.&nbsp; BIG LESSON FOR ME was "don't mess with the optional components". <br />
-I had lots of trouble until I tried installing without asking for extras and then it was very smooth.<br />
-I have found no need to set up paths.&nbsp; <br />
-I have found no need to configure IIS.&nbsp; <br />
-I have found no need to change security on the PHP folder.<br />
-<br />
-What works for me with Windows/IIS:<br />
-<br />
-1.&nbsp; You need to be logged-on as "administrator"<br />
-<br />
-2.&nbsp; Run&nbsp; "php-5.2.6-win32-installer.msi"<br />
-Your ONLY action during this wizard is to select "IIS ISAPI" as the webserver.&nbsp; Do NOT CHANGE anything else!&nbsp; I am guessing that the optional extras apply only to Apache because after enabling them I see Apache-related error messages.<br />
-<br />
-3.&nbsp; Setup a test virtual directory as you would for an ASP or ASP.NET web app.&nbsp; eg "phptest"<br />
-Then use notepad to create a test page eg "test.php"<br />
-<span class="default">&lt;?php<br />
-phpinfo</span><span class="keyword">();<br />
-</span><span class="default">?&gt;</span> <br />
-<br />
-4.&nbsp; In Internet Explorer, test with eg this address<br />
-<a href="http://localhost/phptest/test.php" rel="nofollow" target="_blank">http://localhost/phptest/test.php</a><br />
-<br />
-IF this does not give you a beautiful page of details THEN start reading other advice on this page - especially helpful for me was the faq advice to test run "php.exe -i" from the command prompt.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="82606""></a>
+<div id="allnotes">  <a name="82606""></a>
   <div class="note">
    <strong class="user">charleslynch at xybersoftware dot com</strong>
    <a href="#82606" class="date">17-Apr-2008 07:30</a>
@@ -532,93 +427,6 @@ You can use the php request method scanner at askapache to see exactly how your 
    </div>
   </div>
  <div class="foot"></div>
-  <a name="77927""></a>
-  <div class="note">
-   <strong class="user">scott at chaisson dot net</strong>
-   <a href="#77927" class="date">19-Sep-2007 09:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Windows 2000 Server and IIS (SP4 and all patches):<br />
-<br />
-After many frustrating hours of trying to figure out the install (again), It took a while, but here are a couple tips:<br />
-<br />
-PHP working with IIS uses c:\winnt\php.ini<br />
-<br />
-It doesn't matter what you set the path to, nor what you set the PHPRC environment variable to. After you get PHP running correctly in the installation folder (using php -i) copy the php.ini file into the c:\winnt folder.<br />
-<br />
-Here's what worked for me:<br />
-<br />
-- Add PHP path to System environment variable<br />
-<br />
-- Add php5activescript.dll from <a href="http://snaps.php.net/ to the PHP folder, then Register it: " rel="nofollow" target="_blank">http://snaps.php.net/ to the PHP folder, then Register it: </a>"regsvr32 php5activescript.dll"<br />
-<br />
-Set extension_dir and doc_root directives in PHP.INI:<br />
-&nbsp; extension_dir = C:\WWW\PHP\ext<br />
-&nbsp; doc_root = C:\WWW\Site<br />
-&nbsp; cgi.force_redirect = 0<br />
-<br />
-(the last cgi.force_redirect isn't required, but I like to set it anyway)<br />
-<br />
-Copy the .INI file into WINNT folder<br />
-<br />
-In IIS Manager, right-click "Default Web Site", Click "Home Directory",<br />
-&nbsp; Click "Configuration", "Add" the ISAPI application:<br />
-&nbsp;&nbsp;&nbsp; Executable: &lt;your php install&gt;\php5isapi.dll<br />
-&nbsp;&nbsp;&nbsp; Extension: .php<br />
-&nbsp;&nbsp;&nbsp; Limit to: GET,HEAD,POST<br />
-&nbsp;&nbsp;&nbsp; Check: "Script Engine"<br />
-&nbsp;&nbsp;&nbsp; Uncheck: "Check that file exists"<br />
-<br />
-Finally: Set up an ISAPI filter:<br />
-&nbsp; Click the "ISAPI Filters" tab,<br />
-&nbsp; Filter Name: PHP<br />
-&nbsp; Executable: &lt;your php install&gt;\php5isapi.dll<br />
-<br />
-Notes: You don't have to set any of your folders as "Script source" folders. .PHP files aren't scripts, merely text files that require processing before being shipped off to the browser, which is what the ISAPI filter does.<br />
-<br />
-Finally, working again.<br />
-<br />
-Chase</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="76456""></a>
-  <div class="note">
-   <strong class="user">christianfelix at laszlo dot com</strong>
-   <a href="#76456" class="date">16-Jul-2007 03:39</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-For Windows XP users<br />
-<br />
-Just add php.ini to windows/system 32 and also save a copy in the setup folder e.g. c:/php/php.ini, c:/php5/php.ini, <br />
-<br />
-You have to follow the suggestions, add to path, uncomment extensions and voila!!</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="75615""></a>
-  <div class="note">
-   <strong class="user">Meiki67 skipthis at geemail</strong>
-   <a href="#75615" class="date">07-Jun-2007 04:41</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Had a hard day to MSI install 5.2.3 on WinXP with MySQL. I use a drive substitution (subst drive: path - in my case subst d: c:\drive_d) and installed PHP in D:\PHP - which in reality is C:\DRIVE_D\PHP.&nbsp; To make a long story short - only after (1) changing all substituted D:\ back to C:\DRIVE_D and (2) resolving all DOS short names to Win long names PHP started to work. The first one is clear - the substitution works only for the active console user - not for services or IUSR. For the second one I have no explanation, since DOS short names should work systemwide - maybe Win handles them correctly but PHP not ?<br />
-<br />
-BTW <span class="default">&lt;?php phpinfo</span><span class="keyword">(); </span><span class="default">?&gt;</span> was of tremendeous help<br />
-<br />
-Meiki</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="75234""></a>
   <div class="note">
    <strong class="user">Curtis</strong>
@@ -633,42 +441,6 @@ In addition to server misconfiguration, it may also be that PHP isn't configured
 If you have access to php.ini, check the 'display_errors' directive, which is, by default, located under the 'error_reporting' directive. It's helpful to have 'display_errors' on during debugging phases, but best to have it off in production environments.<br />
 <br />
 Related functions: <a href="http://php.net/ini_set | http://php.net/error_reporting | http://php.net/error_log" rel="nofollow" target="_blank">http://php.net/ini_set | http://php.net/error_reporting | http://php.net/error_log</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="70978""></a>
-  <div class="note">
-   <strong class="user">knutw at sparhell dot no</strong>
-   <a href="#70978" class="date">06-Nov-2006 09:15</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I recntly upgraded from PHP 5.1 to 5.2 on my Windows Server 2003 using IIS6. I selected CGI as before. My PHP folder is as always C:\Program Files\PHP. I also edited my brand new php.ini, enabling all my old extensions and recommended settings for IIS. I like not to keep my old config into a new version.<br />
-<br />
-After upgrade, I just got blank pages in my browser, and the response status was 404 Not found.<br />
-<br />
-I checked my installation twice, using this FAQ, but got no way.<br />
-<br />
-Then I went to IIS Manager, Web Service Extensions. The php Service Extension was Allowed as it should. I deleted the Service Extension and added it. The old extension used short file names containing tilde (PROGRA~) character, but I don'?t know if that gas anything to do with the problem. Anyway, after allowing my" new" Service Extension, pointing to php-cgi.exe as before, mye web sites suddenly worked. So will revommend anyone with thos problem to delete and add the Servcie Extension. It didn't help re-allowing it, restarting IIS or the complete server.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="69653""></a>
-  <div class="note">
-   
-   <a href="#69653" class="date">13-Sep-2006 07:03</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-After setting the PHPRC environment variable, none of my PHP files would hit the preprocessor. The browser was just serving out PHP source code right there in the "view source."<br />
-<br />
-The manual was telling me to set this var to "c:\php," but nothing was working. It's almost as if IIS/Win2000 wasn't reading my php.ini at all.<br />
-<br />
-After I set that variable to "c:\php\php.ini," all of a sudden I was getting honest to goodness PHP pages working.</span>
 </code>
     </div>
    </div>
@@ -692,23 +464,6 @@ command to extend immediately the path var.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="55823""></a>
-  <div class="note">
-   <strong class="user">JUSTANOTHERUSER</strong>
-   <a href="#55823" class="date">14-Aug-2005 11:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-&lt;LimitExcept GET POST&gt;<br />
-Deny from all<br />
-&lt;/LimitExcept&gt;<br />
-<br />
-Does not work with Apache2+ &amp; PHP5 . Apache Refuses to start</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="54662""></a>
   <div class="note">
    <strong class="user">per dot fikse at ipj dot no</strong>
@@ -722,163 +477,6 @@ Solution: Flip the Metabase flag for Enable32bitAppOnWin64 as described in <a hr
 like this: CSCRIPT ADSUTIL.VBS SET W3SVC/AppPools/Enable32bitAppOnWin64 1<br />
 <br />
 (Alternatively with full path: cscript %SYSTEMDRIVE%\inetpub\adminscripts\adsutil.vbs SET W3SVC/AppPools/Enable32bitAppOnWin64 1)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="48681""></a>
-  <div class="note">
-   <strong class="user">barry dot fagin at usafa dot af dot mil</strong>
-   <a href="#48681" class="date">04-Jan-2005 09:22</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Fixing 404 (file not found) errors with PHP 5.0.3 and IIS 6.0<br />
-<br />
-IIS 6.0 is installed with security settings that don't permit dynamic content.&nbsp; This means that even if all the hints in the FAQ are paid attention to (.ini modified correctly, security and permissions correct for IUSR_xxx user, etc), you still get 404 errors for all php files.&nbsp; <br />
-<br />
-To fix this:&nbsp; IIS Manager -&gt; expand local computer -&gt; Web Services Extensions -&gt; Add web service or extension -&gt; .php, browse to c:\php\php-cgi.exe or wherever you had the php executable installed. That plus setting the doc_root in the .ini file solved the problem.<br />
-<br />
---BF</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="39542""></a>
-  <div class="note">
-   <strong class="user">jeff_graham at datacenterservices dot net</strong>
-   <a href="#39542" class="date">01-Feb-2004 01:51</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-As stated within the note "jimo at mail dot azhsv dot com<br />
-29-Nov-2003 04:33 <br />
-PHP 4 and IIS 6.0 (Windows Server 2003)," I found the same steps were requiered for installation of PhP 5 beta 3 on my Windows 2003 server (Standard Edition)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="38251""></a>
-  <div class="note">
-   <strong class="user">nigel dot salt at hotmail dot com</strong>
-   <a href="#38251" class="date">13-Dec-2003 05:00</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Finally got IIS 5 and PHP 5 to talk.&nbsp; <br />
-<br />
-What worked for me was:<br />
-<br />
-1) Set<br />
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\<br />
-W3SVC\Parameters\Script Map]<br />
-".php"="your path to php\\php.exe"<br />
-<br />
-2) ensure there is not a php.ini in the windows system folder and that there is one wherever you've put PHP<br />
-<br />
-3) edit php.ini and set cgi force redirect to 0 and cgi.rfc2616_headers = 1<br />
-<br />
-4) Put the PHP scripts in their own folder underneath the inetpub root<br />
-<br />
-5) Open the IIS console, right click your new php folder<br />
-In the Directory tab<br />
-&nbsp;set application name to the name of the folder<br />
-&nbsp;set executable and script as permission<br />
-&nbsp;set application protection to low<br />
-Click configuration and check that .php is mapped to wherever you put<br />
-PHP<br />
-<br />
-Restart IIS<br />
-<br />
-Try a very simple PHP page and it should work<br />
-<br />
-Nigel</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="37852""></a>
-  <div class="note">
-   <strong class="user">jimo at mail dot azhsv dot com</strong>
-   <a href="#37852" class="date">29-Nov-2003 07:33</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-PHP 4 and IIS 6.0 (Windows Server 2003)<br />
-<br />
-Had difficulty getting PHP 4.3.3 to work with Win2003 Ent Server for use with SquirrelMail.&nbsp; Problem found and believed solved.&nbsp; Appears to be something New with IIS 6.0 (More security by Micro$oft)&nbsp; Was getting 404 error and php was not being run as a cgi even though it was in extensions and IIS user had rights to execute it. (php from command line operated correctly)<br />
-<br />
-If you are installing on Windows Server 2003 (only have Enterprise Edition ? Not sure if this applies to standard edition), and you have done the normal procedures for inclusion of PHP scripts (either ISAPI or CGI) in IIS, you will still get a 404 error when attempting to execute those scripts even though IIS has rights and the extension points to the correct file.&nbsp; To alleviate this problem, perform the following:<br />
-<br />
-1.&nbsp; &nbsp; Open a command prompt window<br />
-2.&nbsp; &nbsp; Change to C:\windows\system32<br />
-3.&nbsp; &nbsp; Execute the command:&nbsp; cscript&nbsp; iisext.vbs /AddFile c:\php\php.exe 1 php 0 php<br />
-4.&nbsp; &nbsp; Execute the command:&nbsp; cscript iisext.vbs /EnFile c:\php\php.exe<br />
-5.&nbsp; &nbsp; To check for correct execution of the above,<br />
-6.&nbsp; &nbsp; Execute the command:&nbsp; cscript IisExt.vbs /ListFile ? the php extension should be listed<br />
-<br />
-If you try just step 4 without step 3 you get an error that the file is not in the list (and won?t be there till you do step 3 above)<br />
-<br />
-After this, IIS seems to like the php extension and work normally.<br />
-<br />
-For additional reference, see the below 3 Micro$oft KB Articles:<br />
-HOWTO: Enable and Disable ISAPI Extensions and CGI Applications in IIS 6.0 (MS KB Article 328360)<br />
-<br />
-HOWTO List Web Server Extensions and Extension Files in IIS 6.0 (MS KB Article 328505)<br />
-<br />
-HOWTO Add and Remove Web Service Extension Files in IIS 6.0 (MS KB Article 328419)</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="30112""></a>
-  <div class="note">
-   <strong class="user">peter dot mosinskisNOSPAM at csuci dot edu</strong>
-   <a href="#30112" class="date">06-Mar-2003 12:36</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Running Win2K AS + IIS5.0 + PHP 4.3.1, I ran into a nasty problem that I mistakenly thought had to do with something in the php.ini configuration. When I would try to submit a form using the HTTP method GET it would work, but I would get a "404 Page Not Found" error using the POST method. <br />
-<br />
-All my permissions were set correctly, the php.ini was configured correctly. It had to do with URLScan being installed on IIS (see below)<br />
-<br />
-Page 404 File Not Found Error When Using POST method in PHP (and Perl, and otherwise)<br />
--------------------------------------------<br />
-<br />
-This is related to the Microsoft URLScan utility. If you have this problem, the IIS administrator has probably run the IIS Lockdown tool as well as configured URLScan to reject this type of HTTP method when sent in a URL. These tools are meant to enhance web server security.<br />
-<br />
-URLScan configuration files can be found in the \WINNT\system32\inetsrv\urlscan folder on the web server. Specifically, the file to modify is urlscan.ini.<br />
-<br />
-The changes to make are as follows:<br />
-1. Make sure UseAllowVerbs=1 under [options]<br />
-2. Under the [AllowVerbs] section, list your allowed HTTP methods to include:<br />
-&nbsp;&nbsp;&nbsp; GET<br />
-&nbsp;&nbsp;&nbsp; POST<br />
-<br />
-For more information on the IIS Lockdown tool and URLScan, visit <a href="http://technet.microsoft.com" rel="nofollow" target="_blank">http://technet.microsoft.com</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="21586""></a>
-  <div class="note">
-   <strong class="user">monroe at peoplego dot com</strong>
-   <a href="#21586" class="date">17-May-2002 10:32</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-INSTALLATION ON OPENBSD 3.1 VIA PORTS COLLECTION<br />
-Would have succeed but no mysql support. <br />
-I commented out the FLAVORS+= dbase filepro mysql mysql_bundled postgresql iodbc in the /usr/ports/www/php4/Makefile and in the configure options added&nbsp; <br />
---with-mysql=/usr/local&nbsp;&nbsp; and it worked. <br />
-<br />
-Good Luck</span>
 </code>
     </div>
    </div>

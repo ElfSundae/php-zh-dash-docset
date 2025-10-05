@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>取得结果中指定字段的字段名</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -32,11 +32,25 @@
      取得结果中指定字段的字段名
     </span></p>
 
-   </div>
+ </div>
+
+ <div id="function.mysql-field-name-refsynopsisdiv">
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">本扩展自 PHP 5.5.0
+起已废弃，并在自 PHP 7.0.0 开始被移除。应使用 <a href="book.mysqli.html" class="link">MySQLi</a>
+或 <a href="ref.pdo-mysql.html" class="link">PDO_MySQL</a> 扩展来替换之。参见 <a href="mysqlinfo.api.choosing.html" class="link">MySQL：选择 API</a> 
+指南来获取更多信息。用以替代本函数的有：</p>
+   <ul class="simplelist">
+    <li><span class="function"><a href="mysqli-result.fetch-field-direct.html" class="function">mysqli_fetch_field_direct()</a></span> [name] or [orgname]</li>
+    <li><span class="methodname"><a href="pdostatement.getcolumnmeta.html" class="methodname">PDOStatement::getColumnMeta()</a></span> [name]</li>
+   </ul>
+  </div>
+ </div>
+
  <div class="refsect1 description" id="refsect1-function.mysql-field-name-description">
   <h3 class="title">说明</h3>
-    <div class="methodsynopsis dc-description">
-     <span class="methodname"><strong>mysql_field_name</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$result</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$field_index</code></span>): <span class="type">string</span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>mysql_field_name</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$result</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$field_offset</code></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
     <p class="para rdfs-comment">
      <span class="function"><strong>mysql_field_name()</strong></span>
@@ -52,25 +66,21 @@
       例如，第三个字段的索引值其实是 2，第四个字段的索引值是 3，以此类推。
      </p>
     </p></blockquote>
-    <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em class="emphasis">大小写敏感</em>。</span></p></blockquote>
+    <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em>大小写敏感</em>。</span></p></blockquote>
     <p class="para">
-     <div class="example" id="example-3514">
+     <div class="example" id="example-1760">
       <p><strong>Example #1 <span class="function"><strong>mysql_field_name()</strong></span> 例子</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* The users table consists of three fields:<br /> *   user_id<br /> *   username<br /> *   password.<br /> */<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">"mysql_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"mysql_password"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$dbname </span><span style="color: #007700">= </span><span style="color: #DD0000">"mydb"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbname</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not set </span><span style="color: #0000BB">$dbname</span><span style="color: #DD0000">: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"select * from users"</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* The users table consists of three fields:<br /> *   user_id<br /> *   username<br /> *   password.<br /> */<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">"mysql_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"mysql_password"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$dbname </span><span style="color: #007700">= </span><span style="color: #DD0000">"mydb"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbname</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not set </span><span style="color: #0000BB">$dbname</span><span style="color: #DD0000">: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"select * from users"</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
       <div class="example-contents"><p>
        以上例子将产生如下输出：
       </p></div>
       <div class="example-contents screen">
-<div class="cdata"><pre>
-user_id
-password
-</pre></div>
+<div class="descriptioncode"><pre class="descriptioncode">user_id
+password</pre>
+</div>
       </div>
      </div>
     </p>
@@ -85,24 +95,15 @@ password
   <p class="para">
    <dl>
     <dt>
-
-<code class="parameter">result</code></dt>
-<dd>
-<p class="para"><span class="type">resource</span>
+<code class="parameter">result</code></dt><dd><p class="para"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>
 型的结果集。此结果集来自对 <span class="function"><a href="function.mysql-query.html" class="function">mysql_query()</a></span>
 的调用。</p></dd>
-
     <dt>
-
-<code class="parameter">field_offset</code></dt>
-<dd>
-<p class="para">数值型字段偏移量。
+<code class="parameter">field_offset</code></dt><dd><p class="para">数值型字段偏移量。
 <code class="parameter">field_offset</code> 从 <code class="literal">0</code> 开始。如果
 <code class="parameter">field_offset</code> 不存在，则会发出一个
-<strong><code>E_WARNING</code></strong> 级别的错误</p></dd>
-
+<strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 级别的错误</p></dd>
    </dl>
-
   </p>
  </div>
 
@@ -110,29 +111,25 @@ password
  <div class="refsect1 returnvalues" id="refsect1-function.mysql-field-name-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   The name of the specified field index on success 或者在失败时返回 <strong><code>false</code></strong>.
+   The name of the specified field index on success 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.mysql-field-name-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-3516">
+   <div class="example" id="example-1761">
     <p><strong>Example #2 <span class="function"><strong>mysql_field_name()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* The users table consists of three fields:<br /> *   user_id<br /> *   username<br /> *   password.<br /> */<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_password'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$link</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Could not connect to MySQL server: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">$dbname </span><span style="color: #007700">= </span><span style="color: #DD0000">'mydb'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$db_selected </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbname</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$db_selected</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">"Could not set </span><span style="color: #0000BB">$dbname</span><span style="color: #DD0000">: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">'select * from users'</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* The users table consists of three fields:<br /> *   user_id<br /> *   username<br /> *   password.<br /> */<br /></span><span style="color: #0000BB">$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_password'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$link</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Could not connect to MySQL server: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">$dbname </span><span style="color: #007700">= </span><span style="color: #DD0000">'mydb'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$db_selected </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbname</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$db_selected</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">"Could not set </span><span style="color: #0000BB">$dbname</span><span style="color: #DD0000">: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">'select * from users'</span><span style="color: #007700">, </span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">mysql_field_name</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-user_id
-password
-</pre></div>
+<div class="examplescode"><pre class="examplescode">user_id
+password</pre>
+</div>
     </div>
    </div>
   </p>
@@ -141,7 +138,7 @@ password
 
  <div class="refsect1 notes" id="refsect1-function.mysql-field-name-notes">
   <h3 class="title">注释</h3>
-  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em class="emphasis">大小写敏感</em>。</span></p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em>大小写敏感</em>。</span></p></blockquote>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
     为了向下兼容，可以使用下列已废弃的别名：
@@ -155,8 +152,8 @@ password
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.mysql-field-type.html" class="function" rel="rdfs-seeAlso">mysql_field_type()</a> - 取得结果集中指定字段的类型</span></li>
-    <li class="member"><span class="function"><a href="function.mysql-field-len.html" class="function" rel="rdfs-seeAlso">mysql_field_len()</a> - 返回指定字段的长度</span></li>
+    <li><span class="function"><a href="function.mysql-field-type.html" class="function" rel="rdfs-seeAlso">mysql_field_type()</a> - 取得结果集中指定字段的类型</span></li>
+    <li><span class="function"><a href="function.mysql-field-len.html" class="function" rel="rdfs-seeAlso">mysql_field_len()</a> - 返回指定字段的长度</span></li>
    </ul>
   </p>
  </div>

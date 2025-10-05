@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>执行一个正则表达式的搜索和替换</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.preg-replace-callback.html">? preg_replace_callback</a></li>
-      <li style="float: right;"><a href="function.preg-split.html">preg_split ?</a></li>
+      <li style="float: left;"><a href="function.preg-quote.html">? preg_quote</a></li>
+      <li style="float: right;"><a href="function.preg-replace-callback.html">preg_replace_callback ?</a></li>
     </ul>
   </div>
 </div>
@@ -35,11 +35,16 @@
  <div class="refsect1 description" id="refsect1-function.preg-replace-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>preg_replace</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">array</span></span> <code class="parameter">$pattern</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">array</span></span> <code class="parameter">$replacement</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">array</span></span> <code class="parameter">$subject</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$limit</code><span class="initializer"> = -1</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter reference">&$count</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type"><span class="type">string</span>|<span class="type">array</span>|<span class="type">null</span></span></div>
+   <span class="methodname"><strong>preg_replace</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span></span> <code class="parameter">$pattern</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span></span> <code class="parameter">$replacement</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span></span> <code class="parameter">$subject</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$limit</code><span class="initializer"> = -1</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter reference">&$count</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span><br>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.null.html" class="type null">null</a></span></span></div>
 
   <p class="para rdfs-comment">
     搜索 <code class="parameter">subject</code> 中匹配 <code class="parameter">pattern</code> 的部分，以
     <code class="parameter">replacement</code> 进行替换。
+  </p>
+  <p class="para">
+   匹配一个精确的字符串，而不是一个模式，
+   可以使用 <span class="function"><a href="function.str-replace.html" class="function">str_replace()</a></span> 或
+   <span class="function"><a href="function.str-ireplace.html" class="function">str_ireplace()</a></span> 代替这个函数。
   </p>
  </div>
 
@@ -49,26 +54,19 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">pattern</code></dt>
-
+     <dt><code class="parameter">pattern</code></dt>
      <dd>
-
       <p class="para">
-      要搜索的模式。可以使一个字符串或字符串数组。
+      要搜索的模式。可以是一个字符串或字符串数组。
       </p>
       <p class="para">
        可以使用一些 <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE 修饰符</a>。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">replacement</code></dt>
-
+     <dt><code class="parameter">replacement</code></dt>
      <dd>
-
       <p class="para">
         用于替换的字符串或字符串数组。如果这个参数是一个字符串，并且 <code class="parameter">pattern</code>
         是一个数组，那么所有的模式都使用这个字符串进行替换。如果 <code class="parameter">pattern</code> 和 <code class="parameter">replacement</code>
@@ -99,14 +97,10 @@
         eval 方式进行评估并将返回值作为最终参与替换的字符串。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">subject</code></dt>
-
+     <dt><code class="parameter">subject</code></dt>
      <dd>
-
       <p class="para">
         要进行搜索和替换的字符串或字符串数组。
       </p>
@@ -118,35 +112,25 @@
        如果 <code class="parameter">subject</code> 是关联数组，则键会保留在返回值中。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">limit</code></dt>
-
+     <dt><code class="parameter">limit</code></dt>
      <dd>
-
       <p class="para">
         每个模式在每个 <code class="parameter">subject</code> 上进行替换的最大次数。默认是
         <code class="literal">-1</code>(无限)。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">count</code></dt>
-
+     <dt><code class="parameter">count</code></dt>
      <dd>
-
       <p class="para">
         如果指定，将会被填充为完成的替换次数。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -159,7 +143,7 @@
   </p>
   <p class="para">
   如果匹配被查找到，替换后的 <code class="parameter">subject</code> 被返回，其他情况下返回没有改变的
-  <code class="parameter">subject</code>。如果发生错误，返回 <strong><code>null</code></strong> 。
+  <code class="parameter">subject</code>。如果发生错误，返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 。
   </p>
  </div>
 
@@ -168,117 +152,94 @@
   <h3 class="title">错误／异常</h3>
   <p class="para">
    &quot;\e&quot; 会并忽略，并产生
-   <strong><code>E_WARNING</code></strong> 错误。
+   <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 错误。
   </p>
   <p class="para">
-如果传递的正则表达式无法正常解析，会发出 <strong><code>E_WARNING</code></strong>。 
+如果传递的正则表达式无法正常解析，会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。 
 </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.preg-replace-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4843">
     <p><strong>Example #1 使用后向引用紧跟数值原文</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'April 15, 2003'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$pattern </span><span style="color: #007700">= </span><span style="color: #DD0000">'/(\w+) (\d+), (\d+)/i'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacement </span><span style="color: #007700">= </span><span style="color: #DD0000">'${1}1,$3'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$pattern</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacement</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'April 15, 2003'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$pattern </span><span style="color: #007700">= </span><span style="color: #DD0000">'/(\w+) (\d+), (\d+)/i'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacement </span><span style="color: #007700">= </span><span style="color: #DD0000">'${1}1,$3'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$pattern</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacement</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-April1,2003
-</pre></div>
+<div class="examplescode"><pre class="examplescode">April1,2003</pre>
+</div>
     </div>
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4844">
     <p><strong>Example #2 <span class="function"><strong>preg_replace()</strong></span> 中使用基于索引的数组</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'The quick brown fox jumps over the lazy dog.'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/quick/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/brown/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/fox/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] = </span><span style="color: #DD0000">'bear'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] = </span><span style="color: #DD0000">'black'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] = </span><span style="color: #DD0000">'slow'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacements</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'The quick brown fox jumps over the lazy dog.'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/quick/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/brown/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/fox/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] = </span><span style="color: #DD0000">'bear'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] = </span><span style="color: #DD0000">'black'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] = </span><span style="color: #DD0000">'slow'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacements</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-The bear black slow jumps over the lazy dog.
-</pre></div>
+<div class="examplescode"><pre class="examplescode">The bear black slow jumps over the lazy dog.</pre>
+</div>
     </div>
     <div class="example-contents"><p>
     对模式和替换内容按 key 进行排序我们可以得到期望的结果。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />ksort</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ksort</span><span style="color: #007700">(</span><span style="color: #0000BB">$replacements</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacements</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />ksort</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ksort</span><span style="color: #007700">(</span><span style="color: #0000BB">$replacements</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacements</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-The slow black bear jumps over the lazy dog.
-</pre></div>
+<div class="examplescode"><pre class="examplescode">The slow black bear jumps over the lazy dog.</pre>
+</div>
     </div>
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4845">
     <p><strong>Example #3 替换一些值</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$patterns </span><span style="color: #007700">= array (</span><span style="color: #DD0000">'/(19|20)(\d{2})-(\d{1,2})-(\d{1,2})/'</span><span style="color: #007700">,<br />                   </span><span style="color: #DD0000">'/^\s*{(\w+)}\s*=/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$replace </span><span style="color: #007700">= array (</span><span style="color: #DD0000">'\3/\4/\1\2'</span><span style="color: #007700">, </span><span style="color: #DD0000">'$\1 ='</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replace</span><span style="color: #007700">, </span><span style="color: #DD0000">'{startDate} = 1999-5-27'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$patterns </span><span style="color: #007700">= array (</span><span style="color: #DD0000">'/(19|20)(\d{2})-(\d{1,2})-(\d{1,2})/'</span><span style="color: #007700">,<br />                   </span><span style="color: #DD0000">'/^\s*{(\w+)}\s*=/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$replace </span><span style="color: #007700">= array (</span><span style="color: #DD0000">'\3/\4/\1\2'</span><span style="color: #007700">, </span><span style="color: #DD0000">'$\1 ='</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replace</span><span style="color: #007700">, </span><span style="color: #DD0000">'{startDate} = 1999-5-27'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-$startDate = 5/27/1999
-</pre></div>
+<div class="examplescode"><pre class="examplescode">$startDate = 5/27/1999</pre>
+</div>
     </div>
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4846">
     <p><strong>Example #4 剥离空白字符</strong></p>
     <div class="example-contents"><p>
      这个例子剥离多余的空白字符
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$str </span><span style="color: #007700">= </span><span style="color: #DD0000">'foo   o'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'/\s\s+/'</span><span style="color: #007700">, </span><span style="color: #DD0000">' '</span><span style="color: #007700">, </span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// 将会改变为'foo o'<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">$str</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$str </span><span style="color: #007700">= </span><span style="color: #DD0000">'foo   o'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'/\s\s+/'</span><span style="color: #007700">, </span><span style="color: #DD0000">' '</span><span style="color: #007700">, </span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// 将会改变为'foo o'<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">$str</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
   </p>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4847">
     <p><strong>Example #5 使用参数 <code class="parameter">count</code></strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$count </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'/\d/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/\s/'</span><span style="color: #007700">), </span><span style="color: #DD0000">'*'</span><span style="color: #007700">, </span><span style="color: #DD0000">'xp 4 to'</span><span style="color: #007700">, -</span><span style="color: #0000BB">1 </span><span style="color: #007700">, </span><span style="color: #0000BB">$count</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$count</span><span style="color: #007700">; </span><span style="color: #FF8000">//3<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$count </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'/\d/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/\s/'</span><span style="color: #007700">), </span><span style="color: #DD0000">'*'</span><span style="color: #007700">, </span><span style="color: #DD0000">'xp 4 to'</span><span style="color: #007700">, -</span><span style="color: #0000BB">1 </span><span style="color: #007700">, </span><span style="color: #0000BB">$count</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$count</span><span style="color: #007700">; </span><span style="color: #FF8000">//3<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-xp***to
-3
-</pre></div>     
+<div class="examplescode"><pre class="examplescode">xp***to
+3</pre>
+</div>     
     </div>
    </div>
   </p>
@@ -290,7 +251,7 @@ xp***to
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
    当使用数组形式的<code class="parameter">pattern</code>和<code class="parameter">replacement</code>时, 
-   将会按照key在数组中出现的顺序进行处理. 这<em class="emphasis">不一定</em>和数组的索引顺序一致.
+   将会按照key在数组中出现的顺序进行处理. 这<em>不一定</em>和数组的索引顺序一致.
    如果你期望使用索引对等方式用<code class="parameter">replacement</code>对<code class="parameter">pattern</code>
    进行替换, 你可以在调用<span class="function"><strong>preg_replace()</strong></span>之前对两个数组各进行一次<span class="function"><a href="function.ksort.html" class="function">ksort()</a></span>排序.
    </p>
@@ -305,12 +266,9 @@ xp***to
     such as swapping two values, replace one pattern by an intermediary placeholder, then in a
     later pair replace that intermediary placeholder with the desired replacement.
    </p>
-   <div class="example" id="">
+   <div class="informalexample">
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$p </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'/a/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/b/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/c/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'b'</span><span style="color: #007700">, </span><span style="color: #DD0000">'c'</span><span style="color: #007700">, </span><span style="color: #DD0000">'d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$p</span><span style="color: #007700">, </span><span style="color: #0000BB">$r</span><span style="color: #007700">, </span><span style="color: #DD0000">'a'</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// 打印 d<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$p </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'/a/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/b/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/c/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'b'</span><span style="color: #007700">, </span><span style="color: #DD0000">'c'</span><span style="color: #007700">, </span><span style="color: #DD0000">'d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$p</span><span style="color: #007700">, </span><span style="color: #0000BB">$r</span><span style="color: #007700">, </span><span style="color: #DD0000">'a'</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// 打印 d<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -322,13 +280,14 @@ xp***to
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><a href="pcre.pattern.html" class="link">PCRE 模式</a></li>
-    <li class="member"><span class="function"><a href="function.preg-quote.html" class="function" rel="rdfs-seeAlso">preg_quote()</a> - 转义正则表达式字符</span></li>
-    <li class="member"><span class="function"><a href="function.preg-filter.html" class="function" rel="rdfs-seeAlso">preg_filter()</a> - 执行一个正则表达式搜索和替换</span></li>
-    <li class="member"><span class="function"><a href="function.preg-match.html" class="function" rel="rdfs-seeAlso">preg_match()</a> - 执行匹配正则表达式</span></li>
-    <li class="member"><span class="function"><a href="function.preg-replace-callback.html" class="function" rel="rdfs-seeAlso">preg_replace_callback()</a> - 执行一个正则表达式搜索并且使用一个回调进行替换</span></li>
-    <li class="member"><span class="function"><a href="function.preg-split.html" class="function" rel="rdfs-seeAlso">preg_split()</a> - 通过一个正则表达式分隔字符串</span></li>
-    <li class="member"><span class="function"><a href="function.preg-last-error.html" class="function" rel="rdfs-seeAlso">preg_last_error()</a> - 返回最后一个PCRE正则执行产生的错误代码</span></li>
+    <li><a href="pcre.pattern.html" class="link">PCRE 模式</a></li>
+    <li><span class="function"><a href="function.preg-quote.html" class="function" rel="rdfs-seeAlso">preg_quote()</a> - 转义正则表达式字符</span></li>
+    <li><span class="function"><a href="function.preg-filter.html" class="function" rel="rdfs-seeAlso">preg_filter()</a> - 执行一个正则表达式搜索和替换</span></li>
+    <li><span class="function"><a href="function.preg-match.html" class="function" rel="rdfs-seeAlso">preg_match()</a> - 执行匹配正则表达式</span></li>
+    <li><span class="function"><a href="function.preg-replace-callback.html" class="function" rel="rdfs-seeAlso">preg_replace_callback()</a> - 执行一个正则表达式搜索并且使用一个回调进行替换</span></li>
+    <li><span class="function"><a href="function.preg-split.html" class="function" rel="rdfs-seeAlso">preg_split()</a> - 通过一个正则表达式分隔字符串</span></li>
+    <li><span class="function"><a href="function.preg-last-error.html" class="function" rel="rdfs-seeAlso">preg_last_error()</a> - 返回最后一个PCRE正则执行产生的错误代码</span></li>
+    <li><span class="function"><a href="function.str-replace.html" class="function" rel="rdfs-seeAlso">str_replace()</a> - 子字符串替换</span></li>
    </ul>
   </p>
  </div>
@@ -337,7 +296,39 @@ xp***to
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127704""></a>
+<div id="allnotes">  <a name="129345""></a>
+  <div class="note">
+   <strong class="user">Anonymous</strong>
+   <a href="#129345" class="date">22-Mar-2024 02:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You can only use numeric backreferences in the replacement string, but not named ones:<br />
+<span class="default">&lt;?php <br />
+</span><span class="keyword">echo </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#(\d+)#'</span><span class="keyword">, </span><span class="string">'\1 $1 ${1}'</span><span class="keyword">, </span><span class="string">'123'</span><span class="keyword">);<br />
+</span><span class="comment">// 123 123 123<br />
+</span><span class="keyword">echo </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'#(?&lt;digits&gt;\d+)#'</span><span class="keyword">, </span><span class="string">'\digits $digits ${digits}'</span><span class="keyword">, </span><span class="string">'123'</span><span class="keyword">);<br />
+</span><span class="comment">// \digits $digits ${digits}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+To use named backreferences, you have to use preg_replace_callback:<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">echo </span><span class="default">preg_replace_callback</span><span class="keyword">(</span><span class="string">'#(?&lt;digits&gt;\d+)#'</span><span class="keyword">, function( </span><span class="default">$m </span><span class="keyword">){<br />
+&nbsp; return </span><span class="string">"</span><span class="default">$m</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]</span><span class="string"> </span><span class="default">$m</span><span class="keyword">[</span><span class="default">digits</span><span class="keyword">]</span><span class="string"> </span><span class="keyword">{</span><span class="default">$m</span><span class="keyword">[</span><span class="string">'digits'</span><span class="keyword">]}</span><span class="string">"</span><span class="keyword">;<br />
+}, </span><span class="string">'123'</span><span class="keyword">);<br />
+</span><span class="comment">// 123 123 123<br />
+<br />
+</span><span class="keyword">echo </span><span class="default">preg_replace_callback</span><span class="keyword">(</span><span class="string">'#(?&lt;digits&gt;\d+)#'</span><span class="keyword">, fn(</span><span class="default">$m</span><span class="keyword">) =&gt; </span><span class="string">"</span><span class="default">$m</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]</span><span class="string"> </span><span class="default">$m</span><span class="keyword">[</span><span class="default">digits</span><span class="keyword">]</span><span class="string"> </span><span class="keyword">{</span><span class="default">$m</span><span class="keyword">[</span><span class="string">'digits'</span><span class="keyword">]}</span><span class="string">"</span><span class="keyword">, </span><span class="string">'123'</span><span class="keyword">);<br />
+</span><span class="comment">// 123 123 123<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+See https://bugs.php.net/bug.php?id=81469</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127704""></a>
   <div class="note">
    <strong class="user">razvan_bc at yahoo dot com</strong>
    <a href="#127704" class="date">08-Oct-2022 10:11</a>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>向指定服务器上已存在元素追加数据</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-memcached.appendbykey-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::appendByKey</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$server_key</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::appendByKey</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$server_key</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$value</code></span>): <span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>Memcached::appendByKey()</strong></span> 在功能上等同于 <span class="methodname"><a href="memcached.append.html" class="methodname">Memcached::append()</a></span>。区别在于使用
@@ -49,43 +49,30 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">server_key</code></dt>
-
+     <dt><code class="parameter">server_key</code></dt>
      <dd>
-
       <p class="para">
        本键名用于识别储存和读取值的服务器。没有将实际的键名散列到具体的项目，而是在决定与哪一个 memcached 服务器通信时将其散列为服务器键名。这使得关联的项目在单一的服务上被组合起来以提高多重操作的效率。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">key</code></dt>
-
+     <dt><code class="parameter">key</code></dt>
      <dd>
-
       <p class="para">
        用于存储值的键名。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">value</code></dt>
-
+     <dt><code class="parameter">value</code></dt>
      <dd>
-
       <p class="para">
        要追加的字符串。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -93,9 +80,16 @@
  <div class="refsect1 returnvalues" id="refsect1-memcached.appendbykey-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
-   如果 key 不存在，<span class="methodname"><a href="memcached.getresultcode.html" class="methodname">Memcached::getResultCode()</a></span> 将返回
-   <strong><code>Memcached::RES_NOTSTORED</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+   当打开压缩时，返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-memcached.appendbykey-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   当压缩启用时返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 并引发 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
   </p>
  </div>
 
@@ -104,8 +98,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="memcached.append.html" class="methodname" rel="rdfs-seeAlso">Memcached::append()</a> - 向已存在元素追加数据</span></li>
-    <li class="member"><span class="methodname"><a href="memcached.prepend.html" class="methodname" rel="rdfs-seeAlso">Memcached::prepend()</a> - 向一个已存在的元素前面追加数据</span></li>
+    <li><span class="methodname"><a href="memcached.append.html" class="methodname" rel="rdfs-seeAlso">Memcached::append()</a> - 向已存在元素追加数据</span></li>
+    <li><span class="methodname"><a href="memcached.prepend.html" class="methodname" rel="rdfs-seeAlso">Memcached::prepend()</a> - 向一个已存在的元素前面追加数据</span></li>
    </ul>
   </p>
  </div>

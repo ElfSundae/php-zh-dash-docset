@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>实例化由 ReflectionAttribute 类和参数表示的属性类</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-reflectionattribute.newinstance-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>ReflectionAttribute::newInstance</strong></span>(): <span class="type">object</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>ReflectionAttribute::newInstance</strong></span>(): <span class="type"><a href="language.types.object.html" class="type object">object</a></span></div>
 
   <p class="para rdfs-comment">
    实例化由 ReflectionAttribute 类和参数表示的属性类。
@@ -61,6 +61,70 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="128172""></a>
+  <div class="note">
+   <strong class="user">baptiste at pillot dot fr</strong>
+   <a href="#128172" class="date">30-Jan-2023 11:07</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Calling ReflectionAttribute::newInstance() using an attribute name that has a matching class without #[Attribute] will result in an error.<br />
+<br />
+Example :<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">class </span><span class="default">FakeAttribute </span><span class="keyword">{}<br />
+<br />
+#[</span><span class="default">FakeAttribute</span><span class="keyword">]<br />
+class </span><span class="default">Test </span><span class="keyword">{}<br />
+<br />
+try {<br />
+&nbsp;&nbsp;&nbsp; (new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="default">Test</span><span class="keyword">::class))-&gt;</span><span class="default">getAttributes</span><span class="keyword">()[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">newInstance</span><span class="keyword">();<br />
+}<br />
+catch (</span><span class="default">Error $error</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'Throwed error ' </span><span class="keyword">. </span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">) . </span><span class="string">' with message : ' </span><span class="keyword">. </span><span class="default">$error</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">();<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+This will output :<br />
+<br />
+Throwed error Error with message : Attempting to use non-attribute class "FakeAttribute" as attribute</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128171""></a>
+  <div class="note">
+   <strong class="user">baptiste at pillot dot fr</strong>
+   <a href="#128171" class="date">30-Jan-2023 11:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Calling ReflectionAttribute::newInstance() using an attribute name that does not have a corresponding class will result in an error.<br />
+<br />
+Example :<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">#[</span><span class="default">FakeAttribute</span><span class="keyword">]<br />
+class </span><span class="default">Test </span><span class="keyword">{}<br />
+<br />
+try {<br />
+&nbsp; (new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="default">Test</span><span class="keyword">::class))-&gt;</span><span class="default">getAttributes</span><span class="keyword">()[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">newInstance</span><span class="keyword">();<br />
+}<br />
+catch (</span><span class="default">Error $error</span><span class="keyword">) {<br />
+&nbsp; echo </span><span class="string">'Throwed error ' </span><span class="keyword">. </span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">) . </span><span class="string">' with message : ' </span><span class="keyword">. </span><span class="default">$error</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">();<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+This will output :<br />
+<br />
+Throwed error Error with message : Attribute class "FakeAttribute" not found</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

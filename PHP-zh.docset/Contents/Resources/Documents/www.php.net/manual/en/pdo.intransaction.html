@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>检查是否在事务内</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -37,7 +37,7 @@
  <div class="refsect1 description" id="refsect1-pdo.intransaction-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>PDO::inTransaction</strong></span>(): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDO::inTransaction</strong></span>(): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    检查驱动内的事务当前是否处于激活。此方法仅对支持事务的数据库驱动起作用。
@@ -54,7 +54,7 @@
  <div class="refsect1 returnvalues" id="refsect1-pdo.intransaction-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果当前事务处于激活，则返回 <strong><code>true</code></strong> ，否则返回 <strong><code>false</code></strong> 。
+   如果当前事务处于激活，则返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> ，否则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 。
   </p>
  </div>
 
@@ -63,7 +63,21 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127690""></a>
+<div id="allnotes">  <a name="129146""></a>
+  <div class="note">
+   <strong class="user">unger at mirea dot ru</strong>
+   <a href="#129146" class="date">07-Jan-2024 10:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+With respect to SQLite, this method does not always return the correct result. This applies to errors including SQLITE_FULL, SQLITE_IOERR, SQLITE_NOMEM, SQLITE_BUSY, and SQLITE_INTERRUPT. According to the documentation, these errors can cause an automatic rollback. The method does not take this into account (because it uses PDO's internal tracking mechanism).<br />
+However, SQLite has a way to find out whether the transaction was automatically rolled back or not. By using sqlite3_get_autocommit() C-language function.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127690""></a>
   <div class="note">
    <strong class="user">dennis</strong>
    <a href="#127690" class="date">03-Oct-2022 12:07</a>

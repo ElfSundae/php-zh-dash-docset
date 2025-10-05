@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>清空（擦除）缓冲区并关闭输出缓冲</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>清空（擦除）活动缓冲区的内容并关闭它</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -20,32 +20,32 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="ref.outcontrol.html">Output Control 函数</a></li>
-    <li>清空（擦除）缓冲区并关闭输出缓冲</li>
+    <li><a href="ref.outcontrol.html">输出控制 函数</a></li>
+    <li>清空（擦除）活动缓冲区的内容并关闭它</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.ob-end-clean" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">ob_end_clean</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">ob_end_clean</span> &mdash; <span class="dc-title">清空（擦除）缓冲区并关闭输出缓冲</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">ob_end_clean</span> &mdash; <span class="dc-title">清空（擦除）活动缓冲区的内容并关闭它</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.ob-end-clean-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ob_end_clean</strong></span>(): <span class="type">bool</span></div>
+   <span class="methodname"><strong>ob_end_clean</strong></span>(): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   此函数丢弃最顶层输出缓冲区的内容并关闭这个缓冲区。如果想要进一步处理缓冲区的内容，必须在
-   <span class="function"><strong>ob_end_clean()</strong></span> 之前调用 <span class="function"><a href="function.ob-get-contents.html" class="function">ob_get_contents()</a></span>，因为当调用
-   <span class="function"><strong>ob_end_clean()</strong></span> 时缓冲区内容将被丢弃。
+   该函数调用输出处理程序（使用 <strong><code><a href="outcontrol.constants.html#constant.php-output-handler-clean">PHP_OUTPUT_HANDLER_CLEAN</a></code></strong> 和 <strong><code><a href="outcontrol.constants.html#constant.php-output-handler-final">PHP_OUTPUT_HANDLER_FINAL</a></code></strong>
+   flag），丢弃它的返回值，丢弃活动输出缓冲区的内容并关闭活动输出缓冲区。
   </p>
   <p class="para">
-   输出缓冲区必须由带有 <a href="outcontrol.constants.html#constant.php-output-handler-cleanable" class="link">PHP_OUTPUT_HANDLER_CLEANABLE</a>
-   和 <a href="outcontrol.constants.html#constant.php-output-handler-removable" class="link">PHP_OUTPUT_HANDLER_REMOVABLE</a> flag
-   的 <span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> 启动。否则 <span class="function"><strong>ob_end_clean()</strong></span> 将不起作用。
+   如果没有以 <strong><code><a href="outcontrol.constants.html#constant.php-output-handler-removable">PHP_OUTPUT_HANDLER_REMOVABLE</a></code></strong> flag 启动的活动输出缓冲区，<span class="function"><strong>ob_end_clean()</strong></span> 将失败。
+  </p>
+  <p class="para">
+   <span class="function"><strong>ob_end_clean()</strong></span> 将丢弃活动输出缓冲区的内容，即使是在没有 <strong><code><a href="outcontrol.constants.html#constant.php-output-handler-cleanable">PHP_OUTPUT_HANDLER_CLEANABLE</a></code></strong> flag 的情况下启动的。
   </p>
  </div>
 
@@ -59,7 +59,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.ob-end-clean-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。 错误的原因首先是，在调用时没有一个起作用的缓冲区，或者是因为某些原因缓冲区不能被删除（可能对特殊缓冲区而言）。   
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -67,24 +67,21 @@
  <div class="refsect1 errors" id="refsect1-function.ob-end-clean-errors">
   <h3 class="title">错误／异常</h3>
   <p class="para">
-  如果函数失败了，将引发一个<strong><code>E_NOTICE</code></strong>异常。
+   如果函数失败了，将生成 <strong><code><a href="errorfunc.constants.html#constant.e-notice">E_NOTICE</a></code></strong> 异常。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.ob-end-clean-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-  下面的例子给出了一种去除所有输出缓冲区的方法：   
+  下面的示例展示了去除活动输出缓冲内容的简单方法：   
   </p>
   <p class="para">
-   <div class="example" id="example-1066">
+   <div class="example" id="example-522">
     <p><strong>Example #1 <span class="function"><strong>ob_end_clean()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />ob_start</span><span style="color: #007700">();<br />echo </span><span style="color: #DD0000">'Text that won\'t get displayed.'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">ob_end_clean</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />ob_start</span><span style="color: #007700">();<br />echo </span><span style="color: #DD0000">'Text that won\'t get displayed.'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">ob_end_clean</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -96,13 +93,15 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.ob-start.html" class="function" rel="rdfs-seeAlso">ob_start()</a> - 打开输出控制缓冲</span></li>
-    <li class="member"><span class="function"><a href="function.ob-get-contents.html" class="function" rel="rdfs-seeAlso">ob_get_contents()</a> - 返回输出缓冲区的内容</span></li>
-    <li class="member"><span class="function"><a href="function.ob-flush.html" class="function" rel="rdfs-seeAlso">ob_flush()</a> - 冲刷出（送出）输出缓冲区中的内容</span></li>
+    <li><span class="function"><a href="function.ob-start.html" class="function" rel="rdfs-seeAlso">ob_start()</a> - 打开输出控制缓冲</span></li>
+    <li><span class="function"><a href="function.ob-get-contents.html" class="function" rel="rdfs-seeAlso">ob_get_contents()</a> - 返回输出缓冲区的内容</span></li>
+    <li><span class="function"><a href="function.ob-clean.html" class="function" rel="rdfs-seeAlso">ob_clean()</a> - 清空（擦掉）活动输出缓冲区的内容</span></li>
+    <li><span class="function"><a href="function.ob-get-clean.html" class="function" rel="rdfs-seeAlso">ob_get_clean()</a> - 获取活动缓冲区的内容并将其关闭</span></li>
+    <li><span class="function"><a href="function.ob-end-flush.html" class="function" rel="rdfs-seeAlso">ob_end_flush()</a> - 冲刷（发送）活动输出处理程序的返回值，并关闭活动输出缓冲区</span></li>
    </ul>
   </p>
  </div>
- 
+
 
 </div><div id="usernotes">
  <div class="head">

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>安装</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="zip.requirements.html">? 需求</a></li>
-      <li style="float: right;"><a href="zip.configuration.html">运行时配置 ?</a></li>
+      <li style="float: right;"><a href="zip.resources.html">资源类型 ?</a></li>
     </ul>
   </div>
 </div>
@@ -28,38 +28,32 @@
   <div id="layout-content"><div id="zip.installation" class="section">
  <h2 class="title">安装</h2>
  
- <div class="section" id="zip.installation.new">
+ <div class="section" id="zip.installation.linux">
+  <h2 class="title">Linux 系统</h2>
+  <p class="para">
+   必须在编译 PHP 时用 <strong class="option configure">--with-zip</strong>
+   配置选项来提供 zip 支持来使用这些方法。
+  </p>
+  <p class="para">   
+   PHP 7.4.0 之前，PHP 捆绑了 libzip，编译扩展需要使用
+   <strong class="option configure">--enable-zip</strong> 配置项。从 PHP 7.3.0 开始, 不鼓励使用捆绑的 libzip
+   进行构建，但仍然可以使用 <strong class="option configure">--without-libzip</strong> 配置项。
+  </p>
+  <p class="para">
+   新增 <strong class="option configure">--with-libzip=DIR</strong> 配置选项以使用系统
+   libzip 安装。需要 libzip 版本 0.11，推荐使用 0.11.2 或更高版本。
+  </p>
+ </div>
   
-  <div class="section" id="zip.installation.new.linux">
-   <h2 class="title">Linux 系统</h2>
-   <p class="para">
-    从 PHP 7.4.0 开始，必须在编译 PHP 时用
-    <strong class="option configure">--with-zip</strong> 配置选项来提供 zip 支持。之前的 PHP 版本，需要使用
-    <strong class="option configure">--enable-zip</strong> 选项。
-   </p>
-   <p class="para">
-    从 PHP 5.6.0 开始，添加了一个选项
-    <strong class="option configure">--with-libzip=DIR</strong> 用来指定系统的 libzip
-    目录。要求 libzip 最低版本为 0.11，推荐使用 0.11.2 及以上版本。
-   </p>
-   <p class="para">
-    从 PHP 7.3.0 开始, 不鼓励使用捆绑的 libzip 进行构建，但通过在配置中添加
-    <strong class="option configure">--without-libzip</strong> 参数仍然可以实现。
-    从 PHP 7.4.0 开始，捆绑的 libzip 被移除。
-   </p>
-  </div>
-  
-  <div class="section" id="zip.installation.new.windows">
-   <h2 class="title">Windows</h2>
-   <p class="para">
-    PHP 5.3 之后该扩展已经内置。之前的版本，Windows 用户需要在 <var class="filename">php.ini</var> 里使
-    <var class="filename">php_zip.dll</var>
-    可用，以便使用这些函数。
-   </p>
-  </div>
+ <div class="section" id="zip.installation.new.windows">
+  <h2 class="title">Windows</h2>
+  <p class="para">
+   从 PHP 8.2.0 开始，必须在 <var class="filename">php.ini</var> 中<a href="install.pecl.windows.html#install.pecl.windows.loading" class="link">启用</a>
+   <var class="filename">php_zip.dll</var> DLL。以前内置此扩展。
+  </p>
  </div>
  
- <div class="section" id="zip.pecl.installation">
+ <div class="section" id="zip.installation.pecl">
   <h2 class="title">通过 PECL 安装</h2>
   <p class="para">
    安装此 PECL 扩展相关的信息可在手册中标题为
@@ -74,7 +68,127 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125160""></a>
+<div id="allnotes">  <a name="129230""></a>
+  <div class="note">
+   <strong class="user">askertv at gmail dot com</strong>
+   <a href="#129230" class="date">09-Feb-2024 02:24</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+SOLVET "No package 'libzip' found":<br />
+<br />
+$ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib64/pkgconfig/<br />
+<br />
+$ ./configure \<br />
+...<br />
+--with-zip \<br />
+...<br />
+<br />
+Configuration OK<br />
+<br />
+$ make &amp;&amp; make install</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="129226""></a>
+  <div class="note">
+   <strong class="user">askertv at gmail dot com</strong>
+   <a href="#129226" class="date">08-Feb-2024 11:29</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+No package 'libzip' found<br />
+<br />
+INSTALLATION PHP FROM SOURCE:<br />
+<br />
+./configure \<br />
+--prefix=/usr/local/php-7.4.5 \<br />
+--disable-debug \<br />
+--enable-fpm \<br />
+--with-fpm-user=nginx \<br />
+--with-fpm-group=nginx \<br />
+--enable-inline-optimization \<br />
+--enable-ftp \<br />
+--enable-xml \<br />
+--with-libdir=/usr/lib64 \<br />
+--with-curl \<br />
+--with-iconv \<br />
+--with-gettext \<br />
+--with-mysqli \<br />
+--enable-pdo \<br />
+--with-pdo-mysql \<br />
+--with-zlib \<br />
+--with-zlib-dir=/usr/lib \<br />
+--srcdir=/usr/local/src/php-7.4.5 \<br />
+--enable-sockets \<br />
+--enable-soap \<br />
+--with-openssl \<br />
+--enable-gd \<br />
+--with-jpeg \<br />
+--with-xpm \<br />
+--with-freetype \<br />
+--with-zip \<br />
+--with-libzip=/usr/local/lib64/ \<br />
+ONIG_LIBS=/usr/lib64<br />
+<br />
+checking for zip archive read/write support... yes<br />
+checking for libzip &gt;= 0.11... no<br />
+configure: error: Package requirements (libzip &gt;= 0.11) were not met:<br />
+<br />
+No package 'libzip' found<br />
+<br />
+Consider adjusting the PKG_CONFIG_PATH environment variable if you<br />
+installed software in a non-standard prefix.<br />
+<br />
+Alternatively, you may set the environment variables LIBZIP_CFLAGS<br />
+and LIBZIP_LIBS to avoid the need to call pkg-config.<br />
+See the pkg-config man page for more details.<br />
+<br />
+INSTALLATION libzip-1.10.1 from source:<br />
+<br />
+make install<br />
+[ 50%] Built target zip<br />
+[ 94%] Built target man<br />
+[ 96%] Built target zipcmp<br />
+[ 96%] Built target zipmerge<br />
+[ 98%] Built target ziptool<br />
+[ 98%] Built target add-compressed-data<br />
+[ 98%] Built target autoclose-archive<br />
+[100%] Built target in-memory<br />
+Install the project...<br />
+-- Install configuration: ""<br />
+-- Installing: /usr/local/lib64/pkgconfig/libzip.pc<br />
+-- Installing: /usr/local/lib64/cmake/libzip/modules/FindNettle.cmake<br />
+-- Installing: /usr/local/lib64/cmake/libzip/modules/Findzstd.cmake<br />
+-- Installing: /usr/local/lib64/cmake/libzip/modules/FindMbedTLS.cmake<br />
+-- Installing: /usr/local/include/zipconf.h<br />
+-- Installing: /usr/local/lib64/cmake/libzip/libzip-config.cmake<br />
+-- Installing: /usr/local/lib64/cmake/libzip/libzip-config-version.cmake<br />
+-- Installing: /usr/local/lib64/cmake/libzip/libzip-targets.cmake<br />
+-- Installing: /usr/local/lib64/cmake/libzip/libzip-targets-noconfig.cmake<br />
+-- Installing: /usr/local/lib64/libzip.so.5.5<br />
+-- Up-to-date: /usr/local/lib64/libzip.so.5<br />
+-- Up-to-date: /usr/local/lib64/libzip.so<br />
+-- Installing: /usr/local/include/zip.h<br />
+-- Installing: /usr/local/share/man/man3/ZIP_SOURCE_GET_ARGS.3<br />
+...<br />
+...<br />
+-- Installing: /usr/local/bin/zipcmp<br />
+-- Set runtime path of "/usr/local/bin/zipcmp" to ""<br />
+-- Installing: /usr/local/bin/zipmerge<br />
+-- Set runtime path of "/usr/local/bin/zipmerge" to ""<br />
+-- Installing: /usr/local/bin/ziptool<br />
+-- Set runtime path of "/usr/local/bin/ziptool" to ""<br />
+<br />
+OS: RedHat-7.9</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125160""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#125160" class="date">01-Jul-2020 11:29</a>

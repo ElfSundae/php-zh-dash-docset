@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>打开一个大型对象</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>打开大对象</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="function.pg-lo-import.html">? pg_lo_import</a></li>
-      <li style="float: right;"><a href="function.pg-lo-read-all.html">pg_lo_read_all ?</a></li>
+      <li style="float: right;"><a href="function.pg-lo-read.html">pg_lo_read ?</a></li>
     </ul>
   </div>
 </div>
@@ -21,43 +21,144 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.pgsql.html">PostgreSQL 函数</a></li>
-    <li>打开一个大型对象</li>
+    <li>打开大对象</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.pg-lo-open" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">pg_lo_open</h1>
-    <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_lo_open</span> &mdash; <span class="dc-title">打开一个大型对象</span></p>
+ <div class="refnamediv">
+  <h1 class="refname">pg_lo_open</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_lo_open</span> &mdash; <span class="dc-title">打开大对象</span></p>
 
-   </div>
-   <div class="refsect1 unknown-unknown-seealsq" id="refsect1-function.pg-lo-open-unknown-unknown-seealsq">
-    <h3 class="title">说明</h3>
-     <div class="methodsynopsis dc-description">
-      <span class="methodname"><strong>pg_lo_open</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$connection</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$oid</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$mode</code></span>): <span class="type">resource</span></div>
+ </div>
 
-    <p class="para rdfs-comment">
-     <span class="function"><strong>pg_lo_open()</strong></span> 打开一个大型对象并返回大型对象资源号。该资源号内封装了连接号。<code class="parameter">oid</code> 指定了有效的大型对象的 oid，<code class="parameter">mode</code> 可以为 &quot;r&quot;，&quot;w&quot; 或者 &quot;rw&quot;。如果失败则返回 <strong><code>false</code></strong>。
-    </p>
-    <div class="warning"><strong class="warning">Warning</strong>
-     <p class="para">
-      在关闭大型对象资源之前不要关闭数据库连接。
-     </p>
+ <div class="refsect1 description" id="refsect1-function.pg-lo-open-description">
+  <h3 class="title">说明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>pg_lo_open</strong></span>(<span class="methodparam"><span class="type"><a href="class.pgsql-connection.html" class="type PgSql\Connection">PgSql\Connection</a></span> <code class="parameter">$connection</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$oid</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$mode</code></span>): <span class="type"><span class="type"><a href="class.pgsql-lob.html" class="type PgSql\Lob">PgSql\Lob</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><strong>pg_lo_open()</strong></span> 打开数据库中的大对象并返回 <span class="classname"><a href="class.pgsql-lob.html" class="classname">PgSql\Lob</a></span> 实例，以便对其进行操作。
+  </p>
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">
+    在关闭 <span class="classname"><a href="class.pgsql-lob.html" class="classname">PgSql\Lob</a></span> 实例之前不要关闭数据库连接。
+   </p>
+  </div>
+  <p class="para">
+   要使用大对象接口，必须将其封装在一个事务块中。
+  </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    本函数以前的名字为 <span class="function"><strong>pg_loopen()</strong></span>。
+   </p>
+  </p></blockquote>
+ </div>
+
+ 
+ <div class="refsect1 parameters" id="refsect1-function.pg-lo-open-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">
+   <dl>
+    
+     <dt><code class="parameter">connection</code></dt>
+     <dd>
+      <p class="para">An <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span> instance.
+When <code class="parameter">connection</code> is unspecified, the default connection is used.
+The default connection is the last connection made by <span class="function"><a href="function.pg-connect.html" class="function">pg_connect()</a></span>
+or <span class="function"><a href="function.pg-pconnect.html" class="function">pg_pconnect()</a></span>.
+<div class="warning"><strong class="warning">Warning</strong><p class="simpara">As of PHP 8.1.0, using the default connection is deprecated.</p></div></p>
+     </dd>
+    
+    
+     <dt><code class="parameter">oid</code></dt>
+     <dd>
+      <p class="para">
+       数据库中大对象的 <var class="varname">OID</var>。
+      </p>
+     </dd>
+    
+    
+     <dt><code class="parameter">mode</code></dt>
+     <dd>
+      <p class="para">
+       可以是只读的"r"、只写的"w"或读写的"rw"。
+      </p>
+     </dd>
+    
+   </dl>
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-lo-open-returnvalues">
+  <h3 class="title">返回值</h3>
+  <p class="para">
+   <span class="classname"><a href="class.pgsql-lob.html" class="classname">PgSql\Lob</a></span> 实例， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.pg-lo-open-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.1.0</td>
+      <td>
+       现在返回 <span class="classname"><a href="class.pgsql-lob.html" class="classname">PgSql\Lob</a></span> 实例；之前返回 <a href="language.types.resource.html" class="link">resource</a>。
+      </td>
+     </tr>
+
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">connection</code> 参数接受 <span class="classname"><a href="class.pgsql-connection.html" class="classname">PgSql\Connection</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">resource</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.pg-lo-open-examples">
+  <h3 class="title">示例</h3>
+  <p class="para">
+   <div class="example" id="example-1947">
+    <p><strong>Example #1 <span class="function"><strong>pg_lo_open()</strong></span> 示例</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />   $database </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=jacarta"</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #DD0000">"begin"</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">$oid </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_lo_create</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">);<br />   echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$oid</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">$handle </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_lo_open</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #0000BB">$oid</span><span style="color: #007700">, </span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br />   echo </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$handle</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">pg_lo_write</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">, </span><span style="color: #DD0000">"large object data"</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">pg_lo_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">, </span><span style="color: #DD0000">"commit"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
-    <p class="para">
-     要使用大型对象（lo）接口，需要将其放置在事务块中。
-    </p>
-    <blockquote class="note"><p><strong class="note">Note</strong>: 
-     <p class="para">
-      本函数以前的名字为 <code class="literal">pg_loopen()</code>。
-     </p>
-    </p></blockquote>
-    <p class="para">
-     参见 <span class="function"><a href="function.pg-lo-close.html" class="function">pg_lo_close()</a></span> 和 <span class="function"><a href="function.pg-lo-create.html" class="function">pg_lo_create()</a></span>。
-    </p>
-   </div>
 
-  </div><div id="usernotes">
+   </div> 
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.pg-lo-open-seealso">
+  <h3 class="title">参见</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li><span class="function"><a href="function.pg-lo-close.html" class="function" rel="rdfs-seeAlso">pg_lo_close()</a> - 关闭大对象</span></li>
+    <li><span class="function"><a href="function.pg-lo-create.html" class="function" rel="rdfs-seeAlso">pg_lo_create()</a> - 新建大对象</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>

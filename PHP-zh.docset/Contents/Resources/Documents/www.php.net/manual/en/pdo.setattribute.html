@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置属性</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,77 +36,230 @@
  <div class="refsect1 description" id="refsect1-pdo.setattribute-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>PDO::setAttribute</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$attribute</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDO::setAttribute</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$attribute</code></span>, <span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
 
   <p class="para rdfs-comment">
    设置数据库句柄属性。下面列出了一些可用的通用属性；有些驱动可能使用另外的特定属性。
-   <ul class="itemizedlist">
-    <li class="listitem"><p class="para">
-     <code class="literal">PDO::ATTR_CASE</code>：强制列名为指定的大小写。
-     <ul class="itemizedlist">
-      <li class="listitem"><p class="para">
-       <code class="literal">PDO::CASE_LOWER</code>：强制列名小写。
-      </p></li>
-      <li class="listitem"><p class="para">
-       <code class="literal">PDO::CASE_NATURAL</code>：保留数据库驱动返回的列名。
-      </p></li>
-      <li class="listitem"><p class="para">
-       <code class="literal">PDO::CASE_UPPER</code>：强制列名大写。
-      </p></li>
-     </ul>
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_ERRMODE</code>：错误报告。
-     <ul class="itemizedlist">
-      <li class="listitem"><p class="para"><code class="literal">PDO::ERRMODE_SILENT</code>：
-       仅设置错误代码。</p></li>
-      <li class="listitem"><p class="para"><code class="literal">PDO::ERRMODE_WARNING</code>:
-       引发 <a href="" class="link">E_WARNING</a> 错误</p></li>
-      <li class="listitem"><p class="para"><code class="literal">PDO::ERRMODE_EXCEPTION</code>:
-       抛出 <a href="class.pdoexception.html" class="link">exceptions</a> 异常。</p></li>
-     </ul>
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_ORACLE_NULLS</code>
-    （在所有驱动中都可用，不仅限于Oracle）：
-     转换 NULL 和空字符串。
-     <ul class="itemizedlist">
-      <li class="listitem"><p class="para"><code class="literal">PDO::NULL_NATURAL</code>:
-       不转换。</p></li>
-      <li class="listitem"><p class="para"><code class="literal">PDO::NULL_EMPTY_STRING</code>：
-       将空字符串转换成 <strong><code>null</code></strong>。</p></li>
-      <li class="listitem"><p class="para"><code class="literal">PDO::NULL_TO_STRING</code>:
-       将 NULL 转换成空字符串。</p></li>
-     </ul>
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_STRINGIFY_FETCHES</code>:
-     提取的时候将数值转换为字符串。
-     Requires <span class="type">bool</span>.
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_STATEMENT_CLASS</code>：
-    设置从PDOStatement派生的用户提供的语句类。
-     不能用于持久的PDO实例。
-     需要 <code class="literal">array(string 类名, array(mixed 构造函数的参数))</code>。
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_TIMEOUT</code>：
-     指定超时的秒数。并非所有驱动都支持此选项，这意味着驱动和驱动之间可能会有差异。比如，SQLite等待的时间达到此值后就放弃获取可写锁，但其他驱动可能会将此值解释为一个连接或读取超时的间隔。 
-     需要 <span class="type">int</span> 类型。
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_AUTOCOMMIT</code>
-     （在OCI，Firebird 以及 MySQL中可用）：
-     是否自动提交每个单独的语句。
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_EMULATE_PREPARES</code>
-     启用或禁用预处理语句的模拟。 有些驱动不支持或有限度地支持本地预处理。使用此设置强制PDO总是模拟预处理语句（如果为 <strong><code>true</code></strong> ），或试着使用本地预处理语句（如果为 <strong><code>false</code></strong>）。如果驱动不能成功预处理当前查询，它将总是回到模拟预处理语句上。
-     需要 <span class="type">bool</span> 类型。
-     </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::MYSQL_ATTR_USE_BUFFERED_QUERY</code>
-   （在MySQL中可用）：
-    使用缓冲查询。
-    </p></li>
-    <li class="listitem"><p class="para"><code class="literal">PDO::ATTR_DEFAULT_FETCH_MODE</code>：
-    设置默认的提取模式。关于模式的说明可以在 <span class="function"><a href="pdostatement.fetch.html" class="function">PDOStatement::fetch()</a></span> 文档找到。
-    </p></li>
-   </ul>
+   请注意，特定的驱动程序属性<em>不得</em>用于其他驱动程序。
+   <dl>
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-case">PDO::ATTR_CASE</a></code></strong></dt>
+     <dd>
+      <p class="para">
+       强制列名为指定的大小写。可以采用以下某个值：
+      </p>
+      <dl>
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.case-lower">PDO::CASE_LOWER</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          强制列名小写。
+         </span>
+        </dd>
+       
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.case-natural">PDO::CASE_NATURAL</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          保留数据库驱动返回的列名。
+         </span>
+        </dd>
+       
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.case-upper">PDO::CASE_UPPER</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          强制列名大写。
+         </span>
+        </dd>
+       
+      </dl>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-errmode">PDO::ATTR_ERRMODE</a></code></strong></dt>
+     <dd>
+      <p class="para">
+       PDO 的报错方式。可以采用以下某个值：
+      </p>
+      <dl>
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.errmode-silent">PDO::ERRMODE_SILENT</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          仅设置错误代码。
+         </span>
+        </dd>
+       
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.errmode-warning">PDO::ERRMODE_WARNING</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          引发 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 警告。
+         </span>
+        </dd>
+       
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.errmode-exception">PDO::ERRMODE_EXCEPTION</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          抛出 <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span>。
+         </span>
+        </dd>
+       
+      </dl>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-oracle-nulls">PDO::ATTR_ORACLE_NULLS</a></code></strong></dt>
+     <dd>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        此属性适用于所有驱动程序，而不仅仅是 Oracle。
+       </span>
+      </p></blockquote>
+      <p class="para">
+       确定是否以及如何转换 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 和空字符串。可以采用以下值之一：
+      </p>
+      <dl>
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.null-natural">PDO::NULL_NATURAL</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          不发生转换。
+         </span>
+        </dd>
+       
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.null-empty-string">PDO::NULL_EMPTY_STRING</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          空字符串转换为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。
+         </span>
+        </dd>
+       
+       
+        <dt><strong><code><a href="pdo.constants.html#pdo.constants.null-to-string">PDO::NULL_TO_STRING</a></code></strong></dt>
+        <dd>
+         <span class="simpara">
+          <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 被转换为空字符串。
+         </span>
+        </dd>
+       
+      </dl>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-stringify-fetches">PDO::ATTR_STRINGIFY_FETCHES</a></code></strong></dt>
+     <dd>
+      <p class="para">
+       获取时是否将数值转换为字符串。值采用 <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> 类型：<strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> 表示启用，<strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 表示禁用。
+      </p>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-statement-class">PDO::ATTR_STATEMENT_CLASS</a></code></strong></dt>
+     <dd>
+      <p class="para">
+       设置从 PDOStatement 派生的用户提供的语句类。
+       
+       需要 <code class="literal">array(string classname, array(mixed constructor_args))</code>。
+      </p>
+      <div class="caution"><strong class="caution">Caution</strong>
+       <p class="simpara">
+        不能用于持久 PDO 实例。
+       </p>
+      </div>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-timeout">PDO::ATTR_TIMEOUT</a></code></strong></dt>
+     <dd>
+      <p class="para">
+       指定超时的秒数。需要 <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> 类型的值。
+      </p>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <p class="para">
+        并非所有驱动都支持此选项，这意味着驱动和驱动之间可能会有差异。比如，SQLite 等待的时间达到此值后就放弃获取可写锁，但其他驱动可能会将此值解释为一个连接或读取超时的间隔。 
+       </p>
+      </p></blockquote>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-autocommit">PDO::ATTR_AUTOCOMMIT</a></code></strong></dt>
+     <dd>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        仅适用于 OCI、Firebird 和 MySQL 驱动程序。
+       </span>
+      </p></blockquote>
+      <p class="para">
+       是否自动提交每个单独的语句。采用 <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> 类型的值：<strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> 表示启用，<strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 表示禁用。默认为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。
+      </p>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-emulate-prepares">PDO::ATTR_EMULATE_PREPARES</a></code></strong></dt>
+     <dd>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        仅适用于 OCI、Firebird 和 MySQL 驱动程序。
+       </span>
+      </p></blockquote>
+      <p class="para">
+       是否启用或禁用预处理语句的模拟。有些驱动天然不支持或有限度地支持预处理语句。如果设置为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，PDO
+       始终模拟预处理语句，否则 PDO 将会尝试使用本地预处理语句。如果驱动不能成功预处理当前查询，PDO 将始终回退到模拟预处理语句上。
+      </p>
+     </dd>
+    
+    
+     <dt><strong><code><a href="ref.pdo-mysql.html#pdo.constants.mysql-attr-use-buffered-query">PDO::MYSQL_ATTR_USE_BUFFERED_QUERY</a></code></strong></dt>
+     <dd>
+      <blockquote class="note"><p><strong class="note">Note</strong>: 
+       <span class="simpara">
+        仅适用于 MySQL 驱动程序。
+       </span>
+      </p></blockquote>
+      <p class="para">
+       是否使用缓冲查询。采用 <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> 类型的值：<strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> 表示启用，<strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 表示禁用。默认情况下，默认为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。
+      </p>
+     </dd>
+    
+    
+     <dt><strong><code><a href="pdo.constants.html#pdo.constants.attr-default-fetch-mode">PDO::ATTR_DEFAULT_FETCH_MODE</a></code></strong></dt>
+     <dd>
+      <p class="para">
+       设置默认获取模式。关于模式的说明以及如何使用可以在 <span class="methodname"><a href="pdostatement.fetch.html" class="methodname">PDOStatement::fetch()</a></span> 文档找到。
+      </p>
+     </dd>
+    
+   </dl>
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-pdo.setattribute-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">
+   <dl>
+    
+     <dt><code class="parameter">attribute</code></dt>
+     <dd>
+      <p class="para">
+       要修改的属性。
+      </p>
+     </dd>
+    
+    
+     <dt><code class="parameter">value</code></dt>
+     <dd>
+      <p class="para">
+       设置 <code class="parameter">attribute</code> 的值，属性的不同导致需要的类型也会不同。
+      </p>
+     </dd>
+    
+   </dl>
   </p>
  </div>
 
@@ -114,7 +267,19 @@
  <div class="refsect1 returnvalues" id="refsect1-pdo.setattribute-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdo.setattribute-seealso">
+  <h3 class="title">参见</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li><span class="function"><a href="pdo.getattribute.html" class="function" rel="rdfs-seeAlso">PDO::getAttribute()</a> - 取回一个数据库连接的属性</span></li>
+    <li><span class="function"><a href="pdostatement.getattribute.html" class="function" rel="rdfs-seeAlso">PDOStatement::getAttribute()</a> - 检索语句属性</span></li>
+    <li><span class="function"><a href="pdostatement.setattribute.html" class="function" rel="rdfs-seeAlso">PDOStatement::setAttribute()</a> - 设置一个语句属性</span></li>
+   </ul>
   </p>
  </div>
 
@@ -123,7 +288,30 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126516""></a>
+<div id="allnotes">  <a name="129403""></a>
+  <div class="note">
+   <strong class="user">david at datava dot com</strong>
+   <a href="#129403" class="date">16-Apr-2024 08:30</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note that in order for<br />
+\PDO::ATTR_TIMEOUT<br />
+to have any effect, you must set <br />
+<br />
+\PDO::ATTR_ERRMODE=&gt;\PDO::ERRMODE_EXCEPTION.<br />
+<br />
+If<br />
+<br />
+\PDO::ATTR_ERRMODE=&gt;\PDO::ERRMODE_WARNING<br />
+<br />
+it doesn't appear to do anything.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126516""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#126516" class="date">19-Oct-2021 01:15</a>

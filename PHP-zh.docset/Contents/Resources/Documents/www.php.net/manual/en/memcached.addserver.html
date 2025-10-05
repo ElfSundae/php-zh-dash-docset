@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>向服务器池增加服务器</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,12 +35,12 @@
  <div class="refsect1 description" id="refsect1-memcached.addserver-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::addServer</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$host</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$port</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$weight</code><span class="initializer"> = 0</span></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::addServer</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$host</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$port</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$weight</code><span class="initializer"> = 0</span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>Memcached::addServer()</strong></span> 增加指定服务器到服务器池。此时不会与服务端建立连接，但如果使用一致性
-   key 分发选项（<strong><code>Memcached::DISTRIBUTION_CONSISTENT</code></strong> 或
-   <strong><code>Memcached::OPT_LIBKETAMA_COMPATIBLE</code></strong>），则必须更新一些内部的数据结构。 因此，如果需要增加多台服务器，最好使用
+   key 分发选项（<strong><code><a href="memcached.constants.html#memcached.constants.distribution-consistent">Memcached::DISTRIBUTION_CONSISTENT</a></code></strong> 或
+   <strong><code><a href="memcached.constants.html#memcached.constants.opt-libketama-compatible">Memcached::OPT_LIBKETAMA_COMPATIBLE</a></code></strong>），则必须更新一些内部的数据结构。 因此，如果需要增加多台服务器，最好使用
    <span class="methodname"><a href="memcached.addservers.html" class="methodname">Memcached::addServers()</a></span> 以确保这种更新只发生一次。
   </p>
   <p class="para">
@@ -55,47 +55,34 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">host</code></dt>
-
+     <dt><code class="parameter">host</code></dt>
      <dd>
-
       <p class="para">
        memcached 服务端主机名。如果主机名无效，相关的数据操作的结果代码将被设置为
-       <strong><code>Memcached::RES_HOST_LOOKUP_FAILURE</code></strong>。从 2.0.0b1 版本开始，这个参数还可以指定 unix
+       <strong><code><a href="memcached.constants.html#memcached.constants.res-host-lookup-failure">Memcached::RES_HOST_LOOKUP_FAILURE</a></code></strong>。从 2.0.0b1 版本开始，这个参数还可以指定 unix
        套接字文件的路径。例如：<code class="literal">/path/to/memcached.sock</code> 使用 UNIX 域套接字，在这种情况下
        <code class="parameter">port</code> 也必须设置为 <code class="literal">0</code>。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">port</code></dt>
-
+     <dt><code class="parameter">port</code></dt>
      <dd>
-
       <p class="para">
        运行 memcached 的端口号，通常是 <code class="literal">11211</code>。从版本 2.0.0b1
        开始，在使用 UNIX 域套接字时将此参数设置为 <code class="literal">0</code>。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">weight</code></dt>
-
+     <dt><code class="parameter">weight</code></dt>
      <dd>
-
       <p class="para">
        此服务器相对于服务器池中所有服务器的权重。此参数用来控制服务器在操作时被选中的概率。这个仅用于一致性分布选项，并且这个值通常是由服务端分配的内存来设置的。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -103,21 +90,18 @@
  <div class="refsect1 returnvalues" id="refsect1-memcached.addserver-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-memcached.addserver-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4480">
     <p><strong>Example #1 <span class="function"><strong>Memcached::addServer()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* Add 2 servers, so that the second one<br />   is twice as likely to be selected. */<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'mem1.domain.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">, </span><span style="color: #0000BB">33</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'mem2.domain.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">, </span><span style="color: #0000BB">67</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* Add 2 servers, so that the second one<br />   is twice as likely to be selected. */<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'mem1.domain.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">, </span><span style="color: #0000BB">33</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'mem2.domain.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">, </span><span style="color: #0000BB">67</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -129,8 +113,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="memcached.addservers.html" class="methodname" rel="rdfs-seeAlso">Memcached::addServers()</a> - 向服务器池中增加多台服务器</span></li>
-    <li class="member"><span class="methodname"><a href="memcached.resetserverlist.html" class="methodname" rel="rdfs-seeAlso">Memcached::resetServerList()</a> - Clears all servers from the server list</span></li>
+    <li><span class="methodname"><a href="memcached.addservers.html" class="methodname" rel="rdfs-seeAlso">Memcached::addServers()</a> - 向服务器池中增加多台服务器</span></li>
+    <li><span class="methodname"><a href="memcached.resetserverlist.html" class="methodname" rel="rdfs-seeAlso">Memcached::resetServerList()</a> - Clears all servers from the server list</span></li>
    </ul>
   </p>
  </div>

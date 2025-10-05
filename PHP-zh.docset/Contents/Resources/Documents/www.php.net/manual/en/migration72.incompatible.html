@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>不向下兼容的变更</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -39,10 +39,7 @@
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">number_format</span><span style="color: #007700">(-</span><span style="color: #0000BB">0.01</span><span style="color: #007700">)); </span><span style="color: #FF8000">// 新版本输出 string(1) "0" 旧版本输出 string(2) "-0"</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">number_format</span><span style="color: #007700">(-</span><span style="color: #0000BB">0.01</span><span style="color: #007700">)); </span><span style="color: #FF8000">// 新版本输出 string(1) "0" 旧版本输出 string(2) "-0"</span></span></code></div>
    </div>
 
   </div>
@@ -62,17 +59,14 @@
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// array to object<br /></span><span style="color: #0000BB">$arr </span><span style="color: #007700">= [</span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= (object)</span><span style="color: #0000BB">$arr</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">$obj</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;{</span><span style="color: #DD0000">'0'</span><span style="color: #007700">}, </span><span style="color: #FF8000">// 新写法<br />    </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;{</span><span style="color: #0000BB">0</span><span style="color: #007700">} </span><span style="color: #FF8000">// 新写法<br /></span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// array to object<br /></span><span style="color: #0000BB">$arr </span><span style="color: #007700">= [</span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= (object)</span><span style="color: #0000BB">$arr</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">$obj</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;{</span><span style="color: #DD0000">'0'</span><span style="color: #007700">}, </span><span style="color: #FF8000">// 新写法<br />    </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;{</span><span style="color: #0000BB">0</span><span style="color: #007700">} </span><span style="color: #FF8000">// 新写法<br /></span><span style="color: #007700">);</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 object(stdClass)#1 (1) {
-  [&quot;0&quot;]=&gt;    // string key now, rather than integer key
+  [&quot;0&quot;]=&gt;    // 现在是字符串 key，而不是整数 key
   int(1)
 }
 int(1)
@@ -87,17 +81,14 @@ int(1)
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// object to array<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new class {<br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;{</span><span style="color: #0000BB">0</span><span style="color: #007700">} = </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />    }<br />};<br /></span><span style="color: #0000BB">$arr </span><span style="color: #007700">= (array)</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">$arr</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">], </span><span style="color: #FF8000">// 新写法<br />    </span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #DD0000">'0'</span><span style="color: #007700">] </span><span style="color: #FF8000">// 新写法<br /></span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// object to array<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new class {<br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;{</span><span style="color: #0000BB">0</span><span style="color: #007700">} = </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />    }<br />};<br /></span><span style="color: #0000BB">$arr </span><span style="color: #007700">= (array)</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">$arr</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">], </span><span style="color: #FF8000">// 新写法<br />    </span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #DD0000">'0'</span><span style="color: #007700">] </span><span style="color: #FF8000">// 新写法<br /></span><span style="color: #007700">);</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 array(1) {
-  [0]=&gt;    // integer key now, rather than string key
+  [0]=&gt;    // 现在是整数 key，而不是字符串 key
   int(1)
 }
 int(1)
@@ -108,12 +99,12 @@ int(1)
  </div>
 
  <div class="sect2" id="migration72.incompatible.no-null-to-get_class">
-  <h3 class="title"><span class="function"><a href="function.get-class.html" class="function">get_class()</a></span> 函数不再接受 <strong><code>null</code></strong> 参数</h3>
+  <h3 class="title"><span class="function"><a href="function.get-class.html" class="function">get_class()</a></span> 函数不再接受 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 参数</h3>
 
   <p class="para">
-   之前版本中，传递 <strong><code>null</code></strong> 给 <span class="function"><a href="function.get-class.html" class="function">get_class()</a></span>
+   之前版本中，传递 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 给 <span class="function"><a href="function.get-class.html" class="function">get_class()</a></span>
    函数将返回当前类名。在新版本中，此行为会抛出一个
-   <strong><code>E_WARNING</code></strong> 错误。如果想实现与之前版本同样的效果，请不要传递任何参数进来。
+   <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 错误。如果想实现与之前版本同样的效果，请不要传递任何参数进来。
   </p>
  </div>
 
@@ -123,18 +114,15 @@ int(1)
   <p class="para">
    对非可数类型调用 <span class="function"><a href="function.count.html" class="function">count()</a></span>（或
    <span class="function"><a href="function.sizeof.html" class="function">sizeof()</a></span>）函数，会抛出一个
-   <strong><code>E_WARNING</code></strong> 错误。
+   <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 错误。
   </p>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />var_dump</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">), </span><span style="color: #FF8000">// NULL is not countable<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">), </span><span style="color: #FF8000">// integers are not countable<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #DD0000">'abc'</span><span style="color: #007700">), </span><span style="color: #FF8000">// strings are not countable<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">), </span><span style="color: #FF8000">// objects not implementing the Countable interface are not countable<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">([</span><span style="color: #0000BB">1</span><span style="color: #007700">,</span><span style="color: #0000BB">2</span><span style="color: #007700">]) </span><span style="color: #FF8000">// arrays are countable<br /></span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />var_dump</span><span style="color: #007700">(<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">), </span><span style="color: #FF8000">// NULL 不可数<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">), </span><span style="color: #FF8000">// 整数不可数<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #DD0000">'abc'</span><span style="color: #007700">), </span><span style="color: #FF8000">// 字符串不可数<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">(new </span><span style="color: #0000BB">stdClass</span><span style="color: #007700">), </span><span style="color: #FF8000">// 没有实现 Countable 接口的对象不可数<br />    </span><span style="color: #0000BB">count</span><span style="color: #007700">([</span><span style="color: #0000BB">1</span><span style="color: #007700">,</span><span style="color: #0000BB">2</span><span style="color: #007700">]) </span><span style="color: #FF8000">// 数组可数<br /></span><span style="color: #007700">);</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 Warning: count(): Parameter must be an array or an object that implements Countable in %s on line %d
@@ -158,11 +146,8 @@ int(2)
   <h3 class="title">ext/hash 从资源变成对象</h3>
 
   <p class="para">
-   As part of the long-term migration away from resources, the <a href="book.hash.html" class="link">Hash</a>
-   extension has been updated to use objects instead of resources. The change should be
-   seamless for PHP developers, except for where
-   <span class="function"><a href="function.is-resource.html" class="function">is_resource()</a></span> checks have been made (which will need
-   updating to <span class="function"><a href="function.is-object.html" class="function">is_object()</a></span> instead).
+   作为长期迁移资源的一部分，<a href="book.hash.html" class="link">Hash</a> 扩展已更新为使用对象而不是资源。对于 PHP 开发人员来说，该更改应该是无缝整合，除了
+   <span class="function"><a href="function.is-resource.html" class="function">is_resource()</a></span> 检查的地方（需要更新为 <span class="function"><a href="function.is-object.html" class="function">is_object()</a></span>）。
   </p>
  </div>
 
@@ -176,7 +161,7 @@ int(2)
   <ul class="itemizedlist">
    <li class="listitem">
     <span class="simpara">
-     <code class="literal">tls://</code> 默认为 TLSv1.0 or TLSv1.1 or TLSv1.2
+     <code class="literal">tls://</code> 默认为 TLSv1.0、TLSv1.1 或 TLSv1.2
     </span>
    </li>
    <li class="listitem">
@@ -209,7 +194,7 @@ int(2)
   <p class="para">
    之前版本中，对 <span class="classname"><strong class="classname">__PHP_Incomplete_Class</strong></span>
    调用 <span class="function"><a href="function.is-object.html" class="function">is_object()</a></span> 函数会返回
-   <strong><code>false</code></strong>，现在会返回 <strong><code>true</code></strong>。
+   <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>，现在会返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。
   </p>
  </div>
 
@@ -218,7 +203,7 @@ int(2)
 
   <p class="para">
    调用未定义的常量，现在会抛出一个
-   <strong><code>E_WARNING</code></strong> 错误(之前版本中为 <strong><code>E_NOTICE</code></strong>)。在下一个
+   <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 错误(之前版本中为 <strong><code><a href="errorfunc.constants.html#constant.e-notice">E_NOTICE</a></code></strong>)。在下一个
    PHP 大版本中，将会抛出一个
    <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 错误。
   </p>
@@ -234,11 +219,10 @@ int(2)
  </div>
 
  <div class="sect2" id="migration72.incompatible.trait-properties">
-  <h3 class="title">Checks on default property values of traits</h3>
+  <h3 class="title">检测 trait 的默认属性值</h3>
 
   <p class="para">
-   Compatibility checks upon default trait property values will no longer
-   perform casting.
+   对 trait 默认属性值的兼容性检查将不再执行强制转换。
   </p>
  </div>
 
@@ -255,41 +239,34 @@ int(2)
   <h3 class="title">NetWare 支持</h3>
 
   <p class="para">
-   NetWare 已不再被支持。
+   不再支持 NetWare。
   </p>
  </div>
 
  <div class="sect2" id="migration72.incompatible.array-unique">
-  <h3 class="title"><span class="function"><a href="function.array-unique.html" class="function">array_unique()</a></span> with <strong><code>SORT_STRING</code></strong></h3>
+  <h3 class="title">带 <strong><code><a href="array.constants.html#constant.sort-string">SORT_STRING</a></code></strong> 的 <span class="function"><a href="function.array-unique.html" class="function">array_unique()</a></span></h3>
 
   <p class="para">
-   While <span class="function"><a href="function.array-unique.html" class="function">array_unique()</a></span> with <strong><code>SORT_STRING</code></strong>
-   formerly copied the array and removed non-unique elements (without packing
-   the array afterwards), now a new array is built by adding the
-   unique elements. This can result in different numeric indexes.
+   带 <strong><code><a href="array.constants.html#constant.sort-string">SORT_STRING</a></code></strong> 的
+   <span class="function"><a href="function.array-unique.html" class="function">array_unique()</a></span>，之前复制数组并删除唯一元素（之后不会打包元素），但现在通过添加唯一元素来构建新数组。这可能会导致不同的数字索引。
   </p>
  </div>
 
  <div class="sect2" id="migration72.incompatible.bcmod-and-floats">
-  <h3 class="title"><span class="function"><a href="function.bcmod.html" class="function">bcmod()</a></span> changes with floats</h3>
+  <h3 class="title"><span class="function"><a href="function.bcmod.html" class="function">bcmod()</a></span> 的浮点数变更</h3>
 
   <p class="para">
-   The <span class="function"><a href="function.bcmod.html" class="function">bcmod()</a></span> function no longer truncates fractional
-   numbers to integers. As such, its behavior now follows
-   <span class="function"><a href="function.fmod.html" class="function">fmod()</a></span>, rather than the <code class="literal">%</code> operator.
-   For example <code class="literal">bcmod(&#039;4&#039;, &#039;3.5&#039;)</code> now returns
-   <code class="literal">0.5</code> instead of <code class="literal">1</code>.
+   <span class="function"><a href="function.bcmod.html" class="function">bcmod()</a></span> 函数不再将小数截断为整数。因此，其行为现在遵循 <span class="function"><a href="function.fmod.html" class="function">fmod()</a></span>，而不是
+   <code class="literal">%</code> 运算符。例如 <code class="literal">bcmod(&#039;4&#039;, &#039;3.5&#039;)</code> 现在返回 <code class="literal">0.5</code> 而不是 <code class="literal">1</code>。
   </p>
  </div>
 
  <div class="sect2" id="migration72.incompatible.hash-functions">
-  <h3 class="title">Hashing functions and non-cryptographic hashes</h3>
+  <h3 class="title">散列函数和非加密散列</h3>
 
   <p class="para">
-   The <span class="function"><a href="function.hash-hmac.html" class="function">hash_hmac()</a></span>, <span class="function"><a href="function.hash-hmac-file.html" class="function">hash_hmac_file()</a></span>,
-   <span class="function"><a href="function.hash-pbkdf2.html" class="function">hash_pbkdf2()</a></span>, and <span class="function"><a href="function.hash-init.html" class="function">hash_init()</a></span> (with
-   <strong><code>HASH_HMAC</code></strong>) functions no longer accept non-cryptographic
-   hashes.
+   <span class="function"><a href="function.hash-hmac.html" class="function">hash_hmac()</a></span>、<span class="function"><a href="function.hash-hmac-file.html" class="function">hash_hmac_file()</a></span>、<span class="function"><a href="function.hash-pbkdf2.html" class="function">hash_pbkdf2()</a></span>
+   和 <span class="function"><a href="function.hash-init.html" class="function">hash_init()</a></span>（使用 <strong><code><a href="hash.constants.html#constant.hash-hmac">HASH_HMAC</a></code></strong>）函数将不再接受非加密散列。
   </p>
  </div>
 
@@ -297,21 +274,17 @@ int(2)
   <h3 class="title"><span class="function"><a href="function.json-decode.html" class="function">json_decode()</a></span> 函数变更</h3>
 
   <p class="para">
-   The <span class="function"><a href="function.json-decode.html" class="function">json_decode()</a></span> function option,
-   <strong><code>JSON_OBJECT_AS_ARRAY</code></strong>, is now used if the second
-   parameter (assoc) is <strong><code>null</code></strong>. Previously,
-   <strong><code>JSON_OBJECT_AS_ARRAY</code></strong> was always ignored.
+   如果 <span class="function"><a href="function.json-decode.html" class="function">json_decode()</a></span> 的第二个选项（assoc） 为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，则现在会使用
+   <strong><code><a href="json.constants.html#constant.json-object-as-array">JSON_OBJECT_AS_ARRAY</a></code></strong>，之前始终会忽略 <strong><code><a href="json.constants.html#constant.json-object-as-array">JSON_OBJECT_AS_ARRAY</a></code></strong>。
   </p>
  </div>
 
  <div class="sect2" id="migration72.incompatible.rand-mt_rand-output">
-  <h3 class="title"><span class="function"><a href="function.rand.html" class="function">rand()</a></span> and <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> output</h3>
+  <h3 class="title"><span class="function"><a href="function.rand.html" class="function">rand()</a></span> 和 <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> 输出</h3>
 
   <p class="para">
-   Sequences generated by <span class="function"><a href="function.rand.html" class="function">rand()</a></span> and
-   <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> for a specific seed may differ from PHP 7.1 on
-   64-bit machines (due to the fixing of a modulo bias bug in the
-   implementation).
+   在 64 位机器上，自 PHP 7.1 起，由 <span class="function"><a href="function.rand.html" class="function">rand()</a></span> 和 <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span>
+   为特定的种子生成的一系列随机数可能与之前版本不同（?在实现中修复了一个模偏置错误）。
   </p>
  </div>
 
@@ -324,22 +297,19 @@ int(2)
  </div>
 
  <div class="sect2" id="migration72.incompatible.date_parse_from_format">
-  <h3 class="title">Changes to <span class="function"><a href="function.date-parse.html" class="function">date_parse()</a></span> and <span class="function"><a href="function.date-parse-from-format.html" class="function">date_parse_from_format()</a></span></h3>
+  <h3 class="title"><span class="function"><a href="function.date-parse.html" class="function">date_parse()</a></span> 和 <span class="function"><a href="function.date-parse-from-format.html" class="function">date_parse_from_format()</a></span> 的变更</h3>
 
   <p class="para">
-   The <code class="literal">zone</code> element of the array returned by <span class="function"><a href="function.date-parse.html" class="function">date_parse()</a></span> and
-   <span class="function"><a href="function.date-parse-from-format.html" class="function">date_parse_from_format()</a></span> represents seconds instead of
-   minutes now, and its sign is inverted. For instance <code class="literal">-120</code>
-   is now <code class="literal">7200</code>.
+   <span class="function"><a href="function.date-parse.html" class="function">date_parse()</a></span> 和 <span class="function"><a href="function.date-parse-from-format.html" class="function">date_parse_from_format()</a></span> 返回数组的 <code class="literal">zone</code>
+   元素现在表示秒而不是分钟，并且其符号反转。例如 <code class="literal">-120</code> 现在是 <code class="literal">7200</code>。
   </p>
  </div>
 
   <div class="sect2" id="migration72.incompatible.cookie-decode">
-  <h3 class="title">Incoming Cookies</h3>
+  <h3 class="title">传入 Cookies</h3>
 
   <p class="para">
-   As of PHP 7.2.34, the <em class="emphasis">names</em> of incoming cookies are no
-   longer url-decoded for security reasons.
+   自 PHP 7.2.34 起，出于安全原因，传入 cookie 的 <em>names</em> 不再进行 url 解码。
   </p>
  </div>
  

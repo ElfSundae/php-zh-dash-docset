@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Trait</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,16 +35,67 @@
   </p>
 
   <div class="example-contents">
-   <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">interface </span><span style="color: #0000BB">Colorful<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">color</span><span style="color: #007700">(): </span><span style="color: #0000BB">string</span><span style="color: #007700">;<br />}<br /><br />trait </span><span style="color: #0000BB">Rectangle<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">shape</span><span style="color: #007700">(): </span><span style="color: #0000BB">string </span><span style="color: #007700">{<br />        return </span><span style="color: #DD0000">"Rectangle"</span><span style="color: #007700">;<br />    }<br />}<br /><br />enum </span><span style="color: #0000BB">Suit </span><span style="color: #007700">implements </span><span style="color: #0000BB">Colorful<br /></span><span style="color: #007700">{<br />    use </span><span style="color: #0000BB">Rectangle</span><span style="color: #007700">;<br /><br />    case </span><span style="color: #0000BB">Hearts</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Diamonds</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Clubs</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Spades</span><span style="color: #007700">;<br /><br />    public function </span><span style="color: #0000BB">color</span><span style="color: #007700">(): </span><span style="color: #0000BB">string<br />    </span><span style="color: #007700">{<br />        return match(</span><span style="color: #0000BB">$this</span><span style="color: #007700">) {<br />            </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Hearts</span><span style="color: #007700">, </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Diamonds </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Red'</span><span style="color: #007700">,<br />            </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Clubs</span><span style="color: #007700">, </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Spades </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Black'</span><span style="color: #007700">,<br />        };<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">interface </span><span style="color: #0000BB">Colorful<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">color</span><span style="color: #007700">(): </span><span style="color: #0000BB">string</span><span style="color: #007700">;<br />}<br /><br />trait </span><span style="color: #0000BB">Rectangle<br /></span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">shape</span><span style="color: #007700">(): </span><span style="color: #0000BB">string </span><span style="color: #007700">{<br />        return </span><span style="color: #DD0000">"Rectangle"</span><span style="color: #007700">;<br />    }<br />}<br /><br />enum </span><span style="color: #0000BB">Suit </span><span style="color: #007700">implements </span><span style="color: #0000BB">Colorful<br /></span><span style="color: #007700">{<br />    use </span><span style="color: #0000BB">Rectangle</span><span style="color: #007700">;<br /><br />    case </span><span style="color: #0000BB">Hearts</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Diamonds</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Clubs</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Spades</span><span style="color: #007700">;<br /><br />    public function </span><span style="color: #0000BB">color</span><span style="color: #007700">(): </span><span style="color: #0000BB">string<br />    </span><span style="color: #007700">{<br />        return match(</span><span style="color: #0000BB">$this</span><span style="color: #007700">) {<br />            </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Hearts</span><span style="color: #007700">, </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Diamonds </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Red'</span><span style="color: #007700">,<br />            </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Clubs</span><span style="color: #007700">, </span><span style="color: #0000BB">Suit</span><span style="color: #007700">::</span><span style="color: #0000BB">Spades </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Black'</span><span style="color: #007700">,<br />        };<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
  </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="129250""></a>
+  <div class="note">
+   <strong class="user">wervin at mail dot com</strong>
+   <a href="#129250" class="date">15-Feb-2024 09:02</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+One good example of a trait, would be to give a lot of enums a method to retrieve their cases, values or both.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">trait </span><span class="default">EnumToArray<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">names</span><span class="keyword">(): array<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">cases</span><span class="keyword">(), </span><span class="string">'name'</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">values</span><span class="keyword">(): array<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">cases</span><span class="keyword">(), </span><span class="string">'value'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">asArray</span><span class="keyword">(): array<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (empty(</span><span class="default">self</span><span class="keyword">::</span><span class="default">values</span><span class="keyword">())) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">self</span><span class="keyword">::</span><span class="default">names</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (empty(</span><span class="default">self</span><span class="keyword">::</span><span class="default">names</span><span class="keyword">())) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">self</span><span class="keyword">::</span><span class="default">values</span><span class="keyword">();<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">cases</span><span class="keyword">(), </span><span class="string">'value'</span><span class="keyword">, </span><span class="string">'name'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Some example outputs:<br />
+<br />
+<span class="default">&lt;?php<br />
+var_export</span><span class="keyword">(</span><span class="default">IpVersion</span><span class="keyword">::</span><span class="default">names</span><span class="keyword">());&nbsp; &nbsp;&nbsp; </span><span class="comment">// ['Ipv4', 'IPv6']<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">IpVersion</span><span class="keyword">::</span><span class="default">values</span><span class="keyword">());&nbsp; &nbsp; </span><span class="comment">// []<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">IpVersion</span><span class="keyword">::</span><span class="default">asArray</span><span class="keyword">());&nbsp;&nbsp; </span><span class="comment">// ['IPv4', 'IPv6']<br />
+<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">Language</span><span class="keyword">::</span><span class="default">names</span><span class="keyword">());&nbsp; &nbsp; &nbsp; </span><span class="comment">// ['en', 'es']<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">Language</span><span class="keyword">::</span><span class="default">values</span><span class="keyword">());&nbsp; &nbsp;&nbsp; </span><span class="comment">// ['English', 'Spanish']<br />
+</span><span class="default">var_export</span><span class="keyword">(</span><span class="default">Language</span><span class="keyword">::</span><span class="default">asArray</span><span class="keyword">());&nbsp; &nbsp; </span><span class="comment">// ['en' =&gt; 'English', 'es' =&gt; 'Spanish']</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置会话 cookie 参数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,9 +34,10 @@
  <div class="refsect1 description" id="refsect1-function.session-set-cookie-params-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>session_set_cookie_params</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$lifetime</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$path</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$domain</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$secure</code><span class="initializer"> = <strong><code>false</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$httponly</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>session_set_cookie_params</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$lifetime_or_options</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$path</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$domain</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span> <code class="parameter">$secure</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span> <code class="parameter">$httponly</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>session_set_cookie_params</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code></span>): <span class="type">bool</span></div>
+  <p class="para rdfs-comment">自 PHP 7.3.0 起可用的替代签名：</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>session_set_cookie_params</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$lifetime_or_options</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Cookie 参数可以在 <var class="filename">php.ini</var> 文件中定义，本函数仅在当前脚本执行过程中有效。
@@ -56,94 +57,58 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">lifetime</code></dt>
-
+     <dt><code class="parameter">lifetime_or_options</code></dt>
      <dd>
-
       <p class="para">
-       Cookie 的 <a href="session.configuration.html#ini.session.cookie-lifetime" class="link">生命周期</a>，以秒为单位。
+       使用第一个签名时，session cookie 的 <a href="session.configuration.html#ini.session.cookie-lifetime" class="link">lifetime</a>，以秒为单位。
+      </p>
+      <p class="para">
+       当使用第二个签名时，关联 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 可能具有 <code class="literal">lifetime</code>、<code class="literal">path</code>、<code class="literal">domain</code>、<code class="literal">secure</code>、<code class="literal">httponly</code>
+       和 <code class="literal">samesite</code> 中的任一 key。这些值与同名参数的含义相同。<code class="literal">samesite</code> 元素的值应该是 <code class="literal">Lax</code> 或
+       <code class="literal">Strict</code>。
+       如果可以接受的键在传入的数组中不存在，那么会采用这些键对应的默认值作为运行时的值。如果省略 <code class="literal">samesite</code> 元素，则不会设置 SameSite cookie 属性。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">path</code></dt>
-
+     <dt><code class="parameter">path</code></dt>
      <dd>
-
       <p class="para">
        此 cookie 的有效 <a href="session.configuration.html#ini.session.cookie-path" class="link">路径</a>。 on the domain where
        设置为"/"表示对于本域上所有的路径此 cookie 都可用。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">domain</code></dt>
-
+     <dt><code class="parameter">domain</code></dt>
      <dd>
-
       <p class="para">
        Cookie 的作用 <a href="session.configuration.html#ini.session.cookie-domain" class="link">域</a>。
        例如："www.php.net"。
        如果要让 cookie 在所有的子域中都可用，此参数必须以点（.）开头，例如：".php.net"。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">secure</code></dt>
-
+     <dt><code class="parameter">secure</code></dt>
      <dd>
-
       <p class="para">
-       设置为 <strong><code>true</code></strong> 表示 cookie 仅在使用
+       设置为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> 表示 cookie 仅在使用
        <a href="session.configuration.html#ini.session.cookie-secure" class="link">安全</a> 链接时可用。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">httponly</code></dt>
-
+     <dt><code class="parameter">httponly</code></dt>
      <dd>
-
       <p class="para">
-       设置为 <strong><code>true</code></strong> 表示 PHP 发送 cookie 的时候会使用
+       设置为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> 表示 PHP 发送 cookie 的时候会使用
        <a href="session.configuration.html#ini.session.cookie-httponly" class="link">httponly</a>
        标记。
       </p>
      </dd>
-
-    
-    
-     <dt>
-<code class="parameter">options</code></dt>
-
-     <dd>
-
-      <p class="para">
-       此参数为一个键值对关联 <span class="type">array</span>，可能包含的键有：
-       <code class="literal">lifetime</code>，<code class="literal">path</code>，<code class="literal">domain</code>,
-       <code class="literal">secure</code>，<code class="literal">httponly</code> 以及 <code class="literal">samesite</code>。
-       这些键对应的值和上面所述的一样。
-       <code class="literal">samesite</code> 键对应的值可以是
-       <code class="literal">Lax</code> 或者 <code class="literal">Strict</code>。
-       如果可以接受的键在传入的数组中不存在，
-       那么会采用这些键对应的默认值作为运行时的值。
-       如果不提供 <code class="literal">samesite</code> 键，
-       那么就设置 SameSite cookie 属性。
-      </p>
-     </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -151,7 +116,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.session-set-cookie-params-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -171,25 +136,24 @@
 
      <tbody class="tbody">
       <tr>
+       <td>8.0.0</td>
+       <td>
+        <code class="parameter">path</code>、<code class="parameter">domain</code>、<code class="parameter">secure</code>
+        和 <code class="parameter">httponly</code> 现在可为 null。
+       </td>
+      </tr>
+
+      <tr>
        <td>7.3.0</td>
        <td>
-        增加 <code class="parameter">options</code> 参数，
-        可以通过传入一个关联数组对各个选项进行设置。
-        同时，通过使用这个参数还可以对 SameSite cookie 进行设置。
+        新增支持 <code class="parameter">lifetime_or_options</code> 数组的替代签名。此签名还支持 SameSite cookie 属性的设置。
        </td>
       </tr>
 
       <tr>
        <td>7.2.0</td>
        <td>
-        成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。 之前版本中是返回 <span class="type"><span class="type void">void</span></span> 的。
-       </td>
-      </tr>
-
-      <tr>
-       <td>5.2.0</td>
-       <td>
-        加入 <code class="parameter">httponly</code> 参数。
+        成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。以前该函数返回 <span class="type"><span class="type"><a href="language.types.void.html" class="type void">void</a></span></span>。
        </td>
       </tr>
 
@@ -205,25 +169,25 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.cookie-lifetime" class="link">session.cookie_lifetime</a>
     </li>
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.cookie-path" class="link">session.cookie_path</a>
     </li>
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.cookie-domain" class="link">session.cookie_domain</a>
     </li>
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.cookie-secure" class="link">session.cookie_secure</a>
     </li>
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.cookie-httponly" class="link">session.cookie_httponly</a>
     </li>
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.cookie-samesite" class="link">session.cookie_samesite</a>
     </li>
-    <li class="member"><span class="function"><a href="function.session-get-cookie-params.html" class="function" rel="rdfs-seeAlso">session_get_cookie_params()</a> - 获取会话 cookie 参数</span></li>
+    <li><span class="function"><a href="function.session-get-cookie-params.html" class="function" rel="rdfs-seeAlso">session_get_cookie_params()</a> - 获取会话 cookie 参数</span></li>
    </ul>
   </p>
  </div>
@@ -233,7 +197,61 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125875""></a>
+<div id="allnotes">  <a name="129285""></a>
+  <div class="note">
+   <strong class="user">theking2(at)king.ma</strong>
+   <a href="#129285" class="date">26-Feb-2024 08:39</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For complete session cookie control I use this snippit<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; session_set_cookie_params</span><span class="keyword">( [ <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'lifetime' </span><span class="keyword">=&gt; </span><span class="default">0</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'path' </span><span class="keyword">=&gt; </span><span class="string">'/'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'domain' </span><span class="keyword">=&gt; </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_HOST'</span><span class="keyword">],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'samesite' </span><span class="keyword">=&gt; </span><span class="string">'Strict'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ] );<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">session_start</span><span class="keyword">( [ <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'SESSION'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'sid_length' </span><span class="keyword">=&gt; </span><span class="default">96</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'sid_bits_per_character' </span><span class="keyword">=&gt; </span><span class="default">6</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'use_strict_mode' </span><span class="keyword">=&gt; </span><span class="default">true</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'referer_check' </span><span class="keyword">=&gt; </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_HOST'</span><span class="keyword">],<br />
+&nbsp;&nbsp;&nbsp; ] );<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+This will set the params to the recommended ones and generates a cookie&nbsp; id of reasonable quality.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128883""></a>
+  <div class="note">
+   <strong class="user">theking2(at)king.ma</strong>
+   <a href="#128883" class="date">14-Sep-2023 11:28</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+As per version PHP 7 session_start can include an option array this function became obsolete. All cookie settings (and many more) can be included in an option array as a parameter to session_start():<br />
+<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; session_start</span><span class="keyword">( [ <br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'cookie_path' </span><span class="keyword">=&gt; </span><span class="string">'/'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'cookie_lifetime' </span><span class="keyword">=&gt; </span><span class="default">300</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'cookie_secure' </span><span class="keyword">=&gt; </span><span class="default">true</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'cookie_httponly' </span><span class="keyword">=&gt; </span><span class="default">true</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'cookie_samesite' </span><span class="keyword">=&gt; </span><span class="string">'lax'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ] );</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125875""></a>
   <div class="note">
    <strong class="user">eion at robbmob dot com</strong>
    <a href="#125875" class="date">03-Mar-2021 07:24</a>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>解码一个MIME头字段</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.iconv-mime-decode-headers.html">? iconv_mime_decode_headers</a></li>
-      <li style="float: right;"><a href="function.iconv-mime-encode.html">iconv_mime_encode ?</a></li>
+      <li style="float: left;"><a href="function.iconv-get-encoding.html">? iconv_get_encoding</a></li>
+      <li style="float: right;"><a href="function.iconv-mime-decode-headers.html">iconv_mime_decode_headers ?</a></li>
     </ul>
   </div>
 </div>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.iconv-mime-decode-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>iconv_mime_decode</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$encoded_header</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$charset</code><span class="initializer"> = ini_get(&quot;iconv.internal_encoding&quot;)</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>iconv_mime_decode</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$string</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$mode</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$encoding</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    解码一个<code class="literal">MIME</code>头字段.
@@ -48,23 +48,16 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">encoded_header</code></dt>
-
+     <dt><code class="parameter">string</code></dt>
      <dd>
-
       <p class="para">
        编码头,是一个字符串.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">mode</code></dt>
-
+     <dt><code class="parameter">mode</code></dt>
      <dd>
-
       <p class="para">
        <code class="parameter">模式</code>决定了当<span class="function"><strong>iconv_mime_decode()</strong></span>遇到一个不规则的
        <code class="literal">MIME</code>头字段时,对这个事件作出的行为.你可以指定以下位掩码的任意组合.
@@ -105,24 +98,18 @@
 
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">charset</code></dt>
-
+     <dt><code class="parameter">encoding</code></dt>
      <dd>
-
       <p class="para">
-       可选的<code class="parameter">字符集</code>参数,用指定的字符集表示结果.如果省略,
-       <a href="iconv.configuration.html" class="link">iconv.internal_encoding</a>
-       将会被默认使用.
+       可选的 <code class="parameter">encoding</code> 参数,用指定的字符集表示结果。如果省略或为
+       <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，<a href="iconv.configuration.html" class="link">iconv.internal_encoding</a>
+       将会被默认使用。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -131,21 +118,45 @@
   <h3 class="title">返回值</h3>
   <p class="para">
    如果解码成功,返回一个被解码的<code class="literal">MIME</code>字段,
-   如果在解码过程中出现一个错误,将返回<strong><code>false</code></strong> .
+   如果在解码过程中出现一个错误,将返回<strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> .
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.iconv-mime-decode-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">encoding</code> 现在可为 null。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.iconv-mime-decode-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4544">
+   <div class="example" id="example-2324">
     <p><strong>Example #1 <span class="function"><strong>iconv_mime_decode()</strong></span>实例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//返回结果: "Subject: Prüfung Prüfung"<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">iconv_mime_decode</span><span style="color: #007700">(</span><span style="color: #DD0000">"Subject: =?UTF-8?B?UHLDvGZ1bmcgUHLDvGZ1bmc=?="</span><span style="color: #007700">,<br />                       </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #DD0000">"ISO-8859-1"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//返回结果: "Subject: Prüfung Prüfung"<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">iconv_mime_decode</span><span style="color: #007700">(</span><span style="color: #DD0000">"Subject: =?UTF-8?B?UHLDvGZ1bmcgUHLDvGZ1bmc=?="</span><span style="color: #007700">,<br />                       </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #DD0000">"ISO-8859-1"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -157,11 +168,11 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.iconv-mime-decode-headers.html" class="function" rel="rdfs-seeAlso">iconv_mime_decode_headers()</a> - 一次性解码多个 MIME 头字段</span></li>
-    <li class="member"><span class="function"><a href="function.mb-decode-mimeheader.html" class="function" rel="rdfs-seeAlso">mb_decode_mimeheader()</a> - 解码 MIME 头字段中的字符串</span></li>
-    <li class="member"><span class="function"><a href="function.imap-mime-header-decode.html" class="function" rel="rdfs-seeAlso">imap_mime_header_decode()</a> - Decode MIME header elements</span></li>
-    <li class="member"><span class="function"><a href="function.imap-base64.html" class="function" rel="rdfs-seeAlso">imap_base64()</a> - Decode BASE64 encoded text</span></li>
-    <li class="member"><span class="function"><a href="function.imap-qprint.html" class="function" rel="rdfs-seeAlso">imap_qprint()</a> - Convert a quoted-printable string to an 8 bit string</span></li>
+    <li><span class="function"><a href="function.iconv-mime-decode-headers.html" class="function" rel="rdfs-seeAlso">iconv_mime_decode_headers()</a> - 一次性解码多个 MIME 头字段</span></li>
+    <li><span class="function"><a href="function.mb-decode-mimeheader.html" class="function" rel="rdfs-seeAlso">mb_decode_mimeheader()</a> - 解码 MIME 头字段中的字符串</span></li>
+    <li><span class="function"><a href="function.imap-mime-header-decode.html" class="function" rel="rdfs-seeAlso">imap_mime_header_decode()</a> - Decode MIME header elements</span></li>
+    <li><span class="function"><a href="function.imap-base64.html" class="function" rel="rdfs-seeAlso">imap_base64()</a> - Decode BASE64 encoded text</span></li>
+    <li><span class="function"><a href="function.imap-qprint.html" class="function" rel="rdfs-seeAlso">imap_qprint()</a> - Convert a quoted-printable string to an 8 bit string</span></li>
    </ul>
   </p>
  </div>

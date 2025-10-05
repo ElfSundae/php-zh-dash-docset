@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>解析一个X509证书并作为一个数组返回信息</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>解析一个 X509 证书并作为一个数组返回信息</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,24 +21,24 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.openssl.html">OpenSSL 函数</a></li>
-    <li>解析一个X509证书并作为一个数组返回信息</li>
+    <li>解析一个 X509 证书并作为一个数组返回信息</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.openssl-x509-parse" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">openssl_x509_parse</h1>
-  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">openssl_x509_parse</span> &mdash; <span class="dc-title">解析一个X509证书并作为一个数组返回信息</span></p>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">openssl_x509_parse</span> &mdash; <span class="dc-title">解析一个 X509 证书并作为一个数组返回信息</span></p>
 
  </div>
  
  <div class="refsect1 description" id="refsect1-function.openssl-x509-parse-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>openssl_x509_parse</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$x509cert</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$shortnames</code><span class="initializer"> = <strong><code>true</code></strong></span></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>openssl_x509_parse</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="class.opensslcertificate.html" class="type OpenSSLCertificate">OpenSSLCertificate</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$certificate</code></span>, <span class="methodparam"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> <code class="parameter">$short_names</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>openssl_x509_parse()</strong></span> 返回提供的 <code class="parameter">x509cert</code> 证书的信息， 包括主题名称、发行方名称、目的、有效日期等字段。
+   <span class="function"><strong>openssl_x509_parse()</strong></span> 返回提供的 <code class="parameter">certificate</code> 证书的信息，包括主题名称、发行方名称、目的、有效日期等字段。
   </p>
  </div>
 
@@ -48,30 +48,22 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">x509cert</code></dt>
-
+     <dt><code class="parameter">certificate</code></dt>
      <dd>
-
       <p class="para">
+        X509 证书。有关有效值列表，参阅<a href="openssl.certparams.html" class="link">密钥/证书</a>参数。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">shortnames</code></dt>
-
+     <dt><code class="parameter">short_names</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">shortnames</code> 控制数据在数组中的索引 - 如果 <code class="parameter">shortnames</code> 为 <strong><code>true</code></strong> (默认) 字段将以短名称的形式被索引， 否则将会使用长名称的形式 - 比如： CN 就是commonName的短名称格式。
+       <code class="parameter">short_names</code> 控制数据在数组中的索引 - 如果 <code class="parameter">short_names</code> 为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，字段将以短名称的形式被索引，否则将会使用长名称的形式 - 比如：CN 就是 commonName 的短名称格式。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -79,10 +71,37 @@
  <div class="refsect1 returnvalues" id="refsect1-function.openssl-x509-parse-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   <em class="emphasis">返回的数据的结构是（故意的）还没有文档化，因为它仍然会发生变化。</em>
+   <em>返回的数据的结构是（故意的）还没有文档化，因为它仍然会发生变化。</em>
   </p>
  </div>
 
+
+ <div class="refsect1 changelog" id="refsect1-function.openssl-x509-parse-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">certificate</code> 现在接受 <span class="classname"><a href="class.opensslcertificate.html" class="classname">OpenSSLCertificate</a></span>
+       实例；之前接受类型 <code class="literal">OpenSSL X.509</code> 的 <a href="language.types.resource.html" class="link">resource</a>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
 
 </div><div id="usernotes">
  <div class="head">

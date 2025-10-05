@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>绑定一个参数到指定的变量名</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,13 +36,13 @@
  <div class="refsect1 description" id="refsect1-pdostatement.bindparam-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>PDOStatement::bindParam</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$parameter</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter reference">&$variable</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$data_type</code><span class="initializer"> = PDO::PARAM_STR</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$length</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$driver_options</code><span class="initializer"> = ?</span></span><br>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDOStatement::bindParam</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$param</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter reference">&$var</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$type</code><span class="initializer"> = PDO::PARAM_STR</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$maxLength</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$driverOptions</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   绑定一个PHP变量到用作预处理的SQL语句中的对应命名占位符或问号占位符。 不同于 <span class="function"><a href="pdostatement.bindvalue.html" class="function">PDOStatement::bindValue()</a></span> ，此变量作为引用被绑定，并只在 <span class="function"><a href="pdostatement.execute.html" class="function">PDOStatement::execute()</a></span> 被调用的时候才取其值。
+   绑定一个PHP变量到用作预处理的SQL语句中的对应命名占位符或问号占位符。 不同于 <span class="methodname"><a href="pdostatement.bindvalue.html" class="methodname">PDOStatement::bindValue()</a></span> ，此变量作为引用被绑定，并只在 <span class="methodname"><a href="pdostatement.execute.html" class="methodname">PDOStatement::execute()</a></span> 被调用的时候才取其值。
   </p>
   <p class="para">
-   大多数参数是输入参数，即，参数以只读的方式用来建立查询。一些驱动支持调用存储过程并作为输出参数返回数据，一些支持作为输入/输出参数，既发送数据又接收更新后的数据。
+   大多数参数是输入参数，即，参数以只读的方式用来建立查询（但仍然可以根据 <code class="parameter">type</code> 进行转换）。一些驱动支持调用存储过程并作为输出参数返回数据，一些支持作为输入/输出参数，既发送数据又接收更新后的数据。
   </p>
 
  </div>
@@ -53,67 +53,47 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">parameter</code></dt>
-
+     <dt><code class="parameter">param</code></dt>
       <dd>
-
        <p class="para">
         参数标识符。对于使用命名占位符的预处理语句，应是类似 <var class="varname">:name</var> 形式的参数名。对于使用问号占位符的预处理语句，应是以1开始索引的参数位置。
        </p>
       </dd>
-
      
     
-     <dt>
-<code class="parameter">variable</code></dt>
-
+     <dt><code class="parameter">var</code></dt>
       <dd>
-
        <p class="para">
         绑定到 SQL 语句参数的 PHP 变量名。
        </p>
       </dd>
-
      
     
-     <dt>
-<code class="parameter">data_type</code></dt>
-
+     <dt><code class="parameter">type</code></dt>
       <dd>
-
        <p class="para">
-        使用 PDO::PARAM_* 常量明确地指定参数的类型。要从一个存储过程中返回一个 INOUT 参数，需要为 <code class="parameter">data_type</code> 参数使用按位或操作符去设置 PDO::PARAM_INPUT_OUTPUT 位。
+        使用 <a href="pdo.constants.html" class="link"><code class="literal">PDO::PARAM_*</code> 常量</a>明确地指定参数的类型。要从存储过程中返回 INOUT 参数，需要为 <code class="parameter">type</code> 参数使用按位或操作符去设置 <strong><code><a href="pdo.constants.html#pdo.constants.param-input-output">PDO::PARAM_INPUT_OUTPUT</a></code></strong> 位。
        </p>
       </dd>
-
      
     
-     <dt>
-<code class="parameter">length</code></dt>
-
+     <dt><code class="parameter">maxLength</code></dt>
       <dd>
-
        <p class="para">
         数据类型的长度。为表明参数是一个存储过程的  OUT 参数，必须明确地设置此长度。
+        仅当 <code class="parameter">type</code> 参数为 <strong><code><a href="pdo.constants.html#pdo.constants.param-input-output">PDO::PARAM_INPUT_OUTPUT</a></code></strong> 时才有意义。
        </p>
       </dd>
-
      
     
-     <dt>
-<code class="parameter">driver_options</code></dt>
-
+     <dt><code class="parameter">driverOptions</code></dt>
      <dd>
-
       <p class="para">
          
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -121,40 +101,42 @@
  <div class="refsect1 returnvalues" id="refsect1-pdostatement.bindparam-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
+ <div class="refsect1 errors" id="refsect1-pdostatement.bindparam-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+如果属性 <strong><code><a href="pdo.constants.html#pdo.constants.attr-errmode">PDO::ATTR_ERRMODE</a></code></strong> 设置为 <strong><code><a href="pdo.constants.html#pdo.constants.errmode-warning">PDO::ERRMODE_WARNING</a></code></strong>，则发出级别为 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 的错误。
+</p>
+<p class="para">
+如果属性 <strong><code><a href="pdo.constants.html#pdo.constants.attr-errmode">PDO::ATTR_ERRMODE</a></code></strong> 设置为 <strong><code><a href="pdo.constants.html#pdo.constants.errmode-exception">PDO::ERRMODE_EXCEPTION</a></code></strong>，则抛出 <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span>。
+</p>
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-pdostatement.bindparam-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-2110"><p><strong>Example #1 执行一条使用命名占位符的预处理语句</strong></p>
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1047"><p><strong>Example #1 执行一条使用命名占位符的预处理语句</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过绑定的 PHP 变量执行一条预处理语句  */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour = :colour'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #DD0000">':calories'</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #DD0000">':colour'</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过绑定的 PHP 变量执行一条预处理语句  */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour = :colour'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #DD0000">'calories'</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/* 名称也可以以冒号":"为前缀（可选）*/<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #DD0000">':colour'</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-2112"><p><strong>Example #2  执行一条使用问号占位符的预处理语句 </strong></p>
+  <div class="example" id="example-1048"><p><strong>Example #2  执行一条使用问号占位符的预处理语句 </strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  通过绑定的 PHP 变量执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  通过绑定的 PHP 变量执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
 
-  <div class="example" id="example-2114"><p><strong>Example #3 使用 INOUT 参数调用一个存储过程</strong></p>
+  <div class="example" id="example-1049"><p><strong>Example #3 使用 INOUT 参数调用一个存储过程</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 使用 INOUT 参数调用一个存储过程 */<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'CALL puree_fruit(?)'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">|</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INPUT_OUTPUT</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br />print(</span><span style="color: #DD0000">"After pureeing fruit, the colour is: </span><span style="color: #0000BB">$colour</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 使用 INOUT 参数调用一个存储过程 */<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'CALL puree_fruit(?)'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">|</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INPUT_OUTPUT</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br />print </span><span style="color: #DD0000">"After pureeing fruit, the colour is: </span><span style="color: #0000BB">$colour</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -166,9 +148,9 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="pdo.prepare.html" class="function" rel="rdfs-seeAlso">PDO::prepare()</a> - 预处理要执行的语句，并返回语句对象</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.execute.html" class="function" rel="rdfs-seeAlso">PDOStatement::execute()</a> - 执行一条预处理语句</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.bindvalue.html" class="function" rel="rdfs-seeAlso">PDOStatement::bindValue()</a> - 把一个值绑定到一个参数</span></li>
+    <li><span class="methodname"><a href="pdo.prepare.html" class="methodname" rel="rdfs-seeAlso">PDO::prepare()</a> - 预处理要执行的语句，并返回语句对象</span></li>
+    <li><span class="methodname"><a href="pdostatement.execute.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::execute()</a> - 执行预处理语句</span></li>
+    <li><span class="methodname"><a href="pdostatement.bindvalue.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::bindValue()</a> - 把一个值绑定到一个参数</span></li>
    </ul>
   </p>
 
@@ -178,7 +160,35 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127730""></a>
+<div id="allnotes">  <a name="129064""></a>
+  <div class="note">
+   <strong class="user">marco dot marsala at live dot it</strong>
+   <a href="#129064" class="date">23-Nov-2023 08:26</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Examples doesn't highlight that this works as expected:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="comment">/* Execute a prepared statement by binding PHP variables */<br />
+</span><span class="default">$sth </span><span class="keyword">= </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'SELECT name, colour, calories<br />
+&nbsp;&nbsp;&nbsp; FROM fruit<br />
+&nbsp;&nbsp;&nbsp; WHERE calories &lt; :calories AND colour = :colour'</span><span class="keyword">);<br />
+</span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="string">'calories'</span><span class="keyword">, </span><span class="default">$calories</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_INT</span><span class="keyword">);<br />
+</span><span class="comment">/* Names can be prefixed with colons ":" too (optional) */<br />
+</span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="string">':colour'</span><span class="keyword">, </span><span class="default">$colour</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_STR</span><span class="keyword">);<br />
+</span><span class="default">$calories </span><span class="keyword">= </span><span class="default">150</span><span class="keyword">;<br />
+</span><span class="default">$colour </span><span class="keyword">= </span><span class="string">'red'</span><span class="keyword">;<br />
+</span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+calories get set to 150 in db, colour get set to red in db, because, as documentation points out: "the variable is bound as a reference and will only be evaluated at the time that PDOStatement::execute() is called."</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127730""></a>
   <div class="note">
    <strong class="user">weronika dot nowak dot code at gmail dot com</strong>
    <a href="#127730" class="date">17-Oct-2022 10:55</a>

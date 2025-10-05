@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Get the value of a named attribute</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,10 +34,10 @@
  <div class="refsect1 description" id="refsect1-xmlreader.getattribute-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>XMLReader::getAttribute</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>): <span class="type"><span class="type">?</span><span class="type">string</span></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>XMLReader::getAttribute</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$name</code></span>): <span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span></div>
 
   <p class="para rdfs-comment">
-   Returns the value of a named attribute or <strong><code>null</code></strong> if the
+   Returns the value of a named attribute or <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> if the
    attribute does not exist or not positioned on an element node.
   </p>
  </div>
@@ -47,19 +47,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">name</code></dt>
-
+     <dt><code class="parameter">name</code></dt>
      <dd>
-
       <p class="para">
        The name of the attribute.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -67,7 +62,7 @@
  <div class="refsect1 returnvalues" id="refsect1-xmlreader.getattribute-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   The value of the attribute, or <strong><code>null</code></strong> if no attribute with the given
+   The value of the attribute, or <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> if no attribute with the given
    <code class="parameter">name</code> is found or not positioned on an element node.
   </p>
  </div>
@@ -89,7 +84,7 @@
      <tr>
       <td>8.0.0</td>
       <td>
-       This function can no longer return <strong><code>false</code></strong>.
+       This function can no longer return <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
       </td>
      </tr>
 
@@ -104,8 +99,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="xmlreader.getattributeno.html" class="methodname" rel="rdfs-seeAlso">XMLReader::getAttributeNo()</a> - Get the value of an attribute by index</span></li>
-    <li class="member"><span class="methodname"><a href="xmlreader.getattributens.html" class="methodname" rel="rdfs-seeAlso">XMLReader::getAttributeNs()</a> - Get the value of an attribute by localname and URI</span></li>
+    <li><span class="methodname"><a href="xmlreader.getattributeno.html" class="methodname" rel="rdfs-seeAlso">XMLReader::getAttributeNo()</a> - Get the value of an attribute by index</span></li>
+    <li><span class="methodname"><a href="xmlreader.getattributens.html" class="methodname" rel="rdfs-seeAlso">XMLReader::getAttributeNs()</a> - Get the value of an attribute by localname and URI</span></li>
    </ul>
   </p>
  </div>
@@ -114,7 +109,33 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="102467""></a>
+<div id="allnotes">  <a name="129019""></a>
+  <div class="note">
+   <strong class="user">sven at e7o dot de</strong>
+   <a href="#129019" class="date">08-Nov-2023 02:44</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+To get all attributes and their names, use something like this:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">getAttributes</span><span class="keyword">(</span><span class="default">$reader</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$attributes </span><span class="keyword">= [];<br />
+&nbsp;&nbsp;&nbsp; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$reader</span><span class="keyword">-&gt;</span><span class="default">attributeCount</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$reader</span><span class="keyword">-&gt;</span><span class="default">moveToAttributeNo</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$attributes</span><span class="keyword">[</span><span class="default">$reader</span><span class="keyword">-&gt;</span><span class="default">name</span><span class="keyword">] = </span><span class="default">$reader</span><span class="keyword">-&gt;</span><span class="default">value</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$attributes</span><span class="keyword">;<br />
+}<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="102467""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#102467" class="date">16-Feb-2011 09:02</a>

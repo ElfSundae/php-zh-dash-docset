@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>可移植的协同文件锁定</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.flock-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>flock</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stream</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$operation</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter reference">&$would_block</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>flock</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$stream</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$operation</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter reference">&$would_block</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>flock()</strong></span> 允许执行简单的读取/写入模型,该模型可以在任何平台（包括大部分
@@ -45,7 +45,7 @@
   </p>
   <p class="para">
    PHP 支持以协同且可移植的方式锁定完整文件（也就是说所有访问程序必须使用相同锁定方式, 否则将无法工作）。默认情况下，该函数将堵塞直到获得锁；这可以通过下面文档中
-   <strong><code>LOCK_NB</code></strong> 选项来控制。
+   <strong><code><a href="filesystem.constants.html#constant.lock-nb">LOCK_NB</a></code></strong> 选项来控制。
   </p>
  </div>
 
@@ -55,65 +55,52 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">stream</code></dt>
-
+     <dt><code class="parameter">stream</code></dt>
      <dd>
-
       <p class="para">文件系统指针，是典型地由
-<span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> 创建的 <span class="type">resource</span>(资源)。</p>
+<span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> 创建的 <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>(资源)。</p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">operation</code></dt>
-
+     <dt><code class="parameter">operation</code></dt>
      <dd>
-
       <p class="para">
        <code class="parameter">operation</code> 可以是以下值之一：
        <ul class="itemizedlist">
         <li class="listitem">
          <span class="simpara">
-         <strong><code>LOCK_SH</code></strong>取得共享锁定（读取的程序）。
+         <strong><code><a href="filesystem.constants.html#constant.lock-sh">LOCK_SH</a></code></strong>取得共享锁定（读取的程序）。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-         <strong><code>LOCK_EX</code></strong> 取得独占锁定（写入的程序。
+         <strong><code><a href="filesystem.constants.html#constant.lock-ex">LOCK_EX</a></code></strong> 取得独占锁定（写入的程序。
          </span>
         </li>
         <li class="listitem">
          <span class="simpara">
-          <strong><code>LOCK_UN</code></strong> 释放锁定（无论共享或独占）。
+          <strong><code><a href="filesystem.constants.html#constant.lock-un">LOCK_UN</a></code></strong> 释放锁定（无论共享或独占）。
          </span>
         </li>
        </ul>
       </p>
       <p class="para">
-       It is also possible to add <strong><code>LOCK_NB</code></strong> as a bitmask to one 
+       It is also possible to add <strong><code><a href="filesystem.constants.html#constant.lock-nb">LOCK_NB</a></code></strong> as a bitmask to one 
        of the above operations, if <span class="function"><strong>flock()</strong></span> should not
        block during the locking attempt.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">would_block</code></dt>
-
+     <dt><code class="parameter">would_block</code></dt>
      <dd>
-
       <p class="para">
        如果锁将堵塞（EWOULDBLOCK
        错误码情况下），第三个可选参数会设置为 1。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -121,33 +108,27 @@
  <div class="refsect1 returnvalues" id="refsect1-function.flock-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.flock-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4350">
+   <div class="example" id="example-2226">
     <p><strong>Example #1 <span class="function"><strong>flock()</strong></span> 例子</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/lock.txt"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r+"</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_EX</span><span style="color: #007700">)) {  </span><span style="color: #FF8000">// 进行排它型锁定<br />    </span><span style="color: #0000BB">ftruncate</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);      </span><span style="color: #FF8000">// truncate file<br />    </span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"Write something here\n"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">fflush</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);            </span><span style="color: #FF8000">// flush output before releasing the lock<br />    </span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_UN</span><span style="color: #007700">);    </span><span style="color: #FF8000">// 释放锁定<br /></span><span style="color: #007700">} else {<br />    echo </span><span style="color: #DD0000">"Couldn't get the lock!"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/lock.txt"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r+"</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_EX</span><span style="color: #007700">)) {  </span><span style="color: #FF8000">// 进行排它型锁定<br />    </span><span style="color: #0000BB">ftruncate</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);      </span><span style="color: #FF8000">// truncate file<br />    </span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"Write something here\n"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">fflush</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);            </span><span style="color: #FF8000">// flush output before releasing the lock<br />    </span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_UN</span><span style="color: #007700">);    </span><span style="color: #FF8000">// 释放锁定<br /></span><span style="color: #007700">} else {<br />    echo </span><span style="color: #DD0000">"Couldn't get the lock!"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
   </p>
   <p class="para">
-   <div class="example" id="example-4352">
-    <p><strong>Example #2 <span class="function"><strong>flock()</strong></span> 使用 <strong><code>LOCK_NB</code></strong> 选项</strong></p>
+   <div class="example" id="example-2227">
+    <p><strong>Example #2 <span class="function"><strong>flock()</strong></span> 使用 <strong><code><a href="filesystem.constants.html#constant.lock-nb">LOCK_NB</a></code></strong> 选项</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp/lock.txt'</span><span style="color: #007700">, </span><span style="color: #DD0000">'r+'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Activate the LOCK_NB option on an LOCK_EX operation */<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_EX </span><span style="color: #007700">| </span><span style="color: #0000BB">LOCK_NB</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">'Unable to obtain lock'</span><span style="color: #007700">;<br />    exit(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/* ... */<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp/lock.txt'</span><span style="color: #007700">, </span><span style="color: #DD0000">'r+'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Activate the LOCK_NB option on an LOCK_EX operation */<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">LOCK_EX </span><span style="color: #007700">| </span><span style="color: #0000BB">LOCK_NB</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">'Unable to obtain lock'</span><span style="color: #007700">;<br />    exit(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/* ... */<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -193,7 +174,7 @@
    </p>
    <p class="para">
     旧的文件系统（如 <code class="literal">FAT</code> 及其衍生）不支持
-    <span class="function"><strong>flock()</strong></span>，也因此在这些环境下总是返回 <strong><code>false</code></strong>。
+    <span class="function"><strong>flock()</strong></span>，也因此在这些环境下总是返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
    </p>
   </div>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
@@ -208,7 +189,45 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121196""></a>
+<div id="allnotes">  <a name="129025""></a>
+  <div class="note">
+   <strong class="user">andy at andyslife dot org</strong>
+   <a href="#129025" class="date">09-Nov-2023 05:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Important if using this to lock a class into a single instance (long duration processes). The file handle needs to be a class wide variable like $this-&gt;singleinstance. Not local to the __construct function like $localvariable. The reason is the local variable is gone after __construct is called so the lock lasts for only millisconds and not for the full duration of class running in memory.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128609""></a>
+  <div class="note">
+   <strong class="user">orkans at gmail dot com</strong>
+   <a href="#128609" class="date">13-Jun-2023 02:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Watch out for implied lock release!<br />
+<br />
+<span class="default">&lt;?php<br />
+flock</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">LOCK_SH</span><span class="keyword">);<br />
+<br />
+if(!</span><span class="default">flock</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">LOCK_EX </span><span class="keyword">| </span><span class="default">LOCK_NB</span><span class="keyword">)) {<br />
+&nbsp;&nbsp;&nbsp; echo </span><span class="string">'Unable to obtain exclusive lock'</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="comment">// Now the LOCK_SH is gone too!<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121196""></a>
   <div class="note">
    <strong class="user">peripeltus at gmail dot com</strong>
    <a href="#121196" class="date">07-Jun-2017 01:40</a>

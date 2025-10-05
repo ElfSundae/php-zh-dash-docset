@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>从结果集中取得列信息并作为对象返回</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -32,11 +32,25 @@
      从结果集中取得列信息并作为对象返回
     </span></p>
 
-   </div>
+ </div>
+
+ <div id="function.mysql-fetch-field-refsynopsisdiv">
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="para">本扩展自 PHP 5.5.0
+起已废弃，并在自 PHP 7.0.0 开始被移除。应使用 <a href="book.mysqli.html" class="link">MySQLi</a>
+或 <a href="ref.pdo-mysql.html" class="link">PDO_MySQL</a> 扩展来替换之。参见 <a href="mysqlinfo.api.choosing.html" class="link">MySQL：选择 API</a> 
+指南来获取更多信息。用以替代本函数的有：</p>
+   <ul class="simplelist">
+    <li><span class="function"><a href="mysqli-result.fetch-field.html" class="function">mysqli_fetch_field()</a></span></li>
+    <li><span class="methodname"><a href="pdostatement.getcolumnmeta.html" class="methodname">PDOStatement::getColumnMeta()</a></span></li>
+   </ul>
+  </div>
+ </div>
+
  <div class="refsect1 description" id="refsect1-function.mysql-fetch-field-description">
   <h3 class="title">说明</h3>
      <div class="methodsynopsis dc-description">
-      <span class="methodname"><strong>mysql_fetch_field</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$result</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$field_offset</code><span class="initializer"> = ?</span></span>): <span class="type">object</span></div>
+      <span class="methodname"><strong>mysql_fetch_field</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$result</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$field_offset</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="language.types.object.html" class="type object">object</a></span></div>
 
     <p class="para rdfs-comment">
      返回一个包含字段信息的对象。
@@ -56,7 +70,7 @@
       </li>
       <li class="listitem">
        <span class="simpara">
-        table - 该列所在的表名
+        table - 该列所在的表名，which is the alias name if one is defined
        </span>
       </li>
       <li class="listitem">
@@ -66,7 +80,7 @@
       </li>
       <li class="listitem">
        <span class="simpara">
-        not_null - 1，如果该列不能为 <strong><code>null</code></strong>
+        not_null - 1，如果该列不能为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>
        </span>
       </li>
       <li class="listitem">
@@ -111,15 +125,12 @@
       </li>
      </ul>
     </p>
-    <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em class="emphasis">大小写敏感</em>。</span></p></blockquote>
+    <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em>大小写敏感</em>。</span></p></blockquote>
     <p class="para">
-     <div class="example" id="example-3504">
+     <div class="example" id="example-1752">
       <p><strong>Example #1 <span class="function"><strong>mysql_fetch_field()</strong></span></strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost:3306'</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not connect: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #DD0000">"database"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"select * from table"</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Query failed: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br /></span><span style="color: #FF8000">/* get column metadata */<br /></span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />while (</span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">mysql_num_fields</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Information for column </span><span style="color: #0000BB">$i</span><span style="color: #DD0000">:&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$meta </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_fetch_field</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />    if (!</span><span style="color: #0000BB">$meta</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"No information available&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    }<br />    echo </span><span style="color: #DD0000">"&lt;pre&gt;<br />blob:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">blob</span><span style="color: #DD0000"><br />max_length:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">max_length</span><span style="color: #DD0000"><br />multiple_key: </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">multiple_key</span><span style="color: #DD0000"><br />name:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #DD0000"><br />not_null:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">not_null</span><span style="color: #DD0000"><br />numeric:      </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">numeric</span><span style="color: #DD0000"><br />primary_key:  </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">primary_key</span><span style="color: #DD0000"><br />table:        </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">table</span><span style="color: #DD0000"><br />type:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">type</span><span style="color: #DD0000"><br />unique_key:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unique_key</span><span style="color: #DD0000"><br />unsigned:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unsigned</span><span style="color: #DD0000"><br />zerofill:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">zerofill</span><span style="color: #DD0000"><br />&lt;/pre&gt;"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$i</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">mysql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost:3306'</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not connect: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #DD0000">"database"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"select * from table"</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Query failed: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br /></span><span style="color: #FF8000">/* get column metadata */<br /></span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />while (</span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">mysql_num_fields</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Information for column </span><span style="color: #0000BB">$i</span><span style="color: #DD0000">:&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$meta </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_fetch_field</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />    if (!</span><span style="color: #0000BB">$meta</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"No information available&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    }<br />    echo </span><span style="color: #DD0000">"&lt;pre&gt;<br />blob:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">blob</span><span style="color: #DD0000"><br />max_length:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">max_length</span><span style="color: #DD0000"><br />multiple_key: </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">multiple_key</span><span style="color: #DD0000"><br />name:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #DD0000"><br />not_null:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">not_null</span><span style="color: #DD0000"><br />numeric:      </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">numeric</span><span style="color: #DD0000"><br />primary_key:  </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">primary_key</span><span style="color: #DD0000"><br />table:        </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">table</span><span style="color: #DD0000"><br />type:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">type</span><span style="color: #DD0000"><br />unique_key:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unique_key</span><span style="color: #DD0000"><br />unsigned:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unsigned</span><span style="color: #DD0000"><br />zerofill:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">zerofill</span><span style="color: #DD0000"><br />&lt;/pre&gt;"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$i</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">mysql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
@@ -135,29 +146,20 @@
   <p class="para">
    <dl>
     <dt>
-
-<code class="parameter">result</code></dt>
-<dd>
-<p class="para"><span class="type">resource</span>
+<code class="parameter">result</code></dt><dd><p class="para"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>
 型的结果集。此结果集来自对 <span class="function"><a href="function.mysql-query.html" class="function">mysql_query()</a></span>
 的调用。</p></dd>
-
     
-     <dt>
-<code class="parameter">field_offset</code></dt>
-
+     <dt><code class="parameter">field_offset</code></dt>
      <dd>
-
       <p class="para">
        The numerical field offset. If the field offset is not specified, the 
        next field that was not yet retrieved by this function is retrieved. 
        The <code class="parameter">field_offset</code> starts at <code class="literal">0</code>.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -165,7 +167,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.mysql-fetch-field-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns an <span class="type">object</span> containing field information. The properties 
+   Returns an <span class="type"><a href="language.types.object.html" class="type object">object</a></span> containing field information. The properties 
    of the object are:
   </p>
   <p class="para">
@@ -187,7 +189,7 @@
     </li>
     <li class="listitem">
      <span class="simpara">
-      not_null - 1 if the column cannot be <strong><code>null</code></strong>
+      not_null - 1 if the column cannot be <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>
      </span>
     </li>
     <li class="listitem">
@@ -236,15 +238,12 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.mysql-fetch-field-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-3506">
+   <div class="example" id="example-1753">
     <p><strong>Example #2 <span class="function"><strong>mysql_fetch_field()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_password'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Could not connect: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #DD0000">'database'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">'select * from table'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$result</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Query failed: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #FF8000">/* get column metadata */<br /></span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />while (</span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">mysql_num_fields</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Information for column </span><span style="color: #0000BB">$i</span><span style="color: #DD0000">:&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$meta </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_fetch_field</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">, </span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br />    if (!</span><span style="color: #0000BB">$meta</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"No information available&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    }<br />    echo </span><span style="color: #DD0000">"&lt;pre&gt;<br />blob:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">blob</span><span style="color: #DD0000"><br />max_length:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">max_length</span><span style="color: #DD0000"><br />multiple_key: </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">multiple_key</span><span style="color: #DD0000"><br />name:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #DD0000"><br />not_null:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">not_null</span><span style="color: #DD0000"><br />numeric:      </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">numeric</span><span style="color: #DD0000"><br />primary_key:  </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">primary_key</span><span style="color: #DD0000"><br />table:        </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">table</span><span style="color: #DD0000"><br />type:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">type</span><span style="color: #DD0000"><br />unique_key:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unique_key</span><span style="color: #DD0000"><br />unsigned:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unsigned</span><span style="color: #DD0000"><br />zerofill:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">zerofill</span><span style="color: #DD0000"><br />&lt;/pre&gt;"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$i</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">mysql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'mysql_password'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Could not connect: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #DD0000">'database'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">'select * from table'</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$result</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'Query failed: ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #FF8000">/* get column metadata */<br /></span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />while (</span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">mysql_num_fields</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Information for column </span><span style="color: #0000BB">$i</span><span style="color: #DD0000">:&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$meta </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_fetch_field</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">, </span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br />    if (!</span><span style="color: #0000BB">$meta</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"No information available&lt;br /&gt;\n"</span><span style="color: #007700">;<br />    }<br />    echo </span><span style="color: #DD0000">"&lt;pre&gt;<br />blob:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">blob</span><span style="color: #DD0000"><br />max_length:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">max_length</span><span style="color: #DD0000"><br />multiple_key: </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">multiple_key</span><span style="color: #DD0000"><br />name:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #DD0000"><br />not_null:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">not_null</span><span style="color: #DD0000"><br />numeric:      </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">numeric</span><span style="color: #DD0000"><br />primary_key:  </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">primary_key</span><span style="color: #DD0000"><br />table:        </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">table</span><span style="color: #DD0000"><br />type:         </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">type</span><span style="color: #DD0000"><br />unique_key:   </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unique_key</span><span style="color: #DD0000"><br />unsigned:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unsigned</span><span style="color: #DD0000"><br />zerofill:     </span><span style="color: #0000BB">$meta</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">zerofill</span><span style="color: #DD0000"><br />&lt;/pre&gt;"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$i</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">mysql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -254,7 +253,14 @@
 
  <div class="refsect1 notes" id="refsect1-function.mysql-fetch-field-notes">
   <h3 class="title">注释</h3>
-  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em class="emphasis">大小写敏感</em>。</span></p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">此函数返回的字段名<em>大小写敏感</em>。</span></p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    If field or tablenames are aliased in the SQL query the aliased name will
+    be returned. The original name can be retrieved for instance by using
+    <span class="methodname"><a href="mysqli-result.fetch-field.html" class="methodname">mysqli_result::fetch_field()</a></span>.
+   </p>
+  </p></blockquote>
  </div>
 
 
@@ -262,7 +268,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.mysql-field-seek.html" class="function" rel="rdfs-seeAlso">mysql_field_seek()</a> - 将结果集中的指针设定为制定的字段偏移量</span></li>
+    <li><span class="function"><a href="function.mysql-field-seek.html" class="function" rel="rdfs-seeAlso">mysql_field_seek()</a> - 将结果指针设置为指定的字段偏移量</span></li>
    </ul>
   </p>
  </div>

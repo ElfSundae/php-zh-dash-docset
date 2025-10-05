@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Copy a file internal to the phar archive to another new file within the phar</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-phar.copy-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Phar::copy</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$from</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$to</code></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Phar::copy</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$from</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$to</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <blockquote class="note"><p><strong class="note">Note</strong>: <p class="para">此方法需要
 将 <var class="filename">php.ini</var> 中的 <code class="literal">phar.readonly</code> 设为
@@ -55,29 +55,20 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">from</code></dt>
-
+     <dt><code class="parameter">from</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">to</code></dt>
-
+     <dt><code class="parameter">to</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
    </dl>
-
   </p>
 
  </div>
@@ -85,7 +76,7 @@
  <div class="refsect1 returnvalues" id="refsect1-phar.copy-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   returns <strong><code>true</code></strong> on success, but it is safer to encase method call in a
+   returns <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> on success, but it is safer to encase method call in a
    try/catch block and assume success if no exception is thrown.
   </p>
  </div>
@@ -103,9 +94,9 @@
 
 
  <div class="refsect1 examples" id="refsect1-phar.copy-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1454">
+   <div class="example" id="example-715">
     <p><strong>Example #1 A <span class="function"><strong>Phar::copy()</strong></span> example</strong></p>
     <div class="example-contents"><p>
      This example shows using <span class="function"><strong>Phar::copy()</strong></span> and the
@@ -114,10 +105,7 @@
      throw exceptions, whereas the stream wrapper uses <span class="function"><a href="function.trigger-error.html" class="function">trigger_error()</a></span>.
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$phar </span><span style="color: #007700">= new </span><span style="color: #0000BB">Phar</span><span style="color: #007700">(</span><span style="color: #DD0000">'myphar.phar'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$phar</span><span style="color: #007700">[</span><span style="color: #DD0000">'a'</span><span style="color: #007700">] = </span><span style="color: #DD0000">'hi'</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">copy</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">, </span><span style="color: #DD0000">'b'</span><span style="color: #007700">);<br />    echo </span><span style="color: #0000BB">$phar</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">]; </span><span style="color: #FF8000">// outputs "hi"<br /></span><span style="color: #007700">} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">// handle error<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">// the stream wrapper equivalent of the above code.<br />// E_WARNINGS are triggered on error rather than exceptions.<br /></span><span style="color: #0000BB">copy</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://myphar.phar/a'</span><span style="color: #007700">, </span><span style="color: #DD0000">'phar//myphar.phar/c'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://myphar.phar/c'</span><span style="color: #007700">); </span><span style="color: #FF8000">// outputs "hi"<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$phar </span><span style="color: #007700">= new </span><span style="color: #0000BB">Phar</span><span style="color: #007700">(</span><span style="color: #DD0000">'myphar.phar'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$phar</span><span style="color: #007700">[</span><span style="color: #DD0000">'a'</span><span style="color: #007700">] = </span><span style="color: #DD0000">'hi'</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">copy</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">, </span><span style="color: #DD0000">'b'</span><span style="color: #007700">);<br />    echo </span><span style="color: #0000BB">$phar</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">]; </span><span style="color: #FF8000">// outputs "hi"<br /></span><span style="color: #007700">} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">// handle error<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">// the stream wrapper equivalent of the above code.<br />// E_WARNINGS are triggered on error rather than exceptions.<br /></span><span style="color: #0000BB">copy</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://myphar.phar/a'</span><span style="color: #007700">, </span><span style="color: #DD0000">'phar//myphar.phar/c'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://myphar.phar/c'</span><span style="color: #007700">); </span><span style="color: #FF8000">// outputs "hi"<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>

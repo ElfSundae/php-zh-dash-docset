@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Add a file from the filesystem to the tar/zip archive</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>Add a file from a string to the tar/zip archive</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,20 +21,20 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.phardata.html">PharData</a></li>
-    <li>Add a file from the filesystem to the tar/zip archive</li>
+    <li>Add a file from a string to the tar/zip archive</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="phardata.addfromstring" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">PharData::addFromString</h1>
-  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8, PECL phar &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">PharData::addFromString</span> &mdash; <span class="dc-title">Add a file from the filesystem to the tar/zip archive</span></p>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8, PECL phar &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">PharData::addFromString</span> &mdash; <span class="dc-title">Add a file from a string to the tar/zip archive</span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-phardata.addfromstring-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>PharData::addFromString</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$localName</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$contents</code></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PharData::addFromString</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$localName</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$contents</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
 
   <p class="para rdfs-comment">
@@ -50,31 +50,22 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">localName</code></dt>
-
+     <dt><code class="parameter">localName</code></dt>
      <dd>
-
       <p class="para">
        Path that the file will be stored in the archive.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">contents</code></dt>
-
+     <dt><code class="parameter">contents</code></dt>
      <dd>
-
       <p class="para">
        The file contents to store
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -88,15 +79,12 @@
 
 
  <div class="refsect1 examples" id="refsect1-phardata.addfromstring-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="mysqli-result.example.iterator">
+   <div class="example" id="example-749">
     <p><strong>Example #1 A <span class="function"><strong>PharData::addFromString()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/my.tar'</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFromString</span><span style="color: #007700">(</span><span style="color: #DD0000">'path/to/file.txt'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my simple file'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #DD0000">'path/to/file.txt'</span><span style="color: #007700">]-&gt;</span><span style="color: #0000BB">getContent</span><span style="color: #007700">();<br /><br />    </span><span style="color: #FF8000">// to add contents from a stream handle for large files, use offsetSet()<br />    </span><span style="color: #0000BB">$c </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/hugefile.bin'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #DD0000">'largefile.bin'</span><span style="color: #007700">] = </span><span style="color: #0000BB">$c</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">);<br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">// handle errors here<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/my.tar'</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFromString</span><span style="color: #007700">(</span><span style="color: #DD0000">'path/to/file.txt'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my simple file'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #DD0000">'path/to/file.txt'</span><span style="color: #007700">]-&gt;</span><span style="color: #0000BB">getContent</span><span style="color: #007700">();<br /><br />    </span><span style="color: #FF8000">// to add contents from a stream handle for large files, use offsetSet()<br />    </span><span style="color: #0000BB">$c </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/hugefile.bin'</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #DD0000">'largefile.bin'</span><span style="color: #007700">] = </span><span style="color: #0000BB">$c</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">);<br />} catch (</span><span style="color: #0000BB">Exception $e</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">// handle errors here<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -121,10 +109,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="phardata.offsetset.html" class="function" rel="rdfs-seeAlso">PharData::offsetSet()</a> - Set the contents of a file within the tar/zip to those of an external file or string</span></li>
-    <li class="member"><span class="function"><a href="phar.addfromstring.html" class="function" rel="rdfs-seeAlso">Phar::addFromString()</a> - 以字符串的形式添加一个文件到 phar 档案</span></li>
-    <li class="member"><span class="function"><a href="phardata.addfile.html" class="function" rel="rdfs-seeAlso">PharData::addFile()</a> - Add a file from the filesystem to the tar/zip archive</span></li>
-    <li class="member"><span class="function"><a href="phardata.addemptydir.html" class="function" rel="rdfs-seeAlso">PharData::addEmptyDir()</a> - Add an empty directory to the tar/zip archive</span></li>
+    <li><span class="function"><a href="phardata.offsetset.html" class="function" rel="rdfs-seeAlso">PharData::offsetSet()</a> - Set the contents of a file within the tar/zip to those of an external file or string</span></li>
+    <li><span class="function"><a href="phar.addfromstring.html" class="function" rel="rdfs-seeAlso">Phar::addFromString()</a> - 以字符串的形式添加一个文件到 phar 档案</span></li>
+    <li><span class="function"><a href="phardata.addfile.html" class="function" rel="rdfs-seeAlso">PharData::addFile()</a> - Add a file from the filesystem to the tar/zip archive</span></li>
+    <li><span class="function"><a href="phardata.addemptydir.html" class="function" rel="rdfs-seeAlso">PharData::addEmptyDir()</a> - Add an empty directory to the tar/zip archive</span></li>
    </ul>
   </p>
  </div>

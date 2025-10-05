@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>不向后兼容的变更</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -32,20 +32,16 @@
   <h3 class="title">当传递参数过少时将抛出错误</h3>
 
   <p class="para">
-   在过去如果我们调用一个用户定义的函数时，提供的参数不足，那么将会产生一个警告(warning)。
-   现在，这个警告被提升为一个错误异常(Error exception)。这个变更仅对用户定义的函数生效，
-   并不包含内置函数。例如：
+   在过去如果我们调用一个用户定义的函数时，提供的参数不足，那么将会产生警告（warning）。现在，这个警告被提升为错误异常（Error
+   exception）。这个变更仅对用户定义的函数生效，并不包含内置函数。例如：
   </p>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test</span><span style="color: #007700">(</span><span style="color: #0000BB">$param</span><span style="color: #007700">){}<br /></span><span style="color: #0000BB">test</span><span style="color: #007700">();</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">test</span><span style="color: #007700">(</span><span style="color: #0000BB">$param</span><span style="color: #007700">){}<br /></span><span style="color: #0000BB">test</span><span style="color: #007700">();</span></span></code></div>
    </div>
 
-   <p class="para">以上例程的输出类似于：</p>
+   <p class="para">以上示例的输出类似于：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 Fatal error: Uncaught ArgumentCountError: Too few arguments to function test(), 0 passed in %s on line %d and exactly 1 expected in %s:%d
@@ -55,19 +51,17 @@ Fatal error: Uncaught ArgumentCountError: Too few arguments to function test(), 
  </div>
 
  <div class="sect2" id="migration71.incompatible.forbid-dynamic-calls-to-scope-introspection-functions">
-  <h3 class="title">Forbid dynamic calls to scope introspection functions</h3>
+  <h3 class="title">禁止动态调用作用域内的内省（introspection）函数</h3>
 
   <p class="para">
-   Dynamic calls for certain functions have been forbidden (in the form of
-   <code class="literal">$func()</code> or <code class="literal">array_map(&#039;extract&#039;, ...)</code>,
-   etc). These functions either inspect or modify another scope, and present
-   with them ambiguous and unreliable behavior. The functions are as follows:
+   禁止动态调用（<code class="literal">$func()</code> 或 <code class="literal">array_map(&#039;extract&#039;, ...)</code>
+   的形式等）某些函数。这些函数会检查或修改另一个作用域，并呈现出不明确且不可靠的行为。函数如下：
   </p>
 
   <ul class="itemizedlist">
    <li class="listitem">
     <span class="simpara">
-     <span class="function"><a href="function.assert.html" class="function">assert()</a></span> - with a string as the first argument
+     <span class="function"><a href="function.assert.html" class="function">assert()</a></span>&mdash;&mdash;字符串作为第一个参数
     </span>
    </li>
    <li class="listitem">
@@ -102,25 +96,22 @@ Fatal error: Uncaught ArgumentCountError: Too few arguments to function test(), 
    </li>
    <li class="listitem">
     <span class="simpara">
-     <span class="function"><a href="function.mb-parse-str.html" class="function">mb_parse_str()</a></span> - with one arg
+     <span class="function"><a href="function.mb-parse-str.html" class="function">mb_parse_str()</a></span>&mdash;&mdash;使用一个参数
     </span>
    </li>
    <li class="listitem">
     <span class="simpara">
-     <span class="function"><a href="function.parse-str.html" class="function">parse_str()</a></span> - with one arg
+     <span class="function"><a href="function.parse-str.html" class="function">parse_str()</a></span>&mdash;&mdash;使用一个参数
     </span>
    </li>
   </ul>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">(function () {<br />    </span><span style="color: #0000BB">$func </span><span style="color: #007700">= </span><span style="color: #DD0000">'func_num_args'</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$func</span><span style="color: #007700">();<br />})();</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">(function () {<br />    </span><span style="color: #0000BB">$func </span><span style="color: #007700">= </span><span style="color: #DD0000">'func_num_args'</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$func</span><span style="color: #007700">();<br />})();</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 Warning: Cannot call func_num_args() dynamically in %s on line %d
@@ -130,15 +121,15 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
  </div>
 
  <div class="sect2" id="migration71.incompatible.invalid-class-names">
-  <h3 class="title">Invalid class, interface, and trait names</h3>
+  <h3 class="title">无效的 class、interface 和 trait 名称</h3>
 
   <p class="para">
-   The following names cannot be used to name classes, interfaces, or traits:
+   下列名称不能用于 class、interfaces 或 traits 名：
   </p>
 
   <ul class="itemizedlist">
    <li class="listitem">
-    <span class="simpara"><span class="type"><span class="type void">void</span></span></span>
+    <span class="simpara"><span class="type"><span class="type"><a href="language.types.void.html" class="type void">void</a></span></span></span>
    </li>
    <li class="listitem">
     <span class="simpara"><span class="type"><a href="language.types.iterable.html" class="type iterable">iterable</a></span></span>
@@ -147,66 +138,53 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
  </div>
 
  <div class="sect2" id="migration71.incompatible.numerical-strings-scientific-notation">
-  <h3 class="title">Numerical string conversions now respect scientific notation</h3>
+  <h3 class="title">数字字符串转换现在遵循科学记数法</h3>
 
   <p class="para">
-   Integer operations and conversions on numerical strings now respect
-   scientific notation. This also includes the <code class="literal">(int)</code> cast
-   operation, and the following functions: <span class="function"><a href="function.intval.html" class="function">intval()</a></span> (where
-   the base is 10), <span class="function"><a href="function.settype.html" class="function">settype()</a></span>, <span class="function"><a href="function.decbin.html" class="function">decbin()</a></span>,
-   <span class="function"><a href="function.decoct.html" class="function">decoct()</a></span>, and <span class="function"><a href="function.dechex.html" class="function">dechex()</a></span>.
+   现在在数字字符串上执行整数运算和转换会考虑科学计数法。这还包括 <code class="literal">(int)</code>
+   类型转换操作以及以下函数：<span class="function"><a href="function.intval.html" class="function">intval()</a></span>（基数为
+   10）、<span class="function"><a href="function.settype.html" class="function">settype()</a></span>、<span class="function"><a href="function.decbin.html" class="function">decbin()</a></span>、<span class="function"><a href="function.decoct.html" class="function">decoct()</a></span> 和 <span class="function"><a href="function.dechex.html" class="function">dechex()</a></span>。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.fixes-to-mt_rand-algorithm">
-  <h3 class="title">Fixes to <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> algorithm</h3>
+  <h3 class="title">修复 <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> 算法</h3>
 
   <p class="para">
-   <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> will now default to using the fixed version of
-   the Mersenne Twister algorithm. If deterministic output from
-   <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> was relied upon, then
-   <strong><code>MT_RAND_PHP</code></strong> can be used as optional second parameter
-   to <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span> to preserve the old (incorrect)
-   implementation.
+   <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> 现在默认使用修复版本的梅森旋转算法。如果依赖于 <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span>
+   的确定输出，则可以使用 <strong><code><a href="random.constants.html#constant.mt-rand-php">MT_RAND_PHP</a></code></strong> 作为 <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span> 的可选第二个参数，以保留旧的（不正确的）实现。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.rand-srand-aliases">
   <h3 class="title">
-   <span class="function"><a href="function.rand.html" class="function">rand()</a></span> aliased to <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> and
-   <span class="function"><a href="function.srand.html" class="function">srand()</a></span> aliased to <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span>
+   <span class="function"><a href="function.rand.html" class="function">rand()</a></span> 是 <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> 的别名以及
+   <span class="function"><a href="function.srand.html" class="function">srand()</a></span> 是 <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span> 的别名
   </h3>
 
   <p class="para">
-   <span class="function"><a href="function.rand.html" class="function">rand()</a></span> and <span class="function"><a href="function.srand.html" class="function">srand()</a></span> have now been made
-   aliases to <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> and <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span>,
-   respectively. This means that the output for the following functions have
-   changed: <span class="function"><a href="function.rand.html" class="function">rand()</a></span>, <span class="function"><a href="function.shuffle.html" class="function">shuffle()</a></span>,
-   <span class="function"><a href="function.str-shuffle.html" class="function">str_shuffle()</a></span>, and <span class="function"><a href="function.array-rand.html" class="function">array_rand()</a></span>.
+   <span class="function"><a href="function.rand.html" class="function">rand()</a></span> 和 <span class="function"><a href="function.srand.html" class="function">srand()</a></span> 现已成为 <span class="function"><a href="function.mt-rand.html" class="function">mt_rand()</a></span> 和 <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span>
+   的别名。这意味着以下函数已经更改：<span class="function"><a href="function.rand.html" class="function">rand()</a></span>、<span class="function"><a href="function.shuffle.html" class="function">shuffle()</a></span>、<span class="function"><a href="function.str-shuffle.html" class="function">str_shuffle()</a></span>
+   和 <span class="function"><a href="function.array-rand.html" class="function">array_rand()</a></span>。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.delete-control-character-in-identifiers">
-  <h3 class="title">Disallow the ASCII delete control character in identifiers</h3>
+  <h3 class="title">禁止在标识符中使用 ASCII 删除控制字符</h3>
 
   <p class="para">
-   The ASCII delete control character (<code class="literal">0x7F</code>) can no longer
-   be used in identifiers that are not quoted.
+   ASCII 删除控制字符（<code class="literal">0x7F</code>）不能用于未加引号的标识符中。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.error_log-syslog">
   <h3 class="title">
-   <code class="parameter">error_log</code> changes with <code class="literal">syslog</code>
-   value
+   <code class="parameter">error_log</code> 更改为 <code class="literal">syslog</code> 值
   </h3>
 
   <p class="para">
-   If the <code class="parameter">error_log</code> ini setting is set to
-   <code class="literal">syslog</code>, the PHP error levels are mapped to the syslog
-   error levels. This brings finer differentiation in the error logs in
-   contrary to the previous approach where all the errors are logged with the
-   notice level only.
+   如果 <code class="parameter">error_log</code> ini 设置为 <code class="literal">syslog</code>，PHP 错误等级会映射到 syslog
+   错误级别。这在错误日志中带来了更好的区分，与之前相反，之前所有的错误只记录了错误级别。
   </p>
  </div>
 
@@ -220,15 +198,15 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
 
  <div class="sect2" id="migration71.incompatible.call_user_func-with-ref-args">
   <h3 class="title">
-   <span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span>不再支持对传址的函数的调用
+   <span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span> 不再支持对传址的函数的调用
   </h3>
 
   <p class="para">
    <span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span> 现在在调用一个以引用作为参数的函数时将始终产生一个警告。先前这取决于这个调用行为是否完全符合条件。
   </p>
   <p class="para">
-   此外， <span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span> 和
-   <span class="function"><a href="function.call-user-func-array.html" class="function">call_user_func_array()</a></span> 在这种情况下将不再中断函数调用。现在会出现一个包含&quot;expected reference&quot;的警告信息，但函数调用将正常进行。
+   此外，<span class="function"><a href="function.call-user-func.html" class="function">call_user_func()</a></span> 和
+   <span class="function"><a href="function.call-user-func-array.html" class="function">call_user_func_array()</a></span> 在这种情况下将不再中断函数调用。现在会出现包含"expected reference"的警告信息，但函数调用将正常进行。
   </p>
  </div>
 
@@ -238,16 +216,15 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
   </h3>
 
   <p class="para">
-   对字符串使用一个空索引操作符（例如<code class="literal">$str[] = $x</code>）将会抛出一个致命错误，
-   而不是静默地将其转为一个数组。
+   对字符串使用一个空索引操作符（例如<code class="literal">$str[] = $x</code>）将会抛出一个致命错误，而不是静默地将其转为一个数组。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.removed-ini-directives">
-  <h3 class="title">ini配置项移除</h3>
+  <h3 class="title">ini 配置项移除</h3>
 
   <p class="para">
-   下列ini配置项已经被移除：
+   下列 ini 配置项已经被移除：
   </p>
 
   <ul class="itemizedlist">
@@ -276,25 +253,19 @@ Warning: Cannot call func_num_args() dynamically in %s on line %d
 
  <div class="sect2" id="migration71.incompatible.array-order">
   <h3 class="title">
-   Array ordering when elements are automatically created during by reference
-   assignments has changed
+   在引用赋值期间自动创建元素时的数组排序已更改
   </h3>
 
   <p class="para">
-   The order of the elements in an array has changed when those elements have
-   been automatically created by referencing them in a by reference
-   assignment. For example:
+   当通过引用赋值自动创建这些元素时，数组中元素的顺序就会发生变化。例如：
   </p>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$array </span><span style="color: #007700">= [];<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #DD0000">"a"</span><span style="color: #007700">] =&amp; </span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #DD0000">"b"</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #DD0000">"b"</span><span style="color: #007700">] = </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$array </span><span style="color: #007700">= [];<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #DD0000">"a"</span><span style="color: #007700">] =&amp; </span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #DD0000">"b"</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #DD0000">"b"</span><span style="color: #007700">] = </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <p class="para">以上例程在 PHP 7.0 中的输出：</p>
+   <p class="para">以上示例在 PHP 7.0 中的输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 array(2) {
@@ -305,7 +276,7 @@ array(2) {
 }
 </pre></div>
    </div>
-   <p class="para">以上例程在 PHP 7.1 中的输出：</p>
+   <p class="para">以上示例在 PHP 7.1 中的输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 array(2) {
@@ -320,51 +291,42 @@ array(2) {
  </div>
 
  <div class="sect2" id="migration71.incompatible.sort-order">
-  <h3 class="title">Sort order of equal elements</h3>
+  <h3 class="title">相等元素的排序顺序</h3>
   <p class="para">
-   The internal sorting algorithm has been improved, what may result in
-   different sort order of elements, which compare as equal, than before.
+   内部排序算法已得到改进，这可能会导致元素比较相等的排序顺序与以前不同。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    Don&#039;t rely on the order of elements which compare as equal; it might change
-    anytime.
+    不要依赖比较相等的元素的顺序；它可能随时改变。
    </p>
   </p></blockquote>
  </div>
 
  <div class="sect2" id="migration71.incompatible.e-recoverable">
-  <h3 class="title">Error message for E_RECOVERABLE errors</h3>
+  <h3 class="title">E_RECOVERABLE 错误的错误消息</h3>
   <p class="para">
-   The error message for E_RECOVERABLE errors has been changed from &quot;Catchable
-   fatal error&quot; to &quot;Recoverable fatal error&quot;.
+   E_RECOVERABLE 错误的错误消息已从"可捕获的致命错误"更改为"可恢复的致命错误"。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.unserialize">
-  <h3 class="title">$options parameter of unserialize()</h3>
+  <h3 class="title">unserialize() 的 $options 参数</h3>
   <p class="para">
-   The <code class="literal">allowed_classes</code> element of the $options parameter of
-   <span class="function"><a href="function.unserialize.html" class="function">unserialize()</a></span> is now strictly typed, i.e. if anything
-   other than an <span class="type">array</span> or a <span class="type">bool</span> is given,
-   unserialize() returns <strong><code>false</code></strong> and issues an <strong><code>E_WARNING</code></strong>.
+   <span class="function"><a href="function.unserialize.html" class="function">unserialize()</a></span> 的 $options 参数的 <code class="literal">allowed_classes</code>
+   元素现在是严格类型，也就是说，如果指定了 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 或 <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> 以外的任何内容，则
+   unserialize() 返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 并发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.datetime-microseconds">
-  <h3 class="title">DateTime constructor incorporates microseconds</h3>
+  <h3 class="title">DateTime 构造方法包含微秒</h3>
   <p class="para">
-   <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> and <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span>
-   now properly incorporate microseconds when constructed from the current time,
-   either explicitly or with a relative string (e.g. <code class="literal">&quot;first day of next
-   month&quot;</code>). This means that naive comparisons of two newly created
-   instances will now more likely return <strong><code>false</code></strong> instead of <strong><code>true</code></strong>:
+   <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> 和 <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span>
+   现在构造当前时间时正确地包含微秒，无论是明确指定的还是使用相对字符串（例如 <code class="literal">&quot;first day of next
+   month&quot;</code>）。这意味着两个新创建的实例的原生比较现在更有可能返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 而不是 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>：
    <div class="informalexample">
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">new </span><span style="color: #0000BB">DateTime</span><span style="color: #007700">() == new </span><span style="color: #0000BB">DateTime</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">new </span><span style="color: #0000BB">DateTime</span><span style="color: #007700">() == new </span><span style="color: #0000BB">DateTime</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -372,150 +334,101 @@ array(2) {
  </div>
 
  <div class="sect2" id="migration71.incompatible.fatal-errors-to-error-exceptions">
-  <h3 class="title">Fatal errors to <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exceptions conversions</h3>
+  <h3 class="title">核心错误转换为 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常</h3>
   <p class="para">
-   In the Date extension, invalid serialization data for
-   <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> or <span class="classname"><a href="class.dateperiod.html" class="classname">DatePeriod</a></span> classes,
-   or timezone initialization failure from serialized data, will now throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception from the
-   <span class="methodname"><strong>__wakeup()</strong></span> or <span class="methodname"><strong>__set_state()</strong></span>
-   methods, instead of resulting in a fatal error.
+   在 Date 扩展中，<span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> 或 <span class="classname"><a href="class.dateperiod.html" class="classname">DatePeriod</a></span>
+   类的无效序列化数据或者序列化数据的时区初始化失败，现在将从 <span class="methodname"><strong>__wakeup()</strong></span>
+   或 <span class="methodname"><strong>__set_state()</strong></span> 方法抛出 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the DBA extension, data modification functions (such as
-   <span class="function"><a href="function.dba-insert.html" class="function">dba_insert()</a></span>) will now throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of triggering a catchable
-   fatal error if the key does not contain exactly two elements.
+   在 DBA 扩展中，如果键没有完全包含两个元素，数据修改函数（例如 <span class="function"><a href="function.dba-insert.html" class="function">dba_insert()</a></span>）现在将抛出
+   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是触发可捕获的致命错误。
   </p>
 
   <p class="para">
-   In the DOM extension, invalid schema or RelaxNG validation contexts will now
-   throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of resulting in a
-   fatal error. Similarly, attempting to register a node class that does not
-   extend the appropriate base class, or attempting to read an invalid property
-   or write to a readonly property, will also now throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception.
+   在 DOM 扩展中，无效的模式或 RelaxNG 验证上下文现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span>
+   异常，而不是导致致命错误。同样，尝试注册不继承适宜基类的节点类、尝试读取无效属性或写入只读属性，现在也将引发
+   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常。
   </p>
 
   <p class="para">
-   In the IMAP extension, email addresses longer than 16385 bytes will throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of resulting in a fatal error.
+   在 IMAP 扩展中，长度超过 16385 字节的电子邮件地址将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the Intl extension, failing to call the parent constructor in a class
-   extending <span class="classname"><a href="class.collator.html" class="classname">Collator</a></span> before invoking the parent methods
-   will now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> instead of resulting in a
-   recoverable fatal error. Also, cloning a
-   <span class="classname"><a href="class.transliterator.html" class="classname">Transliterator</a></span> object will now throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception on failure to clone the internal
-   transliterator instead of resulting in a fatal error.
+   在 Intl 扩展中，在调用父级方法之前，在继承 <span class="classname"><a href="class.collator.html" class="classname">Collator</a></span> 的类中调用父级构造方法失败，现在将抛出
+   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 而不是可恢复的致命错误。此外克隆 <span class="classname"><a href="class.transliterator.html" class="classname">Transliterator</a></span>
+   对象时，如果无法克隆内部 transliterator，将抛出 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不会导致致命错误。
   </p>
 
   <p class="para">
-   In the LDAP extension, providing an unknown modification type to
-   <span class="function"><strong>ldap_batch_modify()</strong></span> will now throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of resulting in a fatal error.
+   在 LDAP 扩展中，向 <span class="function"><strong>ldap_batch_modify()</strong></span> 提供未知的修改类型现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the mbstring extension, the <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> and
-   <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span> functions will now throw a
-   <span class="classname"><a href="class.parseerror.html" class="classname">ParseError</a></span> exception if an invalid PHP expression is
-   provided and the &#039;e&#039; option is used.
+   在 mbstring 扩展中，如果提供了无效的 PHP 表达式并且使用了"e"选项，<span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> 和
+   <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span> 函数现在将引发 <span class="classname"><a href="class.parseerror.html" class="classname">ParseError</a></span> 异常。
   </p>
 
   <p class="para">
-   In the Mcrypt extension, the <span class="function"><a href="function.mcrypt-encrypt.html" class="function">mcrypt_encrypt()</a></span> and
-   <span class="function"><a href="function.mcrypt-decrypt.html" class="function">mcrypt_decrypt()</a></span> will now throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of resulting in a fatal error
-   if mcrypt cannot be initialized.
+   在 Mcrypt 扩展中，如果 mcrypt 无法初始化，<span class="function"><a href="function.mcrypt-encrypt.html" class="function">mcrypt_encrypt()</a></span> 和 <span class="function"><a href="function.mcrypt-decrypt.html" class="function">mcrypt_decrypt()</a></span>
+   现在将抛出 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the mysqli extension, attempting to read an invalid property or write to
-   a readonly property will now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception
-   instead of resulting in a fatal error.
+   在 mysqli 扩展中，尝试读取无效属性或写入只读属性现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the Reflection extension, failing to retrieve a reflection object or
-   retrieve an object property will now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span>
-   exception instead of resulting in a fatal error.
+   在反射扩展中，检索 reflection 对象或检索对象属性失败现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the Session extension, custom session handlers that do not return strings
-   for session IDs will now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception
-   instead of resulting in a fatal error when a function is called that must
-   generate a session ID.
+   在 Session 扩展中，当调用必须生成会话 ID 的函数时，自定义会话处理程序不返回字符串格式的会话
+   ID 现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the SimpleXML extension, creating an unnamed or duplicate attribute will
-   now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of resulting in
-   a fatal error.
+   在 SimpleXML 扩展中，创建未命名或重复的属性现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the SPL extension, attempting to clone an
-   <span class="classname"><strong class="classname">SplDirectory</strong></span> object will now throw an
-   <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of resulting in a fatal
-   error. Similarly, calling <span class="methodname"><a href="arrayiterator.append.html" class="methodname">ArrayIterator::append()</a></span> when
-   iterating over an object will also now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span>
-   exception.
+   在 SPL 扩展中，尝试克隆 <span class="classname"><strong class="classname">SplDirectory</strong></span> 对象现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span>
+   异常，而不是导致致命错误。同理，在迭代对象时调用 <span class="methodname"><a href="arrayiterator.append.html" class="methodname">ArrayIterator::append()</a></span> 现在也会引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常。
   </p>
 
   <p class="para">
-   In the standard extension, the <span class="function"><a href="function.assert.html" class="function">assert()</a></span> function, when
-   provided with a string argument as its first parameter, will now throw a
-   <span class="classname"><a href="class.parseerror.html" class="classname">ParseError</a></span> exception instead of resulting in a
-   catchable fatal error if the PHP code is invalid. Similarly, calling
-   <span class="function"><a href="function.forward-static-call.html" class="function">forward_static_call()</a></span> outside of a class scope will now
-   throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception.
+   在标准扩展中，将字符串作为其第一个参数时，<span class="function"><a href="function.assert.html" class="function">assert()</a></span> 函数现在将抛出 <span class="classname"><a href="class.parseerror.html" class="classname">ParseError</a></span> 异常，而不是在 PHP
+   代码无效时导致可捕获的致命错误。同理，在类作用域之外调用 <span class="function"><a href="function.forward-static-call.html" class="function">forward_static_call()</a></span> 现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常。
   </p>
 
   <p class="para">
-   In the Tidy extension, creating a <span class="classname"><a href="class.tidynode.html" class="classname">tidyNode</a></span> manually
-   will now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of
-   resulting in a fatal error.
+   在 Tidy 扩展中，手动创建 <span class="classname"><a href="class.tidynode.html" class="classname">tidyNode</a></span> 现在将抛出 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the WDDX extension, a circular reference when serializing will now throw
-   an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of resulting in a fatal
-   error.
+   在 WDDX 扩展中，序列化时的循环引用现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the XML-RPC extension, a circular reference when serializing will now
-   throw an instance of <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of
-   resulting in a fatal error.
+   在 XML-RPC 扩展中，序列化时的循环引用现在将抛出 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常实例，而不是导致致命错误。
   </p>
 
   <p class="para">
-   In the Zip extension, the <span class="methodname"><a href="ziparchive.addglob.html" class="methodname">ZipArchive::addGlob()</a></span>
-   method will now throw an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> exception instead of
-   resulting in a fatal error if glob support is not available.
+   在 Zip 扩展中，如果 glob 支持无效，<span class="methodname"><a href="ziparchive.addglob.html" class="methodname">ZipArchive::addGlob()</a></span> 方法现在将引发 <span class="classname"><a href="class.error.html" class="classname">Error</a></span> 异常，而不是导致致命错误。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.lexical-names">
-  <h3 class="title">Lexically bound variables cannot reuse names</h3>
+  <h3 class="title">词法绑定变量不能重用名字</h3>
 
   <p class="para">
-   Variables bound to a <a href="functions.anonymous.html" class="link">closure</a> via
-   the <code class="literal">use</code> construct cannot use the same name as any
-   <a href="language.variables.predefined.html" class="link">superglobals</a>, <var class="varname">$this</var>, or any parameter. For
-   example, all of these function definition will result in a fatal error:
-
+   通过 <code class="literal">use</code> 构造绑定到 <a href="functions.anonymous.html" class="link">closure</a>
+   的变量不能使用与任何 <a href="language.variables.predefined.html" class="link">superglobals</a>、<var class="varname">$this</var> 或任何参数相同的名称。例如，所有这些函数定义都会导致致命错误：
    <div class="informalexample">
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$f </span><span style="color: #007700">= function () use (</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">) {};<br /></span><span style="color: #0000BB">$f </span><span style="color: #007700">= function () use (</span><span style="color: #0000BB">$this</span><span style="color: #007700">) {};<br /></span><span style="color: #0000BB">$f </span><span style="color: #007700">= function (</span><span style="color: #0000BB">$param</span><span style="color: #007700">) use (</span><span style="color: #0000BB">$param</span><span style="color: #007700">) {};</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$f </span><span style="color: #007700">= function () use (</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">) {};<br /></span><span style="color: #0000BB">$f </span><span style="color: #007700">= function () use (</span><span style="color: #0000BB">$this</span><span style="color: #007700">) {};<br /></span><span style="color: #0000BB">$f </span><span style="color: #007700">= function (</span><span style="color: #0000BB">$param</span><span style="color: #007700">) use (</span><span style="color: #0000BB">$param</span><span style="color: #007700">) {};</span></span></code></div>
     </div>
 
    </div>
@@ -525,30 +438,23 @@ array(2) {
  <div class="sect2" id="migration71.incompatible.long2ip">
   <h3 class="title">long2ip() 参数类型更改</h3>
   <p class="para">
-   <span class="function"><a href="function.long2ip.html" class="function">long2ip()</a></span> now expects an <span class="type">int</span> instead of a
-   <span class="type">string</span>.
+   <span class="function"><a href="function.long2ip.html" class="function">long2ip()</a></span> 现在接受 <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> 而不是 <span class="type"><a href="language.types.string.html" class="type string">string</a></span>。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.json">
   <h3 class="title">JSON 编/解码</h3>
   <p class="para">
-   The <code class="parameter">serialize_precision</code> ini setting now controls the
-   serialization precision when encoding <span class="type">float</span>s.
+   <code class="parameter">serialize_precision</code> ini 设置现在控制编码 <span class="type"><a href="language.types.float.html" class="type float">float</a></span> 时的序列化精度。
   </p>
   <p class="para">
-   Decoding an empty key now results in an empty property name, rather than 
-   <code class="literal">_empty_</code> as a property name.
-
+   解码空键（empty key）现在会产生空属性，而不是 <code class="literal">_empty_</code> 作为属性名称。
    <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">json_encode</span><span style="color: #007700">([</span><span style="color: #DD0000">'' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">])));</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">json_encode</span><span style="color: #007700">([</span><span style="color: #DD0000">'' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">])));</span></span></code></div>
    </div>
 
-   <p class="para">以上例程的输出类似于：</p>
+   <p class="para">以上示例的输出类似于：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 object(stdClass)#1 (1) {
@@ -560,39 +466,32 @@ object(stdClass)#1 (1) {
   </div>
   </p>
   <p class="para">
-   When supplying the <strong><code>JSON_UNESCAPED_UNICODE</code></strong> flag to
-   <span class="function"><a href="function.json-encode.html" class="function">json_encode()</a></span>, the sequences U+2028 and U+2029 are now
-   escaped.
+   当向 <span class="function"><a href="function.json-encode.html" class="function">json_encode()</a></span> 提供 <strong><code><a href="json.constants.html#constant.json-unescaped-unicode">JSON_UNESCAPED_UNICODE</a></code></strong> flag 时，现在转义序列 U+2028 和 U+2029。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.mbstring">
   <h3 class="title">
-   Changes to <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> and <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span>
-   parameter semantics
+   更改 <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> 和 <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span> 参数语义
   </h3>
   <p class="para">
-   The third parameter to the <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> and
-   <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span> functions (<code class="parameter">regs</code>) will now be
-   set to an empty array if nothing was matched. Formerly, the parameter would
-   not have been modified.
+   如果没有匹配到内容，<span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> 和 <span class="function"><a href="function.mb-eregi.html" class="function">mb_eregi()</a></span>
+   函数（<code class="parameter">regs</code>）的第三个参数现在将设置为空数组。以前，不会修改该参数。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.openssl">
-  <h3 class="title">Drop support for the sslv2 stream</h3>
+  <h3 class="title">放弃对 sslv2 stream 的支持</h3>
   <p class="para">
-   The sslv2 stream has now been dropped in OpenSSL.
+   sslv2 stream 现已在 OpenSSL 中删除。
   </p>
  </div>
 
  <div class="sect2" id="migration71.incompatible.typed-returns-compile-time">
-  <h3 class="title">Forbid &quot;return;&quot; for typed returns already at compile-time</h3>
+  <h3 class="title">在编译时禁止 &quot;return;&quot; 用于类型化返回</h3>
   <p class="para">
-   Return statements without argument in functions which declare a return type
-   now trigger <strong><code>E_COMPILE_ERROR</code></strong> (unless the return type is
-   declared as <span class="type"><span class="type void">void</span></span>), even if the return statement would never be
-   reached.
+   在声明返回类型的函数中，没有参数的 return 语句现在触发 <strong><code><a href="errorfunc.constants.html#constant.e-compile-error">E_COMPILE_ERROR</a></code></strong>（除非返回类型声明为
+   <span class="type"><span class="type"><a href="language.types.void.html" class="type void">void</a></span></span>），即使永远不会到达 return 语句。
   </p>
  </div>
 

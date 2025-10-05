@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>枚举常量</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -29,23 +29,57 @@
   <h2 class="title">枚举常量</h2>
 
   <p class="para">
-   仅管 enum 可以包括 public、private、protected 的常量，
+   虽然 enum 可以包括 public、private、protected 的常量，
    但由于它不支持继承，因此在实践中 private 和 protected 效果是相同的。
   </p>
 
   <p class="para">枚举常量可以引用枚举条目：</p>
 
   <div class="example-contents">
-   <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">enum </span><span style="color: #0000BB">Size<br /></span><span style="color: #007700">{<br />    case </span><span style="color: #0000BB">Small</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Medium</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Large</span><span style="color: #007700">;<br /><br />    public const </span><span style="color: #0000BB">Huge </span><span style="color: #007700">= </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">Large</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">enum </span><span style="color: #0000BB">Size<br /></span><span style="color: #007700">{<br />    case </span><span style="color: #0000BB">Small</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Medium</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Large</span><span style="color: #007700">;<br /><br />    public const </span><span style="color: #0000BB">Huge </span><span style="color: #007700">= </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">Large</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
  </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="128919""></a>
+  <div class="note">
+   <strong class="user">Hayley Watson</strong>
+   <a href="#128919" class="date">27-Sep-2023 08:19</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Just to clarify, enum constants *can* contain cases, but they don't *have* to; other constant values are legitimate - including cases of other Enumerations.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">enum </span><span class="default">Suit<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Hearts</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Clubs</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Spades</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Diamonds</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public const </span><span class="default">Card </span><span class="keyword">= </span><span class="default">Size</span><span class="keyword">::</span><span class="default">Large</span><span class="keyword">; </span><span class="comment">// A case from a different enum<br />
+</span><span class="keyword">}<br />
+<br />
+enum </span><span class="default">Size<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Small</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Medium</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Large</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public const </span><span class="default">Scale </span><span class="keyword">= </span><span class="default">297</span><span class="keyword">/</span><span class="default">210</span><span class="keyword">; </span><span class="comment">// A float<br />
+</span><span class="keyword">}<br />
+<br />
+echo </span><span class="default">Suit</span><span class="keyword">::</span><span class="default">Diamonds</span><span class="keyword">::</span><span class="default">Card</span><span class="keyword">::</span><span class="default">Scale</span><span class="keyword">; </span><span class="comment">// Getting the constant Scale from the constant Card in a Suit.<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

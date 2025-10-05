@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>对 PUT 方法的支持</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -43,7 +43,7 @@
    存储到 web 目录树。让 Apache 或者 PHP 自动允许所有人覆盖
    web 目录树下的任何文件显然是很不明智的。因此，要处理类似的请求，必须先告诉
    web 服务器需要用特定的 PHP 脚本来处理该请求。在 Apache 下，可以用
-   <em class="emphasis">Script</em> 选项来设置。它可以被放置到
+   <em>Script</em> 选项来设置。它可以被放置到
    Apache 配置文件中几乎所有的位置。通常我们把它放置在
    <code class="literal">&lt;Directory&gt;</code> 区域或者 <code class="literal">&lt;VirtualHost&gt;</code> 区域。可以用如下一行来完成该设置：
    <div class="informalexample">
@@ -71,13 +71,10 @@ Script PUT /put.php
    authenticate the user before performing this file copy.
   </p>
   <p class="para">
-   <div class="example" id="example-912">
+   <div class="example" id="example-446">
     <p><strong>Example #1 保存 HTTP PUT 文件</strong></p>
     <div class="example-contents">
-     <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* PUT data comes in on the stdin stream */<br /></span><span style="color: #0000BB">$putdata </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://input"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Open a file for writing */<br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"myputfile.ext"</span><span style="color: #007700">, </span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Read the data 1 KB at a time<br />   and write to the file */<br /></span><span style="color: #007700">while (</span><span style="color: #0000BB">$data </span><span style="color: #007700">= </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$putdata</span><span style="color: #007700">, </span><span style="color: #0000BB">1024</span><span style="color: #007700">))<br />  </span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Close the streams */<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$putdata</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+     <div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* PUT data comes in on the stdin stream */<br /></span><span style="color: #0000BB">$putdata </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://input"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Open a file for writing */<br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"myputfile.ext"</span><span style="color: #007700">, </span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Read the data 1 KB at a time<br />   and write to the file */<br /></span><span style="color: #007700">while (</span><span style="color: #0000BB">$data </span><span style="color: #007700">= </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$putdata</span><span style="color: #007700">, </span><span style="color: #0000BB">1024</span><span style="color: #007700">))<br />  </span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Close the streams */<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$putdata</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -86,7 +83,50 @@ Script PUT /put.php
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126681""></a>
+<div id="allnotes">  <a name="128596""></a>
+  <div class="note">
+   <strong class="user">arnaud at caramia dot Fr</strong>
+   <a href="#128596" class="date">08-Jun-2023 06:27</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+We resolved our problem with https://pecl.php.net/package/apfd.<br />
+<br />
+It parses multipart/form-data body (files and payload) with PUT and PATCH http requests, witch was only possible before with POST http request.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128423""></a>
+  <div class="note">
+   <strong class="user">polygon dot co dot in at gmail dot com</strong>
+   <a href="#128423" class="date">23-Apr-2023 09:11</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I was confused with file uploads using the PUT method.<br />
+My concern was why can't we upload multiple files using the PUT method with streams<br />
+PUT data comes in on the stdin stream<br />
+$putdata = fopen("php://input", "r");<br />
+Note the $putdata is a file pointer to the file content that is being uploaded.<br />
+The data is received on the server on the fly (which means available as it is received)<br />
+<br />
+Secondly, when we are using parse_str(file_get_contents("php://input")).<br />
+This means the data is completely received on the server end and is then made available to the script.<br />
+<br />
+When using fopen() one cant parse the data. This can be used when uploading a large file.<br />
+The file may range from 100's of MBs to Gigs where streams plays a major role.<br />
+<br />
+Streams make the file data available to script in chunks instead of first saving in the temp folder.<br />
+Hence, when using $putdata = fopen("php://input", "r"); one can't pass the payload as well.<br />
+If someone wants to pass the payload the only option is in the URL query string.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126681""></a>
   <div class="note">
    <strong class="user">Oscar Fernandez Sierra</strong>
    <a href="#126681" class="date">14-Dec-2021 09:27</a>

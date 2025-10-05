@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Sets the client identifier</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.oci-set-client-identifier-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>oci_set_client_identifier</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$connection</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$client_id</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>oci_set_client_identifier</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$connection</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$client_id</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Sets the client identifier used by various database components to
@@ -66,31 +66,22 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">connection</code></dt>
-
+     <dt><code class="parameter">connection</code></dt>
      <dd>
-
       <p class="para">Oracle 连接标识，由
 <span class="function"><a href="function.oci-connect.html" class="function">oci_connect()</a></span>，<span class="function"><a href="function.oci-pconnect.html" class="function">oci_pconnect()</a></span>，或
 <span class="function"><a href="function.oci-new-connect.html" class="function">oci_new_connect()</a></span> 返回。</p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">client_id</code></dt>
-
+     <dt><code class="parameter">client_id</code></dt>
      <dd>
-
       <p class="para">
        User chosen string up to 64 bytes long.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -98,21 +89,18 @@
  <div class="refsect1 returnvalues" id="refsect1-function.oci-set-client-identifier-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.oci-set-client-identifier-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-3746">
+   <div class="example" id="example-1888">
     <p><strong>Example #1 Setting the client identifier to the application user</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// Find the application user's login name<br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$un </span><span style="color: #007700">= </span><span style="color: #0000BB">my_validate_session</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'username'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$c </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'myschema'</span><span style="color: #007700">, </span><span style="color: #DD0000">'welcome'</span><span style="color: #007700">, </span><span style="color: #DD0000">'localhost/XE'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Tell Oracle who that user is<br /></span><span style="color: #0000BB">oci_set_client_identifier</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">, </span><span style="color: #0000BB">$un</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// The next round-trip to the database will piggyback the identifier<br /></span><span style="color: #0000BB">$s </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">, </span><span style="color: #DD0000">'select mydata from mytable'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// ...<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// Find the application user's login name<br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$un </span><span style="color: #007700">= </span><span style="color: #0000BB">my_validate_session</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'username'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$c </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'myschema'</span><span style="color: #007700">, </span><span style="color: #DD0000">'welcome'</span><span style="color: #007700">, </span><span style="color: #DD0000">'localhost/XE'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Tell Oracle who that user is<br /></span><span style="color: #0000BB">oci_set_client_identifier</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">, </span><span style="color: #0000BB">$un</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// The next round-trip to the database will piggyback the identifier<br /></span><span style="color: #0000BB">$s </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">, </span><span style="color: #DD0000">'select mydata from mytable'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// ...<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -131,10 +119,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.oci-set-module-name.html" class="function" rel="rdfs-seeAlso">oci_set_module_name()</a> - Sets the module name</span></li>
-    <li class="member"><span class="function"><a href="function.oci-set-action.html" class="function" rel="rdfs-seeAlso">oci_set_action()</a> - Sets the action name</span></li>
-    <li class="member"><span class="function"><a href="function.oci-set-client-info.html" class="function" rel="rdfs-seeAlso">oci_set_client_info()</a> - Sets the client information</span></li>
-    <li class="member"><span class="function"><a href="function.oci-set-db-operation.html" class="function" rel="rdfs-seeAlso">oci_set_db_operation()</a> - Sets the database operation</span></li>
+    <li><span class="function"><a href="function.oci-set-module-name.html" class="function" rel="rdfs-seeAlso">oci_set_module_name()</a> - Sets the module name</span></li>
+    <li><span class="function"><a href="function.oci-set-action.html" class="function" rel="rdfs-seeAlso">oci_set_action()</a> - Sets the action name</span></li>
+    <li><span class="function"><a href="function.oci-set-client-info.html" class="function" rel="rdfs-seeAlso">oci_set_client_info()</a> - Sets the client information</span></li>
+    <li><span class="function"><a href="function.oci-set-db-operation.html" class="function" rel="rdfs-seeAlso">oci_set_db_operation()</a> - Sets the database operation</span></li>
    </ul>
   </p>
  </div>

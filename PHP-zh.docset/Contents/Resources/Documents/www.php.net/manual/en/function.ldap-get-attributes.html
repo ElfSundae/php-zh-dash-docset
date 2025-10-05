@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Get attributes from a search result entry</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.ldap-get-attributes-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ldap_get_attributes</strong></span>(<span class="methodparam"><span class="type"><a href="class.ldap-connection.html" class="type LDAP\Connection">LDAP\Connection</a></span> <code class="parameter">$ldap</code></span>, <span class="methodparam"><span class="type"><span class="type LDAP\ResultEntry">LDAP\ResultEntry</span></span> <code class="parameter">$entry</code></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>ldap_get_attributes</strong></span>(<span class="methodparam"><span class="type"><a href="class.ldap-connection.html" class="type LDAP\Connection">LDAP\Connection</a></span> <code class="parameter">$ldap</code></span>, <span class="methodparam"><span class="type">LDAP\ResultEntry</span> <code class="parameter">$entry</code></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
   <p class="para rdfs-comment">
    Reads attributes and values from an entry in the search result. 
@@ -70,31 +70,22 @@ return_value[&quot;attribute&quot;][i] = (i+1)th value of the attribute
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">ldap</code></dt>
-
+     <dt><code class="parameter">ldap</code></dt>
      <dd>
-
       <p class="para">
        通过 <span class="function"><a href="function.ldap-connect.html" class="function">ldap_connect()</a></span> 返回的 <span class="classname"><a href="class.ldap-connection.html" class="classname">LDAP\Connection</a></span> 实例。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">entry</code></dt>
-
+     <dt><code class="parameter">entry</code></dt>
      <dd>
-
       <p class="para">
        <span class="classname"><a href="class.ldap-result-entry.html" class="classname">LDAP\ResultEntry</a></span> 实例。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -124,7 +115,7 @@ return_value[&quot;attribute&quot;][i] = (i+1)th value of the attribute
  <td>8.1.0</td>
  <td>
   现在 <code class="parameter">ldap</code> 参数接受 <span class="classname"><a href="class.ldap-connection.html" class="classname">LDAP\Connection</a></span>
-  实例，之前接受 <a href="language.types.resource.html" class="link">资源(resource)</a>。
+  实例，之前接受有效的 <code class="literal">ldap link</code> <a href="language.types.resource.html" class="link">resource</a>。
  </td>
 </tr>
 
@@ -132,7 +123,7 @@ return_value[&quot;attribute&quot;][i] = (i+1)th value of the attribute
  <td>8.1.0</td>
  <td>
   The <code class="parameter">entry</code> parameter expects an <span class="classname"><a href="class.ldap-result-entry.html" class="classname">LDAP\ResultEntry</a></span>
-  instance now; previously, a <a href="language.types.resource.html" class="link">资源(resource)</a> was expected.
+  instance now; previously, a valid <code class="literal">ldap result entry</code> <a href="language.types.resource.html" class="link">resource</a> was expected.
  </td>
 </tr>
 
@@ -144,17 +135,14 @@ return_value[&quot;attribute&quot;][i] = (i+1)th value of the attribute
 
 
  <div class="refsect1 examples" id="refsect1-function.ldap-get-attributes-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4444">
     <p><strong>Example #1 
      Show the list of attributes held for a particular directory entry
     </strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $ds is a valid LDAP\Connection instance for a directory server<br /><br />// $sr is a valid search result from a prior call to<br />// one of the ldap directory search calls<br /><br /></span><span style="color: #0000BB">$entry </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_first_entry</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$sr</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$attrs </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_get_attributes</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$entry</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">$attrs</span><span style="color: #007700">[</span><span style="color: #DD0000">"count"</span><span style="color: #007700">] . </span><span style="color: #DD0000">" attributes held for this entry:&lt;p&gt;"</span><span style="color: #007700">;<br /><br />for (</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">$attrs</span><span style="color: #007700">[</span><span style="color: #DD0000">"count"</span><span style="color: #007700">]; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++) {<br />    echo </span><span style="color: #0000BB">$attrs</span><span style="color: #007700">[</span><span style="color: #0000BB">$i</span><span style="color: #007700">] . </span><span style="color: #DD0000">"&lt;br /&gt;"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $ds is a valid LDAP\Connection instance for a directory server<br /><br />// $sr is a valid search result from a prior call to<br />// one of the ldap directory search calls<br /><br /></span><span style="color: #0000BB">$entry </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_first_entry</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$sr</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$attrs </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_get_attributes</span><span style="color: #007700">(</span><span style="color: #0000BB">$ds</span><span style="color: #007700">, </span><span style="color: #0000BB">$entry</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #0000BB">$attrs</span><span style="color: #007700">[</span><span style="color: #DD0000">"count"</span><span style="color: #007700">] . </span><span style="color: #DD0000">" attributes held for this entry:&lt;p&gt;"</span><span style="color: #007700">;<br /><br />for (</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">$attrs</span><span style="color: #007700">[</span><span style="color: #DD0000">"count"</span><span style="color: #007700">]; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++) {<br />    echo </span><span style="color: #0000BB">$attrs</span><span style="color: #007700">[</span><span style="color: #0000BB">$i</span><span style="color: #007700">] . </span><span style="color: #DD0000">"&lt;br /&gt;"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -166,8 +154,8 @@ return_value[&quot;attribute&quot;][i] = (i+1)th value of the attribute
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.ldap-first-attribute.html" class="function" rel="rdfs-seeAlso">ldap_first_attribute()</a> - Return first attribute</span></li>
-    <li class="member"><span class="function"><a href="function.ldap-next-attribute.html" class="function" rel="rdfs-seeAlso">ldap_next_attribute()</a> - Get the next attribute in result</span></li>
+    <li><span class="function"><a href="function.ldap-first-attribute.html" class="function" rel="rdfs-seeAlso">ldap_first_attribute()</a> - Return first attribute</span></li>
+    <li><span class="function"><a href="function.ldap-next-attribute.html" class="function" rel="rdfs-seeAlso">ldap_next_attribute()</a> - Get the next attribute in result</span></li>
    </ul>
   </p>
  </div>

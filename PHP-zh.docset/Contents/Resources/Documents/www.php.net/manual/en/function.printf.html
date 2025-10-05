@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>输出格式化字符串</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.printf-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>printf</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$format</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">...$values</code></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>printf</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$format</code></span>, <span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">...$values</code></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="simpara">
    依据 <code class="parameter">format</code> 格式参数产生输出。
@@ -49,14 +49,11 @@
    <dl>
     
 
- <dt>
-<code class="parameter">format</code></dt>
-
+ <dt><code class="parameter">format</code></dt>
  <dd>
-
   <p class="para">
    format 字符串通常由零或多个指令组成：普通字符（不包含
-   <code class="literal">%</code>）&mdash;&mdash;直接复制到结果，<em class="emphasis">转换规范</em>&mdash;&mdash;获取每个参数的结果。
+   <code class="literal">%</code>）&mdash;&mdash;直接复制到结果，<em>转换规范</em>&mdash;&mdash;获取每个参数的结果。
   </p>
 
   <p class="para">
@@ -70,7 +67,7 @@
     整数后跟美元符号 <code class="literal">$</code>，用于指定转换中要处理的参数数量。
    </p>
   </p>
-  
+
   <p class="para">
    <table class="doctable table">
     <caption><strong>标志</strong></caption>
@@ -128,14 +125,15 @@
   <p class="formalpara">
    <h5 class="title">Width</h5>
    <p class="para">
-    整数，表示此转换应（最少）产生多少个字符。
+    要么是整数，表示转换结果应该有多少个字符（最少），要么是 <code class="literal">*</code>。如果使用
+    <code class="literal">*</code>，那么宽度将作为额外的整数值提供，位于格式化符号之前。
    </p>
   </p>
 
   <p class="formalpara">
    <h5 class="title">Precision</h5>
    <p class="para">
-    小数点 <code class="literal">.</code> 后跟整数。标志符的含义如下：
+    小数点 <code class="literal">.</code>，可选的后跟整数或者 <code class="literal">*</code>，其含义取决于格式化符号：
     <ul class="itemizedlist">
      <li class="listitem">
       <span class="simpara">
@@ -157,17 +155,11 @@
     </ul>
     <blockquote class="note"><p><strong class="note">Note</strong>: 
      <span class="simpara">
-      如果小数点没有明确的精度值，则假设是 0。
+      如果小数点没有明确的精度值，则假设是 0。如果使用 <code class="literal">*</code>，则精度将作为额外的整数值提供，位于格式化符号之前。
      </span>
     </p></blockquote>
    </p>
   </p>
-
-  <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <span class="simpara">
-    尝试使用的位置标志符大于 <strong><code>PHP_INT_MAX</code></strong> 将会生成警告。
-   </span>
-  </p></blockquote>
 
   <p class="para">
    <table class="doctable table">
@@ -323,13 +315,13 @@
 
   <div class="warning"><strong class="warning">Warning</strong>
    <p class="para">
-    <code class="literal">c</code> 类型标志符忽略填充和宽度
+    <code class="literal">c</code> 类型标志符忽略填充和宽度。
    </p>
   </div>
 
   <div class="warning"><strong class="warning">Warning</strong>
    <p class="para">
-    Attempting to use a combination of the string and width specifiers with character sets that require more than one byte per character may result in unexpected results
+    Attempting to use a combination of the string and width specifiers with character sets that require more than one byte per character may result in unexpected results.
    </p>
   </div>
 
@@ -348,12 +340,12 @@
 
      <tbody class="tbody">
       <tr>
-       <td><span class="type">string</span></td>
+       <td><span class="type"><a href="language.types.string.html" class="type string">string</a></span></td>
        <td><code class="literal">s</code></td>
       </tr>
 
       <tr>
-       <td><span class="type">int</span></td>
+       <td><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></td>
        <td>
         <code class="literal">d</code>,
         <code class="literal">u</code>,
@@ -366,7 +358,7 @@
       </tr>
 
       <tr>
-       <td><span class="type">float</span></td>
+       <td><span class="type"><a href="language.types.float.html" class="type float">float</a></span></td>
        <td>
         <code class="literal">e</code>,
         <code class="literal">E</code>,
@@ -387,20 +379,14 @@
  </dd>
 
 
-
     
-     <dt>
-<code class="parameter">values</code></dt>
-
+     <dt><code class="parameter">values</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -413,22 +399,96 @@
  </div>
 
 
- <div class="refsect1 examples" id="refsect1-function.printf-examples">
-  <h3 class="title">范例</h3>
+ <div class="refsect1 errors" id="refsect1-function.printf-errors">
+  <h3 class="title">错误／异常</h3>
+  
   <p class="para">
-   <div class="example" id="">
+   从 PHP 8.0.0 开始，如果参数个数为零，将抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。在 PHP 8.0.0 之前，会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+  </p>
+  <p class="para">
+   从 PHP 8.0.0 开始，如果 <code class="literal">[width]</code> 小于零或大于 <strong><code><a href="reserved.constants.html#constant.php-int-max">PHP_INT_MAX</a></code></strong>，则会抛出
+   <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。在 PHP 8.0.0 之前，会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+  </p>
+  <p class="para">
+   从 PHP 8.0.0 开始，如果 <code class="literal">[precision]</code> 小于零或大于 <strong><code><a href="reserved.constants.html#constant.php-int-max">PHP_INT_MAX</a></code></strong>，则会抛出
+   <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。在 PHP 8.0.0 之前，会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+  </p>
+  <p class="para">
+   从 PHP 8.0.0 开始，当传递的参数少于所需的参数时会抛出 <span class="classname"><a href="class.argumentcounterror.html" class="classname">ArgumentCountError</a></span>。在 PHP 8.0.0 之前，返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 并发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.printf-changelog">
+  <h3 class="title">更新日志</h3>
+  
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       此函数失败时不再返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       如果参数个数为零则抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>；以前该函数则会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       如果 <code class="literal">[width]</code> 小于零或大于 <strong><code><a href="reserved.constants.html#constant.php-int-max">PHP_INT_MAX</a></code></strong>，则抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>；以前该函数则会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       如果 <code class="literal">[precision]</code> 小于零或大于 <strong><code><a href="reserved.constants.html#constant.php-int-max">PHP_INT_MAX</a></code></strong>，则抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>；以前该函数则会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       当传递的参数少于所需的参数时抛出 <span class="classname"><a href="class.argumentcounterror.html" class="classname">ArgumentCountError</a></span>；以前该函数则会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.printf-examples">
+  <h3 class="title">示例</h3>
+  <p class="para">
+   <div class="example" id="example-4904">
     <p><strong>Example #1 <span class="function"><strong>printf()</strong></span>：多种 format 格式的示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$n </span><span style="color: #007700">=  </span><span style="color: #0000BB">43951789</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$u </span><span style="color: #007700">= -</span><span style="color: #0000BB">43951789</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$c </span><span style="color: #007700">= </span><span style="color: #0000BB">65</span><span style="color: #007700">; </span><span style="color: #FF8000">// ASCII 65 is 'A'<br /><br />// 注意两个 %% 的情况，这会打印一个字面上的 '%' 字符<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%b = '%b'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 二进制表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%c = '%c'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$c</span><span style="color: #007700">); </span><span style="color: #FF8000">// 打印 ascii 字符，与 chr() 函数相同<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%d = '%d'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 标准整数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%e = '%e'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 科学计数法<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%u = '%u'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 无符号正整数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%u = '%u'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$u</span><span style="color: #007700">); </span><span style="color: #FF8000">// 无符号负整数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%f = '%f'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 浮点数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%o = '%o'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 八进制表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%s = '%s'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 字符串表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%x = '%x'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 十六进制表示（小写）<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%X = '%X'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 十六进制表示（大写）<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%+d = '%+d'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 正整数上的符号说明符<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%+d = '%+d'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$u</span><span style="color: #007700">); </span><span style="color: #FF8000">// 负整数上的符号说明符<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$n </span><span style="color: #007700">=  </span><span style="color: #0000BB">43951789</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$u </span><span style="color: #007700">= -</span><span style="color: #0000BB">43951789</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$c </span><span style="color: #007700">= </span><span style="color: #0000BB">65</span><span style="color: #007700">; </span><span style="color: #FF8000">// ASCII 65 is 'A'<br /><br />// 注意两个 %% 的情况，这会打印一个字面上的 '%' 字符<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%b = '%b'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 二进制表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%c = '%c'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$c</span><span style="color: #007700">); </span><span style="color: #FF8000">// 打印 ascii 字符，与 chr() 函数相同<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%d = '%d'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 标准整数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%e = '%e'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 科学计数法<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%u = '%u'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 无符号正整数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%u = '%u'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$u</span><span style="color: #007700">); </span><span style="color: #FF8000">// 无符号负整数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%f = '%f'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 浮点数表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%o = '%o'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 八进制表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%s = '%s'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 字符串表示<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%x = '%x'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 十六进制表示（小写）<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%X = '%X'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 十六进制表示（大写）<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%+d = '%+d'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$n</span><span style="color: #007700">); </span><span style="color: #FF8000">// 正整数上的符号说明符<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%%+d = '%+d'\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$u</span><span style="color: #007700">); </span><span style="color: #FF8000">// 负整数上的符号说明符<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-%b = &#039;10100111101010011010101101&#039;
+<div class="examplescode"><pre class="examplescode">%b = &#039;10100111101010011010101101&#039;
 %c = &#039;A&#039;
 %d = &#039;43951789&#039;
 %e = &#039;4.39518e+7&#039;
@@ -440,31 +500,28 @@
 %x = &#039;29ea6ad&#039;
 %X = &#039;29EA6AD&#039;
 %+d = &#039;+43951789&#039;
-%+d = &#039;-43951789&#039;
-</pre></div>
+%+d = &#039;-43951789&#039;</pre>
+</div>
     </div>
    </div>
 
-   <div class="example" id="">
+   <div class="example" id="example-4905">
     <p><strong>Example #2 <span class="function"><strong>printf()</strong></span>：字符串说明符</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$s </span><span style="color: #007700">= </span><span style="color: #DD0000">'monkey'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$t </span><span style="color: #007700">= </span><span style="color: #DD0000">'many monkeys'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%s]\n"</span><span style="color: #007700">,      </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 标准字符串输出<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%10s]\n"</span><span style="color: #007700">,    </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 带空格的右对齐<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%-10s]\n"</span><span style="color: #007700">,   </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 带空格的左对齐<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%010s]\n"</span><span style="color: #007700">,   </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 零填充也适用于字符串<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%'#10s]\n"</span><span style="color: #007700">,  </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 使用自定义填充字符"#"<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%10.9s]\n"</span><span style="color: #007700">,  </span><span style="color: #0000BB">$t</span><span style="color: #007700">); </span><span style="color: #FF8000">// 右对齐，但截断 8 个字符<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%-10.9s]\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$t</span><span style="color: #007700">); </span><span style="color: #FF8000">// 左对齐，但截断 8 个字符<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$s </span><span style="color: #007700">= </span><span style="color: #DD0000">'monkey'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$t </span><span style="color: #007700">= </span><span style="color: #DD0000">'many monkeys'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%s]\n"</span><span style="color: #007700">,        </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 标准字符串输出<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%10s]\n"</span><span style="color: #007700">,      </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 带空格的右对齐<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%-10s]\n"</span><span style="color: #007700">,     </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 带空格的左对齐<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%010s]\n"</span><span style="color: #007700">,     </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 零填充也适用于字符串<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%'#10s]\n"</span><span style="color: #007700">,    </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 使用自定义填充字符"#"<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%'#*s]\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">$s</span><span style="color: #007700">); </span><span style="color: #FF8000">// 提供填充的宽度作为附加参数<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%10.9s]\n"</span><span style="color: #007700">,    </span><span style="color: #0000BB">$t</span><span style="color: #007700">); </span><span style="color: #FF8000">// 右对齐，但截断 8 个字符<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"[%-10.9s]\n"</span><span style="color: #007700">,   </span><span style="color: #0000BB">$t</span><span style="color: #007700">); </span><span style="color: #FF8000">// 左对齐，但截断 8 个字符<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-     <div class="cdata"><pre>
-[monkey]
+     <div class="examplescode"><pre class="examplescode">[monkey]
 [    monkey]
 [monkey    ]
 [0000monkey]
 [####monkey]
+[####monkey]
 [ many monk]
-[many monk ]
-</pre></div>
+[many monk ]</pre>
+</div>
     </div>
    </div>
   </p>
@@ -475,17 +532,17 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.print.html" class="function" rel="rdfs-seeAlso">print</a> - 输出字符串</span></li>
-    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - 返回格式化字符串</span></li>
-    <li class="member"><span class="function"><a href="function.fprintf.html" class="function" rel="rdfs-seeAlso">fprintf()</a> - 将格式化后的字符串写入到流</span></li>
-    <li class="member"><span class="function"><a href="function.vprintf.html" class="function" rel="rdfs-seeAlso">vprintf()</a> - 输出格式化字符串</span></li>
-    <li class="member"><span class="function"><a href="function.vsprintf.html" class="function" rel="rdfs-seeAlso">vsprintf()</a> - 返回格式化字符串</span></li>
-    <li class="member"><span class="function"><a href="function.vfprintf.html" class="function" rel="rdfs-seeAlso">vfprintf()</a> - 将格式化字符串写入流</span></li>
-    <li class="member"><span class="function"><a href="function.sscanf.html" class="function" rel="rdfs-seeAlso">sscanf()</a> - 根据指定格式解析输入的字符</span></li>
-    <li class="member"><span class="function"><a href="function.fscanf.html" class="function" rel="rdfs-seeAlso">fscanf()</a> - 从文件中格式化输入</span></li>
-    <li class="member"><span class="function"><a href="function.number-format.html" class="function" rel="rdfs-seeAlso">number_format()</a> - 以千位分隔符方式格式化一个数字</span></li>
-    <li class="member"><span class="function"><a href="function.date.html" class="function" rel="rdfs-seeAlso">date()</a> - 格式化 Unix 时间戳</span></li>
-    <li class="member"><span class="function"><a href="function.flush.html" class="function" rel="rdfs-seeAlso">flush()</a> - 刷新系统输出缓冲区</span></li>
+    <li><span class="function"><a href="function.print.html" class="function" rel="rdfs-seeAlso">print</a> - 输出字符串</span></li>
+    <li><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - 返回格式化字符串</span></li>
+    <li><span class="function"><a href="function.fprintf.html" class="function" rel="rdfs-seeAlso">fprintf()</a> - 将格式化后的字符串写入到流</span></li>
+    <li><span class="function"><a href="function.vprintf.html" class="function" rel="rdfs-seeAlso">vprintf()</a> - 输出格式化字符串</span></li>
+    <li><span class="function"><a href="function.vsprintf.html" class="function" rel="rdfs-seeAlso">vsprintf()</a> - 返回格式化字符串</span></li>
+    <li><span class="function"><a href="function.vfprintf.html" class="function" rel="rdfs-seeAlso">vfprintf()</a> - 将格式化字符串写入流</span></li>
+    <li><span class="function"><a href="function.sscanf.html" class="function" rel="rdfs-seeAlso">sscanf()</a> - 根据指定格式解析输入的字符</span></li>
+    <li><span class="function"><a href="function.fscanf.html" class="function" rel="rdfs-seeAlso">fscanf()</a> - 从文件中格式化输入</span></li>
+    <li><span class="function"><a href="function.number-format.html" class="function" rel="rdfs-seeAlso">number_format()</a> - 以千位分隔符方式格式化一个数字</span></li>
+    <li><span class="function"><a href="function.date.html" class="function" rel="rdfs-seeAlso">date()</a> - 格式化 Unix 时间戳</span></li>
+    <li><span class="function"><a href="function.flush.html" class="function" rel="rdfs-seeAlso">flush()</a> - 冲刷系统输出缓冲区</span></li>
    </ul>
   </p>
  </div>

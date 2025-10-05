@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>延缓执行若干秒和纳秒</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.time-nanosleep-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>time_nanosleep</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$seconds</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$nanoseconds</code></span>): <span class="type"><span class="type">array</span>|<span class="type">bool</span></span></div>
+   <span class="methodname"><strong>time_nanosleep</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$seconds</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$nanoseconds</code></span>): <span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span></div>
 
   <p class="para rdfs-comment">
    程序延缓执行指定数量的 <code class="parameter">seconds</code> 和 <code class="parameter">nanoseconds</code>。
@@ -48,23 +48,16 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">seconds</code></dt>
-
+     <dt><code class="parameter">seconds</code></dt>
      <dd>
-
       <p class="para">
        必须是一个非负整数。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">nanoseconds</code></dt>
-
+     <dt><code class="parameter">nanoseconds</code></dt>
      <dd>
-
       <p class="para">
        必须是一个小于1亿的非负整数。
       </p>
@@ -74,10 +67,8 @@
        </span>
       </p></blockquote>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -85,7 +76,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.time-nanosleep-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
   <p class="para">
    如果延迟被中断，一个关联数组会返回，内容为：
@@ -106,15 +97,12 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.time-nanosleep-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3571">
     <p><strong>Example #1 <span class="function"><strong>time_nanosleep()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 小心！如果返回数组，将无法按照预期工作<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">500000000</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Slept for half a second.\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// 这个更好：<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">500000000</span><span style="color: #007700">) === </span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Slept for half a second.\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// 这个最好：<br /></span><span style="color: #0000BB">$nano </span><span style="color: #007700">= </span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">100000</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$nano </span><span style="color: #007700">=== </span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Slept for 2 seconds, 100 microseconds.\n"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">$nano </span><span style="color: #007700">=== </span><span style="color: #0000BB">false</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Sleeping failed.\n"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$nano</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$seconds </span><span style="color: #007700">= </span><span style="color: #0000BB">$nano</span><span style="color: #007700">[</span><span style="color: #DD0000">'seconds'</span><span style="color: #007700">];<br />    </span><span style="color: #0000BB">$nanoseconds </span><span style="color: #007700">= </span><span style="color: #0000BB">$nano</span><span style="color: #007700">[</span><span style="color: #DD0000">'nanoseconds'</span><span style="color: #007700">];<br />    echo </span><span style="color: #DD0000">"Interrupted by a signal.\n"</span><span style="color: #007700">;<br />    echo </span><span style="color: #DD0000">"Time remaining: </span><span style="color: #0000BB">$seconds</span><span style="color: #DD0000"> seconds, </span><span style="color: #0000BB">$nanoseconds</span><span style="color: #DD0000"> nanoseconds."</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 小心！如果返回数组，将无法按照预期工作<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">500000000</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Slept for half a second.\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// 这个更好：<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">500000000</span><span style="color: #007700">) === </span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Slept for half a second.\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// 这个最好：<br /></span><span style="color: #0000BB">$nano </span><span style="color: #007700">= </span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">100000</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$nano </span><span style="color: #007700">=== </span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Slept for 2 seconds, 100 microseconds.\n"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">$nano </span><span style="color: #007700">=== </span><span style="color: #0000BB">false</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Sleeping failed.\n"</span><span style="color: #007700">;<br />} elseif (</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$nano</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$seconds </span><span style="color: #007700">= </span><span style="color: #0000BB">$nano</span><span style="color: #007700">[</span><span style="color: #DD0000">'seconds'</span><span style="color: #007700">];<br />    </span><span style="color: #0000BB">$nanoseconds </span><span style="color: #007700">= </span><span style="color: #0000BB">$nano</span><span style="color: #007700">[</span><span style="color: #DD0000">'nanoseconds'</span><span style="color: #007700">];<br />    echo </span><span style="color: #DD0000">"Interrupted by a signal.\n"</span><span style="color: #007700">;<br />    echo </span><span style="color: #DD0000">"Time remaining: </span><span style="color: #0000BB">$seconds</span><span style="color: #DD0000"> seconds, </span><span style="color: #0000BB">$nanoseconds</span><span style="color: #DD0000"> nanoseconds."</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -126,10 +114,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.sleep.html" class="function" rel="rdfs-seeAlso">sleep()</a> - 延缓执行</span></li>
-    <li class="member"><span class="function"><a href="function.usleep.html" class="function" rel="rdfs-seeAlso">usleep()</a> - 以指定的微秒数延迟执行</span></li>
-    <li class="member"><span class="function"><a href="function.time-sleep-until.html" class="function" rel="rdfs-seeAlso">time_sleep_until()</a> - 使脚本睡眠到指定的时间为止</span></li>
-    <li class="member"><span class="function"><a href="function.set-time-limit.html" class="function" rel="rdfs-seeAlso">set_time_limit()</a> - 设置脚本最大执行时间</span></li>
+    <li><span class="function"><a href="function.sleep.html" class="function" rel="rdfs-seeAlso">sleep()</a> - 延缓执行</span></li>
+    <li><span class="function"><a href="function.usleep.html" class="function" rel="rdfs-seeAlso">usleep()</a> - 以指定的微秒数延迟执行</span></li>
+    <li><span class="function"><a href="function.time-sleep-until.html" class="function" rel="rdfs-seeAlso">time_sleep_until()</a> - 使脚本睡眠到指定的时间为止</span></li>
+    <li><span class="function"><a href="function.set-time-limit.html" class="function" rel="rdfs-seeAlso">set_time_limit()</a> - 设置脚本最大执行时间</span></li>
    </ul>
   </p>
  </div>

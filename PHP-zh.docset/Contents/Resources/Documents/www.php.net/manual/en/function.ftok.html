@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Convert a pathname and a project identifier to a System V IPC key</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.ftok-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ftok</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$project_id</code></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>ftok</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$filename</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$project_id</code></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
    The function converts the <code class="parameter">filename</code> of an existing
@@ -51,31 +51,22 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">filename</code></dt>
-
+     <dt><code class="parameter">filename</code></dt>
      <dd>
-
       <p class="para">
        Path to an accessible file.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">project_id</code></dt>
-
+     <dt><code class="parameter">project_id</code></dt>
      <dd>
-
       <p class="para">
        Project identifier. This must be a one character string.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -93,8 +84,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.shmop-open.html" class="function" rel="rdfs-seeAlso">shmop_open()</a> - Create or open shared memory block</span></li>
-    <li class="member"><span class="function"><a href="function.sem-get.html" class="function" rel="rdfs-seeAlso">sem_get()</a> - Get a semaphore id</span></li>
+    <li><span class="function"><a href="function.shmop-open.html" class="function" rel="rdfs-seeAlso">shmop_open()</a> - Create or open shared memory block</span></li>
+    <li><span class="function"><a href="function.sem-get.html" class="function" rel="rdfs-seeAlso">sem_get()</a> - Get a semaphore id</span></li>
    </ul>
   </p>
  </div>
@@ -141,22 +132,6 @@ The difference is that $projectId string should be used as ASCII value via ord()
     <div class="phpcode">
 <code><span class="html">
 The rather unintuitive usage of ftok with shm related functions like shmop_open and shm_attach could simply be explained as a need to avoid shm key collisions. Using ftok with a file that belongs to your project is likely to generate a unique key. Additionally, using ftok with a file from your project avoids the need to store the key so that other processes can access the segment because ftok will always give you the same key if you pass the same file.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="75218""></a>
-  <div class="note">
-   <strong class="user">Peter MOLNAR</strong>
-   <a href="#75218" class="date">18-May-2007 05:38</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-mbowie at buzmo dot com wrote:<br />
-"The result of this is that if you're using "1" as the id on the PHP side, you'll need to use 49 elsewhere."<br />
-<br />
-You can always use chr() as an alternative.</span>
 </code>
     </div>
    </div>
@@ -257,36 +232,6 @@ Behaviour is like PHPs ftok(), -1 is returned if file is missing or $filename is
 --<br />
 Regards,<br />
 David Rech</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="42079""></a>
-  <div class="note">
-   <strong class="user">kimaz at swecom dot org</strong>
-   <a href="#42079" class="date">02-May-2004 06:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-You dont have to use ftok() for specifying an System V IPC identifier, though its a good thing to do so.<br />
-<br />
-Passing a regular int to, e.g. msg_get_queue, will have the same effect aslong as you use that value when reading/writing.<br />
-<br />
-I use it for some minor tasks generating small queue's.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="41879""></a>
-  <div class="note">
-   <strong class="user">andreyKEINSPAM at php dot net</strong>
-   <a href="#41879" class="date">24-Apr-2004 09:43</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This function is not part neither of ext/sysvsem nor ext/sysvshm but comes with the core functions of PHP (from ext/standard).</span>
 </code>
     </div>
    </div>

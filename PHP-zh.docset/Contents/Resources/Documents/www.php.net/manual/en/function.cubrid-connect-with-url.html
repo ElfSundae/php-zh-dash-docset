@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Establish the environment for connecting to CUBRID server</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.cubrid-commit.html">? cubrid_commit</a></li>
-      <li style="float: right;"><a href="function.cubrid-connect.html">cubrid_connect ?</a></li>
+      <li style="float: left;"><a href="function.cubrid-connect.html">? cubrid_connect</a></li>
+      <li style="float: right;"><a href="function.cubrid-current-oid.html">cubrid_current_oid ?</a></li>
     </ul>
   </div>
 </div>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.cubrid-connect-with-url-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>cubrid_connect_with_url</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$conn_url</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$userid</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$passwd</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$new_link</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>cubrid_connect_with_url</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$conn_url</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$userid</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$passwd</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> <code class="parameter">$new_link</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong></span></span><br>): <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span></div>
 
   <p class="para rdfs-comment">
    The <span class="function"><strong>cubrid_connect_with_url()</strong></span> function is used to
@@ -78,32 +78,32 @@
   </p>
   <p class="para">
    <ul class="simplelist">
-    <li class="member">host : A host name or IP address of the master database</li>
-    <li class="member">db_name : A name of the database</li>
-    <li class="member">db_user : A name of the database user</li>
-    <li class="member">db_password : A database user password</li>
-    <li class="member">
+    <li>host : A host name or IP address of the master database</li>
+    <li>db_name : A name of the database</li>
+    <li>db_user : A name of the database user</li>
+    <li>db_password : A database user password</li>
+    <li>
      alhosts : Specifies the broker information of the standby server, which is
      used for failover when it is impossible to connect to the active server. 
      You can specify multiple brokers for failover, and the connection to the brokers
      is attempted in the order listed in alhosts</li>
-    <li class="member">
+    <li>
      rctime : An interval between the attempts to connect to the active broker in
      which failure occurred. After a failure occurs, the system connects to the 
      broker specified by althosts (failover), terminates the transaction, and then
      attempts to connect to the active broker of the master database at every rctime. 
      The default value is 600 seconds.</li>
-    <li class="member">
+    <li>
      login_timeout : Timeout value (unit: msec.) for database login. The default
      value is 0, which means infinite postponement.
     </li>
-    <li class="member">
+    <li>
      query_timeout : Timeout value (unit: msec.) for query request. Upon timeout,
      a message to cancel requesting a query transferred to server is sent. The return 
      value can depend on the disconnect_on_query_timeout configuration; even though the
      message to cancel a request is sent to server, that request may succeed.
     </li>
-    <li class="member">
+    <li>
      disconnect_on_query_timeout : Configures a value whether to immediately return
      an error of function being executed upon timeout. The default value is false.
     </li>
@@ -145,35 +145,20 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">conn_url</code></dt>
-
-     <dd>
-<p class="para">A character string that contains server connection information.</p></dd>
-
+     <dt><code class="parameter">conn_url</code></dt>
+     <dd><p class="para">A character string that contains server connection information.</p></dd>
     
     
-     <dt>
-<code class="parameter">userid</code></dt>
-
-     <dd>
-<p class="para">User name for the database.</p></dd>
-
+     <dt><code class="parameter">userid</code></dt>
+     <dd><p class="para">User name for the database.</p></dd>
     
     
-     <dt>
-<code class="parameter">passwd</code></dt>
-
-     <dd>
-<p class="para">User password.</p></dd>
-
+     <dt><code class="parameter">passwd</code></dt>
+     <dd><p class="para">User password.</p></dd>
     
     
-     <dt>
-<code class="parameter">new_link</code></dt>
-
-     <dd>
-<p class="para">If a second call is made to
+     <dt><code class="parameter">new_link</code></dt>
+     <dd><p class="para">If a second call is made to
        <span class="function"><strong>cubrid_connect_with_url()</strong></span> with the same arguments,
        no new connection will be established, but instead, the connection
        identifier of the already opened connection will be returned. The
@@ -181,10 +166,8 @@
        makes <span class="function"><strong>cubrid_connect_with_url()</strong></span> always open a new
        connection, even if <span class="function"><strong>cubrid_connect_with_url()</strong></span> was
        called before with the same parameters.</p></dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -192,31 +175,25 @@
  <div class="refsect1 returnvalues" id="refsect1-function.cubrid-connect-with-url-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Connection identifier, when process is successful, 或者在失败时返回 <strong><code>false</code></strong>.
+   Connection identifier, when process is successful, 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
   </p>
  </div>
 
  
  <div class="refsect1 examples" id="refsect1-function.cubrid-connect-with-url-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-2252">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1120">
    <p><strong>Example #1 <span class="function"><strong>cubrid_connect_with_url()</strong></span> url without properties example</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$conn_url </span><span style="color: #007700">= </span><span style="color: #DD0000">"CUBRID:localhost:33000:demodb:dba::"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$con </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_connect_with_url</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_url</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$con</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"connected successfully"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"create table person(id int,name char(16))"</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">$req </span><span style="color: #007700">=</span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"insert into person values(1,'James')"</span><span style="color: #007700">);<br /><br />   if (</span><span style="color: #0000BB">$req</span><span style="color: #007700">) {<br />      </span><span style="color: #0000BB">cubrid_close_request</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br />      </span><span style="color: #0000BB">cubrid_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   } else {<br />      </span><span style="color: #0000BB">cubrid_rollback</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   }<br />   </span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$conn_url </span><span style="color: #007700">= </span><span style="color: #DD0000">"CUBRID:localhost:33000:demodb:dba::"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$con </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_connect_with_url</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_url</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$con</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"connected successfully"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"create table person(id int,name char(16))"</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">$req </span><span style="color: #007700">=</span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"insert into person values(1,'James')"</span><span style="color: #007700">);<br /><br />   if (</span><span style="color: #0000BB">$req</span><span style="color: #007700">) {<br />      </span><span style="color: #0000BB">cubrid_close_request</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br />      </span><span style="color: #0000BB">cubrid_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   } else {<br />      </span><span style="color: #0000BB">cubrid_rollback</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   }<br />   </span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
   
-  <div class="example" id="example-2254">
+  <div class="example" id="example-1121">
    <p><strong>Example #2 <span class="function"><strong>cubrid_connect_with_url()</strong></span> url with properties example</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$conn_url </span><span style="color: #007700">= </span><span style="color: #DD0000">"CUBRID:127.0.0.1:33000:demodb:dba::?login_timeout=100"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$con </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_connect_with_url </span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_url</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$con</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"connected successfully"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"create table person(id int,name char(16))"</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">$req </span><span style="color: #007700">=</span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"insert into person values(1,'James')"</span><span style="color: #007700">);<br /><br />   if (</span><span style="color: #0000BB">$req</span><span style="color: #007700">) {<br />      </span><span style="color: #0000BB">cubrid_close_request</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br />      </span><span style="color: #0000BB">cubrid_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   } else {<br />      </span><span style="color: #0000BB">cubrid_rollback</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   }<br />   </span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$conn_url </span><span style="color: #007700">= </span><span style="color: #DD0000">"CUBRID:127.0.0.1:33000:demodb:dba::?login_timeout=100"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$con </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_connect_with_url </span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_url</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$con</span><span style="color: #007700">) {<br />   echo </span><span style="color: #DD0000">"connected successfully"</span><span style="color: #007700">;<br />   </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"create table person(id int,name char(16))"</span><span style="color: #007700">);<br />   </span><span style="color: #0000BB">$req </span><span style="color: #007700">=</span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">, </span><span style="color: #DD0000">"insert into person values(1,'James')"</span><span style="color: #007700">);<br /><br />   if (</span><span style="color: #0000BB">$req</span><span style="color: #007700">) {<br />      </span><span style="color: #0000BB">cubrid_close_request</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br />      </span><span style="color: #0000BB">cubrid_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   } else {<br />      </span><span style="color: #0000BB">cubrid_rollback</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />   }<br />   </span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -227,11 +204,11 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.cubrid-connect.html" class="function" rel="rdfs-seeAlso">cubrid_connect()</a> - Open a connection to a CUBRID Server</span></li>
-    <li class="member"><span class="function"><a href="function.cubrid-pconnect.html" class="function" rel="rdfs-seeAlso">cubrid_pconnect()</a> - Open a persistent connection to a CUBRID server</span></li>
-    <li class="member"><span class="function"><a href="function.cubrid-pconnect-with-url.html" class="function" rel="rdfs-seeAlso">cubrid_pconnect_with_url()</a> - Open a persistent connection to CUBRID server</span></li>
-    <li class="member"><span class="function"><a href="function.cubrid-disconnect.html" class="function" rel="rdfs-seeAlso">cubrid_disconnect()</a> - Close a database connection</span></li>
-    <li class="member"><span class="function"><a href="function.cubrid-close.html" class="function" rel="rdfs-seeAlso">cubrid_close()</a> - Close CUBRID connection</span></li>
+    <li><span class="function"><a href="function.cubrid-connect.html" class="function" rel="rdfs-seeAlso">cubrid_connect()</a> - Open a connection to a CUBRID Server</span></li>
+    <li><span class="function"><a href="function.cubrid-pconnect.html" class="function" rel="rdfs-seeAlso">cubrid_pconnect()</a> - Open a persistent connection to a CUBRID server</span></li>
+    <li><span class="function"><a href="function.cubrid-pconnect-with-url.html" class="function" rel="rdfs-seeAlso">cubrid_pconnect_with_url()</a> - Open a persistent connection to CUBRID server</span></li>
+    <li><span class="function"><a href="function.cubrid-disconnect.html" class="function" rel="rdfs-seeAlso">cubrid_disconnect()</a> - Close a database connection</span></li>
+    <li><span class="function"><a href="function.cubrid-close.html" class="function" rel="rdfs-seeAlso">cubrid_close()</a> - Close CUBRID connection</span></li>
    </ul>
   </p>
  </div>

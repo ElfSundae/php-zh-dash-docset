@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>访问 HTTP(s) 网址</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -41,7 +41,7 @@
    如果在你的 <var class="filename">php.ini</var> 文件中或字节流上下文（context）配置了 <a href="filesystem.configuration.html#ini.user-agent" class="link">user_agent</a> 字符串，它也会被包含在请求之中。
   </p>
   <p class="simpara">
-   数据流允许读取资源的 <em class="emphasis">body</em>，而 headers 则储存在了 <var class="varname"><a href="reserved.variables.httpresponseheader.html" class="classname">$http_response_header</a></var> 变量里。
+   数据流允许读取资源的 <em>body</em>，而 headers 则储存在了 <var class="varname"><a href="reserved.variables.httpresponseheader.html" class="classname">$http_response_header</a></var> 变量里。
   </p>
   <p class="simpara">
    如果需要知道文档资源来自哪个 URL（经过所有重定向的处理后），
@@ -142,14 +142,11 @@
  
 
  <div class="refsect1 examples" id="refsect1-wrappers.http-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-830">
+  <h3 class="title">示例</h3>
+  <div class="example" id="wrappers.http.example.basic">
    <p><strong>Example #1 检测重定向后最终的 URL</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$url </span><span style="color: #007700">= </span><span style="color: #DD0000">'http://www.example.com/redirecting_page.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$url</span><span style="color: #007700">, </span><span style="color: #DD0000">'r'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$meta_data </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_get_meta_data</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />foreach (</span><span style="color: #0000BB">$meta_data</span><span style="color: #007700">[</span><span style="color: #DD0000">'wrapper_data'</span><span style="color: #007700">] as </span><span style="color: #0000BB">$response</span><span style="color: #007700">) {<br /><br />    </span><span style="color: #FF8000">/* 我们是否被重定向了？ */<br />    </span><span style="color: #007700">if (</span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">$response</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">)) == </span><span style="color: #DD0000">'location: '</span><span style="color: #007700">) {<br /><br />        </span><span style="color: #FF8000">/* 更新我们被重定向后的 $url */<br />        </span><span style="color: #0000BB">$url </span><span style="color: #007700">= </span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">$response</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">);<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$url </span><span style="color: #007700">= </span><span style="color: #DD0000">'http://www.example.com/redirecting_page.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$url</span><span style="color: #007700">, </span><span style="color: #DD0000">'r'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$meta_data </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_get_meta_data</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />foreach (</span><span style="color: #0000BB">$meta_data</span><span style="color: #007700">[</span><span style="color: #DD0000">'wrapper_data'</span><span style="color: #007700">] as </span><span style="color: #0000BB">$response</span><span style="color: #007700">) {<br /><br />    </span><span style="color: #FF8000">/* 我们是否被重定向了？ */<br />    </span><span style="color: #007700">if (</span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">$response</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">)) == </span><span style="color: #DD0000">'location: '</span><span style="color: #007700">) {<br /><br />        </span><span style="color: #FF8000">/* 更新我们被重定向后的 $url */<br />        </span><span style="color: #0000BB">$url </span><span style="color: #007700">= </span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">$response</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">);<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -168,7 +165,7 @@
    HTTP 连接是只读的；还不支持对一个 HTTP 资源进行写数据或者复制文件。
   </p>
   <p class="simpara">
-   比如发送 <em class="emphasis">POST</em> 和 <em class="emphasis">PUT</em> 请求，
+   比如发送 <em>POST</em> 和 <em>PUT</em> 请求，
    可以在 <a href="context.http.html" class="link">HTTP Contexts</a> 的支持下实现。
   </p>
  </div>
@@ -177,9 +174,9 @@
  <div class="refsect1 seealso" id="refsect1-wrappers.http-seealso">
   <h3 class="title">参见</h3>
   <ul class="simplelist">
-   <li class="member"><a href="context.http.html" class="xref">HTTP context 选项</a></li>
-   <li class="member"><var class="varname"><a href="reserved.variables.httpresponseheader.html" class="classname">$http_response_header</a></var></li>
-   <li class="member"><span class="function"><a href="function.stream-get-meta-data.html" class="function" rel="rdfs-seeAlso">stream_get_meta_data()</a> - 从流或文件指针中获取 header/meta 数据</span></li>
+   <li><a href="context.http.html" class="xref">HTTP context 选项</a></li>
+   <li><var class="varname"><a href="reserved.variables.httpresponseheader.html" class="classname">$http_response_header</a></var></li>
+   <li><span class="function"><a href="function.stream-get-meta-data.html" class="function" rel="rdfs-seeAlso">stream_get_meta_data()</a> - 从流或文件指针中获取 header/meta 数据</span></li>
   </ul>
  </div>
 

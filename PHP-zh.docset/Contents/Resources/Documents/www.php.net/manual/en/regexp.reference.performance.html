@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>性能</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -86,6 +86,27 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="129220""></a>
+  <div class="note">
+   <strong class="user">arthur200126 at gmail dot com</strong>
+   <a href="#129220" class="date">04-Feb-2024 05:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+&gt; Beware of patterns that contain nested indefinite repeats. These can take a long time to run when applied to a string that does not match.<br />
+<br />
+To say that it takes a "long time" is an understatement: the time taken would be exponential, specifically 2^n, where n is the number of "a" characters. This behavior could lead to a "regular expression denial of service" (ReDoS) if you run such a expression on user-provided input.<br />
+<br />
+To not be hit by ReDoS, do one (or maybe more than one) of the three things:<br />
+<br />
+* Write your expression so that it is not vulnerable. https://www.regular-expressions.info/redos.html is a good resource (both the "atomic" and "possessive" options are available in PHP/PCRE). Use a "ReDoS detector" or "regex linter" if your eyeballs can't catch all the issues.<br />
+* Set up some limits for preg_match. Use `ini_set(...)` on the values mentioned on https://www.php.net/manual/en/pcre.configuration.php. Reducing the limits might cause regexes to fail, but that is usually better than stalling your whole server.<br />
+* Use a different regex implementation. There used to be an RE2 extension; not any more!</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

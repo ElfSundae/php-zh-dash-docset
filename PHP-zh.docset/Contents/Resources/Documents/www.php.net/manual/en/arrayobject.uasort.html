@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Sort the entries with a user-defined comparison function and maintain key association</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-arrayobject.uasort-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>ArrayObject::uasort</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>ArrayObject::uasort</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$callback</code></span>): <span class="type"><a href="language.types.value.html" class="type true">true</a></span></div>
 
   <p class="para rdfs-comment">
    This function sorts the entries such that keys maintain their
@@ -60,21 +60,23 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">callback</code></dt>
-
+     <dt><code class="parameter">callback</code></dt>
      <dd>
-
       <p class="para">
-       在第一个参数小于，等于或大于第二个参数时，该比较函数必须相应地返回一个小于，等于或大于 0 的整数。
-      </p>
-      <div class="methodsynopsis dc-description"><span class="methodname"><span class="replaceable">callback</span></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$a</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$b</code></span>): <span class="type">int</span></div>
+ 在第一个参数小于，等于或大于第二个参数时，该比较函数必须相应地返回一个小于，等于或大于 0 的整数。
+</p>
+<div class="methodsynopsis dc-description"><span class="methodname"><span class="replaceable">callback</span></span>(<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$a</code></span>, <span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$b</code></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
+<div class="caution"><strong class="caution">Caution</strong>
+ <p class="para">
+  从比较函数中返回<em>非整数</em>值，例如 <span class="type"><a href="language.types.float.html" class="type float">float</a></span>，将导致内部强制转换为 callback 返回值为
+  <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>。因此，诸如 <code class="literal">0.99</code> 和 <code class="literal">0.1</code> 之类的值都将被转换为整数值
+  <code class="literal">0</code>，将这些值比较的话将会是相等。
+ </p>
+</div>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -82,27 +84,52 @@
  <div class="refsect1 returnvalues" id="refsect1-arrayobject.uasort-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   总是返回 <strong><code>true</code></strong> 。
+   总是返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-arrayobject.uasort-changelog">
+  <h3 class="title">更新日志</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>版本</th>
+       <th>说明</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+ <td>8.2.0</td>
+ <td>
+  现在返回类型为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>；之前是 <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>。
+ </td>
+</tr>
+
+     </tbody>
+    
+   </table>
+
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-arrayobject.uasort-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3845">
     <p><strong>Example #1 <span class="function"><strong>ArrayObject::uasort()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Comparison function<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">cmp</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">, </span><span style="color: #0000BB">$b</span><span style="color: #007700">) {<br />    if (</span><span style="color: #0000BB">$a </span><span style="color: #007700">== </span><span style="color: #0000BB">$b</span><span style="color: #007700">) {<br />        return </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    }<br />    return (</span><span style="color: #0000BB">$a </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">$b</span><span style="color: #007700">) ? -</span><span style="color: #0000BB">1 </span><span style="color: #007700">: </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// Array to be sorted<br /></span><span style="color: #0000BB">$array </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">8</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">9</span><span style="color: #007700">, </span><span style="color: #DD0000">'e' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'f' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #DD0000">'g' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'h' </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$arrayObject </span><span style="color: #007700">= new </span><span style="color: #0000BB">ArrayObject</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$arrayObject</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Sort and print the resulting array<br /></span><span style="color: #0000BB">$arrayObject</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">uasort</span><span style="color: #007700">(</span><span style="color: #DD0000">'cmp'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$arrayObject</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Comparison function<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">cmp</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">, </span><span style="color: #0000BB">$b</span><span style="color: #007700">) {<br />    if (</span><span style="color: #0000BB">$a </span><span style="color: #007700">== </span><span style="color: #0000BB">$b</span><span style="color: #007700">) {<br />        return </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    }<br />    return (</span><span style="color: #0000BB">$a </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">$b</span><span style="color: #007700">) ? -</span><span style="color: #0000BB">1 </span><span style="color: #007700">: </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// Array to be sorted<br /></span><span style="color: #0000BB">$array </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">8</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">9</span><span style="color: #007700">, </span><span style="color: #DD0000">'e' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'f' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">5</span><span style="color: #007700">, </span><span style="color: #DD0000">'g' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'h' </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$arrayObject </span><span style="color: #007700">= new </span><span style="color: #0000BB">ArrayObject</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$arrayObject</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Sort and print the resulting array<br /></span><span style="color: #0000BB">$arrayObject</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">uasort</span><span style="color: #007700">(</span><span style="color: #DD0000">'cmp'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$arrayObject</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [a] =&gt; 4
     [b] =&gt; 8
@@ -123,8 +150,8 @@ Array
     [a] =&gt; 4
     [f] =&gt; 5
     [b] =&gt; 8
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
@@ -135,12 +162,12 @@ Array
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="arrayobject.asort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::asort()</a> - Sort the entries by value</span></li>
-    <li class="member"><span class="methodname"><a href="arrayobject.ksort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::ksort()</a> - Sort the entries by key</span></li>
-    <li class="member"><span class="methodname"><a href="arrayobject.natsort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::natsort()</a> - Sort entries using a &quot;natural order&quot; algorithm</span></li>
-    <li class="member"><span class="methodname"><a href="arrayobject.natcasesort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::natcasesort()</a> - Sort an array using a case insensitive &quot;natural order&quot; algorithm</span></li>
-    <li class="member"><span class="methodname"><a href="arrayobject.uksort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::uksort()</a> - Sort the entries by keys using a user-defined comparison function</span></li>
-    <li class="member"><span class="function"><a href="function.uasort.html" class="function" rel="rdfs-seeAlso">uasort()</a> - 使用用户自定义的比较函数，保持索引和值的对应关系，原地排序 array。</span></li>
+    <li><span class="methodname"><a href="arrayobject.asort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::asort()</a> - Sort the entries by value</span></li>
+    <li><span class="methodname"><a href="arrayobject.ksort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::ksort()</a> - Sort the entries by key</span></li>
+    <li><span class="methodname"><a href="arrayobject.natsort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::natsort()</a> - Sort entries using a &quot;natural order&quot; algorithm</span></li>
+    <li><span class="methodname"><a href="arrayobject.natcasesort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::natcasesort()</a> - Sort an array using a case insensitive &quot;natural order&quot; algorithm</span></li>
+    <li><span class="methodname"><a href="arrayobject.uksort.html" class="methodname" rel="rdfs-seeAlso">ArrayObject::uksort()</a> - Sort the entries by keys using a user-defined comparison function</span></li>
+    <li><span class="function"><a href="function.uasort.html" class="function" rel="rdfs-seeAlso">uasort()</a> - 使用用户定义的比较函数对数组进行排序并保持索引关联</span></li>
    </ul>
   </p>
  </div>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>通过名称获取特定的外部变量，并且可以通过过滤器处理它</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.filter-input-array.html">? filter_input_array</a></li>
-      <li style="float: right;"><a href="function.filter-list.html">filter_list ?</a></li>
+      <li style="float: left;"><a href="function.filter-id.html">? filter_id</a></li>
+      <li style="float: right;"><a href="function.filter-input-array.html">filter_input_array ?</a></li>
     </ul>
   </div>
 </div>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.filter-input-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>filter_input</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$type</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$var_name</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$filter</code><span class="initializer"> = <strong><code>FILTER_DEFAULT</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">array</span>|<span class="type">int</span></span> <code class="parameter">$options</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>filter_input</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$type</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$var_name</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$filter</code><span class="initializer"> = <strong><code><a href="filter.constants.html#constant.filter-default">FILTER_DEFAULT</a></code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$options</code><span class="initializer"> = 0</span></span><br>): <span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span></div>
 
 
  </div>
@@ -44,96 +44,71 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">type</code></dt>
-
+     <dt><code class="parameter">type</code></dt>
      <dd>
-
       <p class="para">
-       <strong><code>INPUT_GET</code></strong>, <strong><code>INPUT_POST</code></strong>,
-       <strong><code>INPUT_COOKIE</code></strong>, <strong><code>INPUT_SERVER</code></strong>或
-       <strong><code>INPUT_ENV</code></strong>之一。
+       <strong><code><a href="filter.constants.html#constant.input-get">INPUT_GET</a></code></strong>, <strong><code><a href="filter.constants.html#constant.input-post">INPUT_POST</a></code></strong>,
+       <strong><code><a href="filter.constants.html#constant.input-cookie">INPUT_COOKIE</a></code></strong>, <strong><code><a href="filter.constants.html#constant.input-server">INPUT_SERVER</a></code></strong>或
+       <strong><code><a href="filter.constants.html#constant.input-env">INPUT_ENV</a></code></strong>之一。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">var_name</code></dt>
-
+     <dt><code class="parameter">var_name</code></dt>
      <dd>
-
       <p class="para">
        待获取的变量名。
       </p>
      </dd>
-
     
     
  
-  <dt>
-<code class="parameter">filter</code></dt>
-
+  <dt><code class="parameter">filter</code></dt>
   <dd>
-
    <p class="para">
-    The ID of the filter to apply. The <a href="filter.filters.html" class="xref">Types of filters</a>
-    manual page lists the available filters.
+    要应用的过滤器 ID。<a href="filter.filters.html" class="xref">过滤器类型</a> 手册页面列出了可用的过滤器。
    </p>
    <p class="para">
-    If omitted, <strong><code>FILTER_DEFAULT</code></strong> will be used, which is
-    equivalent to
-    <a href="filter.filters.sanitize.html" class="link"><strong><code>FILTER_UNSAFE_RAW</code></strong></a>.
-    This will result in no filtering taking place by default.
+    如果省略，将使用 <strong><code><a href="filter.constants.html#constant.filter-default">FILTER_DEFAULT</a></code></strong>，默认等同于 <a href="filter.filters.sanitize.html" class="link"><strong><code><a href="filter.constants.html#constant.filter-unsafe-raw">FILTER_UNSAFE_RAW</a></code></strong></a>。这将导致不进行任何默认过滤。
    </p>
   </dd>
-
  
 
     
-     <dt>
-<code class="parameter">options</code></dt>
-
+     <dt><code class="parameter">options</code></dt>
      <dd>
-
       <p class="para">
        一个选项的关联数组，或者按位区分的标示。如果过滤器接受选项，可以通过数组的 &quot;flags&quot; 位去提供这些标示。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.filter-input-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果成功的话返回所请求的变量。如果过滤失败则返回 <strong><code>false</code></strong>，如果<code class="parameter">var_name</code> 不存在的话则返回
-   <strong><code>null</code></strong>。如果标示 <strong><code>FILTER_NULL_ON_FAILURE</code></strong> 被使用了，那么当变量不存在时返回 <strong><code>false</code></strong>，当过滤失败时返回 <strong><code>null</code></strong>。
+   如果成功的话返回所请求的变量。如果过滤失败则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>，如果<code class="parameter">var_name</code> 不存在的话则返回
+   <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。如果标示 <strong><code><a href="filter.constants.html#constant.filter-null-on-failure">FILTER_NULL_ON_FAILURE</a></code></strong> 被使用了，那么当变量不存在时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>，当过滤失败时返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。
    </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.filter-input-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5174">
     <p><strong>Example #1 一个 <span class="function"><strong>filter_input()</strong></span> 的例子</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$search_html </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">, </span><span style="color: #DD0000">'search'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_SANITIZE_SPECIAL_CHARS</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$search_url </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">, </span><span style="color: #DD0000">'search'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_SANITIZE_ENCODED</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"You have searched for </span><span style="color: #0000BB">$search_html</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"&lt;a href='?search=</span><span style="color: #0000BB">$search_url</span><span style="color: #DD0000">'&gt;Search again.&lt;/a&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$search_html </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">, </span><span style="color: #DD0000">'search'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_SANITIZE_SPECIAL_CHARS</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$search_url </span><span style="color: #007700">= </span><span style="color: #0000BB">filter_input</span><span style="color: #007700">(</span><span style="color: #0000BB">INPUT_GET</span><span style="color: #007700">, </span><span style="color: #DD0000">'search'</span><span style="color: #007700">, </span><span style="color: #0000BB">FILTER_SANITIZE_ENCODED</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"You have searched for </span><span style="color: #0000BB">$search_html</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"&lt;a href='?search=</span><span style="color: #0000BB">$search_url</span><span style="color: #DD0000">'&gt;Search again.&lt;/a&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-You have searched for Me &amp;#38; son.
-&lt;a href=&#039;?search=Me%20%26%20son&#039;&gt;Search again.&lt;/a&gt;
-</pre></div>
+<div class="examplescode"><pre class="examplescode">You have searched for Me &amp;#38; son.
+&lt;a href=&#039;?search=Me%20%26%20son&#039;&gt;Search again.&lt;/a&gt;</pre>
+</div>
     </div>
    </div>
   </p>
@@ -144,10 +119,10 @@ You have searched for Me &amp;#38; son.
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.filter-var.html" class="function" rel="rdfs-seeAlso">filter_var()</a> - 使用特定的过滤器过滤一个变量</span></li>
-    <li class="member"><span class="function"><a href="function.filter-input-array.html" class="function" rel="rdfs-seeAlso">filter_input_array()</a> - 获取一系列外部变量，并且可以通过过滤器处理它们</span></li>
-    <li class="member"><span class="function"><a href="function.filter-var-array.html" class="function" rel="rdfs-seeAlso">filter_var_array()</a> - 获取多个变量并且过滤它们</span></li>
-    <li class="member"><a href="filter.filters.html" class="xref">Types of filters</a></li>
+    <li><span class="function"><a href="function.filter-var.html" class="function" rel="rdfs-seeAlso">filter_var()</a> - 使用特定的过滤器过滤一个变量</span></li>
+    <li><span class="function"><a href="function.filter-input-array.html" class="function" rel="rdfs-seeAlso">filter_input_array()</a> - 获取一系列外部变量，并且可以通过过滤器处理它们</span></li>
+    <li><span class="function"><a href="function.filter-var-array.html" class="function" rel="rdfs-seeAlso">filter_var_array()</a> - 获取多个变量并且过滤它们</span></li>
+    <li><a href="filter.filters.html" class="xref">过滤器类型</a></li>
    </ul>
   </p>
  </div>

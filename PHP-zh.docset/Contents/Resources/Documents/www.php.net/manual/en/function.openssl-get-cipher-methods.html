@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>获取可用的加密算法</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.openssl-get-cipher-methods-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>openssl_get_cipher_methods</strong></span>(<span class="methodparam"><span class="type">bool</span> <code class="parameter">$aliases</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>openssl_get_cipher_methods</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> <code class="parameter">$aliases</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong></span></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
   <p class="para rdfs-comment">
    获取可用的加密算法的列表。
@@ -49,19 +49,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">aliases</code></dt>
-
+     <dt><code class="parameter">aliases</code></dt>
      <dd>
-
       <p class="para">
-       如果密码别名应该包含在返回的<span class="type">array</span>中，则设置为 <strong><code>true</code></strong>.
+       如果密码别名应该包含在返回的<span class="type"><a href="language.types.array.html" class="type array">array</a></span>中，则设置为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -69,7 +64,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.openssl-get-cipher-methods-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   包含可用加密算法的<span class="type">array</span>。
+   包含可用加密算法的<span class="type"><a href="language.types.array.html" class="type array">array</a></span>。
    请注意：在 OpenSSL 1.1.1 版本之前，返回加密算法的拼法大小写都有；
    从 OpenSSL 1.1.1 开始，统一只返回小写的形式。
   </p>
@@ -77,24 +72,20 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.openssl-get-cipher-methods-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1876">
+   <div class="example" id="example-930">
     <p><strong>Example #1 <span class="function"><strong>openssl_get_cipher_methods()</strong></span> example</strong></p>
     <div class="example-contents"><p>
      展示了哪些加密算法能被找到，哪些别名可用。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$ciphers             </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_get_cipher_methods</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$ciphers_and_aliases </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_get_cipher_methods</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$cipher_aliases      </span><span style="color: #007700">= </span><span style="color: #0000BB">array_diff</span><span style="color: #007700">(</span><span style="color: #0000BB">$ciphers_and_aliases</span><span style="color: #007700">, </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//ECB mode should be avoided<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$n</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$n</span><span style="color: #007700">,</span><span style="color: #DD0000">"ecb"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /><br /></span><span style="color: #FF8000">//At least as early as Aug 2016, Openssl declared the following weak: RC2, RC4, DES, 3DES, MD5 based<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"des"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"rc2"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"rc4"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"md5"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$cipher_aliases </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$cipher_aliases</span><span style="color: #007700">,function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"des"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$cipher_aliases </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$cipher_aliases</span><span style="color: #007700">,function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"rc2"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$cipher_aliases</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$ciphers             </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_get_cipher_methods</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$ciphers_and_aliases </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_get_cipher_methods</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$cipher_aliases      </span><span style="color: #007700">= </span><span style="color: #0000BB">array_diff</span><span style="color: #007700">(</span><span style="color: #0000BB">$ciphers_and_aliases</span><span style="color: #007700">, </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//ECB mode should be avoided<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$n</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$n</span><span style="color: #007700">,</span><span style="color: #DD0000">"ecb"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /><br /></span><span style="color: #FF8000">//At least as early as Aug 2016, Openssl declared the following weak: RC2, RC4, DES, 3DES, MD5 based<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"des"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"rc2"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"rc4"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$ciphers </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">( </span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"md5"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$cipher_aliases </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$cipher_aliases</span><span style="color: #007700">,function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"des"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /></span><span style="color: #0000BB">$cipher_aliases </span><span style="color: #007700">= </span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$cipher_aliases</span><span style="color: #007700">,function(</span><span style="color: #0000BB">$c</span><span style="color: #007700">) { return </span><span style="color: #0000BB">stripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,</span><span style="color: #DD0000">"rc2"</span><span style="color: #007700">)===</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">; } );<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$ciphers</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$cipher_aliases</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [0] =&gt; aes-128-cbc
     [1] =&gt; aes-128-cbc-hmac-sha1
@@ -223,9 +214,8 @@ Array
     [146] =&gt; idea
     [164] =&gt; seed
     [169] =&gt; sm4
-)
-
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
@@ -236,7 +226,7 @@ Array
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.openssl-get-md-methods.html" class="function" rel="rdfs-seeAlso">openssl_get_md_methods()</a> - 获取可用的摘要算法</span></li>
+    <li><span class="function"><a href="function.openssl-get-md-methods.html" class="function" rel="rdfs-seeAlso">openssl_get_md_methods()</a> - 获取可用的摘要算法</span></li>
    </ul>
   </p>
  </div>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>初始化 cURL 会话</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,10 +35,10 @@
  <div class="refsect1 description" id="refsect1-function.curl-init-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>curl_init</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$url</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">resource</span></div>
+   <span class="methodname"><strong>curl_init</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$url</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="class.curlhandle.html" class="type CurlHandle">CurlHandle</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
-   初始化新的会话，返回 cURL 句柄，供<span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span>、 <span class="function"><a href="function.curl-exec.html" class="function">curl_exec()</a></span> 和 <span class="function"><a href="function.curl-close.html" class="function">curl_close()</a></span> 函数使用。
+   初始化新会话，返回 cURL 句柄，供 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span>、<span class="function"><a href="function.curl-exec.html" class="function">curl_exec()</a></span> 和 <span class="function"><a href="function.curl-close.html" class="function">curl_close()</a></span> 函数使用。
   </p>
  </div>
 
@@ -48,13 +48,10 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">url</code></dt>
-
+     <dt><code class="parameter">url</code></dt>
      <dd>
-
       <p class="para">
-       如果提供了该参数，<strong><code>CURLOPT_URL</code></strong> 选项将会被设置成这个值。你也可以使用<span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span>函数手动地设置这个值。
+       如果提供了该参数，<strong><code><a href="curl.constants.html#constant.curlopt-url">CURLOPT_URL</a></code></strong> 选项将会被设置成这个值。也可以使用 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span> 函数手动地设置这个值。
       </p>
       <blockquote class="note"><p><strong class="note">Note</strong>: 
        <p class="para">
@@ -62,10 +59,8 @@
        </p>
       </p></blockquote>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -73,23 +68,54 @@
  <div class="refsect1 returnvalues" id="refsect1-function.curl-init-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果成功，返回 cURL 句柄，出错返回 <strong><code>false</code></strong>。
+   成功时返回 cURL 句柄，错误时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
  
+ <div class="refsect1 changelog" id="refsect1-function.curl-init-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       此函数成功时现在返回 <span class="classname"><a href="class.curlhandle.html" class="classname">CurlHandle</a></span> 实例；之前返回 <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>。
+      </td>
+     </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">url</code> 现在可为 null。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.curl-init-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4299">
     <p><strong>Example #1 
-     初始化新的 cURL 会话并获取一个网页
+     初始化新 cURL 会话并获取网页
     </strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建一个新cURL资源<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 设置URL和相应的选项<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_URL</span><span style="color: #007700">, </span><span style="color: #DD0000">"http://www.example.com/"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_HEADER</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 抓取URL并把它传递给浏览器<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 关闭cURL资源，并且释放系统资源<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建新 cURL 资源<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 设置 URL 和相应的选项<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_URL</span><span style="color: #007700">, </span><span style="color: #DD0000">"http://www.example.com/"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">CURLOPT_HEADER</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 抓取 URL 并把它传递给浏览器<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 关闭 cURL 资源，并且释放系统资源<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -101,8 +127,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.curl-close.html" class="function" rel="rdfs-seeAlso">curl_close()</a> - 关闭 cURL 会话</span></li>
-    <li class="member"><span class="function"><a href="function.curl-multi-init.html" class="function" rel="rdfs-seeAlso">curl_multi_init()</a> - 返回一个新cURL批处理句柄</span></li>
+    <li><span class="function"><a href="function.curl-close.html" class="function" rel="rdfs-seeAlso">curl_close()</a> - 关闭 cURL 会话</span></li>
+    <li><span class="function"><a href="function.curl-multi-init.html" class="function" rel="rdfs-seeAlso">curl_multi_init()</a> - 返回新 cURL 批处理句柄</span></li>
    </ul>
   </p>
  </div>
@@ -112,6 +138,94 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
- <div class="note">There are no user contributed notes for this page.</div>
+<div id="allnotes">  <a name="129047""></a>
+  <div class="note">
+   <strong class="user">VictorWumble</strong>
+   <a href="#129047" class="date">15-Nov-2023 01:52</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+NextgenThemes' note is applicable for very very limited situations. For completeness's sake, let's consider the following code snippet:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">/*<br />
+Your localhost has a default Apache which simply returns "It works!"<br />
+*/<br />
+<br />
+</span><span class="default">$repeatCount </span><span class="keyword">= </span><span class="default">1000</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// begin section<br />
+// this section is slow<br />
+<br />
+// call localhost, create new handle each time<br />
+</span><span class="default">$time </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+foreach (</span><span class="default">range</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">$repeatCount</span><span class="keyword">) as </span><span class="default">$ignored</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">(</span><span class="string">"<a href="http://localhost" rel="nofollow" target="_blank">http://localhost</a>"</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$response </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// do something with the response<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">unset(</span><span class="default">$response</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">curl_close</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br />
+}<br />
+unset(</span><span class="default">$ch</span><span class="keyword">);<br />
+</span><span class="default">$elapsed </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$time</span><span class="keyword">;<br />
+echo </span><span class="string">"Recreate curl handle, time taken: " </span><span class="keyword">. </span><span class="default">$elapsed </span><span class="keyword">. </span><span class="string">"\n"</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// end section<br />
+<br />
+// begin section<br />
+// this section is much faster<br />
+<br />
+// call localhost, but reuse the handle<br />
+</span><span class="default">$time </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />
+</span><span class="default">$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">(</span><span class="string">"<a href="http://localhost" rel="nofollow" target="_blank">http://localhost</a>"</span><span class="keyword">);<br />
+foreach (</span><span class="default">range</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">$repeatCount</span><span class="keyword">) as </span><span class="default">$ignored</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$response </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="comment">// do something with the response<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">unset(</span><span class="default">$response</span><span class="keyword">);<br />
+}<br />
+</span><span class="default">curl_close</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br />
+</span><span class="default">$elapsed </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$time</span><span class="keyword">;<br />
+echo </span><span class="string">"Reuse curl handle, time taken: " </span><span class="keyword">. </span><span class="default">$elapsed </span><span class="keyword">. </span><span class="string">"\n"</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">// end section<br />
+<br />
+/*<br />
+Example output:<br />
+Recreate curl handle, time taken: 11.289301872253<br />
+Reuse curl handle, time taken: 0.53790807723999<br />
+*/<br />
+<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The above code supports the claim by NextgenThemes, however the "send curl requests in sequence" method in general is unnecessarily slow because:<br />
+- network transfer time (e.g. 100ms)<br />
+- remote processing time (e.g. 50ms)<br />
+- usually, no need to send requests in specific sequence<br />
+<br />
+So, in practice, when you need to send multiple curl requests at the same time, just use the curl_multi_init method. Don't consider the "send curl requests in sequence" method unless you have very very specific/special needs.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128394""></a>
+  <div class="note">
+   <strong class="user">NextgenThemes</strong>
+   <a href="#128394" class="date">13-Apr-2023 07:40</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This may be obvious, but:<br />
+<br />
+Note that is MUCH faster to use use a single instance to make a series of curl requests rather than creating a new instance for each request.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+</div>
 </div>
 </div></div></body></html>

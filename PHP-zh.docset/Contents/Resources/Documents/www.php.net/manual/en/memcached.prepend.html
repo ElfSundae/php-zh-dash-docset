@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>向一个已存在的元素前面追加数据</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-memcached.prepend-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::prepend</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Memcached::prepend</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$key</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$value</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>Memcached::prepend()</strong></span> 向已存在元素的字符串值前追加 <code class="parameter">value</code>。
@@ -43,7 +43,7 @@
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    如果 <strong><code>Memcached::OPT_COMPRESSION</code></strong> 常量开启，这个操作会失败，并引发一个警告，因为向压缩数据
+    如果 <strong><code><a href="memcached.constants.html#memcached.constants.opt-compression">Memcached::OPT_COMPRESSION</a></code></strong> 常量开启，这个操作会失败，并引发一个警告，因为向压缩数据
     后追加数据可能会导致解压不了。
    </p>
   </p></blockquote>
@@ -55,31 +55,22 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">key</code></dt>
-
+     <dt><code class="parameter">key</code></dt>
      <dd>
-
       <p class="para">
        要向前追加数据的元素的 key。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">value</code></dt>
-
+     <dt><code class="parameter">value</code></dt>
      <dd>
-
       <p class="para">
        要追加的字符串。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -87,29 +78,33 @@
  <div class="refsect1 returnvalues" id="refsect1-memcached.prepend-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
-   如果 key 不存在，<span class="methodname"><a href="memcached.getresultcode.html" class="methodname">Memcached::getResultCode()</a></span> 返回 <strong><code>Memcached::RES_NOTSTORED</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+   当打开压缩时，返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-memcached.prepend-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   当压缩启用时返回 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 并引发 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-memcached.prepend-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4505">
     <p><strong>Example #1 <span class="function"><strong>Memcached::prepend()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setOption</span><span style="color: #007700">(</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">OPT_COMPRESSION</span><span style="color: #007700">, </span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'abc'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepend</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'def'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$m </span><span style="color: #007700">= new </span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setOption</span><span style="color: #007700">(</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">OPT_COMPRESSION</span><span style="color: #007700">, </span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'abc'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepend</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'def'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-string(6) &quot;defabc&quot;
-</pre></div>
+<div class="examplescode"><pre class="examplescode">string(6) &quot;defabc&quot;</pre>
+</div>
     </div>
    </div>
   </p>
@@ -120,8 +115,8 @@ string(6) &quot;defabc&quot;
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="methodname"><a href="memcached.prependbykey.html" class="methodname" rel="rdfs-seeAlso">Memcached::prependByKey()</a> - 在指定服务器上追加数据到已存在的元素</span></li>
-    <li class="member"><span class="methodname"><a href="memcached.append.html" class="methodname" rel="rdfs-seeAlso">Memcached::append()</a> - 向已存在元素追加数据</span></li>
+    <li><span class="methodname"><a href="memcached.prependbykey.html" class="methodname" rel="rdfs-seeAlso">Memcached::prependByKey()</a> - 在指定服务器上追加数据到已存在的元素</span></li>
+    <li><span class="methodname"><a href="memcached.append.html" class="methodname" rel="rdfs-seeAlso">Memcached::append()</a> - 向已存在元素追加数据</span></li>
    </ul>
   </p>
  </div>

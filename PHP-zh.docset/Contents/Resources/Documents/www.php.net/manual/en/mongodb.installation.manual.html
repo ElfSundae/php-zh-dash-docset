@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Building the MongoDB PHP Driver from source</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="mongodb.installation.windows.html">? Installing the MongoDB PHP Driver on Windows</a></li>
+      <li style="float: left;"><a href="mongodb.installation.windows.html">? Installing the MongoDB PHP Extension on Windows</a></li>
       <li style="float: right;"><a href="mongodb.configuration.html">运行时配置 ?</a></li>
     </ul>
   </div>
@@ -29,8 +29,8 @@
   <h2 class="title">Building the MongoDB PHP Driver from source</h2>
 
   <p class="para">
-   For driver developers and people interested in the latest bugfixes, you can
-   compile the driver from the latest source code on
+   For developers and users interested in the latest bugfixes, the extension
+   may be compiled from the latest source code on
    <a href="https://github.com/mongodb/mongo-php-driver" class="link external" title="Link : https://github.com/mongodb/mongo-php-driver">&raquo;&nbsp;Github</a>. Run the following
    commands to clone and build the project:
    <div class="example-contents">
@@ -47,24 +47,22 @@ $ sudo make install</pre>
   </p>
 
   <p class="para">
-   If your system has multiple version of PHP installed (e.g. macOS default,
-   Homebrew, <a href="https://www.apachefriends.org/" class="link external" title="Link : https://www.apachefriends.org/">&raquo;&nbsp;XAMPP</a>), note that each
-   version of PHP has its own <a href="install.pecl.phpize.html" class="link">phpize</a>
+   On systems with multiple version of PHP installed (e.g. macOS default,
+   Homebrew, <a href="https://www.apachefriends.org/" class="link external" title="Link : https://www.apachefriends.org/">&raquo;&nbsp;XAMPP</a>), each version of PHP
+   will have its own <a href="install.pecl.phpize.html" class="link">phpize</a>
    command and <var class="filename">php.ini</var> file(s). Additionally, each PHP environments (e.g.
    CLI, web) may use separate <var class="filename">php.ini</var> files.
   </p>
 
   <p class="para">
-   By default, the driver will use bundled versions of
+   By default, the extension will use bundled versions of
    <a href="https://github.com/mongodb/mongo-c-driver/tree/master/src/libbson" class="link external" title="Link : https://github.com/mongodb/mongo-c-driver/tree/master/src/libbson">&raquo;&nbsp;libbson</a>,
    <a href="https://github.com/mongodb/mongo-c-driver" class="link external" title="Link : https://github.com/mongodb/mongo-c-driver">&raquo;&nbsp;libmongoc</a>, and
    <a href="https://github.com/mongodb/libmongocrypt" class="link external" title="Link : https://github.com/mongodb/libmongocrypt">&raquo;&nbsp;libmongocrypt</a> and
-   attempt to configure them on its own. If these libraries are already
-   installed as system libraries, you can instruct the driver to utilize them by
-   specifying <code class="literal">--with-libbson=yes --with--libmongoc=yes</code> as
-   arguments to <code class="literal">configure</code>. Starting with version 1.7.0 of the
-   extension, these arguments are deprecated and you should use
-   <code class="literal">--with-mongodb-system-libs=yes</code> instead.
+   attempt to configure them automatically. If these libraries are already
+   installed as system libraries, the extension can utilize them by
+   specifying <code class="literal">--with-mongodb-system-libs=yes</code> as an option to
+   <code class="literal">configure</code>.
   </p>
 
   <p class="para">
@@ -73,15 +71,12 @@ $ sudo make install</pre>
   </p>
 
   <p class="para">
-   When using bundled versions of libbson and libmongoc, the driver will also
-   attempt to select an SSL library according to the
-   <code class="literal">--with-mongodb-ssl</code> option for
-   <code class="literal">configure</code>. The default value is
-   <code class="literal">--with-mongodb-ssl=auto</code>, which will search for Secure
-   Transport (macOS only), OpenSSL, and LibreSSL, in that order. Additionally,
-   you may specify <code class="literal">openssl</code>, <code class="literal">libressl</code>, or
-   <code class="literal">darwin</code> to force selection of a particular library,
-   respectively.
+   When using bundled versions of libmongoc and libmongocrypt, the extension
+   will also attempt to select an SSL library according to the
+   <code class="literal">--with-mongodb-ssl</code> <code class="literal">configure</code> option.
+   As of extension version 1.17.0, OpenSSL is always preferred by default.
+   Previously, Secure Transport was the default on macOS and OpenSSL was the
+   default on all other platforms.
   </p>
 
   <blockquote class="note"><p><strong class="note">Note</strong>: 
@@ -107,7 +102,7 @@ $ sudo make install</pre>
    The final build step, <strong class="command">make install</strong>, will report where
    <var class="filename">mongodb.so</var> has been installed, similar to:
    <div class="example-contents">
-<div class="txtcode"><pre class="txtcode">Installing shared extensions:     /usr/lib/php/extensions/debug-non-zts-20151012/</pre>
+<div class="txtcode"><pre class="txtcode">Installing shared extensions:     /usr/lib/php/extensions/debug-non-zts-20220829/</pre>
 </div>
    </div>
 
@@ -116,11 +111,11 @@ $ sudo make install</pre>
   <p class="para">
    Ensure that the <a href="ini.core.html#ini.extension-dir" class="link">extension_dir</a> option
    in <var class="filename">php.ini</var> points to the directory where <var class="filename">mongodb.so</var>
-   was installed. You can query for the option by running:
+   was installed. The option may be queried by running:
    <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">$ php -i | grep extension_dir
-  extension_dir =&gt; /usr/lib/php/extensions/debug-non-zts-20151012 =&gt;
-                   /usr/lib/php/extensions/debug-non-zts-20151012</pre>
+  extension_dir =&gt; /usr/lib/php/extensions/debug-non-zts-20220829 =&gt;
+                   /usr/lib/php/extensions/debug-non-zts-20220829</pre>
 </div>
    </div>
 
@@ -134,7 +129,7 @@ $ sudo make install</pre>
 
   <p class="para">
    Finally, add the following line to the <var class="filename">php.ini</var> file for each environment
-   in which you intend to use the driver:
+   that will need to use the extension:
    <div class="example-contents">
 <div class="inicode"><pre class="inicode">extension=mongodb.so</pre>
 </div>

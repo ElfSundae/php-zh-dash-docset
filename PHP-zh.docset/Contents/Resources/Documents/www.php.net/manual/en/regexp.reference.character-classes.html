@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>字符类(方括号)</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -155,7 +155,62 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126435""></a>
+<div id="allnotes">  <a name="128198""></a>
+  <div class="note">
+   <strong class="user">Julian</strong>
+   <a href="#128198" class="date">08-Feb-2023 12:48</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Examples with Character classes<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$stringA </span><span class="keyword">= </span><span class="string">"1 In the beginning God created the heavens and the earth."</span><span class="keyword">;<br />
+</span><span class="default">$stringB </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^alnum:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringA</span><span class="keyword">); </span><span class="comment">// string(46) "1InthebeginningGodcreatedtheheavensandtheearth"<br />
+</span><span class="default">$stringC </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^alpha:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringA</span><span class="keyword">); </span><span class="comment">// string(45) "InthebeginningGodcreatedtheheavensandtheearth"<br />
+</span><span class="default">$stringD </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^ascii:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="string">"Pokémon"</span><span class="keyword">); </span><span class="comment">// string(6) "Pokmon"<br />
+</span><span class="default">$stringE </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^blank:]]/'</span><span class="keyword">, </span><span class="string">'*'</span><span class="keyword">, </span><span class="default">$stringA</span><span class="keyword">); </span><span class="comment">// string(57) "* ** *** ********* *** ******* *** ******* *** *** ******"<br />
+</span><span class="default">$stringF </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:blank:]]/'</span><span class="keyword">, </span><span class="string">'-'</span><span class="keyword">, </span><span class="default">$stringA</span><span class="keyword">); </span><span class="comment">// string(57) "1-In-the-beginning-God-created-the-heavens-and-the-earth."<br />
+<br />
+</span><span class="default">$stringG </span><span class="keyword">= </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">"Vertical Tabulation: %s"</span><span class="keyword">, </span><span class="default">chr</span><span class="keyword">(</span><span class="default">11</span><span class="keyword">)); </span><span class="comment">// string(22) "Vertical Tabulation: "<br />
+</span><span class="default">$stringH </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:cntrl:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(21) "Vertical Tabulation: "<br />
+</span><span class="default">$stringLengthG </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// int(22)<br />
+</span><span class="default">$stringLengthH </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$stringH</span><span class="keyword">); </span><span class="comment">// int(21)<br />
+<br />
+</span><span class="default">$stringI </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:digit:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="string">'My age is 35'</span><span class="keyword">); </span><span class="comment">//string(10) "My age is "<br />
+</span><span class="default">$stringJ </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^digit:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="string">'My age is 35'</span><span class="keyword">); </span><span class="comment">// string(2) "35"<br />
+<br />
+</span><span class="default">$stringK </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^graph:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(19) "VerticalTabulation:"<br />
+</span><span class="default">$stringL </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:graph:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(3) "&nbsp; "<br />
+<br />
+</span><span class="default">$stringM </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:lower:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(6) "V T: "<br />
+</span><span class="default">$stringN </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^lower:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(16) "erticalabulation"<br />
+<br />
+</span><span class="default">$stringO </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^print:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(21) "Vertical Tabulation: "<br />
+</span><span class="default">$stringP </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:print:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(1) ""<br />
+<br />
+</span><span class="default">$stringQ </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:punct:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(21) "Vertical Tabulation "<br />
+</span><span class="default">$stringR </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^punct:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(1) ":"<br />
+<br />
+</span><span class="default">$stringS </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:space:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(19) "VerticalTabulation:"<br />
+</span><span class="default">$stringT </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^space:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(3) "&nbsp; "<br />
+<br />
+</span><span class="default">$stringU </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:upper:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(20) "ertical abulation: "<br />
+</span><span class="default">$stringV </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^upper:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(2) "VT"<br />
+<br />
+</span><span class="default">$stringW </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:word:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(4) " : "<br />
+</span><span class="default">$stringX </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^word:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$stringG</span><span class="keyword">); </span><span class="comment">// string(18) "VerticalTabulation"<br />
+<br />
+</span><span class="default">$stringY </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:xdigit:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="string">'abcdefghijklmnopqrstuvwxyz0123456789'</span><span class="keyword">); </span><span class="comment">// string(20) "ghijklmnopqrstuvwxyz"<br />
+</span><span class="default">$stringZ </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[[:^xdigit:]]/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="string">'abcdefghijklmnopqrstuvwxyz0123456789'</span><span class="keyword">); </span><span class="comment">// string(16) "abcdef0123456789"</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126435""></a>
   <div class="note">
    <strong class="user">greaties at ghvernuft dot nl</strong>
    <a href="#126435" class="date">18-Sep-2021 11:58</a>

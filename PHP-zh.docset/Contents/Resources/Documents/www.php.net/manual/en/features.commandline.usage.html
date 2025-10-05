@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>执行 PHP 文件</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -96,12 +96,12 @@ $ some_application | some_filter | php | sort -u &gt; final_output.txt
   没有限制传送给脚本的参数的个数（ shell 对传递的字符数有限制，但通常都不会超过该限制）。传递给脚本的参数可在全局数组
   <var class="varname"><a href="reserved.variables.argv.html" class="classname">$argv</a></var> 中获取。第一个索引（零）始终包含从命令行中调用的脚本名称。注意在命令行内使用 <strong class="option unknown">-r</strong>
   执行 PHP 代码时， <var class="varname"><a href="reserved.variables.argv.html" class="classname">$argv[0]</a></var> 的值将是 <code class="literal">&quot;Standard input code&quot;</code>；
-  在 PHP 7.2.0 之前是破折号（<code class="literal">-</code>）。如果代码是通过来自 <code class="literal">STDIN</code> 的管道执行的，同样如此。
+  在 PHP 7.2.0 之前是破折号（<code class="literal">-</code>）。如果代码是通过来自 <strong><code><a href="reserved.constants.html#constant.stdin">STDIN</a></code></strong> 的管道执行的，同样如此。
   </p>
 
   <p class="para">
    另外，第二个全局变量 <var class="varname"><a href="reserved.variables.argc.html" class="classname">$argc</a></var> 包含 <var class="varname"><a href="reserved.variables.argv.html" class="classname">$argv</a></var>
-   数组中元素的个数（而<em class="emphasis">不是</em>传递给脚本的参数个数）。
+   数组中元素的个数（而<strong>不是</strong>传递给脚本的参数个数）。
   </p>
   
   <p class="para">
@@ -140,13 +140,10 @@ array(2) {
    shell/perl 脚本一样可以执行。
   </p>
   
-  <div class="example" id="example-940">
+  <div class="example" id="example-460">
    <p><strong>Example #1 PHP 脚本作为 shell 脚本执行</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-#!/usr/bin/php<br /><span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$argv</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000">#!/usr/bin/php<br /><span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$argv</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
    <div class="example-contents"><p>
@@ -184,13 +181,10 @@ array(4) {
   </p>
   
   <p class="para">
-   <div class="example" id="example-942">
+   <div class="example" id="example-461">
     <p><strong>Example #2 试图以命令行方式运行的 PHP 脚本（script.php）</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-#!/usr/bin/php<br /><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$argc </span><span style="color: #007700">!= </span><span style="color: #0000BB">2 </span><span style="color: #007700">|| </span><span style="color: #0000BB">in_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$argv</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">], array(</span><span style="color: #DD0000">'--help'</span><span style="color: #007700">, </span><span style="color: #DD0000">'-help'</span><span style="color: #007700">, </span><span style="color: #DD0000">'-h'</span><span style="color: #007700">, </span><span style="color: #DD0000">'-?'</span><span style="color: #007700">))) {<br /></span><span style="color: #0000BB">?&gt;<br /></span><br />This is a command line PHP script with one option.<br /><br />  Usage:<br />  <span style="color: #0000BB">&lt;?php </span><span style="color: #007700">echo </span><span style="color: #0000BB">$argv</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]; </span><span style="color: #0000BB">?&gt;</span> &lt;option&gt;<br /><br />  &lt;option&gt; can be some word you would like<br />  to print out. With the --help, -help, -h,<br />  or -? options, you can get this help.<br /><br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">} else {<br />    echo </span><span style="color: #0000BB">$argv</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000">#!/usr/bin/php<br /><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$argc </span><span style="color: #007700">!= </span><span style="color: #0000BB">2 </span><span style="color: #007700">|| </span><span style="color: #0000BB">in_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$argv</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">], array(</span><span style="color: #DD0000">'--help'</span><span style="color: #007700">, </span><span style="color: #DD0000">'-help'</span><span style="color: #007700">, </span><span style="color: #DD0000">'-h'</span><span style="color: #007700">, </span><span style="color: #DD0000">'-?'</span><span style="color: #007700">))) {<br /></span><span style="color: #0000BB">?&gt;<br /></span><br />This is a command line PHP script with one option.<br /><br />  Usage:<br />  <span style="color: #0000BB">&lt;?php </span><span style="color: #007700">echo </span><span style="color: #0000BB">$argv</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]; </span><span style="color: #0000BB">?&gt;</span> &lt;option&gt;<br /><br />  &lt;option&gt; can be some word you would like<br />  to print out. With the --help, -help, -h,<br />  or -? options, you can get this help.<br /><br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">} else {<br />    echo </span><span style="color: #0000BB">$argv</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -213,10 +207,10 @@ array(4) {
   </p>
   
   <p class="para">
-   <div class="example" id="example-944">
+   <div class="example" id="example-462">
     <p><strong>Example #3 运行 PHP 命令行脚本的批处理文件（script.bat）</strong></p>
     <div class="example-contents">
-<div class="shellcode"><pre class="shellcode">@echo OFF
+<div class="winbatcode"><pre class="winbatcode">@echo OFF
 &quot;C:\php\php.exe&quot; script.php %*</pre>
 </div>
     </div>

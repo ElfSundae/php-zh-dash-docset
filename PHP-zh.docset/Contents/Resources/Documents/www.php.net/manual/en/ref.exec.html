@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>程序执行函数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="exec.constants.html">? 预定义常量</a></li>
+      <li style="float: left;"><a href="exec.resources.html">? 资源类型</a></li>
       <li style="float: right;"><a href="function.escapeshellarg.html">escapeshellarg ?</a></li>
     </ul>
   </div>
@@ -159,76 +159,6 @@ Note that `popen` is also a program execution function, which for some reason is
    </div>
   </div>
  <div class="foot"></div>
-  <a name="120738""></a>
-  <div class="note">
-   <strong class="user">HappyDog, kennel17.co.uk</strong>
-   <a href="#120738" class="date">04-Mar-2017 12:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Just following up my previous post, in reply to lancelot--du-lac at hotmail dot fr:<br />
-<br />
-The behaviour described was fixed in PHP 5.3 in the following commit:<br />
-<br />
-https://github.com/php/php-src/commit/19322fc782af429938da8d3b421c0807cf1b848a#diff-15f2d3ef68f383a87cce668765721041R221<br />
-<br />
-To replicate the fix in your own code, so it also runs on PHP 5.2, instead of:<br />
-<br />
-<span class="default">&lt;?php<br />
-$cmd </span><span class="keyword">= </span><span class="string">"...any shell command, maybe with multiple quotes..."</span><span class="keyword">;<br />
-</span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-use<br />
-<br />
-<span class="default">&lt;?php<br />
-$cmd </span><span class="keyword">= </span><span class="string">"...any shell command, maybe with multiple quotes..."</span><span class="keyword">;<br />
-<br />
-if (</span><span class="default">strtoupper</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">php_uname</span><span class="keyword">(</span><span class="string">'s'</span><span class="keyword">), </span><span class="default">0</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">)) == </span><span class="string">"WIN"<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">&amp;&amp; </span><span class="default">version_compare</span><span class="keyword">(</span><span class="default">PHP_VERSION</span><span class="keyword">, </span><span class="string">"5.3"</span><span class="keyword">, </span><span class="string">"&lt;"</span><span class="keyword">)) <br />
-{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cmd </span><span class="keyword">= </span><span class="string">'"' </span><span class="keyword">. </span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">'"'</span><span class="keyword">;<br />
-}<br />
-<br />
-</span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-This replicates the behaviour of PHP 5.3 and above.&nbsp; Note that this applies to all shell commands (not just exec(), as used in my example).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="99505""></a>
-  <div class="note">
-   <strong class="user">benkitzelman at yahoo dot co dot uk</strong>
-   <a href="#99505" class="date">20-Aug-2010 08:02</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Within Linux, when calling the php interpreter directly from popen, or other program execution function to execute a script, it appears as though the script perpetually fails and re-executes. 
-<br />
-
-<br />
-i.e. <span class="default">&lt;?php popen</span><span class="keyword">(</span><span class="string">"php myscript.php&amp;"</span><span class="keyword">, </span><span class="string">"w"</span><span class="keyword">); </span><span class="comment">// fail </span><span class="default">?&gt;
-<br />
-</span>
-<br />
-As each re-execution causes the executing script to load under a new PID, it is incredibly difficult to identify and kill the process manually. 
-<br />
-
-<br />
-[One solution is] to ensure the executing script has a valid shebang, and execute permissions. This allows you to execute the script directly
-<br />
-
-<br />
-i.e. <span class="default">&lt;?php popen</span><span class="keyword">(</span><span class="string">"./myscript.php"</span><span class="keyword">, </span><span class="string">"w"</span><span class="keyword">); </span><span class="comment">// ok </span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="84330""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
@@ -346,57 +276,6 @@ $cmd = "\"\"C:\\my path with spaces\\targetapp.exe\" \"C:\\mypathnospaces\\targe
 <br />
 and exec($cmd) will work :)<br />
 no chdir anymore...</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="80612""></a>
-  <div class="note">
-   <strong class="user">lancelot--du-lac at hotmail dot fr</strong>
-   <a href="#80612" class="date">24-Jan-2008 11:00</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The note is about usage of exec() under windows...<br />
-<br />
-In replay to k dot mitz dot NO_SPAM at att dot NO_SPAM dot net: why not enclose your $cmd in simple quotes instead?<br />
-<br />
-Here is where i'm at right now (also TRYING to use exec() and passthru() on windows XP sp2):<br />
-<br />
-you can do this:<br />
-<br />
-$cmd = '"C:\my path with spaces\targetapp.exe" C:\mypathnospaces\targetfile.xxx';<br />
-exec($cmd);<br />
-<br />
-The above works.<br />
-________<br />
-<br />
-Or, you can put your script into your directory C:\my path with spaces\, and work with php directly from there:<br />
-<br />
-$cmd = 'targetapp.exe "C:\my other path with spaces\targetfile.xxx"';<br />
-exec($cmd);<br />
-<br />
-The above also works, provided of course your script has the correct working directory.<br />
-________<br />
-<br />
-But... In your cmd.exe, you can issue:<br />
-<br />
-"C:\my path with spaces\targetapp.exe" "C:\my other path with spaces\targetfile.xxx"<br />
-<br />
-Although the above works perfectly in the cmd, the following php script does NOT work on my system:<br />
-<br />
-$cmd = '"C:\my path with spaces\targetapp.exe" "C:\my other path with spaces\targetfile.xxx"';<br />
-exec($cmd,&amp;$content);<br />
-<br />
-Not that it sends an error, it just does nothing, and you get nothing written into your $content array... Not that I do understand why.<br />
-________<br />
-<br />
-As far as my few tryings go, the root of the problem lies in the fact that the command to execute has two passages enclosed inside double quotes. Another command which I've had working in the cmd but NOT with php is:<br />
-<br />
-'"C:\my path with spaces\Apache2\bin\Apache.exe" -w -n "Apache2" -k restart'<br />
-<br />
-Maybe someone has a solution; I don't (other than using chdir).</span>
 </code>
     </div>
    </div>
@@ -533,38 +412,6 @@ Make sure you use&nbsp; "\ " ( \ space) for the Linux\unix path and just " " spa
 I ran into this problem when using &lt;? exec(" cp $path "); ?&gt; and &lt;? fopen("$path"); ?&gt;. To fix it I used str_replace(" ","\ ",$path); and str_replace("\ ", " ",$path); <br />
 <br />
 *Note this is alot of sudo code, and there are faster more effecient ways of doing the same operations, but I thought this might help those who were going crazy over filepaths =D.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="69789""></a>
-  <div class="note">
-   <strong class="user">t dot kramer at NOSPAM dot safetbus dot de</strong>
-   <a href="#69789" class="date">21-Sep-2006 02:21</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Trying to us the following code failed badly with various results: like "unable to fork", "access denied", "empty results", depending on what settings I used, ... even though the same code worked from command line on the server itself.<br />
-<br />
-$retstr = exec('nslookup -type=mx myhost.com', $retarr);<br />
-<br />
-Instead of nslookup I believe this would apply to most programs from the \system32\ directory.<br />
-<br />
-I had to learn that the following finally worked:<br />
-$retstr = exec('c:\php\safedir\nslookup -type=mx myhost.com', $retarr);<br />
-<br />
-... but only under the listed preconditions:<br />
-1: nslookup.exe is placed (copied) in the directory \php\safedir\<br />
-2: the directory \php\safedir\ is included in the system PATH environement variable<br />
-3: the file cmd.exe is placed in \php\ as listed by other notes above<br />
-4: the directory "c:\php\safedir\" is set in the php.ini setting <br />
-safe_mode_exec_dir = "c:\php\safedir\"<br />
-.. maybe set in php-activescript.ini as well, depending on your system setup.<br />
-5: nslookup is referenced by the full path as otherwise the file from \windows\system32\ will be called. This happend to me with empty result due to missing rights!<br />
-<br />
-Hope this helps somebody saving some time and headaches.<br />
-Thomas</span>
 </code>
     </div>
    </div>
@@ -1011,33 +858,6 @@ Which will cause the default handeling application for .MP3 file types to start 
    </div>
   </div>
  <div class="foot"></div>
-  <a name="25231""></a>
-  <div class="note">
-   <strong class="user">k dot mitz dot NO_SPAM at att dot NO_SPAM dot net</strong>
-   <a href="#25231" class="date">15-Sep-2002 02:07</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Newbie note:<br />
-<br />
-The only syntax I found to work for the command portion of an an exec() call on a Win2K devel platform is:<br />
-<br />
-$cmd = "\"path-to-exe\" args file-name";<br />
-<br />
-where 'path-to-exe' has escaped double quotes, args are in the standard format, and 'file-name' has any backslashes escaped.<br />
-<br />
-Example:<br />
-<br />
-$cmd = "\"C:\program files\winzip\wzunzip.exe\" -c C:\\temp\\uploaded_file.zip";<br />
-<br />
-exec($cmd,$output,$rv);<br />
-<br />
-Note that the backslashes are escaped in the uploaded_file name, but not in the path to call the Winzip executable.&nbsp; Go figure!</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="24302""></a>
   <div class="note">
    <strong class="user">kop at meme dot com</strong>
@@ -1135,66 +955,6 @@ function wait_until_termination ($id, $duration){<br />
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo ("wait_until_termination (PID: $id, SEC: $duration) : LOOPS<br />
 :$i&lt;BR&gt;");<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="20648""></a>
-  <div class="note">
-   <strong class="user">rolland dot dudemaine at msg-software dot com</strong>
-   <a href="#20648" class="date">11-Apr-2002 05:45</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In case you ever had to chain from php to another program (e.g. with a cgi php that only gives part of the output, or with php-gtk), here is a little C program that kills his parent (php, for instance), then launches a program given in argument.<br />
-<br />
-chain.c :<br />
-<br />
-#include &lt;unistd.h&gt;<br />
-<br />
-int main(int argc, char**argv) {<br />
-&nbsp; /* kill the parent */<br />
-&nbsp; kill(getppid(), 15);<br />
-&nbsp; argv++;<br />
-&nbsp; /* then launch the new program */<br />
-&nbsp; return execvp(argv[0], argv);<br />
-}<br />
-(compile with gcc -O3 -o chain chain.c)<br />
-then in php, use<br />
-&lt;?<br />
-exec('chain sh -c echo test');<br />
-?&gt;</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="20487""></a>
-  <div class="note">
-   <strong class="user">vi_pa at hotmail dot com</strong>
-   <a href="#20487" class="date">05-Apr-2002 04:17</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-For those who want to execute a .php script to run in the background, from a<br />
-.php web page...<br />
-<br />
-exec("php script.php parameters 2&gt;dev/null &gt;&amp;- &lt;&amp;- &gt;/dev/null &amp;");<br />
-<br />
-Where...<br />
-- php is the path to your php script executer (php has to be specifically complied to be to do this)<br />
-- script.php is the script<br />
-- parameters are none or more parameters<br />
-- 2&gt;dev/null redirects the stderr to a file<br />
-- &lt;&amp;- switches off the stdin<br />
-- &gt;&amp;- switches off the stdout<br />
-- &gt;dev/null redirects all other output to the file dev/null<br />
-- &amp; direct script to run in background<br />
-<br />
-This is the only way I managed to get it working (Linux &amp; Apache, php 4x enviroment) . What is also great is that the process is forked so even though a user may close the browser that initiated the exec(), the process will still run to completion. And the dev/null file can be turned into a log.<br />
-<br />
-What I found odd is that the script I was execing would run fine in the bg when executed from the command line, but not from the browser until I closed the stdin and stdout.</span>
 </code>
     </div>
    </div>

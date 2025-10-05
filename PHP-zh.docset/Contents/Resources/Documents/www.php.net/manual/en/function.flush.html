@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>刷新系统输出缓冲区</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>冲刷系统输出缓冲区</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="ref.outcontrol.html">? Output Control 函数</a></li>
+      <li style="float: left;"><a href="ref.outcontrol.html">? 输出控制 函数</a></li>
       <li style="float: right;"><a href="function.ob-clean.html">ob_clean ?</a></li>
     </ul>
   </div>
@@ -20,46 +20,44 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="ref.outcontrol.html">Output Control 函数</a></li>
-    <li>刷新系统输出缓冲区</li>
+    <li><a href="ref.outcontrol.html">输出控制 函数</a></li>
+    <li>冲刷系统输出缓冲区</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.flush" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">flush</h1>
-  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">flush</span> &mdash; <span class="dc-title">刷新系统输出缓冲区</span></p>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">flush</span> &mdash; <span class="dc-title">冲刷系统输出缓冲区</span></p>
 
  </div>
- 
+
  <div class="refsect1 description" id="refsect1-function.flush-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>flush</strong></span>(): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>flush</strong></span>(): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">
-   刷新 PHP 的系统写入缓冲区，且不管 PHP 使用什么后端（CGI、Web 服务器等）。尝试推送当前输出到浏览器，但有一些警告。
+   冲刷 PHP 的系统写入缓冲区以及 PHP 使用的后端（CGI、Web 服务器）。在命令行环境中，<span class="function"><strong>flush()</strong></span>
+   将仅尝试冲刷缓冲区的内容，而在 Web 上下文中，将冲刷 header 和缓冲区的内容。
   </p>
-  <p class="para">
-   <span class="function"><strong>flush()</strong></span> 无法覆盖 Web 服务器的缓冲方案，并且不会对任何浏览器中的客户端缓冲起作用。也不会对
-   PHP 的用户级别输出缓冲机制起作用。这意味着 <span class="function"><a href="function.ob-flush.html" class="function">ob_flush()</a></span> 应该在 <span class="function"><strong>flush()</strong></span>
-   之前调用，以刷新缓冲区（如果正在使用）。
-  </p>
-  <p class="para">
-   个别服务器，特别是 Win32，在结果传输到浏览器之前，仍然会缓冲脚本的输出，直到程序结束为止。
-  </p>
-  <p class="para">
-   Apache 的服务器模块（比如 mod_gzip），可能自己进行输出缓冲，这将导致
-   <span class="function"><strong>flush()</strong></span> 不会将数据立即发送到客户端浏览器。
-  </p>
-  <p class="para">
-   甚至浏览器也会在显示之前进行输入缓冲。例如 Netscape
-   浏览器会在接受到行尾或开始标记之前缓冲文本，且在接收到 &lt;/table&gt; 标记之前，不会渲染出整个表格。
-  </p>
-  <p class="para">
-   Microsoft Internet Explorer 的某些版本只有当接收到的 256
-   个字节的输出以后才开始显示页面，所以必须在刷新之前发送额外的空格来让这些浏览器显示页面。
-  </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    <span class="function"><strong>flush()</strong></span> 可能无法重写 Web 服务器的缓冲方案，并且它对浏览器中的任何客户端缓冲没有影响。
+   </span>
+  </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <span class="simpara">
+    此函数对用户级输出处理程序（例如由 <span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> 或 <span class="function"><a href="function.output-add-rewrite-var.html" class="function">output_add_rewrite_var()</a></span>
+    启动的处理程序）没有任何影响。
+   </span>
+  </p></blockquote>
+  <div class="warning"><strong class="warning">Warning</strong>
+   <p class="simpara">
+    <span class="function"><strong>flush()</strong></span> 会干扰在 Web 上下文中设置和发送 header 的输出处理程序（例如
+    <span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span>），因为它会在这些处理程序之前发送 header。
+   </p>
+  </div>
  </div>
 
 
@@ -81,20 +79,42 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.ob-flush.html" class="function" rel="rdfs-seeAlso">ob_flush()</a> - 冲刷出（送出）输出缓冲区中的内容</span></li>
-    <li class="member"><span class="function"><a href="function.ob-clean.html" class="function" rel="rdfs-seeAlso">ob_clean()</a> - 清空（擦掉）输出缓冲区</span></li>
-    <li class="member"><span class="function"><a href="function.ob-end-flush.html" class="function" rel="rdfs-seeAlso">ob_end_flush()</a> - 冲刷出（送出）输出缓冲区内容并关闭缓冲区</span></li>
-    <li class="member"><span class="function"><a href="function.ob-end-clean.html" class="function" rel="rdfs-seeAlso">ob_end_clean()</a> - 清空（擦除）缓冲区并关闭输出缓冲</span></li>
+    <li><span class="function"><a href="function.ob-flush.html" class="function" rel="rdfs-seeAlso">ob_flush()</a> - 冲刷（发送）活动输出处理程序的返回值</span></li>
+    <li><span class="function"><a href="function.ob-clean.html" class="function" rel="rdfs-seeAlso">ob_clean()</a> - 清空（擦掉）活动输出缓冲区的内容</span></li>
+    <li><span class="function"><a href="function.ob-end-flush.html" class="function" rel="rdfs-seeAlso">ob_end_flush()</a> - 冲刷（发送）活动输出处理程序的返回值，并关闭活动输出缓冲区</span></li>
+    <li><span class="function"><a href="function.ob-end-clean.html" class="function" rel="rdfs-seeAlso">ob_end_clean()</a> - 清空（擦除）活动缓冲区的内容并关闭它</span></li>
    </ul>
   </p>
  </div>
- 
+
 
 </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="125306""></a>
+<div id="allnotes">  <a name="129259""></a>
+  <div class="note">
+   <strong class="user">remco dot pc at outlook dot com</strong>
+   <a href="#129259" class="date">18-Feb-2024 05:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+on php8.3-fpm with apache 2.4.57<br />
+<br />
+In order flush to work in the browser you need to send some more data (at least 4096 bytes / flush) and you need to add a setting for that site to the virtual host of your apache2 configuration:<br />
+<br />
+&lt;FilesMatch \.php$&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; SetHandler "proxy:unix:/run/php/php8.3-fpm.sock|fcgi://localhost"<br />
+&lt;/FilesMatch&gt;<br />
+&lt;Proxy fcgi://localhost/"&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ProxySet enablereuse=on flushpackets=on<br />
+&lt;/Proxy&gt;</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="125306""></a>
   <div class="note">
    <strong class="user">fran at fran dot cr</strong>
    <a href="#125306" class="date">28-Aug-2020 03:29</a>
@@ -173,30 +193,6 @@ function </span><span class="default">my_flush</span><span class="keyword">() {<
 &nbsp; </span><span class="default">ob_flush</span><span class="keyword">();<br />
 &nbsp; </span><span class="default">flush</span><span class="keyword">();<br />
 }</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116485""></a>
-  <div class="note">
-   <strong class="user">ohcc at 163 dot com</strong>
-   <a href="#116485" class="date">10-Jan-2015 07:04</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Try to add more white spaces if your ob_flush() and flush() don't work, especially under NGINX.<br />
-However, too many white spaces can be a challenge to your web browser.<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; ob_clean</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; while(</span><span class="default">true</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">' '</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">*</span><span class="default">1024</span><span class="keyword">*</span><span class="default">4</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">'hello, world ...&lt;br /&gt;'</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">ob_flush</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">flush</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">usleep</span><span class="keyword">(</span><span class="default">1000</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }</span>
 </span>
 </code>
     </div>
@@ -285,44 +281,6 @@ and restart Nginx daemon.&nbsp; More information about&nbsp; configuration you f
    </div>
   </div>
  <div class="foot"></div>
-  <a name="91556""></a>
-  <div class="note">
-   <strong class="user">jason@jasonbaumgartner@info</strong>
-   <a href="#91556" class="date">16-Jun-2009 05:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Many of the suggestions below are very helpful but I would just like to clarify something.&nbsp; <br />
-<br />
-If you are making calls to a .php script with AJAX (xmlHttpReq) and use flush, this will send data to your script HOWEVER it will not set the xmlHttpReq.readyState to 4 -- which is a requirement to use the information sent (Firefox does however allow you to use the responseText property with a readyState == 3 but IE will throw an error).<br />
-<br />
-To get around this, you will need to make sure of a couple things:<br />
-<br />
-In your Apache php.ini config file, check to make sure that output buffering is disabled:<br />
-<br />
-output_buffering = off<br />
-<br />
-Next, disable gzip compression for the .php script that is called from your AJAX script by using the excellent suggestion from Mandor by placing the following at the top of your script:<br />
-<br />
-@apache_setenv('no-gzip', 1);<br />
-@ini_set('zlib.output_compression', 0);<br />
-<br />
-What causes this problem is that while the php child process is running under apache, apache is waiting for the script to complete before completely closing the connection.&nbsp; Scripts that send information directly to the browser with echos and prints will get away with using flush followed by a sleep command and then clean up procedures.&nbsp; However, if you notice in the status bar of your browser window, the connection is still held open by apache until the script completed ("Transferring" ... yadda yadda).<br />
-<br />
-By turning off the Apache compression, the connection is terminated directly after a flush while still giving the user the ability to run a sleep command followed by clean up code.<br />
-<br />
-This bit me because the AJAX was returning &lt;img&gt; tags to newly created images by php.&nbsp; The cleanup script would then remove those images after completion.&nbsp; <br />
-<br />
-Since Apache held the connection open, the readyState only changed to 4 AFTER my php cleanup fired -- thereby erasing the links referred to my the &lt;img&gt; tags.<br />
-<br />
-With this solution, the readyState will change to 4 BEFORE the sleep command begins.<br />
-<br />
-I hope this saves someone a lot of time and frustration.&nbsp; AJAX requests are an entirely different beast compared with simple outputting to a browser window.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="87807""></a>
   <div class="note">
    <strong class="user">mandor at mandor dot net</strong>
@@ -373,71 +331,6 @@ Hope I could help.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="86307""></a>
-  <div class="note">
-   <strong class="user">Mr.KTO</strong>
-   <a href="#86307" class="date">12-Oct-2008 06:14</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-IE 7, Opera 9.6, any. All is quite simple. Today I just fogot what i do every night, :)<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">// All you need is 256 spaces first<br />
-</span><span class="keyword">echo </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">" "</span><span class="keyword">, </span><span class="default">256</span><span class="keyword">).</span><span class="string">"&lt;pre&gt;"</span><span class="keyword">; </span><span class="default">flush</span><span class="keyword">();<br />
-<br />
-</span><span class="comment">// and ANY TAG before \r\n<br />
-</span><span class="keyword">echo </span><span class="string">"working...&lt;br/&gt;\r\n"</span><span class="keyword">; </span><span class="default">flush</span><span class="keyword">(); </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">); </span><span class="comment">// this in cycle<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="85382""></a>
-  <div class="note">
-   <strong class="user">Lucas</strong>
-   <a href="#85382" class="date">27-Aug-2008 03:12</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I just had some problems with flush() and ob_flush(). What I did to resolve this problem took me some time to figure out so I'd like to share what I came up with.<br />
-<br />
-The main problem is the php setting "output_buffering" which can be set too large and will prevent your text from outputting. To change this value you can either set it in php.ini or you can add the line <br />
-<br />
-php_value output_buffering "0"<br />
-<br />
-to your .htaccess file. It will not work with ini_set() since it is PHP_INI_PERDIR.<br />
-<br />
-Next thing is to begin with ob_start();<br />
-Then you need<br />
-ob_flush();<br />
-flush();<br />
-before any echo or print.<br />
-<br />
-Your code might look like this:<br />
-<br />
-<span class="default">&lt;?php<br />
-ob_start</span><span class="keyword">();<br />
-<br />
-for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">70</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">'printing...&lt;br /&gt;'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ob_flush</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">flush</span><span class="keyword">();<br />
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">usleep</span><span class="keyword">(</span><span class="default">300000</span><span class="keyword">);<br />
-}<br />
-<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Hope this helps anyone with the same problems.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="83037""></a>
   <div class="note">
    <strong class="user">David</strong>
@@ -446,44 +339,6 @@ Hope this helps anyone with the same problems.</span>
     <div class="phpcode">
 <code><span class="html">
 mod_security 2.x core rules will also prevent flush() from working.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="76039""></a>
-  <div class="note">
-   <strong class="user">chuck at artistan dot org</strong>
-   <a href="#76039" class="date">27-Jun-2007 06:57</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-had problems flushing tables to screen.
-<br />
-this worked for me
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">if (</span><span class="default">ob_get_level</span><span class="keyword">() == </span><span class="default">0</span><span class="keyword">) </span><span class="default">ob_start</span><span class="keyword">();
-<br />
-</span><span class="default">loop</span><span class="keyword">{
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">tables </span><span class="keyword">and </span><span class="default">stuff
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">"&lt;br&gt;\n"</span><span class="keyword">,</span><span class="default">8</span><span class="keyword">);
-<br />
-}
-<br />
-</span><span class="default">ob_flush</span><span class="keyword">();
-<br />
-</span><span class="default">flush</span><span class="keyword">();&nbsp; </span><span class="comment">// needed ob_flush
-<br />
-</span><span class="default">usleep</span><span class="keyword">(</span><span class="default">50000</span><span class="keyword">);</span><span class="comment">// delay minimum of .05 seconds to allow ie to flush to screen
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -518,19 +373,6 @@ Notes:<br />
 Kind regards and hoped this is of any help.<br />
 <br />
 Maurits</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="74698""></a>
-  <div class="note">
-   <strong class="user">macott[D0T]daiato[4T]gmail[D0T]com</strong>
-   <a href="#74698" class="date">24-Apr-2007 12:17</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If flush() don't work remember to check if you have any antivirus caching the data sent to the browser.</span>
 </code>
     </div>
    </div>
@@ -579,47 +421,6 @@ Not the other way around, because it wont work.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="64010""></a>
-  <div class="note">
-   <strong class="user">vlad at modomail dot com</strong>
-   <a href="#64010" class="date">05-Apr-2006 06:46</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Sorry if this is off topic, but it's the closest place I could find :)&nbsp; I had an issue with essentially running a CPU intensive task while updating the browser with a progress bar via javascript and flushing the buffer a lot.<br />
-<br />
-When the script was running, it effectively blocked other pages from running.&nbsp; I had a few extra httpd_preforks processes just waiting to be used, but they just sat there.&nbsp; I wasn't reading a file, locking database tables or anything that I would suspect an exclusive lock on, just outputting a bunch of text to the browser.&nbsp; I even tried throttling my loops to see if it was processor related but still had problems.<br />
-<br />
-Finally, I found this in the php.ini file and changed the On to Off and it worked.<br />
-<br />
-[Sockets]<br />
-; Use the system read() function instead of the php_read() wrapper.<br />
-sockets.use_system_read = Off<br />
-<br />
-Posting in case someone else has the same issue (or if someone knows why this would make a difference :) ).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="59066""></a>
-  <div class="note">
-   <strong class="user">mega023 at gmail dot com</strong>
-   <a href="#59066" class="date">25-Nov-2005 03:54</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If flush is not working probably mod_gzip is enabled.<br />
-To disable it just add following lines to .htaccess<br />
-<br />
-&lt;IfModule mod_gzip.c&gt;<br />
-mod_gzip_on no<br />
-&lt;/IfModule&gt;</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="57398""></a>
   <div class="note">
    <strong class="user">mikael at oebb dot net</strong>
@@ -631,38 +432,6 @@ Hi all.<br />
 Been scratching my head over data NOT flushed to IE (6) even though I tried strpad 4096 chars, all headers OK,&nbsp; TABLE and no TABLE, flush and ob_flush - still a blank page. Tried adding a sleep(1) before flushing - and everything worked as a charm.&nbsp; <br />
 <br />
 /Mikael</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="56951""></a>
-  <div class="note">
-   
-   <a href="#56951" class="date">20-Sep-2005 12:37</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In my testing, Internet Explorer 6.0 wouldn't flush anything nested in &lt;table&gt; or &lt;td&gt; tags, regardless of padding. But at the &lt;body&gt; level everything flushed with no fuss -- no padding or tags required.<br />
-<br />
-Both Firefox 1.0 and Safari 2.0 could flush within tables, and both required a tag after the text (like &lt;br&gt;). Safari could flush only after the first 1024 characters where received. Firefox needed at least 8 characters per flush (but it could flush anything at the &lt;body&gt; level).<br />
-<br />
-So the only thing that worked on all those browsers was this:<br />
-<br />
-&lt;html&gt;<br />
-&lt;body&gt;<br />
-<span class="default">&lt;?php&nbsp; </span><span class="comment">// not in table tags for IE<br />
-</span><span class="keyword">echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">''</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">);&nbsp; </span><span class="comment">// minimum start for Safari<br />
-</span><span class="keyword">for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">10</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&gt;</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">--) {<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">"</span><span class="default">$i</span><span class="string">&lt;br&gt;\n"</span><span class="keyword">,</span><span class="default">8</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// tag after text for Safari &amp; Firefox<br />
-&nbsp;&nbsp;&nbsp; // 8 char minimum for Firefox<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">flush</span><span class="keyword">();&nbsp; </span><span class="comment">// worked without ob_flush() for me<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span>&lt;/body&gt;<br />
-&lt;/html&gt;</span>
 </code>
     </div>
    </div>
@@ -757,94 +526,6 @@ $instant</span><span class="keyword">=</span><span class="default">gettimeofday<
 </span>
 <br />
 So you can programm a security save or other function in your site and if you do a switch the upload of the new or same site (the called site) works...</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="52147""></a>
-  <div class="note">
-   <strong class="user">Alex</strong>
-   <a href="#52147" class="date">22-Apr-2005 02:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Modified progress bar.. Works in IE, Mozilla+FF.<br />
-<br />
-&lt;html&gt;<br />
-&lt;head&gt;<br />
-&lt;style type="text/css"&gt;&lt;!--<br />
-<br />
-div {<br />
-&nbsp;margin: 1px;<br />
-&nbsp;height: 20px;<br />
-&nbsp;padding: 1px;<br />
-&nbsp;border: 1px solid #000;<br />
-&nbsp;width: 275px;<br />
-&nbsp;background: #fff;<br />
-&nbsp;color: #000;<br />
-&nbsp;float: left;<br />
-&nbsp;clear: right;<br />
-&nbsp;top: 38px;<br />
-&nbsp;z-index: 9<br />
-}<br />
-<br />
-.percents {<br />
-&nbsp;background: #FFF;<br />
-&nbsp;border: 1px solid #CCC;<br />
-&nbsp;margin: 1px;<br />
-&nbsp;height: 20px;<br />
-&nbsp;position:absolute;<br />
-&nbsp;width:275px;<br />
-&nbsp;z-index:10;<br />
-&nbsp;left: 10px;<br />
-&nbsp;top: 38px;<br />
-&nbsp;text-align: center;<br />
-}<br />
-<br />
-.blocks {<br />
-&nbsp;background: #EEE;<br />
-&nbsp;border: 1px solid #CCC;<br />
-&nbsp;margin: 1px;<br />
-&nbsp;height: 20px;<br />
-&nbsp;width: 10px;<br />
-&nbsp;position: absolute;<br />
-&nbsp;z-index:11;<br />
-&nbsp;left: 12px;<br />
-&nbsp;top: 38px;<br />
-&nbsp;filter: alpha(opacity=50);<br />
-&nbsp;-moz-opacity: 0.5;<br />
-&nbsp;opacity: 0.5;<br />
-&nbsp;-khtml-opacity: .5<br />
-}<br />
-<br />
---&gt;<br />
-&lt;/style&gt;<br />
-&lt;/head&gt;<br />
-&lt;body&gt;<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">if (</span><span class="default">ob_get_level</span><span class="keyword">() == </span><span class="default">0</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ob_start</span><span class="keyword">();<br />
-}<br />
-echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">'Loading... '</span><span class="keyword">,</span><span class="default">4096</span><span class="keyword">).</span><span class="string">"&lt;br /&gt;\n"</span><span class="keyword">;<br />
-for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">25</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$d </span><span class="keyword">= </span><span class="default">$d </span><span class="keyword">+ </span><span class="default">11</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$m</span><span class="keyword">=</span><span class="default">$d</span><span class="keyword">+</span><span class="default">10</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//This div will show loading percents<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'&lt;div class="percents"&gt;' </span><span class="keyword">. </span><span class="default">$i</span><span class="keyword">*</span><span class="default">4 </span><span class="keyword">. </span><span class="string">'%&amp;nbsp;complete&lt;/div&gt;'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//This div will show progress bar<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">'&lt;div class="blocks" style="left: '</span><span class="keyword">.</span><span class="default">$d</span><span class="keyword">.</span><span class="string">'px"&gt;&amp;nbsp;&lt;/div&gt;'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">flush</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ob_flush</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />
-}<br />
-</span><span class="default">ob_end_flush</span><span class="keyword">();<br />
-</span><span class="default">?&gt;<br />
-</span>&lt;div class="percents" style="z-index:12"&gt;Done.&lt;/div&gt;<br />
-&lt;/body&gt;<br />
-&lt;/html&gt;</span>
 </code>
     </div>
    </div>
@@ -992,184 +673,6 @@ After searching through the PHP site, google and various forums, not finding a s
 session_write_close();<br />
 <br />
 before starting echo'ing. It worked like a charm. I couldn't find any references to this, so I hope this note will help someone in the future.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="49569""></a>
-  <div class="note">
-   <strong class="user">Squ1sher</strong>
-   <a href="#49569" class="date">01-Feb-2005 12:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-On Windows xampp 1.3 with php 4.3.4 is use this functions
-<br />
-to force a flush.
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">function </span><span class="default">dummyErrorHandler </span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">) {
-<br />
-}
-<br />
-
-<br />
-function </span><span class="default">forceFlush</span><span class="keyword">() {&nbsp; &nbsp; 
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ob_start</span><span class="keyword">();
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ob_end_clean</span><span class="keyword">();
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">flush</span><span class="keyword">();
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"dummyErrorHandler"</span><span class="keyword">);
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ob_end_flush</span><span class="keyword">();
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">restore_error_handler</span><span class="keyword">();
-<br />
-}
-<br />
-</span><span class="default">?&gt;
-<br />
-</span>
-<br />
-ob_end_flush generates a warning, which is supressed, using the dummy-errorhander. You could also use @, but then nusphere will also print the warning.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="40180""></a>
-  <div class="note">
-   <strong class="user">Rusty</strong>
-   <a href="#40180" class="date">24-Feb-2004 09:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Netscape will flush the output as expected at the point it is called from within your script. IE, however, needs a boost.<br />
-<br />
-IE seems to have a condition where it will flush data when it hits an end (&lt;/table&gt;) tag AND has at least 256 chars of data.<br />
-<br />
-So, pad your output with necessary spaces, wrap your progressing data around open (&lt;table&gt;) and end (&lt;/table&gt;) tags, and then call flush() so that one script will work for Netscape as well.<br />
-<br />
-TESTING ENVIRONMENT<br />
-IE: Ver/6.0.2800<br />
-Netscape: Ver/7.1<br />
-PHP: Ver/4.3.4<br />
-Apache: Ver/1.3.27</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="36973""></a>
-  <div class="note">
-   <strong class="user">m@rco</strong>
-   <a href="#36973" class="date">29-Oct-2003 07:22</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-in order to display in HTML pages something like a "progress bar" or if you want to force the web server to flush output to the browser, or the browser to flush as well, you can print a long enough "dummy" string to make the output buffer grow, as you probably know, like:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">print </span><span class="string">"["</span><span class="keyword">;
-<br />
-
-<br />
-for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">100</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++){
-<br />
-&nbsp; </span><span class="default">$spaces</span><span class="keyword">.=</span><span class="string">" "</span><span class="keyword">;
-<br />
-} </span><span class="comment">// for
-<br />
-
-<br />
-//and then
-<br />
-
-<br />
-</span><span class="keyword">for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">10</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++){
-<br />
-&nbsp; for(</span><span class="default">$ii </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$ii </span><span class="keyword">&lt; </span><span class="default">200000</span><span class="keyword">; </span><span class="default">$ii</span><span class="keyword">++){
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//do something slow here
-<br />
-&nbsp; </span><span class="keyword">} </span><span class="comment">// for
-<br />
-&nbsp; </span><span class="keyword">print </span><span class="string">"</span><span class="default">$spaces</span><span class="string">|"</span><span class="keyword">;
-<br />
-&nbsp; </span><span class="default">flush</span><span class="keyword">();
-<br />
-} </span><span class="comment">// for
-<br />
-
-<br />
-</span><span class="keyword">print </span><span class="string">"]"</span><span class="keyword">;
-<br />
-
-<br />
-</span><span class="comment">/*
-<br />
-but this somethin may be not really what you expect in
-<br />
-a progress bar, as it prints spaces (although rendered as single by the browser) between the bar units..
-<br />
-you can solve this using 
-<br />
-&nbsp; $spaces.="&lt;!-- bufferme --&gt;";
-<br />
-
-<br />
-/*
-<br />
-
-<br />
-print "[";
-<br />
-
-<br />
-for($i = 0; $i &lt; 100; $i++){
-<br />
-&nbsp; $spaces.="&lt;!-- bufferme --&gt;";
-<br />
-} // for
-<br />
-
-<br />
-//and then
-<br />
-
-<br />
-for($i = 0; $i &lt; 10; $i++){
-<br />
-&nbsp; for($ii = 0; $ii &lt; 200000; $ii++){
-<br />
-&nbsp;&nbsp;&nbsp; //do something slow here
-<br />
-&nbsp; } // for
-<br />
-&nbsp; print "$spaces|";
-<br />
-&nbsp; flush();
-<br />
-} // for
-<br />
-
-<br />
-print "]";
-<br />
-
-<br />
-//which looks nice as a progress bar..
-<br />
-?&gt;</span>
-</span>
 </code>
     </div>
    </div>

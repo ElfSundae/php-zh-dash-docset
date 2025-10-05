@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Toggle autocommit behaviour</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.odbc-autocommit-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>odbc_autocommit</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$odbc</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$enable</code><span class="initializer"> = <strong><code>false</code></strong></span></span>): <span class="type"><span class="type">int</span>|<span class="type">bool</span></span></div>
+   <span class="methodname"><strong>odbc_autocommit</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$odbc</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span> <code class="parameter">$enable</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span></div>
 
   <p class="para rdfs-comment">
    Toggles autocommit behaviour.
@@ -50,54 +50,75 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">odbc</code></dt>
-
+     <dt><code class="parameter">odbc</code></dt>
      <dd>
-
       <p class="para">ODBC 连接标识符，详见
 <span class="function"><a href="function.odbc-connect.html" class="function">odbc_connect()</a></span>。</p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">enable</code></dt>
-
+     <dt><code class="parameter">enable</code></dt>
      <dd>
-
       <p class="para">
-       If <code class="parameter">enable</code> is <strong><code>true</code></strong>, auto-commit is enabled, if
-       it is <strong><code>false</code></strong> auto-commit is disabled.
+       If <code class="parameter">enable</code> is <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>, auto-commit is enabled, if
+       it is <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> auto-commit is disabled.
+       If <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> is passed, this function returns the auto-commit status for
+       <code class="parameter">odbc</code>.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.odbc-autocommit-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Without the <code class="parameter">enable</code> parameter, this function returns
+   With a <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> <code class="parameter">enable</code> parameter, this function returns
    auto-commit status for <code class="parameter">odbc</code>. Non-zero is
-   returned if auto-commit is on, 0 if it is off, or <strong><code>false</code></strong> if an error
+   returned if auto-commit is on, 0 if it is off, or <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> if an error
    occurs.
   </p>
   <p class="para">
-   If <code class="parameter">enable</code> is set, this function returns <strong><code>true</code></strong> on
-   success and <strong><code>false</code></strong> on failure.
+   If <code class="parameter">enable</code> is non-null, this function returns <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> on
+   success and <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> on failure.
   </p>
  </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.odbc-autocommit-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.3.0</td>
+      <td>
+       <code class="parameter">enable</code> is now nullable.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
 
  <div class="refsect1 seealso" id="refsect1-function.odbc-autocommit-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.odbc-commit.html" class="function" rel="rdfs-seeAlso">odbc_commit()</a> - Commit an ODBC transaction</span></li>
-    <li class="member"><span class="function"><a href="function.odbc-rollback.html" class="function" rel="rdfs-seeAlso">odbc_rollback()</a> - Rollback a transaction</span></li>
+    <li><span class="function"><a href="function.odbc-commit.html" class="function" rel="rdfs-seeAlso">odbc_commit()</a> - Commit an ODBC transaction</span></li>
+    <li><span class="function"><a href="function.odbc-rollback.html" class="function" rel="rdfs-seeAlso">odbc_rollback()</a> - Rollback a transaction</span></li>
    </ul>
   </p>
  </div>

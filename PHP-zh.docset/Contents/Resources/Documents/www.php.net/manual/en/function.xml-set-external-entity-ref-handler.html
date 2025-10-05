@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置外部实体引用处理程序</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.xml-set-external-entity-ref-handler-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>xml_set_external_entity_ref_handler</strong></span>(<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>, <span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$handler</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>xml_set_external_entity_ref_handler</strong></span>(<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>, <span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$handler</code></span>): <span class="type"><a href="language.types.value.html" class="type true">true</a></span></div>
 
   <p class="para rdfs-comment">
    为 XML 解析器 <code class="parameter">parser</code> 设置外部实体引用处理函数。
@@ -48,104 +48,82 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">parser</code></dt>
-
-     <dd>
-
-      <p class="para">
-       XML 解析器的引用，用于建立外部实体指向处理函数。
-      </p>
-     </dd>
+ <dt><code class="parameter">parser</code></dt>
+ <dd>
+  <p class="para">
+   XML 解析器。
+  </p>
+ </dd>
 
     
-    
-     <dt>
-<code class="parameter">handler</code></dt>
-
+     <dt><code class="parameter">handler</code></dt>
      <dd>
-
       <p class="para">
-       参数 <code class="parameter">handler</code> 为表示函数名称的字符串，函数必须在为 <code class="parameter">parser</code> 指定的解析器调用 <span class="function"><a href="function.xml-parse.html" class="function">xml_parse()</a></span> 函数时已存在。
-      </p>
+ 如果传递 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong> 或空字符串，处理程序将重置为其默认状态。
+</p>
+<p class="para">
+ 如果 <code class="parameter">handler</code> 是 <span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span>，设置的 callable 将作为处理程序。
+</p>
+<p class="para">
+ 如果 <code class="parameter">handler</code> 是 <span class="type"><a href="language.types.string.html" class="type string">string</a></span>，它可以是 <span class="function"><a href="function.xml-set-object.html" class="function">xml_set_object()</a></span>
+ 设置的对象的方法名称。
+</p>
       <p class="para">
-       由 <code class="parameter">handler</code> 参数命名的函数名必须接受五个参数，并应该返回一个整型值。如果处理程序的返回值为 <strong><code>false</code></strong>（这也是函数没有确定返回值时的返回值），XML 解析器将停止解析， <span class="function"><a href="function.xml-get-error-code.html" class="function">xml_get_error_code()</a></span> 函数将返回  <strong><code>XML_ERROR_EXTERNAL_ENTITY_HANDLING</code></strong>。
+       处理程序的签名必须是：
        <div class="methodsynopsis dc-description">
-        <span class="methodname"><span class="replaceable">handler</span></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$open_entity_names</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$base</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$system_id</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$public_id</code></span><br>)</div>
+        <span class="methodname"><span class="replaceable">handler</span></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.xmlparser.html" class="type XMLParser">XMLParser</a></span> <code class="parameter">$parser</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$open_entity_names</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span> <code class="parameter">$base</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$system_id</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span> <code class="parameter">$public_id</code></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
        <dl>
         
-         <dt>
-<code class="parameter">parser</code></dt>
+ <dt><code class="parameter">parser</code></dt>
+ <dd>
+  <span class="simpara">
+   XML 解析器调用的处理程序。
+  </span>
+ </dd>
 
+        
+         <dt><code class="parameter">open_entity_names</code></dt>
          <dd>
-
           <span class="simpara">
-            第一个参数 <span class="replaceable">parser</span> 为指向要调用处理程序的 XML 解析器的指针。
+           为该实体的解析开放的实体名列表（包括被指向的实体名），这些实体名由空格隔开。
           </span>
          </dd>
-
         
         
-         <dt>
-<code class="parameter">open_entity_names</code></dt>
-
+         <dt><code class="parameter">base</code></dt>
          <dd>
-
           <span class="simpara">
-           第二个参数 <code class="parameter">open_entity_names</code> 是为该实体的解析开放的实体名列表（包括被指向的实体名），这些实体名由空格隔开。
+          这个参数是解析外部实体的系统标识符（<code class="parameter">system_id</code>）的基础。
           </span>
          </dd>
-
         
         
-         <dt>
-<code class="parameter">base</code></dt>
-
+         <dt><code class="parameter">system_id</code></dt>
          <dd>
-
           <span class="simpara">
-          这个参数是解析外部实体的系统标识符（<code class="parameter">system_id</code>）的基础。当前该参数通常都被设置为空字符串。
+           在实体定义声明中指定的系统标识符。
           </span>
          </dd>
-
         
         
-         <dt>
-<code class="parameter">system_id</code></dt>
-
+         <dt><code class="parameter">public_id</code></dt>
          <dd>
-
           <span class="simpara">
-           第四个参数 <code class="parameter">system_id</code> 是在实体定义声明中指定的系统标识符。
+           在实体定义声明中指定的公共标识符，如果未指定任何标识符，则该字符串为空。公共标识符中的空格将按照 XML 的要求被正常化。
           </span>
          </dd>
-
-        
-        
-         <dt>
-<code class="parameter">public_id</code></dt>
-
-         <dd>
-
-          <span class="simpara">
-           第五个参数 <code class="parameter">public_id</code> 是在实体定义声明中指定的公共标识符，如果未指定任何标识符，则该字符串为空。公共标识符中的空格将按照 XML 的要求被正常化。
-          </span>
-         </dd>
-
         
        </dl>
-
       </p>
       <p class="para">
-       如果处理函数名被设置为空字符串或者 <strong><code>false</code></strong>，则该有问题的处理器将被屏蔽。
+       如果实体已经处理，则处理程序应返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，否则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。当返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 时，XML
+       解析器将停止解析并且 <span class="function"><a href="function.xml-get-error-code.html" class="function">xml_get_error_code()</a></span> 将返回
+       <strong><code><a href="xml.constants.html#constant.xml-error-external-entity-handling">XML_ERROR_EXTERNAL_ENTITY_HANDLING</a></code></strong>。
       </p>
-      <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">除了函数名，含有对象引用的数组和方法名也可以作为参数。</span></p></blockquote>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -153,7 +131,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.xml-set-external-entity-ref-handler-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   总是返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。
   </p>
  </div>
 
@@ -174,7 +152,7 @@
       <tr>
  <td>8.0.0</td>
  <td>
-  <code class="parameter">parser</code> 现在接受 <span class="classname"><a href="class.xmlparser.html" class="classname">XMLParser</a></span> 实例；之前接受 <span class="type">resource</span>。
+  <code class="parameter">parser</code> 现在接受 <span class="classname"><a href="class.xmlparser.html" class="classname">XMLParser</a></span> 实例；之前接受有效的 <code class="literal">xml</code> <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>。
  </td>
 </tr>
 

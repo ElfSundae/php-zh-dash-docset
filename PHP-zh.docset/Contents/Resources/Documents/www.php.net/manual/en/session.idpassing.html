@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>传送会话ID</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,14 +13,14 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="session.examples.basic.html">? 基本用法</a></li>
-      <li style="float: right;"><a href="session.customhandler.html">自定义会话管理器 ?</a></li>
+      <li style="float: right;"><a href="session.customhandler.html">自定义会话处理程序 ?</a></li>
     </ul>
   </div>
 </div>
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="session.examples.html">范例</a></li>
+    <li><a href="session.examples.html">示例</a></li>
     <li>传送会话ID</li>
   </ul>
 </div>
@@ -60,37 +60,35 @@
    </p></blockquote>
   </p>
   <p class="para">
-   会话开始之后，可以使用 <strong><code>SID</code></strong> 常量。
+   会话开始之后，可以使用 <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong> 常量。
    如果客户端未提供会话 cookie，该常量的展开形式为 <code class="literal">session_name=session_id</code>，
    反之，该常量为空字符串。因此，可以直接在 URL 中包含此常量的展开字符串而无需考虑会话 ID 的实际传送方式。
   </p>
   <p class="para">
-   下例演示了如何在会话中注册变量以及如何使用 <strong><code>SID</code></strong>
+   下例演示了如何在会话中注册变量以及如何使用 <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong>
    常量正确的链接到另一页面。
-   <div class="example" id="">
+   <div class="example" id="example-4805">
     <p><strong>Example #1 某单一用户的点击数</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />session_start</span><span style="color: #007700">();<br /><br />if (empty(</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">])) {<br />   </span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">] = </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />} else {<br />   </span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">]++;<br />}<br /></span><span style="color: #0000BB">?&gt;<br /></span><br />&lt;p&gt;<br />Hello visitor, you have seen this page <span style="color: #0000BB">&lt;?php </span><span style="color: #007700">echo </span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">]; </span><span style="color: #0000BB">?&gt;</span> times.<br />&lt;/p&gt;<br /><br />&lt;p&gt;<br />To continue, &lt;a href="nextpage.php?<span style="color: #0000BB">&lt;?php </span><span style="color: #007700">echo </span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">SID</span><span style="color: #007700">); </span><span style="color: #0000BB">?&gt;</span>"&gt;click<br />here&lt;/a&gt;.<br />&lt;/p&gt;</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />session_start</span><span style="color: #007700">();<br /><br />if (empty(</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">])) {<br />   </span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">] = </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />} else {<br />   </span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">]++;<br />}<br /></span><span style="color: #0000BB">?&gt;<br /></span><br />&lt;p&gt;<br />Hello visitor, you have seen this page <span style="color: #0000BB">&lt;?php </span><span style="color: #007700">echo </span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'count'</span><span style="color: #007700">]; </span><span style="color: #0000BB">?&gt;</span> times.<br />&lt;/p&gt;<br /><br />&lt;p&gt;<br />To continue, &lt;a href="nextpage.php?<span style="color: #0000BB">&lt;?php </span><span style="color: #007700">echo </span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">SID</span><span style="color: #007700">); </span><span style="color: #0000BB">?&gt;</span>"&gt;click<br />here&lt;/a&gt;.<br />&lt;/p&gt;</span></code></div>
     </div>
 
    </div>
   </p>
   <p class="para">
-   可以使用 <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span> 来打印 <strong><code>SID</code></strong>
+   可以使用 <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span> 来打印 <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong>
    常量的展开字符串以避免 XSS 相关的攻击。
   </p>
   <p class="para">
    如果使用 <a href="session.configuration.html#ini.session.use-trans-sid" class="link">
    --enable-trans-sid</a> 参数编译的 PHP，
-   上例中打印 <strong><code>SID</code></strong> 常量部分就可以省略。
+   上例中打印 <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong> 常量部分就可以省略。
   </p>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
     非相对 URL 将被视为指向外部站点的链接，
     从安全角度考虑，外站的链接 URL 中将
-    不包含 <strong><code>SID</code></strong> 常量，以避免将 <strong><code>SID</code></strong> 泄露到外部服务器的风险。
+    不包含 <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong> 常量，以避免将 <strong><code><a href="session.constants.html#constant.sid">SID</a></code></strong> 泄露到外部服务器的风险。
    </p>
   </p></blockquote>
  </div><div id="usernotes">

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Return the number of rows affected by the last SQL statement</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,9 +35,9 @@
  <div class="refsect1 description" id="refsect1-function.cubrid-affected-rows-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>cubrid_affected_rows</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$conn_identifier</code><span class="initializer"> = ?</span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>cubrid_affected_rows</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$conn_identifier</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>cubrid_affected_rows</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$req_identifier</code><span class="initializer"> = ?</span></span>): <span class="type">int</span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>cubrid_affected_rows</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$req_identifier</code><span class="initializer"> = ?</span></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
     The <span class="function"><strong>cubrid_affected_rows()</strong></span> function is used to get the
@@ -51,31 +51,22 @@
  <p class="para">
   <dl>
    
-    <dt>
-<code class="parameter">conn_identifier</code></dt>
-
-    <dd>
-<p class="para">The CUBRID connection. If the connection identifier is not
+    <dt><code class="parameter">conn_identifier</code></dt>
+    <dd><p class="para">The CUBRID connection. If the connection identifier is not
       specified, the last link opend by <span class="function"><a href="function.cubrid-connect.html" class="function">cubrid_connect()</a></span> is
     assumed.</p></dd>
-
    
    
-    <dt>
-<code class="parameter">req_identifier</code></dt>
-
+    <dt><code class="parameter">req_identifier</code></dt>
     <dd>
-
       <p class="para">
         Request Identifier, could be returned from either <span class="function"><a href="function.cubrid-prepare.html" class="function">cubrid_prepare()</a></span> or <span class="function"><a href="function.cubrid-execute.html" class="function">cubrid_execute()</a></span>. 
         If the request identifier is not specified, the last identifier requested by 
         <span class="function"><a href="function.cubrid-prepare.html" class="function">cubrid_prepare()</a></span> or <span class="function"><a href="function.cubrid-execute.html" class="function">cubrid_execute()</a></span> is assumed.
       </p>
     </dd>
-
    
   </dl>
-
   </p>
  </div>
 
@@ -89,28 +80,24 @@
     -1, when SQL statement is not INSERT, DELETE or UPDATE.
   </p>
   <p class="para">
-   <strong><code>false</code></strong>, when the request identifier is not specified, and there is no last
+   <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>, when the request identifier is not specified, and there is no last
    request.
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.cubrid-affected-rows-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-2362">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1174">
    <p><strong>Example #1 <span class="function"><strong>cubrid_affected_rows()</strong></span> example</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">33000</span><span style="color: #007700">, </span><span style="color: #DD0000">'demodb'</span><span style="color: #007700">, </span><span style="color: #DD0000">'dba'</span><span style="color: #007700">, </span><span style="color: #DD0000">''</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"DROP TABLE IF EXISTS cubrid_test"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"CREATE TABLE cubrid_test (d varchar)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sql_stmt </span><span style="color: #007700">= </span><span style="color: #DD0000">"INSERT INTO cubrid_test(d) VALUES('php-test')"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$req </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql_stmt</span><span style="color: #007700">);<br /><br />for (</span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">10</span><span style="color: #007700">; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++) {<br />    </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">cubrid_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$req </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"DELETE FROM cubrid_test WHERE d='php-test'"</span><span style="color: #007700">, </span><span style="color: #0000BB">CUBRID_ASYNC</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">cubrid_affected_rows</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">cubrid_affected_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">cubrid_affected_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br />print </span><span style="color: #DD0000">"done!"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #0000BB">33000</span><span style="color: #007700">, </span><span style="color: #DD0000">'demodb'</span><span style="color: #007700">, </span><span style="color: #DD0000">'dba'</span><span style="color: #007700">, </span><span style="color: #DD0000">''</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"DROP TABLE IF EXISTS cubrid_test"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"CREATE TABLE cubrid_test (d varchar)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sql_stmt </span><span style="color: #007700">= </span><span style="color: #DD0000">"INSERT INTO cubrid_test(d) VALUES('php-test')"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$req </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #0000BB">$sql_stmt</span><span style="color: #007700">);<br /><br />for (</span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">10</span><span style="color: #007700">; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++) {<br />    </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">cubrid_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$req </span><span style="color: #007700">= </span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"DELETE FROM cubrid_test WHERE d='php-test'"</span><span style="color: #007700">, </span><span style="color: #0000BB">CUBRID_ASYNC</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">cubrid_affected_rows</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">cubrid_affected_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">cubrid_affected_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br />print </span><span style="color: #DD0000">"done!"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Rows deleted: 5
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Rows deleted: 5</pre>
+</div>
    </div>
   </div>
  </div>
@@ -120,7 +107,7 @@ Rows deleted: 5
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.cubrid-execute.html" class="function" rel="rdfs-seeAlso">cubrid_execute()</a> - Execute a prepared SQL statement</span></li>
+    <li><span class="function"><a href="function.cubrid-execute.html" class="function" rel="rdfs-seeAlso">cubrid_execute()</a> - Execute a prepared SQL statement</span></li>
    </ul>
   </p>
  </div>

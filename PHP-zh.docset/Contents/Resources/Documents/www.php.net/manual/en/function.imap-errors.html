@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Returns all of the IMAP errors that have occurred</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.imap-errors-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imap_errors</strong></span>(): <span class="type"><span class="type">array</span>|<span class="type"><span class="type false">false</span></span></span></div>
+   <span class="methodname"><strong>imap_errors</strong></span>(): <span class="type"><span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    Gets all of the <abbr title="Internet Message Access Protocol">IMAP</abbr> errors (if any) that have occurred
@@ -58,7 +58,7 @@
   <p class="para">
    This function returns an array of all of the IMAP error messages
    generated since the last <span class="function"><strong>imap_errors()</strong></span> call,
-   or the beginning of the page. Returns <strong><code>false</code></strong> if no error messages are
+   or the beginning of the page. Returns <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> if no error messages are
    available. 
   </p>
  </div>
@@ -67,8 +67,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.imap-last-error.html" class="function" rel="rdfs-seeAlso">imap_last_error()</a> - Gets the last IMAP error that occurred during this page request</span></li>
-    <li class="member"><span class="function"><a href="function.imap-alerts.html" class="function" rel="rdfs-seeAlso">imap_alerts()</a> - Returns all IMAP alert messages that have occurred</span></li>
+    <li><span class="function"><a href="function.imap-last-error.html" class="function" rel="rdfs-seeAlso">imap_last_error()</a> - Gets the last IMAP error that occurred during this page request</span></li>
+    <li><span class="function"><a href="function.imap-alerts.html" class="function" rel="rdfs-seeAlso">imap_alerts()</a> - Returns all IMAP alert messages that have occurred</span></li>
    </ul>
   </p>
  </div>
@@ -77,7 +77,36 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="116221""></a>
+<div id="allnotes">  <a name="128359""></a>
+  <div class="note">
+   <strong class="user">olliejones at gmail dot com</strong>
+   <a href="#128359" class="date">01-Apr-2023 05:17</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This can generate the string "Mailbox is empty" right after a call to imap_open().&nbsp; That's not an error.&nbsp; That means something like this is not good enough to know the open failed due to a wrong password or host name or whatever. This<br />
+<br />
+&nbsp; $imap = @imap_open( $mailbox, $user, $pass); <br />
+&nbsp; $errors = @imap_errors();<br />
+&nbsp; if ( $errors ) {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; echo 'Login failed: ' . implode ('; ', $errors );<br />
+&nbsp; }<br />
+<br />
+can output "Login failed: Mailbox is empty" which is silly.<br />
+<br />
+Instead, check the return value from imap_open().<br />
+<br />
+&nbsp; $imap = @imap_open( $mailbox, $user, $pass); <br />
+&nbsp; if ( ! $imap ) {<br />
+&nbsp;&nbsp; &nbsp;&nbsp; $errors = @imap_errors();<br />
+&nbsp;&nbsp; &nbsp;&nbsp; echo 'Login failed: ' . implode ('; ', $errors );<br />
+&nbsp; }</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="116221""></a>
   <div class="note">
    <strong class="user">Luke Madhanga</strong>
    <a href="#116221" class="date">24-Nov-2014 05:06</a>

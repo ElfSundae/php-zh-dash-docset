@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Get info about given date formatted according to the specified format</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.date-offset-get.html">? date_offset_get</a></li>
-      <li style="float: right;"><a href="function.date-parse.html">date_parse ?</a></li>
+      <li style="float: left;"><a href="function.date-parse.html">? date_parse</a></li>
+      <li style="float: right;"><a href="function.date-sub.html">date_sub ?</a></li>
     </ul>
   </div>
 </div>
@@ -34,7 +34,8 @@
 
  <div class="refsect1 description" id="refsect1-function.date-parse-from-format-description">
   <h3 class="title">说明</h3>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>date_parse_from_format</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$format</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$datetime</code></span>): <span class="type">array</span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>date_parse_from_format</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$format</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$datetime</code></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
   <p class="para rdfs-comment">
    Returns associative array with detailed info about given date/time.
@@ -47,11 +48,8 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">format</code></dt>
-
+     <dt><code class="parameter">format</code></dt>
      <dd>
-
       <p class="para">
        Documentation on how the <code class="parameter">format</code> is used, please
        refer to the documentation of
@@ -59,22 +57,16 @@
        rules apply.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">datetime</code></dt>
-
+     <dt><code class="parameter">datetime</code></dt>
      <dd>
-
       <p class="para">
        String representing the date/time.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -130,6 +122,15 @@
  </div>
 
 
+ <div class="refsect1 errors" id="refsect1-function.date-parse-from-format-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   This functions throws <span class="exceptionname"><a href="class.valueerror.html" class="exceptionname">ValueError</a></span> when the
+   <code class="parameter">datetime</code> contains NULL-bytes.
+  </p>
+ </div>
+
+
  <div class="refsect1 changelog" id="refsect1-function.date-parse-from-format-changelog">
   <h3 class="title">更新日志</h3>
   <table class="doctable informaltable">
@@ -143,6 +144,15 @@
     </thead>
 
     <tbody class="tbody">
+     <tr>
+      <td>8.0.21, 8.1.8, 8.2.0</td>
+      <td>
+       Now throws <span class="exceptionname"><a href="class.valueerror.html" class="exceptionname">ValueError</a></span> when NULL-bytes
+       are passed into <code class="parameter">datetime</code>, which previously was silently
+       ignored.
+      </td>
+     </tr>
+
      <tr>
       <td>7.2.0</td>
       <td>
@@ -160,21 +170,17 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.date-parse-from-format-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4150">
+   <div class="example" id="example-2138">
     <p><strong>Example #1 <span class="function"><strong>date_parse_from_format()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$date </span><span style="color: #007700">= </span><span style="color: #DD0000">"6.1.2009 13:00+01:00"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j.n.Y H:iP"</span><span style="color: #007700">, </span><span style="color: #0000BB">$date</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$date </span><span style="color: #007700">= </span><span style="color: #DD0000">"6.1.2009 13:00+01:00"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j.n.Y H:iP"</span><span style="color: #007700">, </span><span style="color: #0000BB">$date</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [year] =&gt; 2009
     [month] =&gt; 1
@@ -197,49 +203,41 @@ Array
     [zone_type] =&gt; 1
     [zone] =&gt; 3600
     [is_dst] =&gt;
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
   </p>
 
   <p class="para">
-   <div class="example" id="example-4152">
+   <div class="example" id="example-2139">
     <p><strong>Example #2 <span class="function"><strong>date_parse_from_format()</strong></span> with warnings example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$date </span><span style="color: #007700">= </span><span style="color: #DD0000">"26 August 2022 22:30 pm"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$parsed </span><span style="color: #007700">= </span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j F Y G:i a"</span><span style="color: #007700">, </span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Warnings count: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'warning_count'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />foreach (</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'warnings'</span><span style="color: #007700">] as </span><span style="color: #0000BB">$position </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$message</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"\tOn position </span><span style="color: #007700">{</span><span style="color: #0000BB">$position</span><span style="color: #007700">}</span><span style="color: #DD0000">: </span><span style="color: #007700">{</span><span style="color: #0000BB">$message</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$date </span><span style="color: #007700">= </span><span style="color: #DD0000">"26 August 2022 22:30 pm"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$parsed </span><span style="color: #007700">= </span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j F Y G:i a"</span><span style="color: #007700">, </span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Warnings count: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'warning_count'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />foreach (</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'warnings'</span><span style="color: #007700">] as </span><span style="color: #0000BB">$position </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$message</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"\tOn position </span><span style="color: #007700">{</span><span style="color: #0000BB">$position</span><span style="color: #007700">}</span><span style="color: #DD0000">: </span><span style="color: #007700">{</span><span style="color: #0000BB">$message</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Warnings count: 1
-	On position 23: The parsed time was invalid
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Warnings count: 1
+	On position 23: The parsed time was invalid</pre>
+</div>
     </div>
    </div>
   </p>
 
   <p class="para">
-   <div class="example" id="example-4154">
+   <div class="example" id="example-2140">
     <p><strong>Example #3 <span class="function"><strong>date_parse_from_format()</strong></span> with errors example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$date </span><span style="color: #007700">= </span><span style="color: #DD0000">"26 August 2022 CEST"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$parsed </span><span style="color: #007700">= </span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j F Y H:i"</span><span style="color: #007700">, </span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Errors count: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'error_count'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />foreach (</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'errors'</span><span style="color: #007700">] as </span><span style="color: #0000BB">$position </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$message</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"\tOn position </span><span style="color: #007700">{</span><span style="color: #0000BB">$position</span><span style="color: #007700">}</span><span style="color: #DD0000">: </span><span style="color: #007700">{</span><span style="color: #0000BB">$message</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$date </span><span style="color: #007700">= </span><span style="color: #DD0000">"26 August 2022 CEST"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$parsed </span><span style="color: #007700">= </span><span style="color: #0000BB">date_parse_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">"j F Y H:i"</span><span style="color: #007700">, </span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Errors count: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'error_count'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />foreach (</span><span style="color: #0000BB">$parsed</span><span style="color: #007700">[</span><span style="color: #DD0000">'errors'</span><span style="color: #007700">] as </span><span style="color: #0000BB">$position </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$message</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"\tOn position </span><span style="color: #007700">{</span><span style="color: #0000BB">$position</span><span style="color: #007700">}</span><span style="color: #DD0000">: </span><span style="color: #007700">{</span><span style="color: #0000BB">$message</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Errors count: 3
+<div class="examplescode"><pre class="examplescode">Errors count: 3
 	On position 15: A two digit hour could not be found
-	On position 19: Data missing
-</pre></div>
+	On position 19: Data missing</pre>
+</div>
     </div>
    </div>
   </p>
@@ -250,8 +248,8 @@ Errors count: 3
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="datetimeimmutable.createfromformat.html" class="function" rel="rdfs-seeAlso">DateTimeImmutable::createFromFormat()</a> - Parses a time string according to a specified format</span></li>
-    <li class="member"><span class="function"><a href="function.checkdate.html" class="function" rel="rdfs-seeAlso">checkdate()</a> - 验证一个格里高里日期</span></li>
+    <li><span class="function"><a href="datetimeimmutable.createfromformat.html" class="function" rel="rdfs-seeAlso">DateTimeImmutable::createFromFormat()</a> - Parses a time string according to a specified format</span></li>
+    <li><span class="function"><a href="function.checkdate.html" class="function" rel="rdfs-seeAlso">checkdate()</a> - 验证一个格里高里日期</span></li>
    </ul>
   </p>
  </div>

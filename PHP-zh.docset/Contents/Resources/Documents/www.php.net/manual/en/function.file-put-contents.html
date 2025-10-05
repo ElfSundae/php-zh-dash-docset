@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将数据写入文件</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="function.file-get-contents.html">? file_get_contents</a></li>
-      <li style="float: right;"><a href="function.file.html">file ?</a></li>
+      <li style="float: right;"><a href="function.fileatime.html">fileatime ?</a></li>
     </ul>
   </div>
 </div>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.file-put-contents-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>file_put_contents</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">resource</span><span class="type"></span></span> <code class="parameter">$context</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
+   <span class="methodname"><strong>file_put_contents</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.mixed.html" class="type mixed">mixed</a></span> <code class="parameter">$data</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span></span> <code class="parameter">$context</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span><br>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment"> 
    和依次调用 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>，<span class="function"><a href="function.fwrite.html" class="function">fwrite()</a></span>
@@ -43,7 +43,7 @@
   <p class="para">
    如果 <code class="parameter">filename</code>
    不存在，将会创建文件。反之，存在的文件将会重写，除非设置
-   <strong><code>FILE_APPEND</code></strong> flag。
+   <strong><code><a href="filesystem.constants.html#constant.file-append">FILE_APPEND</a></code></strong> flag。
   </p>
  </div>
 
@@ -53,26 +53,19 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">filename</code></dt>
-
+     <dt><code class="parameter">filename</code></dt>
      <dd>
-
       <p class="para">
        要被写入数据的文件名。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">data</code></dt>
-
+     <dt><code class="parameter">data</code></dt>
      <dd>
-
       <p class="para">
-       要写入的数据。类型可以是 <span class="type">string</span>，<span class="type">array</span>
-       或者是 <span class="type"><span class="type stream">stream</span></span> 资源（如上面所说的那样）。
+       要写入的数据。类型可以是 <span class="type"><a href="language.types.string.html" class="type string">string</a></span>，<span class="type"><a href="language.types.array.html" class="type array">array</a></span>
+       或者是 <span class="type">stream</span> 资源（如上面所说的那样）。
       </p>
       <p class="para">
        如果 <code class="parameter">data</code>
@@ -85,14 +78,10 @@
        <code class="literal">file_put_contents($filename, join(&#039;&#039;, $array))</code>。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">flags</code></dt>
-
+     <dt><code class="parameter">flags</code></dt>
      <dd>
-
       <p class="para">
        <code class="parameter">flags</code> 的值可以是
        以下 flag 使用 OR (<code class="literal">|</code>) 运算符进行的组合。
@@ -112,7 +101,7 @@
          <tbody class="tbody">
           <tr>
            <td>
-            <strong><code>FILE_USE_INCLUDE_PATH</code></strong>
+            <strong><code><a href="filesystem.constants.html#constant.file-use-include-path">FILE_USE_INCLUDE_PATH</a></code></strong>
            </td>
            <td>
             在 include 目录里搜索  <code class="parameter">filename</code>。
@@ -122,7 +111,7 @@
 
           <tr>
            <td>
-            <strong><code>FILE_APPEND</code></strong>
+            <strong><code><a href="filesystem.constants.html#constant.file-append">FILE_APPEND</a></code></strong>
            </td>
            <td>
             如果文件 <code class="parameter">filename</code>  已经存在，追加数据而不是覆盖。
@@ -131,7 +120,7 @@
 
           <tr>
            <td>
-            <strong><code>LOCK_EX</code></strong>
+            <strong><code><a href="filesystem.constants.html#constant.lock-ex">LOCK_EX</a></code></strong>
            </td>
            <td>
             在写入时获取文件独占锁。换句话说，在调用 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>
@@ -146,22 +135,16 @@
 
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">context</code></dt>
-
+     <dt><code class="parameter">context</code></dt>
      <dd>
-
       <p class="para">
        一个 context 资源。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -169,35 +152,29 @@
  <div class="refsect1 returnvalues" id="refsect1-function.file-put-contents-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   该函数将返回写入到文件内数据的字节数，失败时返回<strong><code>false</code></strong>
+   该函数将返回写入到文件内数据的字节数，失败时返回<strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>
   </p>
   <div class="warning"><strong class="warning">Warning</strong><p class="simpara">此函数可能返回布尔值
-<strong><code>false</code></strong>，但也可能返回等同于 <strong><code>false</code></strong> 的非布尔值。请阅读 <a href="language.types.boolean.html" class="link">布尔类型</a>章节以获取更多信息。应使用
+<strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>，但也可能返回等同于 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 的非布尔值。请阅读 <a href="language.types.boolean.html" class="link">布尔类型</a>章节以获取更多信息。应使用
 <a href="language.operators.comparison.html" class="link">===
 运算符</a>来测试此函数的返回值。</p></div>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.file-put-contents-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4324">
+   <div class="example" id="example-2214">
     <p><strong>Example #1 简单用法示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$file </span><span style="color: #007700">= </span><span style="color: #DD0000">'people.txt'</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// 打开文件获取已经存在的内容<br /></span><span style="color: #0000BB">$current </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// 追加新成员到文件<br /></span><span style="color: #0000BB">$current </span><span style="color: #007700">.= </span><span style="color: #DD0000">"John Smith\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// 将内容写回文件<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">, </span><span style="color: #0000BB">$current</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$file </span><span style="color: #007700">= </span><span style="color: #DD0000">'people.txt'</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// 打开文件获取已经存在的内容<br /></span><span style="color: #0000BB">$current </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// 追加新成员到文件<br /></span><span style="color: #0000BB">$current </span><span style="color: #007700">.= </span><span style="color: #DD0000">"John Smith\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// 将内容写回文件<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">, </span><span style="color: #0000BB">$current</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
-   <div class="example" id="example-4326">
+   <div class="example" id="example-2215">
     <p><strong>Example #2 Using flags</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$file </span><span style="color: #007700">= </span><span style="color: #DD0000">'people.txt'</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// The new person to add to the file<br /></span><span style="color: #0000BB">$person </span><span style="color: #007700">= </span><span style="color: #DD0000">"John Smith\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// Write the contents to the file, <br />// using the FILE_APPEND flag to append the content to the end of the file<br />// and the LOCK_EX flag to prevent anyone else writing to the file at the same time<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">, </span><span style="color: #0000BB">$person</span><span style="color: #007700">, </span><span style="color: #0000BB">FILE_APPEND </span><span style="color: #007700">| </span><span style="color: #0000BB">LOCK_EX</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$file </span><span style="color: #007700">= </span><span style="color: #DD0000">'people.txt'</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// The new person to add to the file<br /></span><span style="color: #0000BB">$person </span><span style="color: #007700">= </span><span style="color: #DD0000">"John Smith\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">// Write the contents to the file, <br />// using the FILE_APPEND flag to append the content to the end of the file<br />// and the LOCK_EX flag to prevent anyone else writing to the file at the same time<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">, </span><span style="color: #0000BB">$person</span><span style="color: #007700">, </span><span style="color: #0000BB">FILE_APPEND </span><span style="color: #007700">| </span><span style="color: #0000BB">LOCK_EX</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -217,10 +194,10 @@ wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协�
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.fopen.html" class="function" rel="rdfs-seeAlso">fopen()</a> - 打开文件或者 URL</span></li>
-    <li class="member"><span class="function"><a href="function.fwrite.html" class="function" rel="rdfs-seeAlso">fwrite()</a> - 写入文件（可安全用于二进制文件）</span></li>
-    <li class="member"><span class="function"><a href="function.file-get-contents.html" class="function" rel="rdfs-seeAlso">file_get_contents()</a> - 将整个文件读入一个字符串</span></li>
-    <li class="member"><span class="function"><a href="function.stream-context-create.html" class="function" rel="rdfs-seeAlso">stream_context_create()</a> - 创建资源流上下文</span></li>
+    <li><span class="function"><a href="function.fopen.html" class="function" rel="rdfs-seeAlso">fopen()</a> - 打开文件或者 URL</span></li>
+    <li><span class="function"><a href="function.fwrite.html" class="function" rel="rdfs-seeAlso">fwrite()</a> - 写入文件（可安全用于二进制文件）</span></li>
+    <li><span class="function"><a href="function.file-get-contents.html" class="function" rel="rdfs-seeAlso">file_get_contents()</a> - 将整个文件读入一个字符串</span></li>
+    <li><span class="function"><a href="function.stream-context-create.html" class="function" rel="rdfs-seeAlso">stream_context_create()</a> - 创建资源流上下文</span></li>
    </ul>
   </p>
  </div>
@@ -229,7 +206,49 @@ wapper 的不同功能请参见 <a href="wrappers.html" class="xref">支持的协议和封装协�
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127040""></a>
+<div id="allnotes">  <a name="129183""></a>
+  <div class="note">
+   <strong class="user">curda222 at gmail dot com</strong>
+   <a href="#129183" class="date">22-Jan-2024 01:22</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+An improved and enraptured code from TrentTompkins at gmail dot com&nbsp; <br />
+<br />
+Note: Added error response <br />
+Note: Added directory detection<br />
+Note: Added root detection<br />
+Note: Added permissions when creating folder<br />
+<br />
+function file_force_contents($dir, $contents, $flags = 0){<br />
+&nbsp;&nbsp;&nbsp; if (strpos($dir, "../") === 0){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $dir = str_replace("..", substr(__DIR__, 0, strrpos(__DIR__, "/")), $dir);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; $parts = explode('/', $dir);<br />
+&nbsp;&nbsp;&nbsp; if(is_array($parts)){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $file = array_pop($parts);<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $dir = '';<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach($parts as $part)<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!is_dir($dir .= "/$part")){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; mkdir($dir, 0777, true);<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(file_put_contents("$dir/$file", $contents, $flags) === false ){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; }else{<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(file_put_contents("$dir", $contents, $flags) === false ){<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } <br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+-Oliver Leuyim Angel</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127040""></a>
   <div class="note">
    <strong class="user">Anonymous</strong>
    <a href="#127040" class="date">08-May-2022 07:34</a>
@@ -244,30 +263,6 @@ function path_put_contents($filePath, $contents, $flags = 0) {<br />
 &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; mkdir($dir, 0777, true);<br />
 &nbsp;&nbsp;&nbsp; file_put_contents($filePath, $contents, $flags);<br />
 }</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125653""></a>
-  <div class="note">
-   <strong class="user">jul dot rosset at gmail dot com</strong>
-   <a href="#125653" class="date">04-Jan-2021 03:56</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This function doesn't return False if all data isn't write, especially when data is a stream resource<br />
-<br />
-You must check yourself using return value.<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; $url </span><span class="keyword">= </span><span class="string">'https://monsite.fr/image.png'</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$size </span><span class="keyword">= </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$written </span><span class="keyword">= </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">'image.png'</span><span class="keyword">, </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">, </span><span class="string">'r'</span><span class="keyword">));<br />
-&nbsp;&nbsp;&nbsp; if (</span><span class="default">$size </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">|| </span><span class="default">$size </span><span class="keyword">!= </span><span class="default">$written</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; die(</span><span class="string">'Download failed'</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; } <br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -297,206 +292,6 @@ A slightly simplified version of the method: <a href="http://php.net/manual/ru/f
 </span><span class="default">file_force_contents</span><span class="keyword">( </span><span class="default">ROOT</span><span class="keyword">.</span><span class="string">'/newpath/file.txt'</span><span class="keyword">, </span><span class="string">'message'</span><span class="keyword">, </span><span class="default">LOCK_EX </span><span class="keyword">);<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="123203""></a>
-  <div class="note">
-   <strong class="user">daniel at garcianoriega dot com</strong>
-   <a href="#123203" class="date">06-Oct-2018 04:07</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I faced the problem of converting a downloaded csv file that had Windows-1252 encoding, so to convert it to UTF-8 this worked for me:<br />
-<br />
-$from = 'Windows-1252';<br />
-$to = 'UTF-8';<br />
-<br />
-$content = file_get_contents($this-&gt;path());<br />
-<br />
-file_put_contents($this-&gt;path(), mb_convert_encoding($content, $to, $from));<br />
-<br />
-where "$this-&gt;path()" has the path of the file... Using this the file is converted from Windows-1252 to UTF-8.<br />
-<br />
-With this you can import it with mysqlimport with no problems.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122781""></a>
-  <div class="note">
-   <strong class="user">Abe</strong>
-   <a href="#122781" class="date">30-May-2018 12:57</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you need to read a file, process the contents, and then write the contents back, all inside a lock so that no other process can interfere, then you probably can't use file_put_contents in lock mode.<br />
-<br />
-As a work around, you can consider trying the following code to do a file write (fwrite) inside of a file lock. <br />
-<br />
-Play with the $overwriting= setting to switch from simply appending to completely overwriting.<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; <span class="default">&lt;?php<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="comment">// Tested in PHP7.0.18<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$trackErrors </span><span class="keyword">= </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">'track_errors'</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'track_errors'</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$filename</span><span class="keyword">=</span><span class="string">"c:/temp/test.txt"</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if ( ! </span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">) ) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">touch</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$mode</span><span class="keyword">=</span><span class="string">"r+"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$fh</span><span class="keyword">=</span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if ( ! </span><span class="default">$fh </span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; echo </span><span class="string">"&lt;LI style='color:red'&gt;Failed to open </span><span class="default">$filename</span><span class="string"> in </span><span class="default">$mode</span><span class="string">"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; die();<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if ( </span><span class="default">1</span><span class="keyword">==</span><span class="default">1 </span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">flock</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">, </span><span class="default">LOCK_EX</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; if ( </span><span class="default">1</span><span class="keyword">==</span><span class="default">1 </span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (</span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">) &gt; </span><span class="default">0</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$txt </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">, </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; echo </span><span class="string">"BEFORE:&lt;OL&gt;</span><span class="default">$txt</span><span class="string">&lt;/OL&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; } <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$txt </span><span class="keyword">= </span><span class="string">"empty"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$txt </span><span class="keyword">= </span><span class="string">"&lt;LI&gt;Date is now " </span><span class="keyword">. </span><span class="default">gmdate</span><span class="keyword">(</span><span class="string">"Y-m-d H:i:s"</span><span class="keyword">, </span><span class="default">time</span><span class="keyword">());<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"&lt;HR&gt;WRITING:&lt;OL&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if ( </span><span class="default">1</span><span class="keyword">==</span><span class="default">1 </span><span class="keyword">) {<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$overwrite </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (</span><span class="default">$overwrite</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"(Overwrite)&lt;BR&gt;&lt;BR&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">ftruncate</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// ftruncate is here as rewind will move the pointer <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // to the beginning of the file and allow overwrite,<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // but it will not remove existing content that <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // extends beyond the length of the new write<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">rewind</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"(Appending)&lt;BR&gt;&lt;BR&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (</span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">, </span><span class="default">$txt</span><span class="keyword">) == </span><span class="default">FALSE</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"&lt;LI style='color:red'&gt;Failed to write to </span><span class="default">$filename</span><span class="string">"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"</span><span class="default">$txt</span><span class="string">"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">fflush</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"&lt;/OL&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">flock</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">, </span><span class="default">LOCK_UN</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="comment">// -------------------------------------------------------------------<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="keyword">echo </span><span class="string">"&lt;HR&gt;AFTER:&lt;OL&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if ( </span><span class="default">1</span><span class="keyword">==</span><span class="default">2 </span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// I've noticed that this block fails to pick up the newly<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // written content when run with fread, but does work with <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; // the fgets logic below - possibly there is caching going on.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$mode </span><span class="keyword">= </span><span class="string">"r"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fh2 </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$contents </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fh2</span><span class="keyword">, </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"</span><span class="default">$contents</span><span class="string">"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fh2</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fh3 </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fh3</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$fh3</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$line</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fh3</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp;&nbsp; echo </span><span class="string">"&lt;/OL&gt;"</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; echo </span><span class="string">"&lt;HR&gt;Fin"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="122532""></a>
-  <div class="note">
-   <strong class="user">briethings at gmail dot com</strong>
-   <a href="#122532" class="date">22-Mar-2018 03:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Here is a stupid pitfall I just fell into.<br />
-I think it may happen rather frequently, so I report it.<br />
-<br />
-A common situation is that the $filename argument is built from two variables:<br />
-file_put_contents($path . $file, $content);<br />
-<br />
-Say that $path = 'path/to' and $file = 'file.txt': you see that $path lacks its ending "/", so the resulting full path is 'path/tofile.txt'.<br />
-<br />
-Then you look at 'path/to' and don't see any 'file.txt', although no warning or notice was thrown!<br />
-And may be (like for me :D) it'll take time before you realize that a bad 'tofile.txt' was created in the *parent* directory of the one where you were looking for your file.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="120880""></a>
-  <div class="note">
-   <strong class="user">marc at gutt dot it</strong>
-   <a href="#120880" class="date">27-Mar-2017 01:57</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This php.net example could be confusing:<br />
-<span class="default">&lt;?php<br />
-file_put_contents</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">$person</span><span class="keyword">, </span><span class="default">FILE_APPEND </span><span class="keyword">| </span><span class="default">LOCK_EX</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-You do not need LOCK_EX if you write only to a file (like log files). Multiple writing processes are already queued. Test it on your own by calling this script 4 times simultaneously:<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">string_rand</span><span class="keyword">(</span><span class="default">$len</span><span class="keyword">, </span><span class="default">$split</span><span class="keyword">=</span><span class="string">"\n"</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">substr</span><span class="keyword">(</span><span class="default">chunk_split</span><span class="keyword">(</span><span class="default">bin2hex</span><span class="keyword">(</span><span class="default">openssl_random_pseudo_bytes</span><span class="keyword">(</span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$len </span><span class="keyword">/ </span><span class="default">2</span><span class="keyword">))), </span><span class="default">1023</span><span class="keyword">, </span><span class="default">$split</span><span class="keyword">), </span><span class="default">0</span><span class="keyword">, </span><span class="default">$len</span><span class="keyword">);<br />
-}<br />
-<br />
-</span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'memory_limit'</span><span class="keyword">, </span><span class="string">'200M'</span><span class="keyword">);<br />
-<br />
-if (!</span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">'../cache4/file.txt'</span><span class="keyword">, </span><span class="default">string_rand</span><span class="keyword">(</span><span class="default">102400000</span><span class="keyword">), </span><span class="default">FILE_APPEND</span><span class="keyword">)) {<br />
-&nbsp;&nbsp;&nbsp; exit(</span><span class="string">'file_put_contents() error!'</span><span class="keyword">);<br />
-}<br />
-<br />
-</span><span class="default">clearstatcache</span><span class="keyword">();<br />
-echo </span><span class="string">'filesize: ' </span><span class="keyword">. </span><span class="default">filesize</span><span class="keyword">(</span><span class="string">'../cache4/file.txt'</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-<br />
-</span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">'../cache4/file.txt'</span><span class="keyword">, </span><span class="string">'r'</span><span class="keyword">);<br />
-if (</span><span class="default">$fp</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; while ((</span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) !== </span><span class="default">false</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">) != </span><span class="default">1024</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; exit(</span><span class="string">'Line length error!'</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-You will not see an error, the last called script needs the longest time (as it is the last one in the queue) and the final size will be 409600000 bytes as it should be.</span>
 </code>
     </div>
    </div>
@@ -554,30 +349,6 @@ Make sure not to corrupt anything in case of failure.<br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="119921""></a>
-  <div class="note">
-   <strong class="user">josemiguel at likeik dot com</strong>
-   <a href="#119921" class="date">20-Sep-2016 12:22</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Under PHP7.0, I have seen that using an empty string as $data, the function returns FALSE instead of 0 as it should:<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $data = ''<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $size = file_put_contents($filename, $data, FILE_APPEND);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ($size == FALSE)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; echo "error writing file"<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-Code will give error when $data is an empty string even using == operator.<br />
-<br />
-Hope it helps somebody...</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="119363""></a>
   <div class="note">
    <strong class="user">aabaev arroba gmail coma com</strong>
@@ -589,116 +360,6 @@ I suggest to expand file_force_contents() function of TrentTompkins at gmail dot
 <br />
 if (strpos($dir, "../") === 0)<br />
 &nbsp;&nbsp;&nbsp; $dir = str_replace("..", substr(__DIR__, 0, strrpos(__DIR__, "/")), $dir);</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="119046""></a>
-  <div class="note">
-   <strong class="user">vilhar at hotmail dot com</strong>
-   <a href="#119046" class="date">23-Mar-2016 11:48</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This should also handle $filename from other than root and also $filename without path. <br />
-<br />
-function file_force_contents($filename, $data, $per = 0755, $flags = 0) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $fn = "";<br />
-&nbsp;&nbsp;&nbsp; if(substr($filename, 0, 1) === "/") $fn .= "/";<br />
-&nbsp;&nbsp;&nbsp; $parts = explode("/", $filename);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $file = array_pop($parts);<br />
-&nbsp;&nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach($parts as $part) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(!is_dir($fn .= "$part")) mkdir($fn, $per, true);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $fn .= "/";<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; file_put_contents($fn.$file, $data, $flags);&nbsp;&nbsp; <br />
-}</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116241""></a>
-  <div class="note">
-   <strong class="user">Nadeem</strong>
-   <a href="#116241" class="date">28-Nov-2014 10:01</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Log custom or error messages to a file.<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">class </span><span class="default">Logger</span><span class="keyword">{<br />
-<br />
-&nbsp;&nbsp;&nbsp; protected </span><span class="default">$file</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; protected </span><span class="default">$content</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; protected </span><span class="default">$writeFlag</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; protected </span><span class="default">$endRow</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-<br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">,</span><span class="default">$endRow</span><span class="keyword">=</span><span class="string">"\n"</span><span class="keyword">,</span><span class="default">$writeFlag</span><span class="keyword">=</span><span class="default">FILE_APPEND</span><span class="keyword">) { <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">file</span><span class="keyword">=</span><span class="default">$file</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">writeFlag</span><span class="keyword">=</span><span class="default">$writeFlag</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">endRow</span><span class="keyword">=</span><span class="default">$endRow</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">AddRow</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">=</span><span class="string">""</span><span class="keyword">,</span><span class="default">$newLines</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; for (</span><span class="default">$m</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$m</span><span class="keyword">&lt;</span><span class="default">$newLines</span><span class="keyword">;</span><span class="default">$m</span><span class="keyword">++)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$newRow </span><span class="keyword">.= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">endRow</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">content </span><span class="keyword">.= </span><span class="default">$content </span><span class="keyword">. </span><span class="default">$newRow</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">Commit</span><span class="keyword">(){<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">file</span><span class="keyword">,</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">content</span><span class="keyword">,</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">writeFlag</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; public function </span><span class="default">LogError</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">,</span><span class="default">$newLines</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (</span><span class="default">$error</span><span class="keyword">!=</span><span class="string">""</span><span class="keyword">){<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">AddRow</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">,</span><span class="default">$newLines</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">$error</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-}<br />
-<br />
-</span><span class="default">$logFileDirectoryAndName</span><span class="keyword">=</span><span class="string">"/yourDirectory/yourFileName.xxx"</span><span class="keyword">;<br />
-<br />
-</span><span class="default">$logger </span><span class="keyword">= new </span><span class="default">Logger</span><span class="keyword">(</span><span class="default">$logFileDirectoryAndName</span><span class="keyword">);<br />
-<br />
-</span><span class="default">$logger</span><span class="keyword">-&gt;</span><span class="default">AddRow</span><span class="keyword">(</span><span class="string">"Your Log Message"</span><span class="keyword">);<br />
-<br />
-</span><span class="comment">#log a system error and echo a message<br />
-</span><span class="default">$logger</span><span class="keyword">-&gt;</span><span class="default">LogError</span><span class="keyword">(</span><span class="default">mysql_error</span><span class="keyword">(</span><span class="default">$conn</span><span class="keyword">));<br />
-<br />
-</span><span class="default">$logger</span><span class="keyword">-&gt;</span><span class="default">Commit</span><span class="keyword">();<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -745,37 +406,6 @@ i have updated code of "TrentTompkins at gmail dot com". thanks<br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="115945""></a>
-  <div class="note">
-   <strong class="user">klunker dot roox at gmail dot com</strong>
-   <a href="#115945" class="date">17-Oct-2014 10:47</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-if path to the file not exist function file_put_contents can't create it. This simple function make it on UNIX-based and Windows servers.<br />
-<span class="default">&lt;?php <br />
-</span><span class="keyword">function </span><span class="default">file_put_contents_force</span><span class="keyword">(){<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$path </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">'/'</span><span class="keyword">,</span><span class="string">'\\'</span><span class="keyword">), </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$parts </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$path</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$parts</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$directory </span><span class="keyword">=&nbsp; </span><span class="string">''</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; foreach(</span><span class="default">$parts </span><span class="keyword">as </span><span class="default">$part</span><span class="keyword">):<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$check_path </span><span class="keyword">= </span><span class="default">$directory</span><span class="keyword">.</span><span class="default">$part</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if( </span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$check_path</span><span class="keyword">.</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">) === </span><span class="default">FALSE</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">mkdir</span><span class="keyword">(</span><span class="default">$check_path</span><span class="keyword">, </span><span class="default">0755</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$directory </span><span class="keyword">= </span><span class="default">$check_path</span><span class="keyword">.</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; endforeach;&nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">call_user_func_array</span><span class="keyword">(</span><span class="string">'file_put_contents'</span><span class="keyword">,</span><span class="default">$args</span><span class="keyword">);<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="112831""></a>
   <div class="note">
    <strong class="user">chris at ocportal dot com</strong>
@@ -800,21 +430,6 @@ If you have code that does a file_get_contents on a file, changes the string, th
    </div>
   </div>
  <div class="foot"></div>
-  <a name="112748""></a>
-  <div class="note">
-   <strong class="user">michel kollenhoven</strong>
-   <a href="#112748" class="date">19-Jul-2013 09:35</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-re: moura dot kadu at gmail dot com<br />
-<br />
-why not ? file_put_contents('<a href="ftp://user:pass@server/path/to/file" rel="nofollow" target="_blank">ftp://user:pass@server/path/to/file</a>',$data);</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="107221""></a>
   <div class="note">
    <strong class="user">vahkos at mail dot ru</strong>
@@ -829,179 +444,6 @@ that is why use trim() for file name.
 $name=trim($name);
 <br />
 file_put_contents($name,$content);</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="106315""></a>
-  <div class="note">
-   <strong class="user">caiofior at gmail dot com</strong>
-   <a href="#106315" class="date">27-Oct-2011 01:56</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I had some troubles using file_put_contents with an absolute but no canonicalized path (eg. w:/htdocs/pri/../test/log.txt): on windows environment php was unable to create the file also using the realpath function .<br />
-I had to use fopen and frwite functions to write the data.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="105896""></a>
-  <div class="note">
-   <strong class="user">moura dot kadu at gmail dot com</strong>
-   <a href="#105896" class="date">23-Sep-2011 12:18</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I made ??a ftp_put_contents function.<br />
-<br />
-hope you enjoy.<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">ftp_put_contents</span><span class="keyword">(</span><span class="default">$fpc_path_and_name</span><span class="keyword">, </span><span class="default">$fpc_content</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Temporary folder in the server<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cfg_temp_folder </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"//"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'DOCUMENT_ROOT'</span><span class="keyword">].</span><span class="string">"/_temp/"</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Link to FTP<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cfg_ftp_server </span><span class="keyword">= </span><span class="string">"<a href="ftp://ftp.com" rel="nofollow" target="_blank">ftp://ftp.com</a>"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//FTP username<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cfg_user </span><span class="keyword">= </span><span class="string">"user"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//FTP password<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cfg_pass </span><span class="keyword">= </span><span class="string">"password"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Document Root of FTP<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cfg_document_root </span><span class="keyword">= </span><span class="string">"DOCUMENT ROOT OF FTP"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Link to the website<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cfg_site_link </span><span class="keyword">= </span><span class="string">"Link to the website"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Check if conteins slash on the path of the file<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$cotains_slash </span><span class="keyword">= </span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$fpc_path_and_name</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Get filename and paths<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$cotains_slash</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fpc_path_and_name_array </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">"/"</span><span class="keyword">, </span><span class="default">$fpc_path_and_name</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fpc_file_name </span><span class="keyword">= </span><span class="default">end</span><span class="keyword">(</span><span class="default">$fpc_path_and_name_array</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fpc_file_name </span><span class="keyword">= </span><span class="default">$fpc_path_and_name</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Create local temp dir<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (!</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$cfg_temp_folder</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">mkdir</span><span class="keyword">(</span><span class="default">$cfg_temp_folder</span><span class="keyword">, </span><span class="default">0777</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Unable to generate a temporary folder on the local server - </span><span class="default">$cfg_temp_folder</span><span class="string">.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Create local file in temp dir<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (!</span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"//"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="default">$cfg_temp_folder</span><span class="keyword">.</span><span class="default">$fpc_file_name</span><span class="keyword">), </span><span class="default">$fpc_content</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Unable to generate the file in the temporary location - "</span><span class="keyword">.</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"//"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="default">$cfg_temp_folder</span><span class="keyword">.</span><span class="default">$fpc_file_name</span><span class="keyword">).</span><span class="string">".&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Connection to the FTP Server<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$fpc_ftp_conn </span><span class="keyword">= </span><span class="default">ftp_connect</span><span class="keyword">(</span><span class="string">"</span><span class="default">$cfg_ftp_server</span><span class="string">"</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Check connection<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">if (!</span><span class="default">$fpc_ftp_conn</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Could not connect to server &lt;b&gt;</span><span class="default">$cfg_ftp_server</span><span class="string">&lt;/b&gt;.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">// login<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; // check username and password<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (!</span><span class="default">ftp_login</span><span class="keyword">(</span><span class="default">$fpc_ftp_conn</span><span class="keyword">, </span><span class="string">"</span><span class="default">$cfg_user</span><span class="string">"</span><span class="keyword">, </span><span class="string">"</span><span class="default">$cfg_pass</span><span class="string">"</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"User or password.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Document Root<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (!</span><span class="default">ftp_chdir</span><span class="keyword">(</span><span class="default">$fpc_ftp_conn</span><span class="keyword">, </span><span class="default">$cfg_document_root</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Error to set Document Root.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Check if there are folders to create<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">$cotains_slash</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Check if have folders and is not just the file name<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$fpc_path_and_name_array</span><span class="keyword">) &gt; </span><span class="default">1</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Remove last array<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fpc_remove_last_array </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$fpc_path_and_name_array</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Checks if there slashs on the path<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$fpc_path_and_name</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">) == </span><span class="string">"/"</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$fpc_remove_first_array </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$fpc_path_and_name_array</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Create each folder on ftp<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">foreach (</span><span class="default">$fpc_path_and_name_array </span><span class="keyword">as </span><span class="default">$fpc_ftp_path</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!@</span><span class="default">ftp_chdir</span><span class="keyword">(</span><span class="default">$fpc_ftp_conn</span><span class="keyword">, </span><span class="default">$fpc_ftp_path</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">ftp_mkdir</span><span class="keyword">(</span><span class="default">$fpc_ftp_conn</span><span class="keyword">, </span><span class="default">$fpc_ftp_path</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Error creating directory </span><span class="default">$fpc_ftp_path</span><span class="string">.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">ftp_chdir</span><span class="keyword">(</span><span class="default">$fpc_ftp_conn</span><span class="keyword">, </span><span class="default">$fpc_ftp_path</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Error go to the directory </span><span class="default">$fpc_ftp_path</span><span class="string">.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Check upload file<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if (!</span><span class="default">ftp_put</span><span class="keyword">(</span><span class="default">$fpc_ftp_conn</span><span class="keyword">, </span><span class="default">$fpc_file_name</span><span class="keyword">, </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"//"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="default">$cfg_temp_folder</span><span class="keyword">.</span><span class="default">$fpc_file_name</span><span class="keyword">), </span><span class="default">FTP_ASCII</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"File upload &lt;b&gt;</span><span class="default">$fpc_path_and_name</span><span class="string">&lt;/b&gt; failed!&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">unlink</span><span class="keyword">(</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"//"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="default">$cfg_temp_folder</span><span class="keyword">.</span><span class="default">$fpc_file_name</span><span class="keyword">))) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"Error deleting temporary file.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; die();<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"File upload &lt;a href='</span><span class="default">$cfg_site_link</span><span class="string">"</span><span class="keyword">.</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"//"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="string">"/</span><span class="default">$fpc_path_and_name</span><span class="string">"</span><span class="keyword">).</span><span class="string">"'&gt;&lt;b&gt;</span><span class="default">$cfg_site_link</span><span class="string">"</span><span class="keyword">.</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"//"</span><span class="keyword">, </span><span class="string">"/"</span><span class="keyword">, </span><span class="string">"/</span><span class="default">$fpc_path_and_name</span><span class="string">"</span><span class="keyword">).</span><span class="string">"&lt;/a&gt;&lt;/b&gt; successfully performed.&lt;br /&gt;"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Close connection to FTP server<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">ftp_close</span><span class="keyword">(</span><span class="default">$fpc_ftp_conn</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="comment">#Sample<br />
-<br />
-</span><span class="default">$content_file </span><span class="keyword">= </span><span class="string">"&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" rel="nofollow" target="_blank">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd</a>\"&gt;<br />
-&lt;html xmlns=\"<a href="http://www.w3.org/1999/xhtml" rel="nofollow" target="_blank">http://www.w3.org/1999/xhtml</a>\"&gt;<br />
-&lt;head&gt;<br />
-&lt;meta http-equiv=\"Content-Type\" content=\"text/html; CHARSET=gb2312\" /&gt;<br />
-&lt;title&gt;Title&lt;/title&gt;<br />
-&lt;/head&gt;<br />
-&lt;body&gt;<br />
-&lt;p&gt;Test&lt;/p&gt;<br />
-&lt;/body&gt;<br />
-&lt;/html&gt;"</span><span class="keyword">;<br />
-<br />
-</span><span class="default">ftp_put_contents</span><span class="keyword">(</span><span class="string">"test.php"</span><span class="keyword">, </span><span class="default">$content_file</span><span class="keyword">);<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -1118,55 +560,6 @@ __DIR__ is your friend.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="100753""></a>
-  <div class="note">
-   <strong class="user">hilton at allcor dot com dot br</strong>
-   <a href="#100753" class="date">04-Nov-2010 04:20</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-NOTE : file_put_contents create files UTF-8<br />
-<br />
-<span class="default">&lt;?php <br />
-$myFile </span><span class="keyword">= </span><span class="string">'test.txt'</span><span class="keyword">; <br />
-</span><span class="default">$myContent </span><span class="keyword">= </span><span class="string">'I love PHP'</span><span class="keyword">; <br />
-<br />
-</span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="default">$myFile</span><span class="keyword">, </span><span class="default">utf8_encode</span><span class="keyword">(</span><span class="default">$myContent</span><span class="keyword">)); <br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="99971""></a>
-  <div class="note">
-   <strong class="user">clement dot delmas at gmail dot com</strong>
-   <a href="#99971" class="date">17-Sep-2010 06:22</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-NOTE : file_put_contents doesn't add a valid BOM while creating the file
-<br />
-
-<br />
-<span class="default">&lt;?php 
-<br />
-$myFile </span><span class="keyword">= </span><span class="string">'test.txt'</span><span class="keyword">;
-<br />
-</span><span class="default">$myContent </span><span class="keyword">= </span><span class="string">'I love PHP'</span><span class="keyword">;
-<br />
-
-<br />
-</span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="default">$myFile</span><span class="keyword">, </span><span class="string">"\xEF\xBB\xBF"</span><span class="keyword">.</span><span class="default">$myContent</span><span class="keyword">);
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="96217""></a>
   <div class="note">
    <strong class="user">deqode at felosity dot nl</strong>
@@ -1270,142 +663,6 @@ You can see that when you print $contents you get two extra line endings, but if
    </div>
   </div>
  <div class="foot"></div>
-  <a name="86864""></a>
-  <div class="note">
-   <strong class="user">kola_lola at hotmail dot com</strong>
-   <a href="#86864" class="date">06-Nov-2008 03:31</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I wrote this script implementing the file_put_contents() and file_get_contents() functions to be compatible with both php4.* and php 5.*. It is a PHP Command line interface script which searches and replaces a specific word recursively through all files in the supplied directory hierarchy.<br />
-<br />
-Usage from a Linux command line: ./scriptname specifieddirectory searchString replaceString<br />
-<br />
-#!/usr/bin/php<br />
-<span class="default">&lt;?php<br />
-$argc </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'argc'</span><span class="keyword">];<br />
-</span><span class="default">$argv </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'argv'</span><span class="keyword">];<br />
-<br />
-if(</span><span class="default">$argc </span><span class="keyword">!= </span><span class="default">4</span><span class="keyword">)<br />
-{<br />
-echo </span><span class="string">"This command replaces a search string with a replacement string\n for the contents of all files in a directory hierachy\n"</span><span class="keyword">;<br />
-echo </span><span class="string">"command usage: </span><span class="default">$argv</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]</span><span class="string">&nbsp; directory searchString replaceString\n"</span><span class="keyword">;<br />
-echo </span><span class="string">"\n"</span><span class="keyword">;<br />
-exit;<br />
-}<br />
-</span><span class="default">?&gt;&lt;?php<br />
-&nbsp;&nbsp; &nbsp;&nbsp; <br />
-</span><span class="keyword">if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'file_put_contents'</span><span class="keyword">)) {<br />
-&nbsp;&nbsp;&nbsp; function </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$f </span><span class="keyword">= @</span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="string">'w'</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (!</span><span class="default">$f</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">false</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; } else {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$bytes </span><span class="keyword">= </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$bytes</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-function </span><span class="default">get_file_contents</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">)<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="comment">/* Returns the contents of file name passed<br />
-<br />
-&nbsp;&nbsp; &nbsp;&nbsp; */<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'file_get_contents'</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$fhandle </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$fcontents </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fhandle</span><span class="keyword">, </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">));<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fhandle</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$fcontents </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp;&nbsp; return </span><span class="default">$fcontents</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">openFileSearchAndReplace</span><span class="keyword">(</span><span class="default">$parentDirectory</span><span class="keyword">, </span><span class="default">$searchFor</span><span class="keyword">, </span><span class="default">$replaceWith</span><span class="keyword">)<br />
-{<br />
-</span><span class="comment">//echo "debug here- line 1a\n";<br />
-//echo "$parentDirectory\n";<br />
-//echo "$searchFor\n";<br />
-//echo "$replaceWith\n";<br />
-<br />
-</span><span class="keyword">if (</span><span class="default">$handle </span><span class="keyword">= </span><span class="default">opendir</span><span class="keyword">(</span><span class="string">"</span><span class="default">$parentDirectory</span><span class="string">"</span><span class="keyword">)) {<br />
-&nbsp;&nbsp;&nbsp; while (</span><span class="default">false </span><span class="keyword">!== (</span><span class="default">$file </span><span class="keyword">= </span><span class="default">readdir</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">))) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ((</span><span class="default">$file </span><span class="keyword">!= </span><span class="string">"." </span><span class="keyword">&amp;&amp; </span><span class="default">$file </span><span class="keyword">!= </span><span class="string">".."</span><span class="keyword">) &amp;&amp; !</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">chdir</span><span class="keyword">(</span><span class="string">"</span><span class="default">$parentDirectory</span><span class="string">"</span><span class="keyword">); </span><span class="comment">//to make sure you are always in right directory<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; // echo "$file\n";<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$holdcontents </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">$holdcontents2 </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$searchFor</span><span class="keyword">, </span><span class="default">$replaceWith</span><span class="keyword">, </span><span class="default">$holdcontents</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">$holdcontents2</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="comment">// echo "debug here- line 1\n";<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; // echo "$file\n";<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">}<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">) &amp;&amp; (</span><span class="default">$file </span><span class="keyword">!= </span><span class="string">"." </span><span class="keyword">&amp;&amp; </span><span class="default">$file </span><span class="keyword">!= </span><span class="string">".."</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$holdpwd </span><span class="keyword">= </span><span class="default">getcwd</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//echo "holdpwd = $holdpwd \n";<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$newdir </span><span class="keyword">= </span><span class="string">"</span><span class="default">$holdpwd</span><span class="string">"</span><span class="keyword">.</span><span class="string">"/</span><span class="default">$file</span><span class="string">"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//echo "newdir = $newdir \n";&nbsp; //for recursive call<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">openFileSearchAndReplace</span><span class="keyword">(</span><span class="default">$newdir</span><span class="keyword">, </span><span class="default">$searchFor</span><span class="keyword">, </span><span class="default">$replaceWith</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//echo "debug here- line 2\n";<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; //echo "$file\n";<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">}<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">closedir</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br />
-&nbsp;}<br />
-}<br />
-<br />
-</span><span class="default">$parentDirectory2 </span><span class="keyword">= </span><span class="default">$argv</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />
-</span><span class="default">$searchFor2 </span><span class="keyword">= </span><span class="default">$argv</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br />
-</span><span class="default">$replaceWith2 </span><span class="keyword">= </span><span class="default">$argv</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">];<br />
-<br />
-</span><span class="comment">//Please do not edit below to keep the rights to this script<br />
-//Free license, if contents below this line is not edited<br />
-</span><span class="keyword">echo </span><span class="string">"REPLACED\n'</span><span class="default">$searchFor2</span><span class="string">' with '</span><span class="default">$replaceWith2</span><span class="string">' recursively through directory listed below\nFor all files that current user has write permissions for\nDIRECTORY: '</span><span class="default">$parentDirectory2</span><span class="string">'\n"</span><span class="keyword">;<br />
-echo </span><span class="string">"command written by Kolapo Akande :) all rights reserved :)\n"</span><span class="keyword">;<br />
-<br />
-&nbsp;</span><span class="default">$holdpwd </span><span class="keyword">= </span><span class="default">getcwd</span><span class="keyword">();<br />
-&nbsp;</span><span class="comment">//echo "$holdpwd\n";<br />
-</span><span class="default">chdir</span><span class="keyword">(</span><span class="default">$parentDirectory2</span><span class="keyword">);<br />
-</span><span class="default">openFileSearchAndReplace</span><span class="keyword">(</span><span class="default">$parentDirectory2</span><span class="keyword">, </span><span class="default">$searchFor2</span><span class="keyword">, </span><span class="default">$replaceWith2</span><span class="keyword">);<br />
-exit;<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="84887""></a>
-  <div class="note">
-   <strong class="user">admin at nabito dot net</strong>
-   <a href="#84887" class="date">04-Aug-2008 01:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This is example, how to save Error Array into simple log file<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-$error</span><span class="keyword">[] = </span><span class="string">'some error'</span><span class="keyword">;<br />
-</span><span class="default">$error</span><span class="keyword">[] = </span><span class="string">'some error 2'</span><span class="keyword">;<br />
-<br />
-@</span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">'log.txt'</span><span class="keyword">,</span><span class="default">date</span><span class="keyword">(</span><span class="string">'c'</span><span class="keyword">).</span><span class="string">"\n"</span><span class="keyword">.</span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">$error</span><span class="keyword">),</span><span class="default">FILE_APPEND</span><span class="keyword">);<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="84180""></a>
   <div class="note">
    <strong class="user">TrentTompkins at gmail dot com</strong>
@@ -1426,95 +683,6 @@ File put contents fails if you try to put a file in a directory that doesn't exi
 &nbsp;&nbsp;&nbsp; }<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="80184""></a>
-  <div class="note">
-   <strong class="user">the geek man at hot mail point com</strong>
-   <a href="#80184" class="date">03-Jan-2008 03:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I use the following code to create a rudimentary text editor. It's not fancy, but then it doesn't have to be. You could easily add a parameter to specify a file to edit; I have not done so to avoid the potential security headaches.<br />
-<br />
-There are still obvious security holes here, but for most applications it should be reasonably safe if implemented for brief periods in a counterintuitive spot. (Nobody says you have to make a PHP file for that purpose; you can tack it on anywhere, so long as it is at the beginning of a file.)<br />
-<br />
-<span class="default">&lt;?php<br />
-$random1 </span><span class="keyword">= </span><span class="string">'randomly_generated_string'</span><span class="keyword">;<br />
-</span><span class="default">$random2 </span><span class="keyword">= </span><span class="string">'another_randomly_generated_string'</span><span class="keyword">;<br />
-</span><span class="default">$target_file </span><span class="keyword">= </span><span class="string">'file_to_edit.php'</span><span class="keyword">;<br />
-</span><span class="default">$this_file </span><span class="keyword">= </span><span class="string">'the_current_file.php'</span><span class="keyword">;<br />
-<br />
-if (</span><span class="default">$_REQUEST</span><span class="keyword">[</span><span class="default">$random1</span><span class="keyword">] === </span><span class="default">$random2</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; if (isset(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'content'</span><span class="keyword">]))<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="default">$target_file</span><span class="keyword">, </span><span class="default">get_magic_quotes_qpc</span><span class="keyword">() ? </span><span class="default">stripslashes</span><span class="keyword">(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'content'</span><span class="keyword">]) : </span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'content'</span><span class="keyword">]);<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; die(</span><span class="string">'&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "<a href="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" rel="nofollow" target="_blank">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd</a>"&gt;<br />
-&lt;html xmlns="<a href="http://www.w3.org/1999/xhtml" rel="nofollow" target="_blank">http://www.w3.org/1999/xhtml</a>" xml:lang="en" lang="en"&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;head&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;title&gt;Editing...&lt;/title&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;/head&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;body&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;form method="post" action="' </span><span class="keyword">. </span><span class="default">$this_file </span><span class="keyword">. </span><span class="string">'" /&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;input type="hidden" name="' </span><span class="keyword">. </span><span class="default">$random1 </span><span class="keyword">. </span><span class="string">'" value="' </span><span class="keyword">. </span><span class="default">$random2 </span><span class="keyword">. </span><span class="string">'" /&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;textarea name="content" rows="50" cols="100"&gt;' </span><span class="keyword">. </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="default">$target_file</span><span class="keyword">) . </span><span class="string">'&lt;/textarea&gt;&lt;br /&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;input type="submit" value="Save Changes" /&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;/form&gt;<br />
-&nbsp;&nbsp;&nbsp; &lt;/body&gt;<br />
-&lt;/html&gt;'</span><span class="keyword">);<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Then simply browse to hxxp://www.example.com/{$this_file}?{$random1}={$random2}, with the appropriate values substituted for each bracketed variable. Please note that this code assumes the target file to be world writable (-rw-rw-rw- or 666) and will fail to save properly without error if it is not.<br />
-<br />
-Once again, this is by no means secure or permanent, but as a quick fix for brief edits to noncritical files it should be sufficient, and its small size is a definite bonus.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="79958""></a>
-  <div class="note">
-   <strong class="user">egingell at sisna dot com</strong>
-   <a href="#79958" class="date">20-Dec-2007 07:15</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-There is a better way. www.php.net/touch<br />
-<br />
-Since you're not adding anything to the file,<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">function </span><span class="default">updateFile</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; if (!</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">)) return;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">touch</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">);<br />
-}<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="71891""></a>
-  <div class="note">
-   <strong class="user">Curtis</strong>
-   <a href="#71891" class="date">21-Dec-2006 03:20</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-As to the previous user note, it would be wise to include that code within a conditional statement, as to prevent re-defining file_put_contents and the FILE_APPEND constant in PHP 5:<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp; </span><span class="keyword">if ( !</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'file_put_contents'</span><span class="keyword">) &amp;&amp; !</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'FILE_APPEND'</span><span class="keyword">) ) {<br />
-&nbsp;&nbsp; ...<br />
-&nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Also, if the file could not be accessed for writing, the function should return boolean false, not 0. An error is different from 0 bytes written, in this case.</span>
 </code>
     </div>
    </div>

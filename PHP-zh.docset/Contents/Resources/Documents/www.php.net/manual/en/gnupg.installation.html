@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>安装</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="gnupg.requirements.html">? 需求</a></li>
-      <li style="float: right;"><a href="gnupg.configuration.html">运行时配置 ?</a></li>
+      <li style="float: right;"><a href="gnupg.constants.html">预定义常量 ?</a></li>
     </ul>
   </div>
 </div>
@@ -38,7 +38,48 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126629""></a>
+<div id="allnotes">  <a name="128439""></a>
+  <div class="note">
+   <strong class="user">5paceman</strong>
+   <a href="#128439" class="date">30-Apr-2023 12:16</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+To install on laravel sail:<br />
+<span class="default">&lt;?php<br />
+sail publish<br />
+?&gt;<br />
+</span>Add to your Dockerfile:<br />
+<span class="default">&lt;?php<br />
+&nbsp;&nbsp;&nbsp; </span><span class="keyword">&amp;&amp; </span><span class="default">apt</span><span class="keyword">-</span><span class="default">get update </span><span class="keyword">&amp;&amp; </span><span class="default">apt</span><span class="keyword">-</span><span class="default">get upgrade </span><span class="keyword">-</span><span class="default">y </span><span class="keyword">\<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; </span><span class="default">apt</span><span class="keyword">-</span><span class="default">get install </span><span class="keyword">-</span><span class="default">y gcc</span><span class="keyword">-</span><span class="default">multilib libc</span><span class="keyword">-</span><span class="default">dev bzip2 libgpg</span><span class="keyword">-</span><span class="default">error</span><span class="keyword">-</span><span class="default">dev libassuan</span><span class="keyword">-</span><span class="default">dev </span><span class="keyword">\<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; </span><span class="default">apt</span><span class="keyword">-</span><span class="default">get install </span><span class="keyword">-</span><span class="default">y build</span><span class="keyword">-</span><span class="default">essential </span><span class="keyword">\<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; </span><span class="default">curl </span><span class="keyword">-</span><span class="default">sSn </span><span class="keyword">-</span><span class="default">o gnupg</span><span class="keyword">.</span><span class="default">tar</span><span class="keyword">.</span><span class="default">bz2 $GNUPG_URL </span><span class="keyword">\<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; </span><span class="default">mkdir gnupg </span><span class="keyword">\<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; </span><span class="default">tar </span><span class="keyword">-</span><span class="default">xf gnupg</span><span class="keyword">.</span><span class="default">tar</span><span class="keyword">.</span><span class="default">bz2 </span><span class="keyword">--</span><span class="default">directory gnupg </span><span class="keyword">\<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; (</span><span class="default">cd gnupg</span><span class="keyword">/</span><span class="default">gpgme</span><span class="keyword">-* &amp;&amp; ./</span><span class="default">configure</span><span class="keyword">) \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; (</span><span class="default">cd gnupg</span><span class="keyword">/</span><span class="default">gpgme</span><span class="keyword">-* &amp;&amp; </span><span class="default">make </span><span class="keyword">&amp;&amp; </span><span class="default">make install</span><span class="keyword">) \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; </span><span class="default">pecl install gnupg <br />
+?&gt;<br />
+</span>Add to your php.ini under [php]<br />
+<span class="default">&lt;?php<br />
+extension</span><span class="keyword">=</span><span class="default">gnupg</span><span class="keyword">.</span><span class="default">so<br />
+?&gt;<br />
+</span>Finally:<br />
+<span class="default">&lt;?php<br />
+sail build </span><span class="keyword">--</span><span class="default">no</span><span class="keyword">-</span><span class="default">cache<br />
+?&gt;<br />
+</span>Check you can see gnupg under modules when you run:<br />
+<span class="default">&lt;?php<br />
+sail php </span><span class="keyword">-</span><span class="default">m<br />
+?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126629""></a>
   <div class="note">
    <strong class="user">Mr T</strong>
    <a href="#126629" class="date">21-Nov-2021 01:42</a>

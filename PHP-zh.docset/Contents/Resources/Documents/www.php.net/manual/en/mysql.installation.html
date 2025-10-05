@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>安装</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -54,10 +54,10 @@
   <h2 class="title">在 Linux 系统下安装</h2>
   <p class="para">
    Note: <code class="literal">[DIR]</code> is the path to the MySQL client library 
-   files (<em class="emphasis">headers and libraries</em>), which can be downloaded from 
+   files (<em>headers and libraries</em>), which can be downloaded from 
    <a href="http://www.mysql.com/" class="link external" title="Link : http://www.mysql.com/">&raquo;&nbsp;MySQL</a>.
   </p>
-  <table class="doctable table">
+  <table id="mysql.installation.compile.support" class="doctable table">
    <caption><strong>ext/mysql compile time support matrix</strong></caption>
    
     <thead>
@@ -116,12 +116,6 @@
  <div class="section" id="mysql.installation.windows">
   <h2 class="title">在 Windows 系统下安装</h2>
   <div class="section">
-   <h2 class="title">PHP 4</h2>
-   <p class="para">
-    PHP MySQL 扩展已经编译入 PHP。
-   </p>
-  </div>
-  <div class="section">
    <h2 class="title">PHP 5+</h2>
    <p class="para">
     MySQL 默认未启用，因此必须在 <var class="filename">php.ini</var> 中激活
@@ -175,7 +169,7 @@
    <blockquote class="note"><p><strong class="note">Note</strong>: 
     <p class="para">
      如果需要不同于
-     <em class="emphasis">latin</em>（默认值）的字符集，必须安装外部的（非绑定的）已编译入所需字符集支持的
+     <em>latin</em>（默认值）的字符集，必须安装外部的（非绑定的）已编译入所需字符集支持的
      libmysql。
     </p>
    </p></blockquote>
@@ -184,148 +178,6 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="110819""></a>
-  <div class="note">
-   <strong class="user">mail dot umlcat at gee mail dot com</strong>
-   <a href="#110819" class="date">11-Dec-2012 07:28</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Could not install mysql, on windows, had several conflicts or bugs.<br />
-<br />
-In order to solve it:<br />
-<br />
-* Used the "libmysql.dll" provided by PHP zip files, not the one that comes with Mysql, the mysql file had to be moved or deleted from its folder. Put it on the "apache/bin" folder, altought some use it in "windows" folder.<br />
-<br />
-* Originally, moved "*mysql*.dll" files from its extension folder, and returned back.<br />
-<br />
-* enabled mysql driver extensions in the "php.ini" file, but also enabled some extensions, that seemed not to be required, but, it did, like "php_openssl.dll" or "php_pdo.dll" on an early version of php.<br />
-<br />
-Added the "PHPIniDir xxx"" to the "httpd.conf" apache config. file, where xxx is the path to the folder where the "php.ini" file is located, and make sure its the same.<br />
-<br />
-Be warned, that this fixes, may help or not, for your installation, since there are many ways to configure the same thing (to solve a problem).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="105100""></a>
-  <div class="note">
-   <strong class="user">Steve in Weston-Super-Mare</strong>
-   <a href="#105100" class="date">27-Jul-2011 10:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I had problems when moving from a version of PHP that used the isapi dll to the fast cgi version. The script to register the script maps compained that there was already a script map in place.<br />
-<br />
-I went to the IIS control panel, right clicked on websites and removed the php association in the Home Directory | Configuration screen.<br />
-<br />
-However, the fastcgi script still complained about existing script map. Finally I tracked it down, I had to right click on Default Web Site and clear out the php mappings from there too.<br />
-<br />
-Then it all worked, except that for some strange reason, the php.ini file that gets picked up is the one from my old PHP directory, not the latest upgrade one. But this can be detected by running phpinfo which shows the loaded php.ini file so I knew which one to amend with the fastcgi options.<br />
-<br />
-Bit of a hassle to figure it all out but it does work in the end.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="103741""></a>
-  <div class="note">
-   <strong class="user">o dot kochetilov at gmail dot com</strong>
-   <a href="#103741" class="date">30-Apr-2011 12:39</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Please note that libmySQL.dll in MySQL bin directory should be renamed in order to use right library (that comes with PHP).</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="99763""></a>
-  <div class="note">
-   <strong class="user">buzzr515 at gmx dot de</strong>
-   <a href="#99763" class="date">03-Sep-2010 09:13</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-i've experienced a similar (if not the same) problem.<br />
-<br />
-to enable the mysql_... and mysqli_... funtionality, i opened the php.ini file to uncomment the following lines:<br />
-;extension=php_mysql.dll<br />
-;extension=php_mysqli.dll<br />
-;extension=php_pdo_mysql.dll<br />
-<br />
-but phpinfo() still stated that no mysql extensions were loaded.<br />
-i tried the fixes and suggestions above with no success.<br />
-so i invoked the windows shell and typed ("Path" environment variable set to the PHP &amp; MySQL directories):<br />
-php.exe -m<br />
-<br />
-this returned the following error: "PHP Startup: Unable to load dynamic library 'C:\php5\php_mysql.dll' - Module not found."<br />
-<br />
-this told me that PHP didn't recognize what i thought was the extensions directory. it searched all other places first (sys-dir, workin'-dir, the MySQL "bin" dir because of the "Path" variable set, and even a curious directory "C:\php5" that doesn't even exist on my mashine) but not the expected "ext" directory.<br />
-<br />
-so the fix was to go to "php.ini" again and uncomment the following line:<br />
-;extension_dir="ext"<br />
-<br />
-this fixed it for me.<br />
-so if module loading is done improperly, first of all check the "Path" environment variable and the "php.ini" file - especially the "extension_dir" config value - and check if all values are set to their correct values.<br />
-<br />
-hope this helps any1.<br />
-<br />
-----------------------------------------<br />
-OS: Win7 Ultimate x86<br />
-Apache v2.2.16<br />
-PHP v5.3.3<br />
-MySQL v5.1.50</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="97656""></a>
-  <div class="note">
-   <strong class="user">heneryville at gmail dot com</strong>
-   <a href="#97656" class="date">30-Apr-2010 01:32</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I believe that this is happens especially with Windows 7.&nbsp; As far I I've been able to tell XP and Vista come with this line enabled, but windows 7 comments it out and notes that the DNS will handle this.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="91662""></a>
-  <div class="note">
-   <strong class="user">amatsak at gmail dot com</strong>
-   <a href="#91662" class="date">22-Jun-2009 02:46</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I have experienced exactly the same problem as flo_stefi at yahoo dot com below. It appears that instead of loading libmysql.dll that came with the PHP package, the PHP engine was loading libmySQL.dll located in MySQL's bin directory, which was causing Apache to crash.<br />
-<br />
-I fixed the problem by renaming MySQL's libmySQL.dll into libmySQL_renamed.dll. Now PHP loads the library that came with its package and everything works fine.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="83134""></a>
-  <div class="note">
-   <strong class="user">jonnus</strong>
-   <a href="#83134" class="date">12-May-2008 05:42</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In windows systems, the same error "unable to load dynamic library php_mysql.dll" will happen, if there's an old version of the file in the "windows\system32" folder.<br />
-Either remove it or update it.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-</div>
+ <div class="note">There are no user contributed notes for this page.</div>
 </div>
 </div></div></body></html>

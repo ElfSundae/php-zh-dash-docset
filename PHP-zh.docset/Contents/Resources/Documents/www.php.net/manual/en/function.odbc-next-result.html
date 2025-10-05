@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Checks if multiple results are available</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.odbc-next-result-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>odbc_next_result</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$statement</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>odbc_next_result</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$statement</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Checks if there are more result sets available as well as allowing access
@@ -48,45 +48,36 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">statement</code></dt>
-
+     <dt><code class="parameter">statement</code></dt>
      <dd>
-
       <p class="para">
        The result identifier.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.odbc-next-result-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns <strong><code>true</code></strong> if there are more result sets, <strong><code>false</code></strong> otherwise.
+   Returns <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> if there are more result sets, <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> otherwise.
   </p>
  </div>
 
  <div class="refsect1 examples" id="refsect1-function.odbc-next-result-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-2016">
+   <div class="example" id="example-1000">
     <p><strong>Example #1 <span class="function"><strong>odbc_next_result()</strong></span></strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$r_Connection </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$dsn</span><span style="color: #007700">, </span><span style="color: #0000BB">$username</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$s_SQL </span><span style="color: #007700">= &lt;&lt;&lt;END_SQL<br /></span><span style="color: #DD0000">SELECT 'A'<br />SELECT 'B'<br />SELECT 'C'<br /></span><span style="color: #007700">END_SQL;<br /><br /></span><span style="color: #0000BB">$r_Results </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Connection</span><span style="color: #007700">, </span><span style="color: #0000BB">$s_SQL</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$a_Row1 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$a_Row2 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Dump first result set"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$a_Row1</span><span style="color: #007700">, </span><span style="color: #0000BB">$a_Row2</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Get second results set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">odbc_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$a_Row1 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$a_Row2 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Dump second result set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$a_Row1</span><span style="color: #007700">, </span><span style="color: #0000BB">$a_Row2</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Get third results set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">odbc_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$a_Row1 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$a_Row2 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Dump third result set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$a_Row1</span><span style="color: #007700">, </span><span style="color: #0000BB">$a_Row2</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Try for a fourth result set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">odbc_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$r_Connection </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$dsn</span><span style="color: #007700">, </span><span style="color: #0000BB">$username</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$s_SQL </span><span style="color: #007700">= &lt;&lt;&lt;END_SQL<br /></span><span style="color: #DD0000">SELECT 'A'<br />SELECT 'B'<br />SELECT 'C'<br /></span><span style="color: #007700">END_SQL;<br /><br /></span><span style="color: #0000BB">$r_Results </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Connection</span><span style="color: #007700">, </span><span style="color: #0000BB">$s_SQL</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$a_Row1 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$a_Row2 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Dump first result set"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$a_Row1</span><span style="color: #007700">, </span><span style="color: #0000BB">$a_Row2</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Get second results set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">odbc_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$a_Row1 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$a_Row2 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Dump second result set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$a_Row1</span><span style="color: #007700">, </span><span style="color: #0000BB">$a_Row2</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Get third results set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">odbc_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$a_Row1 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$a_Row2 </span><span style="color: #007700">= </span><span style="color: #0000BB">odbc_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Dump third result set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$a_Row1</span><span style="color: #007700">, </span><span style="color: #0000BB">$a_Row2</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Try for a fourth result set "</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">odbc_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$r_Results</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Dump first result set array(1) {
+<div class="examplescode"><pre class="examplescode">Dump first result set array(1) {
   [&quot;A&quot;]=&gt;
   string(1) &quot;A&quot;
 }
@@ -103,8 +94,8 @@ Dump third result set array(1) {
   string(1) &quot;C&quot;
 }
 bool(false)
-Try for a fourth result set bool(false)
-</pre></div>
+Try for a fourth result set bool(false)</pre>
+</div>
     </div>
    </div>
   </p>

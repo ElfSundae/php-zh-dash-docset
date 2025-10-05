@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>释放查询结果占用的内存</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -26,28 +26,29 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.pg-free-result" class="refentry">
-   <div class="refnamediv">
-    <h1 class="refname">pg_free_result</h1> 
-    <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_free_result</span> &mdash; <span class="dc-title">释放查询结果占用的内存</span></p>
+ <div class="refnamediv">
+  <h1 class="refname">pg_free_result</h1> 
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pg_free_result</span> &mdash; <span class="dc-title">释放查询结果占用的内存</span></p>
 
-   </div>
+ </div>
+
  <div class="refsect1 description" id="refsect1-function.pg-free-result-description">
   <h3 class="title">说明</h3>
-     <div class="methodsynopsis dc-description">
-      <span class="methodname"><strong>pg_free_result</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$result</code></span>): <span class="type">bool</span></div>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>pg_free_result</strong></span>(<span class="methodparam"><span class="type"><a href="class.pgsql-result.html" class="type PgSql\Result">PgSql\Result</a></span> <code class="parameter">$result</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
-    <p class="para rdfs-comment">
-     <span class="function"><strong>pg_free_result()</strong></span> 仅在当你担心脚本执行时占用了过多内存时调用。脚本执行完毕后所有的查询结果占用的内存都会被自动释放。不过如果你确认在脚本中不会再用到查询结果了，你可以用 <code class="parameter">result</code> 作为参数调用 <span class="function"><strong>pg_free_result()</strong></span> 来释放有关的内存。成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
-    </p>
-    <blockquote class="note"><p><strong class="note">Note</strong>: 
-     <p class="para">
-      本函数以前的名字为 <code class="literal">pg_freeresult()</code>。
-     </p>
-    </p></blockquote>
-    <p class="para">
-     参见 <span class="function"><a href="function.pg-query.html" class="function">pg_query()</a></span>。
-    </p>
-   </div>
+  <p class="para rdfs-comment">
+   <span class="function"><strong>pg_free_result()</strong></span> 释放与指定 <span class="classname"><a href="class.pgsql-result.html" class="classname">PgSql\Result</a></span> 实例关联的内存和数据。
+  </p>
+  <p class="para">
+   仅当脚本执行期间的内存消耗成为问题时才需要调用此函数。否则，所有结果内存将在脚本结束时自动释放。
+  </p>
+  <blockquote class="note"><p><strong class="note">Note</strong>: 
+   <p class="para">
+    本函数以前的名字为 <span class="function"><strong>pg_freeresult()</strong></span>。
+   </p>
+  </p></blockquote>
+ </div>
 
 
  <div class="refsect1 parameters" id="refsect1-function.pg-free-result-parameters">
@@ -55,21 +56,13 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">result</code></dt>
-
+     <dt><code class="parameter">result</code></dt>
      <dd>
-
-      <p class="para">
-       PostgreSQL query result resource, returned by <span class="function"><a href="function.pg-query.html" class="function">pg_query()</a></span>,
-       <span class="function"><a href="function.pg-query-params.html" class="function">pg_query_params()</a></span> or <span class="function"><a href="function.pg-execute.html" class="function">pg_execute()</a></span>
-       (among others).
-      </p>
+      <p class="para"><span class="classname"><a href="class.pgsql-result.html" class="classname">PgSql\Result</a></span> 实例，由
+<span class="function"><a href="function.pg-query.html" class="function">pg_query()</a></span>、<span class="function"><a href="function.pg-query-params.html" class="function">pg_query_params()</a></span> 或者 <span class="function"><a href="function.pg-execute.html" class="function">pg_execute()</a></span>（等）返回。</p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -77,28 +70,52 @@
  <div class="refsect1 returnvalues" id="refsect1-function.pg-free-result-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.pg-free-result-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">result</code> 参数接受 <span class="classname"><a href="class.pgsql-result.html" class="classname">PgSql\Result</a></span>
+  实例，之前接受 <a href="language.types.resource.html" class="link">resource</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.pg-free-result-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-3824">
-    <p><strong>Example #1 <span class="function"><strong>pg_free_result()</strong></span> example</strong></p>
+   <div class="example" id="example-1934">
+    <p><strong>Example #1 <span class="function"><strong>pg_free_result()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$db </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=users user=me"</span><span style="color: #007700">) || die();<br /><br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">, </span><span style="color: #DD0000">"SELECT 1 UNION ALL SELECT 2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_fetch_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"First field in the second row is: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$val</span><span style="color: #007700">, </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">pg_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$db </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=users user=me"</span><span style="color: #007700">) || die();<br /><br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">, </span><span style="color: #DD0000">"SELECT 1 UNION ALL SELECT 2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val </span><span style="color: #007700">= </span><span style="color: #0000BB">pg_fetch_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"First field in the second row is: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$val</span><span style="color: #007700">, </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">pg_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-First field in the second row is: 2
-</pre></div>
+<div class="examplescode"><pre class="examplescode">First field in the second row is: 2</pre>
+</div>
     </div>
    </div>
   </p>
@@ -109,9 +126,9 @@ First field in the second row is: 2
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.pg-query.html" class="function" rel="rdfs-seeAlso">pg_query()</a> - 执行查询</span></li>
-    <li class="member"><span class="function"><a href="function.pg-query-params.html" class="function" rel="rdfs-seeAlso">pg_query_params()</a> - Submits a command to the server and waits for the result, with the ability to pass parameters separately from the SQL command text</span></li>
-    <li class="member"><span class="function"><a href="function.pg-execute.html" class="function" rel="rdfs-seeAlso">pg_execute()</a> - Sends a request to execute a prepared statement with given parameters, and waits for the result</span></li>
+    <li><span class="function"><a href="function.pg-query.html" class="function" rel="rdfs-seeAlso">pg_query()</a> - 执行查询</span></li>
+    <li><span class="function"><a href="function.pg-query-params.html" class="function" rel="rdfs-seeAlso">pg_query_params()</a> - Submits a command to the server and waits for the result, with the ability to pass parameters separately from the SQL command text</span></li>
+    <li><span class="function"><a href="function.pg-execute.html" class="function" rel="rdfs-seeAlso">pg_execute()</a> - Sends a request to execute a prepared statement with given parameters, and waits for the result</span></li>
    </ul>
   </p>
  </div>

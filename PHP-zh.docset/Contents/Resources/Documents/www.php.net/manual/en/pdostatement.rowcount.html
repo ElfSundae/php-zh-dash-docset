@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回受上一个 SQL 语句影响的行数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -36,15 +36,27 @@
  <div class="refsect1 description" id="refsect1-pdostatement.rowcount-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>PDOStatement::rowCount</strong></span>(): <span class="type">int</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDOStatement::rowCount</strong></span>(): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>PDOStatement::rowCount()</strong></span> 返回上一个由对应的 <code class="literal">PDOStatement</code> 对象执行DELETE、 INSERT、或 UPDATE 语句受影响的行数。
+   <span class="methodname"><strong>PDOStatement::rowCount()</strong></span> 返回上一个由对应的 <code class="literal">PDOStatement</code> 对象执行 DELETE、INSERT 或 UPDATE 语句受影响的行数。
   </p>
   <p class="para">
-  如果上一条由相关 <code class="literal">PDOStatement</code> 执行的 SQL 语句是一条 SELECT 语句，有些数据可能返回由此语句返回的行数。但这种方式不能保证对所有数据有效，且对于可移植的应用不应依赖于此方式。
+   对于生成结果集的语句，例如 <code class="literal">SELECT</code>，行为是未定义的，并且对于每个驱动程序可能不同。某些数据库可能会返回该语句生成的行数（例如缓冲模式下的
+   MySQL），但不能保证所有数据库都具有这种行为，并且对于可移植的应用不应依赖于此方式。
   </p>
+    <blockquote class="note"><p><strong class="note">Note</strong>: 
+     <p class="para">
+      对 SQLite 驱动程序，此方法始终返回"0"（零），并且 PostgreSQL 驱动程序仅当将 <strong><code><a href="pdo.constants.html#pdo.constants.attr-cursor">PDO::ATTR_CURSOR</a></code></strong> 语句属性设置为 <strong><code><a href="pdo.constants.html#pdo.constants.cursor-scroll">PDO::CURSOR_SCROLL</a></code></strong> 时返回"0"（零）。
+     </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-pdostatement.rowcount-parameters">
+  <h3 class="title">参数</h3>
+  <p class="para">此函数没有参数。</p>
  </div>
 
  
@@ -55,50 +67,51 @@
   </p>
  </div>
 
+
+ <div class="refsect1 errors" id="refsect1-pdostatement.rowcount-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+如果属性 <strong><code><a href="pdo.constants.html#pdo.constants.attr-errmode">PDO::ATTR_ERRMODE</a></code></strong> 设置为 <strong><code><a href="pdo.constants.html#pdo.constants.errmode-warning">PDO::ERRMODE_WARNING</a></code></strong>，则发出级别为 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 的错误。
+</p>
+<p class="para">
+如果属性 <strong><code><a href="pdo.constants.html#pdo.constants.attr-errmode">PDO::ATTR_ERRMODE</a></code></strong> 设置为 <strong><code><a href="pdo.constants.html#pdo.constants.errmode-exception">PDO::ERRMODE_EXCEPTION</a></code></strong>，则抛出 <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span>。
+</p>
+ </div>
+
  
  <div class="refsect1 examples" id="refsect1-pdostatement.rowcount-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-2162">
+   <div class="example" id="example-1074">
     <p><strong>Example #1 返回删除的行数</strong></p>
     <div class="example-contents"><p>
-     <span class="function"><strong>PDOStatement::rowCount()</strong></span> 返回受 DELETE、INSERT、 或 UPDATE 语句影响的行数。
+     <span class="methodname"><strong>PDOStatement::rowCount()</strong></span> 返回受 DELETE、INSERT 或 UPDATE 语句影响的行数。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  从 FRUIT 数据表中删除所有行 */<br /></span><span style="color: #0000BB">$del </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'DELETE FROM fruit'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$del</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*  返回被删除的行数 */<br /></span><span style="color: #007700">print(</span><span style="color: #DD0000">"Return number of rows that were deleted:\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$count </span><span style="color: #007700">= </span><span style="color: #0000BB">$del</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rowCount</span><span style="color: #007700">();<br />print(</span><span style="color: #DD0000">"Deleted </span><span style="color: #0000BB">$count</span><span style="color: #DD0000"> rows.\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  从 FRUIT 数据表中删除所有行 */<br /></span><span style="color: #0000BB">$del </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'DELETE FROM fruit'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$del</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*  返回被删除的行数 */<br /></span><span style="color: #007700">print </span><span style="color: #DD0000">"Return number of rows that were deleted:\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$count </span><span style="color: #007700">= </span><span style="color: #0000BB">$del</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rowCount</span><span style="color: #007700">();<br />print </span><span style="color: #DD0000">"Deleted </span><span style="color: #0000BB">$count</span><span style="color: #DD0000"> rows.\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Return number of rows that were deleted:
-Deleted 9 rows.
-</pre></div>
+<div class="examplescode"><pre class="examplescode">Return number of rows that were deleted:
+Deleted 9 rows.</pre>
+</div>
     </div>
    </div>
-   <div class="example" id="example-2164">
+   <div class="example" id="example-1075">
     <p><strong>Example #2 计算由一个 SELECT 语句返回的行数</strong></p>
     <div class="example-contents"><p>
-     对于大多数数据库，<span class="function"><strong>PDOStatement::rowCount()</strong></span> 不能返回受一条 SELECT 语句影响的行数。替代的方法是，使用 <span class="function"><a href="pdo.query.html" class="function">PDO::query()</a></span> 来发出一条和原打算中的SELECT语句有相同条件表达式的 SELECT COUNT(*) 语句，然后用 <span class="function"><a href="pdostatement.fetchcolumn.html" class="function">PDOStatement::fetchColumn()</a></span> 来取得返回的行数。这样应用程序才能正确执行。
+     对于大多数数据库，<span class="methodname"><strong>PDOStatement::rowCount()</strong></span> 不能返回受一条 SELECT 语句影响的行数。替代的方法是，使用 <span class="methodname"><a href="pdo.query.html" class="methodname">PDO::query()</a></span>
+     来发出一条和原打算中的 SELECT 语句有相同条件表达式的 SELECT COUNT(*) 语句，然后用 <span class="methodname"><a href="pdostatement.fetchcolumn.html" class="methodname">PDOStatement::fetchColumn()</a></span> 来取得匹配的行数。
     </p></div>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT COUNT(*) FROM fruit WHERE calories &gt; 100"</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">)) {<br /><br />    </span><span style="color: #FF8000">/* 检查符合 SELECT 语句的行数 */<br />  </span><span style="color: #007700">if (</span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchColumn</span><span style="color: #007700">() &gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br /><br />        </span><span style="color: #FF8000">/* 发出一条真正的 SELECT 语句并操作返回的结果 */<br />         </span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT name FROM fruit WHERE calories &gt; 100"</span><span style="color: #007700">;<br />       foreach (</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">) as </span><span style="color: #0000BB">$row</span><span style="color: #007700">) {<br />           print </span><span style="color: #DD0000">"Name: " </span><span style="color: #007700">.  </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'NAME'</span><span style="color: #007700">] . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />         }<br />    }<br />    </span><span style="color: #FF8000">/* 没有匹配的行 -- 执行其他 */<br />  </span><span style="color: #007700">else {<br />      print </span><span style="color: #DD0000">"No rows matched the query."</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT COUNT(*) FROM fruit WHERE calories &gt; 100"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res </span><span style="color: #007700">= </span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$count </span><span style="color: #007700">= </span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchColumn</span><span style="color: #007700">();<br /><br />print </span><span style="color: #DD0000">"There are " </span><span style="color: #007700">.  </span><span style="color: #0000BB">$count </span><span style="color: #007700">. </span><span style="color: #DD0000">" matching records."</span><span style="color: #007700">;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例的输出类似于：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-apple
-banana
-orange
-pear
-</pre></div>
+<div class="examplescode"><pre class="examplescode">There are 2 matching records.</pre>
+</div>
     </div>
    </div>
 
@@ -109,9 +122,9 @@ pear
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="pdostatement.columncount.html" class="function" rel="rdfs-seeAlso">PDOStatement::columnCount()</a> - 返回结果集中的列数</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.fetchcolumn.html" class="function" rel="rdfs-seeAlso">PDOStatement::fetchColumn()</a> - 从结果集中的下一行返回单独的一列。</span></li>
-    <li class="member"><span class="function"><a href="pdo.query.html" class="function" rel="rdfs-seeAlso">PDO::query()</a> - 预处理并执行没有占位符的 SQL 语句</span></li>
+    <li><span class="methodname"><a href="pdostatement.columncount.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::columnCount()</a> - 返回结果集中的列数</span></li>
+    <li><span class="methodname"><a href="pdostatement.fetchcolumn.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::fetchColumn()</a> - 从结果集中的下一行返回单独的一列</span></li>
+    <li><span class="methodname"><a href="pdo.query.html" class="methodname" rel="rdfs-seeAlso">PDO::query()</a> - 预处理并执行没有占位符的 SQL 语句</span></li>
    </ul>
   </p>
 

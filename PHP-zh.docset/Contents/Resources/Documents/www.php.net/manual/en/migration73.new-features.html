@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>新特性</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -40,154 +40,115 @@
   </div>
 
   <div class="sect3" id="migration73.new-features.core.destruct-reference">
-   <h4 class="title">Array Destructuring supports Reference Assignments</h4>
+   <h4 class="title">数组解构支持引用赋值</h4>
 
    <p class="para">
-    Array destructuring now supports reference assignments using the syntax
-    <code class="literal">[&amp;$a, [$b, &amp;$c]] = $d</code>. The same is also supported
-    for <span class="function"><a href="function.list.html" class="function">list()</a></span>.
+    数组解构现在支持使用语法 <code class="literal">[&amp;$a, [$b, &amp;$c]] = $d</code> 进行引用赋值。<span class="function"><a href="function.list.html" class="function">list()</a></span> 也支持同样的操作。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.core.instanceof-literals">
-   <h4 class="title">Instanceof Operator accepts Literals</h4>
+   <h4 class="title">Instanceof 操作符接受字面量</h4>
 
    <p class="para">
-    <code class="literal">instanceof</code> now allows literals as the first operand, in
-    which case the result is always <strong><code>false</code></strong>.
+    <code class="literal">instanceof</code> 现在允许字面量作为第一个操作数，在这种情况下，结果始终为 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.core.compileerror">
-   <h4 class="title">CompileError Exception instead of some Compilation Errors</h4>
+   <h4 class="title">一些编译错误替换为 CompileError 异常</h4>
 
    <p class="para">
-    A new <span class="classname"><a href="class.compileerror.html" class="classname">CompileError</a></span> exception has been added, from
-    which <span class="classname"><a href="class.parseerror.html" class="classname">ParseError</a></span> inherits. A small number of
-    compilation errors will now throw a <span class="classname"><a href="class.compileerror.html" class="classname">CompileError</a></span>
-    instead of generating a fatal error. Currently this only affects compilation
-    errors that may be thrown by <span class="function"><a href="function.token-get-all.html" class="function">token_get_all()</a></span> in
-    <strong><code>TOKEN_PARSE</code></strong> mode, but more errors may be converted in
-    the future.
+    新增 <span class="classname"><a href="class.compileerror.html" class="classname">CompileError</a></span> 异常，<span class="classname"><a href="class.parseerror.html" class="classname">ParseError</a></span> 继承该异常。现在，少量编译错误将抛出
+    <span class="classname"><a href="class.compileerror.html" class="classname">CompileError</a></span>，而不是生成致命错误。目前仅影响 <strong><code><a href="tokenizer.constants.html#constant.token-parse">TOKEN_PARSE</a></code></strong> 模式下
+    <span class="function"><a href="function.token-get-all.html" class="function">token_get_all()</a></span> 可能抛出的编译错误，但将来可能会转换更多错误。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.core.trailing-commas">
-   <h4 class="title">Trailing Commas are allowed in Calls</h4>
+   <h4 class="title">调用中允许尾随逗号</h4>
 
    <p class="para">
-    Trailing commas in function and method calls are now allowed.
+    现在允许在函数和方法调用中使用尾随逗号。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.core.argon2id">
-   <h4 class="title">Argon2id Support</h4>
+   <h4 class="title">Argon2id 支持</h4>
 
    <p class="para">
-    The <strong class="option configure">--with-password-argon2[=dir]</strong> configure
-    argument now provides support for both Argon2i and Argon2id hashes in the
-    <span class="function"><a href="function.password-hash.html" class="function">password_hash()</a></span>, <span class="function"><a href="function.password-verify.html" class="function">password_verify()</a></span>,
-    <span class="function"><a href="function.password-get-info.html" class="function">password_get_info()</a></span>, and
-    <span class="function"><a href="function.password-needs-rehash.html" class="function">password_needs_rehash()</a></span> functions. Passwords may be hashed
-    and verified using the <strong><code>PASSWORD_ARGON2ID</code></strong> constant.
-    Support for both Argon2i and Argon2id in the <span class="function"><strong>password_*()</strong></span>
-    functions now requires PHP be linked against libargon2 reference library ≥
-    20161029.
+    <strong class="option configure">--with-password-argon2[=dir]</strong> 配置参数现在提供了对
+    <span class="function"><a href="function.password-hash.html" class="function">password_hash()</a></span>、<span class="function"><a href="function.password-verify.html" class="function">password_verify()</a></span>、<span class="function"><a href="function.password-get-info.html" class="function">password_get_info()</a></span> 和 <span class="function"><a href="function.password-needs-rehash.html" class="function">password_needs_rehash()</a></span>
+    函数的 Argon2i 和Argon2id 散列支持。可以使用 <strong><code><a href="password.constants.html#constant.password-argon2id">PASSWORD_ARGON2ID</a></code></strong> 常量对密码进行散列处理和验证。<span class="function"><strong>password_*()</strong></span>
+    函数现在对 Argon2i 和 Argon2id 的支持要求 PHP 链接的 libargon2 引用 library ≥ 20161029。
    </p>
   </div>
 
  </div>
 
  <div class="sect2" id="migration73.new-features.fpm">
-  <h3 class="title">FastCGI Process Manager</h3>
+  <h3 class="title">FastCGI 进程管理器</h3>
 
   <p class="para">
-   New options have been added to customize the FPM logging:
+   新增了自定义 FPM 日志记录的新选项：
    <dl>
     
-     <dt>
-<code class="literal">log_limit</code></dt>
-
+     <dt><code class="literal">log_limit</code></dt>
      <dd>
-
       <span class="simpara">
-       This global option can be used for setting the log limit for the logged
-       line which allows to log messages longer than 1024 characters without
-       wrapping. It also fixes various wrapping issues.
+       此全局选项可用于设置日志记录的行限制，允许记录长度超过 1024 个字符的消息而不换行。还修复了各种封装器问题。
       </span>
      </dd>
-
     
     
-     <dt>
-<code class="literal">log_buffering</code></dt>
-
+     <dt><code class="literal">log_buffering</code></dt>
      <dd>
-
       <span class="simpara">
-       This global option allows an experimental logging without extra buffering.
+       此全局选项实验性允许无需额外缓冲的日志记录。
       </span>
      </dd>
-
     
     
-     <dt>
-<code class="literal">decorate_workers_output</code></dt>
-
+     <dt><code class="literal">decorate_workers_output</code></dt>
      <dd>
-
       <span class="simpara">
-       This pool option allows to disable the output decoration for workers
-       output when <code class="literal">catch_workers_output</code> is enabled.
+       当启用 <code class="literal">catch_workers_output</code> 时，此 pool 选项允许禁用 worker 输出的输出装饰器。
       </span>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="sect2" id="migration73.new-features.bc">
-  <h3 class="title">BC Math Functions</h3>
+  <h3 class="title">BC 数学函数</h3>
 
   <p class="para">
-   <span class="function"><a href="function.bcscale.html" class="function">bcscale()</a></span> can now also be used as getter to retrieve the
-   current scale in use.
+   <span class="function"><a href="function.bcscale.html" class="function">bcscale()</a></span> 现在可以用于检索当前使用的精度。
   </p>
  </div>
 
  <div class="sect2" id="migration73.new-features.ldap">
-  <h3 class="title">Lightweight Directory Access Protocol</h3>
+  <h3 class="title">轻量目录访问协议</h3>
 
   <p class="para">
-   Full support for LDAP Controls has been added to the <a href="book.ldap.html" class="link">LDAP</a> querying functions and
-   <span class="function"><a href="function.ldap-parse-result.html" class="function">ldap_parse_result()</a></span>:
+   <a href="book.ldap.html" class="link">LDAP</a> 查询函数和 <span class="function"><a href="function.ldap-parse-result.html" class="function">ldap_parse_result()</a></span> 已新增对 LDAP 控件的完全支持：
    <ul class="itemizedlist">
     <li class="listitem">
      <span class="simpara">
-      A <code class="literal">$serverctrls</code> parameter to send controls to the
-      server in <span class="function"><a href="function.ldap-add.html" class="function">ldap_add()</a></span>,
-      <span class="function"><a href="function.ldap-mod-replace.html" class="function">ldap_mod_replace()</a></span>, <span class="function"><a href="function.ldap-mod-add.html" class="function">ldap_mod_add()</a></span>,
-      <span class="function"><a href="function.ldap-mod-del.html" class="function">ldap_mod_del()</a></span>, <span class="function"><a href="function.ldap-rename.html" class="function">ldap_rename()</a></span>,
-      <span class="function"><a href="function.ldap-compare.html" class="function">ldap_compare()</a></span>, <span class="function"><a href="function.ldap-delete.html" class="function">ldap_delete()</a></span>,
-      <span class="function"><a href="function.ldap-modify-batch.html" class="function">ldap_modify_batch()</a></span>,
-      <span class="function"><a href="function.ldap-search.html" class="function">ldap_search()</a></span>, <span class="function"><a href="function.ldap-list.html" class="function">ldap_list()</a></span> and
-      <span class="function"><a href="function.ldap-read.html" class="function">ldap_read()</a></span> has been added.
+      <span class="function"><a href="function.ldap-add.html" class="function">ldap_add()</a></span>、<span class="function"><a href="function.ldap-mod-replace.html" class="function">ldap_mod_replace()</a></span>、<span class="function"><a href="function.ldap-mod-add.html" class="function">ldap_mod_add()</a></span>、<span class="function"><a href="function.ldap-mod-del.html" class="function">ldap_mod_del()</a></span>、<span class="function"><a href="function.ldap-rename.html" class="function">ldap_rename()</a></span>、<span class="function"><a href="function.ldap-compare.html" class="function">ldap_compare()</a></span>、<span class="function"><a href="function.ldap-delete.html" class="function">ldap_delete()</a></span>、<span class="function"><a href="function.ldap-modify-batch.html" class="function">ldap_modify_batch()</a></span>、<span class="function"><a href="function.ldap-search.html" class="function">ldap_search()</a></span>、<span class="function"><a href="function.ldap-list.html" class="function">ldap_list()</a></span>
+      和 <span class="function"><a href="function.ldap-read.html" class="function">ldap_read()</a></span> 新增 <code class="literal">$controls</code> 参数，用于发送控件到服务器。
      </span>
     </li>
     <li class="listitem">
      <span class="simpara">
-      The out parameter <code class="literal">$serverctrls</code> to get controls from the server in
-      <span class="function"><a href="function.ldap-parse-result.html" class="function">ldap_parse_result()</a></span> has been added.
+      <span class="function"><a href="function.ldap-parse-result.html" class="function">ldap_parse_result()</a></span> 新增输出参数 <code class="literal">$controls</code> 用于从服务器中获取控件。
      </span>
     </li>
     <li class="listitem">
      <span class="simpara">
-      Support for <strong><code>LDAP_OPT_SERVER_CONTROLS</code></strong> and
-      <strong><code>LDAP_OPT_CLIENT_CONTROLS</code></strong> in
-      <span class="function"><a href="function.ldap-get-option.html" class="function">ldap_get_option()</a></span> and
-      <span class="function"><a href="function.ldap-set-option.html" class="function">ldap_set_option()</a></span> has been fixed.
+     <span class="function"><a href="function.ldap-get-option.html" class="function">ldap_get_option()</a></span> 和 <span class="function"><a href="function.ldap-set-option.html" class="function">ldap_set_option()</a></span> 修复了对 <strong><code><a href="ldap.constants.html#constant.ldap-opt-server-controls">LDAP_OPT_SERVER_CONTROLS</a></code></strong>
+      和 <strong><code><a href="ldap.constants.html#constant.ldap-opt-client-controls">LDAP_OPT_CLIENT_CONTROLS</a></code></strong> 的支持。
      </span>
     </li>
    </ul>
@@ -195,151 +156,126 @@
  </div>
 
  <div class="sect2" id="migration73.new-features.mbstring">
-  <h3 class="title">Multibyte String Functions</h3>
+  <h3 class="title">多字节字符串函数</h3>
 
   <div class="sect3" id="migration73.new-features.mbstring.case-mapping-folding">
-   <h4 class="title">Full Case-Mapping and Case-Folding Support</h4>
+   <h4 class="title">完整的大小写映射和大小写折叠支持</h4>
 
    <p class="para">
-    Support for full case-mapping and case-folding has been added. Unlike simple
-    case-mapping, full case-mapping may change the length of the string. For
-    example:
+    新增完整的大小写映射和大小写折叠。与简单的大小写映射不同，完整的大小写映射可能会更改字符串的长度。例如：
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />mb_strtoupper</span><span style="color: #007700">(</span><span style="color: #DD0000">"Stra?e"</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// Produces STRA?E on PHP 7.2<br />// Produces STRASSE on PHP 7.3<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />mb_strtoupper</span><span style="color: #007700">(</span><span style="color: #DD0000">"Stra?e"</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// Produces STRA?E on PHP 7.2<br />// Produces STRASSE on PHP 7.3<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
-    The different casing mapping and folding modes are available through
-    <span class="function"><a href="function.mb-convert-case.html" class="function">mb_convert_case()</a></span>:
+    通过 <span class="function"><a href="function.mb-convert-case.html" class="function">mb_convert_case()</a></span> 可以使用不同的大小写映射和折叠模式：
     <ul class="itemizedlist">
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_LOWER</code></strong> (used by <span class="function"><a href="function.mb-strtolower.html" class="function">mb_strtolower()</a></span>)
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-lower">MB_CASE_LOWER</a></code></strong>（用于 <span class="function"><a href="function.mb-strtolower.html" class="function">mb_strtolower()</a></span>）
       </span>
      </li>
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_UPPER</code></strong> (used by <span class="function"><a href="function.mb-strtoupper.html" class="function">mb_strtoupper()</a></span>)
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-upper">MB_CASE_UPPER</a></code></strong>（用于 <span class="function"><a href="function.mb-strtoupper.html" class="function">mb_strtoupper()</a></span>）
       </span>
      </li> 
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_TITLE</code></strong>
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-title">MB_CASE_TITLE</a></code></strong>
       </span>
      </li> 
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_FOLD</code></strong>
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-fold">MB_CASE_FOLD</a></code></strong>
       </span>
      </li> 
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_LOWER_SIMPLE</code></strong>
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-lower-simple">MB_CASE_LOWER_SIMPLE</a></code></strong>
       </span>
      </li> 
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_UPPER_SIMPLE</code></strong>
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-upper-simple">MB_CASE_UPPER_SIMPLE</a></code></strong>
       </span>
      </li> 
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_TITLE_SIMPLE</code></strong>
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-title-simple">MB_CASE_TITLE_SIMPLE</a></code></strong>
       </span>
      </li> 
      <li class="listitem">
       <span class="simpara">
-       <strong><code>MB_CASE_FOLD_SIMPLE</code></strong> (used by case-insensitive operations)
+       <strong><code><a href="mbstring.constants.html#constant.mb-case-fold-simple">MB_CASE_FOLD_SIMPLE</a></code></strong>（用于不区分大小写操作）
       </span>
      </li> 
     </ul>
-    Only unconditional, language agnostic full case-mapping is performed.
+    仅执行绝对的、与语言无关的完整大小写映射。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.mbstring.case-insensitive-ops">
-   <h4 class="title">Case-Insensitive String Operations use Case-Folding</h4>
+   <h4 class="title">不区分大小写的字符串操作会使用大小写折叠</h4>
 
    <p class="para">
-    Case-insensitive string operations now use case-folding instead of case-
-    mapping during comparisons. This means that more characters will be
-    considered (case insensitively) equal now.
+    不区分大小写的字符串操作现在在比较期间会使用大小写折叠（将所有字符转换为相同的大写或小写）而不是大小写映射（将所有字符转换为其等效的大写或者小写形式）。这意味着现在更多的字符将被视为（不区分大小写）相等。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.mbstring.mb-case-title">
-   <h4 class="title">MB_CASE_TITLE performs Title-Case Conversion</h4>
+   <h4 class="title">MB_CASE_TITLE 执行标题大小写转换</h4>
 
    <p class="para">
-    <span class="function"><a href="function.mb-convert-case.html" class="function">mb_convert_case()</a></span> with <strong><code>MB_CASE_TITLE</code></strong>
-    now performs title-case conversion based on the Cased and CaseIgnorable
-    derived Unicode properties. In particular this also improves handling of
-    quotes and apostrophes.
+    <span class="function"><a href="function.mb-convert-case.html" class="function">mb_convert_case()</a></span> 现在使用 <strong><code><a href="mbstring.constants.html#constant.mb-case-title">MB_CASE_TITLE</a></code></strong> 基于 Unicode 属性衍生的
+    Cased 和 CaseIgnorable 执行标题大小写转换。尤其是还改进了对引号和撇号的处理。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.mbstring.ucd11">
-   <h4 class="title">Unicode 11 Support</h4>
+   <h4 class="title">Unicode 11 支持</h4>
 
    <p class="para">
-    The <a href="book.mbstring.html" class="link">Multibyte String</a> data tables have
-    been updated for Unicode 11.
+    <a href="book.mbstring.html" class="link">多字节字符串</a>数据表已经更新到 Unicode 11。
    </p> 
   </div>
 
   <div class="sect3" id="migration73.new-features.mbstring.long-strings">
-   <h4 class="title">Long String Support</h4>
+   <h4 class="title">长字符串支持</h4>
 
    <p class="para">
-    The <a href="ref.mbstring.html" class="link">Multibyte String Functions</a> now
-    correctly support strings larger than 2GB.
+    <a href="ref.mbstring.html" class="link">多字节字符串函数</a> 现在正确支持超过 2GB 的字符串。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.mbstring.performance">
-   <h4 class="title">Performance Improvements</h4>
+   <h4 class="title">性能提升</h4>
 
    <p class="para">
-    Performance of the <a href="book.mbstring.html" class="link">Multibyte String</a>
-    extension has been significantly improved across the board. The largest
-    improvements are in case conversion functions.
+    <a href="book.mbstring.html" class="link">多字节字符串</a>扩展的性能得到了全面显著提高。最大的改进是大小写转换函数。
    </p>
   </div>
 
   <div class="sect3" id="migration73.new-features.mbstring.named-captures">
-   <h4 class="title">Named Captures Support</h4>
+   <h4 class="title">命名捕获支持</h4>
 
    <p class="para">
-    The <code class="literal">mb_ereg_*</code> functions now support named captures.
-    Matching functions like <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> will now return named
-    captures both using their group number and their name, similar to PCRE:
+    <code class="literal">mb_ereg_*</code> 函数现在支持命名捕获。像 <span class="function"><a href="function.mb-ereg.html" class="function">mb_ereg()</a></span> 这样的匹配函数现在将使用组号和名称返回命名捕获，类似于 PCRE：
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />mb_ereg</span><span style="color: #007700">(</span><span style="color: #DD0000">'(?&lt;word&gt;\w+)'</span><span style="color: #007700">, </span><span style="color: #DD0000">'国'</span><span style="color: #007700">, </span><span style="color: #0000BB">$matches</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// =&gt; [0 =&gt; "国", 1 =&gt; "国", "word" =&gt; "国"];<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />mb_ereg</span><span style="color: #007700">(</span><span style="color: #DD0000">'(?&lt;word&gt;\w+)'</span><span style="color: #007700">, </span><span style="color: #DD0000">'国'</span><span style="color: #007700">, </span><span style="color: #0000BB">$matches</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// =&gt; [0 =&gt; "国", 1 =&gt; "国", "word" =&gt; "国"];<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
-    Additionally, <span class="function"><a href="function.mb-ereg-replace.html" class="function">mb_ereg_replace()</a></span> now supports the
-    <code class="code">\k&lt;&gt;</code> and <code class="code">\k&#039;&#039;</code> notations to reference named
-    captures in the replacement string:
+    此外，<span class="function"><a href="function.mb-ereg-replace.html" class="function">mb_ereg_replace()</a></span> 现在支持 <code class="code">\k&lt;&gt;</code> 和 <code class="code">\k&#039;&#039;</code> 符号来引用替换字符串中的命名捕获：
     <div class="informalexample">
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />mb_ereg_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'\s*(?&lt;word&gt;\w+)\s*'</span><span style="color: #007700">, </span><span style="color: #DD0000">"_\k&lt;word&gt;_\k'word'_"</span><span style="color: #007700">, </span><span style="color: #DD0000">' foo '</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// =&gt; "_foo_foo_"<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />mb_ereg_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'\s*(?&lt;word&gt;\w+)\s*'</span><span style="color: #007700">, </span><span style="color: #DD0000">"_\k&lt;word&gt;_\k'word'_"</span><span style="color: #007700">, </span><span style="color: #DD0000">' foo '</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// =&gt; "_foo_foo_"<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
-    <code class="code">\k&lt;&gt;</code> and <code class="code">\k&#039;&#039;</code> can also be used for numbered
-    references, which also works with group numbers greater than 9.
+    <code class="code">\k&lt;&gt;</code> 和 <code class="code">\k&#039;&#039;</code> 也可用于编号引用，组编号大于 9 也适用。
    </p>
   </div>
 
@@ -349,10 +285,8 @@
   <h3 class="title">Readline</h3>
 
   <p class="para">
-   Support for the <code class="literal">completion_append_character</code> and
-   <code class="literal">completion_suppress_append</code> options has been added to
-   <span class="function"><a href="function.readline-info.html" class="function">readline_info()</a></span>. These options are only available if PHP
-   is linked against libreadline (rather than libedit).
+   <span class="function"><a href="function.readline-info.html" class="function">readline_info()</a></span> 中新增对 <code class="literal">completion_append_character</code> 和 <code class="literal">completion_suppress_append</code>
+   选项的支持。仅当 PHP 链接到 libreadline（而不是 libedit）时，这些选项才可用。
   </p>
  </div>
 

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>纤程</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -26,7 +26,7 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="language.fibers" class="chapter">
- <h1>纤程</h1>
+ <h1 class="title">纤程</h1>
 
 
  <div class="simplesect" id="language.fibers.overview">
@@ -54,7 +54,7 @@
   <p class="para">
    纤程可以在任意函数调用中被暂停，包括那些在 PHP VM 中被调用的函数。
    例如被用于 <span class="function"><a href="function.array-map.html" class="function">array_map()</a></span> 的函数或者提供
-   <span class="classname"><a href="class.iterator.html" class="classname">Iterator</a></span> 实例以被 foreach 调用的方法。
+   <span class="classname"><a href="class.iterator.html" class="classname">Iterator</a></span> 对象以被 <a href="control-structures.foreach.html" class="link">foreach</a> 调用的方法。
   </p>
   <p class="para">
    纤程一旦被暂停，可以使用 <span class="methodname"><a href="fiber.resume.html" class="methodname">Fiber::resume()</a></span> 
@@ -68,16 +68,13 @@
    </span>
   </p></blockquote>
 
-  <div class="example" id="example-678">
+  <div class="example" id="language.fiber.example.basic">
    <p><strong>Example #1 基础用法</strong></p>
    <div class="example-contents">
-    <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$fiber </span><span style="color: #007700">= new </span><span style="color: #0000BB">Fiber</span><span style="color: #007700">(function (): </span><span style="color: #0000BB">void </span><span style="color: #007700">{<br />   </span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">Fiber</span><span style="color: #007700">::</span><span style="color: #0000BB">suspend</span><span style="color: #007700">(</span><span style="color: #DD0000">'fiber'</span><span style="color: #007700">);<br />   echo </span><span style="color: #DD0000">"Value used to resume fiber: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">start</span><span style="color: #007700">();<br /><br />echo </span><span style="color: #DD0000">"Value from fiber suspending: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">resume</span><span style="color: #007700">(</span><span style="color: #DD0000">'test'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+    <div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$fiber </span><span style="color: #007700">= new </span><span style="color: #0000BB">Fiber</span><span style="color: #007700">(function (): </span><span style="color: #0000BB">void </span><span style="color: #007700">{<br />   </span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">Fiber</span><span style="color: #007700">::</span><span style="color: #0000BB">suspend</span><span style="color: #007700">(</span><span style="color: #DD0000">'fiber'</span><span style="color: #007700">);<br />   echo </span><span style="color: #DD0000">"Value used to resume fiber: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">start</span><span style="color: #007700">();<br /><br />echo </span><span style="color: #DD0000">"Value from fiber suspending: "</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">, </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fiber</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">resume</span><span style="color: #007700">(</span><span style="color: #DD0000">'test'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程会输出：</p></div>
+   <div class="example-contents"><p>以上示例会输出：</p></div>
    <div class="example-contents screen">
     <div class="cdata"><pre>
 Value from fiber suspending: fiber
@@ -93,7 +90,24 @@ Value used to resume fiber: test
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127846""></a>
+<div id="allnotes">  <a name="129688""></a>
+  <div class="note">
+   <strong class="user">nikiDOTamministratoreATgmail at no dot spam</strong>
+   <a href="#129688" class="date">06-Aug-2024 09:14</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+TL;DR<br />
+<br />
+The Thread class from Ali Madabi above has been eventually deprecated by the linked issue as relaying on tick functions for preemptive multi-threading simulation has been deemed "bad practice". Better ways were suggested for achieving some sort of multi-threading, such as: Revolt and AMP.<br />
+<br />
+https://github.com/php/php-src/issues/8960#issuecomment-1184249445</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127846""></a>
   <div class="note">
    <strong class="user">nesk at xakep dot ru</strong>
    <a href="#127846" class="date">24-Oct-2022 01:21</a>

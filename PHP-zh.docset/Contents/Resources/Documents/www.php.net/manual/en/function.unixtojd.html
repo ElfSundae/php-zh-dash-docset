@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>将 Unix 时间戳转换为儒略日数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.unixtojd-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>unixtojd</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$timestamp</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
+   <span class="methodname"><strong>unixtojd</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$timestamp</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    根据指定的 Unix <code class="parameter">timestamp</code> （自 1970 年 1 月 1 日以来的秒数）返回儒略日数。如果没有指定时间戳则返回当前日期的儒略日数。
@@ -49,19 +49,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">timestamp</code></dt>
-
+     <dt><code class="parameter">timestamp</code></dt>
      <dd>
-
       <p class="para">
        用于转换的 unix 时间戳。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -69,7 +64,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.unixtojd-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   int 类型的儒略日数， 或者在失败时返回 <strong><code>false</code></strong>。
+   int 类型的儒略日数， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -105,7 +100,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.jdtounix.html" class="function" rel="rdfs-seeAlso">jdtounix()</a> - 将儒略日数转换为 Unix 时间戳</span></li>
+    <li><span class="function"><a href="function.jdtounix.html" class="function" rel="rdfs-seeAlso">jdtounix()</a> - 将儒略日数转换为 Unix 时间戳</span></li>
    </ul>
   </p>
  </div>
@@ -114,7 +109,48 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="74196""></a>
+<div id="allnotes">  <a name="129274""></a>
+  <div class="note">
+   <strong class="user">unixtojd at isslow dot com</strong>
+   <a href="#129274" class="date">24-Feb-2024 08:50</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+unixtojd is slow.<br />
+Direct arithmetics calculations are faster and still coherent with original unixtojd.<br />
+<br />
+Feel free to add a test on $timestamp to set it to time() when $timestamp is null.<br />
+<br />
+function fast_unixtojd($timestamp){<br />
+&nbsp;&nbsp;&nbsp; return intval($timestamp / 86400 + 2440588);<br />
+}<br />
+<br />
+$time = time();<br />
+$t_unixtojd = 0;<br />
+$t_fast_unixtojd = 0;<br />
+for ($t = $time - 240 * 3600; $t &lt; $time; $t++) {<br />
+&nbsp;&nbsp;&nbsp; $time1 = microtime(true);<br />
+&nbsp;&nbsp;&nbsp; $a = unixtojd($t);<br />
+&nbsp;&nbsp;&nbsp; $time2 = microtime(true);<br />
+&nbsp;&nbsp;&nbsp; $b = fast_unixtojd($t);<br />
+&nbsp;&nbsp;&nbsp; $time3 = microtime(true);<br />
+&nbsp;&nbsp;&nbsp; if ($a != $b) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo "$a $b $t\n";<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; break;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+&nbsp;&nbsp;&nbsp; $t_unixtojd += $time2 - $time1;<br />
+&nbsp;&nbsp;&nbsp; $t_fast_unixtojd += $time3 - $time2;<br />
+}<br />
+echo "unixtojd: $t_unixtojd sec\nfast_unixtojd: $t_fast_unixtojd sec\n";<br />
+<br />
+unixtojd: 0.42854166030884 sec<br />
+fast_unixtojd: 0.13218021392822 sec</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="74196""></a>
   <div class="note">
    <strong class="user">hrabi at linuxwaves dot com</strong>
    <a href="#74196" class="date">29-Mar-2007 06:02</a>

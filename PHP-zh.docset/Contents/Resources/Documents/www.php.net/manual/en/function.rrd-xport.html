@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>Exports the information about RRD database</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>导出 RRD 数据库的相关信息</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,25 +21,23 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="ref.rrd.html">RRD 函数</a></li>
-    <li>Exports the information about RRD database</li>
+    <li>导出 RRD 数据库的相关信息</li>
   </ul>
 </div>
 <div id="layout">
   <div id="layout-content"><div id="function.rrd-xport" class="refentry">
  <div class="refnamediv">
   <h1 class="refname">rrd_xport</h1>
-  <p class="verinfo">(PECL rrd &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">rrd_xport</span> &mdash; <span class="dc-title">Exports the information about RRD database</span></p>
+  <p class="verinfo">(PECL rrd &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">rrd_xport</span> &mdash; <span class="dc-title">导出 RRD 数据库的相关信息</span></p>
 
  </div>
 
  <div class="refsect1 description" id="refsect1-function.rrd-xport-description">
   <h3 class="title">说明</h3>
-  <div class="methodsynopsis dc-description"><span class="methodname"><strong>rrd_xport</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code></span>): <span class="type">array</span></div>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>rrd_xport</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$options</code></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
   <p class="para rdfs-comment">
-   Exports the information about RRD database file. This data can be converted
-   to XML file via user space PHP script and then restored back as RRD database
-   file.
+   导出 RRD 数据库文件的相关信息。这些数据可以通过用户空间的 PHP 脚本转换为 XML 文件，然后再恢复为 RRD 数据库文件。
   </p>
  </div>
 
@@ -48,26 +46,21 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">options</code></dt>
-
+    <dt><code class="parameter">options</code></dt>
     <dd>
-
      <p class="para">
-      Array of options for the export, see rrd xport man page.
+      导出的数组选项，可以通过 rrd xport 手册查看。
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-function.rrd-xport-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Array with information about RRD database file, 或者在失败时返回 <strong><code>false</code></strong>.
+   有关 RRD 数据库文件信息的数组， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -76,7 +69,35 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121427""></a>
+<div id="allnotes">  <a name="129080""></a>
+  <div class="note">
+   <strong class="user">Peter R</strong>
+   <a href="#129080" class="date">01-Dec-2023 09:45</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+A small example of connecting to an rrdcached daemon (This one running on localhost, but works across network as well) and getting in and output bits from an interface.<br />
+<br />
+$options = array(<br />
+&nbsp;&nbsp;&nbsp; '--daemon', '127.0.0.1:42217',<br />
+&nbsp;&nbsp;&nbsp; '--start', time() - 3600,<br />
+&nbsp;&nbsp;&nbsp; 'DEF:in_oct=rrdfile.rrd:INOCTETS:AVERAGE',<br />
+&nbsp;&nbsp;&nbsp; 'DEF:out_oct=rrdfile.rrd:OUTOCTETS:AVERAGE',<br />
+&nbsp;&nbsp;&nbsp; 'CDEF:in_bits=in_oct,8,*',<br />
+&nbsp;&nbsp;&nbsp; 'CDEF:out_bits=out_oct,8,*',<br />
+&nbsp;&nbsp;&nbsp; 'XPORT:in_bits',<br />
+&nbsp;&nbsp;&nbsp; 'XPORT:out_bits'<br />
+&nbsp; );<br />
+<br />
+$result = rrd_xport($options);<br />
+<br />
+var_dump($result);</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121427""></a>
   <div class="note">
    <strong class="user">mrezahamedany</strong>
    <a href="#121427" class="date">25-Jul-2017 05:12</a>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Clears IMAP cache</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.imap-gc-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>imap_gc</strong></span>(<span class="methodparam"><span class="type"><span class="type IMAP\Connection">IMAP\Connection</span></span> <code class="parameter">$imap</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>imap_gc</strong></span>(<span class="methodparam"><span class="type"><a href="class.imap-connection.html" class="type IMAP\Connection">IMAP\Connection</a></span> <code class="parameter">$imap</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$flags</code></span>): <span class="type"><a href="language.types.value.html" class="type true">true</a></span></div>
 
   <p class="para rdfs-comment">
    Purges the cache of entries of a specific type.
@@ -46,36 +46,37 @@
   <p class="para">
    <dl>
      <dt>
-
-<code class="parameter">imap</code></dt>
-<dd>
-<p class="para"><span class="classname"><strong class="classname">IMAP\Connection</strong></span> 实例。</p></dd>
-
+<code class="parameter">imap</code></dt><dd><p class="para"><span class="classname"><a href="class.imap-connection.html" class="classname">IMAP\Connection</a></span> 实例。</p></dd>
     
-     <dt>
-<code class="parameter">flags</code></dt>
-
+     <dt><code class="parameter">flags</code></dt>
      <dd>
-
       <p class="para">
        Specifies the cache to purge. It may one or a combination
        of the following constants: 
-       <strong><code>IMAP_GC_ELT</code></strong> (message cache elements), 
-       <strong><code>IMAP_GC_ENV</code></strong> (envelope and bodies),
-       <strong><code>IMAP_GC_TEXTS</code></strong> (texts).
+       <strong><code><a href="imap.constants.html#constant.imap-gc-elt">IMAP_GC_ELT</a></code></strong> (message cache elements), 
+       <strong><code><a href="imap.constants.html#constant.imap-gc-env">IMAP_GC_ENV</a></code></strong> (envelope and bodies),
+       <strong><code><a href="imap.constants.html#constant.imap-gc-texts">IMAP_GC_TEXTS</a></code></strong> (texts).
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
+
 
  <div class="refsect1 returnvalues" id="refsect1-function.imap-gc-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-  成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   总是返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.imap-gc-errors">
+  <h3 class="title">错误／异常</h3>
+  <p class="para">
+   Throws a <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> if <code class="parameter">flags</code>
+   is invalid.
   </p>
  </div>
 
@@ -96,10 +97,19 @@
      <tr>
  <td>8.1.0</td>
  <td>
-  现在 <code class="parameter">imap</code> 参数接受 <span class="classname"><strong class="classname">IMAP\Connection</strong></span>
-  实例，之前接受 <a href="language.types.resource.html" class="link">资源(resource)</a>。
+  现在 <code class="parameter">imap</code> 参数接受 <span class="classname"><a href="class.imap-connection.html" class="classname">IMAP\Connection</a></span>
+  实例，之前接受有效的 <code class="literal">imap</code> <a href="language.types.resource.html" class="link">resource</a>。
  </td>
 </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       A <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span> is now thrown on invalid
+       <code class="parameter">flags</code> parameter values. Previously,
+       a warning was emitted and the function returned <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
+      </td>
+     </tr>
 
     </tbody>
    
@@ -109,15 +119,12 @@
 
  
  <div class="refsect1 examples" id="refsect1-function.imap-gc-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-3085">
     <p><strong>Example #1 <span class="function"><strong>imap_gc()</strong></span> example</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$mbox </span><span style="color: #007700">= </span><span style="color: #0000BB">imap_open</span><span style="color: #007700">(</span><span style="color: #DD0000">"{imap.example.org:143}"</span><span style="color: #007700">, </span><span style="color: #DD0000">"username"</span><span style="color: #007700">, </span><span style="color: #DD0000">"password"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imap_gc</span><span style="color: #007700">(</span><span style="color: #0000BB">$mbox</span><span style="color: #007700">, </span><span style="color: #0000BB">IMAP_GC_ELT</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$mbox </span><span style="color: #007700">= </span><span style="color: #0000BB">imap_open</span><span style="color: #007700">(</span><span style="color: #DD0000">"{imap.example.org:143}"</span><span style="color: #007700">, </span><span style="color: #DD0000">"username"</span><span style="color: #007700">, </span><span style="color: #DD0000">"password"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imap_gc</span><span style="color: #007700">(</span><span style="color: #0000BB">$mbox</span><span style="color: #007700">, </span><span style="color: #0000BB">IMAP_GC_ELT</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>

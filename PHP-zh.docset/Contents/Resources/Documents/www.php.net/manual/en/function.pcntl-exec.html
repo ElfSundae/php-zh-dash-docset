@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>在当前进程空间执行指定程序</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.pcntl-exec-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>pcntl_exec</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$path</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$args</code><span class="initializer"> = ?</span></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$envs</code><span class="initializer"> = ?</span></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>pcntl_exec</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$path</code></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$args</code><span class="initializer"> = []</span></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$env_vars</code><span class="initializer"> = []</span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    以给定参数执行程序。
@@ -48,46 +48,33 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">path</code></dt>
-
+     <dt><code class="parameter">path</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">path</code>必须时可执行二进制文件路径或一个在文件第一行指定了
-       一个可执行文件路径标头的脚本（比如文件第一行是#!/usr/local/bin/perl的perl脚本）。
-       更多的信息请查看您系统的execve（2）手册。
+       <code class="parameter">path</code> 必须时可执行二进制文件路径或一个在文件第一行指定了
+       一个可执行文件路径标头的脚本（比如文件第一行是 #!/usr/local/bin/perl 的 perl 脚本）。
+       更多的信息请查看您系统的 execve（2）手册。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">args</code></dt>
-
+     <dt><code class="parameter">args</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">args</code>是一个要传递给程序的参数的字符串数组。
+       <code class="parameter">args</code> 是一个要传递给程序的参数的字符串数组。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">envs</code></dt>
-
+     <dt><code class="parameter">env_vars</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">envs</code>是一个要传递给程序作为环境变量的字符串数组。这个数组是
-       key =&gt; value格式的，key代表要传递的环境变量的名称，value代表该环境变量值。
+       <code class="parameter">env_vars</code> 是一个要传递给程序作为环境变量的字符串数组。这个数组是
+       key =&gt; value 格式的，key 代表要传递的环境变量的名称，value 代表该环境变量值。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -95,7 +82,7 @@
  <div class="refsect1 returnvalues" id="refsect1-function.pcntl-exec-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   当发生错误时返回 <strong><code>false</code></strong> ，没有错误时没有返回。
+   返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -104,49 +91,7 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="112092""></a>
-  <div class="note">
-   <strong class="user">maxime at diametrick dot com</strong>
-   <a href="#112092" class="date">02-May-2013 06:20</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-An alternative for Windows environment is to use the COM object. With this, you can start child process with Apache, or php.exe as parent process. Very useful for CLI or console PHC-Win applications.<br />
-<br />
-if(!function_exists('pcntl_exec')){<br />
-&nbsp; function pcntl_exec($path,$args=array()){<br />
-&nbsp;&nbsp;&nbsp; if(is_string($args)) $args = array($args);<br />
-&nbsp;&nbsp;&nbsp; if(count($args)) $path = '"'.$path.'"';<br />
-&nbsp;&nbsp;&nbsp; $shell = new COM('WScript.Shell');<br />
-&nbsp;&nbsp;&nbsp; $shell-&gt;run($path.(count($args) ? ' '.implode(' ',$args) : ''),0,true);<br />
-&nbsp; }<br />
-}<br />
-<br />
-Very useful too when you want to use ansicon. Instead of make a .bat file with ansicon -p and php .... (somefile).php, in your .php file you can put this on top of your code:<br />
-<br />
-pcntl_exec('ansicon -p');<br />
-<br />
-BINGO!</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="84113""></a>
-  <div class="note">
-   <strong class="user">fahadsadah at gmail dot com dot please dot remove dot this</strong>
-   <a href="#84113" class="date">28-Jun-2008 07:44</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Just a note regarding what rbemrose at vgmusic dot com said:<br />
-Once the executed process ends, control returns to the webserver process.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="80917""></a>
+<div id="allnotes">  <a name="80917""></a>
   <div class="note">
    <strong class="user">rbemrose at vgmusic dot com</strong>
    <a href="#80917" class="date">06-Feb-2008 02:44</a>
@@ -213,32 +158,6 @@ echo "I am the parent";<br />
 --<br />
 <br />
 since this is not being executed through a shell, you must provide the exact path from the filesystem root.&nbsp; Look at the execve() man page for more information.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="27007""></a>
-  <div class="note">
-   <strong class="user">michael dot ferre at mobileway dot com</strong>
-   <a href="#27007" class="date">20-Nov-2002 03:28</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-//To complete my last note<br />
-//If you use some object in your php code <br />
-//You will have some problem if you do a exit after include the<br />
-//child scripts<br />
-//You must use posix_kill() like that :<br />
-<br />
-$CHILD_PID = pcntl_fork();<br />
-if($CHILD_PID == 0)<br />
-{&nbsp; &nbsp; <br />
-&nbsp; include ($script_path);<br />
-&nbsp; posix_kill(getmypid(),9);<br />
-}<br />
-<br />
-//This code is very simple it can be ameliorate ;)</span>
 </code>
     </div>
    </div>

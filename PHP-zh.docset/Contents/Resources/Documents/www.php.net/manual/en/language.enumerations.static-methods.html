@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>枚举静态方法</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,15 +34,12 @@
   </p>
 
   <div class="example-contents">
-   <div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">enum </span><span style="color: #0000BB">Size<br /></span><span style="color: #007700">{<br />    case </span><span style="color: #0000BB">Small</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Medium</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Large</span><span style="color: #007700">;<br /><br />    public static function </span><span style="color: #0000BB">fromLength</span><span style="color: #007700">(</span><span style="color: #0000BB">int $cm</span><span style="color: #007700">): static<br />    {<br />        return match(</span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />            </span><span style="color: #0000BB">$cm </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">50 </span><span style="color: #007700">=&gt; static::</span><span style="color: #0000BB">Small</span><span style="color: #007700">,<br />            </span><span style="color: #0000BB">$cm </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">100 </span><span style="color: #007700">=&gt; static::</span><span style="color: #0000BB">Medium</span><span style="color: #007700">,<br />            default =&gt; static::</span><span style="color: #0000BB">Large</span><span style="color: #007700">,<br />        };<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">enum </span><span style="color: #0000BB">Size<br /></span><span style="color: #007700">{<br />    case </span><span style="color: #0000BB">Small</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Medium</span><span style="color: #007700">;<br />    case </span><span style="color: #0000BB">Large</span><span style="color: #007700">;<br /><br />    public static function </span><span style="color: #0000BB">fromLength</span><span style="color: #007700">(</span><span style="color: #0000BB">int $cm</span><span style="color: #007700">): static<br />    {<br />        return match(</span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />            </span><span style="color: #0000BB">$cm </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">50 </span><span style="color: #007700">=&gt; static::</span><span style="color: #0000BB">Small</span><span style="color: #007700">,<br />            </span><span style="color: #0000BB">$cm </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">100 </span><span style="color: #007700">=&gt; static::</span><span style="color: #0000BB">Medium</span><span style="color: #007700">,<br />            default =&gt; static::</span><span style="color: #0000BB">Large</span><span style="color: #007700">,<br />        };<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
 
   <p class="para">
-   仅管 enum 可以包括 public、private、protected 的静态方法，
+   虽然 enum 可以包括 public、private、protected 的静态方法，
    但由于它不支持继承，因此在实践中 private 和 protected 效果是相同的。
   </p>
 
@@ -50,7 +47,97 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127904""></a>
+<div id="allnotes">  <a name="128956""></a>
+  <div class="note">
+   <strong class="user">Ulf</strong>
+   <a href="#128956" class="date">13-Oct-2023 08:34</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Note, that enums are internally declared as final and thus, cannot extend each other (though, they are allowed to extend other classes).<br />
+<br />
+That also means, that the "Size::fromLength()" method from this page's example redundantly uses "static::" (because there's no late static binding required), and could easily use "self::" or "Size::" instead.<br />
+<br />
+See: https://php.watch/versions/8.1/enums#enum-inheritance</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128911""></a>
+  <div class="note">
+   <strong class="user">lokashafeek7755 at gmail dot com</strong>
+   <a href="#128911" class="date">22-Sep-2023 07:06</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+If you want to supplement the key-value pairs with additional descriptions for each enum value in the forSelect method, you can modify the array structure to include an associative array for each enum value. Here's an example:<br />
+<br />
+<span class="default">&lt;?php <br />
+<br />
+</span><span class="keyword">enum </span><span class="default">Gender</span><span class="keyword">:</span><span class="default">int<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Male </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Female </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">forSelect</span><span class="keyword">(): array<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return [<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">self</span><span class="keyword">::</span><span class="default">Male</span><span class="keyword">-&gt;</span><span class="default">value </span><span class="keyword">=&gt; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'label' </span><span class="keyword">=&gt; </span><span class="string">'Male'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'description' </span><span class="keyword">=&gt; </span><span class="string">'This is the Male gender'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ],<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">self</span><span class="keyword">::</span><span class="default">Female</span><span class="keyword">-&gt;</span><span class="default">value </span><span class="keyword">=&gt; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'label' </span><span class="keyword">=&gt; </span><span class="string">'Female'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'description' </span><span class="keyword">=&gt; </span><span class="string">'This is the Female gender'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ],<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ];<br />
+&nbsp;&nbsp;&nbsp; }<br />
+<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+In this updated example, each enum value is represented as an associative array with two keys: 'label' and 'description'. You can customize the label and description for each enum value accordingly.<br />
+<br />
+Please note that to access the label and description for a specific enum value, you would need to use the corresponding array keys. For example, to get the label for the Male gender, you can use self::forSelect()[self::Male-&gt;value]['label'].</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128885""></a>
+  <div class="note">
+   <strong class="user">joe502357217 at qq dot com</strong>
+   <a href="#128885" class="date">14-Sep-2023 01:21</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+You simply need to use the following code as a replacement for the example provided by Aaron Saray.<br />
+This piece of code is more concise.<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">enum </span><span class="default">Suit</span><span class="keyword">: </span><span class="default">string<br />
+</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Hearts </span><span class="keyword">= </span><span class="string">'H'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Diamonds </span><span class="keyword">= </span><span class="string">'D'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Clubs </span><span class="keyword">= </span><span class="string">'C'</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; case </span><span class="default">Spades </span><span class="keyword">= </span><span class="string">'S'</span><span class="keyword">;<br />
+<br />
+&nbsp;&nbsp;&nbsp; public static function </span><span class="default">forSelect</span><span class="keyword">(): array<br />
+&nbsp;&nbsp;&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">array_column</span><span class="keyword">(</span><span class="default">self</span><span class="keyword">::</span><span class="default">cases</span><span class="keyword">(), </span><span class="string">'name'</span><span class="keyword">, </span><span class="string">'value'</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">Suit</span><span class="keyword">::</span><span class="default">forSelect</span><span class="keyword">());<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127904""></a>
   <div class="note">
    <strong class="user">Aaron Saray</strong>
    <a href="#127904" class="date">08-Nov-2022 10:29</a>

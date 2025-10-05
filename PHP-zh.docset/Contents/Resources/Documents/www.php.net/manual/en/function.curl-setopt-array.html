@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>为 cURL 传输会话批量设置选项</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.curl-reset.html">? curl_reset</a></li>
-      <li style="float: right;"><a href="function.curl-setopt.html">curl_setopt ?</a></li>
+      <li style="float: left;"><a href="function.curl-setopt.html">? curl_setopt</a></li>
+      <li style="float: right;"><a href="function.curl-share-close.html">curl_share_close ?</a></li>
     </ul>
   </div>
 </div>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.curl-setopt-array-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>curl_setopt_array</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$ch</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>curl_setopt_array</strong></span>(<span class="methodparam"><span class="type"><a href="class.curlhandle.html" class="type CurlHandle">CurlHandle</a></span> <code class="parameter">$handle</code></span>, <span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$options</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    为 cURL 传输会话批量设置选项。这个函数对于需要设置大量的 cURL 选项是非常有用的，不需要重复地调用 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span>。
@@ -46,26 +46,17 @@
   <h3 class="title">参数</h3>
   <p class="para">
    <dl>
-    <dt>
-<code class="parameter">handle</code>
-</dt>
-<dd>
-<p class="para">由 <span class="function"><a href="function.curl-init.html" class="function">curl_init()</a></span> 返回的 cURL 句柄。</p></dd>
-
+    <dt><code class="parameter">handle</code>
+</dt><dd><p class="para">由 <span class="function"><a href="function.curl-init.html" class="function">curl_init()</a></span> 返回的 cURL 句柄。</p></dd>
     
-     <dt>
-<code class="parameter">options</code></dt>
-
+     <dt><code class="parameter">options</code></dt>
      <dd>
-
       <p class="para">
-       一个 <span class="type">array</span> 用来确定将被设置的选项及其值。数组的键值必须是一个有效的<span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span>常量或者是它们对等的整数值。
+       一个 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 用来确定将被设置的选项及其值。数组的键值必须是有效的 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span> 常量或者是它们对等的整数值。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -73,38 +64,48 @@
  <div class="refsect1 returnvalues" id="refsect1-function.curl-setopt-array-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果全部的选项都被成功设置，返回<strong><code>true</code></strong>。如果一个选项不能被成功设置，马上返回<strong><code>false</code></strong>，忽略其后的任何在<code class="parameter">options</code>数组中的选项。
+   如果全部的选项都被成功设置，返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>。如果选项不能被成功设置，马上返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>，忽略其后的任何在 <code class="parameter">options</code> 数组中的选项。
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.curl-setopt-array-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  <code class="parameter">handle</code> 现在接受 <span class="classname"><a href="class.curlhandle.html" class="classname">CurlHandle</a></span>
+  实例；之前接受 <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.curl-setopt-array-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4308">
     <p><strong>Example #1 
      初始化新的 cURL 会话并抓取 web 页面
     </strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建一个新 cURL 资源<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 设置 URL 和相应的选项<br /></span><span style="color: #0000BB">$options </span><span style="color: #007700">= array(</span><span style="color: #0000BB">CURLOPT_URL </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">,<br />                 </span><span style="color: #0000BB">CURLOPT_HEADER </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false<br />                </span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">curl_setopt_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 抓取 URL 并把它传递给浏览器<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 关闭 cURL 资源，并且释放系统资源<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
-  <p class="para">
-   早于PHP 5.1.3这个函数可以做如下模拟：
-  </p>
-  <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #2 我们对<span class="function"><strong>curl_setopt_array()</strong></span>的等价实现</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">function_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'curl_setopt_array'</span><span style="color: #007700">)) {<br />   function </span><span style="color: #0000BB">curl_setopt_array</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">$curl_options</span><span style="color: #007700">)<br />   {<br />       foreach (</span><span style="color: #0000BB">$curl_options </span><span style="color: #007700">as </span><span style="color: #0000BB">$option </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$value</span><span style="color: #007700">) {<br />           if (!</span><span style="color: #0000BB">curl_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">$option</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">)) {<br />               return </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />           } <br />       }<br />       return </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />   }<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 创建新 cURL 资源<br /></span><span style="color: #0000BB">$ch </span><span style="color: #007700">= </span><span style="color: #0000BB">curl_init</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// 设置 URL 和相应的选项<br /></span><span style="color: #0000BB">$options </span><span style="color: #007700">= array(</span><span style="color: #0000BB">CURLOPT_URL </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">,<br />                 </span><span style="color: #0000BB">CURLOPT_HEADER </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false<br />                </span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">curl_setopt_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">, </span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 抓取 URL 并把它传递给浏览器<br /></span><span style="color: #0000BB">curl_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 关闭 cURL 资源，并且释放系统资源<br /></span><span style="color: #0000BB">curl_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$ch</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -116,7 +117,9 @@
   <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    就<span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span>来说，传递一个数组到<strong><code>CURLOPT_POST</code></strong>将会把数据以<em class="emphasis">multipart/form-data</em>的方式编码，然而传递一个URL-encoded字符串将会以<em class="emphasis">application/x-www-form-urlencoded</em>的方式对数据进行编码。
+    就 <span class="function"><a href="function.curl-setopt.html" class="function">curl_setopt()</a></span> 来说，传递数组到 <strong><code><a href="curl.constants.html#constant.curlopt-post">CURLOPT_POST</a></code></strong> 将会把数据以
+    <em>multipart/form-data</em> 的方式编码，然而传递 URL-encoded 字符串将会以
+    <em>application/x-www-form-urlencoded</em> 的方式对数据进行编码。
    </p>
   </p></blockquote>
  </div>
@@ -126,7 +129,7 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.curl-setopt.html" class="function" rel="rdfs-seeAlso">curl_setopt()</a> - 设置 cURL 传输选项</span></li>
+    <li><span class="function"><a href="function.curl-setopt.html" class="function" rel="rdfs-seeAlso">curl_setopt()</a> - 设置 cURL 传输选项</span></li>
    </ul>
   </p>
  </div>

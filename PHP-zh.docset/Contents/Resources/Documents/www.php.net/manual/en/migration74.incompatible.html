@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>不向后兼容的变更</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,8 +35,8 @@
    <h4 class="title">以数组形式访问非数组</h4>
 
    <p class="para">
-    尝试以数组方式访问 <span class="type">null</span>，<span class="type">bool</span>，
-    <span class="type">int</span>，<span class="type">float</span> 或 <span class="type">resource</span>
+    尝试以数组方式访问 <span class="type"><a href="language.types.null.html" class="type null">null</a></span>，<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>，
+    <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>，<span class="type"><a href="language.types.float.html" class="type float">float</a></span> 或 <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>
     （例如 <code class="literal">$null[&quot;key&quot;]</code>）将会抛出 notice 通知。
    </p>
   </div>
@@ -63,25 +63,20 @@
 
    <p class="para">
     文件尾部的 <code class="literal">&lt;?php</code>
-    标签（不包含空行）将会被解释成一个 PHP 头标签。Previously it was interpreted
-    either as a short opening tag followed by literal <code class="literal">php</code> and
-    resulted in a syntax error (with <code class="literal">short_open_tag=1</code>)
-    or was interpreted as a literal <code class="literal">&lt;?php</code> string
-    (with <code class="literal">short_open_tag=0</code>).
+    标签（不包含空行）将会被解释成 PHP 起始标记。之前，不是解释为短开始标记，后跟文字 <code class="literal">php</code>
+    并导致语法错误（<code class="literal">short_open_tag=1</code>），就是解释为文字 <code class="literal">&lt;?php</code>
+    字符串（<code class="literal">short_open_tag=0</code>）。
    </p>
   </div>
 
   
   <div class="sect3" id="migration74.incompatible.core.stream-wrappers">
-   <h4 class="title">Stream wrappers</h4>
+   <h4 class="title">Stream 封装协议</h4>
 
    <p class="para">
-    When using include/require on a stream,
-    <span class="methodname"><a href="streamwrapper.stream-set-option.html" class="methodname">streamWrapper::stream_set_option()</a></span>
-    will be invoked with the <strong><code>STREAM_OPTION_READ_BUFFER</code></strong> option.
-    Custom stream wrapper implementations may need to implement the
-    <span class="methodname"><a href="streamwrapper.stream-set-option.html" class="methodname">streamWrapper::stream_set_option()</a></span> method to
-    avoid a warning (always returning <strong><code>false</code></strong> is a sufficient implementation).
+    在 stream 上使用 include/require 时，将使用 <strong><code><a href="stream.constants.html#constant.stream-option-read-buffer">STREAM_OPTION_READ_BUFFER</a></code></strong> 选项调用
+    <span class="methodname"><a href="streamwrapper.stream-set-option.html" class="methodname">streamWrapper::stream_set_option()</a></span>。编写的自定义 stream 封装协议可能需要实现
+    <span class="methodname"><a href="streamwrapper.stream-set-option.html" class="methodname">streamWrapper::stream_set_option()</a></span> 方法以避免警告（始终返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> 就足够了）。
    </p>
   </div>
 
@@ -105,22 +100,22 @@
    <ul class="itemizedlist">
     <li class="listitem">
      <span class="simpara">
-      <strong><code>PASSWORD_DEFAULT</code></strong> 之前是 int 1; 现在是"2y"（在 PHP 7.4.0、7.4.1、7.4.2 中是 <strong><code>null</code></strong>）
+      <strong><code><a href="password.constants.html#constant.password-default">PASSWORD_DEFAULT</a></code></strong> 之前是 int 1; 现在是"2y"（在 PHP 7.4.0、7.4.1、7.4.2 中是 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>）
      </span>
     </li>
     <li class="listitem">
      <span class="simpara">
-      <strong><code>PASSWORD_BCRYPT</code></strong> 之前是 int 1; 现在是 string &#039;2y&#039;
+      <strong><code><a href="password.constants.html#constant.password-bcrypt">PASSWORD_BCRYPT</a></code></strong> 之前是 int 1; 现在是 string &#039;2y&#039;
      </span>
     </li>
     <li class="listitem">
      <span class="simpara">
-      <strong><code>PASSWORD_ARGON2I</code></strong> 之前是 int 2; 现在是 string &#039;argon2i&#039;
+      <strong><code><a href="password.constants.html#constant.password-argon2i">PASSWORD_ARGON2I</a></code></strong> 之前是 int 2; 现在是 string &#039;argon2i&#039;
      </span>
     </li>
     <li class="listitem">
      <span class="simpara">
-      <strong><code>PASSWORD_ARGON2ID</code></strong> 之前是 int 3; 现在是 string &#039;argon2id&#039;
+      <strong><code><a href="password.constants.html#constant.password-argon2id">PASSWORD_ARGON2ID</a></code></strong> 之前是 int 3; 现在是 string &#039;argon2id&#039;
      </span>
     </li>
    </ul>
@@ -137,10 +132,8 @@
    <h4 class="title"><span class="function"><a href="function.htmlentities.html" class="function">htmlentities()</a></span> 函数</h4>
 
    <p class="para">
-    <span class="function"><a href="function.htmlentities.html" class="function">htmlentities()</a></span> will now raise a notice
-    (instead of a strict standards warning) if it is used with
-    an encoding for which only basic entity substitution is supported,
-    in which case it is equivalent to <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span>.
+    <span class="function"><a href="function.htmlentities.html" class="function">htmlentities()</a></span> 如果与仅支持基本实体替换（basic entity substitution）的编码一起使用，现在将发出
+    notice（而不是严格标准的 warning），在这种情况下，相当于 <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span>。
    </p>
   </div>
 
@@ -149,7 +142,7 @@
 
    <p class="para">
     <span class="function"><a href="function.fread.html" class="function">fread()</a></span> 和 <span class="function"><a href="function.fwrite.html" class="function">fwrite()</a></span>
-    在操作失败的时候会返回 <strong><code>false</code></strong>。之前的版本中会返回空字符串或 0。EAGAIN/EWOULDBLOCK 不视为故障。
+    在操作失败的时候会返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。之前的版本中会返回空字符串或 0。EAGAIN/EWOULDBLOCK 不视为故障。
    </p>
    <p class="para">
     这些函数现在也会在失败时发出 NOTICE 通知，例如当试图写入一个只读文件资源时。
@@ -173,11 +166,11 @@
    现在尝试序列化 <span class="classname"><a href="class.curlfile.html" class="classname">CURLFile</a></span> 类将会生成异常。之前仅会在反序列化时引发。
   </p>
   <p class="para">
-   弃用 <strong><code>CURLPIPE_HTTP1</code></strong>，并在 cURL 7.62.0 起不再支持。
+   弃用 <strong><code><a href="curl.constants.html#constant.curlpipe-http1">CURLPIPE_HTTP1</a></code></strong>，并在 cURL 7.62.0 起不再支持。
   </p>
   <p class="para">
    弃用 <span class="function"><a href="function.curl-version.html" class="function">curl_version()</a></span> 的 <code class="literal">$version</code> 参数。如果传递了任何不等于默认
-   <strong><code>CURLVERSION_NOW</code></strong> 的值，则会引发警告并忽略参数。
+   <strong><code><a href="curl.constants.html#constant.curlversion-now">CURLVERSION_NOW</a></code></strong> 的值，则会引发警告并忽略参数。
   </p>
  </div>
 
@@ -185,14 +178,13 @@
   <h3 class="title">日期和时间</h3>
 
   <p class="para">
-   Calling <span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span> or similar on a
-   <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> or <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span>
-   instance will no longer leave behind accessible properties on the object.
+   在 <span class="classname"><a href="class.datetime.html" class="classname">DateTime</a></span> 或 <span class="classname"><a href="class.datetimeimmutable.html" class="classname">DateTimeImmutable</a></span> 实例上调用
+   <span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span> 或类似方法将不会忘记对象上的可访问属性。
   </p>
   <p class="para">
    <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> 对象的比较（使用
    <code class="literal">==</code>、<code class="literal">&lt;</code> 等）现在将生成警告并始终返回
-   <strong><code>false</code></strong>。之前所有的 <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> 对象都认为相等，除非它们有属性。
+   <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。之前所有的 <span class="classname"><a href="class.dateinterval.html" class="classname">DateInterval</a></span> 对象都认为相等，除非它们有属性。
   </p>
  </div>
 
@@ -200,9 +192,8 @@
   <h3 class="title">Intl</h3>
 
   <p class="para">
-   The default parameter value of <span class="function"><a href="function.idn-to-ascii.html" class="function">idn_to_ascii()</a></span> and
-   <span class="function"><a href="function.idn-to-utf8.html" class="function">idn_to_utf8()</a></span> is now <strong><code>INTL_IDNA_VARIANT_UTS46</code></strong>
-   instead of the deprecated <strong><code>INTL_IDNA_VARIANT_2003</code></strong>.
+   <span class="function"><a href="function.idn-to-ascii.html" class="function">idn_to_ascii()</a></span> 和 <span class="function"><a href="function.idn-to-utf8.html" class="function">idn_to_utf8()</a></span> 的默认参数的值现在为
+   <strong><code><a href="intl.constants.html#constant.intl-idna-variant-uts46">INTL_IDNA_VARIANT_UTS46</a></code></strong>，而不是已弃用的 <strong><code><a href="intl.constants.html#constant.intl-idna-variant-2003">INTL_IDNA_VARIANT_2003</a></code></strong>。
   </p>
  </div>
 
@@ -210,12 +201,10 @@
   <h3 class="title">MySQLi</h3>
 
   <p class="para">
-   The embedded server functionality has been removed. It was broken since
-   at least PHP 7.0.
+   内嵌服务器功能已移除。自 PHP 7.0 起就已破坏了。
   </p>
   <p class="para">
-   The undocumented <code class="literal">mysqli::$stat</code> property has been removed
-   in favor of <span class="methodname"><a href="mysqli.stat.html" class="methodname">mysqli::stat()</a></span>.
+   未记录的 <code class="literal">mysqli::$stat</code> 属性已移除，以支持 mysqli::stat()。
   </p>
  </div>
 
@@ -223,35 +212,26 @@
   <h3 class="title">OpenSSL</h3>
 
   <p class="para">
-   The <span class="function"><a href="function.openssl-random-pseudo-bytes.html" class="function">openssl_random_pseudo_bytes()</a></span> function will now
-   throw an exception in error situations, similar to <span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span>.
-   In particular, an <span class="classname"><a href="class.error.html" class="classname">Error</a></span> is thrown if the number of
-   requested bytes is less than or equal to zero, and an <span class="classname"><a href="class.exception.html" class="classname">Exception</a></span>
-   is thrown if sufficient randomness cannot be gathered.
-   The <code class="literal">$crypto_strong output</code> argument is guaranteed to always
-   be <strong><code>true</code></strong> if the function does not throw, so explicitly checking it is not necessary.
+   <span class="function"><a href="function.openssl-random-pseudo-bytes.html" class="function">openssl_random_pseudo_bytes()</a></span> 函数现在将在错误情况下抛出异常，类似于 <span class="function"><a href="function.random-bytes.html" class="function">random_bytes()</a></span>。特别是，如果请求的字节数小于或等于零，则会引发
+   <span class="classname"><a href="class.error.html" class="classname">Error</a></span>；如果无法收集到足够的随机性，则会引发 <span class="classname"><a href="class.exception.html" class="classname">Exception</a></span>。如果函数不抛出异常，则 <code class="literal">$crypto_strong</code>
+   输出参数保证始终为 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，因此不需要手动检查它。
   </p>
  </div>
 
  <div class="sect2" id="migration74.incompatible.pcre">
-  <h3 class="title">Regular Expressions (Perl-Compatible)</h3>
+  <h3 class="title">正则表达式（Perl 兼容）</h3>
 
   <p class="para">
-   When <strong><code>PREG_UNMATCHED_AS_NULL</code></strong> mode is used, trailing
-   unmatched capturing groups will now also be set to <strong><code>null</code></strong> (or
-   <code class="literal">[null, -1]</code> if offset capture is enabled).
-   This means that the size of the <code class="literal">$matches</code> will always be the same.
+   当使用 <strong><code><a href="pcre.constants.html#constant.preg-unmatched-as-null">PREG_UNMATCHED_AS_NULL</a></code></strong> 模式时，后跟不匹配的捕获组现在也将设置为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>（如果启用了偏移捕获，则为 <code class="literal">[null, -1]</code>）。这意味着 <code class="literal">$matches</code> 的大小将始终相同。
   </p>
  </div>
 
  <div class="sect2" id="migration74.incompatible.pdo">
-  <h3 class="title">PHP Data Objects</h3>
+  <h3 class="title">PHP 数据对象</h3>
 
   <p class="para">
-   Attempting to serialize a <span class="classname"><a href="class.pdo.html" class="classname">PDO</a></span> or
-   <span class="classname"><a href="class.pdostatement.html" class="classname">PDOStatement</a></span> instance will now generate
-   an <span class="classname"><a href="class.exception.html" class="classname">Exception</a></span> rather than a <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span>,
-   consistent with other internal classes which do not support serialization.
+   尝试序列化 <span class="classname"><a href="class.pdo.html" class="classname">PDO</a></span> 或 <span class="classname"><a href="class.pdostatement.html" class="classname">PDOStatement</a></span> 实例现在将生成
+   <span class="classname"><a href="class.exception.html" class="classname">Exception</a></span> 而不是 <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span>，这与其它不支持序列化的内部类一致。
   </p>
  </div>
 
@@ -273,10 +253,8 @@
 
   <p class="para">
    现在对 <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span> 实例调用 <span class="function"><a href="function.get-object-vars.html" class="function">get_object_vars()</a></span>
-   将始终返回 <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span> 本身（或子类）的属性。
-   Previously it returned the values of the wrapped
-   array/object unless the <strong><code>ArrayObject::STD_PROP_LIST</code></strong>
-   flag was specified.
+   将始终返回 <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span> 本身（或子类）的属性。之前，除非指定了
+   <strong><code><a href="class.arrayobject.html#arrayobject.constants.std-prop-list">ArrayObject::STD_PROP_LIST</a></code></strong> flag，否则将返回包装后的 array/object。
   </p>
   <p class="para">
    其它受到影响的操作有：
@@ -300,23 +278,17 @@
    </li>
   </ul>
   <p class="para">
-   <code class="literal">(array)</code> casts are not affected. They will continue to
-   return either the wrapped array, or the <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span>
-   properties, depending on whether the <strong><code>ArrayObject::STD_PROP_LIST</code></strong>
-   flag is used.
+   <code class="literal">(array)</code> 转换不受影响。它们将继续返回包装数组或 <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span>
+   属性，具体取决于是否使用 <strong><code><a href="class.arrayobject.html#arrayobject.constants.std-prop-list">ArrayObject::STD_PROP_LIST</a></code></strong> flag。
   </p>
   <p class="para">
-   <span class="methodname"><a href="splpriorityqueue.setextractflags.html" class="methodname">SplPriorityQueue::setExtractFlags()</a></span> will throw
-   an exception if zero is passed. Previously this would generate a recoverable
-   fatal error on the next extraction operation.
+   如果传递零，<span class="methodname"><a href="splpriorityqueue.setextractflags.html" class="methodname">SplPriorityQueue::setExtractFlags()</a></span>
+   将引发异常。以前，这会在执行下个提取操作时生成可恢复的致命错误。
   </p>
   <p class="para">
-   <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span>, <span class="classname"><a href="class.arrayiterator.html" class="classname">ArrayIterator</a></span>,
-   <span class="classname"><a href="class.spldoublylinkedlist.html" class="classname">SplDoublyLinkedList</a></span> and <span class="classname"><a href="class.splobjectstorage.html" class="classname">SplObjectStorage</a></span>
-   now support the <code class="literal">__serialize()</code> and <code class="literal">__unserialize()</code>
-   mechanism in addition to the <span class="interfacename"><a href="class.serializable.html" class="interfacename">Serializable</a></span> interface.
-   This means that serialization payloads created on older PHP versions can still be
-   unserialized, but new payloads created by PHP 7.4 will not be understood by older versions.
+   除了 <span class="interfacename"><a href="class.serializable.html" class="interfacename">Serializable</a></span> 接口之外，<span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span>、<span class="classname"><a href="class.arrayiterator.html" class="classname">ArrayIterator</a></span>、<span class="classname"><a href="class.spldoublylinkedlist.html" class="classname">SplDoublyLinkedList</a></span>
+   和 <span class="classname"><a href="class.splobjectstorage.html" class="classname">SplObjectStorage</a></span> 现在还支持 <code class="literal">__serialize()</code> 和 <code class="literal">__unserialize()</code>
+   机制。这意味着在旧版本上创建的序列化负荷仍然可以反序列化，但旧版本将无法理解 PHP 7.4 创建的新负荷（payloads）。
   </p>
  </div>
 
@@ -324,9 +296,7 @@
   <h3 class="title">Tokenizer</h3>
 
   <p class="para">
-   <span class="function"><a href="function.token-get-all.html" class="function">token_get_all()</a></span> will now emit a
-   <strong><code>T_BAD_CHARACTER</code></strong> token for unexpected
-   characters instead of leaving behind holes in the token stream.
+   <span class="function"><a href="function.token-get-all.html" class="function">token_get_all()</a></span> 现在将为非法字符发出 <strong><code><a href="tokens.html#constant.t-bad-character">T_BAD_CHARACTER</a></code></strong> token，而不是在 token stream 中留下漏洞。
   </p>
  </div>
 
@@ -334,7 +304,7 @@
   <h3 class="title">接收到的 Cookies</h3>
 
   <p class="para">
-   从 PHP 7.4.11 开始，为了安全考虑，接受到的 Cookie 中的 <em class="emphasis">names</em> 参数不再被
+   从 PHP 7.4.11 开始，为了安全考虑，接受到的 Cookie 中的 <em>names</em> 参数不再被
    URL 编码。
   </p>
  </div>

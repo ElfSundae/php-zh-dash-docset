@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>绑定 LDAP 目录</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.ldap-bind-ext.html">? ldap_bind_ext</a></li>
-      <li style="float: right;"><a href="function.ldap-close.html">ldap_close ?</a></li>
+      <li style="float: left;"><a href="function.ldap-add-ext.html">? ldap_add_ext</a></li>
+      <li style="float: right;"><a href="function.ldap-bind-ext.html">ldap_bind_ext ?</a></li>
     </ul>
   </div>
 </div>
@@ -31,14 +31,14 @@
   <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">ldap_bind</span> &mdash; <span class="dc-title">绑定 LDAP 目录</span></p>
 
  </div>
- 
+
  <div class="refsect1 description" id="refsect1-function.ldap-bind-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>ldap_bind</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$link_identifier</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$bind_rdn</code><span class="initializer"> = <strong><code>null</code></strong></span></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$bind_password</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>ldap_bind</strong></span>(<span class="methodparam"><span class="type"><a href="class.ldap-connection.html" class="type LDAP\Connection">LDAP\Connection</a></span> <code class="parameter">$ldap</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$dn</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>, <span class="methodparam"><span class="attribute"><a href="class.sensitiveparameter.html">#[\SensitiveParameter]</a> </span><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$password</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   使用指定的 RDN 和密码绑定到 LDAP 目录。 
+   使用指定的 RDN 和密码绑定到 LDAP 目录。
   </p>
  </div>
 
@@ -48,44 +48,32 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">link_identifier</code></dt>
-
+     <dt><code class="parameter">ldap</code></dt>
      <dd>
-
       <p class="para">
-       通过 <span class="function"><a href="function.ldap-connect.html" class="function">ldap_connect()</a></span> 连接之后返回的 LDAP 连接标识。
+       通过 <span class="function"><a href="function.ldap-connect.html" class="function">ldap_connect()</a></span> 返回的 <span class="classname"><a href="class.ldap-connection.html" class="classname">LDAP\Connection</a></span> 实例。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">bind_rdn</code></dt>
-
+     <dt><code class="parameter">dn</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">bind_password</code></dt>
-
+     <dt><code class="parameter">password</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
    </dl>
-
   </p>
   <p class="para">
-   如果没有指定 <code class="parameter">bind_rdn</code> 和 <code class="parameter">bind_password</code> ，将会以匿名身份绑定。
+   如果没有指定 <code class="parameter">password</code> 或为空，将会以匿名身份绑定。<code class="parameter">dn</code>
+   也可以为空，用于匿名绑定。这在 https://tools.ietf.org/html/rfc2251#section-4.2.2 中有定义。
   </p>
  </div>
 
@@ -93,31 +81,53 @@
  <div class="refsect1 returnvalues" id="refsect1-function.ldap-bind-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.ldap-bind-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+ <td>8.1.0</td>
+ <td>
+  现在 <code class="parameter">ldap</code> 参数接受 <span class="classname"><a href="class.ldap-connection.html" class="classname">LDAP\Connection</a></span>
+  实例，之前接受有效的 <code class="literal">ldap link</code> <a href="language.types.resource.html" class="link">resource</a>。
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.ldap-bind-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4431">
     <p><strong>Example #1 使用 LDAP Bind</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// using ldap bind<br /></span><span style="color: #0000BB">$ldaprdn  </span><span style="color: #007700">= </span><span style="color: #DD0000">'uname'</span><span style="color: #007700">;     </span><span style="color: #FF8000">// ldap rdn or dn<br /></span><span style="color: #0000BB">$ldappass </span><span style="color: #007700">= </span><span style="color: #DD0000">'password'</span><span style="color: #007700">;  </span><span style="color: #FF8000">// associated password<br /><br />// connect to ldap server<br /></span><span style="color: #0000BB">$ldapconn </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"ldap.example.com"</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not connect to LDAP server."</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">) {<br /><br />    </span><span style="color: #FF8000">// binding to ldap server<br />    </span><span style="color: #0000BB">$ldapbind </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_bind</span><span style="color: #007700">(</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">, </span><span style="color: #0000BB">$ldaprdn</span><span style="color: #007700">, </span><span style="color: #0000BB">$ldappass</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">// verify binding<br />    </span><span style="color: #007700">if (</span><span style="color: #0000BB">$ldapbind</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"LDAP bind successful..."</span><span style="color: #007700">;<br />    } else {<br />        echo </span><span style="color: #DD0000">"LDAP bind failed..."</span><span style="color: #007700">;<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// using ldap bind<br /></span><span style="color: #0000BB">$ldaprdn  </span><span style="color: #007700">= </span><span style="color: #DD0000">'uname'</span><span style="color: #007700">;     </span><span style="color: #FF8000">// ldap rdn or dn<br /></span><span style="color: #0000BB">$ldappass </span><span style="color: #007700">= </span><span style="color: #DD0000">'password'</span><span style="color: #007700">;  </span><span style="color: #FF8000">// associated password<br /><br />// connect to ldap server<br /></span><span style="color: #0000BB">$ldapconn </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"ldap://ldap.example.com"</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not connect to LDAP server."</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">) {<br /><br />    </span><span style="color: #FF8000">// binding to ldap server<br />    </span><span style="color: #0000BB">$ldapbind </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_bind</span><span style="color: #007700">(</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">, </span><span style="color: #0000BB">$ldaprdn</span><span style="color: #007700">, </span><span style="color: #0000BB">$ldappass</span><span style="color: #007700">);<br /><br />    </span><span style="color: #FF8000">// verify binding<br />    </span><span style="color: #007700">if (</span><span style="color: #0000BB">$ldapbind</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"LDAP bind successful..."</span><span style="color: #007700">;<br />    } else {<br />        echo </span><span style="color: #DD0000">"LDAP bind failed..."</span><span style="color: #007700">;<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
-   <div class="example" id="">
+   <div class="example" id="example-4432">
     <p><strong>Example #2 Using LDAP Bind Anonymously</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//using ldap bind anonymously<br /><br />// connect to ldap server<br /></span><span style="color: #0000BB">$ldapconn </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"ldap.example.com"</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not connect to LDAP server."</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">) {<br /><br />    </span><span style="color: #FF8000">// binding anonymously<br />    </span><span style="color: #0000BB">$ldapbind </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_bind</span><span style="color: #007700">(</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">);<br /><br />    if (</span><span style="color: #0000BB">$ldapbind</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"LDAP bind anonymous successful..."</span><span style="color: #007700">;<br />    } else {<br />        echo </span><span style="color: #DD0000">"LDAP bind anonymous failed..."</span><span style="color: #007700">;<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//using ldap bind anonymously<br /><br />// connect to ldap server<br /></span><span style="color: #0000BB">$ldapconn </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"ldap://ldap.example.com"</span><span style="color: #007700">)<br />    or die(</span><span style="color: #DD0000">"Could not connect to LDAP server."</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">) {<br /><br />    </span><span style="color: #FF8000">// binding anonymously<br />    </span><span style="color: #0000BB">$ldapbind </span><span style="color: #007700">= </span><span style="color: #0000BB">ldap_bind</span><span style="color: #007700">(</span><span style="color: #0000BB">$ldapconn</span><span style="color: #007700">);<br /><br />    if (</span><span style="color: #0000BB">$ldapbind</span><span style="color: #007700">) {<br />        echo </span><span style="color: #DD0000">"LDAP bind anonymous successful..."</span><span style="color: #007700">;<br />    } else {<br />        echo </span><span style="color: #DD0000">"LDAP bind anonymous failed..."</span><span style="color: #007700">;<br />    }<br /><br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -129,7 +139,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.ldap-unbind.html" class="function" rel="rdfs-seeAlso">ldap_unbind()</a> - Unbind from LDAP directory</span></li>
+    <li><span class="function"><a href="function.ldap-bind-ext.html" class="function" rel="rdfs-seeAlso">ldap_bind_ext()</a> - Bind to LDAP directory</span></li>
+    <li><span class="function"><a href="function.ldap-unbind.html" class="function" rel="rdfs-seeAlso">ldap_unbind()</a> - Unbind from LDAP directory</span></li>
    </ul>
   </p>
  </div>
@@ -139,7 +150,46 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127351""></a>
+<div id="allnotes">  <a name="129277""></a>
+  <div class="note">
+   <strong class="user">andreas at heigl dot org</strong>
+   <a href="#129277" class="date">25-Feb-2024 04:55</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This function can cause errors that might be expected to happen during ldap_connect.<br />
+<br />
+As ldap_connect is - contrary to it's name - is not connecting to any server at all, usually the ldap_bind is the first command to actually hit a server and therefore can cause issues that one would not expect to happen here.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128898""></a>
+  <div class="note">
+   <strong class="user">Christian Stoller</strong>
+   <a href="#128898" class="date">19-Sep-2023 09:09</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+When using LDAP with SSL and a LDAP server which uses a self-signed SSL certificate the connection may fail with the error "Can't contact LDAP server". To make the connection work, use the options to point to the public cert file (see https://www.php.net/manual/en/ldap.constants.php).<br />
+<br />
+Alternatively you can disable the certification check. But keep in mind that this is a security risk if the connection is routed over a public network!<br />
+<br />
+This is achieved by:<br />
+<br />
+<span class="default">&lt;?php<br />
+$ds </span><span class="keyword">= </span><span class="default">ldap_connect</span><span class="keyword">(</span><span class="string">'ldaps://myhost:636'</span><span class="keyword">);<br />
+</span><span class="default">ldap_bind</span><span class="keyword">(</span><span class="default">$ds</span><span class="keyword">, </span><span class="string">'{your_ldap_dn}'</span><span class="keyword">, </span><span class="string">'{your_ldap_password}'</span><span class="keyword">)<br />
+</span><span class="default">ldap_set_option</span><span class="keyword">(</span><span class="default">$ds</span><span class="keyword">, </span><span class="default">LDAP_OPT_X_TLS_REQUIRE_CERT</span><span class="keyword">, </span><span class="default">LDAP_OPT_X_TLS_ALLOW</span><span class="keyword">);<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127351""></a>
   <div class="note">
    <strong class="user">php at richardneill dot org</strong>
    <a href="#127351" class="date">27-Jul-2022 05:33</a>
@@ -164,119 +214,6 @@ ssh -L 63600:your_real_ldap_server:636 your_proxy_server<br />
 <br />
 //And continue as normal...<br />
 ldap_connect($ldap_url);</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125082""></a>
-  <div class="note">
-   <strong class="user">peter dot mlich at volny dot cz</strong>
-   <a href="#125082" class="date">05-Jun-2020 07:07</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Example code from my ldap class.<br />
-this-&gt;query i send notes under ldap_search function documentation.<br />
-<br />
-public function queryUserLogin($user_name='', $user_psw='', $tls_bool=true) // na localhostu pouzit tls=false<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp;&nbsp; var_dump('queryUserLogin');<br />
-//$tls_bool = false;&nbsp; &nbsp; // for localhost<br />
-&nbsp;&nbsp;&nbsp; $fn&nbsp; &nbsp;&nbsp; = 'queryUser';<br />
-&nbsp;&nbsp;&nbsp; $config = $this-&gt;config;<br />
-&nbsp;&nbsp;&nbsp; $conn&nbsp;&nbsp; = $this-&gt;conn;<br />
-&nbsp;&nbsp;&nbsp; if (!$conn)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {return $this-&gt;errorConnection($fn);}<br />
-&nbsp;&nbsp;&nbsp; // user - exist name?<br />
-&nbsp;&nbsp;&nbsp; $user_name = $this-&gt;escapeValue($user_name);<br />
-&nbsp;&nbsp;&nbsp; $user_psw&nbsp; = $this-&gt;escapeValue($user_psw);<br />
-&nbsp;&nbsp;&nbsp; $filter = "(&amp;(objectclass=person)(cn=".$user_name."))";<br />
-//var_dump($filter);<br />
-&nbsp;&nbsp;&nbsp; $att&nbsp; &nbsp; = array('dn');<br />
-&nbsp;&nbsp;&nbsp; $data&nbsp;&nbsp; = $this-&gt;query($filter, $att, 2, true);<br />
-&nbsp;&nbsp;&nbsp; if ($data===false)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;error("User error, nenalezen v ldap!");<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;disconnect();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; // user - exist user in LDAP (name, psw)<br />
-&nbsp;&nbsp;&nbsp; $user = is_array($data) &amp;&amp; isset($data[0]) &amp;&amp; isset($data[0]['dn']) ? $data[0]['dn'] : '';&nbsp; &nbsp; // "cn=mynickname,ou=users,o=su" <br />
-&nbsp;&nbsp;&nbsp; $psw&nbsp; = $user_psw;<br />
-&nbsp;&nbsp;&nbsp; if ($user=='' || $psw=='')<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;error("User error, prazdne prihlasovaci udaje!");<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;disconnect();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; if ($tls_bool==true)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ldap_start_tls($conn))&nbsp; &nbsp; //php7<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $result = @ldap_bind($conn, $user, $psw);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else&nbsp; &nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;error("Unable to start TLS!");&nbsp; // SSL encrypt protocol, certificate, deprecated?<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; else&nbsp; &nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $result = @ldap_bind($conn, $user, $psw);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; if ($result==false)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;error("Bind user error! bindDN = ".$user);&nbsp; &nbsp; //".ldap_error($conn)."<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;disconnect();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return false;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; // user - get user info, bind to ldap user with more permitions and get data (login to intercon user)<br />
-&nbsp;&nbsp;&nbsp; $user&nbsp;&nbsp; = $config['userInterconDn'];<br />
-&nbsp;&nbsp;&nbsp; $psw&nbsp; &nbsp; = $config['userInterconPsw'];<br />
-&nbsp;&nbsp;&nbsp; if ($tls_bool==true)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ldap_start_tls($conn))&nbsp; &nbsp; //php7<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $result = ldap_bind($conn, $user, $psw);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else&nbsp; &nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;error("Unable to start TLS!");&nbsp; // SSL encrypt protocol, certificate, deprecated?<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; else&nbsp; &nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $result = ldap_bind($conn, $user, $psw);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; if ($result==false)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;error("Bind user intercon error!");&nbsp; &nbsp; // . ldap_error($conn) !Nezobrazovat jmeno usera interconu<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $this-&gt;out = array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 'uid'&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =&gt; $user<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; );<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return true;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; // search user data<br />
-&nbsp;&nbsp;&nbsp; $filter = "(&amp;(objectclass=person)(cn=" . $user_name . "))";<br />
-//var_dump($filter);<br />
-&nbsp;&nbsp;&nbsp; $att&nbsp; &nbsp; = array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'uid', <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'workforceID',<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'employeeID',<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'givenName',<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'sn',<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'mail'<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );<br />
-&nbsp;&nbsp;&nbsp; $data&nbsp;&nbsp; = $this-&gt;query($filter, $att, 2, true);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; // get data from ldap entires structure<br />
-&nbsp;&nbsp;&nbsp; $this-&gt;out = array(<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'uid'&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =&gt; $this-&gt;dataGetValue($data, 'uid'&nbsp; &nbsp; &nbsp; &nbsp; , ''),<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'workforceID' =&gt; $this-&gt;dataGetValue($data, 'workforceid', ''),&nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'employeeID'&nbsp; =&gt; $this-&gt;dataGetValue($data, 'employeeid' , ''),&nbsp; &nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'givenName'&nbsp;&nbsp; =&gt; $this-&gt;dataGetValue($data, 'givenname'&nbsp; , ''),<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'sn'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =&gt; $this-&gt;dataGetValue($data, 'sn'&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; , ''),&nbsp; &nbsp; // prijmeni<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 'mail'&nbsp; &nbsp; &nbsp; &nbsp; =&gt; $this-&gt;dataGetValue($data, 'mail'&nbsp; &nbsp; &nbsp;&nbsp; , '')&nbsp; &nbsp; // mail<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; );<br />
-&nbsp;&nbsp;&nbsp; $this-&gt;conn = $conn;<br />
-&nbsp;&nbsp;&nbsp; return true;<br />
-&nbsp;&nbsp;&nbsp; }</span>
 </code>
     </div>
    </div>
@@ -587,21 +524,6 @@ Hope it'll help some out there.<br />
    </div>
   </div>
  <div class="foot"></div>
-  <a name="100610""></a>
-  <div class="note">
-   <strong class="user">magnetik at magnetik dot org</strong>
-   <a href="#100610" class="date">26-Oct-2010 12:27</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Due to a bug in PHP 5.3 you may have to place the ldap.conf in the root of all your drives (I had to place it on D:).<br />
-<br />
-See <a href="http://bugs.php.net/bug.php?id=48866" rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=48866</a></span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="98351""></a>
   <div class="note">
    <strong class="user">[nie ten]archie</strong>
@@ -670,48 +592,6 @@ as you can see most of the examples use "cn=username" and OpenLDAP uses "uid=use
 <code><span class="html">
 When using LDAP with SSL and a LDAP server which uses a self-signed SSL certificate normally no connection will be established. Therefor you have to allow such connections explicitly.<br />
 With Linux (e.g. Debian, Ubuntu) you have to add "TLS_REQCERT never" to your /etc/ldap/ldap.conf. On other distributions this config file may be located somewhere else.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="88822""></a>
-  <div class="note">
-   <strong class="user">taomanjay at _DIESPAM_gmail dot com</strong>
-   <a href="#88822" class="date">09-Feb-2009 02:36</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Just a quick and easy function to authenticate against an AD domain controller:
-<br />
-
-<br />
-<span class="default">&lt;?php
-<br />
-</span><span class="keyword">function </span><span class="default">ad_auth</span><span class="keyword">( </span><span class="default">$server</span><span class="keyword">, </span><span class="default">$username</span><span class="keyword">, </span><span class="default">$password </span><span class="keyword">){
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$ldap </span><span class="keyword">= @</span><span class="default">ldap_connect</span><span class="keyword">( </span><span class="default">$server </span><span class="keyword">);
-<br />
-
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ( @</span><span class="default">ldap_bind</span><span class="keyword">( </span><span class="default">$ldap</span><span class="keyword">, </span><span class="default">$username</span><span class="keyword">, </span><span class="default">$password </span><span class="keyword">) ){
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">ldap_unbind</span><span class="keyword">( </span><span class="default">$ldap </span><span class="keyword">);
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">1</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else{
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">0</span><span class="keyword">;
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>

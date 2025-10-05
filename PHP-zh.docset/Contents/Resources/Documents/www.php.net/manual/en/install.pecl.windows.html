@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>在 Windows 上安装 PHP 扩展</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -20,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="install.pecl.html">PECL 扩展库安装</a></li>
+    <li><a href="install.pecl.html">PECL 扩展安装</a></li>
     <li>在 Windows 上安装 PHP 扩展</li>
   </ul>
 </div>
@@ -31,46 +31,40 @@
    在 Windows 上有两种加载 PHP 扩展的方式：把扩展编译进 PHP，或者加载 DLL。加载预编译的扩展是更简单更被推荐的方式。
   </p>
   <p class="para">
-   要加载某扩展，需要在系统中有其相对应的 ".dll" 文件。所有扩展都会由
+   要加载扩展，需要在系统中有可用的 <var class="filename">.dll</var> 文件。所有扩展都会由
    PHP 小组定期自动编译（如何下载见下节）。
   </p>
   <p class="para">
-   要将一扩展编译入 PHP，请参考 <a href="install.windows.building.html" class="link">从源程序编译</a> 一章。
+   要将扩展编译入 PHP，请参考<a href="install.windows.building.html" class="link">从源程序编译</a>文档。
   </p>
   <p class="para">
-   要编译一个独立的扩展（即 DLL 文件），请参考 <a href="install.windows.building.html" class="link">从源程序编译</a> 一章。如果在
-   PHP 发行包和 PCEL 中都没有某 DLL 文件，那可能需要自己编译之后才能使用该扩展。
+   要编译一个独立的扩展（即 DLL 文件），请参考<a href="install.windows.building.html" class="link">从源程序编译</a>文档。如果在
+   PHP 发行版和 PCEL 中都没有某 DLL 文件，那可能需要编译之后才能使用该扩展。
   </p>
-
   <div class="sect2" id="install.pecl.windows.find">
    <h3 class="title">去哪里找扩展库？</h3>
    <p class="para">
-    PHP 扩展库通常称为"php_*.dll"（其中星号代表具体某扩展的名字），位于"PHP\ext"目录下。
+    PHP 扩展库通常称为 <var class="filename">php_*.dll</var>（其中星号代表具体某扩展的名字），位于 <var class="filename">PHP\ext</var> 目录下。
    </p>
    <p class="para">
-    PHP 发行包中包括了大多数开发者最常用到的扩展库。这些被称为"核心"扩展库。
+    PHP 发行包中包括了大多数开发者最常用到的扩展库。称为<em>捆绑</em>扩展库。
    </p>
    <p class="para">
-    不过呢，如果用户所需要的功能并没有被任何核心扩展提供，那还是有可能在
-    <a href="https://pecl.php.net/" class="link external" title="Link : https://pecl.php.net/">&raquo;&nbsp;PECL</a> 中找到。PHP Extension Community Library（PECL，PHP 扩展社区库）是个
-    PHP 扩展的储存室，提供了对于所有已知扩展的下载及开发途径的指南。
+    不过，如果捆绑扩展没有提供所需的功能，可以在 <a href="https://pecl.php.net/" class="link external" title="Link : https://pecl.php.net/">&raquo;&nbsp;PECL</a> 中找到满足需求的扩展。PHP 扩展社区库（PHP Extension Community Library 简称 PECL）是个
+    PHP 扩展的储存库，提供了对于所有已知扩展目录以及下载及开发 PHP 扩展的托管设施。
    </p>
    <p class="para">
-    如果用户开发了一个自己使用的扩展，可以考虑将其发布到 PECL
-    中以便于其他有相同需求的用户使用。一个很好的副作用是可以得到其他用户的反馈，感谢，错误报告甚至修正／更新。不过在向
-    PECL 发布扩展之前，请先阅读
+    如果针对特定用途开发了扩展，则可以将其托管在 PECL
+    中以便于其他有相同需求的用户使用。这样做的好处就是可以得到其他用户的反馈、感谢、错误报告甚至修复/补丁。不过在向
+    PECL 提交扩展之前，请先阅读
     <a href="https://pecl.php.net/package-new.php" class="link external" title="Link : https://pecl.php.net/package-new.php">&raquo;&nbsp;PECL 提交指南</a>。
    </p>
   </div>
-  
-  
-
-
 
   <div class="sect2" id="install.pecl.windows.which">
    <h3 class="title">下载哪个扩展？</h3>
    <p class="para">
-    <em class="emphasis">用户常常会发现每个 DLL 都有好几个版本：</em>
+    <em>很多时候，每个 DLL 都有几个版本可供选择：</em>
     <ul class="itemizedlist">
      <li class="listitem">
       <span class="simpara">
@@ -100,17 +94,14 @@
     </ul>
    </p>
    <p class="para">
-    请记住用户的扩展设定应该与所使用的 PHP 可执行文件的设定都保持一致。以下脚本可以显示<em class="emphasis">所有</em>
-    PHP 设定：
+    请记住，扩展设置应该与所使用的 PHP 可执行文件的设置相匹配。以下脚本可以显示<em>所有</em>
+    PHP 设置：
    </p>
    <p class="para">
-    <div class="example" id="example-52">
-     <p><strong>Example #1 <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> call</strong></p>
+    <div class="example" id="example-26">
+     <p><strong>Example #1 调用 <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span></strong></p>
      <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />phpinfo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />phpinfo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
      </div>
 
     </div>
@@ -119,7 +110,7 @@
     或者在命令行运行：
     <div class="example-contents screen">
 <div class="cdata"><pre>
-drive:\\path\to\php\executable\php.exe -i
+drive:\path\to\php\executable\php.exe -i
 </pre></div>
     </div>
    </p>
@@ -132,41 +123,41 @@ drive:\\path\to\php\executable\php.exe -i
     扩展。请注意很多扩展已经在 <var class="filename">php.ini</var> 里了，仅需要移除分号来激活它们。
    </p>
    <p class="para">
-    需要注意，从 PHP 7.2.0 开始，可以直接用扩展的名称，来替代扩展的文件名。这样配置文件就跟操作系统解耦了，也更容易理解。我们推荐采用此方式加载扩展。为了与之前的版本保持兼容，直接写扩展名的方式会仍然支持。
+    需要注意，从 PHP 7.2.0 开始，可以直接用扩展的名称，来替代扩展的文件名。这样配置文件就跟操作系统解耦了，也更容易理解。推荐采用此方式加载扩展。为了与之前的版本保持兼容，直接写扩展名的方式会仍然支持。
    </p>
-    <div class="example-contents screen">
+   <div class="example-contents screen">
 <div class="cdata"><pre>
 ;extension=php_extname.dll
 </pre></div>
-    </div>
-    <div class="example-contents screen">
+   </div>
+   <div class="example-contents screen">
 <div class="cdata"><pre>
 extension=php_extname.dll
 </pre></div>
-    </div>
-    <div class="example-contents screen">
+   </div>
+   <div class="example-contents screen">
 <div class="cdata"><pre>
-; PHP version 7.2 开始的推荐写法：
+; 自 PHP 7.2.0 起首选：
 extension=extname
 zend_extension=another_extension
 </pre></div>
-    </div>
+   </div>
    <p class="para">
     不过呢，有些 web 服务器会搞混，因为其并不一定使用和 PHP
     可执行文件处于同一目录下的 <var class="filename">php.ini</var>
     文件。要搞清楚具体使用了哪一个 <var class="filename">php.ini</var>
     文件，在 <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> 的输出中查看：
-    <div class="example-contents screen">
+   </p>
+   <div class="example-contents screen">
 <div class="cdata"><pre>
 Configuration File (php.ini) Path  C:\WINDOWS
 </pre></div>
-    </div>
-    <div class="example-contents screen">
+   </div>
+   <div class="example-contents screen">
 <div class="cdata"><pre>
-Loaded Configuration File   C:\Program Files\PHP\5.2\php.ini
+Loaded Configuration File   C:\Program Files\PHP\8.2\php.ini
 </pre></div>
-    </div>
-   </p>
+   </div>
    <p class="para">
     激活一个扩展后，保存 <var class="filename">php.ini</var>
     文件并重启动 web 服务器，然后用
@@ -181,7 +172,7 @@ Loaded Configuration File   C:\Program Files\PHP\5.2\php.ini
     中显示，应该查看日志以确定问题出在哪里。
    </p>
    <p class="para">
-    如果是在命令行使用 PHP（CLI），扩展加载出错信息会直接在屏幕显示。
+    如果是在命令行中（CLI）使用 PHP，扩展加载出错信息会直接在屏幕显示。
    </p>
    <p class="para">
     如果在 web 服务器中使用 PHP，则日志文件的位置与格式各不相同。请阅读所使用的
@@ -189,20 +180,49 @@ Loaded Configuration File   C:\Program Files\PHP\5.2\php.ini
    </p>
    <p class="para">
     最常见的问题是 DLL 和 DLL 依赖的文件的位置，<var class="filename">php.ini</var>
-    中"<a href="ini.core.html#ini.extension-dir" class="link">extension_dir</a>"设定的值，以及编译时的设置不匹配。
+    中"<a href="ini.core.html#ini.extension-dir" class="link">extension_dir</a>"设置的值，以及编译时的设置不匹配。
    </p>
    <p class="para">
     如果问题出在编译时设置不匹配，那可能所下载的 DLL
-    文件不对。可以尝试重新下载一个设置匹配的扩展。此外，<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>
+    文件不对。可以尝试使用正确的设置重新下载扩展。此外，<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>
     可以起到很大帮助。
    </p>
   </div>
-  
+
  </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="128103""></a>
+<div id="allnotes">  <a name="129124""></a>
+  <div class="note">
+   <strong class="user">j dot o dot l dot a dot n at bk dot ru</strong>
+   <a href="#129124" class="date">24-Dec-2023 01:43</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In order for php to see extensions, it is necessary to specify the root folder when specifying the address to the directory with extensions in php.ini. For example extension_dir = "php/ext"</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128153""></a>
+  <div class="note">
+   <strong class="user">bk at kaelberer-aio dot de</strong>
+   <a href="#128153" class="date">26-Jan-2023 06:28</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+In addition to the helpful comments of ferdnyc and dario: A few weeks ago I've set up a new W11 using PHP 8.1. (as a module) with Apache. It was working fine.<br />
+Today i wanted to install the PECL-extension php-amqp. This extension comes with two additional files that are said to be placed in PHPs main directory. It worked fine running from the command prompt but with Apache the extension failed with "Unable to load dynamic library 'amqp'".<br />
+I tried 100 ways to notate paths in php.ini and http.conf: c:, C:, \, \\, /, ". I also installed a new PHP in the root to get rid of the space in the path. It did not help.<br />
+When reading dario's comment i stumbeled across him mentioning "path environment variable". I checked that in Window's settings and I realized, that i had added PHP's path to the USER'S path-settings, but not to the SYSTEM'S path. That is why it worked in the command prompt but not when starting Apache as a service. After adding it there it worked fine.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128103""></a>
   <div class="note">
    <strong class="user">dario at 4assistance dot com</strong>
    <a href="#128103" class="date">09-Jan-2023 10:57</a>

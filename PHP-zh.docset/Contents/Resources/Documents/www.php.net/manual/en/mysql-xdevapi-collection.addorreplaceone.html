@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Add or replace collection document</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-mysql-xdevapi-collection.addorreplaceone-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>mysql_xdevapi\Collection::addOrReplaceOne</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$id</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$doc</code></span>): <span class="type"><a href="class.mysql-xdevapi-result.html" class="type mysql_xdevapi\Result">mysql_xdevapi\Result</a></span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>mysql_xdevapi\Collection::addOrReplaceOne</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$id</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$doc</code></span>): <span class="type"><a href="class.mysql-xdevapi-result.html" class="type mysql_xdevapi\Result">mysql_xdevapi\Result</a></span></div>
 
   <p class="para rdfs-comment">
    Add a new document, or replace a document if it already exists.
@@ -84,11 +84,8 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">id</code></dt>
-
+    <dt><code class="parameter">id</code></dt>
     <dd>
-
      <p class="para">
       This is the filter id. If this id or any other field that has a unique index already 
       exists in the collection, then it will update the matching document instead.
@@ -98,22 +95,16 @@
       record was added, and is referenced as a field named &#039;_id&#039;.
     </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">doc</code></dt>
-
+    <dt><code class="parameter">doc</code></dt>
     <dd>
-
      <p class="para">
       This is the document to add or replace, which is a JSON string.
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
@@ -126,14 +117,11 @@
 
 
  <div class="refsect1 examples" id="refsect1-mysql-xdevapi-collection.addorreplaceone-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-3110">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1554">
    <p><strong>Example #1 <span class="function"><strong>mysql_xdevapi\Collection::addOrReplaceOne()</strong></span> example</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$session </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_xdevapi\getSession</span><span style="color: #007700">(</span><span style="color: #DD0000">"mysqlx://user:password@localhost"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">sql</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP DATABASE IF EXISTS addressbook"</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">sql</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE DATABASE addressbook"</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$schema </span><span style="color: #007700">= </span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSchema</span><span style="color: #007700">(</span><span style="color: #DD0000">"addressbook"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$create </span><span style="color: #007700">= </span><span style="color: #0000BB">$schema</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createCollection</span><span style="color: #007700">(</span><span style="color: #DD0000">"people"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$schema</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getCollection</span><span style="color: #007700">(</span><span style="color: #DD0000">"people"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Using add()<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add</span><span style="color: #007700">(</span><span style="color: #DD0000">'{"name": "Wilma", "age": 23, "job": "Teacher"}'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// Using addOrReplaceOne()<br />// Note: we're passing in a known _id value here<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addOrReplaceOne</span><span style="color: #007700">(</span><span style="color: #DD0000">'00005b6b53610000000000000056'</span><span style="color: #007700">, </span><span style="color: #DD0000">'{"name": "Fred",  "age": 21, "job": "Construction"}'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$session </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_xdevapi\getSession</span><span style="color: #007700">(</span><span style="color: #DD0000">"mysqlx://user:password@localhost"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">sql</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP DATABASE IF EXISTS addressbook"</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">sql</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE DATABASE addressbook"</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$schema </span><span style="color: #007700">= </span><span style="color: #0000BB">$session</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSchema</span><span style="color: #007700">(</span><span style="color: #DD0000">"addressbook"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$create </span><span style="color: #007700">= </span><span style="color: #0000BB">$schema</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createCollection</span><span style="color: #007700">(</span><span style="color: #DD0000">"people"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$schema</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getCollection</span><span style="color: #007700">(</span><span style="color: #DD0000">"people"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Using add()<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add</span><span style="color: #007700">(</span><span style="color: #DD0000">'{"name": "Wilma", "age": 23, "job": "Teacher"}'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">// Using addOrReplaceOne()<br />// Note: we're passing in a known _id value here<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addOrReplaceOne</span><span style="color: #007700">(</span><span style="color: #DD0000">'00005b6b53610000000000000056'</span><span style="color: #007700">, </span><span style="color: #DD0000">'{"name": "Fred",  "age": 21, "job": "Construction"}'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>

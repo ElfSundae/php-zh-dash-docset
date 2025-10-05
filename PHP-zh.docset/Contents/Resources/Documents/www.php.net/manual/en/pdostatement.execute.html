@@ -2,9 +2,9 @@
 <html>
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
-  <title>执行一条预处理语句</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+  <title>执行预处理语句</title>
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,7 +21,7 @@
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
     <li><a href="class.pdostatement.html">PDOStatement</a></li>
-    <li>执行一条预处理语句</li>
+    <li>执行预处理语句</li>
   </ul>
 </div>
 <div id="layout">
@@ -29,20 +29,22 @@
  <div class="refnamediv">
   <h1 class="refname">PDOStatement::execute</h1>
   <p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7, PHP 8, PECL pdo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDOStatement::execute</span> &mdash; <span class="dc-title">
-   执行一条预处理语句
+   执行预处理语句
   </span></p>
 
  </div>
  <div class="refsect1 description" id="refsect1-pdostatement.execute-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>PDOStatement::execute</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$input_parameters</code><span class="initializer"> = ?</span></span>): <span class="type">bool</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>PDOStatement::execute</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.array.html" class="type array">array</a></span></span> <code class="parameter">$params</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   执行预处理过的语句。如果预处理过的语句含有参数标记，必须选择下面其中一种做法： 
+   执行<a href="pdo.prepared-statements.html" class="link">预处理语句</a>。如果预处理语句含有参数标记，必须选择下面其中一种做法： 
    <ul class="itemizedlist">
-    <li class="listitem"><p class="para">调用 <span class="function"><a href="pdostatement.bindparam.html" class="function">PDOStatement::bindParam()</a></span> 绑定 PHP 变量到参数标记：如果有的话，通过关联参数标记绑定的变量来传递输入值和取得输出值</p></li>
-    <li class="listitem"><p class="para">或传递一个只作为输入参数值的数组</p></li>
+    <li class="listitem"><p class="para">必须调用 <span class="methodname"><a href="pdostatement.bindparam.html" class="methodname">PDOStatement::bindParam()</a></span> 和/或 <span class="methodname"><a href="pdostatement.bindvalue.html" class="methodname">PDOStatement::bindValue()</a></span> 以将变量或值（分别）绑定到参数标记。如果有的话，通过关联参数标记绑定的变量来传递输入值和取得输出值</p></li>
+    <li class="listitem">
+     <p class="para">或必须传递只作为输入参数值的数组</p>
+    </li>
    </ul>
   </p>
  </div>
@@ -53,25 +55,20 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">input_parameters</code></dt>
-
+     <dt><code class="parameter">params</code></dt>
      <dd>
-
       <p class="para">
-       一个元素个数和将被执行的 SQL 语句中绑定的参数一样多的数组。所有的值作为 <strong><code>PDO::PARAM_STR</code></strong> 对待。
+       一个元素个数和将被执行的 SQL 语句中绑定的参数一样多的数组。所有的值作为 <strong><code><a href="pdo.constants.html#pdo.constants.param-str">PDO::PARAM_STR</a></code></strong> 对待。
       </p>
       <p class="para">
-       不能绑定多个值到一个单独的参数；比如，不能绑定两个值到 IN（）子句中一个单独的命名参数。
+       多个值不能绑定到一个参数；比如，不允许绑定两个值到 IN（）子句中一个单独的命名参数。
       </p>
       <p class="para">
-       绑定的值不能超过指定的个数。如果在 <code class="parameter">input_parameters</code> 中存在比 <span class="methodname"><a href="pdo.prepare.html" class="methodname">PDO::prepare()</a></span> 预处理的SQL 指定的多的键名，则此语句将会失败并发出一个错误。 
+       绑定的值不能比指定的多；如果在 <code class="parameter">params</code> 中存在比 <span class="methodname"><a href="pdo.prepare.html" class="methodname">PDO::prepare()</a></span> 预处理的SQL 指定的多的键名，则此语句将会失败并发出一个错误。 
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -79,88 +76,55 @@
  <div class="refsect1 returnvalues" id="refsect1-pdostatement.execute-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
- <div class="refsect1 changelog" id="refsect1-pdostatement.execute-changelog">
-  <h3 class="title">更新日志</h3>
+ <div class="refsect1 errors" id="refsect1-pdostatement.execute-errors">
+  <h3 class="title">错误／异常</h3>
   <p class="para">
-   <table class="doctable informaltable">
-    
-     <thead>
-      <tr>
-       <th>版本</th>
-       <th>说明</th>
-      </tr>
-
-     </thead>
-
-     <tbody class="tbody">
-      <tr>
-       <td>5.2.0</td>
-       <td>
-         <code class="parameter">input_parameters</code> 中的键名必须和 SQL 中声明的相匹配。PHP 5.2.0 之前默认忽略。
-       </td>
-      </tr>
-
-     </tbody>
-    
-   </table>
-
-  </p>
+如果属性 <strong><code><a href="pdo.constants.html#pdo.constants.attr-errmode">PDO::ATTR_ERRMODE</a></code></strong> 设置为 <strong><code><a href="pdo.constants.html#pdo.constants.errmode-warning">PDO::ERRMODE_WARNING</a></code></strong>，则发出级别为 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong> 的错误。
+</p>
+<p class="para">
+如果属性 <strong><code><a href="pdo.constants.html#pdo.constants.attr-errmode">PDO::ATTR_ERRMODE</a></code></strong> 设置为 <strong><code><a href="pdo.constants.html#pdo.constants.errmode-exception">PDO::ERRMODE_EXCEPTION</a></code></strong>，则抛出 <span class="classname"><a href="class.pdoexception.html" class="classname">PDOException</a></span>。
+</p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-pdostatement.execute-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="example-2132"><p><strong>Example #1 执行一条绑定变量的预处理语句</strong></p>
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-1058"><p><strong>Example #1 执行绑定变量和值的预处理语句</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  通过绑定 PHP 变量执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour = :colour'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #DD0000">':calories'</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #DD0000">':colour'</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过绑定变量和值执行预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'gre'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour LIKE :colour'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #DD0000">'calories'</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/* 名称也可以以冒号":"为前缀（可选）*/<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindValue</span><span style="color: #007700">(</span><span style="color: #DD0000">':colour'</span><span style="color: #007700">, </span><span style="color: #DD0000">"%</span><span style="color: #0000BB">$colour</span><span style="color: #DD0000">%"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-2134"><p><strong>Example #2 使用一个含有插入值的数组执行一条预处理语句（命名参数）</strong></p>
+  <div class="example" id="example-1059"><p><strong>Example #2 使用命名值数组执行预处理语句</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过传递一个含有插入值的数组执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour = :colour'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #DD0000">':calories' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #DD0000">':colour' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$colour</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过传递一个含有插入值的数组执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour = :colour'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'calories' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #DD0000">'colour' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$colour</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">/* 数组键也可以以冒号":"为前缀（可选）*/<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #DD0000">':calories' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #DD0000">':colour' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$colour</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-2136"><p><strong>Example #3 使用一个含有插入值的数组执行一条预处理语句（占位符）</strong></p>
+  <div class="example" id="example-1060"><p><strong>Example #3 使用位置值数组执行预处理语句</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  通过传递一个插入值的数组执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过传递一个插入值的数组执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(array(</span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-2138"><p><strong>Example #4 执行一条问号占位符的预处理语句</strong></p>
+  <div class="example" id="example-1061"><p><strong>Example #4 使用绑定到位置占位符的变量执行预处理语句</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过绑定 PHP 变量执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 通过绑定 PHP 变量执行一条预处理语句 */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindParam</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
 
-  <div class="example" id="example-2140"><p><strong>Example #5 使用数组执行一条含有 IN 子句的预处理语句</strong></p>
+  <div class="example" id="example-1062"><p><strong>Example #5 使用数组执行一条含有 IN 子句的预处理语句</strong></p>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  使用一个数组的值执行一条含有 IN 子句的预处理语句 */<br /></span><span style="color: #0000BB">$params </span><span style="color: #007700">= array(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">21</span><span style="color: #007700">, </span><span style="color: #0000BB">63</span><span style="color: #007700">, </span><span style="color: #0000BB">171</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/*  创建一个填充了和params相同数量占位符的字符串 */<br /></span><span style="color: #0000BB">$place_holders </span><span style="color: #007700">= </span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">','</span><span style="color: #007700">, </span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$params</span><span style="color: #007700">), </span><span style="color: #DD0000">'?'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*<br />    对于 $params 数组中的每个值，要预处理的语句包含足够的未命名占位符 。<br />    语句被执行时， $params 数组中的值被绑定到预处理语句中的占位符。<br />    这和使用 PDOStatement::bindParam() 不一样，因为它需要一个引用变量。<br />    PDOStatement::execute() 仅作为通过值绑定的替代。<br />*/<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT id, name FROM contacts WHERE id IN (</span><span style="color: #0000BB">$place_holders</span><span style="color: #DD0000">)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$params</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*  使用一个数组的值执行一条含有 IN 子句的预处理语句 */<br /></span><span style="color: #0000BB">$params </span><span style="color: #007700">= array(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">21</span><span style="color: #007700">, </span><span style="color: #0000BB">63</span><span style="color: #007700">, </span><span style="color: #0000BB">171</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/*  创建一个填充了和params相同数量占位符的字符串 */<br /></span><span style="color: #0000BB">$place_holders </span><span style="color: #007700">= </span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">','</span><span style="color: #007700">, </span><span style="color: #0000BB">array_fill</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">, </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$params</span><span style="color: #007700">), </span><span style="color: #DD0000">'?'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*<br />    对于 $params 数组中的每个值，要预处理的语句包含足够的未命名占位符 。<br />    语句被执行时， $params 数组中的值被绑定到预处理语句中的占位符。<br />    这和使用 PDOStatement::bindParam() 不一样，因为它需要一个引用变量。<br />    PDOStatement::execute() 仅作为通过值绑定的替代。<br />*/<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT id, name FROM contacts WHERE id IN (</span><span style="color: #0000BB">$place_holders</span><span style="color: #DD0000">)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$params</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>
@@ -181,11 +145,11 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="pdo.prepare.html" class="function" rel="rdfs-seeAlso">PDO::prepare()</a> - 预处理要执行的语句，并返回语句对象</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.bindparam.html" class="function" rel="rdfs-seeAlso">PDOStatement::bindParam()</a> - 绑定一个参数到指定的变量名</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.fetch.html" class="function" rel="rdfs-seeAlso">PDOStatement::fetch()</a> - 从结果集中获取下一行</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.fetchall.html" class="function" rel="rdfs-seeAlso">PDOStatement::fetchAll()</a> - 返回一个包含结果集中所有行的数组</span></li>
-    <li class="member"><span class="function"><a href="pdostatement.fetchcolumn.html" class="function" rel="rdfs-seeAlso">PDOStatement::fetchColumn()</a> - 从结果集中的下一行返回单独的一列。</span></li>
+    <li><span class="methodname"><a href="pdo.prepare.html" class="methodname" rel="rdfs-seeAlso">PDO::prepare()</a> - 预处理要执行的语句，并返回语句对象</span></li>
+    <li><span class="methodname"><a href="pdostatement.bindparam.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::bindParam()</a> - 绑定一个参数到指定的变量名</span></li>
+    <li><span class="methodname"><a href="pdostatement.fetch.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::fetch()</a> - 从结果集中获取下一行</span></li>
+    <li><span class="methodname"><a href="pdostatement.fetchall.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::fetchAll()</a> - 从结果集中获取剩余的行</span></li>
+    <li><span class="methodname"><a href="pdostatement.fetchcolumn.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::fetchColumn()</a> - 从结果集中的下一行返回单独的一列</span></li>
    </ul>
   </p>
  </div>
@@ -195,7 +159,35 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126672""></a>
+<div id="allnotes">  <a name="128597""></a>
+  <div class="note">
+   <strong class="user">Sbastien</strong>
+   <a href="#128597" class="date">08-Jun-2023 07:48</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Strangely the manual doesn't give a full SELECT example.<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$sql </span><span class="keyword">= &lt;&lt;&lt;SQL<br />
+</span><span class="string">&nbsp; &nbsp; SELECT ALL name, calories, colour<br />
+&nbsp;&nbsp;&nbsp; FROM fruit<br />
+&nbsp;&nbsp;&nbsp; WHERE calories &lt; :calories AND colour = :colour<br />
+</span><span class="keyword">&nbsp; &nbsp; SQL;<br />
+<br />
+</span><span class="default">$select </span><span class="keyword">= </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">);<br />
+<br />
+</span><span class="default">$select</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">([</span><span class="string">'calories' </span><span class="keyword">=&gt; </span><span class="default">150</span><span class="keyword">, </span><span class="string">'colour' </span><span class="keyword">=&gt; </span><span class="string">'red'</span><span class="keyword">]);<br />
+<br />
+</span><span class="default">$data </span><span class="keyword">= </span><span class="default">$select</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">();</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126672""></a>
   <div class="note">
    <strong class="user">joshuag at count-recount at dynaggelos dot com</strong>
    <a href="#126672" class="date">09-Dec-2021 05:35</a>

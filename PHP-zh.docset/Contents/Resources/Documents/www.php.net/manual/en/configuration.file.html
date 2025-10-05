@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>配置文件</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -27,7 +27,7 @@
 <div id="layout">
   <div id="layout-content"><div id="configuration.file" class="sect1">
   <h2 class="title">配置文件</h2>
-  
+
   <p class="simpara">
    配置文件（<var class="filename">php.ini</var>）在 PHP 启动时被读取。对于服务器模块版本的 PHP，仅在 web
    服务器启动时读取一次。对于
@@ -108,7 +108,7 @@
     在 <var class="filename">php.ini</var> 中可以使用环境变量，如下示例：
   </p>
   <p class="para">
-   <div class="example" id="example-54">
+   <div class="example" id="example-27">
     <p><strong>Example #1 <var class="filename">php.ini</var> 中的环境变量</strong></p>
      <div class="example-contents">
 <div class="inicode"><pre class="inicode">; PHP_MEMORY_LIMIT 来自于环境变量的值
@@ -124,7 +124,7 @@ memory_limit = ${PHP_MEMORY_LIMIT}</pre>
    <var class="filename">php.ini</var> 文件，其中都有注释。此外，也许从 Git 得到的<a href="https://github.com/php/php-src/blob/master/php.ini-production" class="link external" title="Link : https://github.com/php/php-src/blob/master/php.ini-production">&raquo;&nbsp;最新版 <var class="filename">php.ini</var></a> 也有帮助。
   </p>
   <p class="para">
-   <div class="example" id="example-56">
+   <div class="example" id="example-28">
     <p><strong>Example #2 <var class="filename">php.ini</var> 例子</strong></p>
     <div class="example-contents">
 <div class="inicode"><pre class="inicode">; any text on a line after an unquoted semicolon (;) is ignored
@@ -171,7 +171,7 @@ include_path = &quot;.;c:\php\lib&quot;</pre>
    <p class="para">
     通过在扫描路径配置中加入特定系统的目录分隔符（Windows、NetWare
     和 RISC OS 下是 <code class="literal">;</code>；其它操作系统下是 <code class="literal">:</code>；该值可以通过
-    PHP 常量 <strong><code>PATH_SEPARATOR</code></strong> 获取），还可以设置多个扫描路径。如果
+    PHP 常量 <strong><code><a href="dir.constants.html#constant.path-separator">PATH_SEPARATOR</a></code></strong> 获取），还可以设置多个扫描路径。如果
     <var class="varname">PHP_INI_SCAN_DIR</var> 为空，PHP 一样会扫描在编译时指定的
     <strong class="option configure">--with-config-file-scan-dir</strong> 此路径。
    </p>
@@ -213,7 +213,77 @@ $ PHP_INI_SCAN_DIR=/usr/local/etc/php.d: php
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="126333""></a>
+<div id="allnotes">  <a name="129709""></a>
+  <div class="note">
+   <strong class="user">michael at maildrop dot cc</strong>
+   <a href="#129709" class="date">15-Aug-2024 08:58</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+I'm not sure why the comment saying you can use constants is downvoted so much.&nbsp; This is amazing news and just what I was looking for.<br />
+<br />
+Having a configuration like:<br />
+php_admin_value[error_log] = "/logfolder/php-fpm-"PHP_VERSION".$pool.log"<br />
+<br />
+will nicely log to /logfolder/php-fpm-8.3.10.mypool.log , which is really useful if you have multiple versions of PHP running and want to keep your log files separate and not have to fiddle with the configuration each time you update.&nbsp; A list of the pre-defined constants is here ( https://www.php.net/manual/en/reserved.constants.php#reserved.constants.core )&nbsp; The PHP_*_VERSION, PHP_VERSION, PHP_OS_FAMILY, and maybe PHP_SAPI are useful in this case.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="129094""></a>
+  <div class="note">
+   <strong class="user">atv dot seth at gmail dot com</strong>
+   <a href="#129094" class="date">08-Dec-2023 07:32</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+For anyone who wants to ignore any directory entirely<br />
+<br />
+On a linux Redhat distro (this was on EL9):<br />
+<br />
+; if using php-fpm, put this file in place"<br />
+/etc/systemd/system/php-fpm.service.d/override.conf <br />
+[Service]<br />
+Environment="PHP_INI_SCAN_DIR="<br />
+<br />
+; do a systemd config reload:<br />
+systemctl daemon-reload<br />
+<br />
+; if you want to make sure php on the cli fails if it's not passing 'PHP_INI_SCAN_DIR= php' (this should also affect both linux normal+system users?) then drop this file in place:<br />
+cat /etc/php.d/00-dont-use-phpd.ini<br />
+auto_prepend_file=MISSING_ENV__PHP_INI_SCAN_DIR__SEE_ETC_PHPD_00_DONT_USE_PHPD_INI<br />
+; don't allow php.d directory to load in files<br />
+; you must pass 'PHP_INI_SCAN_DIR= ' before your php command on the cli<br />
+; reference:<br />
+; https://www.php.net/manual/en/configuration.file.php#configuration.file.scan</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="129073""></a>
+  <div class="note">
+   <strong class="user">Pictor13</strong>
+   <a href="#129073" class="date">27-Nov-2023 09:12</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Notice that `error_reporting` CANNOT be interpolated with an environment variable (e.g. `error_reporting = ${PHP_ERROR_REPORTING}`).<br />
+<br />
+`error_reporting` is treated differently than other directives:<br />
+if assigned an environment variable, this will be silently ignored and replaced with value `0` (aka no-reporting).<br />
+<br />
+I couldn't find documentation about it.<br />
+Is maybe an info that should be added in https://github.com/php/php-src/blob/8f5156fcba9906664ecd97e4c279ee980e522121/php.ini-production#L451-L500 ?<br />
+<br />
+I am not aware if this specific behavior affects only `error_reporting` or also other directive.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="126333""></a>
   <div class="note">
    <strong class="user">weili</strong>
    <a href="#126333" class="date">12-Aug-2021 04:00</a>

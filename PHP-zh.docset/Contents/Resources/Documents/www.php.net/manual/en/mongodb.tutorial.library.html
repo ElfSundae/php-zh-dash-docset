@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Using the PHP Library for MongoDB (PHPLIB)</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -26,13 +26,12 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="mongodb.tutorial.library" class="chapter">
- <h1>Using the PHP Library for MongoDB (PHPLIB)</h1>
+ <h1 class="title">Using the PHP Library for MongoDB (PHPLIB)</h1>
 
 
  <p class="para">
-  After the initial driver set-up, we will continue explaining how to get
-  started with the MongoDB driver and corresponding userland library to write
-  our first project.
+  After the initial extension set-up, we will continue explaining how to get
+  started with the corresponding userland library to write our first project.
  </p>
 
  <div class="section">
@@ -67,7 +66,7 @@ It will output something akin to:
 Loading composer repositories with package information
 Updating dependencies (including require-dev)
   - Installing mongodb/mongodb (1.0.0)
-    Downloading: 100%         
+    Downloading: 100%
 
 Writing lock file
 Generating autoload files</pre>
@@ -92,10 +91,7 @@ Generating autoload files</pre>
     included at the start of your script or in your application&#039;s bootstrap
     code:
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// This path should point to Composer's autoloader<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// This path should point to Composer's autoloader<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">;</span></span></code></div>
     </div>
 
    </p>
@@ -106,63 +102,57 @@ Generating autoload files</pre>
    </p>
 
    <p class="para">
-    If you have previously used the old driver (i.e. <code class="code">mongo</code>
-    extension), the library&#039;s API should look familiar. It contains a
-    <a href="https://www.mongodb.com/docs/php-library/master/reference//class/MongoDBClient/" class="link external" title="Link : https://www.mongodb.com/docs/php-library/master/reference//class/MongoDBClient/">&raquo;&nbsp;Client</a>
-    class for connecting to MongoDB, and
-    <a href="https://www.mongodb.com/docs/php-library/master/reference//class/MongoDBDatabase/" class="link external" title="Link : https://www.mongodb.com/docs/php-library/master/reference//class/MongoDBDatabase/">&raquo;&nbsp;Database</a>
-    class for database-level operations (e.g. commands, collection management)
+    If you have used MongoDB drivers in other languages, the library&#039;s API
+    should look familiar. It contains a
+    <a href="https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBClient/" class="link external" title="Link : https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBClient/">&raquo;&nbsp;Client</a>
+    class for connecting to MongoDB, a
+    <a href="https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBDatabase/" class="link external" title="Link : https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBDatabase/">&raquo;&nbsp;Database</a>
+    class for database-level operations (e.g. commands, collection management),
     and a
-    <a href="https://www.mongodb.com/docs/php-library/master/reference//class/MongoDBCollection" class="link external" title="Link : https://www.mongodb.com/docs/php-library/master/reference//class/MongoDBCollection">&raquo;&nbsp;Collection</a>
+    <a href="https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBCollection" class="link external" title="Link : https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBCollection">&raquo;&nbsp;Collection</a>
     class for collection-level operations (e.g.
     <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" class="link external" title="Link : https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">&raquo;&nbsp;CRUD</a> methods, index management).
-    Various Collection methods have been renamed for clarity, and to be in
-    accordance with a new language-agnostic
-    <a href="https://github.com/mongodb/specifications/blob/master/source/crud/crud.rst" class="link external" title="Link : https://github.com/mongodb/specifications/blob/master/source/crud/crud.rst">&raquo;&nbsp;specification</a>.
    </p>
 
    <p class="para">
     As an example, this is how you insert a document into the
-    <em class="emphasis">beers</em> collection of the <em class="emphasis">demo</em>
+    <em>beers</em> collection of the <em>demo</em>
     database:
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">; </span><span style="color: #FF8000">// include Composer's autoloader<br /><br /></span><span style="color: #0000BB">$client </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Client</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost:27017"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">demo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beers</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insertOne</span><span style="color: #007700">( [ </span><span style="color: #DD0000">'name' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Hinterland'</span><span style="color: #007700">, </span><span style="color: #DD0000">'brewery' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'BrewDog' </span><span style="color: #007700">] );<br /><br />echo </span><span style="color: #DD0000">"Inserted with Object ID '</span><span style="color: #007700">{</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInsertedId</span><span style="color: #007700">()}</span><span style="color: #DD0000">'"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">; </span><span style="color: #FF8000">// include Composer's autoloader<br /><br /></span><span style="color: #0000BB">$client </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Client</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost:27017"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">demo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beers</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insertOne</span><span style="color: #007700">( [ </span><span style="color: #DD0000">'name' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Hinterland'</span><span style="color: #007700">, </span><span style="color: #DD0000">'brewery' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'BrewDog' </span><span style="color: #007700">] );<br /><br />echo </span><span style="color: #DD0000">"Inserted with Object ID '</span><span style="color: #007700">{</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInsertedId</span><span style="color: #007700">()}</span><span style="color: #DD0000">'"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </p>
 
    <p class="para">
-    Instead of injecting the generated <code class="code">_id</code> field into the input
-    document (as was done in the old driver), it is now made available through
-    the result object returned by the <code class="code">insertOne</code> method.
+    Since the inserted document did not contain an <code class="code">_id</code> field, the
+    extension will generate an <span class="classname"><a href="class.mongodb-bson-objectid.html" class="classname">MongoDB\BSON\ObjectId</a></span> for
+    the server to use as the <code class="code">_id</code>. This value is also made available
+    to the caller via the result object returned by the <code class="code">insertOne</code>
+    method.
    </p>
 
    <p class="para">
-    After insertion, you can of course also query the data that you have just
-    inserted. For that, you use the <code class="code">find</code> method, which returns an
-    iterable cursor:
+    After insertion, you can query for the data that you have just inserted.
+    For that, you use the <code class="code">find</code> method, which returns an iterable
+    cursor:
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">; </span><span style="color: #FF8000">// include Composer's autoloader<br /><br /></span><span style="color: #0000BB">$client </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Client</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost:27017"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">demo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beers</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">( [ </span><span style="color: #DD0000">'name' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Hinterland'</span><span style="color: #007700">, </span><span style="color: #DD0000">'brewery' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'BrewDog' </span><span style="color: #007700">] );<br /><br />foreach (</span><span style="color: #0000BB">$result </span><span style="color: #007700">as </span><span style="color: #0000BB">$entry</span><span style="color: #007700">) {<br />    echo </span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'_id'</span><span style="color: #007700">], </span><span style="color: #DD0000">': '</span><span style="color: #007700">, </span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">; </span><span style="color: #FF8000">// include Composer's autoloader<br /><br /></span><span style="color: #0000BB">$client </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Client</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost:27017"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">demo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beers</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">( [ </span><span style="color: #DD0000">'name' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Hinterland'</span><span style="color: #007700">, </span><span style="color: #DD0000">'brewery' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'BrewDog' </span><span style="color: #007700">] );<br /><br />foreach (</span><span style="color: #0000BB">$result </span><span style="color: #007700">as </span><span style="color: #0000BB">$entry</span><span style="color: #007700">) {<br />    echo </span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'_id'</span><span style="color: #007700">], </span><span style="color: #DD0000">': '</span><span style="color: #007700">, </span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </p>
 
    <p class="para">
     While it may not be apparent in the examples, BSON documents and arrays are
-    unserialized as type classes in the library by default. These classes ensure
-    that values preserve their type when being serialized back into BSON, which
-    avoids a caveat in the old driver where arrays might turn into documents,
-    and vice versa. Additionally, the classes extend
-    <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span> for enhanced usability. You can find more
-    information on how serialization and deserialization between PHP variables
-    and BSON is handled by the driver and library by reading the
-    <a href="mongodb.persistence.html" class="xref">Persisting Data</a> specification.
+    unserialized as special classes in the library by default. These classes
+    extend <span class="classname"><a href="class.arrayobject.html" class="classname">ArrayObject</a></span> for usability and implement the
+    extension&#039;s <span class="interfacename"><a href="class.mongodb-bson-serializable.html" class="interfacename">MongoDB\BSON\Serializable</a></span> and
+    <span class="interfacename"><a href="class.mongodb-bson-unserializable.html" class="interfacename">MongoDB\BSON\Unserializable</a></span> interfaces to
+    ensure that values preserve their type when serialized back into BSON. This
+    avoids a caveat in the legacy <code class="code">mongo</code> extension where arrays
+    might turn into documents, and vice versa. See the
+    <a href="mongodb.persistence.html" class="xref">Persisting Data</a> specification for more information on
+    how values are converted between PHP and BSON.
    </p>
   </div>
 </div>

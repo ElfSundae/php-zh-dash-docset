@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>范围解析操作符 （::）</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -29,7 +29,7 @@
  <h2 class="title">范围解析操作符 （::）</h2>
 
  <p class="para">
-  范围解析操作符（也可称作 Paamayim Nekudotayim）或者更简单地说是一对冒号，可以用于访问<a href="language.oop5.static.html" class="link">静态</a>成员，<a href="language.oop5.constants.html" class="link">类常量</a>，还可以用于覆盖类中的属性和方法。
+  范围解析运算符（也称作 Paamayim Nekudotayim）或更简单地说是双冒号，是一种允许访问类或其中一个父类的<a href="language.oop5.constants.html" class="link">常量</a>、<a href="language.oop5.static.html" class="link">static</a> 属性或 <a href="language.oop5.static.html" class="link">static</a> 方法的标记。此外，静态属性或方法也可以通过<a href="language.oop5.late-static-bindings.html" class="link">后期静态绑定</a>来覆盖。
  </p>
 
  <p class="para">
@@ -46,13 +46,10 @@
   中）时所作出的决定。事实上这个词在希伯莱文就是双冒号的意思。
  </p>
 
- <div class="example" id="example-482">
+ <div class="example" id="example-234">
   <p><strong>Example #1 在类的外部使用 :: 操作符</strong></p>
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyClass </span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">CONST_VALUE </span><span style="color: #007700">= </span><span style="color: #DD0000">'A constant value'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'MyClass'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">CONST_VALUE</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">MyClass</span><span style="color: #007700">::</span><span style="color: #0000BB">CONST_VALUE</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyClass </span><span style="color: #007700">{<br />    const </span><span style="color: #0000BB">CONST_VALUE </span><span style="color: #007700">= </span><span style="color: #DD0000">'A constant value'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'MyClass'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">CONST_VALUE</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">MyClass</span><span style="color: #007700">::</span><span style="color: #0000BB">CONST_VALUE</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
  </div>
@@ -62,13 +59,10 @@
   这三个特殊的关键字是用于在类定义的内部对其属性或方法进行访问的。
  </p>
 
- <div class="example" id="example-484">
+ <div class="example" id="example-235">
   <p><strong>Example #2 在类定义内部使用 ::</strong></p>
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">OtherClass </span><span style="color: #007700">extends </span><span style="color: #0000BB">MyClass<br /></span><span style="color: #007700">{<br />    public static </span><span style="color: #0000BB">$my_static </span><span style="color: #007700">= </span><span style="color: #DD0000">'static var'</span><span style="color: #007700">;<br /><br />    public static function </span><span style="color: #0000BB">doubleColon</span><span style="color: #007700">() {<br />        echo </span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">CONST_VALUE </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />        echo </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'OtherClass'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">doubleColon</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">OtherClass</span><span style="color: #007700">::</span><span style="color: #0000BB">doubleColon</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">OtherClass </span><span style="color: #007700">extends </span><span style="color: #0000BB">MyClass<br /></span><span style="color: #007700">{<br />    public static </span><span style="color: #0000BB">$my_static </span><span style="color: #007700">= </span><span style="color: #DD0000">'static var'</span><span style="color: #007700">;<br /><br />    public static function </span><span style="color: #0000BB">doubleColon</span><span style="color: #007700">() {<br />        echo </span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">CONST_VALUE </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />        echo </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$my_static </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$classname </span><span style="color: #007700">= </span><span style="color: #DD0000">'OtherClass'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">doubleColon</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">OtherClass</span><span style="color: #007700">::</span><span style="color: #0000BB">doubleColon</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
  </div>
@@ -78,13 +72,10 @@
   不会调用父类中已被覆盖的方法。是否调用父类的方法取决于子类。这种机制也作用于<a href="language.oop5.decon.html" class="link">构造函数和析构函数</a>，<a href="language.oop5.overloading.html" class="link">重载</a>以及<a href="language.oop5.magic.html" class="link">魔术方法</a>。
  </p>
 
- <div class="example" id="example-486">
+ <div class="example" id="example-236">
   <p><strong>Example #3 调用父类的方法</strong></p>
   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyClass<br /></span><span style="color: #007700">{<br />    protected function </span><span style="color: #0000BB">myFunc</span><span style="color: #007700">() {<br />        echo </span><span style="color: #DD0000">"MyClass::myFunc()\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br />class </span><span style="color: #0000BB">OtherClass </span><span style="color: #007700">extends </span><span style="color: #0000BB">MyClass<br /></span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">// 覆盖了父类的定义<br />    </span><span style="color: #007700">public function </span><span style="color: #0000BB">myFunc</span><span style="color: #007700">()<br />    {<br />        </span><span style="color: #FF8000">// 但还是可以调用父类中被覆盖的方法<br />        </span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">myFunc</span><span style="color: #007700">();<br />        echo </span><span style="color: #DD0000">"OtherClass::myFunc()\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$class </span><span style="color: #007700">= new </span><span style="color: #0000BB">OtherClass</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$class</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">myFunc</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MyClass<br /></span><span style="color: #007700">{<br />    protected function </span><span style="color: #0000BB">myFunc</span><span style="color: #007700">() {<br />        echo </span><span style="color: #DD0000">"MyClass::myFunc()\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br />class </span><span style="color: #0000BB">OtherClass </span><span style="color: #007700">extends </span><span style="color: #0000BB">MyClass<br /></span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">// 覆盖了父类的定义<br />    </span><span style="color: #007700">public function </span><span style="color: #0000BB">myFunc</span><span style="color: #007700">()<br />    {<br />        </span><span style="color: #FF8000">// 但还是可以调用父类中被覆盖的方法<br />        </span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">myFunc</span><span style="color: #007700">();<br />        echo </span><span style="color: #DD0000">"OtherClass::myFunc()\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$class </span><span style="color: #007700">= new </span><span style="color: #0000BB">OtherClass</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$class</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">myFunc</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
   </div>
 
  </div>
@@ -96,7 +87,58 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="121085""></a>
+<div id="allnotes">  <a name="129163""></a>
+  <div class="note">
+   <strong class="user">gazianis2200 at gmail dot com</strong>
+   <a href="#129163" class="date">15-Jan-2024 02:43</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+<span class="default">&lt;?php<br />
+</span><span class="comment">/**<br />
+*access a constant from outside a class<br />
+*/<br />
+</span><span class="keyword">class </span><span class="default">Foo</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public const </span><span class="default">A </span><span class="keyword">= </span><span class="string">"Constant A"</span><span class="keyword">;<br />
+}<br />
+echo </span><span class="default">Foo</span><span class="keyword">::</span><span class="default">A</span><span class="keyword">;<br />
+echo </span><span class="string">"\n"</span><span class="keyword">;<br />
+<br />
+</span><span class="comment">/**<br />
+*access a constant within its own class <br />
+*/<br />
+<br />
+</span><span class="keyword">class </span><span class="default">Bar</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public const </span><span class="default">A </span><span class="keyword">= </span><span class="string">"Constant A"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">abc</span><span class="keyword">(){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">self</span><span class="keyword">::</span><span class="default">A</span><span class="keyword">;<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="string">"\n"</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+<br />
+</span><span class="default">$obj </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">;<br />
+</span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">abc</span><span class="keyword">();<br />
+<br />
+</span><span class="comment">/**<br />
+*access a constant within her child class<br />
+*/<br />
+<br />
+</span><span class="keyword">class </span><span class="default">Baz </span><span class="keyword">extends </span><span class="default">Bar</span><span class="keyword">{<br />
+&nbsp;&nbsp;&nbsp; public function </span><span class="default">abc</span><span class="keyword">(){<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; echo </span><span class="default">parent</span><span class="keyword">::</span><span class="default">A</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; }<br />
+}<br />
+</span><span class="default">$obj </span><span class="keyword">= new </span><span class="default">Baz</span><span class="keyword">;<br />
+</span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">abc</span><span class="keyword">();<br />
+<br />
+</span><span class="comment">//Static property and static method also follows this principle.</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="121085""></a>
   <div class="note">
    <strong class="user">1naveengiri at gmail dot com</strong>
    <a href="#121085" class="date">15-May-2017 06:36</a>
@@ -624,177 +666,6 @@ echo </span><span class="default">$a</span><span class="keyword">-&gt;</span><sp
 Outputs: Data from B !<br />
 <br />
 No warnings or errors !</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="84155""></a>
-  <div class="note">
-   <strong class="user">barss dot dev at gmail dot com</strong>
-   <a href="#84155" class="date">01-Jul-2008 03:47</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Nice trick with scope resolution<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">class </span><span class="default">A<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function </span><span class="default">TestFunc</span><span class="keyword">()<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">test</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; class </span><span class="default">B<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">{<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public </span><span class="default">$test</span><span class="keyword">;<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function </span><span class="default">__construct</span><span class="keyword">()<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">test </span><span class="keyword">= </span><span class="string">"Nice trick"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; public function </span><span class="default">GetTest</span><span class="keyword">()<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">A</span><span class="keyword">::</span><span class="default">TestFunc</span><span class="keyword">();<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$b </span><span class="keyword">= new </span><span class="default">B</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; echo </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">GetTest</span><span class="keyword">();<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-will output<br />
-<br />
-Nice trick</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="73200""></a>
-  <div class="note">
-   <strong class="user">mongoose643 at gmail dot com</strong>
-   <a href="#73200" class="date">13-Feb-2007 12:11</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-This is a solution for those that still need to write code compatible with php 4 but would like to use the flexibility of static variables. PHP 4 does not support static variables within the class scope but it does support them within the scope of class methods. The following is a bit of a workaround to store data in static mode in php 4.<br />
-<br />
-Note: This code also works in PHP 5.<br />
-<br />
-(Tested on version 4.3.1+)<br />
-<br />
-The tricky part is when using when arrays you have to do a bit of fancy coding to get or set individual elements in the array. The example code below should show you the basics of it though.<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">class </span><span class="default">StaticSample<br />
-</span><span class="keyword">{<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">//Copyright Michael White (www.crestidg.com) 2007<br />
-&nbsp;&nbsp;&nbsp; //You may use and modify this code but please keep this short copyright notice in tact.<br />
-&nbsp;&nbsp;&nbsp; //If you modify the code you may comment the changes you make and append your own copyright<br />
-&nbsp;&nbsp;&nbsp; //notice to mine. This code is not to be redistributed individually for sale but please use it as part<br />
-&nbsp;&nbsp;&nbsp; //of your projects and applications - free or non-free.<br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; //Static workaround for php4 - even works with arrays - the trick is accessing the arrays.<br />
-&nbsp;&nbsp;&nbsp; //I used the format s_varname for my methods that employ this workaround. That keeps it<br />
-&nbsp;&nbsp;&nbsp; //similar to working with actual variables as much as possible.<br />
-&nbsp;&nbsp;&nbsp; //The s_ prefix immediately identifies it as a static variable workaround method while<br />
-&nbsp;&nbsp;&nbsp; //I'm looking thorugh my code.<br />
-&nbsp;&nbsp;&nbsp; </span><span class="keyword">function &amp;</span><span class="default">s_foo</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">=</span><span class="default">null</span><span class="keyword">, </span><span class="default">$remove</span><span class="keyword">=</span><span class="default">null</span><span class="keyword">)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; static </span><span class="default">$s_var</span><span class="keyword">;&nbsp; &nbsp; </span><span class="comment">//Declare the static variable.&nbsp; &nbsp; The name here doesn't matter - only the name of the method matters.<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">if(</span><span class="default">$remove</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$s_var</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; foreach(</span><span class="default">$value </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$data</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; unset(</span><span class="default">$s_var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//You can't just use unset() here because the static state of the variable will bring back the value next time you call the method.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$s_var </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; unset(</span><span class="default">$s_var</span><span class="keyword">);<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//Make sure that you don't set the value over again.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">$value</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$s_var</span><span class="keyword">))<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="comment">//$s_var = array_merge($s_var, $value);&nbsp; &nbsp; &nbsp; &nbsp; //Doesn't overwrite values. This adds them - a property of the array_merge() function.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">foreach(</span><span class="default">$value </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$data</span><span class="keyword">)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$s_var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$data</span><span class="keyword">;&nbsp; &nbsp; </span><span class="comment">//Overwrites values.<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="keyword">}<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$s_var </span><span class="keyword">= </span><span class="default">$value</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; else<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$s_var </span><span class="keyword">= </span><span class="default">$value</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$s_var</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-<br />
-echo </span><span class="string">"Working with non-array values.&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"Before Setting: "</span><span class="keyword">.</span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">();<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"While Setting: "</span><span class="keyword">.</span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">(</span><span class="string">"VALUE HERE"</span><span class="keyword">);<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"After Setting: "</span><span class="keyword">.</span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">();<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"While Removing: "</span><span class="keyword">.</span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">(</span><span class="default">null</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"After Removing: "</span><span class="keyword">.</span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">();<br />
-echo </span><span class="string">"&lt;hr&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"Working with array values&lt;br&gt;"</span><span class="keyword">;<br />
-</span><span class="default">$array </span><span class="keyword">= array(</span><span class="default">0</span><span class="keyword">=&gt;</span><span class="string">"cat"</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">=&gt;</span><span class="string">"dog"</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">=&gt;</span><span class="string">"monkey"</span><span class="keyword">);<br />
-echo </span><span class="string">"Set an array value: "</span><span class="keyword">;<br />
-</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">));<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">//Here you need to get all the values in the array then sort through or choose the one(s) you want.<br />
-</span><span class="default">$all_elements </span><span class="keyword">= </span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">();<br />
-</span><span class="default">$middle_element </span><span class="keyword">= </span><span class="default">$all_elements</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />
-echo </span><span class="string">"The middle element: "</span><span class="keyword">.</span><span class="default">$middle_element</span><span class="keyword">;<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-<br />
-</span><span class="default">$changed_array </span><span class="keyword">= array(</span><span class="default">1</span><span class="keyword">=&gt;</span><span class="string">"big dog"</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">=&gt;</span><span class="string">"bat"</span><span class="keyword">, </span><span class="string">"bird"</span><span class="keyword">=&gt;</span><span class="string">"flamingo"</span><span class="keyword">);<br />
-echo </span><span class="string">"Changing the value: "</span><span class="keyword">;<br />
-</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">(</span><span class="default">$changed_array</span><span class="keyword">));<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">//All you have to do here is create an array with the keys you want to erase in it.<br />
-//If you want to erase all keys then don't pass any array to the method.<br />
-</span><span class="default">$element_to_erase </span><span class="keyword">= array(</span><span class="default">3</span><span class="keyword">=&gt;</span><span class="default">null</span><span class="keyword">);<br />
-echo </span><span class="string">"Erasing the fourth element: "</span><span class="keyword">;<br />
-</span><span class="default">$elements_left </span><span class="keyword">= </span><span class="default">StaticSample</span><span class="keyword">::</span><span class="default">s_foo</span><span class="keyword">(</span><span class="default">$element_to_erase</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />
-</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$elements_left</span><span class="keyword">);<br />
-echo </span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />
-echo </span><span class="string">"Enjoy!"</span><span class="keyword">;<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>

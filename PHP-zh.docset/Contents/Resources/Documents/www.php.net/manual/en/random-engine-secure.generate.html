@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Generate cryptographically secure randomness</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="class.random-engine-secure.html">? Random\Engine\Secure</a></li>
-      <li style="float: right;"><a href="class.random-randomerror.html">Random\RandomError ?</a></li>
+      <li style="float: right;"><a href="class.random-engine-mt19937.html">Random\Engine\Mt19937 ?</a></li>
     </ul>
   </div>
 </div>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-random-engine-secure.generate-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="modifier">public</span> <span class="methodname"><strong>Random\Engine\Secure::generate</strong></span>(): <span class="type">string</span></div>
+   <span class="modifier">public</span> <span class="methodname"><strong>Random\Engine\Secure::generate</strong></span>(): <span class="type"><a href="language.types.string.html" class="type string">string</a></span></div>
 
   <p class="para rdfs-comment">
    Returns cryptographically secure randomness.
@@ -43,31 +43,63 @@
 
   
 <p class="para">
- 此函数使用的随机性来源如下：
+ 此函数使用的随机性来源先后顺序如下：
 </p>
 <ul class="itemizedlist">
  <li class="listitem">
+  <p class="para">
+   Linux：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   FreeBSD &gt;= 12（PHP &gt;= 7.3）：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   Windows（PHP &gt;= 7.2）：<a href="https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal" class="link external" title="Link : https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal">&raquo;&nbsp;CNG-API</a>
+  </p>
+  <p class="para">
+   Windows：<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx" class="link external" title="Link : https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx">&raquo;&nbsp;CryptGenRandom</a>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   macOS（PHP &gt;= 8.2；&gt;= 8.1.9；&gt;= 8.0.22 如果 CCRandomGenerateBytes 在编译时可用）：CCRandomGenerateBytes()
+  </p>
+  <p class="para">
+   macOS（PHP &gt;= 8.1；&gt;= 8.0.2）：arc4random_buf()、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   NetBSD &gt;= 7（PHP &gt;= 7.1；&gt;= 7.0.1）：arc4random_buf()、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   OpenBSD &gt;= 5.5（PHP &gt;= 7.1；&gt;= 7.0.1）：arc4random_buf()、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   DragonflyBSD（PHP &gt;= 8.1）：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
+  <p class="para">
+   Solaris（PHP &gt;= 8.1）：<a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom()</a>、<var class="filename">/dev/urandom</var>
+  </p>
+ </li>
+ <li class="listitem">
   <span class="simpara">
-   在 Windows 上始终使用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx" class="link external" title="Link : https://msdn.microsoft.com/en-us/library/windows/desktop/aa379942(v=vs.85).aspx">&raquo;&nbsp;<span class="function"><strong>CryptGenRandom()</strong></span></a>。在
-   PHP 7.2.0 起，将始终使用
-   <a href="https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal" class="link external" title="Link : https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal">&raquo;&nbsp;CNG-API</a> 代替。
+   未提及的 PHP 版本和操作系统的组合：<var class="filename">/dev/urandom</var>
   </span>
  </li>
  <li class="listitem">
   <span class="simpara">
-   在 Linux 上，如果有效，将使用
-   <a href="http://man7.org/linux/man-pages/man2/getrandom.2.html" class="link external" title="Link : http://man7.org/linux/man-pages/man2/getrandom.2.html">&raquo;&nbsp;getrandom(2)</a>
-   系统调用。
-  </span>
- </li>
- <li class="listitem">
-  <span class="simpara">
-   其它平台将使用 <var class="filename">/dev/urandom</var>。
-  </span>
- </li>
- <li class="listitem">
-  <span class="simpara">
-   如果上述来源均不可用，然后会抛出 <span class="classname"><a href="class.random-randomexception.html" class="classname">Random\RandomException</a></span>。
+   如果没有可用的来源或它们都无法生成随机性，则将抛出 <span class="classname"><a href="class.random-randomexception.html" class="classname">Random\RandomException</a></span>。
   </span>
  </li>
 </ul>
@@ -84,7 +116,7 @@
  <div class="refsect1 returnvalues" id="refsect1-random-engine-secure.generate-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   A string containing <strong><code>PHP_INT_SIZE</code></strong> cryptographically secure random bytes.
+   A string containing <strong><code><a href="reserved.constants.html#constant.php-int-size">PHP_INT_SIZE</a></code></strong> cryptographically secure random bytes.
   </p>
  </div>
 
@@ -100,27 +132,6 @@
  </li>
 
   </ul>
- </div>
-
-
- <div class="refsect1 examples" id="refsect1-random-engine-secure.generate-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="">
-   <p><strong>Example #1 <span class="function"><strong>Random\Engine\Secure::generate()</strong></span> example</strong></p>
-   <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* ... */<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-   </div>
-
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
-   <div class="example-contents screen">
-<div class="cdata"><pre>
-...
-</pre></div>
-   </div>
-  </div>
  </div>
 
 

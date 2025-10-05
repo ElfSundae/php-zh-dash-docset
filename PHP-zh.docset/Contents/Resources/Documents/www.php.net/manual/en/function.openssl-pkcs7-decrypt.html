@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>解密一个 S/MIME 加密的消息</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,10 +35,10 @@
  <div class="refsect1 description" id="refsect1-function.openssl-pkcs7-decrypt-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>openssl_pkcs7_decrypt</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$infilename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$outfilename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$recipcert</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$recipkey</code><span class="initializer"> = ?</span></span><br>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>openssl_pkcs7_decrypt</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$input_filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$output_filename</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="attribute"><a href="class.sensitiveparameter.html">#[\SensitiveParameter]</a> </span><span class="type"><span class="type"><a href="class.opensslcertificate.html" class="type OpenSSLCertificate">OpenSSLCertificate</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$certificate</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="attribute"><a href="class.sensitiveparameter.html">#[\SensitiveParameter]</a> </span><span class="type"><span class="type"><a href="class.opensslasymmetrickey.html" class="type OpenSSLAsymmetricKey">OpenSSLAsymmetricKey</a></span>|<span class="type"><a href="class.opensslcertificate.html" class="type OpenSSLCertificate">OpenSSLCertificate</a></span>|<span class="type"><a href="language.types.array.html" class="type array">array</a></span>|<span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.null.html" class="type null">null</a></span></span> <code class="parameter">$private_key</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   使用由 <code class="parameter">recipcert</code> 和 <code class="parameter">recipkey</code> 指定的证书和与之关联的私钥解密 <code class="parameter">infilename</code> 文件中包含的 S/MIME 加密消息
+   使用由 <code class="parameter">certificate</code> 和 <code class="parameter">private_key</code> 指定的证书和与之关联的私钥解密 <code class="parameter">input_filename</code> 文件中包含的 S/MIME 加密消息。
   </p>
  </div>
 
@@ -48,52 +48,35 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">infilename</code></dt>
-
+     <dt><code class="parameter">input_filename</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">outfilename</code></dt>
-
+     <dt><code class="parameter">output_filename</code></dt>
      <dd>
-
       <p class="para">
-       解密的消息将被存入的文件中，以<code class="parameter">outfilename</code>命名。
+       解密的消息将被存入的文件中，以 <code class="parameter">output_filename</code> 命名。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">recipcert</code></dt>
-
+     <dt><code class="parameter">certificate</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">recipkey</code></dt>
-
+     <dt><code class="parameter">private_key</code></dt>
      <dd>
-
       <p class="para">
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -101,21 +84,47 @@
  <div class="refsect1 returnvalues" id="refsect1-function.openssl-pkcs7-decrypt-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
+ <div class="refsect1 changelog" id="refsect1-function.openssl-pkcs7-decrypt-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">private_key</code> 现在接受 <span class="classname"><a href="class.opensslasymmetrickey.html" class="classname">OpenSSLAsymmetricKey</a></span>
+       或 <span class="classname"><a href="class.opensslcertificate.html" class="classname">OpenSSLCertificate</a></span> 实例；之前接受类型 <code class="literal">OpenSSL key</code>
+       或 <code class="literal">OpenSSL X.509 CSR</code> 的 <a href="language.types.resource.html" class="link">resource</a>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
  <div class="refsect1 examples" id="refsect1-function.openssl-pkcs7-decrypt-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1888">
-    <p><strong>Example #1 <span class="function"><strong>openssl_pkcs7_decrypt()</strong></span> 范例</strong></p>
+   <div class="example" id="example-936">
+    <p><strong>Example #1 <span class="function"><strong>openssl_pkcs7_decrypt()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $cert and $key are assumed to contain your personal certificate and private<br />// key pair, and that you are the recipient of an S/MIME message<br /></span><span style="color: #0000BB">$infilename </span><span style="color: #007700">= </span><span style="color: #DD0000">"encrypted.msg"</span><span style="color: #007700">;  </span><span style="color: #FF8000">// this file holds your encrypted message<br /></span><span style="color: #0000BB">$outfilename </span><span style="color: #007700">= </span><span style="color: #DD0000">"decrypted.msg"</span><span style="color: #007700">; </span><span style="color: #FF8000">// make sure you can write to this file<br /><br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">openssl_pkcs7_decrypt</span><span style="color: #007700">(</span><span style="color: #0000BB">$infilename</span><span style="color: #007700">, </span><span style="color: #0000BB">$outfilename</span><span style="color: #007700">, </span><span style="color: #0000BB">$cert</span><span style="color: #007700">, </span><span style="color: #0000BB">$key</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"decrypted!"</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"failed to decrypt!"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// $cert and $key are assumed to contain your personal certificate and private<br />// key pair, and that you are the recipient of an S/MIME message<br /></span><span style="color: #0000BB">$infilename </span><span style="color: #007700">= </span><span style="color: #DD0000">"encrypted.msg"</span><span style="color: #007700">;  </span><span style="color: #FF8000">// this file holds your encrypted message<br /></span><span style="color: #0000BB">$outfilename </span><span style="color: #007700">= </span><span style="color: #DD0000">"decrypted.msg"</span><span style="color: #007700">; </span><span style="color: #FF8000">// make sure you can write to this file<br /><br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">openssl_pkcs7_decrypt</span><span style="color: #007700">(</span><span style="color: #0000BB">$infilename</span><span style="color: #007700">, </span><span style="color: #0000BB">$outfilename</span><span style="color: #007700">, </span><span style="color: #0000BB">$cert</span><span style="color: #007700">, </span><span style="color: #0000BB">$key</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"decrypted!"</span><span style="color: #007700">;<br />} else {<br />    echo </span><span style="color: #DD0000">"failed to decrypt!"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>

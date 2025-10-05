@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Add a word to personal word list</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.enchant-dict-add-to-session.html">? enchant_dict_add_to_session</a></li>
-      <li style="float: right;"><a href="function.enchant-dict-check.html">enchant_dict_check ?</a></li>
+      <li style="float: left;"><a href="function.enchant-broker-set-ordering.html">? enchant_broker_set_ordering</a></li>
+      <li style="float: right;"><a href="function.enchant-dict-add-to-personal.html">enchant_dict_add_to_personal ?</a></li>
     </ul>
   </div>
 </div>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.enchant-dict-add-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>enchant_dict_add</strong></span>(<span class="methodparam"><span class="type"><a href="class.enchantdictionary.html" class="type EnchantDictionary">EnchantDictionary</a></span> <code class="parameter">$dictionary</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$word</code></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>enchant_dict_add</strong></span>(<span class="methodparam"><span class="type"><a href="class.enchantdictionary.html" class="type EnchantDictionary">EnchantDictionary</a></span> <code class="parameter">$dictionary</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$word</code></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">
    Add a word to personal word list of the given dictionary.
@@ -46,39 +46,30 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">dictionary</code></dt>
-
+     <dt><code class="parameter">dictionary</code></dt>
      <dd>
-
       <p class="para">
        An Enchant dictionary returned by <span class="function"><a href="function.enchant-broker-request-dict.html" class="function">enchant_broker_request_dict()</a></span>
        or <span class="function"><a href="function.enchant-broker-request-pwl-dict.html" class="function">enchant_broker_request_pwl_dict()</a></span>.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">word</code></dt>
-
+     <dt><code class="parameter">word</code></dt>
      <dd>
-
       <p class="para">
        The word to add
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.enchant-dict-add-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
@@ -100,7 +91,7 @@
  <td>8.0.0</td>
  <td>
   <code class="parameter">dictionary</code> expects an <span class="classname"><a href="class.enchantdictionary.html" class="classname">EnchantDictionary</a></span> instance now;
-  previoulsy, a <a href="language.types.resource.html" class="link">资源(resource)</a> was expected.
+  previoulsy, a <a href="language.types.resource.html" class="link">resource</a> was expected.
  </td>
 </tr>
 
@@ -112,16 +103,14 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.enchant-dict-add-examples">
-   <div class="example" id="example-4522">
-    <p><strong>Example #1 Adding a word to a PWL</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /><br />$filename </span><span style="color: #007700">= </span><span style="color: #DD0000">'./my_word_list.pwl'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$word </span><span style="color: #007700">= </span><span style="color: #DD0000">'Supercalifragilisticexpialidocious'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$broker </span><span style="color: #007700">= </span><span style="color: #0000BB">enchant_broker_init</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$dict </span><span style="color: #007700">= </span><span style="color: #0000BB">enchant_broker_request_pwl_dict</span><span style="color: #007700">(</span><span style="color: #0000BB">$broker</span><span style="color: #007700">, </span><span style="color: #0000BB">$filename</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">enchant_dict_add</span><span style="color: #007700">(</span><span style="color: #0000BB">$dict</span><span style="color: #007700">, </span><span style="color: #0000BB">$word</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">enchant_broker_free</span><span style="color: #007700">(</span><span style="color: #0000BB">$broker</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-2313">
+   <p><strong>Example #1 Adding a word to a PWL</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$filename </span><span style="color: #007700">= </span><span style="color: #DD0000">'./my_word_list.pwl'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$word </span><span style="color: #007700">= </span><span style="color: #DD0000">'Supercalifragilisticexpialidocious'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$broker </span><span style="color: #007700">= </span><span style="color: #0000BB">enchant_broker_init</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$dict </span><span style="color: #007700">= </span><span style="color: #0000BB">enchant_broker_request_pwl_dict</span><span style="color: #007700">(</span><span style="color: #0000BB">$broker</span><span style="color: #007700">, </span><span style="color: #0000BB">$filename</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">enchant_dict_add</span><span style="color: #007700">(</span><span style="color: #0000BB">$dict</span><span style="color: #007700">, </span><span style="color: #0000BB">$word</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">enchant_broker_free</span><span style="color: #007700">(</span><span style="color: #0000BB">$broker</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
+
+  </div>
  </div>
 
 
@@ -129,8 +118,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.enchant-broker-request-pwl-dict.html" class="function" rel="rdfs-seeAlso">enchant_broker_request_pwl_dict()</a> - Creates a dictionary using a PWL file</span></li>
-    <li class="member"><span class="function"><a href="function.enchant-broker-request-dict.html" class="function" rel="rdfs-seeAlso">enchant_broker_request_dict()</a> - Create a new dictionary using a tag</span></li>
+    <li><span class="function"><a href="function.enchant-broker-request-pwl-dict.html" class="function" rel="rdfs-seeAlso">enchant_broker_request_pwl_dict()</a> - Creates a dictionary using a PWL file</span></li>
+    <li><span class="function"><a href="function.enchant-broker-request-dict.html" class="function" rel="rdfs-seeAlso">enchant_broker_request_dict()</a> - Create a new dictionary using a tag</span></li>
    </ul>
   </p>
  </div>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置/获取内部字符编码</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.mb-internal-encoding-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>mb_internal_encoding</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$encoding</code><span class="initializer"> = mb_internal_encoding()</span></span>): <span class="type"><a href="language.types.declarations.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+   <span class="methodname"><strong>mb_internal_encoding</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$encoding</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></span></div>
 
   <p class="para rdfs-comment">
    设置/获取内部字符编码
@@ -48,20 +48,15 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">encoding</code></dt>
-
+     <dt><code class="parameter">encoding</code></dt>
      <dd>
-
       <p class="para">
-       <code class="parameter">encoding</code> 字符编码名称使用于 HTTP 输入字符编码转换、HTTP 输出字符编码转换、mbstring 模块系列函数字符编码转换的默认编码。
-       You should notice that the internal encoding is totally different from the one for multibyte regex.
+       <code class="parameter">encoding</code> 字符编码名称使用于 HTTP 输入字符编码转换、HTTP 输出字符编码转换、mbstring
+       模块系列函数字符编码转换的默认编码。内部编码与多字节正则表达式的编码完全不同。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -69,23 +64,62 @@
  <div class="refsect1 returnvalues" id="refsect1-function.mb-internal-encoding-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   如果设置了 <code class="parameter">encoding</code>，则成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
-   In this case, the character encoding for multibyte regex is NOT changed.
+   如果设置了 <code class="parameter">encoding</code>，则成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+   在这种情况下，多字节正则表达式的字符编码不会改变。
    如果省略了 <code class="parameter">encoding</code>，则返回当前的字符编码名称。
   </p>
  </div>
 
- 
- <div class="refsect1 examples" id="refsect1-function.mb-internal-encoding-examples">
-  <h3 class="title">范例</h3>
+
+ <div class="refsect1 errors" id="refsect1-function.mb-internal-encoding-errors">
+  <h3 class="title">错误／异常</h3>
   <p class="para">
-   <div class="example" id="example-5152">
-    <p><strong>Example #1 <span class="function"><strong>mb_internal_encoding()</strong></span> 例子</strong></p>
+   从 PHP 8.0.0 起，如果 <code class="parameter">encoding</code> 的值是无效编码，则会抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。在 PHP 8.0.0 之前，会发出 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.mb-internal-encoding-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+  <td>8.0.0</td>
+  <td>
+   现在 <code class="parameter">encoding</code> 可以为 null。
+  </td>
+ </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       如果 <code class="parameter">encoding</code> 是无效编码，现在抛出 <span class="classname"><a href="class.valueerror.html" class="classname">ValueError</a></span>。以前发出的是 <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.mb-internal-encoding-examples">
+  <h3 class="title">示例</h3>
+  <p class="para">
+   <div class="example" id="example-2636">
+    <p><strong>Example #1 <span class="function"><strong>mb_internal_encoding()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 设置内部字符编码为 UTF-8 */<br /></span><span style="color: #0000BB">mb_internal_encoding</span><span style="color: #007700">(</span><span style="color: #DD0000">"UTF-8"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 显示当前的内部字符编码*/<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">mb_internal_encoding</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 设置内部字符编码为 UTF-8 */<br /></span><span style="color: #0000BB">mb_internal_encoding</span><span style="color: #007700">(</span><span style="color: #DD0000">"UTF-8"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* 显示当前的内部字符编码*/<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">mb_internal_encoding</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -99,10 +133,10 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.mb-http-input.html" class="function" rel="rdfs-seeAlso">mb_http_input()</a> - 检测 HTTP 输入字符编码</span></li>
-    <li class="member"><span class="function"><a href="function.mb-http-output.html" class="function" rel="rdfs-seeAlso">mb_http_output()</a> - 设置/获取 HTTP 输出字符编码</span></li>
-    <li class="member"><span class="function"><a href="function.mb-detect-order.html" class="function" rel="rdfs-seeAlso">mb_detect_order()</a> - 设置/获取 字符编码的检测顺序</span></li>
-    <li class="member"><span class="function"><a href="function.mb-regex-encoding.html" class="function" rel="rdfs-seeAlso">mb_regex_encoding()</a> - Set/Get character encoding for multibyte regex</span></li>
+    <li><span class="function"><a href="function.mb-http-input.html" class="function" rel="rdfs-seeAlso">mb_http_input()</a> - 检测 HTTP 输入字符编码</span></li>
+    <li><span class="function"><a href="function.mb-http-output.html" class="function" rel="rdfs-seeAlso">mb_http_output()</a> - 设置/获取 HTTP 输出字符编码</span></li>
+    <li><span class="function"><a href="function.mb-detect-order.html" class="function" rel="rdfs-seeAlso">mb_detect_order()</a> - 设置/获取 字符编码的检测顺序</span></li>
+    <li><span class="function"><a href="function.mb-regex-encoding.html" class="function" rel="rdfs-seeAlso">mb_regex_encoding()</a> - Set/Get character encoding for multibyte regex</span></li>
    </ul>
   </p>
  </div>

@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>PHP 7.0.x 弃用的功能</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -32,23 +32,20 @@
  
 
  <div class="sect2" id="migration70.deprecated.php4-constructors">
-  <h3 class="title">PHP4 风格的构造函数</h3>
+  <h3 class="title">PHP 4 风格的构造函数</h3>
 
   <p class="para">
-   PHP4 风格的构造函数（方法名和类名一样）将被弃用，并在将来移除。
-   如果在类中仅使用了 PHP4 风格的构造函数，PHP7 会产生 <strong><code>E_DEPRECATED</code></strong> 警告。
-   如果还定义了 <span class="function"><strong>__construct()</strong></span> 方法则不受影响。
+   PHP 4 风格的构造函数（方法名和类名一样）将会弃用，并在将来移除。如果在类中仅使用了
+   PHP 4 风格的构造函数，PHP 7 会产生 <strong><code><a href="errorfunc.constants.html#constant.e-deprecated">E_DEPRECATED</a></code></strong> 警告。如果还定义了
+   <span class="function"><strong>__construct()</strong></span> 方法则不受影响。
   </p>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">foo </span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">foo</span><span style="color: #007700">() {<br />        echo </span><span style="color: #DD0000">'I am the constructor'</span><span style="color: #007700">;<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">foo </span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">foo</span><span style="color: #007700">() {<br />        echo </span><span style="color: #DD0000">'I am the constructor'</span><span style="color: #007700">;<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; foo has a deprecated constructor in example.php on line 3
@@ -62,18 +59,15 @@ Deprecated: Methods with the same name as their class will not be constructors i
   <h3 class="title">静态调用非静态的方法</h3>
 
   <p class="para">
-   废弃了 <a href="language.oop5.static.html" class="link">静态（Static）</a> 调用未声明成 <strong class="command">static</strong> 的方法，未来可能会彻底移除该功能。
+   废弃了<a href="language.oop5.static.html" class="link">静态（Static）</a>调用未声明 <strong class="command">static</strong> 的方法，未来可能会彻底移除该功能。
   </p>
 
   <div class="informalexample">
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">foo </span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">bar</span><span style="color: #007700">() {<br />        echo </span><span style="color: #DD0000">'I am not static!'</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">bar</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">foo </span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">bar</span><span style="color: #007700">() {<br />        echo </span><span style="color: #DD0000">'I am not static!'</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">bar</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <p class="para">以上例程会输出：</p>
+   <p class="para">以上示例会输出：</p>
    <div class="example-contents screen">
 <div class="cdata"><pre>
 Deprecated: Non-static method foo::bar() should not be called statically in - on line 8
@@ -87,8 +81,7 @@ I am not static!
   <h3 class="title"><span class="function"><a href="function.password-hash.html" class="function">password_hash()</a></span> 盐值选项</h3>
 
   <p class="para">
-   废弃了 <span class="function"><a href="function.password-hash.html" class="function">password_hash()</a></span> 函数中的盐值选项，阻止开发者生成自己的盐值（通常更不安全）。
-   开发者不传该值时，该函数自己会生成密码学安全的盐值。因此再无必要传入自己自定义的盐值。
+   废弃了 <span class="function"><a href="function.password-hash.html" class="function">password_hash()</a></span> 函数中的盐值选项，阻止开发者生成自己的盐值（通常更不安全）。开发者不传该值时，该函数自己会生成密码学安全的盐值。因此再无必要传入自己自定义的盐值。
   </p>
  </div>
  
@@ -96,8 +89,8 @@ I am not static!
   <h3 class="title"><code class="literal">capture_session_meta</code> SSL 上下文选项</h3>
 
   <p class="para">
-   废弃了 <code class="literal">capture_session_meta</code> 内的 SSL 上下文选项。
-   现在可以通过 <span class="function"><a href="function.stream-get-meta-data.html" class="function">stream_get_meta_data()</a></span> 获取 SSL 元数据（metadata）。
+   废弃了 <code class="literal">capture_session_meta</code> 内的 SSL 上下文选项。现在可以通过
+   <span class="function"><a href="function.stream-get-meta-data.html" class="function">stream_get_meta_data()</a></span> 获取 SSL 元数据（metadata）。
   </p>
  </div>
  

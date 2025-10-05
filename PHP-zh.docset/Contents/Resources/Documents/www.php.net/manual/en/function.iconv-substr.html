@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>截取字符串的部分</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -13,7 +13,7 @@
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
       <li style="float: left;"><a href="function.iconv-strrpos.html">? iconv_strrpos</a></li>
-      <li style="float: right;"><a href="function.iconv.html">iconv ?</a></li>
+      <li style="float: right;"><a href="function.ob-iconv-handler.html">ob_iconv_handler ?</a></li>
     </ul>
   </div>
 </div>
@@ -35,10 +35,10 @@
  <div class="refsect1 description" id="refsect1-function.iconv-substr-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>iconv_substr</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$str</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$length</code><span class="initializer"> = iconv_strlen($str, $charset)</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$charset</code><span class="initializer"> = ini_get(&quot;iconv.internal_encoding&quot;)</span></span><br>): <span class="type">string</span></div>
+   <span class="methodname"><strong>iconv_substr</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$string</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$offset</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$length</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$encoding</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span><br>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
-   根据 <code class="parameter">offset</code> 和 <code class="parameter">length</code> 参数指定 <code class="parameter">str</code> 截取的部分。
+   根据 <code class="parameter">offset</code> 和 <code class="parameter">length</code> 参数指定 <code class="parameter">string</code> 截取的部分。
   </p>
  </div>
 
@@ -48,66 +48,49 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">str</code></dt>
-
+     <dt><code class="parameter">string</code></dt>
      <dd>
-
       <p class="para">
        原始字符串。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">offset</code></dt>
-
+     <dt><code class="parameter">offset</code></dt>
      <dd>
-
       <p class="para">
-       如果 <code class="parameter">offset</code> 是非负数，<span class="function"><strong>iconv_substr()</strong></span> 从 <code class="parameter">str</code> 开头第 <code class="parameter">offset</code> 个字符开始截出部分，从 0 开始计数。
+       如果 <code class="parameter">offset</code> 是非负数，<span class="function"><strong>iconv_substr()</strong></span> 从 <code class="parameter">string</code> 开头第 <code class="parameter">offset</code> 个字符开始截出部分，从 0 开始计数。
       </p>
       <p class="para">
-       如果 <code class="parameter">offset</code> 是负数，<span class="function"><strong>iconv_substr()</strong></span> 从  <code class="parameter">str</code> 末尾向前 <code class="parameter">offset</code> 个字符开始截取。
+       如果 <code class="parameter">offset</code> 是负数，<span class="function"><strong>iconv_substr()</strong></span> 从  <code class="parameter">string</code> 末尾向前 <code class="parameter">offset</code> 个字符开始截取。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">length</code></dt>
-
+     <dt><code class="parameter">length</code></dt>
      <dd>
-
       <p class="para">
        如果指定了 <code class="parameter">length</code> 并且是正数，返回的值从 <code class="parameter">offset</code> 截取部分，最多包含 <code class="parameter">length</code> 个字符（取决于 <code class="parameter">string</code> 的长度）。
       </p>
       <p class="para">
        如果传入了负数的 <code class="parameter">length</code>，
-       <span class="function"><strong>iconv_substr()</strong></span> 将从第 <code class="parameter">offset</code> 个字符到离末尾 <code class="parameter">length</code> 个字符截出 <code class="parameter">str</code> 的部分。
+       <span class="function"><strong>iconv_substr()</strong></span> 将从第 <code class="parameter">offset</code> 个字符到离末尾 <code class="parameter">length</code> 个字符截出 <code class="parameter">string</code> 的部分。
        如果 <code class="parameter">offset</code> 也是负数，则开始位置计算规则的解释见以上。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">charset</code></dt>
-
+     <dt><code class="parameter">encoding</code></dt>
      <dd>
-
       <p class="para">
-       如果省略了参数 <code class="parameter">charset</code>，<code class="parameter">string</code> 的编码被认定为 <a href="iconv.configuration.html" class="link">iconv.internal_encoding</a>。
+       如果省略了参数 <code class="parameter">encoding</code>，<code class="parameter">string</code> 的编码被认定为 <a href="iconv.configuration.html" class="link">iconv.internal_encoding</a>。
       </p>
       <p class="para">
-       注意，<code class="parameter">offset</code> 和 <code class="parameter">length</code> 参数总是被认为字符表现的偏移，基于 <code class="parameter">charset</code> 检测到的字符集进行统计计算，而相对应的 <span class="function"><a href="function.substr.html" class="function">substr()</a></span> 则是基于字节的位移来计算。
+       注意，<code class="parameter">offset</code> 和 <code class="parameter">length</code> 参数总是被认为字符表现的偏移，基于 <code class="parameter">encoding</code> 检测到的字符集进行统计计算，而相对应的 <span class="function"><a href="function.substr.html" class="function">substr()</a></span> 则是基于字节的位移来计算。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -115,11 +98,11 @@
  <div class="refsect1 returnvalues" id="refsect1-function.iconv-substr-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回 <code class="parameter">offset</code> 和 <code class="parameter">length</code> 参数指定的 <code class="parameter">str</code> 的部分。
+   返回 <code class="parameter">offset</code> 和 <code class="parameter">length</code> 参数指定的 <code class="parameter">string</code> 的部分。
   </p>
   <p class="para">
-   如果 <code class="parameter">str</code> 比 <code class="parameter">offset</code> 字符数更短，将会返回 <strong><code>false</code></strong>。
-   如果 <code class="parameter">str</code> 是 <code class="parameter">offset</code> 个字符的长度，将返回空字符串。
+   如果 <code class="parameter">string</code> 比 <code class="parameter">offset</code> 字符数更短，将会返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+   如果 <code class="parameter">string</code> 是 <code class="parameter">offset</code> 个字符的长度，将返回空字符串。
   </p>
  </div>
 
@@ -138,12 +121,17 @@
      </thead>
 
      <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">length</code> 和 <code class="parameter">encoding</code> 现在可为 null。
+      </td>
+     </tr>
+
       <tr>
        <td>7.0.11</td>
        <td>
-        如果 <code class="parameter">str</code> 等长于
-        <code class="parameter">offset</code> 个字符，
-        将返回空字符串。之前的版本里，这种情况是会返回  <strong><code>false</code></strong> 的。
+        如果 <code class="parameter">string</code> 等于 <code class="parameter">offset</code> 个字符，将返回空字符串。之前的版本里，这种情况会返回  <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
        </td>
       </tr>
 
@@ -159,9 +147,9 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.substr.html" class="function" rel="rdfs-seeAlso">substr()</a> - 返回字符串的子串</span></li>
-    <li class="member"><span class="function"><a href="function.mb-substr.html" class="function" rel="rdfs-seeAlso">mb_substr()</a> - 获取部分字符串</span></li>
-    <li class="member"><span class="function"><a href="function.mb-strcut.html" class="function" rel="rdfs-seeAlso">mb_strcut()</a> - 获取字符的一部分</span></li>
+    <li><span class="function"><a href="function.substr.html" class="function" rel="rdfs-seeAlso">substr()</a> - 返回字符串的子串</span></li>
+    <li><span class="function"><a href="function.mb-substr.html" class="function" rel="rdfs-seeAlso">mb_substr()</a> - 获取部分字符串</span></li>
+    <li><span class="function"><a href="function.mb-strcut.html" class="function" rel="rdfs-seeAlso">mb_strcut()</a> - 获取字符的一部分</span></li>
    </ul>
   </p>
  </div>

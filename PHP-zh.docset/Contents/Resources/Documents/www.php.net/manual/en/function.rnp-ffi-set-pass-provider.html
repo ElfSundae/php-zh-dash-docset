@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Set password provider callback function</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.rnp-ffi-set-pass-provider-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>rnp_ffi_set_pass_provider</strong></span>(<span class="methodparam"><span class="type"><a href="class.rnpffi.html" class="type RnpFFI">RnpFFI</a></span> <code class="parameter">$ffi</code></span>, <span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$password_callback</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>rnp_ffi_set_pass_provider</strong></span>(<span class="methodparam"><span class="type"><a href="class.rnpffi.html" class="type RnpFFI">RnpFFI</a></span> <code class="parameter">$ffi</code></span>, <span class="methodparam"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span> <code class="parameter">$password_callback</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    Sets password provider function. This function can ask for the password on a standard input
@@ -51,61 +51,49 @@
   <h3 class="title">参数</h3>
   <dl>
    
-    <dt>
-<code class="parameter">ffi</code></dt>
-
+    <dt><code class="parameter">ffi</code></dt>
     <dd>
-
      <p class="para">
       The FFI object returned by rnp_ffi_create.
      </p>
     </dd>
-
    
    
-    <dt>
-<code class="parameter">password_callback</code></dt>
-
+    <dt><code class="parameter">password_callback</code></dt>
     <dd>
-
      <p class="para">
       The function that is to be called for every password request.  It has the following signature:
       <div class="methodsynopsis dc-description">
-       <span class="methodname"><span class="replaceable">password_callback</span></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$key_fp</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$pgp_context</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter reference">&$password</code></span>): <span class="type">bool</span></div>
+       <span class="methodname"><span class="replaceable">password_callback</span></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$key_fp</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$pgp_context</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter reference">&$password</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
       <ul class="simplelist">
-       <li class="member"><code class="literal">$key_fp</code> - The key fingerprint, if any. Can be empty.</li>
-       <li class="member"><code class="literal">$pgp_context</code> - String describing why the key is being requested.</li>
-       <li class="member"><code class="literal">$password</code> - Password string reference where provided password should be stored to.</li>
+       <li><code class="literal">$key_fp</code> - The key fingerprint, if any. Can be empty.</li>
+       <li><code class="literal">$pgp_context</code> - String describing why the key is being requested.</li>
+       <li><code class="literal">$password</code> - Password string reference where provided password should be stored to.</li>
       </ul>
-      Callback function should return <strong><code>true</code></strong> if password was successfully set 或者在失败时返回 <strong><code>false</code></strong>.
+      Callback function should return <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> if password was successfully set 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
      </p>
     </dd>
-
    
   </dl>
-
  </div>
 
 
  <div class="refsect1 returnvalues" id="refsect1-function.rnp-ffi-set-pass-provider-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   Returns <strong><code>true</code></strong> on success 或者在失败时返回 <strong><code>false</code></strong>.
+   Returns <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> on success 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>.
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.rnp-ffi-set-pass-provider-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-      <div class="example" id="example-1944">
+      <div class="example" id="example-964">
        <p><strong>Example #1 simple callback function example</strong></p>
        <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">password_callback</span><span style="color: #007700">(</span><span style="color: #0000BB">string $key_fp</span><span style="color: #007700">, </span><span style="color: #0000BB">string $pgp_context</span><span style="color: #007700">, </span><span style="color: #0000BB">string </span><span style="color: #007700">&amp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #0000BB">$password </span><span style="color: #007700">= </span><span style="color: #DD0000">"password"</span><span style="color: #007700">;<br /><br />    return </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$ffi </span><span style="color: #007700">= </span><span style="color: #0000BB">rnp_ffi_create</span><span style="color: #007700">(</span><span style="color: #DD0000">'GPG'</span><span style="color: #007700">, </span><span style="color: #DD0000">'GPG'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">rnp_ffi_set_pass_provider</span><span style="color: #007700">(</span><span style="color: #0000BB">$ffi</span><span style="color: #007700">, </span><span style="color: #DD0000">'password_callback'</span><span style="color: #007700">);</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">password_callback</span><span style="color: #007700">(</span><span style="color: #0000BB">string $key_fp</span><span style="color: #007700">, </span><span style="color: #0000BB">string $pgp_context</span><span style="color: #007700">, </span><span style="color: #0000BB">string </span><span style="color: #007700">&amp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #0000BB">$password </span><span style="color: #007700">= </span><span style="color: #DD0000">"password"</span><span style="color: #007700">;<br /><br />    return </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$ffi </span><span style="color: #007700">= </span><span style="color: #0000BB">rnp_ffi_create</span><span style="color: #007700">(</span><span style="color: #DD0000">'GPG'</span><span style="color: #007700">, </span><span style="color: #DD0000">'GPG'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">rnp_ffi_set_pass_provider</span><span style="color: #007700">(</span><span style="color: #0000BB">$ffi</span><span style="color: #007700">, </span><span style="color: #DD0000">'password_callback'</span><span style="color: #007700">);</span></span></code></div>
        </div>
 
       </div>

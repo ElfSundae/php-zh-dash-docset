@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>读取/设置当前会话的保存路径</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.session-save-path-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>session_save_path</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$path</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
+   <span class="methodname"><strong>session_save_path</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.string.html" class="type string">string</a></span></span> <code class="parameter">$path</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><span class="type"><a href="language.types.string.html" class="type string">string</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
    <span class="function"><strong>session_save_path()</strong></span> 
@@ -49,13 +49,10 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">path</code></dt>
-
+     <dt><code class="parameter">path</code></dt>
      <dd>
-
       <p class="para">
-       指定会话数据保存的路径。
+       指定会话数据保存的路径。如果已经指定且不为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，保存数据的路径将会改变。
        必须在调用 <span class="function"><a href="function.session-start.html" class="function">session_start()</a></span> 函数之前调用
        <span class="function"><strong>session_save_path()</strong></span> 函数。
       </p>
@@ -69,10 +66,8 @@
        </p></blockquote>
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -80,8 +75,35 @@
  <div class="refsect1 returnvalues" id="refsect1-function.session-save-path-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   返回保存会话数据的路径。
+   返回保存会话数据的路径， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.session-save-path-changelog">
+  <h3 class="title">更新日志</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>版本</th>
+      <th>说明</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">path</code> 现在可为 null。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
  </div>
 
 
@@ -89,9 +111,9 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member">
+    <li>
      <a href="session.configuration.html#ini.session.save-path" class="link">session.save_path</a>
-     配置指示。
+     配置指令。
     </li>
    </ul>
   </p>
@@ -102,7 +124,27 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123596""></a>
+<div id="allnotes">  <a name="129430""></a>
+  <div class="note">
+   <strong class="user">Ale</strong>
+   <a href="#129430" class="date">25-Apr-2024 09:38</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+This function seems to simply return the value of session.save_path from the [Session] section of php.ini. This has an important implication: the returned value can as well look like "0;0660;/var/lib/php/sessions", which is of course no valid path.<br />
+<br />
+A way to extract the path despite the possible semicolons can be something like:<br />
+<br />
+$ssp = explode(';', session_save_path());<br />
+echo end($ssp);<br />
+<br />
+As end takes the array by reference, it's not possible to make a real one-liner without relying on an intermediate variable.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="123596""></a>
   <div class="note">
    <strong class="user">hrushiemail at gmail dot com</strong>
    <a href="#123596" class="date">09-Feb-2019 03:29</a>

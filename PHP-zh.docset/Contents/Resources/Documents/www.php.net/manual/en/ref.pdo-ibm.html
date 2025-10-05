@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>IBM Functions (PDO_IBM)</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -63,17 +63,116 @@
    </p>
  </p></blockquote>
  <p class="para">
-  PDO_IBM is a <a href="https://pecl.php.net/" class="link external" title="Link : https://pecl.php.net/">&raquo;&nbsp;PECL</a> extension, so follow the 
-  instructions in <a href="install.pecl.html" class="xref">PECL 扩展库安装</a> to install the PDO_IBM 
-  extension. Issue the <strong class="command">configure</strong> command to point to the 
-  location of your DB2 Client header files and libraries as follows:
+  PDO_IBM is a <a href="https://pecl.php.net/" class="link external" title="Link : https://pecl.php.net/">&raquo;&nbsp;PECL</a> extension, so follow the instructions in
+  <a href="install.pecl.html" class="xref">PECL 扩展安装</a> to install the PDO_IBM extension.
+  Issue the <strong class="command">configure</strong> command to point to the location of the
+  DB2 Client header files and libraries as follows:
   <div class="example-contents screen">
 <div class="cdata"><pre>
 bash$ ./configure --with-pdo-ibm=/path/to/sqllib[,shared]
 </pre></div>
   </div>
   The <strong class="command">configure</strong> command defaults to the value of the 
-  <code class="literal">DB2DIR</code> environment variable. 
+  <var class="envar">DB2DIR</var> environment variable.
+ </p>
+</div>
+
+
+
+   
+   
+
+<div class="section" id="pdo-ibm.configuration">
+ <h2 class="title">运行时配置</h2>
+ <p class="simpara">
+这些函数的行为受 <var class="filename">php.ini</var> 中的设置影响。
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><strong>PDO_IBM Configuration Options</strong></caption>
+   
+    <thead>
+     <tr>
+      <th>名字</th>
+      <th>默认</th>
+      <th>可修改范围</th>
+      <th>更新日志</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td><a href="ref.pdo-ibm.html#ini.pdo-ibm.i5-dbcs-alloc" class="link">pdo_ibm.i5_dbcs_alloc</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Added in PDO_IBM 1.5.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="ref.pdo-ibm.html#ini.pdo-ibm.i5-override-ccsid" class="link">pdo_ibm.i5_override_ccsid</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Added in PDO_IBM 1.5.0</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  有关 INI_* 样式的更多详情与定义，见 <a href="configuration.changes.modes.html" class="xref">配置可被设定范围</a>。
+</p>
+
+<p class="para">这是配置指令的简短说明。</p>
+
+ <p class="para">
+  <dl>
+   
+    <dt id="ini.pdo-ibm.i5-dbcs-alloc">
+     <code class="parameter">pdo_ibm.i5_dbcs_alloc</code>
+     <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+    </dt>
+    <dd>
+     <p class="para">
+      This options affects the internal buffer allocation strategy on IBM i.
+      By default, this option is 0. When this option is set, buffers are
+      allocated with a much larger size, in case the database is misleading
+      about character size when converting between encodings. This option uses
+      six times as much memory for buffers (to account for the largest possible
+      UTF-8 sequences), but may be needed if truncated data is returned.
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         0 - Minimum size buffers are allocated.
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         1 - Larger size buffers are allocated.
+        </p>
+       </li>
+      </ul>
+     </p>
+    </dd>
+   
+   
+    <dt id="ini.pdo-ibm.i5-override-ccsid">
+     <code class="parameter">pdo_ibm.i5_override_ccsid</code>
+     <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+    </dt>
+    <dd>
+     <p class="para">
+      The ASCII CCSID to use for conversion from EBCDIC on IBM i. Setting this
+      to 1208 will use UTF-8. By default, this is 0, which will select the
+      default ASCII job CCSID.
+     </p>
+     <p class="para">
+      To learn more about CCSIDs on IBM i, consult the
+      <a href="https://www.ibm.com/docs/en/i/7.5?topic=information-ccsid-reference" class="link external" title="Link : https://www.ibm.com/docs/en/i/7.5?topic=information-ccsid-reference">&raquo;&nbsp;IBM documentation</a>.
+     </p>
+    </dd>
+   
+  </dl>
  </p>
 </div>
 

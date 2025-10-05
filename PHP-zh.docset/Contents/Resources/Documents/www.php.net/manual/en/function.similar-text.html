@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>计算两个字符串的相似度</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.sha1.html">? sha1</a></li>
+      <li style="float: left;"><a href="function.sha1-file.html">? sha1_file</a></li>
       <li style="float: right;"><a href="function.soundex.html">soundex ?</a></li>
     </ul>
   </div>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.similar-text-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>similar_text</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$string1</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$string2</code></span>, <span class="methodparam"><span class="type">float</span> <code class="parameter reference">&$percent</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>similar_text</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$string1</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$string2</code></span>, <span class="methodparam"><span class="type"><a href="language.types.float.html" class="type float">float</a></span> <code class="parameter reference">&$percent</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
    两个字符串的相似程度计算依据 Programming Classics: Implementing the World&#039;s Best Algorithms by Oliver (ISBN 0-131-00413-1)  的描述进行。注意该实现没有使用 Oliver 虚拟码中的堆栈，但是却进行了递归调用，这个做法可能会导致整个过程变慢或变快。也请注意，该算法的复杂度是 O(N**3)，N 是最长字符串的长度。
@@ -48,23 +48,16 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">string1</code></dt>
-
+     <dt><code class="parameter">string1</code></dt>
      <dd>
-
       <p class="para">
        第一个字符串。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">string2</code></dt>
-
+     <dt><code class="parameter">string2</code></dt>
      <dd>
-
       <p class="para">
        第二个字符串。
       </p>
@@ -75,23 +68,17 @@
        </p>
       </p></blockquote> 
      </dd>
-
     
     
-     <dt>
-<code class="parameter">percent</code></dt>
-
+     <dt><code class="parameter">percent</code></dt>
      <dd>
-
       <p class="para">
        第三个参数通过引用传递，<span class="function"><strong>similar_text()</strong></span> 将以百分比计算相似度，通过将
        <span class="function"><strong>similar_text()</strong></span> 的结果除以指定字符串长度的平均值然后乘以 <code class="literal">100</code>。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -110,26 +97,22 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.similar-text-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="">
+  <h3 class="title">示例</h3>
+  <div class="example" id="similar_text.example.swapping">
    <p><strong>Example #1 <span class="function"><strong>similar_text()</strong></span> 交换参数示例</strong></p>
    <div class="example-contents"><p>
     此示例展示了交换 <code class="parameter">string1</code> 和 <code class="parameter">string2</code>
     可能会产生不同的结果。
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$sim </span><span style="color: #007700">= </span><span style="color: #0000BB">similar_text</span><span style="color: #007700">(</span><span style="color: #DD0000">'bafoobar'</span><span style="color: #007700">, </span><span style="color: #DD0000">'barfoo'</span><span style="color: #007700">, </span><span style="color: #0000BB">$perc</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"similarity: </span><span style="color: #0000BB">$sim</span><span style="color: #DD0000"> (</span><span style="color: #0000BB">$perc</span><span style="color: #DD0000"> %)\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sim </span><span style="color: #007700">= </span><span style="color: #0000BB">similar_text</span><span style="color: #007700">(</span><span style="color: #DD0000">'barfoo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'bafoobar'</span><span style="color: #007700">, </span><span style="color: #0000BB">$perc</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"similarity: </span><span style="color: #0000BB">$sim</span><span style="color: #DD0000"> (</span><span style="color: #0000BB">$perc</span><span style="color: #DD0000"> %)\n"</span><span style="color: #007700">;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$sim </span><span style="color: #007700">= </span><span style="color: #0000BB">similar_text</span><span style="color: #007700">(</span><span style="color: #DD0000">'bafoobar'</span><span style="color: #007700">, </span><span style="color: #DD0000">'barfoo'</span><span style="color: #007700">, </span><span style="color: #0000BB">$perc</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"similarity: </span><span style="color: #0000BB">$sim</span><span style="color: #DD0000"> (</span><span style="color: #0000BB">$perc</span><span style="color: #DD0000"> %)\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sim </span><span style="color: #007700">= </span><span style="color: #0000BB">similar_text</span><span style="color: #007700">(</span><span style="color: #DD0000">'barfoo'</span><span style="color: #007700">, </span><span style="color: #DD0000">'bafoobar'</span><span style="color: #007700">, </span><span style="color: #0000BB">$perc</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"similarity: </span><span style="color: #0000BB">$sim</span><span style="color: #DD0000"> (</span><span style="color: #0000BB">$perc</span><span style="color: #DD0000"> %)\n"</span><span style="color: #007700">;</span></span></code></div>
    </div>
 
-   <div class="example-contents"><p>以上例程的输出类似于：</p></div>
+   <div class="example-contents"><p>以上示例的输出类似于：</p></div>
    <div class="example-contents screen">
-<div class="cdata"><pre>
-similarity: 5 (71.428571428571 %)
-similarity: 3 (42.857142857143 %)
-</pre></div>
+<div class="examplescode"><pre class="examplescode">similarity: 5 (71.428571428571 %)
+similarity: 3 (42.857142857143 %)</pre>
+</div>
    </div>
   </div>
  </div>
@@ -139,8 +122,8 @@ similarity: 3 (42.857142857143 %)
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.levenshtein.html" class="function" rel="rdfs-seeAlso">levenshtein()</a> - 计算两个字符串之间的 Levenshtein 距离</span></li>
-    <li class="member"><span class="function"><a href="function.soundex.html" class="function" rel="rdfs-seeAlso">soundex()</a> - Calculate the soundex key of a string</span></li>
+    <li><span class="function"><a href="function.levenshtein.html" class="function" rel="rdfs-seeAlso">levenshtein()</a> - 计算两个字符串之间的 Levenshtein 距离</span></li>
+    <li><span class="function"><a href="function.soundex.html" class="function" rel="rdfs-seeAlso">soundex()</a> - Calculate the soundex key of a string</span></li>
    </ul>
   </p>
  </div>
@@ -236,20 +219,6 @@ Recursive algorithm usually is very elegant one. I found a way to get better pre
 echo </span><span class="string">'Similarity: ' </span><span class="keyword">. (</span><span class="default">similarity</span><span class="keyword">(</span><span class="default">$str1</span><span class="keyword">, </span><span class="default">$str2</span><span class="keyword">) * </span><span class="default">100</span><span class="keyword">) . </span><span class="string">'%'</span><span class="keyword">;<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="116817""></a>
-  <div class="note">
-   <strong class="user">donotspamme at mailinator dot com</strong>
-   <a href="#116817" class="date">04-Mar-2015 01:39</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-@I_HATE_SPAMMER- PAZ! (<a href="http://php.net/similar_text#115994" rel="nofollow" target="_blank">http://php.net/similar_text#115994</a>)<br />
-Not only will your code fail the "turkey test" (google it), and for a matter most comments here that use strtoupper()/strtolower(), it also depends very much on the use-case; maybe I wanted the 75% ? I don't see the value of such comments; this is something everybody could've come op with. It's basic programming and turning requirements into algorithms.</span>
 </code>
     </div>
    </div>
@@ -361,23 +330,6 @@ similar_text</span><span class="keyword">(</span><span class="string">""</span><
 echo </span><span class="default">$sim</span><span class="keyword">; </span><span class="comment">// "0"<br />
 </span><span class="default">?&gt;</span>
 </span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="76971""></a>
-  <div class="note">
-   <strong class="user">romain dot boyer at gmail dot com</strong>
-   <a href="#76971" class="date">08-Aug-2007 05:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Like levenchtein(), You can do :<br />
-<br />
-(strlen($string2) - similar_text($string,$string2))<br />
-<br />
-to see how much characters have been changed.</span>
 </code>
     </div>
    </div>

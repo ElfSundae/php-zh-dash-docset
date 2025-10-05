@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Windows 支持</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -29,22 +29,20 @@
  <h2 class="title">Windows 支持</h2>
 
  <div class="sect2" id="migration74.windows-support.configure">
-  <h3 class="title"><strong class="command">configure</strong> flags</h3>
+  <h3 class="title"><strong class="command">configure</strong> flag</h3>
   <p class="para">
    <strong class="command">configure</strong> 命令现在支持 <code class="literal">CFLAGS</code> 和 <code class="literal">LDFLAGS</code> 环境变量。
   </p>
  </div>
 
  <div class="sect2" id="migration74.windows-support.other">
-  <h3 class="title">CTRL handling</h3>
+  <h3 class="title">CTRL 处理</h3>
   <p class="para">
-   CTRL+C and CTRL+BREAK on console can be caught by setting a handler function
-   with <span class="function"><a href="function.sapi-windows-set-ctrl-handler.html" class="function">sapi_windows_set_ctrl_handler()</a></span>.
+   控制台上的 CTRL+C 和 CTRL+BREAK 可以通过 <span class="function"><a href="function.sapi-windows-set-ctrl-handler.html" class="function">sapi_windows_set_ctrl_handler()</a></span>
+   设置处理函数来捕获。
   </p>
   <p class="para">
-   <span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span> on Windows can be passed a
-   &quot;create_process_group&quot; option. It is required if the child
-   process is supposed to handle CTRL events.
+   Windows 上的 <span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span> 可以传递"create_process_group"选项。如果子进程要处理 CTRL 事件，则这是必需的。
   </p>
  </div>
 
@@ -59,34 +57,30 @@
  <div class="sect2" id="migration74.windows-support.stat">
   <h3 class="title">stat</h3>
   <p class="para">
-   The stat implementation has been refactored.
+   stat 实现已经重构。
   </p>
   <ul class="itemizedlist">
    <li class="listitem">
     <span class="simpara">
-     An inode number is delivered and is based on the NTFS file index.
+     提供 inode 编号，并且其基于 NTFS 文件索引。
     </span>
    </li>
    <li class="listitem">
     <span class="simpara">
-     The device number is now based on the volume serial number.
+     device 编号现在基于卷序列号。
     </span>
    </li>
   </ul>
   <p class="para">
-   Note that both values are derived from the system and provided as-is on 64-bit
-   systems. On 32-bit systems, these values might overflow the 32-bit integer in
-   PHP, so they&#039;re fake.
+   注意，这两个值均来源于系统并且是基于 64 位系统原样提供。在 32 位系统上，这些值在 PHP 32 位整数上可能会溢出，所以它们是假的。
   </p>
  </div>
 
  <div class="sect2" id="migration74.windows-support.sqlite3">
   <h3 class="title">libsqlite3</h3>
   <p class="para">
-   libsqlite3 is no longer compiled statically into <var class="filename">php_sqlite3.dll</var>
-   and <var class="filename">php_pdo_sqlite.dll</var>, but rather available as <var class="filename">libsqlite3.dll</var>.
-   Refer to the installation instructions for <a href="sqlite3.installation.html" class="link">SQLite3</a> and
-   <a href="ref.pdo-sqlite.html#ref.pdo-sqlite.installation" class="link">PDO_SQLITE</a>, respectively.
+   libsqlite3 不再静态编译为 <var class="filename">php_sqlite3.dll</var> 和 <var class="filename">php_pdo_sqlite.dll</var>，而是作为 <var class="filename">libsqlite3.dll</var>
+   提供。依次参阅 <a href="sqlite3.installation.html" class="link">SQLite3</a> 和 <a href="ref.pdo-sqlite.html#ref.pdo-sqlite.installation" class="link">PDO_SQLITE</a> 的安装说明。
   </p>
  </div>
 

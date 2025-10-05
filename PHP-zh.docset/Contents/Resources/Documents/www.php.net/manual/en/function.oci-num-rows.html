@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回语句执行后受影响的行数</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -31,72 +31,108 @@
   <p class="verinfo">(PHP 5, PHP 7, PHP 8, PECL OCI8 &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">oci_num_rows</span> &mdash; <span class="dc-title">返回语句执行后受影响的行数</span></p>
 
  </div>
- <div class="refsect1 unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-seealsw" id="refsect1-function.oci-num-rows-unknown-unknown-unknown-unknown-unknown-unknown-unknown-unknown-seealsw">
+ 
+ <div class="refsect1 description" id="refsect1-function.oci-num-rows-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>oci_num_rows</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stmt</code></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>oci_num_rows</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> <code class="parameter">$statement</code></span>): <span class="type"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span>|<span class="type"><a href="language.types.value.html" class="type false">false</a></span></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>oci_num_rows()</strong></span> 返回语句执行后受影响的行数。
+   获取语句执行后受影响的行数。
   </p>
-  <blockquote class="note"><p><strong class="note">Note</strong>: 
-   <p class="para">
-    本函数<em class="emphasis">并不</em>返回 SELECT
-    查询出来的行数！对于 SELECT 语句本函数将返回用
-    <span class="function"><strong>oci_fetch*()</strong></span> 函数取到缓冲区的行数。
-   </p>
-  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.oci-num-rows-parameters">
+  <h3 class="title">参数</h3>
   <p class="para">
-   <div class="example" id="example-3734">
-    <p><strong>Example #1 <span class="function"><strong>oci_num_rows()</strong></span> 例子</strong></p>
+   <dl>
+    
+     <dt><code class="parameter">statement</code></dt>
+     <dd>
+      <p class="para">
+       有效的 OCI 语句标识符。
+      </p>
+     </dd>
+    
+   </dl>
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.oci-num-rows-returnvalues">
+  <h3 class="title">返回值</h3>
+  <p class="para">
+   返回 int 类型的受影响的行数， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.oci-num-rows-examples">
+  <h3 class="title">示例</h3>
+  <p class="para">
+   <div class="example" id="example-1876">
+    <p><strong>Example #1 <span class="function"><strong>oci_num_rows()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />    </span><span style="color: #007700">echo </span><span style="color: #DD0000">"&lt;pre&gt;"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"scott"</span><span style="color: #007700">, </span><span style="color: #DD0000">"tiger"</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"create table emp2 as select * from emp"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />    echo </span><span style="color: #0000BB">oci_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">) . </span><span style="color: #DD0000">" rows inserted.&lt;br /&gt;"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">oci_free_statement</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"delete from emp2"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">, </span><span style="color: #0000BB">OCI_DEFAULT</span><span style="color: #007700">);<br />    echo </span><span style="color: #0000BB">oci_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">) . </span><span style="color: #DD0000">" rows deleted.&lt;br /&gt;"</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">oci_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">oci_free_statement</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$stmt </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"drop table emp2"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">oci_free_statement</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">oci_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />    echo </span><span style="color: #DD0000">"&lt;/pre&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"hr"</span><span style="color: #007700">, </span><span style="color: #DD0000">"hrpwd"</span><span style="color: #007700">, </span><span style="color: #DD0000">"localhost/XE"</span><span style="color: #007700">);<br />if (!</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$m </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_error</span><span style="color: #007700">();<br />    </span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$m</span><span style="color: #007700">[</span><span style="color: #DD0000">'message'</span><span style="color: #007700">]), </span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$stid </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"create table emp2 as select * from employees"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">oci_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">) . </span><span style="color: #DD0000">" rows inserted.&lt;br /&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">oci_free_statement</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stid </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"delete from emp2"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">, </span><span style="color: #0000BB">OCI_DEFAULT</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">oci_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">) . </span><span style="color: #DD0000">" rows deleted.&lt;br /&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">oci_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">oci_free_statement</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stid </span><span style="color: #007700">= </span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">, </span><span style="color: #DD0000">"drop table emp2"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">oci_free_statement</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">oci_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
   </p>
-  <p class="para">
-   <span class="function"><strong>oci_num_rows()</strong></span> 在出错时返回 <strong><code>false</code></strong>。
-  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.oci-num-rows-notes">
+  <h3 class="title">注释</h3>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <p class="para">
-    在 PHP 5.0.0 之前的版本必须使用 <span class="function"><a href="function.ocirowcount.html" class="function">ocirowcount()</a></span>
-    替代本函数。该函数名仍然可用，为向下兼容作为
-    <span class="function"><strong>oci_num_rows()</strong></span> 的别名。不过其已被废弃，不推荐使用。
+    本函数<em>并不</em>返回 SELECT
+    查询出来的行数！对于 SELECT 语句本函数将返回用
+    <span class="function"><strong>oci_fetch*()</strong></span> 函数从缓冲区获取的行数。
    </p>
   </p></blockquote>
  </div>
+
 
 </div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="123132""></a>
+<div id="allnotes">  <a name="128712""></a>
   <div class="note">
-   <strong class="user">raywachaga at gmail dot com</strong>
-   <a href="#123132" class="date">15-Sep-2018 01:53</a>
+   <strong class="user">vihanga dot kule99 at gmail dot com</strong>
+   <a href="#128712" class="date">07-Jul-2023 08:57</a>
    <div class="text">
     <div class="phpcode">
 <code><span class="html">
-<span class="default">&lt;?php </span><span class="keyword">if ( </span><span class="default">oci_num_rows</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">) == </span><span class="default">false </span><span class="keyword">)&nbsp; </span><span class="default">?&gt;<br />
-</span><br />
-You can use the snippet above to test out if a select statement returned any rows, it won't do a count but it comes in handy</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="120368""></a>
-  <div class="note">
-   <strong class="user">Dawid Krysiak</strong>
-   <a href="#120368" class="date">22-Dec-2016 03:21</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-oci_num_rows() called after running i.e. TRUNCATE query, always returns 0.</span>
+The `oci_num_rows()` function is used to retrieve the number of rows affected or returned by a query executed with Oracle Database using the OCI8 extension. Here's an explanation of how `oci_num_rows()` works:<br />
+<br />
+1. Syntax:<br />
+&nbsp; php<br />
+&nbsp;&nbsp; oci_num_rows($statement);<br />
+<br />
+2. Parameters:<br />
+&nbsp; $statement: This parameter represents the Oracle statement handle returned by `oci_parse()` and executed using `oci_execute()`. It refers to the executed query or statement for which you want to get the number of rows.<br />
+<br />
+3. Return Value:<br />
+&nbsp;The `oci_num_rows()` function returns the number of rows affected or returned by the executed query. It returns an integer value representing the count of rows.<br />
+<br />
+4. Usage:<br />
+&nbsp;After executing a query with `oci_execute()`, you can use `oci_num_rows()` to determine the number of rows affected or returned by the query.<br />
+&nbsp;&nbsp; - It is commonly used in scenarios where you need to know the count of rows for result sets or the count of affected rows after an INSERT, UPDATE, or DELETE operation.<br />
+<br />
+example that demonstrates the usage of `oci_num_rows()`:<br />
+<br />
+php<br />
+$sql = "SELECT * FROM employees";<br />
+$statement = oci_parse($connection, $sql);<br />
+oci_execute($statement);<br />
+<br />
+// Get the number of rows returned by the query<br />
+$numRows = oci_num_rows($statement);<br />
+echo "Number of rows: " . $numRows;<br />
+<br />
+this example, we execute a SELECT query to fetch records from the "employees" table. After executing the query with `oci_execute()`, we use `oci_num_rows()` to retrieve the number of rows returned by the query and store it in the `$numRows` variable. Finally, we echo the count of rows.</span>
 </code>
     </div>
    </div>
@@ -122,44 +158,6 @@ oci_execute($stmt);<br />
 oci_fetch($stmt);<br />
 <br />
 echo $number_of_rows;</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="8098""></a>
-  <div class="note">
-   <strong class="user">justin at flakmag dot com</strong>
-   <a href="#8098" class="date">26-Aug-2000 06:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-It appears the easiest workaround if you want to get numrows without moving to the end of the result set is to use:
-<br />
-
-<br />
-numrows = OCIFetchStatement(...);
-<br />
-OCIExecute(...);
-<br />
-
-<br />
-So that the execute re-executes the query. It's horribly inefficient to query twice, but it works.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="3797""></a>
-  <div class="note">
-   <strong class="user">batti at digito dot com</strong>
-   <a href="#3797" class="date">16-Feb-2000 08:52</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-this function can be used with select statement, and also return affected number of rows. 
-<br />
-But remember this, use this after fetch statement.</span>
 </code>
     </div>
    </div>

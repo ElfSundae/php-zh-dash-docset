@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>数据库问题</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="faq.obtaining.html">? Obtaining PHP</a></li>
+      <li style="float: left;"><a href="faq.obtaining.html">? 获取 PHP</a></li>
       <li style="float: right;"><a href="faq.installation.html">安装 ?</a></li>
     </ul>
   </div>
@@ -26,7 +26,7 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="faq.databases" class="chapter">
-  <h1>数据库问题</h1>
+  <h1 class="title">数据库问题</h1>
 
   
 
@@ -180,99 +180,7 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="120911""></a>
-  <div class="note">
-   <strong class="user">doug at unlikelysource dot com</strong>
-   <a href="#120911" class="date">31-Mar-2017 08:53</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-To enable SQL Server access from ubuntu 16.04:<br />
-<br />
-* Run these commands:<br />
-```<br />
-sudo curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -<br />
-curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list &gt; mssql-release.list<br />
-sudo mv mssql-release.list /etc/apt/sources.list.d<br />
-sudo apt-get update<br />
-sudo ACCEPT_EULA=Y apt-get install msodbcsql unixodbc-dev<br />
-sudo apt-get install php7.1-dev <br />
-sudo apt-get install autoconf<br />
-sudo pecl install pdo_sqlsrv-4.1.6.1<br />
-```<br />
-<br />
-*&nbsp; Confirm ODBC driver installation:<br />
-```<br />
-odbcinst -q -d -n "ODBC Driver 13 for SQL Server"<br />
-```<br />
-<br />
-* Update the php.ini file: run` php --ini` to find the path to your php.ini file<br />
-* Add this line to /path/to/php.ini<br />
-```<br />
-extension=pdo_sqlsrv.so<br />
-```<br />
-* Run `php -i` to confirm SQLSRV support was added<br />
-* NOTE: extensions (on my computer) were installed here: <br />
-`/usr/local/lib/php/extensions/no-debug-non-zts-20160303/`<br />
-<br />
-* Test user access directly on the Windows server running MSSQL:<br />
-```<br />
-sqlcmd -S ip_address -U username -P password -d database -q "select * from table_name"<br />
-```<br />
-* On the Windows server: open port 1433 in your firewall<br />
-<br />
-* Install the FreeTds utils to test the connection:<br />
-```<br />
-sudo apt-get install freetds-bin<br />
-tsql -H mssql.host.ip.address -U username -P password -D database -p 1433<br />
-```<br />
-<br />
-* Formulate the correct DSN (Data Source Name):<br />
-&nbsp;&nbsp;&nbsp; See: <a href="http://php.net/manual/en/ref.pdo-sqlsrv.connection.php" rel="nofollow" target="_blank">http://php.net/manual/en/ref.pdo-sqlsrv.connection.php</a><br />
-<br />
-* Sample PHP Code:<br />
-```<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">// Database params<br />
-</span><span class="default">$tcp&nbsp; </span><span class="keyword">= </span><span class="string">'192.168.3.126'</span><span class="keyword">;<br />
-</span><span class="default">$port </span><span class="keyword">= </span><span class="default">1433</span><span class="keyword">;<br />
-</span><span class="default">$user </span><span class="keyword">= </span><span class="string">"test"</span><span class="keyword">;<br />
-</span><span class="default">$password </span><span class="keyword">= </span><span class="string">"Password123"</span><span class="keyword">;<br />
-</span><span class="default">$database </span><span class="keyword">= </span><span class="string">"test"</span><span class="keyword">;<br />
-<br />
-</span><span class="comment">// Open connection<br />
-</span><span class="keyword">try {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Database connect -- use one of the two statements below<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$dsn </span><span class="keyword">=&nbsp; </span><span class="string">'sqlsrv:Server=tcp:' </span><span class="keyword">. </span><span class="default">$tcp </span><span class="keyword">. </span><span class="string">',' </span><span class="keyword">. </span><span class="default">$port </span><span class="keyword">. </span><span class="string">';Database=' </span><span class="keyword">. </span><span class="default">$database</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$dbh </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">( </span><span class="default">$dsn</span><span class="keyword">, </span><span class="default">$user</span><span class="keyword">, </span><span class="default">$password</span><span class="keyword">, array());<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// SQL prepare<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">"SELECT * FROM prospects"</span><span class="keyword">;<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$sth </span><span class="keyword">= </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Execute<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />
-&nbsp;&nbsp;&nbsp; </span><span class="comment">// Fetch results<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$row </span><span class="keyword">= </span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);<br />
-&nbsp;&nbsp;&nbsp; if (</span><span class="default">$row</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">= </span><span class="string">'&lt;pre&gt;'</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">.= </span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\t"</span><span class="keyword">, </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$row</span><span class="keyword">)) . </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">.= </span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\t"</span><span class="keyword">, </span><span class="default">$row</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; while (</span><span class="default">$row </span><span class="keyword">= </span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_NUM</span><span class="keyword">)) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">.= </span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\t"</span><span class="keyword">, </span><span class="default">$row</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-} catch (</span><span class="default">PDOException $e</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$output </span><span class="keyword">.= </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">();<br />
-}<br />
-</span><span class="default">$output </span><span class="keyword">.= </span><span class="string">'&lt;/pre&gt;'</span><span class="keyword">;<br />
-echo </span><span class="default">$output</span><span class="keyword">;<br />
-```</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="46429""></a>
+<div id="allnotes">  <a name="46429""></a>
   <div class="note">
    <strong class="user">knb at gfz-potsdam dot de</strong>
    <a href="#46429" class="date">11-Oct-2004 02:53</a>

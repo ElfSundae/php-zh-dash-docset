@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>播下随机数发生器种子</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.srand-description">
   <h3 class="title">说明</h3>
    <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>srand</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$seed</code><span class="initializer"> = 0</span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = <strong><code>MT_RAND_MT19937</code></strong></span></span>): <span class="type"><span class="type void">void</span></span></div>
+   <span class="methodname"><strong>srand</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></span> <code class="parameter">$seed</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$mode</code><span class="initializer"> = <strong><code><a href="random.constants.html#constant.mt-rand-mt19937">MT_RAND_MT19937</a></code></strong></span></span>): <span class="type"><a href="language.types.void.html" class="type void">void</a></span></div>
 
   <p class="para rdfs-comment">
    使用 <code class="parameter">seed</code> 播下随机数发生器种子，或者<code class="parameter">seed</code> 是 <code class="literal">0</code> 时，使用随时值。
@@ -43,6 +43,23 @@
   <blockquote class="note"><p><strong class="note">Note</strong>: <span class="simpara">不再需要用
 <span class="function"><strong>srand()</strong></span> 或 <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span>
 给随机数发生器播种，因为现在是由系统自动完成的。</span></p></blockquote>
+  <div class="caution"><strong class="caution">Caution</strong>
+ <p class="para">
+  由于 Mt19937（"梅森旋转算法"）引擎仅接受 32 位整数作为种子，因此尽管 Mt19937 的范围为
+  2<sup class="superscript">19937</sup>-1，但可能的随机序列数量仅限于 2<sup class="superscript">32</sup>（即 4,294,967,296）。
+ </p>
+ <p class="para">
+  当依赖隐式或显式随机播种时，重复会出现得更早。根据生日问题，在少于 80,000 个随机生成的种子后，预计重复种子的概率为
+  50%。在随机生成大约 30,000 个种子后，重复种子的概率为 10%。
+ </p>
+ <p class="para">
+  This makes Mt19937 unsuitable for applications where duplicated sequences must not happen with
+  more than a negligible probability.
+  如果需要可重复的种子，<span class="classname"><a href="class.random-engine-xoshiro256starstar.html" class="classname">Random\Engine\Xoshiro256StarStar</a></span> 和
+  <span class="classname"><a href="class.random-engine-pcgoneseq128xslrr64.html" class="classname">Random\Engine\PcgOneseq128XslRr64</a></span> 引擎都支持更大的种子，它们不太可能随机碰撞。如果不需要再现性，<span class="classname"><a href="class.random-engine-secure.html" class="classname">Random\Engine\Secure</a></span>
+  引擎提供加密安全随机性。
+ </p>
+</div>
   <blockquote class="note"><p><strong class="note">Note</strong>: 
    <span class="simpara">
     自 PHP 7.1.0 起，<span class="function"><strong>srand()</strong></span> 成为 <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span> 的别名。
@@ -55,19 +72,17 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">seed</code></dt>
-
+     <dt><code class="parameter">seed</code></dt>
      <dd>
-
       <p class="para">
-       任意 <span class="type">int</span> 种子值。
+       用线性同余生成器生成的值填充状态，该生成器使用解释为无符号 32 位整数的 <code class="parameter">seed</code> 进行播种。
+      </p>
+      <p class="para">
+       如果省略 <code class="parameter">seed</code> 或为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>，则将使用随机无符号 32 位整数。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -95,6 +110,13 @@
 
      <tbody class="tbody">
       <tr>
+       <td>8.3.0</td>
+       <td>
+        <code class="parameter">seed</code> 现在可为 null。
+       </td>
+      </tr>
+
+      <tr>
        <td>7.1.0</td>
        <td>
         <span class="function"><strong>srand()</strong></span> <a href="migration71.incompatible.html#migration71.incompatible.rand-srand-aliases" class="link">成为</a> <span class="function"><a href="function.mt-srand.html" class="function">mt_srand()</a></span> 的别名。
@@ -108,29 +130,13 @@
   </p>
  </div>
 
- <div class="refsect1 examples" id="refsect1-function.srand-examples">
-  <h3 class="title">范例</h3>
-  <p class="para">
-   <div class="example" id="">
-    <p><strong>Example #1 <span class="function"><strong>srand()</strong></span> 例子</strong></p>
-    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// 微秒为单位的种子<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">make_seed</span><span style="color: #007700">()<br />{<br />  list(</span><span style="color: #0000BB">$usec</span><span style="color: #007700">, </span><span style="color: #0000BB">$sec</span><span style="color: #007700">) = </span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">' '</span><span style="color: #007700">, </span><span style="color: #0000BB">microtime</span><span style="color: #007700">());<br />  return </span><span style="color: #0000BB">$sec </span><span style="color: #007700">+ </span><span style="color: #0000BB">$usec </span><span style="color: #007700">* </span><span style="color: #0000BB">1000000</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">srand</span><span style="color: #007700">(</span><span style="color: #0000BB">make_seed</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$randval </span><span style="color: #007700">= </span><span style="color: #0000BB">rand</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-    </div>
-
-   </div>
-  </p>
- </div>
-
  <div class="refsect1 seealso" id="refsect1-function.srand-seealso">
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.rand.html" class="function" rel="rdfs-seeAlso">rand()</a> - 产生一个随机整数</span></li>
-    <li class="member"><span class="function"><a href="function.getrandmax.html" class="function" rel="rdfs-seeAlso">getrandmax()</a> - 显示随机数最大的可能值</span></li>
-    <li class="member"><span class="function"><a href="function.mt-srand.html" class="function" rel="rdfs-seeAlso">mt_srand()</a> - 播下一个更好的随机数发生器种子</span></li>
+    <li><span class="function"><a href="function.rand.html" class="function" rel="rdfs-seeAlso">rand()</a> - 产生一个随机整数</span></li>
+    <li><span class="function"><a href="function.getrandmax.html" class="function" rel="rdfs-seeAlso">getrandmax()</a> - 显示随机数最大的可能值</span></li>
+    <li><span class="function"><a href="function.mt-srand.html" class="function" rel="rdfs-seeAlso">mt_srand()</a> - 播下一个更好的随机数发生器种子</span></li>
    </ul>
   </p>
  </div>
@@ -139,7 +145,38 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="117966""></a>
+<div id="allnotes">  <a name="129127""></a>
+  <div class="note">
+   <strong class="user">contact at einenlum dot com</strong>
+   <a href="#129127" class="date">27-Dec-2023 03:52</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Keep in mind that now srand is an alias for mt_srand, but they behaved differently before. This means you should not follow the documentation of srand, but the one of mt_srand, when using srand.<br />
+<br />
+To reset the seed to a random value, `mt_srand(0)` (or `srand(0)`) doesn't work. It sets the seed to 0. To reset the seed to a random value you must use `mt_srand()` (or `srand()`).<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$arr </span><span class="keyword">= [</span><span class="default">0</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">];<br />
+<br />
+</span><span class="default">srand</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">); </span><span class="comment">// or mt_srand(1) as they are now aliases<br />
+</span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">); </span><span class="comment">// not random as expected<br />
+<br />
+</span><span class="default">srand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">); </span><span class="comment">// or mt_srand(0) as they are now aliases<br />
+</span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">); </span><span class="comment">// not random either!<br />
+<br />
+</span><span class="default">srand</span><span class="keyword">(); </span><span class="comment">// or mt_srand() as they are now aliases<br />
+</span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">); </span><span class="comment">// random again<br />
+<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="117966""></a>
   <div class="note">
    <strong class="user">Glauco Lins</strong>
    <a href="#117966" class="date">09-Sep-2015 11:09</a>
@@ -164,74 +201,6 @@ for ($n; $n &gt; 0; $n--) {<br />
 Since each pcntl_fork takes a while to be completed, the microtime offers an extra offset, other than one PID increment.<br />
 <br />
 This small code will make at the WORST hypothesis 1000 iterations.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="113981""></a>
-  <div class="note">
-   <strong class="user">simon at labs dot coop</strong>
-   <a href="#113981" class="date">25-Dec-2013 09:19</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I can't stress how important it is to seed your randomisation process in code! better still something we found in the BBS Days was if we didn't seed from a token from outside our systems abstraction layer we would go in circles and so would our users. Here at chronolabs we offer a feed of randomly changing token on each impression, it also randomly displays a different number of them this is from <a href="http://seed.feeds.labs.coop in the example below I use DOM to load the XML, Extract the randomisation tokens and then with mt_srand and srand seed the random selecting processes! The following function when you call it will seed your random selection process in both the old and new random selection routines all you need to do is call the function! This will work with any version of PHP 5 and any earlier with DOM Objectivity." rel="nofollow" target="_blank">http://seed.feeds.labs.coop in the example below I use DOM to load the XML, Extract the randomisation tokens and then with mt_srand and srand seed the random selecting processes! The following function when you call it will seed your random selection process in both the old and new random selection routines all you need to do is call the function! This will work with any version of PHP 5 and any earlier with DOM Objectivity.</a><br />
-<br />
-function makeRandomSeeded() {<br />
-&nbsp;&nbsp;&nbsp; $file = '<a href="http://seed.feeds.labs.coop/" rel="nofollow" target="_blank">http://seed.feeds.labs.coop/</a>';<br />
-&nbsp;&nbsp;&nbsp; $doc = new DOMDocument();<br />
-&nbsp;&nbsp;&nbsp; $doc-&gt;loadHTMLFile($file);<br />
-&nbsp;&nbsp;&nbsp; $skip = array('This feed can', 'Current mode is');<br />
-&nbsp;&nbsp;&nbsp; $elements = $doc-&gt;getElementsByTagName('description');<br />
-&nbsp;&nbsp;&nbsp; foreach($elements as $element) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $seed = $element-&gt;nodeValue;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $found = false;<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; foreach($skip as $find) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; if (substr($seed, 0, strlen($find))==$find) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $found = true;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; }<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if ($found==false)<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; $seeds[] = $seed;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; shuffle($seeds);<br />
-&nbsp;&nbsp;&nbsp; mt_srand($seeds[mt_rand(0, count($seeds)-1)]);<br />
-&nbsp;&nbsp;&nbsp; srand($seeds[mt_rand(0, count($seeds)-1)]);<br />
-}<br />
-<br />
-Remember when PHP says an integer this also include any character of the Ascii chart if you would like to see an example of this do the following:<br />
-<br />
-<span class="default">&lt;?php<br />
-&nbsp;&nbsp; $a </span><span class="keyword">= </span><span class="string">"000A"</span><span class="keyword">;<br />
-&nbsp;&nbsp; while(</span><span class="default">$a</span><span class="keyword">!=</span><span class="string">"001B"</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; echo </span><span class="default">$a</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; </span><span class="default">$a</span><span class="keyword">++;<br />
-&nbsp;&nbsp; }<br />
-</span><span class="default">?&gt;</span>
-</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="113394""></a>
-  <div class="note">
-   <strong class="user">simon at labs dot coop</strong>
-   <a href="#113394" class="date">05-Oct-2013 07:41</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Something we discovered in Sydney running BBS Systems before the net advent was here, if we didn't seed of another BBS we would going in circles in our System Physicality Abstraction Layers.. The important thing is to seed from a remote system and easy way at the Centroidal Plexus of the web (Chronolabs Cooperative) we offer a seed feed and the following code will randomise you out of the number cycle:<br />
-<br />
-See in PHP both the letters and numbers are seedable as letters are treated as numbers as well. You can always use individual tokens by extracting the Element with DOM.. But below is equally effective!<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-srand</span><span class="keyword">(</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">'<a href="http://seed.feeds.labs.coop" rel="nofollow" target="_blank">http://seed.feeds.labs.coop</a>'</span><span class="keyword">)); <br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -313,35 +282,6 @@ $seed </span><span class="keyword">= </span><span class="default">floor</span><s
    </div>
   </div>
  <div class="foot"></div>
-  <a name="45320""></a>
-  <div class="note">
-   <strong class="user">no at spam dot com</strong>
-   <a href="#45320" class="date">01-Sep-2004 04:59</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I simply use this, and it has always worked fine:<br />
-<br />
-function initRand ()<br />
-{<br />
-&nbsp;&nbsp;&nbsp; static $randCalled = FALSE;<br />
-&nbsp;&nbsp;&nbsp; if (!$randCalled)<br />
-&nbsp;&nbsp;&nbsp; {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; srand((double) microtime() * 1000000);<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; $randCalled = TRUE;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
-function randNum ($low, $high)<br />
-{<br />
-&nbsp;&nbsp;&nbsp; initRand();<br />
-&nbsp;&nbsp;&nbsp; $rNum = rand($low, $high);<br />
-&nbsp;&nbsp;&nbsp; return $rNum;<br />
-}</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="16513""></a>
   <div class="note">
    <strong class="user">mlwmohawk at mohawksoft dot com</strong>
@@ -358,29 +298,6 @@ The microtime function's micro-seconds portion has a very finite resolution, tha
 
 <br />
 In the later CVS versions, PHP will seed the random generator prior to performing a rand() if srand() was not previously called.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="15891""></a>
-  <div class="note">
-   <strong class="user">php_public at macfreek dot nl</strong>
-   <a href="#15891" class="date">07-Oct-2001 08:52</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-The make_seed() function in the example code is VERY bad, and is in fact responsible for seeding always the same value, so that the output of rand() is the same with every page reload (!)
-<br />
-
-<br />
-ALWAYS use:
-<br />
-(double)microtime()*1000000
-<br />
-
-<br />
-See for more details my note on the mt_srand() page [ function.mt_srand.php ]</span>
 </code>
     </div>
    </div>
@@ -425,35 +342,6 @@ then $a=rand(1000000,9999999), then srand((double)microtime()*$a)
 adds nothing to the entrophy: the execution time of rand and srand is
 <br />
 constant, so the second microtime() produces nothing really fascinating. You may safely use just the first srand().</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="14350""></a>
-  <div class="note">
-   <strong class="user">vonStahl at NOPE2SPAM dot ratio dot net</strong>
-   <a href="#14350" class="date">27-Jul-2001 05:32</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-How about&lt;br&gt;
-<br />
-&lt;?
-<br />
-srand((double)microtime()*1000000);
-<br />
-$seed = rand(1000000,9999999);
-<br />
-srand((double)microtime()*$seed);
-<br />
-$yadda = rand (1,100);
-<br />
-?&gt;&lt;br&gt;
-<br />
-I used this in a test run with 1,000.000 calls for $yadda. Processing time increased by 0.0000061 seconds compared to a simple "srand((double)microtime()*1000000);" 
-<br />
-$yadda had the value of each number between 1 and 100 for between 0.99999122% and 1.00000872% of all calls. That's random and fast enough for me. :)</span>
 </code>
     </div>
    </div>

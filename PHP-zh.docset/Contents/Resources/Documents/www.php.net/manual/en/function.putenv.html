@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>设置环境变量的值</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,7 +35,7 @@
  <div class="refsect1 description" id="refsect1-function.putenv-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>putenv</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$assignment</code></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>putenv</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$assignment</code></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    添加 <code class="parameter">assignment</code> 到服务器环境变量。
@@ -50,19 +50,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">assignment</code></dt>
-
+     <dt><code class="parameter">assignment</code></dt>
      <dd>
-
       <p class="para">
        设置，例如 <code class="literal">&quot;FOO=BAR&quot;</code>
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -70,21 +65,18 @@
  <div class="refsect1 returnvalues" id="refsect1-function.putenv-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   成功时返回 <strong><code>true</code></strong>， 或者在失败时返回 <strong><code>false</code></strong>。
+   成功时返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>， 或者在失败时返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.putenv-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-1182">
+   <div class="example" id="example-579">
     <p><strong>Example #1 设置一个环境变量</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">"UNIQID=</span><span style="color: #0000BB">$uniqid</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">"UNIQID=</span><span style="color: #0000BB">$uniqid</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -96,8 +88,8 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.getenv.html" class="function" rel="rdfs-seeAlso">getenv()</a> - 获取一个环境变量的值</span></li>
-    <li class="member"><span class="function"><a href="function.apache-setenv.html" class="function" rel="rdfs-seeAlso">apache_setenv()</a> - 设置 Apache 子进程环境变量</span></li>
+    <li><span class="function"><a href="function.getenv.html" class="function" rel="rdfs-seeAlso">getenv()</a> - 获取单个或者全部环境变量</span></li>
+    <li><span class="function"><a href="function.apache-setenv.html" class="function" rel="rdfs-seeAlso">apache_setenv()</a> - 设置 Apache 子进程环境变量</span></li>
    </ul>
   </p>
  </div>
@@ -107,7 +99,34 @@
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="124159""></a>
+<div id="allnotes">  <a name="128565""></a>
+  <div class="note">
+   <strong class="user">domger at freenet dot de</strong>
+   <a href="#128565" class="date">22-May-2023 12:00</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+Values of variables with dots in their names are not output when using getenv(), but are still present and can be explicitly queried.<br />
+<br />
+(saw this behaviour using PHP 8.2.4)<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+</span><span class="comment">// set<br />
+</span><span class="default">putenv</span><span class="keyword">(</span><span class="string">'foo.bar=baz'</span><span class="keyword">);<br />
+<br />
+</span><span class="comment">// dump all<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">getenv</span><span class="keyword">());&nbsp; &nbsp; </span><span class="comment"># &lt;== variable 'foo.bar' NOT included, its value is not dumped<br />
+<br />
+// dump explicitely 'foo.bar'<br />
+</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">getenv</span><span class="keyword">(</span><span class="string">'foo.bar'</span><span class="keyword">));&nbsp; &nbsp; </span><span class="comment"># works, value 'baz' is shown</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="124159""></a>
   <div class="note">
    <strong class="user">t7to7</strong>
    <a href="#124159" class="date">01-Sep-2019 11:17</a>

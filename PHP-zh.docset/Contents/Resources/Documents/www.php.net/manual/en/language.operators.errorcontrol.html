@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>错误控制运算符</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,8 +12,8 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="language.operators.comparison.html">? 比较运算符</a></li>
-      <li style="float: right;"><a href="language.operators.execution.html">执行运算符 ?</a></li>
+      <li style="float: left;"><a href="language.operators.comparison.html">? 比较</a></li>
+      <li style="float: right;"><a href="language.operators.execution.html">执行 ?</a></li>
     </ul>
   </div>
 </div>
@@ -26,64 +26,62 @@
 </div>
 <div id="layout">
   <div id="layout-content"><div id="language.operators.errorcontrol" class="sect1">
-   <h2 class="title">错误控制运算符</h2>
-   <p class="simpara">
-    PHP 支持一个错误控制运算符：<code class="literal">@</code>。当将其放置在一个 PHP
-    表达式之前，该表达式可能产生的任何错误诊断都被抑制。
-   </p>
-   <p class="para">
-    如果用 <span class="function"><a href="function.set-error-handler.html" class="function">set_error_handler()</a></span>
-    设定了自定义的错误处理函数，即使诊断信息被抑制，也仍然会被调用。
-   </p>
+ <h2 class="title">错误控制运算符</h2>
+ 
+ <p class="simpara">
+  PHP 支持一个错误控制运算符：<code class="literal">@</code>。当将其放置在一个 PHP
+  表达式之前，该表达式可能产生的任何错误诊断都被抑制。
+ </p>
+ <p class="para">
+  如果用 <span class="function"><a href="function.set-error-handler.html" class="function">set_error_handler()</a></span>
+  设定了自定义的错误处理函数，即使诊断信息被抑制，也仍然会被调用。
+ </p>
 
-   <div class="warning"><strong class="warning">Warning</strong>
-    <p class="para">
-     PHP 8.0.0 之前，如果错误被 <code class="literal">@</code> 运算符抑制，则在自定义错误处理程序中调用 <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span> 将始终返回
-     <code class="literal">0</code>。PHP 8.0.0 起，返回值为 <code class="literal">E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR | E_PARSE</code>。
-    </p>
+ <div class="warning"><strong class="warning">Warning</strong>
+  <p class="para">
+   PHP 8.0.0 之前，如果错误被 <code class="literal">@</code> 运算符抑制，则在自定义错误处理程序中调用 <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span> 将始终返回
+   <code class="literal">0</code>。PHP 8.0.0 起，返回（按位）表达式的值：<code class="literal">E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR | E_PARSE</code>。
+  </p>
+ </div>
+
+ <p class="simpara">
+  <span class="function"><a href="function.error-get-last.html" class="function">error_get_last()</a></span> 返回数组中的 <code class="literal">&quot;message&quot;</code> 元素储存了表达式产生的任意错误信息。
+  此函数的返回结果会随着每次错误的发生而相应变化，所以需要尽早检查。
+ </p>
+ <p class="para">
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 故意文件错误 */<br /></span><span style="color: #0000BB">$my_file </span><span style="color: #007700">= @</span><span style="color: #0000BB">file </span><span style="color: #007700">(</span><span style="color: #DD0000">'non_existent_file'</span><span style="color: #007700">) or<br />    die (</span><span style="color: #DD0000">"Failed opening file: error was '" </span><span style="color: #007700">. </span><span style="color: #0000BB">error_get_last</span><span style="color: #007700">()[</span><span style="color: #DD0000">'message'</span><span style="color: #007700">] . </span><span style="color: #DD0000">"'"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 这适用于所有表达式，而不仅仅是函数：<br /></span><span style="color: #0000BB">$value </span><span style="color: #007700">= @</span><span style="color: #0000BB">$cache</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">];<br /></span><span style="color: #FF8000">// 如果索引 $key 不存在，则不会发出通知。<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
-   <p class="simpara">
-    <span class="function"><a href="function.error-get-last.html" class="function">error_get_last()</a></span> 返回数组中的 <code class="literal">&quot;message&quot;</code> 元素储存了表达式产生的任意错误信息。
-    此函数的返回结果会随着每次错误的发生而相应变化，所以需要尽早检查。
-   </p>
-   <p class="para">
-    <div class="informalexample">
-     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* 故意文件错误 */<br /></span><span style="color: #0000BB">$my_file </span><span style="color: #007700">= @</span><span style="color: #0000BB">file </span><span style="color: #007700">(</span><span style="color: #DD0000">'non_existent_file'</span><span style="color: #007700">) or<br />    die (</span><span style="color: #DD0000">"Failed opening file: error was '" </span><span style="color: #007700">. </span><span style="color: #0000BB">error_get_last</span><span style="color: #007700">()[</span><span style="color: #DD0000">'message'</span><span style="color: #007700">] . </span><span style="color: #DD0000">"'"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// 这适用于所有表达式，而不仅仅是函数：<br /></span><span style="color: #0000BB">$value </span><span style="color: #007700">= @</span><span style="color: #0000BB">$cache</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">];<br /></span><span style="color: #FF8000">// 如果索引 $key 不存在，则不会发出通知。<br /><br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
-     </div>
+  </div>
+ </p>
+ <blockquote class="note"><p><strong class="note">Note</strong>: 
+  <span class="simpara">
+   <code class="literal">@</code> 运算符只对 <a href="language.expressions.html" class="link">表达式</a> 有效。
+   对新手来说一个简单的规则就是：如果能从某处获得值，就能在它前面加上
+   <code class="literal">@</code> 运算符。例如，可以把它放在变量，函数调用，某些语言构造调用（例如 <span class="function"><a href="function.include.html" class="function">include</a></span> ）等等之前。
+   不能把它放在函数或类的定义之前，也不能用于条件结构例如 <code class="literal">if</code> 和 <a href="control-structures.foreach.html" class="link">foreach</a> 等。
+  </span>
+ </p></blockquote>
+ <div class="warning"><strong class="warning">Warning</strong>
+  <p class="para">
+   PHP 8.0.0 之前，<code class="literal">@</code> 运算符会禁用导致脚本停止运行的严重错误。
+   例如在调用一个不存在的函数前添加 <code class="literal">@</code>，由于函数不可用或者输入错误，
+   将会导致脚本终止，而不会说明原因。
+  </p>
+ </div>
 
-    </div>
-   </p>
-   <blockquote class="note"><p><strong class="note">Note</strong>: 
-    <span class="simpara">
-     <code class="literal">@</code> 运算符只对 <a href="language.expressions.html" class="link">表达式</a> 有效。
-     对新手来说一个简单的规则就是：如果能从某处获得值，就能在它前面加上
-     <code class="literal">@</code> 运算符。例如，可以把它放在变量，函数调用，某些语言构造调用（例如 <span class="function"><a href="function.include.html" class="function">include</a></span> ）等等之前。
-     不能把它放在函数或类的定义之前，也不能用于条件结构例如 <code class="literal">if</code> 和 <a href="control-structures.foreach.html" class="link">foreach</a> 等。
-    </span>
-   </p></blockquote>
-   <div class="warning"><strong class="warning">Warning</strong>
-    <p class="para">
-     PHP 8.0.0 之前，<code class="literal">@</code> 运算符会禁用导致脚本停止运行的严重错误。
-     例如在调用一个不存在的函数前添加 <code class="literal">@</code>，由于函数不可用或者输入错误，
-     将会导致脚本终止，而不会说明原因。
-    </p>
-   </div>
-
-   <div class="sect2">
-    <h3 class="title">参见</h3>
-    <p class="para">
-     <ul class="simplelist">
-      <li class="member"><span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span></li>
-      <li class="member"><a href="ref.errorfunc.html" class="link">错误处理与日志记录函数</a></li>
-     </ul>
-    </p>
-   </div>
-  </div><div id="usernotes">
+ <div class="sect2">
+  <h3 class="title">参见</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li><span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span></li>
+    <li><a href="ref.errorfunc.html" class="link">错误处理与日志记录函数</a></li>
+   </ul>
+  </p>
+ </div>
+</div><div id="usernotes">
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
@@ -115,19 +113,6 @@ I didn't want to use 4437 in my code in case it changes with different settings 
 If the code needs to work with all versions of PHP, you could check that error_reporting() doesn't equal E_ALL or 0.<br />
 <br />
 And, of course, if your error_reporting settings in PHP is something other than E_ALL, you'll have to change that to whatever setting you do use.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="125785""></a>
-  <div class="note">
-   <strong class="user">gwyneth dot llewelyn at gwynethllewelyn dot net</strong>
-   <a href="#125785" class="date">06-Feb-2021 10:31</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Allegedly, the @ error control operator has been deprecated as of PHP 8.0.0, or, more precisely, it will no longer suppress fatal errors. See https://bugs.php.net/bug.php?id=78532&amp;thanks=3 (note the comment by nikic@php.net)</span>
 </code>
     </div>
    </div>
@@ -213,23 +198,6 @@ else $a = 1;</span>
    </div>
   </div>
  <div class="foot"></div>
-  <a name="122394""></a>
-  <div class="note">
-   <strong class="user">Joey</strong>
-   <a href="#122394" class="date">16-Feb-2018 01:50</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-In PHP it is extremely beneficial to turn all notices into exceptions. This helps in creating bug free code through finding errors sooner rather than later. It also helps reduce the impact of bugs as code when entering an erroneous state ends sooner rather than later and at all. In the worst case without that you can have much more scenarios where code fails yet appears as though it succeeded.<br />
-<br />
-However there are rare cases in which notices and warnings are produced where the above behavour might be unproductive. Worse yet your error handling will kick out that exception before the function gets to return.<br />
-<br />
-They are rare cases such as socket handling where certain states are expressed through errors causing ambiguity.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
   <a name="120767""></a>
   <div class="note">
    <strong class="user">ricovox</strong>
@@ -297,57 +265,6 @@ For example, a very reasonable use is to suppress the notice-level error generat
 In my case getting the FALSE return value was enough to handle that situation, but I didn't want notice errors being output by my API.<br />
 <br />
 TL;DR: Use it, but only if you know what you're suppressing and why.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="115899""></a>
-  <div class="note">
-   <strong class="user">manisha at mindfiresolutions dot com</strong>
-   <a href="#115899" class="date">11-Oct-2014 09:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-Prepending @ before statement like you are doing a crime with yourself.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="114387""></a>
-  <div class="note">
-   <strong class="user">Anonymous</strong>
-   <a href="#114387" class="date">14-Feb-2014 11:24</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-I was wondering if anyone (else) might find a directive to disable/enable to error operator would be a useful addition. That is, instead of something like (which I have seen for a few places in some code):<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">if (</span><span class="default">defined</span><span class="keyword">(</span><span class="default">PRODUCTION</span><span class="keyword">)) {<br />
-&nbsp;&nbsp;&nbsp; @function();<br />
-}<br />
-else {<br />
-&nbsp;&nbsp;&nbsp; function();<br />
-}<br />
-<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-There could be something like this:<br />
-<br />
-<span class="default">&lt;?php<br />
-<br />
-</span><span class="keyword">if (</span><span class="default">defined</span><span class="keyword">(</span><span class="default">PRODUCTION</span><span class="keyword">)) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'error.silent'</span><span class="keyword">,</span><span class="default">TRUE</span><span class="keyword">);<br />
-}<br />
-else {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'error.silent'</span><span class="keyword">,</span><span class="default">FALSE</span><span class="keyword">);<br />
-}<br />
-<br />
-</span><span class="default">?&gt;</span>
-</span>
 </code>
     </div>
    </div>
@@ -588,108 +505,6 @@ I was confused as to what the @ symbol actually does, and after a few experiment
 * so what does the @ operator do? It temporarily sets the error reporting level to 0 for that line. If that line triggers an error, the error handler will still be called, but it will be called with an error level of 0<br />
 <br />
 Hope this helps someone</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="72126""></a>
-  <div class="note">
-   <strong class="user">nospam at blog dot fileville dot net</strong>
-   <a href="#72126" class="date">03-Jan-2007 11:58</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you want to log all the error messages for a php script from a session you can use something like this:<br />
-<span class="default">&lt;?php<br />
-&nbsp;session_start</span><span class="keyword">();<br />
-&nbsp; function </span><span class="default">error</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">, </span><span class="default">$return</span><span class="keyword">=</span><span class="default">FALSE</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp;&nbsp; global </span><span class="default">$php_errormsg</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp;&nbsp; if(isset(</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'php_errors'</span><span class="keyword">])) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'php_errors'</span><span class="keyword">] = array();&nbsp; &nbsp;&nbsp; <br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp; </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'php_errors'</span><span class="keyword">][] = </span><span class="default">$error</span><span class="keyword">; </span><span class="comment">// Maybe use $php_errormsg<br />
-&nbsp; </span><span class="keyword">if(</span><span class="default">$return </span><span class="keyword">== </span><span class="default">TRUE</span><span class="keyword">) {<br />
-&nbsp;&nbsp;&nbsp; </span><span class="default">$message </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; foreach(</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'php_errors'</span><span class="keyword">] as </span><span class="default">$php_error</span><span class="keyword">) {<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span class="default">$messages </span><span class="keyword">.= </span><span class="default">$php_error</span><span class="keyword">.</span><span class="string">"\n"</span><span class="keyword">;<br />
-&nbsp;&nbsp; &nbsp; }&nbsp; <br />
-&nbsp;&nbsp;&nbsp; return </span><span class="default">$messages</span><span class="keyword">; </span><span class="comment">// Or you can use use $_SESSION['php_errors']<br />
-&nbsp; </span><span class="keyword">}<br />
-}<br />
-</span><span class="default">?&gt;<br />
-</span>Hope this helps someone...</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="71713""></a>
-  <div class="note">
-   
-   <a href="#71713" class="date">12-Dec-2006 05:52</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-error_reporting()==0 for detecting the @ error suppression assumes that you did not set the error level to 0 in the first place.<br />
-<br />
-However, typically if you want to set your own error handler, you would set the error_reporting to 0. Therefore, an alternative to detect the @ error suppression is required.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="70375""></a>
-  <div class="note">
-   <strong class="user">programming at kennebel dot com</strong>
-   <a href="#70375" class="date">13-Oct-2006 06:38</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-To suppress errors for a new class/object:<br />
-<br />
-<span class="default">&lt;?php<br />
-</span><span class="comment">// Tested: PHP 5.1.2 ~ 2006-10-13<br />
-<br />
-// Typical Example<br />
-</span><span class="default">$var </span><span class="keyword">= @</span><span class="default">some_function</span><span class="keyword">();<br />
-<br />
-</span><span class="comment">// Class/Object Example<br />
-</span><span class="default">$var </span><span class="keyword">= @new </span><span class="default">some_class</span><span class="keyword">();<br />
-<br />
-</span><span class="comment">// Does NOT Work!<br />
-//$var = new @some_class(); // syntax error<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-I found this most useful when connecting to a<br />
-database, where i wanted to control the errors<br />
-and warnings displayed to the client, while still<br />
-using the class style of access.</span>
-</code>
-    </div>
-   </div>
-  </div>
- <div class="foot"></div>
-  <a name="50565""></a>
-  <div class="note">
-   <strong class="user">me at hesterc dot fsnet dot co dot uk</strong>
-   <a href="#50565" class="date">03-Mar-2005 08:25</a>
-   <div class="text">
-    <div class="phpcode">
-<code><span class="html">
-If you wish to display some text when an error occurs, echo doesn't work. Use print instead. This is explained on the following link 'What is the difference between echo and print?':<br />
-<br />
-<a href="http://www.faqts.com/knowledge_base/view.phtml/aid/1/fid/40" rel="nofollow" target="_blank">http://www.faqts.com/knowledge_base/view.phtml/aid/1/fid/40</a><br />
-<br />
-It says "print can be used as part of a more complex expression where echo cannot".<br />
-<br />
-Also, you can add multiple code to the result when an error occurs by separating each line with "and". Here is an example:<br />
-<br />
-<span class="default">&lt;?php<br />
-$my_file </span><span class="keyword">= @</span><span class="default">file </span><span class="keyword">(</span><span class="string">'non_existent_file'</span><span class="keyword">) or print </span><span class="string">'File not found.' </span><span class="keyword">and </span><span class="default">$string </span><span class="keyword">= </span><span class="string">' Honest!' </span><span class="keyword">and print </span><span class="default">$string </span><span class="keyword">and </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen </span><span class="keyword">(</span><span class="string">'error_log.txt'</span><span class="keyword">, </span><span class="string">'wb+'</span><span class="keyword">) and </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">) and </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />
-</span><span class="default">?&gt;<br />
-</span><br />
-A shame you can't use curly brackets above to enclose multiple lines of code, like you can with an if statement or a loop. It could make for a single long line of code. You could always call a function instead.</span>
 </code>
     </div>
    </div>

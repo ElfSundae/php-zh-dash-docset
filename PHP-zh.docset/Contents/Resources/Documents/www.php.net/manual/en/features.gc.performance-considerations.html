@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>性能方面考虑的因素</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="features.gc.collecting-cycles.html">? 回收周期(Collecting Cycles)</a></li>
+      <li style="float: left;"><a href="features.gc.collecting-cycles.html">? 回收循环</a></li>
       <li style="float: right;"><a href="features.dtrace.html">DTrace 动态跟踪 ?</a></li>
     </ul>
   </div>
@@ -20,7 +20,7 @@
 <div id="breadcrumbs" class="clearfix">
   <ul class="breadcrumbs-container">
     <li><a href="index.html">PHP Manual</a></li>
-    <li><a href="features.gc.html">垃圾回收机制</a></li>
+    <li><a href="features.gc.html">垃圾回收</a></li>
     <li>性能方面考虑的因素</li>
   </ul>
 </div>
@@ -40,13 +40,10 @@
      首先，实现垃圾回收机制的整个原因是为了，一旦先决条件满足，通过清理循环引用的变量来节省内存占用。在PHP执行中，一旦根缓冲区满了或者调用<span class="function"><a href="function.gc-collect-cycles.html" class="function">gc_collect_cycles()</a></span> 函数时，就会执行垃圾回收。在下图中，显示了下面脚本分别在PHP 5.2 和 PHP 5.3环境下的内存占用情况，其中排除了脚本启动时PHP本身占用的基本内存。
     </p>
     <p class="para">
-     <div class="example" id="example-982">
+     <div class="example" id="example-481">
       <p><strong>Example #1 Memory usage example</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'3.1415962654'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$baseMemory </span><span style="color: #007700">= </span><span style="color: #0000BB">memory_get_usage</span><span style="color: #007700">();<br /><br />for ( </span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt;= </span><span style="color: #0000BB">100000</span><span style="color: #007700">; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++ )<br />{<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">self </span><span style="color: #007700">= </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />    if ( </span><span style="color: #0000BB">$i </span><span style="color: #007700">% </span><span style="color: #0000BB">500 </span><span style="color: #007700">=== </span><span style="color: #0000BB">0 </span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #0000BB">sprintf</span><span style="color: #007700">( </span><span style="color: #DD0000">'%8d: '</span><span style="color: #007700">, </span><span style="color: #0000BB">$i </span><span style="color: #007700">), </span><span style="color: #0000BB">memory_get_usage</span><span style="color: #007700">() - </span><span style="color: #0000BB">$baseMemory</span><span style="color: #007700">, </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'3.14159265359'</span><span style="color: #007700">;<br />    public </span><span style="color: #0000BB">$self</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$baseMemory </span><span style="color: #007700">= </span><span style="color: #0000BB">memory_get_usage</span><span style="color: #007700">();<br /><br />for ( </span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt;= </span><span style="color: #0000BB">100000</span><span style="color: #007700">; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++ )<br />{<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">self </span><span style="color: #007700">= </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />    if ( </span><span style="color: #0000BB">$i </span><span style="color: #007700">% </span><span style="color: #0000BB">500 </span><span style="color: #007700">=== </span><span style="color: #0000BB">0 </span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #0000BB">sprintf</span><span style="color: #007700">( </span><span style="color: #DD0000">'%8d: '</span><span style="color: #007700">, </span><span style="color: #0000BB">$i </span><span style="color: #007700">), </span><span style="color: #0000BB">memory_get_usage</span><span style="color: #007700">() - </span><span style="color: #0000BB">$baseMemory</span><span style="color: #007700">, </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
       <div class="mediaobject">
@@ -68,22 +65,19 @@
      垃圾回收影响性能的第二个领域是它释放已泄漏的内存耗费的时间。为了看到这个耗时时多少，我们稍微改变了上面的脚本，有更多次数的重复并且删除了循环中的内存占用计算，第二个脚本代码如下：
     </p>
     <p class="para">
-     <div class="example" id="example-984">
+     <div class="example" id="example-482">
       <p><strong>Example #2 GC性能影响</strong></p>
       <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'3.1415962654'</span><span style="color: #007700">;<br />}<br /><br />for ( </span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt;= </span><span style="color: #0000BB">1000000</span><span style="color: #007700">; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++ )<br />{<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">self </span><span style="color: #007700">= </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />}<br /><br />echo </span><span style="color: #0000BB">memory_get_peak_usage</span><span style="color: #007700">(), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">Foo<br /></span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'3.14159265359'</span><span style="color: #007700">;<br />    public </span><span style="color: #0000BB">$self</span><span style="color: #007700">;<br />}<br /><br />for ( </span><span style="color: #0000BB">$i </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">; </span><span style="color: #0000BB">$i </span><span style="color: #007700">&lt;= </span><span style="color: #0000BB">1000000</span><span style="color: #007700">; </span><span style="color: #0000BB">$i</span><span style="color: #007700">++ )<br />{<br />    </span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br />    </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">self </span><span style="color: #007700">= </span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />}<br /><br />echo </span><span style="color: #0000BB">memory_get_peak_usage</span><span style="color: #007700">(), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
       </div>
 
      </div>
     </p>
     <p class="para">
-     我们将运行这个脚本两次，一次通过配置<strong class="option unknown">zend.enable_gc</strong>打开垃圾回收机制时，另一次是它关闭时。
+     运行这个脚本两次，一次将 <a href="info.configuration.html#ini.zend.enable-gc" class="link">zend.enable_gc</a> 设置打开，一次关闭。
     </p>
     <p class="para">
-     <div class="example" id="sodium-crypto-generichash-init.example.basic">
+     <div class="example" id="example-483">
       <p><strong>Example #3 执行以上脚本</strong></p>
       <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">time php -dzend.enable_gc=0 -dmemory_limit=-1 -n example2.php
@@ -105,7 +99,7 @@ time php -dzend.enable_gc=1 -dmemory_limit=-1 -n example2.php</pre>
      在PHP内部，可以显示更多的关于垃圾回收机制如何运行的信息。但是要显示这些信息，你需要先重新编译PHP使benchmark和data-collecting code可用。你需要在按照你的意愿运行<code class="literal">./configure</code>前，把环境变量<code class="literal">CFLAGS</code>设置成<code class="literal">-DGC_BENCH=1</code>。下面的命令串就是做这个事：
     </p>
     <p class="para">
-     <div class="example" id="sodium-crypto-kx-keypair.example.basic">
+     <div class="example" id="example-484">
       <p><strong>Example #4 重新编译PHP以启用GC benchmarking</strong></p>
       <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">export CFLAGS=-DGC_BENCH=1
@@ -121,7 +115,7 @@ make</pre>
      当你用新编译的PHP二进制文件来重新执行上面的例子代码，在PHP执行结束后，你将看到下面的信息：
     </p>
     <p class="para">
-     <div class="example" id="example-990">
+     <div class="example" id="example-485">
       <p><strong>Example #5 GC 统计数据</strong></p>
       <div class="example-contents">
 <div class="shellcode"><pre class="shellcode">GC Statistics

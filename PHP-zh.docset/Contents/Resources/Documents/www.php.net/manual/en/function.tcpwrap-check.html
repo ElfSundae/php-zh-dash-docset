@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>Performs a tcpwrap check</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -34,7 +34,7 @@
  <div class="refsect1 description" id="refsect1-function.tcpwrap-check-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>tcpwrap_check</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$daemon</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$address</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$user</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">bool</span> <code class="parameter">$nodns</code><span class="initializer"> = <strong><code>false</code></strong></span></span><br>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>tcpwrap_check</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$daemon</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$address</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$user</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span> <code class="parameter">$nodns</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong></span></span><br>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
    This function consults the <var class="filename">/etc/hosts.allow</var> and 
@@ -48,70 +48,53 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">daemon</code></dt>
-
+     <dt><code class="parameter">daemon</code></dt>
      <dd>
-
       <p class="para">
        The service name.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">address</code></dt>
-
+     <dt><code class="parameter">address</code></dt>
      <dd>
-
       <p class="para">
        The client remote address. Can be either an IP address or a domain name.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">user</code></dt>
-
+     <dt><code class="parameter">user</code></dt>
      <dd>
-
       <p class="para">
        An optional user name.
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">nodns</code></dt>
-
+     <dt><code class="parameter">nodns</code></dt>
      <dd>
-
       <p class="para">
        If <code class="parameter">address</code> looks like domain name then DNS is 
        used to resolve it to IP address; set <code class="parameter">nodns</code> to 
-       <strong><code>true</code></strong> to avoid this.
+       <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> to avoid this.
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
  <div class="refsect1 returnvalues" id="refsect1-function.tcpwrap-check-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   This function returns <strong><code>true</code></strong> if access should be granted, <strong><code>false</code></strong> otherwise.
+   This function returns <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong> if access should be granted, <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong> otherwise.
   </p>
  </div>
 
  <div class="refsect1 examples" id="refsect1-function.tcpwrap-check-examples">
-  <h3 class="title">范例</h3>
-  <div class="example" id="">
+  <h3 class="title">示例</h3>
+  <div class="example" id="example-4686">
    <p><strong>Example #1 Deny all connections from localhost</strong></p>
    <div class="example-contents"><p>
     If your <var class="filename">/etc/hosts.deny</var> file contains:
@@ -124,10 +107,7 @@
     And your code looks like:
    </p></div>
    <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">tcpwrap_check</span><span style="color: #007700">(</span><span style="color: #DD0000">'php'</span><span style="color: #007700">, </span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">])) {<br />  die(</span><span style="color: #DD0000">'You are not welcome here'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">tcpwrap_check</span><span style="color: #007700">(</span><span style="color: #DD0000">'php'</span><span style="color: #007700">, </span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">])) {<br />  die(</span><span style="color: #DD0000">'You are not welcome here'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
    </div>
 
   </div>

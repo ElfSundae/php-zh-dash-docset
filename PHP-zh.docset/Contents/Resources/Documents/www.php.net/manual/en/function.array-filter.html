@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>使用回调函数过滤数组的元素</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +12,7 @@
  <body class="docs" class="docs"><div class="navbar navbar-fixed-top">
   <div class="navbar-inner clearfix">
     <ul class="nav" style="width: 100%">
-      <li style="float: left;"><a href="function.array-fill.html">? array_fill</a></li>
+      <li style="float: left;"><a href="function.array-fill-keys.html">? array_fill_keys</a></li>
       <li style="float: right;"><a href="function.array-flip.html">array_flip ?</a></li>
     </ul>
   </div>
@@ -35,14 +35,14 @@
  <div class="refsect1 description" id="refsect1-function.array-filter-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>array_filter</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span><span class="type"></span></span> <code class="parameter">$callback</code><span class="initializer"> = <strong><code>null</code></strong></span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = 0</span></span>): <span class="type">array</span></div>
+   <span class="methodname"><strong>array_filter</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.array.html" class="type array">array</a></span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="language.types.callable.html" class="type callable">callable</a></span></span> <code class="parameter">$callback</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$mode</code><span class="initializer"> = 0</span></span>): <span class="type"><a href="language.types.array.html" class="type array">array</a></span></div>
 
   <p class="para rdfs-comment">
    遍历 <code class="parameter">array</code> 数组中的每个值，并将每个值传递给 <code class="parameter">callback</code> 回调函数。
-   如果 <code class="parameter">callback</code> 回调函数返回 <strong><code>true</code></strong>，则将 <code class="parameter">array</code> 数组中的当前值返回到结果 <span class="type">array</span> 数组中。
+   如果 <code class="parameter">callback</code> 回调函数返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，则将 <code class="parameter">array</code> 数组中的当前值返回到结果 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 数组中。
   </p>
   <p class="para">
-   返回结果 <span class="type">array</span> 数组的键名（下标）会维持不变，如果 <code class="parameter">array</code> 参数是索引数组，返回的结果 <span class="type">array</span> 数组键名（下标）可能会不连续。
+   返回结果 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 数组的键名（下标）会维持不变，如果 <code class="parameter">array</code> 参数是索引数组，返回的结果 <span class="type"><a href="language.types.array.html" class="type array">array</a></span> 数组键名（下标）可能会不连续。
    可以使用 <span class="function"><a href="function.array-values.html" class="function">array_values()</a></span> 函数对数组重新索引。
   </p>
 </div>
@@ -54,24 +54,17 @@
    <dl>
 
     
-     <dt>
-<code class="parameter">array</code></dt>
-
+     <dt><code class="parameter">array</code></dt>
      <dd>
-
       <p class="para">
        要遍历的数组
       </p>
      </dd>
-
     
 
     
-     <dt>
-<code class="parameter">callback</code></dt>
-
+     <dt><code class="parameter">callback</code></dt>
      <dd>
-
       <p class="para">
        使用的回调函数
       </p>
@@ -80,33 +73,27 @@
        有关 PHP 如何判定"空"元素，请参阅 <span class="function"><a href="function.empty.html" class="function">empty()</a></span> 。
       </p>
      </dd>
-
     
 
     
-     <dt>
-<code class="parameter">mode</code></dt>
-
+     <dt><code class="parameter">mode</code></dt>
      <dd>
-
       <p class="para">
        决定哪些参数发送到 <code class="parameter">callback</code> 回调的标志：
        <ul class="itemizedlist">
         <li class="listitem">
-         <span class="simpara"><strong><code>ARRAY_FILTER_USE_KEY</code></strong> - 将键名作为 <code class="parameter">callback</code> 回调的唯一参数，而不是值</span>
+         <span class="simpara"><strong><code><a href="array.constants.html#constant.array-filter-use-key">ARRAY_FILTER_USE_KEY</a></code></strong> - 将键名作为 <code class="parameter">callback</code> 回调的唯一参数，而不是值</span>
         </li>
         <li class="listitem">
-         <span class="simpara"><strong><code>ARRAY_FILTER_USE_BOTH</code></strong> - 将值和键都作为参数传递给 <code class="parameter">callback</code> 回调，而不是仅传递值</span>
+         <span class="simpara"><strong><code><a href="array.constants.html#constant.array-filter-use-both">ARRAY_FILTER_USE_BOTH</a></code></strong> - 将值和键都作为参数传递给 <code class="parameter">callback</code> 回调，而不是仅传递值</span>
         </li>
        </ul>
        默认值为 <code class="literal">0</code> ，只传递值作为 <code class="parameter">callback</code> 回调的唯一参数。
       </p>
      </dd>
-
     
 
    </dl>
-
   </p>
  </div>
 
@@ -143,7 +130,7 @@
  <td>8.0.0</td>
  <td>
   如果 <code class="parameter">callback</code> 接受引用传递参数，该方法将会抛出
-  <strong><code>E_WARNING</code></strong>。
+  <strong><code><a href="errorfunc.constants.html#constant.e-warning">E_WARNING</a></code></strong>。
  </td>
 </tr>
 
@@ -157,21 +144,17 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.array-filter-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-5024">
     <p><strong>Example #1 <span class="function"><strong>array_filter()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">odd</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">// 返回输入整数是否为奇数（单数）<br />    </span><span style="color: #007700">return </span><span style="color: #0000BB">$var </span><span style="color: #007700">&amp; </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />}<br />function </span><span style="color: #0000BB">even</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">// 返回输入整数是否为偶数<br />    </span><span style="color: #007700">return !(</span><span style="color: #0000BB">$var </span><span style="color: #007700">&amp; </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">$array1 </span><span style="color: #007700">= [</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">, </span><span style="color: #DD0000">'e' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">5</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$array2 </span><span style="color: #007700">= [</span><span style="color: #0000BB">6</span><span style="color: #007700">, </span><span style="color: #0000BB">7</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">, </span><span style="color: #0000BB">9</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">11</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">];<br />echo </span><span style="color: #DD0000">"Odd :\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$array1</span><span style="color: #007700">, </span><span style="color: #DD0000">"odd"</span><span style="color: #007700">));<br />echo </span><span style="color: #DD0000">"Even:\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$array2</span><span style="color: #007700">, </span><span style="color: #DD0000">"even"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">odd</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">// 返回输入整数是否为奇数（单数）<br />    </span><span style="color: #007700">return </span><span style="color: #0000BB">$var </span><span style="color: #007700">&amp; </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />}<br />function </span><span style="color: #0000BB">even</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">// 返回输入整数是否为偶数<br />    </span><span style="color: #007700">return !(</span><span style="color: #0000BB">$var </span><span style="color: #007700">&amp; </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">$array1 </span><span style="color: #007700">= [</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">, </span><span style="color: #DD0000">'e' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">5</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$array2 </span><span style="color: #007700">= [</span><span style="color: #0000BB">6</span><span style="color: #007700">, </span><span style="color: #0000BB">7</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">, </span><span style="color: #0000BB">9</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">11</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">];<br />echo </span><span style="color: #DD0000">"Odd :\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$array1</span><span style="color: #007700">, </span><span style="color: #DD0000">"odd"</span><span style="color: #007700">));<br />echo </span><span style="color: #DD0000">"Even:\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$array2</span><span style="color: #007700">, </span><span style="color: #DD0000">"even"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Odd :
+<div class="examplescode"><pre class="examplescode">Odd :
 Array
 (
     [a] =&gt; 1
@@ -185,43 +168,35 @@ Array
     [2] =&gt; 8
     [4] =&gt; 10
     [6] =&gt; 12
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
-   <div class="example" id="">
+   <div class="example" id="example-5025">
     <p><strong>Example #2 <span class="function"><strong>array_filter()</strong></span> 不使用 <code class="parameter">callback</code> 参数时</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$entry </span><span style="color: #007700">= [<br />    </span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">1 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">2 </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">1</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">3 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">null</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">4 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">5 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'0'</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">6 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />];<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$entry</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$entry </span><span style="color: #007700">= [<br />    </span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">1 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">2 </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">1</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">3 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">null</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">4 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">5 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'0'</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">6 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />];<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$entry</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-Array
+<div class="examplescode"><pre class="examplescode">Array
 (
     [0] =&gt; foo
     [2] =&gt; -1
-)
-</pre></div>
+)</pre>
+</div>
     </div>
    </div>
-   <div class="example" id="">
+   <div class="example" id="example-5026">
     <p><strong>Example #3 <span class="function"><strong>array_filter()</strong></span> 不使用 <code class="parameter">mode</code> 参数时</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$arr </span><span style="color: #007700">= [</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$k</span><span style="color: #007700">) {<br />    return </span><span style="color: #0000BB">$k </span><span style="color: #007700">== </span><span style="color: #DD0000">'b'</span><span style="color: #007700">;<br />}, </span><span style="color: #0000BB">ARRAY_FILTER_USE_KEY</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$v</span><span style="color: #007700">, </span><span style="color: #0000BB">$k</span><span style="color: #007700">) {<br />    return </span><span style="color: #0000BB">$k </span><span style="color: #007700">== </span><span style="color: #DD0000">'b' </span><span style="color: #007700">|| </span><span style="color: #0000BB">$v </span><span style="color: #007700">== </span><span style="color: #0000BB">4</span><span style="color: #007700">;<br />}, </span><span style="color: #0000BB">ARRAY_FILTER_USE_BOTH</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$arr </span><span style="color: #007700">= [</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$k</span><span style="color: #007700">) {<br />    return </span><span style="color: #0000BB">$k </span><span style="color: #007700">== </span><span style="color: #DD0000">'b'</span><span style="color: #007700">;<br />}, </span><span style="color: #0000BB">ARRAY_FILTER_USE_KEY</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$v</span><span style="color: #007700">, </span><span style="color: #0000BB">$k</span><span style="color: #007700">) {<br />    return </span><span style="color: #0000BB">$k </span><span style="color: #007700">== </span><span style="color: #DD0000">'b' </span><span style="color: #007700">|| </span><span style="color: #0000BB">$v </span><span style="color: #007700">== </span><span style="color: #0000BB">4</span><span style="color: #007700">;<br />}, </span><span style="color: #0000BB">ARRAY_FILTER_USE_BOTH</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
-    <div class="example-contents"><p>以上例程会输出：</p></div>
+    <div class="example-contents"><p>以上示例会输出：</p></div>
     <div class="example-contents screen">
-<div class="cdata"><pre>
-array(1) {
+<div class="examplescode"><pre class="examplescode">array(1) {
   [&quot;b&quot;]=&gt;
   int(2)
 }
@@ -230,8 +205,8 @@ array(2) {
   int(2)
   [&quot;d&quot;]=&gt;
   int(4)
-}
-</pre></div>
+}</pre>
+</div>
     </div>
    </div>
   </p>
@@ -252,10 +227,10 @@ array(2) {
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.array-intersect.html" class="function" rel="rdfs-seeAlso">array_intersect()</a> - 计算数组的交集</span></li>
-    <li class="member"><span class="function"><a href="function.array-map.html" class="function" rel="rdfs-seeAlso">array_map()</a> - 为数组的每个元素应用回调函数</span></li>
-    <li class="member"><span class="function"><a href="function.array-reduce.html" class="function" rel="rdfs-seeAlso">array_reduce()</a> - 用回调函数迭代地将数组简化为单一的值</span></li>
-    <li class="member"><span class="function"><a href="function.array-walk.html" class="function" rel="rdfs-seeAlso">array_walk()</a> - 使用用户自定义函数对数组中的每个元素做回调处理</span></li>
+    <li><span class="function"><a href="function.array-intersect.html" class="function" rel="rdfs-seeAlso">array_intersect()</a> - 计算数组的交集</span></li>
+    <li><span class="function"><a href="function.array-map.html" class="function" rel="rdfs-seeAlso">array_map()</a> - 为数组的每个元素应用回调函数</span></li>
+    <li><span class="function"><a href="function.array-reduce.html" class="function" rel="rdfs-seeAlso">array_reduce()</a> - 用回调函数迭代地将数组简化为单一的值</span></li>
+    <li><span class="function"><a href="function.array-walk.html" class="function" rel="rdfs-seeAlso">array_walk()</a> - 使用用户自定义函数对数组中的每个元素做回调处理</span></li>
    </ul>
   </p>
  </div>
@@ -265,7 +240,114 @@ array(2) {
  <div class="head">
   <h3 class="title">User Contributed Notes</h3>
  </div>
-<div id="allnotes">  <a name="127626""></a>
+<div id="allnotes">  <a name="129703""></a>
+  <div class="note">
+   <strong class="user">hello at damian-gonzalez dot com</strong>
+   <a href="#129703" class="date">12-Aug-2024 10:23</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It's not mentioned on the documentation above, or in any of the notes, but if your anonymous function requires a variable from outside, you must use the "use" keyword, or it won't work.<br />
+<br />
+Example 1:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$people </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id'&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">23</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="string">'John'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'lastname'&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Williams'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ],<br />
+&nbsp;&nbsp;&nbsp; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id'&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">56</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Hans'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'lastname'&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Zimmer'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ],&nbsp; &nbsp; <br />
+];<br />
+<br />
+function </span><span class="default">filter_by_name </span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) {<br />
+&nbsp;&nbsp;&nbsp; global </span><span class="default">$people</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$filtered </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$people</span><span class="keyword">, function(</span><span class="default">$n</span><span class="keyword">) use(</span><span class="default">$name</span><span class="keyword">) {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$n</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">] == </span><span class="default">$name</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; });<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$filtered</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">print_r </span><span class="keyword">(</span><span class="default">filter_by_name </span><span class="keyword">(</span><span class="string">'John'</span><span class="keyword">));<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+Example 2, with multiple variables:<br />
+<br />
+<span class="default">&lt;?php<br />
+<br />
+$people </span><span class="keyword">= [<br />
+&nbsp;&nbsp;&nbsp; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id'&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">23</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="string">'John'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'lastname'&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Williams'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ],<br />
+&nbsp;&nbsp;&nbsp; [<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'id'&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="default">56</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'name'&nbsp; &nbsp; &nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Hans'</span><span class="keyword">,<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </span><span class="string">'lastname'&nbsp; </span><span class="keyword">=&gt; </span><span class="string">'Zimmer'</span><span class="keyword">,<br />
+&nbsp;&nbsp;&nbsp; ],&nbsp; &nbsp; <br />
+];<br />
+<br />
+function </span><span class="default">filter_array_by_column </span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$column</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">) {<br />
+<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$filtered </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, function(</span><span class="default">$row</span><span class="keyword">) use(</span><span class="default">$column</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">)&nbsp; {<br />
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return </span><span class="default">$row</span><span class="keyword">[</span><span class="default">$column</span><span class="keyword">] == </span><span class="default">$value</span><span class="keyword">;<br />
+&nbsp;&nbsp;&nbsp; });<br />
+&nbsp;&nbsp;&nbsp; return </span><span class="default">$filtered</span><span class="keyword">;<br />
+}<br />
+<br />
+</span><span class="default">print_r </span><span class="keyword">(</span><span class="default">filter_array_by_column </span><span class="keyword">(</span><span class="default">$people</span><span class="keyword">, </span><span class="string">'name'</span><span class="keyword">, </span><span class="string">'John'</span><span class="keyword">));<br />
+</span><span class="default">?&gt;</span>
+</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128757""></a>
+  <div class="note">
+   <strong class="user">Hayley Watson</strong>
+   <a href="#128757" class="date">25-Jul-2023 06:20</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+The fact that array_filter preserves keys makes partitioning an array into [elements that pass the test, elements that fail the test] quite easy. In essence:<br />
+<br />
+<span class="default">&lt;?php<br />
+</span><span class="keyword">function </span><span class="default">partition</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$test</span><span class="keyword">)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$pass </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$test</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; </span><span class="default">$fail </span><span class="keyword">= </span><span class="default">array_diff_key</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">);<br />
+&nbsp;&nbsp;&nbsp; return [</span><span class="default">false </span><span class="keyword">=&gt; </span><span class="default">$fail</span><span class="keyword">, </span><span class="default">true </span><span class="keyword">=&gt; </span><span class="default">$pass</span><span class="keyword">];<br />
+}<br />
+</span><span class="default">?&gt;<br />
+</span><br />
+The array_diff_key call is key; indexing the returned array as shown allows lines like "$failures = $partition[false];" to do the right thing (the booleans get converted to integers of course, but it's consistent and self-documenting).</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="128646""></a>
+  <div class="note">
+   <strong class="user">Merlindog</strong>
+   <a href="#128646" class="date">27-Jun-2023 02:43</a>
+   <div class="text">
+    <div class="phpcode">
+<code><span class="html">
+It is clearly documented above, but make sure you never forget that when ARRAY_FILTER_USE_BOTH is set, the callback argument order is value, key - NOT key, value. You'll save some time.</span>
+</code>
+    </div>
+   </div>
+  </div>
+ <div class="foot"></div>
+  <a name="127626""></a>
   <div class="note">
    <strong class="user">Niko E</strong>
    <a href="#127626" class="date">14-Sep-2022 03:24</a>

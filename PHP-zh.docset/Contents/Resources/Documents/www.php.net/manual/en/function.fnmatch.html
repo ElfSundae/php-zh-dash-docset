@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>用模式匹配文件名</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,14 +35,11 @@
  <div class="refsect1 description" id="refsect1-function.fnmatch-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>fnmatch</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$pattern</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$filename</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>): <span class="type">bool</span></div>
+   <span class="methodname"><strong>fnmatch</strong></span>(<span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$pattern</code></span>, <span class="methodparam"><span class="type"><a href="language.types.string.html" class="type string">string</a></span> <code class="parameter">$filename</code></span>, <span class="methodparam"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>): <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></div>
 
   <p class="para rdfs-comment">
-   <span class="function"><strong>fnmatch()</strong></span>
-   检查传入的
-   <code class="parameter">filename</code>
-   是否匹配给出的 shell 统配符
-   <code class="parameter">pattern</code>。
+   <span class="function"><strong>fnmatch()</strong></span> 检查传入的 <code class="parameter">filename</code>
+   是否匹配给出的 shell 通配符 <code class="parameter">pattern</code>。
   </p>
  </div>
 
@@ -52,46 +49,100 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">pattern</code></dt>
-
+     <dt><code class="parameter">pattern</code></dt>
      <dd>
-
       <p class="para">
-       shell 统配符。
+       要匹配的 <code class="parameter">pattern</code>。通常，<code class="parameter">pattern</code>
+       将包含匹配符，像 <code class="literal">&#039;?&#039;</code> 和 <code class="literal">&#039;*&#039;</code>。
+       <table class="doctable table">
+        <caption><strong>
+         <code class="parameter">pattern</code> 参数要使用的匹配符
+        </strong></caption>
+        
+         <thead>
+          <tr>
+           <th>匹配符</th>
+           <th>说明</th>
+          </tr>
+
+         </thead>
+
+         <tbody class="tbody">
+          <tr>
+           <td>
+            <code class="literal">?</code>
+           </td>
+           <td>
+            问号将匹配任何单个字符。比如，模式 <code class="literal">&quot;file?.txt&quot;</code> 将匹配 <code class="literal">&quot;file1.txt&quot;</code>
+            和 <code class="literal">&quot;fileA.txt&quot;</code>，但不会匹配 <code class="literal">&quot;file10.txt&quot;</code>。
+           </td>
+          </tr>
+
+          <tr>
+           <td>
+            <code class="literal">*</code>
+           </td>
+           <td>
+            星号将匹配零或多个字符。例如 <code class="literal">&quot;foo*.xml&quot;</code> 将匹配 
+            <code class="literal">&quot;foo.xml&quot;</code> 和 <code class="literal">&quot;foobar.xml&quot;</code>。
+           </td>
+          </tr>
+
+          <tr>
+           <td>
+            <code class="literal">[ ]</code>
+           </td>
+           <td>
+            中括号用于创建 ASCII 码点范围或字符集。例如，模式 <code class="literal">&quot;index.php[45]&quot;</code> 将匹配 <code class="literal">&quot;index.php4&quot;</code> 和
+            <code class="literal">&quot;index.php5&quot;</code>，但不会匹配 <code class="literal">&quot;index.phpt&quot;</code>。众所周知的范围是 <code class="literal">[0-9]</code>、<code class="literal">[a-z]</code>
+            和 <code class="literal">[A-Z]</code>。可以同时使用多个集合和范围，例如 <code class="literal">[0-9a-zABC]</code>。
+           </td>
+          </tr>
+
+          <tr>
+           <td>
+            <code class="literal">!</code>
+           </td>
+           <td>
+            感叹号用于否定中括号内的字符。例如，<code class="literal">&quot;[!A-Z]*.html&quot;</code> 将匹配
+            <code class="literal">&quot;demo.html&quot;</code>，但不会匹配 <code class="literal">&quot;Demo.html&quot;</code>。
+           </td>
+          </tr>
+
+          <tr>
+           <td>
+            <code class="literal">\</code>
+           </td>
+           <td>
+            反斜线用于转义特殊字符。例如 <code class="literal">&quot;Name\?&quot;</code> 将匹配 <code class="literal">&quot;Name?&quot;</code> ，但不会匹配 <code class="literal">&quot;Names&quot;</code>。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">filename</code></dt>
-
+     <dt><code class="parameter">filename</code></dt>
      <dd>
-
       <p class="para">
        要检查的字符串。
        此函数对于文件名尤其有用，但也可以用于普通的字符串。
       </p>
       <p class="para">
-       普通用户可能习惯于
-       shell 模式或者至少其中最简单的形式
-       <code class="literal">&#039;?&#039;</code> 和 <code class="literal">&#039;*&#039;</code>
-       通配符，因此使用
-       <span class="function"><strong>fnmatch()</strong></span>
-       来代替 
-       <span class="function"><a href="function.preg-match.html" class="function">preg_match()</a></span>
-       来进行前端搜索表达式输入对于非程序员用户更加方便。
+       普通用户可能习惯于 shell 模式或者至少在最简单的形式下使用
+       <code class="literal">&#039;?&#039;</code> 和 <code class="literal">&#039;*&#039;</code> 通配符，
+       因此在前端搜索表达式输入中，使用 <span class="function"><strong>fnmatch()</strong></span> 来代替
+       <span class="function"><a href="function.preg-match.html" class="function">preg_match()</a></span> 对于非编程用户更加方便。
       </p>
      </dd>
-
     
     
-     <dt>
-<code class="parameter">flags</code></dt>
-
+     <dt><code class="parameter">flags</code></dt>
      <dd>
-
       <p class="para">
        <code class="parameter">flags</code> 值可以是下列 flag 的任意组合，并用<a href="language.operators.bitwise.html" class="link">位运算符 OR (|)</a> 连接。
        <table class="doctable table">
@@ -109,28 +160,28 @@
 
          <tbody class="tbody">
           <tr>
-           <td><strong><code>FNM_NOESCAPE</code></strong></td>
+           <td><strong><code><a href="filesystem.constants.html#constant.fnm-noescape">FNM_NOESCAPE</a></code></strong></td>
            <td>
             禁用反斜线转义。
            </td>
           </tr>
 
           <tr>
-           <td><strong><code>FNM_PATHNAME</code></strong></td>
+           <td><strong><code><a href="filesystem.constants.html#constant.fnm-pathname">FNM_PATHNAME</a></code></strong></td>
            <td>
             Slash in string only matches slash in the given pattern.
            </td>
           </tr>
 
           <tr>
-           <td><strong><code>FNM_PERIOD</code></strong></td>
+           <td><strong><code><a href="filesystem.constants.html#constant.fnm-period">FNM_PERIOD</a></code></strong></td>
            <td>
             Leading period in string must be exactly matched by period in the given pattern.
            </td>
           </tr>
 
           <tr>
-           <td><strong><code>FNM_CASEFOLD</code></strong></td>
+           <td><strong><code><a href="filesystem.constants.html#constant.fnm-casefold">FNM_CASEFOLD</a></code></strong></td>
            <td>
             Caseless match. Part of the GNU extension.
            </td>
@@ -142,10 +193,8 @@
 
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -153,21 +202,18 @@
  <div class="refsect1 returnvalues" id="refsect1-function.fnmatch-returnvalues">
   <h3 class="title">返回值</h3>
   <p class="para">
-   匹配则返回 <strong><code>true</code></strong>，否则返回 <strong><code>false</code></strong>。
+   匹配则返回 <strong><code><a href="reserved.constants.html#constant.true">true</a></code></strong>，否则返回 <strong><code><a href="reserved.constants.html#constant.false">false</a></code></strong>。
   </p>
  </div>
 
 
  <div class="refsect1 examples" id="refsect1-function.fnmatch-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="example-4354">
+   <div class="example" id="example-2228">
     <p><strong>Example #1 用 shell 中的通配符模式匹配来检查颜色名称</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">fnmatch</span><span style="color: #007700">(</span><span style="color: #DD0000">"*gr[ae]y"</span><span style="color: #007700">, </span><span style="color: #0000BB">$color</span><span style="color: #007700">)) {<br />  echo </span><span style="color: #DD0000">"some form of gray ..."</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">fnmatch</span><span style="color: #007700">(</span><span style="color: #DD0000">"*gr[ae]y"</span><span style="color: #007700">, </span><span style="color: #0000BB">$color</span><span style="color: #007700">)) {<br />  echo </span><span style="color: #DD0000">"some form of gray ..."</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
@@ -189,11 +235,11 @@
   <h3 class="title">参见</h3>
   <p class="para">
    <ul class="simplelist">
-    <li class="member"><span class="function"><a href="function.glob.html" class="function" rel="rdfs-seeAlso">glob()</a> - 寻找与模式匹配的文件路径</span></li>
-    <li class="member"><span class="function"><a href="function.preg-match.html" class="function" rel="rdfs-seeAlso">preg_match()</a> - 执行匹配正则表达式</span></li>
-    <li class="member"><span class="function"><a href="function.sscanf.html" class="function" rel="rdfs-seeAlso">sscanf()</a> - 根据指定格式解析输入的字符</span></li>
-    <li class="member"><span class="function"><a href="function.printf.html" class="function" rel="rdfs-seeAlso">printf()</a> - 输出格式化字符串</span></li>
-    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - 返回格式化字符串</span></li>
+    <li><span class="function"><a href="function.glob.html" class="function" rel="rdfs-seeAlso">glob()</a> - 寻找与模式匹配的文件路径</span></li>
+    <li><span class="function"><a href="function.preg-match.html" class="function" rel="rdfs-seeAlso">preg_match()</a> - 执行匹配正则表达式</span></li>
+    <li><span class="function"><a href="function.sscanf.html" class="function" rel="rdfs-seeAlso">sscanf()</a> - 根据指定格式解析输入的字符</span></li>
+    <li><span class="function"><a href="function.printf.html" class="function" rel="rdfs-seeAlso">printf()</a> - 输出格式化字符串</span></li>
+    <li><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - 返回格式化字符串</span></li>
    </ul>
   </p>
  </div>

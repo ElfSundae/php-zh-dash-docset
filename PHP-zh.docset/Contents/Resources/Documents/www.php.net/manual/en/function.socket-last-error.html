@@ -3,8 +3,8 @@
  <head>
   <meta http-equiv="content-type" content="text/html; CHARSET=gb2312">
   <title>返回套接字上的最后一个错误</title>
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-base.css" />
-<link media="all" rel="stylesheet" type="text/css" href="styles/46435ff017f60abb4908b0ce55102d08-theme-medium.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-base.css" />
+<link media="all" rel="stylesheet" type="text/css" href="styles/03e73060321a0a848018724a6c83de7f-theme-medium.css" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link media="all" rel="stylesheet" type="text/css" href="style.css"/>
@@ -35,11 +35,11 @@
  <div class="refsect1 description" id="refsect1-function.socket-last-error-description">
   <h3 class="title">说明</h3>
   <div class="methodsynopsis dc-description">
-   <span class="methodname"><strong>socket_last_error</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type"><a href="class.socket.html" class="type Socket">Socket</a></span><span class="type"></span></span> <code class="parameter">$socket</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">int</span></div>
+   <span class="methodname"><strong>socket_last_error</strong></span>(<span class="methodparam"><span class="type"><span class="type"><a href="language.types.null.html" class="type null">?</a></span><span class="type"><a href="class.socket.html" class="type Socket">Socket</a></span></span> <code class="parameter">$socket</code><span class="initializer"> = <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong></span></span>): <span class="type"><a href="language.types.integer.html" class="type int">int</a></span></div>
 
   <p class="para rdfs-comment">
    如果将 <span class="classname"><a href="class.socket.html" class="classname">Socket</a></span> 实例传递给此函数，将会返回指定套接字发生的最后一个错误。如果
-   <code class="parameter">socket</code> 为 <strong><code>null</code></strong>, 则返回最后一个失败的套接字函数的错误码。此函数对以下情况特别有帮助：
+   <code class="parameter">socket</code> 为 <strong><code><a href="reserved.constants.html#constant.null">null</a></code></strong>, 则返回最后一个失败的套接字函数的错误码。此函数对以下情况特别有帮助：
    <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> 失败时不会返回套接字，以及
    <span class="function"><a href="function.socket-select.html" class="function">socket_select()</a></span> 失败的原因与特定套接字没有直接联系。
    错误码适合提供给 <span class="function"><a href="function.socket-strerror.html" class="function">socket_strerror()</a></span>，将返回指定错误码的字符串描述。
@@ -55,19 +55,14 @@
   <p class="para">
    <dl>
     
-     <dt>
-<code class="parameter">socket</code></dt>
-
+     <dt><code class="parameter">socket</code></dt>
      <dd>
-
       <p class="para">
        通过 <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> 创建的 <span class="classname"><a href="class.socket.html" class="classname">Socket</a></span> 实例。
       </p>
      </dd>
-
     
    </dl>
-
   </p>
  </div>
 
@@ -97,7 +92,7 @@
   <td>8.0.0</td>
   <td>
    现在 <code class="parameter">socket</code> 是 <span class="classname"><a href="class.socket.html" class="classname">Socket</a></span> 实例，
-   之前是 <span class="type">resource</span>。
+   之前是 <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span>。
   </td>
  </tr>
 
@@ -116,15 +111,12 @@
 
 
  <div class="refsect1 examples" id="refsect1-function.socket-last-error-examples">
-  <h3 class="title">范例</h3>
+  <h3 class="title">示例</h3>
   <p class="para">
-   <div class="example" id="">
+   <div class="example" id="example-4607">
     <p><strong>Example #1 <span class="function"><strong>socket_last_error()</strong></span> 示例</strong></p>
     <div class="example-contents">
-<div class="phpcode"><code><span style="color: #000000">
-<span style="color: #0000BB">&lt;?php<br />$socket </span><span style="color: #007700">= @</span><span style="color: #0000BB">socket_create</span><span style="color: #007700">(</span><span style="color: #0000BB">AF_INET</span><span style="color: #007700">, </span><span style="color: #0000BB">SOCK_STREAM</span><span style="color: #007700">, </span><span style="color: #0000BB">SOL_TCP</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$socket </span><span style="color: #007700">=== </span><span style="color: #0000BB">false</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$errorcode </span><span style="color: #007700">= </span><span style="color: #0000BB">socket_last_error</span><span style="color: #007700">();<br />    </span><span style="color: #0000BB">$errormsg </span><span style="color: #007700">= </span><span style="color: #0000BB">socket_strerror</span><span style="color: #007700">(</span><span style="color: #0000BB">$errorcode</span><span style="color: #007700">);<br />    <br />    die(</span><span style="color: #DD0000">"Couldn't create socket: [</span><span style="color: #0000BB">$errorcode</span><span style="color: #DD0000">] </span><span style="color: #0000BB">$errormsg</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
-</span>
-</code></div>
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$socket </span><span style="color: #007700">= @</span><span style="color: #0000BB">socket_create</span><span style="color: #007700">(</span><span style="color: #0000BB">AF_INET</span><span style="color: #007700">, </span><span style="color: #0000BB">SOCK_STREAM</span><span style="color: #007700">, </span><span style="color: #0000BB">SOL_TCP</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$socket </span><span style="color: #007700">=== </span><span style="color: #0000BB">false</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">$errorcode </span><span style="color: #007700">= </span><span style="color: #0000BB">socket_last_error</span><span style="color: #007700">();<br />    </span><span style="color: #0000BB">$errormsg </span><span style="color: #007700">= </span><span style="color: #0000BB">socket_strerror</span><span style="color: #007700">(</span><span style="color: #0000BB">$errorcode</span><span style="color: #007700">);<br />    <br />    die(</span><span style="color: #DD0000">"Couldn't create socket: [</span><span style="color: #0000BB">$errorcode</span><span style="color: #DD0000">] </span><span style="color: #0000BB">$errormsg</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
     </div>
 
    </div>
