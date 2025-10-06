@@ -4,6 +4,12 @@
 
 Dash docset 生成工具：https://github.com/ElfSundae/php-dash-docset-generator
 
+## 安装
+
+:point_right: [点击安装](dash-feed://https%3A%2F%2Fgithub.com%2FElfSundae%2Fphp-zh-dash-docset%2Fraw%2Fmaster%2Ffeed.xml)
+
+或者下载此项目手动导入 `PHP-zh.docset` 到 Dash。
+
 ## 链接
 
 - Dash：https://kapeli.com/dash
