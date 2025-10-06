@@ -6,7 +6,7 @@ Dash docset 生成工具：https://github.com/ElfSundae/php-dash-docset-generato
 
 ## 安装
 
-👉 [点击安装](https://elfsundae.github.io/php-zh-dash-docset/redirect.html?url=dash-feed://https%3A%2F%2Felfsundae.github.io%2Fphp-zh-dash-docset%2FPHP-zh.xml)
+👉 [点击安装](https://elfsundae.github.io/php-zh-dash-docset/redirect.html?url=dash-feed%3A%2F%2Fhttps%253A%252F%252Felfsundae.github.io%252Fphp-zh-dash-docset%252FPHP-zh.xml)
 
 或者下载此项目手动导入 `PHP-zh.docset` 到 Dash。
 
